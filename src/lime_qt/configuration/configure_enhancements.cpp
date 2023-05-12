@@ -24,6 +24,14 @@ ConfigureEnhancements::ConfigureEnhancements(QWidget* parent)
     const bool res_scale_enabled = graphics_api != Settings::GraphicsAPI::Software;
     ui->resolution_factor_combobox->setEnabled(res_scale_enabled);
 
+    ui->custom_layout_group->setEnabled(
+        (Settings::values.layout_option.GetValue() == Settings::LayoutOption::CustomLayout));
+    connect(ui->layout_combobox,
+            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+            [this](int currentIndex) {
+                ui->custom_layout_group->setEnabled(ui->layout_combobox->currentIndex() == 5);
+            });
+
     connect(ui->render_3d_combobox, qOverload<int>(&QComboBox::currentIndexChanged), this,
             [this](int currentIndex) {
                 updateShaders(static_cast<Settings::StereoRenderOption>(currentIndex));
@@ -91,6 +99,8 @@ void ConfigureEnhancements::SetConfiguration() {
     ui->custom_bottom_top->setValue(Settings::values.custom_bottom_top.GetValue());
     ui->custom_bottom_right->setValue(Settings::values.custom_bottom_right.GetValue());
     ui->custom_bottom_bottom->setValue(Settings::values.custom_bottom_bottom.GetValue());
+    ui->custom_second_layer_opacity->setValue(
+        Settings::values.custom_second_layer_opacity.GetValue());
     ui->toggle_dump_textures->setChecked(Settings::values.dump_textures.GetValue());
     ui->toggle_custom_textures->setChecked(Settings::values.custom_textures.GetValue());
     ui->toggle_preload_textures->setChecked(Settings::values.preload_textures.GetValue());
@@ -166,6 +176,7 @@ void ConfigureEnhancements::ApplyConfiguration() {
     Settings::values.custom_bottom_top = ui->custom_bottom_top->value();
     Settings::values.custom_bottom_right = ui->custom_bottom_right->value();
     Settings::values.custom_bottom_bottom = ui->custom_bottom_bottom->value();
+    Settings::values.custom_second_layer_opacity = ui->custom_second_layer_opacity->value();
 
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.filter_mode,
                                              ui->toggle_linear_filter, linear_filter);
