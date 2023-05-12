@@ -83,6 +83,14 @@ void ConfigureEnhancements::SetConfiguration() {
     ui->toggle_swap_screen->setChecked(Settings::values.swap_screen.GetValue());
     ui->toggle_upright_screen->setChecked(Settings::values.upright_screen.GetValue());
     ui->large_screen_proportion->setValue(Settings::values.large_screen_proportion.GetValue());
+    ui->custom_top_left->setValue(Settings::values.custom_top_left.GetValue());
+    ui->custom_top_top->setValue(Settings::values.custom_top_top.GetValue());
+    ui->custom_top_right->setValue(Settings::values.custom_top_right.GetValue());
+    ui->custom_top_bottom->setValue(Settings::values.custom_top_bottom.GetValue());
+    ui->custom_bottom_left->setValue(Settings::values.custom_bottom_left.GetValue());
+    ui->custom_bottom_top->setValue(Settings::values.custom_bottom_top.GetValue());
+    ui->custom_bottom_right->setValue(Settings::values.custom_bottom_right.GetValue());
+    ui->custom_bottom_bottom->setValue(Settings::values.custom_bottom_bottom.GetValue());
     ui->toggle_dump_textures->setChecked(Settings::values.dump_textures.GetValue());
     ui->toggle_custom_textures->setChecked(Settings::values.custom_textures.GetValue());
     ui->toggle_preload_textures->setChecked(Settings::values.preload_textures.GetValue());
@@ -149,6 +157,15 @@ void ConfigureEnhancements::ApplyConfiguration() {
             ui->shader_combobox->itemText(ui->shader_combobox->currentIndex()).toStdString();
     }
     Settings::values.large_screen_proportion = ui->large_screen_proportion->value();
+
+    Settings::values.custom_top_left = ui->custom_top_left->value();
+    Settings::values.custom_top_top = ui->custom_top_top->value();
+    Settings::values.custom_top_right = ui->custom_top_right->value();
+    Settings::values.custom_top_bottom = ui->custom_top_bottom->value();
+    Settings::values.custom_bottom_left = ui->custom_bottom_left->value();
+    Settings::values.custom_bottom_top = ui->custom_bottom_top->value();
+    Settings::values.custom_bottom_right = ui->custom_bottom_right->value();
+    Settings::values.custom_bottom_bottom = ui->custom_bottom_bottom->value();
 
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.filter_mode,
                                              ui->toggle_linear_filter, linear_filter);
