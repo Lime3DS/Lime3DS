@@ -482,6 +482,14 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
                                 large_screen_proportion, VerticalAlignment::Top);
     }
 
+    case Settings::LayoutOption::CustomLayout:
+        layout = CustomFrameLayout(std::max(Settings::values.custom_top_right.GetValue(),
+                                            Settings::values.custom_bottom_right.GetValue()),
+                                   std::max(Settings::values.custom_top_bottom.GetValue(),
+                                            Settings::values.custom_bottom_bottom.GetValue()),
+                                   Settings::values.swap_screen.GetValue());
+        break;
+
     case Settings::LayoutOption::Default:
     default:
         width = Core::kScreenTopWidth * res_scale;
