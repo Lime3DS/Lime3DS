@@ -1,742 +1,742 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-	<class>ConfigureEnhancements</class>
-	<widget class="QWidget" name="ConfigureEnhancements">
-		<property name="geometry">
-			<rect>
-				<x>0</x>
-				<y>0</y>
-				<width>440</width>
-				<height>748</height>
-			</rect>
-		</property>
-		<property name="minimumSize">
-			<size>
-				<width>0</width>
-				<height>0</height>
-			</size>
-		</property>
-		<property name="windowTitle">
-			<string>Form</string>
-		</property>
-		<layout class="QVBoxLayout" name="verticalLayout">
-			<item>
-				<widget class="QScrollArea" name="scrollArea">
-					<property name="minimumSize">
-						<size>
-							<width>0</width>
-							<height>480</height>
-						</size>
-					</property>
-					<property name="frameShape">
-						<enum>QFrame::NoFrame</enum>
-					</property>
-					<property name="lineWidth">
-						<number>1</number>
-					</property>
-					<property name="widgetResizable">
-						<bool>true</bool>
-					</property>
-					<widget class="QWidget" name="scrollAreaWidgetContents">
-						<property name="geometry">
-							<rect>
-								<x>0</x>
-								<y>0</y>
-								<width>422</width>
-								<height>932</height>
-							</rect>
-						</property>
-						<layout class="QVBoxLayout" name="verticalLayout_2">
-							<item>
-								<widget class="QGroupBox" name="rendererBox">
-									<property name="title">
-										<string>Renderer</string>
-									</property>
-									<layout class="QVBoxLayout" name="verticalLayout_6">
-										<item>
-											<widget class="QWidget" name="widget_resolution" native="true">
-												<layout class="QHBoxLayout" name="horizontalLayout">
-													<property name="leftMargin">
-														<number>0</number>
-													</property>
-													<property name="topMargin">
-														<number>0</number>
-													</property>
-													<property name="rightMargin">
-														<number>0</number>
-													</property>
-													<property name="bottomMargin">
-														<number>0</number>
-													</property>
-													<item>
-														<widget class="QLabel" name="resolution_label">
-															<property name="text">
-																<string>Internal Resolution</string>
-															</property>
-														</widget>
-													</item>
-													<item>
-														<widget class="QComboBox" name="resolution_factor_combobox">
-															<item>
-																<property name="text">
-																	<string>Auto (Window Size)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Native (400x240)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>2x Native (800x480)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>3x Native (1200x720)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>4x Native (1600x960)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>5x Native (2000x1200)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>6x Native (2400x1440)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>7x Native (2800x1680)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>8x Native (3200x1920)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>9x Native (3600x2160)</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>10x Native (4000x2400)</string>
-																</property>
-															</item>
-														</widget>
-													</item>
-												</layout>
-											</widget>
-										</item>
-										<item>
-											<widget class="QCheckBox" name="toggle_linear_filter">
-												<property name="text">
-													<string>Enable Linear Filtering</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QWidget" name="widget_shader" native="true">
-												<layout class="QHBoxLayout" name="horizontalLayout_11">
-													<property name="leftMargin">
-														<number>0</number>
-													</property>
-													<property name="topMargin">
-														<number>0</number>
-													</property>
-													<property name="rightMargin">
-														<number>0</number>
-													</property>
-													<property name="bottomMargin">
-														<number>0</number>
-													</property>
-													<item>
-														<widget class="QLabel" name="shader_label">
-															<property name="text">
-																<string>Post-Processing Shader</string>
-															</property>
-														</widget>
-													</item>
-													<item>
-														<widget class="QComboBox" name="shader_combobox"/>
-													</item>
-												</layout>
-											</widget>
-										</item>
-										<item>
-											<widget class="QWidget" name="widget_texture_filter" native="true">
-												<layout class="QHBoxLayout" name="horizontalLayout_3">
-													<property name="leftMargin">
-														<number>0</number>
-													</property>
-													<property name="topMargin">
-														<number>0</number>
-													</property>
-													<property name="rightMargin">
-														<number>0</number>
-													</property>
-													<property name="bottomMargin">
-														<number>0</number>
-													</property>
-													<item>
-														<widget class="QLabel" name="texture_filter_label">
-															<property name="text">
-																<string>Texture Filter</string>
-															</property>
-														</widget>
-													</item>
-													<item>
-														<widget class="QComboBox" name="texture_filter_combobox">
-															<item>
-																<property name="text">
-																	<string>None</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Anime4K</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Bicubic</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Nearest Neighbor</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>ScaleForce</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>xBRZ</string>
-																</property>
-															</item>
-														</widget>
-													</item>
-												</layout>
-											</widget>
-										</item>
-									</layout>
-								</widget>
-							</item>
-							<item>
-								<widget class="QGroupBox" name="stereo_group">
-									<property name="title">
-										<string>Stereoscopy</string>
-									</property>
-									<layout class="QVBoxLayout" name="verticalLayout_4">
-										<item>
-											<layout class="QHBoxLayout" name="horizontalLayout_5">
-												<item>
-													<widget class="QLabel" name="label_4">
-														<property name="text">
-															<string>Stereoscopic 3D Mode</string>
-														</property>
-													</widget>
-												</item>
-												<item>
-													<widget class="QComboBox" name="render_3d_combobox">
-														<item>
-															<property name="text">
-																<string>Off</string>
-															</property>
-														</item>
-														<item>
-															<property name="text">
-																<string>Side by Side</string>
-															</property>
-														</item>
-														<item>
-															<property name="text">
-																<string>Anaglyph</string>
-															</property>
-														</item>
-														<item>
-															<property name="text">
-																<string>Interlaced</string>
-															</property>
-														</item>
-														<item>
-															<property name="text">
-																<string>Reverse Interlaced</string>
-															</property>
-														</item>
-													</widget>
-												</item>
-											</layout>
-										</item>
-										<item>
-											<layout class="QHBoxLayout" name="horizontalLayout_7">
-												<item>
-													<widget class="QLabel" name="label_3">
-														<property name="text">
-															<string>Depth</string>
-														</property>
-													</widget>
-												</item>
-												<item>
-													<widget class="QSpinBox" name="factor_3d">
-														<property name="suffix">
-															<string>%</string>
-														</property>
-														<property name="minimum">
-															<number>0</number>
-														</property>
-														<property name="maximum">
-															<number>100</number>
-														</property>
-														<property name="value">
-															<number>0</number>
-														</property>
-													</widget>
-												</item>
-											</layout>
-										</item>
-										<item>
-											<layout class="QHBoxLayout" name="horizontalLayout_9">
-												<item>
-													<widget class="QLabel" name="label_6">
-														<property name="text">
-															<string>Eye to Render in Monoscopic Mode</string>
-														</property>
-													</widget>
-												</item>
-												<item>
-													<widget class="QComboBox" name="mono_rendering_eye">
-														<item>
-															<property name="text">
-																<string>Left Eye (default)</string>
-															</property>
-														</item>
-														<item>
-															<property name="text">
-																<string>Right Eye</string>
-															</property>
-														</item>
-													</widget>
-												</item>
-											</layout>
-										</item>
-									</layout>
-								</widget>
-							</item>
-							<item>
-								<widget class="QGroupBox" name="layout_group">
-									<property name="title">
-										<string>Layout</string>
-									</property>
-									<layout class="QVBoxLayout" name="verticalLayout_3">
-										<item>
-											<widget class="QWidget" name="widget_layout" native="true">
-												<layout class="QHBoxLayout" name="screen_layout_group">
-													<property name="leftMargin">
-														<number>0</number>
-													</property>
-													<property name="topMargin">
-														<number>0</number>
-													</property>
-													<property name="rightMargin">
-														<number>0</number>
-													</property>
-													<property name="bottomMargin">
-														<number>0</number>
-													</property>
-													<item>
-														<widget class="QLabel" name="layout_label">
-															<property name="text">
-																<string>Screen Layout:</string>
-															</property>
-														</widget>
-													</item>
-													<item>
-														<widget class="QComboBox" name="layout_combobox">
-															<item>
-																<property name="text">
-																	<string>Default</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Single Screen</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Large Screen</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Side by Side</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Separate Windows</string>
-																</property>
-															</item>
-															<item>
-																<property name="text">
-																	<string>Custom Layout</string>
-																</property>
-															</item>
-														</widget>
-													</item>
-												</layout>
-											</widget>
-										</item>
-										<item>
-											<widget class="QCheckBox" name="toggle_swap_screen">
-												<property name="text">
-													<string>Swap Screens</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QCheckBox" name="toggle_upright_screen">
-												<property name="text">
-													<string>Rotate Screens Upright</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QWidget" name="widget" native="true">
-												<layout class="QHBoxLayout" name="proportion_layout">
-													<property name="leftMargin">
-														<number>0</number>
-													</property>
-													<property name="topMargin">
-														<number>0</number>
-													</property>
-													<property name="rightMargin">
-														<number>0</number>
-													</property>
-													<property name="bottomMargin">
-														<number>0</number>
-													</property>
-													<item>
-														<widget class="QLabel" name="label_31">
-															<property name="text">
-																<string>Large Screen Proportion:</string>
-															</property>
-														</widget>
-													</item>
-													<item>
-														<widget class="QDoubleSpinBox" name="large_screen_proportion">
-															<property name="minimum">
-																<double>1.000000000000000</double>
-															</property>
-															<property name="maximum">
-																<double>16.000000000000000</double>
-															</property>
-															<property name="value">
-																<double>4.000000000000000</double>
-															</property>
-														</widget>
-													</item>
-												</layout>
-											</widget>
-										</item>
-										<item>
-											<widget class="QWidget" name="bg_color_group" native="true">
-												<layout class="QHBoxLayout" name="bg_color_group_2">
-													<property name="leftMargin">
-														<number>0</number>
-													</property>
-													<property name="topMargin">
-														<number>0</number>
-													</property>
-													<property name="rightMargin">
-														<number>0</number>
-													</property>
-													<property name="bottomMargin">
-														<number>0</number>
-													</property>
-													<item>
-														<widget class="QLabel" name="bg_label">
-															<property name="text">
-																<string>Background Color:</string>
-															</property>
-														</widget>
-													</item>
-													<item>
-														<widget class="QPushButton" name="bg_button">
-															<property name="maximumSize">
-																<size>
-																	<width>40</width>
-																	<height>16777215</height>
-																</size>
-															</property>
-														</widget>
-													</item>
-												</layout>
-											</widget>
-										</item>
-										<item>
-											<widget class="QGroupBox" name="gb_custom_layout">
-												<property name="minimumSize">
-													<size>
-														<width>0</width>
-														<height>0</height>
-													</size>
-												</property>
-												<property name="title">
-													<string>Custom Layout</string>
-												</property>
-												<layout class="QHBoxLayout" name="horizontalLayout_2">
-													<item>
-														<widget class="QGroupBox" name="gb_top_screen">
-															<property name="title">
-																<string>Top Screen</string>
-															</property>
-															<layout class="QGridLayout" name="gridLayout_2">
-																<item row="0" column="0">
-																	<widget class="QLabel" name="lb_top_left">
-																		<property name="text">
-																			<string>Left</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="0" column="1">
-																	<widget class="QSpinBox" name="custom_top_left">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-																<item row="1" column="0">
-																	<widget class="QLabel" name="lb_top_top">
-																		<property name="text">
-																			<string>Top</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="1" column="1">
-																	<widget class="QSpinBox" name="custom_top_top">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-																<item row="2" column="0">
-																	<widget class="QLabel" name="lb_top_right">
-																		<property name="text">
-																			<string>Right</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="2" column="1">
-																	<widget class="QSpinBox" name="custom_top_right">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-																<item row="3" column="0">
-																	<widget class="QLabel" name="lb_top_bottom">
-																		<property name="text">
-																			<string>Bottom</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="3" column="1">
-																	<widget class="QSpinBox" name="custom_top_bottom">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-															</layout>
-														</widget>
-													</item>
-													<item>
-														<widget class="QGroupBox" name="gb_bottom_screen">
-															<property name="minimumSize">
-																<size>
-																	<width>0</width>
-																	<height>0</height>
-																</size>
-															</property>
-															<property name="title">
-																<string>Bottom Screen</string>
-															</property>
-															<layout class="QGridLayout" name="gridLayout">
-																<item row="0" column="0">
-																	<widget class="QLabel" name="lb_bottom_left">
-																		<property name="text">
-																			<string>Left</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="0" column="1">
-																	<widget class="QSpinBox" name="custom_bottom_left">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-																<item row="1" column="0">
-																	<widget class="QLabel" name="lb_bottom_top">
-																		<property name="text">
-																			<string>Top</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="1" column="1">
-																	<widget class="QSpinBox" name="custom_bottom_top">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-																<item row="2" column="0">
-																	<widget class="QLabel" name="lb_bottom_right">
-																		<property name="text">
-																			<string>Right</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="2" column="1">
-																	<widget class="QSpinBox" name="custom_bottom_right">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-																<item row="3" column="0">
-																	<widget class="QLabel" name="lb_bottom_bottom">
-																		<property name="text">
-																			<string>Bottom</string>
-																		</property>
-																	</widget>
-																</item>
-																<item row="3" column="1">
-																	<widget class="QSpinBox" name="custom_bottom_bottom">
-																		<property name="buttonSymbols">
-																			<enum>QAbstractSpinBox::NoButtons</enum>
-																		</property>
-																		<property name="maximum">
-																			<number>2147483647</number>
-																		</property>
-																	</widget>
-																</item>
-															</layout>
-														</widget>
-													</item>
-												</layout>
-											</widget>
-										</item>
-									</layout>
-								</widget>
-							</item>
-							<item>
-								<widget class="QGroupBox" name="utilityBox">
-									<property name="title">
-										<string>Utility</string>
-									</property>
-									<layout class="QVBoxLayout" name="verticalLayout_8">
-										<item>
-											<widget class="QCheckBox" name="toggle_custom_textures">
-												<property name="toolTip">
-													<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Replace textures with PNG files.&lt;/p&gt;&lt;p&gt;Textures are loaded from load/textures/[Title ID]/.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-												</property>
-												<property name="text">
-													<string>Use Custom Textures</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QCheckBox" name="toggle_dump_textures">
-												<property name="toolTip">
-													<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dump textures to PNG files.&lt;/p&gt;&lt;p&gt;Textures are dumped to dump/textures/[Title ID]/.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-												</property>
-												<property name="text">
-													<string>Dump Textures</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QCheckBox" name="toggle_preload_textures">
-												<property name="toolTip">
-													<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load all custom textures into memory on boot, instead of loading them when the game requires them.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-												</property>
-												<property name="text">
-													<string>Preload Custom Textures</string>
-												</property>
-											</widget>
-										</item>
-										<item>
-											<widget class="QCheckBox" name="toggle_async_custom_loading">
-												<property name="toolTip">
-													<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load custom textures asynchronously with background threads to reduce loading stutter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-												</property>
-												<property name="text">
-													<string>Async Custom Texture Loading</string>
-												</property>
-											</widget>
-										</item>
-									</layout>
-								</widget>
-							</item>
-						</layout>
-					</widget>
-				</widget>
-			</item>
-		</layout>
-	</widget>
-	<tabstops>
-		<tabstop>resolution_factor_combobox</tabstop>
-		<tabstop>toggle_linear_filter</tabstop>
-		<tabstop>shader_combobox</tabstop>
-		<tabstop>texture_filter_combobox</tabstop>
-		<tabstop>render_3d_combobox</tabstop>
-		<tabstop>factor_3d</tabstop>
-		<tabstop>mono_rendering_eye</tabstop>
-		<tabstop>layout_combobox</tabstop>
-		<tabstop>toggle_swap_screen</tabstop>
-		<tabstop>toggle_upright_screen</tabstop>
-		<tabstop>large_screen_proportion</tabstop>
-		<tabstop>bg_button</tabstop>
-		<tabstop>toggle_custom_textures</tabstop>
-		<tabstop>toggle_dump_textures</tabstop>
-		<tabstop>toggle_preload_textures</tabstop>
-	</tabstops>
-	<resources/>
-	<connections/>
+ <class>ConfigureEnhancements</class>
+ <widget class="QWidget" name="ConfigureEnhancements">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>440</width>
+    <height>748</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>480</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>422</width>
+        <height>932</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="rendererBox">
+         <property name="title">
+          <string>Renderer</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QWidget" name="widget_resolution" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="resolution_label">
+               <property name="text">
+                <string>Internal Resolution</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="resolution_factor_combobox">
+               <item>
+                <property name="text">
+                 <string>Auto (Window Size)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Native (400x240)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>2x Native (800x480)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>3x Native (1200x720)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>4x Native (1600x960)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>5x Native (2000x1200)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>6x Native (2400x1440)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>7x Native (2800x1680)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>8x Native (3200x1920)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>9x Native (3600x2160)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>10x Native (4000x2400)</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="toggle_linear_filter">
+            <property name="text">
+             <string>Enable Linear Filtering</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_shader" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="shader_label">
+               <property name="text">
+                <string>Post-Processing Shader</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="shader_combobox"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_texture_filter" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="texture_filter_label">
+               <property name="text">
+                <string>Texture Filter</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="texture_filter_combobox">
+               <item>
+                <property name="text">
+                 <string>None</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Anime4K</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Bicubic</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Nearest Neighbor</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ScaleForce</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>xBRZ</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="stereo_group">
+         <property name="title">
+          <string>Stereoscopy</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Stereoscopic 3D Mode</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="render_3d_combobox">
+              <item>
+               <property name="text">
+                <string>Off</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Side by Side</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Anaglyph</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Interlaced</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Reverse Interlaced</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Depth</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="factor_3d">
+              <property name="suffix">
+               <string>%</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Eye to Render in Monoscopic Mode</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="mono_rendering_eye">
+              <item>
+               <property name="text">
+                <string>Left Eye (default)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Right Eye</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="layout_group">
+         <property name="title">
+          <string>Layout</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QWidget" name="widget_layout" native="true">
+            <layout class="QHBoxLayout" name="screen_layout_group">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="layout_label">
+               <property name="text">
+                <string>Screen Layout:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="layout_combobox">
+               <item>
+                <property name="text">
+                 <string>Default</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Single Screen</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Large Screen</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Side by Side</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Separate Windows</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Custom Layout</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="toggle_swap_screen">
+            <property name="text">
+             <string>Swap Screens</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="toggle_upright_screen">
+            <property name="text">
+             <string>Rotate Screens Upright</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QHBoxLayout" name="proportion_layout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_31">
+               <property name="text">
+                <string>Large Screen Proportion:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="large_screen_proportion">
+               <property name="minimum">
+                <double>1.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>16.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>4.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="bg_color_group" native="true">
+            <layout class="QHBoxLayout" name="bg_color_group_2">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="bg_label">
+               <property name="text">
+                <string>Background Color:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="bg_button">
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="gb_custom_layout">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Custom Layout</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QGroupBox" name="gb_top_screen">
+               <property name="title">
+                <string>Top Screen</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_2">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="lb_top_left">
+                  <property name="text">
+                   <string>Left</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="custom_top_left">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="lb_top_top">
+                  <property name="text">
+                   <string>Top</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="custom_top_top">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="lb_top_right">
+                  <property name="text">
+                   <string>Right</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="custom_top_right">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="lb_top_bottom">
+                  <property name="text">
+                   <string>Bottom</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QSpinBox" name="custom_top_bottom">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="gb_bottom_screen">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Bottom Screen</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="lb_bottom_left">
+                  <property name="text">
+                   <string>Left</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="custom_bottom_left">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="lb_bottom_top">
+                  <property name="text">
+                   <string>Top</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="custom_bottom_top">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="lb_bottom_right">
+                  <property name="text">
+                   <string>Right</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="custom_bottom_right">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="lb_bottom_bottom">
+                  <property name="text">
+                   <string>Bottom</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QSpinBox" name="custom_bottom_bottom">
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="maximum">
+                   <number>2147483647</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="utilityBox">
+         <property name="title">
+          <string>Utility</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QCheckBox" name="toggle_custom_textures">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Replace textures with PNG files.&lt;/p&gt;&lt;p&gt;Textures are loaded from load/textures/[Title ID]/.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Use Custom Textures</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="toggle_dump_textures">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dump textures to PNG files.&lt;/p&gt;&lt;p&gt;Textures are dumped to dump/textures/[Title ID]/.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Dump Textures</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="toggle_preload_textures">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load all custom textures into memory on boot, instead of loading them when the game requires them.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Preload Custom Textures</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="toggle_async_custom_loading">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load custom textures asynchronously with background threads to reduce loading stutter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Async Custom Texture Loading</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>resolution_factor_combobox</tabstop>
+  <tabstop>toggle_linear_filter</tabstop>
+  <tabstop>shader_combobox</tabstop>
+  <tabstop>texture_filter_combobox</tabstop>
+  <tabstop>render_3d_combobox</tabstop>
+  <tabstop>factor_3d</tabstop>
+  <tabstop>mono_rendering_eye</tabstop>
+  <tabstop>layout_combobox</tabstop>
+  <tabstop>toggle_swap_screen</tabstop>
+  <tabstop>toggle_upright_screen</tabstop>
+  <tabstop>large_screen_proportion</tabstop>
+  <tabstop>bg_button</tabstop>
+  <tabstop>toggle_custom_textures</tabstop>
+  <tabstop>toggle_dump_textures</tabstop>
+  <tabstop>toggle_preload_textures</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
 </ui>
