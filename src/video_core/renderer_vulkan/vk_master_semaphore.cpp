@@ -5,7 +5,6 @@
 #include <mutex>
 #include "video_core/renderer_vulkan/vk_instance.h"
 #include "video_core/renderer_vulkan/vk_master_semaphore.h"
-#include "video_core/renderer_vulkan/vk_scheduler.h"
 
 namespace Vulkan {
 
@@ -108,7 +107,7 @@ constexpr u64 FENCE_RESERVE = 8;
 MasterSemaphoreFence::MasterSemaphoreFence(const Instance& instance_) : instance{instance_} {
     const vk::Device device{instance.GetDevice()};
     for (u64 i = 0; i < FENCE_RESERVE; i++) {
-        free_queue.push(device.createFenceUnique({}));
+        free_queue.push_back(device.createFence({}));
     }
     wait_thread = std::jthread([this](std::stop_token token) { WaitThread(token); });
 }
@@ -121,13 +120,8 @@ MasterSemaphoreFence::~MasterSemaphoreFence() {
 void MasterSemaphoreFence::Refresh() {}
 
 void MasterSemaphoreFence::Wait(u64 tick) {
-    while (true) {
-        u64 current_value = gpu_tick.load(std::memory_order_relaxed);
-        if (current_value >= tick) {
-            return;
-        }
-        gpu_tick.wait(current_value);
-    }
+    std::unique_lock lk{free_mutex};
+    free_cv.wait(lk, [&] { return gpu_tick.load(std::memory_order_relaxed) >= tick; });
 }
 
 void MasterSemaphoreFence::SubmitWork(vk::CommandBuffer cmdbuf, vk::Semaphore wait,
@@ -151,57 +145,56 @@ void MasterSemaphoreFence::SubmitWork(vk::CommandBuffer cmdbuf, vk::Semaphore wa
         .pSignalSemaphores = &signal,
     };
 
-    vk::UniqueFence fence{GetFreeFence()};
+    const vk::Fence fence = GetFreeFence();
+
     try {
-        instance.GetGraphicsQueue().submit(submit_info, *fence);
+        instance.GetGraphicsQueue().submit(submit_info, fence);
     } catch (vk::DeviceLostError& err) {
         UNREACHABLE_MSG("Device lost during submit: {}", err.what());
     }
 
     std::scoped_lock lock{wait_mutex};
-    wait_queue.push({
-        .handle = std::move(fence),
-        .signal_value = signal_value,
-    });
+    wait_queue.emplace(fence, signal_value);
     wait_cv.notify_one();
 }
 
 void MasterSemaphoreFence::WaitThread(std::stop_token token) {
     const vk::Device device{instance.GetDevice()};
     while (!token.stop_requested()) {
-        Fence fence;
+        vk::Fence fence;
+        u64 signal_value;
         {
             std::unique_lock lock{wait_mutex};
             Common::CondvarWait(wait_cv, lock, token, [this] { return !wait_queue.empty(); });
             if (token.stop_requested()) {
                 return;
             }
-            fence = std::move(wait_queue.front());
+            std::tie(fence, signal_value) = wait_queue.front();
             wait_queue.pop();
         }
 
-        const vk::Result result = device.waitForFences(*fence.handle, true, WAIT_TIMEOUT);
+        const vk::Result result = device.waitForFences(fence, true, WAIT_TIMEOUT);
         if (result != vk::Result::eSuccess) {
             UNREACHABLE_MSG("Fence wait failed with error {}", vk::to_string(result));
         }
-        device.resetFences(*fence.handle);
 
-        gpu_tick.store(fence.signal_value);
-        gpu_tick.notify_all();
+        device.resetFences(fence);
+        gpu_tick.store(signal_value);
 
         std::scoped_lock lock{free_mutex};
-        free_queue.push(std::move(fence.handle));
+        free_queue.push_back(fence);
+        free_cv.notify_all();
     }
 }
 
-vk::UniqueFence MasterSemaphoreFence::GetFreeFence() {
+vk::Fence MasterSemaphoreFence::GetFreeFence() {
     std::scoped_lock lock{free_mutex};
     if (free_queue.empty()) {
-        return instance.GetDevice().createFenceUnique({});
+        return instance.GetDevice().createFence({});
     }
 
-    vk::UniqueFence fence{std::move(free_queue.front())};
-    free_queue.pop();
+    const vk::Fence fence = free_queue.front();
+    free_queue.pop_front();
     return fence;
 }
 
