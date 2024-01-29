@@ -72,6 +72,8 @@ private:
 };
 
 class MasterSemaphoreFence : public MasterSemaphore {
+    using Waitable = std::pair<vk::Fence, u64>;
+
 public:
     explicit MasterSemaphoreFence(const Instance& instance);
     ~MasterSemaphoreFence() override;

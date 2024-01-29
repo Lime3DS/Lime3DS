@@ -207,9 +207,9 @@ Handle MakeHandle(const Instance* instance, u32 width, u32 height, u32 levels, T
     vk::UniqueImageView image_view = instance->GetDevice().createImageViewUnique(view_info);
 
     if (!debug_name.empty() && instance->HasDebuggingToolAttached()) {
-        Vulkan::SetObjectName(instance->GetDevice(), image, debug_name);
-        Vulkan::SetObjectName(instance->GetDevice(), image_view.get(), "{} View({})", debug_name,
-                              vk::to_string(aspect));
+        SetObjectName(instance->GetDevice(), image, debug_name);
+        SetObjectName(instance->GetDevice(), image_view.get(), "{} View({})", debug_name,
+                      vk::to_string(aspect));
     }
 
     return Handle{
@@ -1088,7 +1088,7 @@ void Surface::ScaleUp(u32 new_scale) {
                                    vk::PipelineStageFlagBits::eTopOfPipe,
                                    vk::DependencyFlagBits::eByRegion, {}, {}, barriers);
         });
-    LOG_INFO(HW_GPU, "Surface scale up!");
+
     for (u32 level = 0; level < levels; level++) {
         const VideoCore::TextureBlit blit = {
             .src_level = level,
