@@ -12,7 +12,7 @@
 
 namespace Vulkan {
 
-constexpr u32 MIN_DRAWS_TO_FLUSH = 20;
+constexpr u32 MinDrawsToFlush = 20;
 
 using VideoCore::PixelFormat;
 using VideoCore::SurfaceType;
@@ -118,13 +118,13 @@ void RenderManager::EndRendering() {
     });
 
     // Reset state.
-    pass.render_pass = vk::RenderPass{};
+    pass.render_pass = VK_NULL_HANDLE;
     images = {};
     aspects = {};
 
     // The Mali guide recommends flushing at the end of each major renderpass
     // Testing has shown this has a significant effect on rendering performance
-    if (num_draws > MIN_DRAWS_TO_FLUSH && instance.ShouldFlush()) {
+    if (num_draws > MinDrawsToFlush && instance.ShouldFlush()) {
         scheduler.Flush();
         num_draws = 0;
     }
@@ -135,12 +135,11 @@ vk::RenderPass RenderManager::GetRenderpass(VideoCore::PixelFormat color,
     std::scoped_lock lock{cache_mutex};
 
     const u32 color_index =
-        color == VideoCore::PixelFormat::Invalid ? MAX_COLOR_FORMATS : static_cast<u32>(color);
-    const u32 depth_index = depth == VideoCore::PixelFormat::Invalid
-                                ? MAX_DEPTH_FORMATS
-                                : (static_cast<u32>(depth) - 14);
+        color == VideoCore::PixelFormat::Invalid ? NumColorFormats : static_cast<u32>(color);
+    const u32 depth_index =
+        depth == VideoCore::PixelFormat::Invalid ? NumDepthFormats : (static_cast<u32>(depth) - 14);
 
-    ASSERT_MSG(color_index <= MAX_COLOR_FORMATS && depth_index <= MAX_DEPTH_FORMATS,
+    ASSERT_MSG(color_index <= NumColorFormats && depth_index <= NumDepthFormats,
                "Invalid color index {} and/or depth_index {}", color_index, depth_index);
 
     vk::UniqueRenderPass& renderpass = cached_renderpasses[color_index][depth_index][is_clear];

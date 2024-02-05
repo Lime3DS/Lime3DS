@@ -78,8 +78,8 @@ constexpr std::array<vk::DescriptorSetLayoutBinding, 2> UTILITY_BINDINGS = {{
 }};
 
 PipelineCache::PipelineCache(const Instance& instance_, Scheduler& scheduler_,
-                             RenderManager& render_manager_, DescriptorUpdateQueue& update_queue_)
-    : instance{instance_}, scheduler{scheduler_}, render_manager{render_manager_},
+                             RenderManager& renderpass_cache_, DescriptorUpdateQueue& update_queue_)
+    : instance{instance_}, scheduler{scheduler_}, renderpass_cache{renderpass_cache_},
       update_queue{update_queue_},
       num_worker_threads{std::max(std::thread::hardware_concurrency(), 2U) >> 1},
       workers{num_worker_threads, "Pipeline workers"},
@@ -206,7 +206,7 @@ bool PipelineCache::BindPipeline(const PipelineInfo& info, bool wait_built) {
     auto [it, new_pipeline] = graphics_pipelines.try_emplace(pipeline_hash);
     if (new_pipeline) {
         it.value() =
-            std::make_unique<GraphicsPipeline>(instance, render_manager, info, *pipeline_cache,
+            std::make_unique<GraphicsPipeline>(instance, renderpass_cache, info, *pipeline_cache,
                                                *pipeline_layout, current_shaders, &workers);
     }
 

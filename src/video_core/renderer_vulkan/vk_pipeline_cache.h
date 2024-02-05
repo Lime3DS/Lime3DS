@@ -41,7 +41,7 @@ class PipelineCache {
 
 public:
     explicit PipelineCache(const Instance& instance, Scheduler& scheduler,
-                           RenderManager& render_manager, DescriptorUpdateQueue& update_queue);
+                           RenderManager& renderpass_cache, DescriptorUpdateQueue& update_queue);
     ~PipelineCache();
 
     /// Acquires and binds a free descriptor set from the appropriate heap.
@@ -98,7 +98,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderManager& render_manager;
+    RenderManager& renderpass_cache;
     DescriptorUpdateQueue& update_queue;
 
     Pica::Shader::Profile profile{};

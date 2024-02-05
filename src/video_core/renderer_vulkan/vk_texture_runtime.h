@@ -41,7 +41,7 @@ class TextureRuntime {
 
 public:
     explicit TextureRuntime(const Instance& instance, Scheduler& scheduler,
-                            RenderManager& render_manager, DescriptorUpdateQueue& update_queue,
+                            RenderManager& renderpass_cache, DescriptorUpdateQueue& update_queue,
                             u32 num_swapchain_images);
     ~TextureRuntime();
 
@@ -54,7 +54,7 @@ public:
     }
 
     RenderManager& GetRenderpassCache() {
-        return render_manager;
+        return renderpass_cache;
     }
 
     /// Returns the removal threshold ticks for the garbage collector
@@ -96,7 +96,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderManager& render_manager;
+    RenderManager& renderpass_cache;
     BlitHelper blit_helper;
     StreamBuffer upload_buffer;
     StreamBuffer download_buffer;

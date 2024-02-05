@@ -58,15 +58,15 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
                                    VideoCore::CustomTexManager& custom_tex_manager,
                                    VideoCore::RendererBase& renderer,
                                    Frontend::EmuWindow& emu_window, const Instance& instance,
-                                   Scheduler& scheduler, RenderManager& render_manager,
+                                   Scheduler& scheduler, RenderManager& renderpass_cache,
                                    DescriptorUpdateQueue& update_queue_, u32 image_count)
     : RasterizerAccelerated{memory, pica}, instance{instance}, scheduler{scheduler},
-      render_manager{render_manager}, update_queue{update_queue_},
-      pipeline_cache{instance, scheduler, render_manager, update_queue}, runtime{instance,
-                                                                                 scheduler,
-                                                                                 render_manager,
-                                                                                 update_queue,
-                                                                                 image_count},
+      renderpass_cache{renderpass_cache}, update_queue{update_queue_},
+      pipeline_cache{instance, scheduler, renderpass_cache, update_queue}, runtime{instance,
+                                                                                   scheduler,
+                                                                                   renderpass_cache,
+                                                                                   update_queue,
+                                                                                   image_count},
       res_cache{memory, custom_tex_manager, runtime, regs, renderer},
       stream_buffer{instance, scheduler, BUFFER_USAGE, STREAM_BUFFER_SIZE},
       uniform_buffer{instance, scheduler, vk::BufferUsageFlagBits::eUniformBuffer,
@@ -110,7 +110,7 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
         .range = VK_WHOLE_SIZE,
     });
 
-    scheduler.RegisterOnSubmit([&render_manager] { render_manager.EndRendering(); });
+    scheduler.RegisterOnSubmit([&renderpass_cache] { renderpass_cache.EndRendering(); });
 
     // Prepare the static buffer descriptor set.
     const auto buffer_set = pipeline_cache.Acquire(DescriptorHeapType::Buffer);
@@ -519,7 +519,7 @@ bool RasterizerVulkan::Draw(bool accelerate, bool is_indexed) {
 
     // Begin rendering
     const auto draw_rect = fb_helper.DrawRect();
-    render_manager.BeginRendering(framebuffer, draw_rect);
+    renderpass_cache.BeginRendering(framebuffer, draw_rect);
 
     // Configure viewport and scissor
     const auto viewport = fb_helper.Viewport();

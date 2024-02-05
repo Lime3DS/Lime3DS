@@ -117,7 +117,7 @@ private:
 
     Instance instance;
     Scheduler scheduler;
-    RenderManager render_manager;
+    RenderManager renderpass_cache;
     PresentWindow main_window;
     StreamBuffer vertex_buffer;
     DescriptorUpdateQueue update_queue;

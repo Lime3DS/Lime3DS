@@ -54,19 +54,13 @@ RendererVulkan::RendererVulkan(Core::System& system, Pica::PicaCore& pica_,
                                Frontend::EmuWindow& window, Frontend::EmuWindow* secondary_window)
     : RendererBase{system, window, secondary_window}, memory{system.Memory()}, pica{pica_},
       instance{window, Settings::values.physical_device.GetValue()}, scheduler{instance},
-      render_manager{instance, scheduler}, main_window{window, instance, scheduler},
+      renderpass_cache{instance, scheduler}, main_window{window, instance, scheduler},
       vertex_buffer{instance, scheduler, vk::BufferUsageFlagBits::eVertexBuffer,
                     VERTEX_BUFFER_SIZE},
-      update_queue{instance}, rasterizer{memory,
-                                         pica,
-                                         system.CustomTexManager(),
-                                         *this,
-                                         render_window,
-                                         instance,
-                                         scheduler,
-                                         render_manager,
-                                         update_queue,
-                                         main_window.ImageCount()},
+      update_queue{instance},
+      rasterizer{
+          memory,   pica,      system.CustomTexManager(), *this,        render_window,
+          instance, scheduler, renderpass_cache,          update_queue, main_window.ImageCount()},
       present_heap{instance, scheduler.GetMasterSemaphore(), PRESENT_BINDINGS, 32} {
     CompileShaders();
     BuildLayouts();
@@ -132,7 +126,7 @@ void RendererVulkan::PrepareDraw(Frame* frame, const Layout::FramebufferLayout& 
                                      sampler);
     }
 
-    render_manager.EndRendering();
+    renderpass_cache.EndRendering();
     scheduler.Record([this, layout, frame, present_set, renderpass = main_window.Renderpass(),
                       index = current_pipeline](vk::CommandBuffer cmdbuf) {
         const vk::Viewport viewport = {
@@ -467,7 +461,7 @@ void RendererVulkan::FillScreen(Common::Vec3<u8> color, const TextureInfo& textu
             },
     };
 
-    render_manager.EndRendering();
+    renderpass_cache.EndRendering();
     scheduler.Record([image = texture.image, clear_color](vk::CommandBuffer cmdbuf) {
         const vk::ImageSubresourceRange range = {
             .aspectMask = vk::ImageAspectFlagBits::eColor,
@@ -804,29 +798,7 @@ void RendererVulkan::DrawScreens(Frame* frame, const Layout::FramebufferLayout& 
         }
     }
 
-    scheduler.Record([image = frame->image](vk::CommandBuffer cmdbuf) {
-        const vk::ImageMemoryBarrier render_barrier = {
-            .srcAccessMask = vk::AccessFlagBits::eColorAttachmentWrite,
-            .dstAccessMask = vk::AccessFlagBits::eTransferRead,
-            .oldLayout = vk::ImageLayout::eTransferSrcOptimal,
-            .newLayout = vk::ImageLayout::eTransferSrcOptimal,
-            .srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
-            .dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
-            .image = image,
-            .subresourceRange{
-                .aspectMask = vk::ImageAspectFlagBits::eColor,
-                .baseMipLevel = 0,
-                .levelCount = 1,
-                .baseArrayLayer = 0,
-                .layerCount = VK_REMAINING_ARRAY_LAYERS,
-            },
-        };
-
-        cmdbuf.endRenderPass();
-        cmdbuf.pipelineBarrier(vk::PipelineStageFlagBits::eColorAttachmentOutput,
-                               vk::PipelineStageFlagBits::eTransfer,
-                               vk::DependencyFlagBits::eByRegion, {}, {}, render_barrier);
-    });
+    scheduler.Record([](vk::CommandBuffer cmdbuf) { cmdbuf.endRenderPass(); });
 }
 
 void RendererVulkan::SwapBuffers() {

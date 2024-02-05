@@ -40,7 +40,7 @@ public:
                               VideoCore::CustomTexManager& custom_tex_manager,
                               VideoCore::RendererBase& renderer, Frontend::EmuWindow& emu_window,
                               const Instance& instance, Scheduler& scheduler,
-                              RenderManager& render_manager, DescriptorUpdateQueue& update_queue,
+                              RenderManager& renderpass_cache, DescriptorUpdateQueue& update_queue,
                               u32 image_count);
     ~RasterizerVulkan() override;
 
@@ -144,7 +144,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderManager& render_manager;
+    RenderManager& renderpass_cache;
     DescriptorUpdateQueue& update_queue;
     PipelineCache pipeline_cache;
     TextureRuntime runtime;

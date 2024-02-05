@@ -248,10 +248,10 @@ constexpr u64 DOWNLOAD_BUFFER_SIZE = 16_MiB;
 } // Anonymous namespace
 
 TextureRuntime::TextureRuntime(const Instance& instance, Scheduler& scheduler,
-                               RenderManager& render_manager, DescriptorUpdateQueue& update_queue,
+                               RenderManager& renderpass_cache, DescriptorUpdateQueue& update_queue,
                                u32 num_swapchain_images_)
-    : instance{instance}, scheduler{scheduler}, render_manager{render_manager},
-      blit_helper{instance, scheduler, render_manager, update_queue},
+    : instance{instance}, scheduler{scheduler}, renderpass_cache{renderpass_cache},
+      blit_helper{instance, scheduler, renderpass_cache, update_queue},
       upload_buffer{instance, scheduler, vk::BufferUsageFlagBits::eTransferSrc, UPLOAD_BUFFER_SIZE,
                     BufferType::Upload},
       download_buffer{instance, scheduler,
@@ -304,7 +304,7 @@ bool TextureRuntime::Reinterpret(Surface& source, Surface& dest,
 }
 
 bool TextureRuntime::ClearTexture(Surface& surface, const VideoCore::TextureClear& clear) {
-    render_manager.EndRendering();
+    renderpass_cache.EndRendering();
 
     const RecordParams params = {
         .aspect = surface.Aspect(),
@@ -376,7 +376,7 @@ void TextureRuntime::ClearTextureWithRenderpass(Surface& surface,
 
     const auto color_format = is_color ? surface.pixel_format : PixelFormat::Invalid;
     const auto depth_format = is_color ? PixelFormat::Invalid : surface.pixel_format;
-    const auto render_pass = render_manager.GetRenderpass(color_format, depth_format, true);
+    const auto render_pass = renderpass_cache.GetRenderpass(color_format, depth_format, true);
 
     const RecordParams params = {
         .aspect = surface.Aspect(),
@@ -453,7 +453,7 @@ void TextureRuntime::ClearTextureWithRenderpass(Surface& surface,
 
 bool TextureRuntime::CopyTextures(Surface& source, Surface& dest,
                                   std::span<const VideoCore::TextureCopy> copies) {
-    render_manager.EndRendering();
+    renderpass_cache.EndRendering();
 
     const RecordParams params = {
         .aspect = source.Aspect(),
@@ -561,7 +561,7 @@ bool TextureRuntime::BlitTextures(Surface& source, Surface& dest,
         return blit_helper.BlitDepthStencil(source, dest, blit);
     }
 
-    render_manager.EndRendering();
+    renderpass_cache.EndRendering();
 
     const RecordParams params = {
         .aspect = source.Aspect(),
@@ -669,7 +669,7 @@ void TextureRuntime::GenerateMipmaps(Surface& surface) {
         return;
     }
 
-    render_manager.EndRendering();
+    renderpass_cache.EndRendering();
 
     auto [width, height] = surface.RealExtent();
     const u32 levels = surface.levels;
@@ -732,7 +732,7 @@ Surface::Surface(TextureRuntime& runtime_, const VideoCore::SurfaceParams& param
         raw_images.emplace_back(handles[1].image);
     }
 
-    runtime->render_manager.EndRendering();
+    runtime->renderpass_cache.EndRendering();
     scheduler->Record([raw_images, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
         const auto barriers = MakeInitBarriers(aspect, raw_images);
         cmdbuf.pipelineBarrier(vk::PipelineStageFlagBits::eTopOfPipe,
@@ -776,7 +776,7 @@ Surface::Surface(TextureRuntime& runtime_, const VideoCore::SurfaceBase& surface
         raw_images.emplace_back(handles[2].image);
     }
 
-    runtime->render_manager.EndRendering();
+    runtime->renderpass_cache.EndRendering();
     scheduler->Record([raw_images, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
         const auto barriers = MakeInitBarriers(aspect, raw_images);
         cmdbuf.pipelineBarrier(vk::PipelineStageFlagBits::eTopOfPipe,
@@ -804,7 +804,7 @@ Surface::~Surface() {
 
 void Surface::Upload(const VideoCore::BufferTextureCopy& upload,
                      const VideoCore::StagingData& staging) {
-    runtime->render_manager.EndRendering();
+    runtime->renderpass_cache.EndRendering();
 
     const RecordParams params = {
         .aspect = Aspect(),
@@ -972,7 +972,7 @@ void Surface::Download(const VideoCore::BufferTextureCopy& download,
         runtime->download_buffer.Commit(staging.size);
     });
 
-    runtime->render_manager.EndRendering();
+    runtime->renderpass_cache.EndRendering();
 
     if (pixel_format == PixelFormat::D24S8) {
         runtime->blit_helper.DepthToBuffer(*this, runtime->download_buffer.Handle(), download);
@@ -1072,7 +1072,7 @@ void Surface::ScaleUp(u32 new_scale) {
         MakeHandle(instance, GetScaledWidth(), GetScaledHeight(), levels, texture_type,
                    traits.native, traits.usage, flags, traits.aspect, false, DebugName(true));
 
-    runtime->render_manager.EndRendering();
+    runtime->renderpass_cache.EndRendering();
     scheduler->Record(
         [raw_images = std::array{Image()}, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
             const auto barriers = MakeInitBarriers(aspect, raw_images);
@@ -1150,7 +1150,7 @@ vk::ImageView Surface::CopyImageView() noexcept {
         copy_layout = vk::ImageLayout::eUndefined;
     }
 
-    runtime->render_manager.EndRendering();
+    runtime->renderpass_cache.EndRendering();
 
     const RecordParams params = {
         .aspect = Aspect(),
@@ -1338,7 +1338,7 @@ vk::Framebuffer Surface::Framebuffer() noexcept {
     const auto color_format = is_depth ? PixelFormat::Invalid : pixel_format;
     const auto depth_format = is_depth ? pixel_format : PixelFormat::Invalid;
     const auto render_pass =
-        runtime->render_manager.GetRenderpass(color_format, depth_format, false);
+        runtime->renderpass_cache.GetRenderpass(color_format, depth_format, false);
     const auto attachments = std::array{ImageView()};
     framebuffers[index] = MakeFramebuffer(instance->GetDevice(), render_pass, GetScaledWidth(),
                                           GetScaledHeight(), attachments);
@@ -1452,7 +1452,7 @@ Framebuffer::Framebuffer(TextureRuntime& runtime, const VideoCore::FramebufferPa
                          Surface* color, Surface* depth)
     : VideoCore::FramebufferParams{params}, res_scale{color ? color->res_scale
                                                             : (depth ? depth->res_scale : 1u)} {
-    auto& render_manager = runtime.GetRenderpassCache();
+    auto& renderpass_cache = runtime.GetRenderpassCache();
     if (shadow_rendering && !color) {
         return;
     }
@@ -1486,11 +1486,11 @@ Framebuffer::Framebuffer(TextureRuntime& runtime, const VideoCore::FramebufferPa
     const vk::Device device = runtime.GetInstance().GetDevice();
     if (shadow_rendering) {
         render_pass =
-            render_manager.GetRenderpass(PixelFormat::Invalid, PixelFormat::Invalid, false);
+            renderpass_cache.GetRenderpass(PixelFormat::Invalid, PixelFormat::Invalid, false);
         framebuffer = MakeFramebuffer(device, render_pass, color->GetScaledWidth(),
                                       color->GetScaledHeight(), {});
     } else {
-        render_pass = render_manager.GetRenderpass(formats[0], formats[1], false);
+        render_pass = renderpass_cache.GetRenderpass(formats[0], formats[1], false);
         framebuffer = MakeFramebuffer(device, render_pass, width, height, attachments);
     }
 }

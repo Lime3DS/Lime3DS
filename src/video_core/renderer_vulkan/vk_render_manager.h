@@ -35,8 +35,8 @@ struct RenderPass {
 };
 
 class RenderManager {
-    static constexpr std::size_t MAX_COLOR_FORMATS = 13;
-    static constexpr std::size_t MAX_DEPTH_FORMATS = 4;
+    static constexpr u32 NumColorFormats = 13;
+    static constexpr u32 NumDepthFormats = 4;
 
 public:
     explicit RenderManager(const Instance& instance, Scheduler& scheduler);
@@ -63,7 +63,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    vk::UniqueRenderPass cached_renderpasses[MAX_COLOR_FORMATS + 1][MAX_DEPTH_FORMATS + 1][2];
+    vk::UniqueRenderPass cached_renderpasses[NumColorFormats + 1][NumDepthFormats + 1][2];
     std::mutex cache_mutex;
     std::array<vk::Image, 2> images;
     std::array<vk::ImageAspectFlags, 2> aspects;

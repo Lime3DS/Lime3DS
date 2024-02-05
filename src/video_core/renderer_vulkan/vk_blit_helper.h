@@ -25,7 +25,7 @@ class BlitHelper {
 
 public:
     explicit BlitHelper(const Instance& instance, Scheduler& scheduler,
-                        RenderManager& render_manager, DescriptorUpdateQueue& update_queue);
+                        RenderManager& renderpass_cache, DescriptorUpdateQueue& update_queue);
     ~BlitHelper();
 
     bool BlitDepthStencil(Surface& source, Surface& dest, const VideoCore::TextureBlit& blit);
@@ -42,7 +42,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderManager& render_manager;
+    RenderManager& renderpass_cache;
     DescriptorUpdateQueue& update_queue;
 
     vk::Device device;
