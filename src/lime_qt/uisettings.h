@@ -116,6 +116,8 @@ struct Values {
     bool game_dir_deprecated_deepscan;
     QVector<UISettings::GameDir> game_dirs;
     QStringList recent_files;
+    QVector<u64> favorited_ids;
+
     QString language;
 
     QString theme;
