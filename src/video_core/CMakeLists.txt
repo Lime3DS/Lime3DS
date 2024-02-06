@@ -183,8 +183,8 @@ if (ENABLE_VULKAN)
         renderer_vulkan/vk_platform.h
         renderer_vulkan/vk_present_window.cpp
         renderer_vulkan/vk_present_window.h
-        renderer_vulkan/vk_renderpass_cache.cpp
-        renderer_vulkan/vk_renderpass_cache.h
+        renderer_vulkan/vk_render_manager.cpp
+        renderer_vulkan/vk_render_manager.h
         renderer_vulkan/vk_shader_util.cpp
         renderer_vulkan/vk_shader_util.h
         renderer_vulkan/vk_stream_buffer.cpp

@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <utility>
+#include <functional>
 #include "common/alignment.h"
 #include "common/common_funcs.h"
 #include "common/polyfill_thread.h"
@@ -49,11 +50,6 @@ public:
     /// Records the command to the current chunk.
     template <typename T>
     void Record(T&& command) {
-        if (!use_worker_thread) {
-            command(current_cmdbuf);
-            return;
-        }
-
         if (chunk->Record(command)) {
             return;
         }
@@ -74,6 +70,16 @@ public:
     /// Returns true if the state is dirty
     [[nodiscard]] bool IsStateDirty(StateFlags flag) const noexcept {
         return False(state & flag);
+    }
+
+    /// Registers a callback to perform on queue submission.
+    void RegisterOnSubmit(std::function<void()>&& func) {
+        on_submit = std::move(func);
+    }
+
+    /// Registers a callback to perform on queue submission.
+    void RegisterOnDispatch(std::function<void()>&& func) {
+        on_dispatch = std::move(func);
     }
 
     /// Returns the current command buffer tick.
@@ -194,6 +200,8 @@ private:
     std::vector<std::unique_ptr<CommandChunk>> chunk_reserve;
     vk::CommandBuffer current_cmdbuf;
     StateFlags state{};
+    std::function<void()> on_submit;
+    std::function<void()> on_dispatch;
     std::mutex execution_mutex;
     std::mutex reserve_mutex;
     std::mutex queue_mutex;

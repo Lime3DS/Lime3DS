@@ -5,7 +5,7 @@
 #include "common/vector_math.h"
 #include "video_core/renderer_vulkan/vk_blit_helper.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
-#include "video_core/renderer_vulkan/vk_renderpass_cache.h"
+#include "video_core/renderer_vulkan/vk_render_manager.h"
 #include "video_core/renderer_vulkan/vk_scheduler.h"
 #include "video_core/renderer_vulkan/vk_shader_util.h"
 #include "video_core/renderer_vulkan/vk_texture_runtime.h"
@@ -178,8 +178,8 @@ constexpr vk::PipelineShaderStageCreateInfo MakeStages(vk::ShaderModule compute_
 } // Anonymous namespace
 
 BlitHelper::BlitHelper(const Instance& instance_, Scheduler& scheduler_, DescriptorPool& pool,
-                       RenderpassCache& renderpass_cache_)
-    : instance{instance_}, scheduler{scheduler_}, renderpass_cache{renderpass_cache_},
+                       RenderManager& render_manager_)
+    : instance{instance_}, scheduler{scheduler_}, render_manager{render_manager_},
       device{instance.GetDevice()}, compute_provider{instance, pool, COMPUTE_BINDINGS},
       compute_buffer_provider{instance, pool, COMPUTE_BUFFER_BINDINGS},
       two_textures_provider{instance, pool, TWO_TEXTURES_BINDINGS},
@@ -303,10 +303,10 @@ bool BlitHelper::BlitDepthStencil(Surface& source, Surface& dest,
     const RenderPass depth_pass = {
         .framebuffer = dest.Framebuffer(),
         .render_pass =
-            renderpass_cache.GetRenderpass(PixelFormat::Invalid, dest.pixel_format, false),
+            render_manager.GetRenderpass(PixelFormat::Invalid, dest.pixel_format, false),
         .render_area = dst_render_area,
     };
-    renderpass_cache.BeginRendering(depth_pass);
+    render_manager.BeginRendering(depth_pass);
 
     scheduler.Record([blit, descriptor_set, this](vk::CommandBuffer cmdbuf) {
         const vk::PipelineLayout layout = two_textures_pipeline_layout;
@@ -338,7 +338,7 @@ bool BlitHelper::ConvertDS24S8ToRGBA8(Surface& source, Surface& dest,
 
     const auto descriptor_set = compute_provider.Acquire(textures);
 
-    renderpass_cache.EndRendering();
+    render_manager.EndRendering();
     scheduler.Record([this, descriptor_set, copy, src_image = source.Image(),
                       dst_image = dest.Image()](vk::CommandBuffer cmdbuf) {
         const std::array pre_barriers = {
@@ -461,7 +461,7 @@ bool BlitHelper::DepthToBuffer(Surface& source, vk::Buffer buffer,
 
     const auto descriptor_set = compute_buffer_provider.Acquire(textures);
 
-    renderpass_cache.EndRendering();
+    render_manager.EndRendering();
     scheduler.Record([this, descriptor_set, copy, src_image = source.Image(),
                       extent = source.RealExtent(false)](vk::CommandBuffer cmdbuf) {
         const vk::ImageMemoryBarrier pre_barrier = {
@@ -547,7 +547,7 @@ vk::Pipeline BlitHelper::MakeDepthStencilBlitPipeline() {
     }
 
     const std::array stages = MakeStages(full_screen_vert, blit_depth_stencil_frag);
-    const auto renderpass = renderpass_cache.GetRenderpass(VideoCore::PixelFormat::Invalid,
+    const auto renderpass = render_manager.GetRenderpass(VideoCore::PixelFormat::Invalid,
                                                            VideoCore::PixelFormat::D24S8, false);
     vk::GraphicsPipelineCreateInfo depth_stencil_info = {
         .stageCount = static_cast<u32>(stages.size()),

@@ -24,23 +24,20 @@ struct RenderPass {
     vk::RenderPass render_pass;
     vk::Rect2D render_area;
     vk::ClearValue clear;
-    bool do_clear;
+    u32 do_clear;
 
     bool operator==(const RenderPass& other) const noexcept {
-        return std::tie(framebuffer, render_pass, render_area, do_clear) ==
-                   std::tie(other.framebuffer, other.render_pass, other.render_area,
-                            other.do_clear) &&
-               std::memcmp(&clear, &other.clear, sizeof(vk::ClearValue)) == 0;
+        return std::memcmp(this, &other, sizeof(RenderPass)) == 0;
     }
 };
 
-class RenderpassCache {
+class RenderManager {
     static constexpr std::size_t MAX_COLOR_FORMATS = 13;
     static constexpr std::size_t MAX_DEPTH_FORMATS = 4;
 
 public:
-    explicit RenderpassCache(const Instance& instance, Scheduler& scheduler);
-    ~RenderpassCache();
+    explicit RenderManager(const Instance& instance, Scheduler& scheduler);
+    ~RenderManager();
 
     /// Begins a new renderpass with the provided framebuffer as render target.
     void BeginRendering(const Framebuffer* framebuffer, Common::Rectangle<u32> draw_rect);

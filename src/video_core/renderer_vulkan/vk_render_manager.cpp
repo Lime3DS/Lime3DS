@@ -6,7 +6,7 @@
 #include "common/assert.h"
 #include "video_core/rasterizer_cache/pixel_format.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
-#include "video_core/renderer_vulkan/vk_renderpass_cache.h"
+#include "video_core/renderer_vulkan/vk_render_manager.h"
 #include "video_core/renderer_vulkan/vk_scheduler.h"
 #include "video_core/renderer_vulkan/vk_texture_runtime.h"
 
@@ -17,12 +17,12 @@ constexpr u32 MIN_DRAWS_TO_FLUSH = 20;
 using VideoCore::PixelFormat;
 using VideoCore::SurfaceType;
 
-RenderpassCache::RenderpassCache(const Instance& instance, Scheduler& scheduler)
+RenderManager::RenderManager(const Instance& instance, Scheduler& scheduler)
     : instance{instance}, scheduler{scheduler} {}
 
-RenderpassCache::~RenderpassCache() = default;
+RenderManager::~RenderManager() = default;
 
-void RenderpassCache::BeginRendering(const Framebuffer* framebuffer,
+void RenderManager::BeginRendering(const Framebuffer* framebuffer,
                                      Common::Rectangle<u32> draw_rect) {
     const vk::Rect2D render_area = {
         .offset{
@@ -46,7 +46,7 @@ void RenderpassCache::BeginRendering(const Framebuffer* framebuffer,
     BeginRendering(new_pass);
 }
 
-void RenderpassCache::BeginRendering(const RenderPass& new_pass) {
+void RenderManager::BeginRendering(const RenderPass& new_pass) {
     if (pass == new_pass) [[likely]] {
         num_draws++;
         return;
@@ -67,12 +67,11 @@ void RenderpassCache::BeginRendering(const RenderPass& new_pass) {
     pass = new_pass;
 }
 
-void RenderpassCache::EndRendering() {
+void RenderManager::EndRendering() {
     if (!pass.render_pass) {
         return;
     }
 
-    pass.render_pass = vk::RenderPass{};
     scheduler.Record([images = images, aspects = aspects](vk::CommandBuffer cmdbuf) {
         u32 num_barriers = 0;
         vk::PipelineStageFlags pipeline_flags{};
@@ -115,6 +114,11 @@ void RenderpassCache::EndRendering() {
                                num_barriers, barriers.data());
     });
 
+    // Reset state.
+    pass.render_pass = vk::RenderPass{};
+    images = {};
+    aspects = {};
+
     // The Mali guide recommends flushing at the end of each major renderpass
     // Testing has shown this has a significant effect on rendering performance
     if (num_draws > MIN_DRAWS_TO_FLUSH && instance.ShouldFlush()) {
@@ -123,7 +127,7 @@ void RenderpassCache::EndRendering() {
     }
 }
 
-vk::RenderPass RenderpassCache::GetRenderpass(VideoCore::PixelFormat color,
+vk::RenderPass RenderManager::GetRenderpass(VideoCore::PixelFormat color,
                                               VideoCore::PixelFormat depth, bool is_clear) {
     std::scoped_lock lock{cache_mutex};
 
@@ -148,7 +152,7 @@ vk::RenderPass RenderpassCache::GetRenderpass(VideoCore::PixelFormat color,
     return *renderpass;
 }
 
-vk::UniqueRenderPass RenderpassCache::CreateRenderPass(vk::Format color, vk::Format depth,
+vk::UniqueRenderPass RenderManager::CreateRenderPass(vk::Format color, vk::Format depth,
                                                        vk::AttachmentLoadOp load_op) const {
     u32 attachment_count = 0;
     std::array<vk::AttachmentDescription, 2> attachments;

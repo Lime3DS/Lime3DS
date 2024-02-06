@@ -22,7 +22,7 @@ struct Material;
 namespace Vulkan {
 
 class Instance;
-class RenderpassCache;
+class RenderManager;
 class DescriptorPool;
 class DescriptorSetProvider;
 class Surface;
@@ -42,7 +42,7 @@ class TextureRuntime {
 
 public:
     explicit TextureRuntime(const Instance& instance, Scheduler& scheduler,
-                            RenderpassCache& renderpass_cache, DescriptorPool& pool,
+                            RenderManager& render_manager, DescriptorPool& pool,
                             DescriptorSetProvider& texture_provider, u32 num_swapchain_images);
     ~TextureRuntime();
 
@@ -54,8 +54,8 @@ public:
         return scheduler;
     }
 
-    RenderpassCache& GetRenderpassCache() {
-        return renderpass_cache;
+    RenderManager& GetRenderpassCache() {
+        return render_manager;
     }
 
     /// Returns the removal threshold ticks for the garbage collector
@@ -95,7 +95,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderpassCache& renderpass_cache;
+    RenderManager& render_manager;
     DescriptorSetProvider& texture_provider;
     BlitHelper blit_helper;
     StreamBuffer upload_buffer;

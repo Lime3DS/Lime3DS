@@ -11,7 +11,7 @@
 #include "video_core/renderer_vulkan/vk_instance.h"
 #include "video_core/renderer_vulkan/vk_present_window.h"
 #include "video_core/renderer_vulkan/vk_rasterizer.h"
-#include "video_core/renderer_vulkan/vk_renderpass_cache.h"
+#include "video_core/renderer_vulkan/vk_render_manager.h"
 #include "video_core/renderer_vulkan/vk_scheduler.h"
 
 namespace Core {
@@ -118,7 +118,7 @@ private:
 
     Instance instance;
     Scheduler scheduler;
-    RenderpassCache renderpass_cache;
+    RenderManager render_manager;
     DescriptorPool pool;
     PresentWindow main_window;
     StreamBuffer vertex_buffer;

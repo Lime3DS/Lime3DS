@@ -59,11 +59,11 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
                                    VideoCore::RendererBase& renderer,
                                    Frontend::EmuWindow& emu_window, const Instance& instance,
                                    Scheduler& scheduler, DescriptorPool& pool,
-                                   RenderpassCache& renderpass_cache, u32 image_count)
+                                   RenderManager& render_manager, u32 image_count)
     : RasterizerAccelerated{memory, pica}, instance{instance}, scheduler{scheduler},
-      renderpass_cache{renderpass_cache}, pipeline_cache{instance, scheduler, renderpass_cache,
+      render_manager{render_manager}, pipeline_cache{instance, scheduler, render_manager,
                                                          pool},
-      runtime{instance,   scheduler, renderpass_cache, pool, pipeline_cache.TextureProvider(),
+      runtime{instance,   scheduler, render_manager, pool, pipeline_cache.TextureProvider(),
               image_count},
       res_cache{memory, custom_tex_manager, runtime, regs, renderer},
       stream_buffer{instance, scheduler, BUFFER_USAGE, STREAM_BUFFER_SIZE},
@@ -77,6 +77,7 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
 
     vertex_buffers.fill(stream_buffer.Handle());
 
+    // Query uniform buffer alignment.
     uniform_buffer_alignment = instance.UniformMinAlignment();
     uniform_size_aligned_vs_pica =
         Common::AlignUp(sizeof(VSPicaUniformData), uniform_buffer_alignment);
@@ -105,6 +106,10 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
         .format = vk::Format::eR32G32B32A32Sfloat,
         .offset = 0,
         .range = VK_WHOLE_SIZE,
+    });
+
+    scheduler.RegisterOnSubmit([&render_manager] {
+        render_manager.EndRendering();
     });
 
     // Since we don't have access to VK_EXT_descriptor_indexing we need to intiallize
@@ -514,7 +519,7 @@ bool RasterizerVulkan::Draw(bool accelerate, bool is_indexed) {
 
     // Begin rendering
     const auto draw_rect = fb_helper.DrawRect();
-    renderpass_cache.BeginRendering(framebuffer, draw_rect);
+    render_manager.BeginRendering(framebuffer, draw_rect);
 
     // Configure viewport and scissor
     const auto viewport = fb_helper.Viewport();

@@ -54,8 +54,7 @@ RendererVulkan::RendererVulkan(Core::System& system, Pica::PicaCore& pica_,
                                Frontend::EmuWindow& window, Frontend::EmuWindow* secondary_window)
     : RendererBase{system, window, secondary_window}, memory{system.Memory()}, pica{pica_},
       instance{window, Settings::values.physical_device.GetValue()}, scheduler{instance},
-      renderpass_cache{instance, scheduler}, pool{instance}, main_window{window, instance,
-                                                                         scheduler},
+      render_manager{instance, scheduler}, pool{instance}, main_window{window, instance, scheduler},
       vertex_buffer{instance, scheduler, vk::BufferUsageFlagBits::eVertexBuffer,
                     VERTEX_BUFFER_SIZE},
       rasterizer{memory,
@@ -66,7 +65,7 @@ RendererVulkan::RendererVulkan(Core::System& system, Pica::PicaCore& pica_,
                  instance,
                  scheduler,
                  pool,
-                 renderpass_cache,
+                 render_manager,
                  main_window.ImageCount()},
       present_set_provider{instance, pool, PRESENT_BINDINGS} {
     CompileShaders();
@@ -135,7 +134,7 @@ void RendererVulkan::PrepareDraw(Frame* frame, const Layout::FramebufferLayout& 
 
     const auto descriptor_set = present_set_provider.Acquire(present_textures);
 
-    renderpass_cache.EndRendering();
+    render_manager.EndRendering();
     scheduler.Record([this, layout, frame, descriptor_set, renderpass = main_window.Renderpass(),
                       index = current_pipeline](vk::CommandBuffer cmdbuf) {
         const vk::Viewport viewport = {
@@ -470,7 +469,7 @@ void RendererVulkan::FillScreen(Common::Vec3<u8> color, const TextureInfo& textu
             },
     };
 
-    renderpass_cache.EndRendering();
+    render_manager.EndRendering();
     scheduler.Record([image = texture.image, clear_color](vk::CommandBuffer cmdbuf) {
         const vk::ImageSubresourceRange range = {
             .aspectMask = vk::ImageAspectFlagBits::eColor,

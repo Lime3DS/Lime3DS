@@ -22,7 +22,7 @@ namespace Vulkan {
 
 class Instance;
 class Scheduler;
-class RenderpassCache;
+class RenderManager;
 class DescriptorPool;
 
 constexpr u32 NUM_RASTERIZER_SETS = 3;
@@ -34,7 +34,7 @@ constexpr u32 NUM_DYNAMIC_OFFSETS = 3;
 class PipelineCache {
 public:
     explicit PipelineCache(const Instance& instance, Scheduler& scheduler,
-                           RenderpassCache& renderpass_cache, DescriptorPool& pool);
+                           RenderManager& render_manager, DescriptorPool& pool);
     ~PipelineCache();
 
     [[nodiscard]] DescriptorSetProvider& TextureProvider() noexcept {
@@ -97,7 +97,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderpassCache& renderpass_cache;
+    RenderManager& render_manager;
     DescriptorPool& pool;
 
     Pica::Shader::Profile profile{};

@@ -15,7 +15,7 @@ struct BufferTextureCopy;
 namespace Vulkan {
 
 class Instance;
-class RenderpassCache;
+class RenderManager;
 class Scheduler;
 class Surface;
 
@@ -24,7 +24,7 @@ class BlitHelper {
 
 public:
     BlitHelper(const Instance& instance, Scheduler& scheduler, DescriptorPool& pool,
-               RenderpassCache& renderpass_cache);
+               RenderManager& render_manager);
     ~BlitHelper();
 
     bool BlitDepthStencil(Surface& source, Surface& dest, const VideoCore::TextureBlit& blit);
@@ -41,7 +41,7 @@ private:
 private:
     const Instance& instance;
     Scheduler& scheduler;
-    RenderpassCache& renderpass_cache;
+    RenderManager& render_manager;
 
     vk::Device device;
     vk::RenderPass r32_renderpass;
