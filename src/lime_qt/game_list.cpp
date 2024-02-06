@@ -533,15 +533,18 @@ void ForEachOpenGLCacheFile(u64 program_id, auto func) {
 
 void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QString& name,
                             u64 program_id, u64 extdata_id, Service::FS::MediaType media_type) {
-    QAction* open_save_location = context_menu.addAction(tr("Open Save Data Location"));
-    QAction* open_extdata_location = context_menu.addAction(tr("Open Extra Data Location"));
-    QAction* open_application_location = context_menu.addAction(tr("Open Application Location"));
-    QAction* open_update_location = context_menu.addAction(tr("Open Update Data Location"));
-    QAction* open_dlc_location = context_menu.addAction(tr("Open DLC Data Location"));
-    QAction* open_texture_dump_location = context_menu.addAction(tr("Open Texture Dump Location"));
-    QAction* open_texture_load_location =
-        context_menu.addAction(tr("Open Custom Texture Location"));
-    QAction* open_mods_location = context_menu.addAction(tr("Open Mods Location"));
+    QMenu* open_menu = context_menu.addMenu(tr("Open"));
+    QAction* open_application_location = open_menu->addAction(tr("Application Location"));
+    open_menu->addSeparator();
+    QAction* open_save_location = open_menu->addAction(tr("Save Data Location"));
+    QAction* open_extdata_location = open_menu->addAction(tr("Extra Data Location"));
+    QAction* open_update_location = open_menu->addAction(tr("Update Data Location"));
+    QAction* open_dlc_location = open_menu->addAction(tr("DLC Data Location"));
+    open_menu->addSeparator();
+    QAction* open_texture_dump_location = open_menu->addAction(tr("Texture Dump Location"));
+    QAction* open_texture_load_location = open_menu->addAction(tr("Custom Texture Location"));
+    QAction* open_mods_location = open_menu->addAction(tr("Mods Location"));
+
     QAction* dump_romfs = context_menu.addAction(tr("Dump RomFS"));
 
     QMenu* shader_menu = context_menu.addMenu(tr("Disk Shader Cache"));
