@@ -11,6 +11,7 @@
         <file alias="48x48/no_avatar.png">../qdarkstyle/icons/48x48/no_avatar.png</file>
         <file alias="48x48/plus.png">../colorful/icons/48x48/plus.png</file>
         <file alias="48x48/sd_card.png">../colorful/icons/48x48/sd_card.png</file>
+        <file alias="48x48/star.png">../colorful/icons/48x48/star.png</file>
         <file alias="256x256/plus_folder.png">../colorful/icons/256x256/plus_folder.png</file>
     </qresource>
 

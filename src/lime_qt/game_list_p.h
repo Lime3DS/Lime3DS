@@ -34,7 +34,8 @@ enum class GameListItemType {
     CustomDir = QStandardItem::UserType + 2,
     InstalledDir = QStandardItem::UserType + 3,
     SystemDir = QStandardItem::UserType + 4,
-    AddDir = QStandardItem::UserType + 5
+    AddDir = QStandardItem::UserType + 5,
+    Favorites = QStandardItem::UserType + 6,
 };
 
 Q_DECLARE_METATYPE(GameListItemType);
@@ -430,6 +431,28 @@ public:
     }
 };
 
+class GameListFavorites : public GameListItem {
+public:
+    explicit GameListFavorites() {
+        setData(type(), TypeRole);
+
+        const int icon_size = IconSizes.at(UISettings::values.game_list_icon_size.GetValue());
+        setData(QIcon::fromTheme(QStringLiteral("star"))
+                    .pixmap(icon_size)
+                    .scaled(icon_size, icon_size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation),
+                Qt::DecorationRole);
+        setData(QObject::tr("Favorites"), Qt::DisplayRole);
+    }
+
+    int type() const override {
+        return static_cast<int>(GameListItemType::Favorites);
+    }
+
+    bool operator<(const QStandardItem& other) const override {
+        return false;
+    }
+};
+
 class GameList;
 class QHBoxLayout;
 class QTreeView;
@@ -444,6 +467,7 @@ public:
     explicit GameListSearchField(GameList* parent = nullptr);
 
     void setFilterResult(int visible, int total);
+    bool IsEmpty() const;
 
     void clear();
     void setFocus();

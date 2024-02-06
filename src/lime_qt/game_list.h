@@ -80,6 +80,10 @@ public:
 
     void RefreshGameDirectory();
 
+    void ToggleFavorite(u64 program_id);
+    void AddFavorite(u64 program_id);
+    void RemoveFavorite(u64 program_id);
+
     static const QStringList supported_file_extensions;
 
 signals:
@@ -113,6 +117,7 @@ private:
                       u64 extdata_id, Service::FS::MediaType media_type);
     void AddCustomDirPopup(QMenu& context_menu, QModelIndex selected);
     void AddPermDirPopup(QMenu& context_menu, QModelIndex selected);
+    void AddFavoritesPopup(QMenu& context_menu);
     void UpdateColumnVisibility();
 
     QString FindGameByProgramID(QStandardItem* current_item, u64 program_id, int role);
