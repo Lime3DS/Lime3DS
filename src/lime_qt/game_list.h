@@ -45,6 +45,11 @@ enum class GameListOpenTarget {
     SHADER_CACHE = 8
 };
 
+enum class GameListShortcutTarget {
+    Desktop,
+    Applications,
+};
+
 class GameList : public QWidget {
     Q_OBJECT
 
@@ -90,6 +95,8 @@ signals:
     void GameChosen(const QString& game_path);
     void ShouldCancelWorker();
     void OpenFolderRequested(u64 program_id, GameListOpenTarget target);
+    void CreateShortcut(u64 program_id, const std::string& game_path,
+                        GameListShortcutTarget target);
     void NavigateToGamedbEntryRequested(u64 program_id,
                                         const CompatibilityList& compatibility_list);
     void OpenPerGameGeneralRequested(const QString file);

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <filesystem>
 #include <QFont>
 #include <QString>
 
@@ -19,3 +20,18 @@ QString ReadableByteSize(qulonglong size);
  * @return QPixmap circle pixmap
  */
 QPixmap CreateCirclePixmapFromColor(const QColor& color);
+
+/**
+ * Gets the game icon from SMDH data.
+ * @param smdh_data SMDH data
+ * @return QPixmap game icon
+ */
+QPixmap GetQPixmapFromSMDH(std::vector<u8>& smdh_data);
+
+/**
+ * Saves a windows icon to a file
+ * @param path The icons path
+ * @param image The image to save
+ * @return bool If the operation succeeded
+ */
+[[nodiscard]] bool SaveIconToFile(const std::filesystem::path& icon_path, const QImage& image);

@@ -40,6 +40,7 @@ enum class UserPath {
     StatesDir,
     SysDataDir,
     UserDir,
+    IconsDir,
 };
 
 // Replaces install-specific paths with standard placeholders, and back again

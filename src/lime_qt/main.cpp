@@ -19,6 +19,7 @@
 #include <unistd.h> // for chdir
 #endif
 #ifdef _WIN32
+#include <shlobj.h>
 #include <windows.h>
 #endif
 #ifdef __unix__
@@ -75,6 +76,7 @@
 #include "lime_qt/updater/updater.h"
 #include "lime_qt/util/clickable_label.h"
 #include "lime_qt/util/graphics_device_info.h"
+#include "lime_qt/util/util.h"
 #if CITRA_ARCH(x86_64)
 #include "common/x64/cpu_detect.h"
 #endif
@@ -825,6 +827,7 @@ void GMainWindow::ConnectWidgetEvents() {
     connect(game_list, &GameList::OpenFolderRequested, this, &GMainWindow::OnGameListOpenFolder);
     connect(game_list, &GameList::NavigateToGamedbEntryRequested, this,
             &GMainWindow::OnGameListNavigateToGamedbEntry);
+    connect(game_list, &GameList::CreateShortcut, this, &GMainWindow::OnGameListCreateShortcut);
     connect(game_list, &GameList::DumpRomFSRequested, this, &GMainWindow::OnGameListDumpRomFS);
     connect(game_list, &GameList::AddDirectory, this, &GMainWindow::OnGameListAddDirectory);
     connect(game_list_placeholder, &GameListPlaceholder::AddDirectory, this,
@@ -1638,6 +1641,255 @@ void GMainWindow::OnGameListNavigateToGamedbEntry(u64 program_id,
         directory = it->second.second;
 
     QDesktopServices::openUrl(QUrl(QStringLiteral("https://citra-emu.org/game/") + directory));
+}
+
+bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
+                                     const std::string& comment,
+                                     const std::filesystem::path& icon_path,
+                                     const std::filesystem::path& command,
+                                     const std::string& arguments, const std::string& categories,
+                                     const std::string& keywords, const std::string& name) try {
+#if defined(__linux__) || defined(__FreeBSD__) // Linux and FreeBSD
+    std::filesystem::path shortcut_path_full = shortcut_path / (name + ".desktop");
+    std::ofstream shortcut_stream(shortcut_path_full, std::ios::binary | std::ios::trunc);
+    if (!shortcut_stream.is_open()) {
+        LOG_ERROR(Frontend, "Failed to create shortcut");
+        return false;
+    }
+    // TODO: Migrate fmt::print to std::print in futures STD C++ 23.
+    fmt::print(shortcut_stream, "[Desktop Entry]\n");
+    fmt::print(shortcut_stream, "Type=Application\n");
+    fmt::print(shortcut_stream, "Version=1.0\n");
+    fmt::print(shortcut_stream, "Name={}\n", name);
+    if (!comment.empty()) {
+        fmt::print(shortcut_stream, "Comment={}\n", comment);
+    }
+    if (std::filesystem::is_regular_file(icon_path)) {
+        fmt::print(shortcut_stream, "Icon={}\n", icon_path.string());
+    }
+    fmt::print(shortcut_stream, "TryExec={}\n", command.string());
+    fmt::print(shortcut_stream, "Exec={} {}\n", command.string(), arguments);
+    if (!categories.empty()) {
+        fmt::print(shortcut_stream, "Categories={}\n", categories);
+    }
+    if (!keywords.empty()) {
+        fmt::print(shortcut_stream, "Keywords={}\n", keywords);
+    }
+    return true;
+#elif defined(_WIN32) // Windows
+    HRESULT hr = CoInitialize(nullptr);
+    if (FAILED(hr)) {
+        LOG_ERROR(Frontend, "CoInitialize failed");
+        return false;
+    }
+    SCOPE_EXIT({ CoUninitialize(); });
+    IShellLinkW* ps1 = nullptr;
+    IPersistFile* persist_file = nullptr;
+    SCOPE_EXIT({
+        if (persist_file != nullptr) {
+            persist_file->Release();
+        }
+        if (ps1 != nullptr) {
+            ps1->Release();
+        }
+    });
+    HRESULT hres = CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, IID_IShellLinkW,
+                                    reinterpret_cast<void**>(&ps1));
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to create IShellLinkW instance");
+        return false;
+    }
+    hres = ps1->SetPath(command.c_str());
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to set path");
+        return false;
+    }
+    if (!arguments.empty()) {
+        hres = ps1->SetArguments(Common::UTF8ToUTF16W(arguments).data());
+        if (FAILED(hres)) {
+            LOG_ERROR(Frontend, "Failed to set arguments");
+            return false;
+        }
+    }
+    if (!comment.empty()) {
+        hres = ps1->SetDescription(Common::UTF8ToUTF16W(comment).data());
+        if (FAILED(hres)) {
+            LOG_ERROR(Frontend, "Failed to set description");
+            return false;
+        }
+    }
+    if (std::filesystem::is_regular_file(icon_path)) {
+        hres = ps1->SetIconLocation(icon_path.c_str(), 0);
+        if (FAILED(hres)) {
+            LOG_ERROR(Frontend, "Failed to set icon location");
+            return false;
+        }
+    }
+    hres = ps1->QueryInterface(IID_IPersistFile, reinterpret_cast<void**>(&persist_file));
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to get IPersistFile interface");
+        return false;
+    }
+    hres = persist_file->Save(std::filesystem::path{shortcut_path / (name + ".lnk")}.c_str(), TRUE);
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to save shortcut");
+        return false;
+    }
+    return true;
+#else                 // Unsupported platform
+    return false;
+#endif
+} catch (const std::exception& e) {
+    LOG_ERROR(Frontend, "Failed to create shortcut: {}", e.what());
+    return false;
+}
+
+// Messages in pre-defined message boxes for less code spaghetti
+bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
+                                            const QString& game_title) {
+    int result = 0;
+    QMessageBox::StandardButtons buttons;
+    switch (message) {
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_FULLSCREEN_YES:
+        buttons = QMessageBox::Yes | QMessageBox::No;
+        result =
+            QMessageBox::information(parent, tr("Create Shortcut"),
+                                     tr("Do you want to launch the game in fullscreen?"), buttons);
+        return result == QMessageBox::Yes;
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_SUCCESS:
+        QMessageBox::information(parent, tr("Create Shortcut"),
+                                 tr("Successfully created a shortcut to %1").arg(game_title));
+        return false;
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_APPVOLATILE_WARNING:
+        buttons = QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel;
+        result =
+            QMessageBox::warning(this, tr("Create Shortcut"),
+                                 tr("This will create a shortcut to the current AppImage. This may "
+                                    "not work well if you update. Continue?"),
+                                 buttons);
+        return result == QMessageBox::Ok;
+    default:
+        buttons = QMessageBox::Ok;
+        QMessageBox::critical(parent, tr("Create Shortcut"),
+                              tr("Failed to create a shortcut to %1").arg(game_title), buttons);
+        return false;
+    }
+}
+
+bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
+                                      std::filesystem::path& out_icon_path) {
+    // Get path to Citra icons directory & icon extension
+    std::string ico_extension = "png";
+#if defined(_WIN32)
+    out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
+    ico_extension = "ico";
+#elif defined(__linux__) || defined(__FreeBSD__)
+    out_icon_path = FileUtil::GetDataDirectory("XDG_DATA_HOME") / "icons/hicolor/256x256";
+#endif
+    // Create icons directory if it doesn't exist
+    if (!FileUtil::CreateDir(out_icon_path.string())) {
+        QMessageBox::critical(
+            this, tr("Create Icon"),
+            tr("Cannot create icon file. Path \"%1\" does not exist and cannot be created.")
+                .arg(QString::fromStdString(out_icon_path.string())),
+            QMessageBox::StandardButton::Ok);
+        out_icon_path.clear();
+        return false;
+    }
+
+    // Create icon file path
+    out_icon_path /= (program_id == 0 ? fmt::format("citra-{}.{}", game_file_name, ico_extension)
+                                      : fmt::format("citra-{:016X}.{}", program_id, ico_extension));
+    return true;
+}
+
+void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
+                                           GameListShortcutTarget target) {
+    // Get path to citra executable
+    const QStringList args = QApplication::arguments();
+    std::filesystem::path citra_command = args[0].toStdString();
+    // If relative path, make it an absolute path
+    if (citra_command.c_str()[0] == '.') {
+        citra_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + citra_command.string();
+    }
+
+    // Shortcut path
+    std::filesystem::path shortcut_path{};
+    if (target == GameListShortcutTarget::Desktop) {
+        shortcut_path =
+            QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).toStdString();
+    } else if (target == GameListShortcutTarget::Applications) {
+        shortcut_path =
+            QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation).toStdString();
+    }
+
+    // Icon path and title
+    if (!std::filesystem::exists(shortcut_path)) {
+        CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_ERROR, {});
+        LOG_ERROR(Frontend, "Invalid shortcut target");
+        return;
+    }
+
+    // Get title from game file
+    const auto loader = Loader::GetLoader(game_path);
+    std::string game_title = fmt::format("{:016X}", program_id);
+    if (loader->ReadTitle(game_title) != Loader::ResultStatus::Success) {
+        game_title = fmt::format("{:016x}", program_id);
+    }
+
+    // Delete illegal characters from title
+    const std::string illegal_chars = "<>:\"/\\|?*.";
+    for (auto it = game_title.rbegin(); it != game_title.rend(); ++it) {
+        if (illegal_chars.find(*it) != std::string::npos) {
+            game_title.erase(it.base() - 1);
+        }
+    }
+
+    // Get icon from game file
+    std::vector<u8> icon_image_file;
+    if (loader->ReadIcon(icon_image_file) != Loader::ResultStatus::Success) {
+        LOG_WARNING(Frontend, "Could not read icon from {:s}", game_path);
+    }
+
+    const QPixmap pixmap = GetQPixmapFromSMDH(icon_image_file);
+    const QImage icon_data = pixmap.toImage();
+    std::filesystem::path out_icon_path;
+    if (MakeShortcutIcoPath(program_id, game_title, out_icon_path)) {
+        if (!SaveIconToFile(out_icon_path, icon_data)) {
+            LOG_ERROR(Frontend, "Could not write icon to file");
+        }
+    }
+
+    const auto qt_game_title = QString::fromStdString(game_title);
+#if defined(__linux__)
+    // Special case for AppImages
+    // Warn once if we are making a shortcut to a volatile AppImage
+    const std::string appimage_ending =
+        std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
+    if (citra_command.string().ends_with(appimage_ending) &&
+        !UISettings::values.shortcut_already_warned) {
+        if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPVOLATILE_WARNING,
+                                      qt_game_title)) {
+            return;
+        }
+        UISettings::values.shortcut_already_warned = true;
+    }
+#endif // __linux__
+    // Create shortcut
+    std::string arguments = fmt::format("-g \"{:s}\"", game_path);
+    if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_YES, qt_game_title)) {
+        arguments = "-f " + arguments;
+    }
+    const std::string comment = fmt::format("Start {:s} with the Citra Emulator", game_title);
+    const std::string categories = "Game;Emulator;Qt;";
+    const std::string keywords = "3ds;Nintendo;";
+
+    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, citra_command, arguments,
+                           categories, keywords, game_title)) {
+        CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_SUCCESS, qt_game_title);
+        return;
+    }
+    CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_ERROR, qt_game_title);
 }
 
 void GMainWindow::OnGameListDumpRomFS(QString game_path, u64 program_id) {
