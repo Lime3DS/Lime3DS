@@ -10,6 +10,7 @@
 #include <QWidget>
 #include "common/common_types.h"
 #include "lime_qt/compatibility_list.h"
+#include "lime_qt/play_time_manager.h"
 #include "uisettings.h"
 
 namespace Service::FS {
@@ -60,10 +61,11 @@ public:
         COLUMN_REGION,
         COLUMN_FILE_TYPE,
         COLUMN_SIZE,
+        COLUMN_PLAY_TIME,
         COLUMN_COUNT, // Number of columns
     };
 
-    explicit GameList(GMainWindow* parent = nullptr);
+    explicit GameList(PlayTime::PlayTimeManager& play_time_manager_, GMainWindow* parent = nullptr);
     ~GameList() override;
 
     QString GetLastFilterResultItem() const;
@@ -97,6 +99,7 @@ signals:
     void OpenFolderRequested(u64 program_id, GameListOpenTarget target);
     void CreateShortcut(u64 program_id, const std::string& game_path,
                         GameListShortcutTarget target);
+    void RemovePlayTimeRequested(u64 program_id);
     void NavigateToGamedbEntryRequested(u64 program_id,
                                         const CompatibilityList& compatibility_list);
     void OpenPerGameGeneralRequested(const QString file);
@@ -142,6 +145,8 @@ private:
     CompatibilityList compatibility_list;
 
     friend class GameListSearchField;
+
+    const PlayTime::PlayTimeManager& play_time_manager;
 };
 
 Q_DECLARE_METATYPE(GameListOpenTarget);

@@ -827,6 +827,7 @@ void SetUserPath(const std::string& path) {
     g_paths.emplace(UserPath::LoadDir, user_path + LOAD_DIR DIR_SEP);
     g_paths.emplace(UserPath::StatesDir, user_path + STATES_DIR DIR_SEP);
     g_paths.emplace(UserPath::IconsDir, user_path + ICONS_DIR DIR_SEP);
+    g_paths.emplace(UserPath::PlayTimeDir, user_path + PLAY_TIME_DIR DIR_SEP);
     g_default_paths = g_paths;
 }
 

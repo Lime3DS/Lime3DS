@@ -41,6 +41,7 @@ enum class UserPath {
     SysDataDir,
     UserDir,
     IconsDir,
+    PlayTimeDir,
 };
 
 // Replaces install-specific paths with standard placeholders, and back again
@@ -342,6 +343,59 @@ public:
 
     std::size_t WriteString(std::string_view str) {
         return WriteArray(str.data(), str.length());
+    }
+
+    /**
+     * Reads a span of T data from a file sequentially.
+     * This function reads from the current position of the file pointer and
+     * advances it by the (count of T * sizeof(T)) bytes successfully read.
+     *
+     * Failures occur when:
+     * - The file is not open
+     * - The opened file lacks read permissions
+     * - Attempting to read beyond the end-of-file
+     *
+     * @tparam T Data type
+     *
+     * @param data Span of T data
+     *
+     * @returns Count of T data successfully read.
+     */
+    template <typename T>
+    [[nodiscard]] size_t ReadSpan(std::span<T> data) const {
+        static_assert(std::is_trivially_copyable_v<T>, "Data type must be trivially copyable.");
+
+        if (!IsOpen()) {
+            return 0;
+        }
+
+        return std::fread(data.data(), sizeof(T), data.size(), m_file);
+    }
+
+    /**
+     * Writes a span of T data to a file sequentially.
+     * This function writes from the current position of the file pointer and
+     * advances it by the (count of T * sizeof(T)) bytes successfully written.
+     *
+     * Failures occur when:
+     * - The file is not open
+     * - The opened file lacks write permissions
+     *
+     * @tparam T Data type
+     *
+     * @param data Span of T data
+     *
+     * @returns Count of T data successfully written.
+     */
+    template <typename T>
+    [[nodiscard]] size_t WriteSpan(std::span<const T> data) const {
+        static_assert(std::is_trivially_copyable_v<T>, "Data type must be trivially copyable.");
+
+        if (!IsOpen()) {
+            return 0;
+        }
+
+        return std::fwrite(data.data(), sizeof(T), data.size(), m_file);
     }
 
     [[nodiscard]] bool IsOpen() const {

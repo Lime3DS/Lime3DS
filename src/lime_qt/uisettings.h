@@ -103,6 +103,7 @@ struct Values {
     Settings::Setting<bool> show_region_column{true, "show_region_column"};
     Settings::Setting<bool> show_type_column{true, "show_type_column"};
     Settings::Setting<bool> show_size_column{true, "show_size_column"};
+    Settings::Setting<bool> show_play_time_column{true, "show_play_time_column"};
 
     Settings::Setting<u16> screenshot_resolution_factor{0, "screenshot_resolution_factor"};
     Settings::SwitchableSetting<std::string> screenshot_path{"", "screenshotPath"};

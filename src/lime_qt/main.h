@@ -64,6 +64,10 @@ namespace DiscordRPC {
 class DiscordInterface;
 }
 
+namespace PlayTime {
+class PlayTimeManager;
+}
+
 namespace Core {
 class Movie;
 }
@@ -94,6 +98,7 @@ public:
     ~GMainWindow();
 
     GameList* game_list;
+    std::unique_ptr<PlayTime::PlayTimeManager> play_time_manager;
     std::unique_ptr<DiscordRPC::DiscordInterface> discord_rpc;
 
     bool DropAction(QDropEvent* event);
@@ -224,6 +229,7 @@ private slots:
     /// Called whenever a user selects a game in the game list widget.
     void OnGameListLoadFile(QString game_path);
     void OnGameListOpenFolder(u64 program_id, GameListOpenTarget target);
+    void OnGameListRemovePlayTimeData(u64 program_id);
     void OnGameListNavigateToGamedbEntry(u64 program_id,
                                          const CompatibilityList& compatibility_list);
     void OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
@@ -298,6 +304,7 @@ private:
     void UpdateWindowTitle();
     void UpdateUISettings();
     void RetranslateStatusBar();
+    void RemovePlayTimeData(u64 program_id);
     void InstallCIA(QStringList filepaths);
     void HideMouseCursor();
     void ShowMouseCursor();
@@ -343,6 +350,8 @@ private:
     QString game_title_long;
     // The path to the game currently running
     QString game_path;
+    // The title id of the game currently running
+    u64 game_title_id;
 
     bool auto_paused = false;
     bool auto_muted = false;
