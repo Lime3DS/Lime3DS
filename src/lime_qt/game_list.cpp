@@ -592,6 +592,14 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     QAction* uninstall_dlc = uninstall_menu->addAction(tr("DLC"));
 
     QAction* navigate_to_gamedb_entry = context_menu.addAction(tr("Navigate to GameDB entry"));
+
+#if !defined(__APPLE__)
+    QMenu* shortcut_menu = context_menu.addMenu(tr("Create Shortcut"));
+    QAction* create_desktop_shortcut = shortcut_menu->addAction(tr("Add to Desktop"));
+    QAction* create_applications_menu_shortcut =
+        shortcut_menu->addAction(tr("Add to Applications Menu"));
+#endif
+
     context_menu.addSeparator();
     QAction* properties = context_menu.addAction(tr("Properties"));
 
@@ -775,6 +783,15 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
             main_window->UninstallTitles(titles);
         }
     });
+    // TODO: Implement shortcut creation for macOS
+#if !defined(__APPLE__)
+    connect(create_desktop_shortcut, &QAction::triggered, [this, program_id, path]() {
+        emit CreateShortcut(program_id, path.toStdString(), GameListShortcutTarget::Desktop);
+    });
+    connect(create_applications_menu_shortcut, &QAction::triggered, [this, program_id, path]() {
+        emit CreateShortcut(program_id, path.toStdString(), GameListShortcutTarget::Applications);
+    });
+#endif
 }
 
 void GameList::AddCustomDirPopup(QMenu& context_menu, QModelIndex selected) {

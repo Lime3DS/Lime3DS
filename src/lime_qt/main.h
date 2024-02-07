@@ -5,6 +5,7 @@
 #pragma once
 
 #include <array>
+#include <filesystem>
 #include <memory>
 #include <vector>
 #include <QMainWindow>
@@ -28,6 +29,7 @@ class EmuThread;
 class GameList;
 enum class GameListOpenTarget;
 class GameListPlaceholder;
+enum class GameListShortcutTarget;
 class GImageInfo;
 class GPUCommandListWidget;
 class GPUCommandStreamWidget;
@@ -194,6 +196,22 @@ private:
     bool ConfirmChangeGame();
     void closeEvent(QCloseEvent* event) override;
 
+    enum {
+        CREATE_SHORTCUT_MSGBOX_FULLSCREEN_YES,
+        CREATE_SHORTCUT_MSGBOX_SUCCESS,
+        CREATE_SHORTCUT_MSGBOX_ERROR,
+        CREATE_SHORTCUT_MSGBOX_APPVOLATILE_WARNING,
+    };
+
+    bool CreateShortcutMessagesGUI(QWidget* parent, int message, const QString& game_title);
+    bool MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
+                             std::filesystem::path& out_icon_path);
+    bool CreateShortcutLink(const std::filesystem::path& shortcut_path, const std::string& comment,
+                            const std::filesystem::path& icon_path,
+                            const std::filesystem::path& command, const std::string& arguments,
+                            const std::string& categories, const std::string& keywords,
+                            const std::string& name);
+
 private slots:
     void OnStartGame();
     void OnRestartGame();
@@ -208,6 +226,8 @@ private slots:
     void OnGameListOpenFolder(u64 program_id, GameListOpenTarget target);
     void OnGameListNavigateToGamedbEntry(u64 program_id,
                                          const CompatibilityList& compatibility_list);
+    void OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
+                                  GameListShortcutTarget target);
     void OnGameListDumpRomFS(QString game_path, u64 program_id);
     void OnGameListOpenDirectory(const QString& directory);
     void OnGameListAddDirectory();
