@@ -306,7 +306,8 @@ void GameList::OnFilterCloseClicked() {
     main_window->filterBarSetChecked(false);
 }
 
-GameList::GameList(GMainWindow* parent) : QWidget{parent} {
+GameList::GameList(PlayTime::PlayTimeManager& play_time_manager_, GMainWindow* parent)
+    : QWidget{parent}, play_time_manager{play_time_manager_} {
     watcher = new QFileSystemWatcher(this);
     connect(watcher, &QFileSystemWatcher::directoryChanged, this, &GameList::RefreshGameDirectory,
             Qt::UniqueConnection);
@@ -522,7 +523,8 @@ void GameList::PopupHeaderContextMenu(const QPoint& menu_location) {
         {tr("Compatibility"), &UISettings::values.show_compat_column},
         {tr("Region"), &UISettings::values.show_region_column},
         {tr("File type"), &UISettings::values.show_type_column},
-        {tr("Size"), &UISettings::values.show_size_column}};
+        {tr("Size"), &UISettings::values.show_size_column},
+        {tr("Play time"), &UISettings::values.show_play_time_column}};
 
     QActionGroup* column_group = new QActionGroup(this);
     column_group->setExclusive(false);
@@ -544,6 +546,7 @@ void GameList::UpdateColumnVisibility() {
     tree_view->setColumnHidden(COLUMN_REGION, !UISettings::values.show_region_column);
     tree_view->setColumnHidden(COLUMN_FILE_TYPE, !UISettings::values.show_type_column);
     tree_view->setColumnHidden(COLUMN_SIZE, !UISettings::values.show_size_column);
+    tree_view->setColumnHidden(COLUMN_PLAY_TIME, !UISettings::values.show_play_time_column);
 }
 
 #ifdef ENABLE_OPENGL
@@ -591,6 +594,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     QAction* uninstall_update = uninstall_menu->addAction(tr("Update"));
     QAction* uninstall_dlc = uninstall_menu->addAction(tr("DLC"));
 
+    QAction* remove_play_time_data = context_menu.addAction(tr("Remove Play Time Data"));
     QAction* navigate_to_gamedb_entry = context_menu.addAction(tr("Navigate to GameDB entry"));
 
 #if !defined(__APPLE__)
@@ -712,6 +716,8 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     });
     connect(dump_romfs, &QAction::triggered, this,
             [this, path, program_id] { emit DumpRomFSRequested(path, program_id); });
+    connect(remove_play_time_data, &QAction::triggered,
+            [this, program_id]() { emit RemovePlayTimeRequested(program_id); });
     connect(navigate_to_gamedb_entry, &QAction::triggered, this, [this, program_id]() {
         emit NavigateToGamedbEntryRequested(program_id, compatibility_list);
     });
@@ -933,6 +939,7 @@ void GameList::RetranslateUI() {
     item_model->setHeaderData(COLUMN_REGION, Qt::Horizontal, tr("Region"));
     item_model->setHeaderData(COLUMN_FILE_TYPE, Qt::Horizontal, tr("File type"));
     item_model->setHeaderData(COLUMN_SIZE, Qt::Horizontal, tr("Size"));
+    item_model->setHeaderData(COLUMN_PLAY_TIME, Qt::Horizontal, tr("Play time"));
 }
 
 void GameListSearchField::changeEvent(QEvent* event) {
@@ -964,7 +971,7 @@ void GameList::PopulateAsync(QVector<UISettings::GameDir>& game_dirs) {
 
     emit ShouldCancelWorker();
 
-    GameListWorker* worker = new GameListWorker(game_dirs, compatibility_list);
+    GameListWorker* worker = new GameListWorker(game_dirs, compatibility_list, play_time_manager);
 
     connect(worker, &GameListWorker::EntryReady, this, &GameList::AddEntry, Qt::QueuedConnection);
     connect(worker, &GameListWorker::DirEntryReady, this, &GameList::AddDirEntry,

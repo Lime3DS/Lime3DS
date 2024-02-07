@@ -27,8 +27,10 @@ bool HasSupportedFileExtension(const std::string& file_name) {
 } // Anonymous namespace
 
 GameListWorker::GameListWorker(QVector<UISettings::GameDir>& game_dirs,
-                               const CompatibilityList& compatibility_list)
-    : game_dirs(game_dirs), compatibility_list(compatibility_list) {}
+                               const CompatibilityList& compatibility_list,
+                               const PlayTime::PlayTimeManager& play_time_manager_)
+    : game_dirs(game_dirs), compatibility_list(compatibility_list),
+      play_time_manager{play_time_manager_} {}
 
 GameListWorker::~GameListWorker() = default;
 
@@ -112,6 +114,7 @@ void GameListWorker::AddFstEntriesToGameList(const std::string& dir_path, unsign
                     new GameListItem(
                         QString::fromStdString(Loader::GetFileTypeString(loader->GetFileType()))),
                     new GameListItemSize(FileUtil::GetSize(physical_name)),
+                    new GameListItemPlayTime(play_time_manager.GetPlayTime(program_id)),
                 },
                 parent_dir);
 

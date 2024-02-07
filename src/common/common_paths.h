@@ -53,6 +53,7 @@
 #define SHADER_DIR "shaders"
 #define STATES_DIR "states"
 #define ICONS_DIR "icons"
+#define PLAY_TIME_DIR "play_time"
 
 // Filenames
 // Files in the directory returned by GetUserPath(UserPath::LogDir)

@@ -14,6 +14,7 @@
 #include <QVector>
 #include "common/common_types.h"
 #include "lime_qt/compatibility_list.h"
+#include "lime_qt/play_time_manager.h"
 
 namespace Service::FS {
 enum class MediaType : u32;
@@ -30,7 +31,8 @@ class GameListWorker : public QObject, public QRunnable {
 
 public:
     GameListWorker(QVector<UISettings::GameDir>& game_dirs,
-                   const CompatibilityList& compatibility_list);
+                   const CompatibilityList& compatibility_list,
+                   const PlayTime::PlayTimeManager& play_time_manager_);
     ~GameListWorker() override;
 
     /// Starts the processing of directory tree information.
@@ -60,6 +62,7 @@ private:
 
     QVector<UISettings::GameDir>& game_dirs;
     const CompatibilityList& compatibility_list;
+    const PlayTime::PlayTimeManager& play_time_manager;
 
     QStringList watch_list;
     std::atomic_bool stop_processing;
