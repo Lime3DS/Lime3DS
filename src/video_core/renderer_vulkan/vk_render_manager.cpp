@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright 2024 Citra Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -23,7 +23,7 @@ RenderManager::RenderManager(const Instance& instance, Scheduler& scheduler)
 RenderManager::~RenderManager() = default;
 
 void RenderManager::BeginRendering(const Framebuffer* framebuffer,
-                                     Common::Rectangle<u32> draw_rect) {
+                                   Common::Rectangle<u32> draw_rect) {
     const vk::Rect2D render_area = {
         .offset{
             .x = static_cast<s32>(draw_rect.left),
@@ -107,6 +107,9 @@ void RenderManager::EndRendering() {
             };
         }
         cmdbuf.endRenderPass();
+        if (num_barriers == 0) {
+            return;
+        }
         cmdbuf.pipelineBarrier(pipeline_flags,
                                vk::PipelineStageFlagBits::eFragmentShader |
                                    vk::PipelineStageFlagBits::eTransfer,
@@ -128,7 +131,7 @@ void RenderManager::EndRendering() {
 }
 
 vk::RenderPass RenderManager::GetRenderpass(VideoCore::PixelFormat color,
-                                              VideoCore::PixelFormat depth, bool is_clear) {
+                                            VideoCore::PixelFormat depth, bool is_clear) {
     std::scoped_lock lock{cache_mutex};
 
     const u32 color_index =
@@ -153,7 +156,7 @@ vk::RenderPass RenderManager::GetRenderpass(VideoCore::PixelFormat color,
 }
 
 vk::UniqueRenderPass RenderManager::CreateRenderPass(vk::Format color, vk::Format depth,
-                                                       vk::AttachmentLoadOp load_op) const {
+                                                     vk::AttachmentLoadOp load_op) const {
     u32 attachment_count = 0;
     std::array<vk::AttachmentDescription, 2> attachments;
 

@@ -82,7 +82,7 @@ StreamBuffer::~StreamBuffer() {
     device.freeMemory(memory);
 }
 
-std::tuple<u8*, u64, bool> StreamBuffer::Map(u64 size, u64 alignment) {
+std::tuple<u8*, u32, bool> StreamBuffer::Map(u32 size, u64 alignment) {
     if (!is_coherent && type == BufferType::Stream) {
         size = Common::AlignUp(size, instance.NonCoherentAtomSize());
     }
@@ -114,7 +114,7 @@ std::tuple<u8*, u64, bool> StreamBuffer::Map(u64 size, u64 alignment) {
     return std::make_tuple(mapped + offset, offset, invalidate);
 }
 
-void StreamBuffer::Commit(u64 size) {
+void StreamBuffer::Commit(u32 size) {
     if (!is_coherent && type == BufferType::Stream) {
         size = Common::AlignUp(size, instance.NonCoherentAtomSize());
     }
@@ -200,11 +200,10 @@ void StreamBuffer::CreateBuffers(u64 prefered_size) {
     mapped = reinterpret_cast<u8*>(device.mapMemory(memory, 0, VK_WHOLE_SIZE));
 
     if (instance.HasDebuggingToolAttached()) {
-        Vulkan::SetObjectName(device, buffer, "StreamBuffer({}): {} KiB {}", BufferTypeName(type),
-                              stream_buffer_size / 1024, vk::to_string(mem_type.propertyFlags));
-        Vulkan::SetObjectName(device, memory, "StreamBufferMemory({}): {} Kib {}",
-                              BufferTypeName(type), stream_buffer_size / 1024,
-                              vk::to_string(mem_type.propertyFlags));
+        SetObjectName(device, buffer, "StreamBuffer({}): {} KiB {}", BufferTypeName(type),
+                      stream_buffer_size / 1024, vk::to_string(mem_type.propertyFlags));
+        SetObjectName(device, memory, "StreamBufferMemory({}): {} Kib {}", BufferTypeName(type),
+                      stream_buffer_size / 1024, vk::to_string(mem_type.propertyFlags));
     }
 }
 

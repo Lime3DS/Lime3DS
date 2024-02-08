@@ -176,15 +176,15 @@ struct TexturingRegs {
     INSERT_PADDING_WORDS(0x9);
 
     struct FullTextureConfig {
-        const bool enabled;
+        const u32 enabled;
         const TextureConfig config;
         const TextureFormat format;
     };
     const std::array<FullTextureConfig, 3> GetTextures() const {
         return {{
-            {static_cast<bool>(main_config.texture0_enable), texture0, texture0_format},
-            {static_cast<bool>(main_config.texture1_enable), texture1, texture1_format},
-            {static_cast<bool>(main_config.texture2_enable), texture2, texture2_format},
+            {main_config.texture0_enable, texture0, texture0_format},
+            {main_config.texture1_enable, texture1, texture1_format},
+            {main_config.texture2_enable, texture2, texture2_format},
         }};
     }
 

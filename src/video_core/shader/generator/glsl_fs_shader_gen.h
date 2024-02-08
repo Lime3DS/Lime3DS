@@ -74,7 +74,8 @@ private:
 
     void DefineExtensions();
     void DefineInterface();
-    void DefineBindings();
+    void DefineBindingsVK();
+    void DefineBindingsGL();
     void DefineHelpers();
     void DefineLightingHelpers();
     void DefineShadowHelpers();

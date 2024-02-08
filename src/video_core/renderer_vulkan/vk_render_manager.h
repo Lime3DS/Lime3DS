@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright 2024 Citra Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -27,7 +27,10 @@ struct RenderPass {
     u32 do_clear;
 
     bool operator==(const RenderPass& other) const noexcept {
-        return std::memcmp(this, &other, sizeof(RenderPass)) == 0;
+        return std::tie(framebuffer, render_pass, render_area, do_clear) ==
+                   std::tie(other.framebuffer, other.render_pass, other.render_area,
+                            other.do_clear) &&
+               std::memcmp(&clear, &other.clear, sizeof(vk::ClearValue)) == 0;
     }
 };
 

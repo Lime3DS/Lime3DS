@@ -126,7 +126,7 @@ struct AttachmentInfo {
 };
 
 /**
- * Information about a graphics/compute pipeline
+ * Information about a graphics pipeline
  */
 struct PipelineInfo {
     BlendingState blending;

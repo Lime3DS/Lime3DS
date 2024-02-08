@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <utility>
-#include <functional>
 #include "common/alignment.h"
 #include "common/common_funcs.h"
 #include "common/polyfill_thread.h"

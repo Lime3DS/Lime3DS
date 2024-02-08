@@ -11,6 +11,7 @@
 #include "common/scope_exit.h"
 #include "common/settings.h"
 #include "video_core/renderer_vulkan/pica_to_vk.h"
+#include "video_core/renderer_vulkan/vk_descriptor_update_queue.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
 #include "video_core/renderer_vulkan/vk_pipeline_cache.h"
 #include "video_core/renderer_vulkan/vk_render_manager.h"
@@ -62,34 +63,34 @@ constexpr std::array<vk::DescriptorSetLayoutBinding, 6> BUFFER_BINDINGS = {{
     {5, vk::DescriptorType::eUniformTexelBuffer, 1, vk::ShaderStageFlagBits::eFragment},
 }};
 
+template <u32 NumTex0>
 constexpr std::array<vk::DescriptorSetLayoutBinding, 3> TEXTURE_BINDINGS = {{
-    {0, vk::DescriptorType::eCombinedImageSampler, 1, vk::ShaderStageFlagBits::eFragment},
-    {1, vk::DescriptorType::eCombinedImageSampler, 1, vk::ShaderStageFlagBits::eFragment},
-    {2, vk::DescriptorType::eCombinedImageSampler, 1, vk::ShaderStageFlagBits::eFragment},
+    {0, vk::DescriptorType::eCombinedImageSampler, NumTex0,
+     vk::ShaderStageFlagBits::eFragment},                                                  // tex0
+    {1, vk::DescriptorType::eCombinedImageSampler, 1, vk::ShaderStageFlagBits::eFragment}, // tex1
+    {2, vk::DescriptorType::eCombinedImageSampler, 1, vk::ShaderStageFlagBits::eFragment}, // tex2
 }};
 
-// TODO: Use descriptor array for shadow cube
-constexpr std::array<vk::DescriptorSetLayoutBinding, 7> SHADOW_BINDINGS = {{
-    {0, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
-    {1, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
-    {2, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
-    {3, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
-    {4, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
-    {5, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
-    {6, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment},
+constexpr std::array<vk::DescriptorSetLayoutBinding, 2> UTILITY_BINDINGS = {{
+    {0, vk::DescriptorType::eStorageImage, 1, vk::ShaderStageFlagBits::eFragment}, // shadow_buffer
+    {1, vk::DescriptorType::eCombinedImageSampler, 1,
+     vk::ShaderStageFlagBits::eFragment}, // tex_normal
 }};
 
 PipelineCache::PipelineCache(const Instance& instance_, Scheduler& scheduler_,
-                             RenderManager& render_manager_, DescriptorPool& pool_)
-    : instance{instance_}, scheduler{scheduler_}, render_manager{render_manager_}, pool{pool_},
-      num_worker_threads{std::max(std::thread::hardware_concurrency(), 2U)},
+                             RenderManager& render_manager_, DescriptorUpdateQueue& update_queue_)
+    : instance{instance_}, scheduler{scheduler_}, render_manager{render_manager_},
+      update_queue{update_queue_},
+      num_worker_threads{std::max(std::thread::hardware_concurrency(), 2U) >> 1},
       workers{num_worker_threads, "Pipeline workers"},
-      descriptor_set_providers{DescriptorSetProvider{instance, pool, BUFFER_BINDINGS},
-                               DescriptorSetProvider{instance, pool, TEXTURE_BINDINGS},
-                               DescriptorSetProvider{instance, pool, SHADOW_BINDINGS}},
+      descriptor_heaps{
+          DescriptorHeap{instance, scheduler.GetMasterSemaphore(), BUFFER_BINDINGS, 32},
+          DescriptorHeap{instance, scheduler.GetMasterSemaphore(), TEXTURE_BINDINGS<1>},
+          DescriptorHeap{instance, scheduler.GetMasterSemaphore(), UTILITY_BINDINGS, 32}},
       trivial_vertex_shader{
           instance, vk::ShaderStageFlagBits::eVertex,
           GLSL::GenerateTrivialVertexShader(instance.IsShaderClipDistanceSupported(), true)} {
+    scheduler.RegisterOnDispatch([this] { update_queue.Flush(); });
     profile = Pica::Shader::Profile{
         .has_separable_shaders = true,
         .has_clip_planes = instance.IsShaderClipDistanceSupported(),
@@ -106,13 +107,13 @@ PipelineCache::PipelineCache(const Instance& instance_, Scheduler& scheduler_,
 }
 
 void PipelineCache::BuildLayout() {
-    std::array<vk::DescriptorSetLayout, NUM_RASTERIZER_SETS> descriptor_set_layouts;
-    std::transform(descriptor_set_providers.begin(), descriptor_set_providers.end(),
-                   descriptor_set_layouts.begin(),
-                   [](const auto& provider) { return provider.Layout(); });
+    std::array<vk::DescriptorSetLayout, NumRasterizerSets> descriptor_set_layouts;
+    descriptor_set_layouts[0] = descriptor_heaps[0].Layout();
+    descriptor_set_layouts[1] = descriptor_heaps[1].Layout();
+    descriptor_set_layouts[2] = descriptor_heaps[2].Layout();
 
     const vk::PipelineLayoutCreateInfo layout_info = {
-        .setLayoutCount = NUM_RASTERIZER_SETS,
+        .setLayoutCount = NumRasterizerSets,
         .pSetLayouts = descriptor_set_layouts.data(),
         .pushConstantRangeCount = 0,
         .pPushConstantRanges = nullptr,
@@ -214,55 +215,11 @@ bool PipelineCache::BindPipeline(const PipelineInfo& info, bool wait_built) {
         return false;
     }
 
-    u32 new_descriptors_start = 0;
-    std::span<vk::DescriptorSet> new_descriptors_span{};
-    std::span<u32> new_offsets_span{};
-
-    // Ensure all the descriptor sets are set at least once at the beginning.
-    if (scheduler.IsStateDirty(StateFlags::DescriptorSets)) {
-        set_dirty.set();
-    }
-
-    if (set_dirty.any()) {
-        for (u32 i = 0; i < NUM_RASTERIZER_SETS; i++) {
-            if (!set_dirty.test(i)) {
-                continue;
-            }
-            bound_descriptor_sets[i] = descriptor_set_providers[i].Acquire(update_data[i]);
-        }
-        new_descriptors_span = bound_descriptor_sets;
-
-        // Only send new offsets if the buffer descriptor-set changed.
-        if (set_dirty.test(0)) {
-            new_offsets_span = offsets;
-        }
-
-        // Try to compact the number of updated descriptor-set slots to the ones that have actually
-        // changed
-        if (!set_dirty.all()) {
-            const u64 dirty_mask = set_dirty.to_ulong();
-            new_descriptors_start = static_cast<u32>(std::countr_zero(dirty_mask));
-            const u32 new_descriptors_end = 64u - static_cast<u32>(std::countl_zero(dirty_mask));
-            const u32 new_descriptors_size = new_descriptors_end - new_descriptors_start;
-
-            new_descriptors_span =
-                new_descriptors_span.subspan(new_descriptors_start, new_descriptors_size);
-        }
-
-        set_dirty.reset();
-    }
-
-    boost::container::static_vector<vk::DescriptorSet, NUM_RASTERIZER_SETS> new_descriptors(
-        new_descriptors_span.begin(), new_descriptors_span.end());
-    boost::container::static_vector<u32, NUM_DYNAMIC_OFFSETS> new_offsets(new_offsets_span.begin(),
-                                                                          new_offsets_span.end());
-
     const bool is_dirty = scheduler.IsStateDirty(StateFlags::Pipeline);
     const bool pipeline_dirty = (current_pipeline != pipeline) || is_dirty;
     scheduler.Record([this, is_dirty, pipeline_dirty, pipeline,
                       current_dynamic = current_info.dynamic, dynamic = info.dynamic,
-                      new_descriptors_start, descriptor_sets = std::move(new_descriptors),
-                      offsets = std::move(new_offsets),
+                      descriptor_sets = bound_descriptor_sets, offsets = offsets,
                       current_rasterization = current_info.rasterization,
                       current_depth_stencil = current_info.depth_stencil,
                       rasterization = info.rasterization,
@@ -364,10 +321,8 @@ bool PipelineCache::BindPipeline(const PipelineInfo& info, bool wait_built) {
             cmdbuf.bindPipeline(vk::PipelineBindPoint::eGraphics, pipeline->Handle());
         }
 
-        if (descriptor_sets.size()) {
-            cmdbuf.bindDescriptorSets(vk::PipelineBindPoint::eGraphics, *pipeline_layout,
-                                      new_descriptors_start, descriptor_sets, offsets);
-        }
+        cmdbuf.bindDescriptorSets(vk::PipelineBindPoint::eGraphics, *pipeline_layout, 0,
+                                  descriptor_sets, offsets);
     });
 
     current_info = info;
@@ -385,7 +340,6 @@ bool PipelineCache::UseProgrammableVertexShader(const Pica::RegsInternal& regs,
     // We also don't need the geometry shader if we have the barycentric extension.
     const bool use_geometry_shader = instance.UseGeometryShaders() && !regs.lighting.disable &&
                                      !instance.IsFragmentShaderBarycentricSupported();
-
     PicaVSConfig config{regs, setup, instance.IsShaderClipDistanceSupported(), use_geometry_shader};
 
     for (u32 i = 0; i < layout.attribute_count; i++) {
@@ -402,7 +356,7 @@ bool PipelineCache::UseProgrammableVertexShader(const Pica::RegsInternal& regs,
         }
     }
 
-    auto [it, new_config] = programmable_vertex_map.try_emplace(config);
+    const auto [it, new_config] = programmable_vertex_map.try_emplace(config);
     if (new_config) {
         auto program = GLSL::GenerateVertexShader(setup, config, true);
         if (program.empty()) {
@@ -495,59 +449,6 @@ void PipelineCache::UseFragmentShader(const Pica::RegsInternal& regs,
 
     current_shaders[ProgramType::FS] = &shader;
     shader_hashes[ProgramType::FS] = fs_config.Hash();
-}
-
-void PipelineCache::BindTexture(u32 binding, vk::ImageView image_view, vk::Sampler sampler) {
-    auto& info = update_data[1][binding].image_info;
-    if (info.imageView == image_view && info.sampler == sampler) {
-        return;
-    }
-    set_dirty[1] = true;
-    info = vk::DescriptorImageInfo{
-        .sampler = sampler,
-        .imageView = image_view,
-        .imageLayout = vk::ImageLayout::eGeneral,
-    };
-}
-
-void PipelineCache::BindStorageImage(u32 binding, vk::ImageView image_view) {
-    auto& info = update_data[2][binding].image_info;
-    if (info.imageView == image_view) {
-        return;
-    }
-    set_dirty[2] = true;
-    info = vk::DescriptorImageInfo{
-        .imageView = image_view,
-        .imageLayout = vk::ImageLayout::eGeneral,
-    };
-}
-
-void PipelineCache::BindBuffer(u32 binding, vk::Buffer buffer, u32 offset, u32 size) {
-    auto& info = update_data[0][binding].buffer_info;
-    if (info.buffer == buffer && info.offset == offset && info.range == size) {
-        return;
-    }
-    set_dirty[0] = true;
-    info = vk::DescriptorBufferInfo{
-        .buffer = buffer,
-        .offset = offset,
-        .range = size,
-    };
-}
-
-void PipelineCache::BindTexelBuffer(u32 binding, vk::BufferView buffer_view) {
-    auto& view = update_data[0][binding].buffer_view;
-    if (view != buffer_view) {
-        set_dirty[0] = true;
-        view = buffer_view;
-    }
-}
-
-void PipelineCache::SetBufferOffset(u32 binding, std::size_t offset) {
-    if (offsets[binding] != static_cast<u32>(offset)) {
-        offsets[binding] = static_cast<u32>(offset);
-        set_dirty[0] = true;
-    }
 }
 
 bool PipelineCache::IsCacheValid(std::span<const u8> data) const {

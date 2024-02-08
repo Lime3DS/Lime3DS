@@ -160,8 +160,8 @@ if (ENABLE_VULKAN)
         renderer_vulkan/vk_blit_helper.h
         renderer_vulkan/vk_common.cpp
         renderer_vulkan/vk_common.h
-        renderer_vulkan/vk_descriptor_pool.cpp
-        renderer_vulkan/vk_descriptor_pool.h
+        renderer_vulkan/vk_descriptor_update_queue.cpp
+        renderer_vulkan/vk_descriptor_update_queue.h
         renderer_vulkan/vk_graphics_pipeline.cpp
         renderer_vulkan/vk_graphics_pipeline.h
         renderer_vulkan/vk_master_semaphore.cpp

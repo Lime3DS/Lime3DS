@@ -5,10 +5,8 @@
 #include <mutex>
 #include <utility>
 #include "common/microprofile.h"
-#include "common/settings.h"
 #include "common/thread.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
-#include "video_core/renderer_vulkan/vk_render_manager.h"
 #include "video_core/renderer_vulkan/vk_scheduler.h"
 
 MICROPROFILE_DEFINE(Vulkan_WaitForWorker, "Vulkan", "Wait for worker", MP_RGB(255, 192, 192));
@@ -98,7 +96,7 @@ void Scheduler::DispatchWork() {
         return;
     }
 
-    //on_dispatch();
+    on_dispatch();
 
     {
         std::scoped_lock ql{queue_mutex};
@@ -182,6 +180,8 @@ void Scheduler::SubmitExecution(vk::Semaphore signal_semaphore, vk::Semaphore wa
         std::scoped_lock lock{submit_mutex};
         master_semaphore->SubmitWork(cmdbuf, wait_semaphore, signal_semaphore, signal_value);
     });
+
+    master_semaphore->Refresh();
 
     if (!use_worker_thread) {
         AllocateWorkerCommandBuffers();

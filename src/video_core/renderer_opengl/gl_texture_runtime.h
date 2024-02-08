@@ -65,7 +65,12 @@ public:
     void ClearTexture(Surface& surface, const VideoCore::TextureClear& clear);
 
     /// Copies a rectangle of source to another rectange of dest
-    bool CopyTextures(Surface& source, Surface& dest, const VideoCore::TextureCopy& copy);
+    bool CopyTextures(Surface& source, Surface& dest,
+                      std::span<const VideoCore::TextureCopy> copies);
+
+    bool CopyTextures(Surface& source, Surface& dest, const VideoCore::TextureCopy& copy) {
+        return CopyTextures(source, dest, std::array{copy});
+    }
 
     /// Blits a rectangle of source to another rectange of dest
     bool BlitTextures(Surface& source, Surface& dest, const VideoCore::TextureBlit& blit);
