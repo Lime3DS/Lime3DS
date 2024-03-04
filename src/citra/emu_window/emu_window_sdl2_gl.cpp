@@ -77,7 +77,7 @@ EmuWindow_SDL2_GL::EmuWindow_SDL2_GL(Core::System& system_, bool fullscreen, boo
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
     }
 
-    std::string window_title = fmt::format("Citra {} | {}-{}", Common::g_build_fullname,
+    std::string window_title = fmt::format("Lime {} | {}-{}", Common::g_build_fullname,
                                            Common::g_scm_branch, Common::g_scm_desc);
 
     // First, try to create a context with the requested type.

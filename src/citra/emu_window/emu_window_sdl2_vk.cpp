@@ -17,7 +17,7 @@ class DummyContext : public Frontend::GraphicsContext {};
 
 EmuWindow_SDL2_VK::EmuWindow_SDL2_VK(Core::System& system, bool fullscreen, bool is_secondary)
     : EmuWindow_SDL2{system, is_secondary} {
-    const std::string window_title = fmt::format("Citra {} | {}-{}", Common::g_build_fullname,
+    const std::string window_title = fmt::format("Lime {} | {}-{}", Common::g_build_fullname,
                                                  Common::g_scm_branch, Common::g_scm_desc);
     render_window =
         SDL_CreateWindow(window_title.c_str(),
