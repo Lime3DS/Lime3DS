@@ -2,7 +2,7 @@
   <br>
   <a href="https://citra-emu.org/"><img src="https://i.imgur.com/At6iycZ.png" alt="Lime" width="200"></a>
   <br>
-  <b>Citra</b>
+  <b>Lime</b>
   <br>
 </h1>
 
