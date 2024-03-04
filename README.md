@@ -13,4 +13,4 @@ It is written in C++ with portability in mind and builds are actively maintained
 
 ## License
 
-Citra is licensed under the GPLv2 (or any later version). Refer to the [LICENSE.txt](https://github.com/citra-emu/citra/blob/master/license.txt) file.
+Lime is licensed under the GPLv2 (or any later version). Refer to the [LICENSE.txt](https://github.com/citra-emu/citra/blob/master/license.txt) file.
