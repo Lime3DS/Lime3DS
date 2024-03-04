@@ -1,6 +1,6 @@
 [submodule "boost"]
     path = externals/boost
-    url = https://github.com/citra-emu/ext-boost.git
+    url = https://github.com/blitzingeagle/ext-boost.git
 [submodule "nihstro"]
     path = externals/nihstro
     url = https://github.com/neobrain/nihstro.git
@@ -27,7 +27,7 @@
     url = https://github.com/benhoyt/inih.git
 [submodule "libressl"]
     path = externals/libressl
-    url = https://github.com/citra-emu/ext-libressl-portable.git
+    url = https://github.com/blitzingeagle/ext-libressl-portable.git
 [submodule "libusb"]
     path = externals/libusb/libusb
     url = https://github.com/libusb/libusb.git
@@ -36,7 +36,7 @@
     url = https://github.com/mozilla/cubeb
 [submodule "discord-rpc"]
     path = externals/discord-rpc
-    url = https://github.com/yuzu-emu/discord-rpc.git
+    url = https://github.com/blitzingeagle/discord-rpc.git
 [submodule "cpp-jwt"]
     path = externals/cpp-jwt
     url = https://github.com/arun11299/cpp-jwt.git
@@ -78,13 +78,13 @@
     url = https://github.com/KhronosGroup/Vulkan-Headers
 [submodule "sirit"]
     path = externals/sirit
-    url = https://github.com/yuzu-emu/sirit
+    url = https://github.com/blitzingeagle/sirit
 [submodule "faad2"]
     path = externals/faad2/faad2
     url = https://github.com/knik0/faad2
 [submodule "library-headers"]
     path = externals/library-headers
-    url = https://github.com/citra-emu/ext-library-headers.git
+    url = https://github.com/blitzingeagle/ext-library-headers.git
 [submodule "libadrenotools"]
     path = externals/libadrenotools
     url = https://github.com/bylaws/libadrenotools
