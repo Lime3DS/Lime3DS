@@ -45,7 +45,7 @@ jobs:
           path: 'citra-merge'
           fetch-depth: 0
           submodules: true
-          token: ${{ secrets.ALT_GITHUB_TOKEN }}
+          token: ${{ secrets.BUILD_MAGIC }}
       - uses: actions/github-script@v7
         name: 'Update and tag new commits'
         if: ${{ steps.check-changes.outputs.result == 'true' }}
