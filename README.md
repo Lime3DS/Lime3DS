@@ -17,6 +17,10 @@ It is written in C++ with portability in mind and builds are actively maintained
 
 https://github.com/RyzenDew/Lime-3DS-Emulator/releases
 
+## support me
+
+Just subcribe to my Youtube https://www.youtube.com/c/MattsCreative 
+
 ## License
 
 Lime is licensed under the GPLv2 (or any later version). Refer to the [LICENSE.txt](https://github.com/citra-emu/citra/blob/master/license.txt) file.
