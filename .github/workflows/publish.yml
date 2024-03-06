@@ -45,50 +45,15 @@ jobs:
           path: 'citra-merge'
           fetch-depth: 0
           submodules: true
+          token: ${{ secrets.ALT_GITHUB_TOKEN }}
       - uses: actions/github-script@v7
         name: 'Update and tag new commits'
         if: ${{ steps.check-changes.outputs.result == 'true' }}
+        env:
+          ALT_GITHUB_TOKEN: ${{ secrets.BUILD_MAGIC }}
         with:
           script: |
             const execa = require("execa");
             const tagAndPush = require('./.github/workflows/ci-merge.js').tagAndPush;
             process.chdir('${{ github.workspace }}/citra-merge');
             tagAndPush(github, context.repo.owner, `${context.repo.repo}-nightly`, execa);
-  canary:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.canary != 'false' && github.repository == 'RyzenDew/Lime-3DS-Emulator' }}
-    steps:
-      # this checkout is required to make sure the GitHub Actions scripts are available
-      - uses: actions/checkout@v4
-        name: Pre-checkout
-        with:
-          submodules: false
-      - uses: actions/github-script@v7
-        id: check-changes
-        name: 'Check for new changes'
-        env:
-          # 24 hours
-          DETECTION_TIME_FRAME: 86400000
-        with:
-          script: |
-            if (context.payload.inputs && context.payload.inputs.canary === 'true') return true;
-            const checkCanaryChanges = require('./.github/workflows/ci-merge.js').checkCanaryChanges;
-            return checkCanaryChanges(github, context);
-      - run: npm install execa@5
-        if: ${{ steps.check-changes.outputs.result == 'true' }}
-      - uses: actions/checkout@v4
-        name: Checkout
-        if: ${{ steps.check-changes.outputs.result == 'true' }}
-        with:
-          path: 'citra-merge'
-          fetch-depth: 0
-          submodules: true
-      - uses: actions/github-script@v7
-        name: 'Check and merge canary changes'
-        if: ${{ steps.check-changes.outputs.result == 'true' }}
-        with:
-          script: |
-            const execa = require("execa");
-            const mergebot = require('./.github/workflows/ci-merge.js').mergebot;
-            process.chdir('${{ github.workspace }}/citra-merge');
-            mergebot(github, context, execa);
