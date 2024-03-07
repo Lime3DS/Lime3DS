@@ -6,7 +6,7 @@
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-CITRA_ICON              ICON                    "../../dist/citra.ico"
+CITRA_ICON              ICON                    "../../dist/lime.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Citra</string>
+   <string>Lime</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>dist/citra.png</normaloff>dist/citra.png</iconset>
+    <normaloff>dist/lime.png</normaloff>dist/lime.png</iconset>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -587,7 +587,7 @@
   </action>
   <action name="action_Open_Citra_Folder">
    <property name="text">
-    <string>Open Citra Folder</string>
+    <string>Open Lime Folder</string>
    </property>
   </action>
   <action name="action_Configure_Current_Game">
