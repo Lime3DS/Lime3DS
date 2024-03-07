@@ -1835,7 +1835,7 @@ void GMainWindow::OnCIAInstallReport(Service::AM::InstallStatus status, QString 
     case Service::AM::InstallStatus::ErrorEncrypted:
         QMessageBox::critical(this, tr("Encrypted File"),
                               tr("%1 must be decrypted "
-                                 "before being used with Litra. A real 3DS is required.")
+                                 "before being used with Lime. A real 3DS is required.")
                                   .arg(filename));
         break;
     case Service::AM::InstallStatus::ErrorFileNotFound:

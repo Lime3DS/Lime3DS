@@ -1,4 +1,4 @@
-// Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -340,7 +340,7 @@ void ConfigureMotionTouch::OnConfigureTouchFromButton() {
 
 bool ConfigureMotionTouch::CanCloseDialog() {
     if (udp_test_in_progress) {
-        QMessageBox::warning(this, tr("Citra"),
+        QMessageBox::warning(this, tr("Lime"),
                              tr("UDP Test or calibration configuration is in progress.<br>Please "
                                 "wait for them to finish."));
         return false;
