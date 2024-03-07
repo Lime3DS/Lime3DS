@@ -1,4 +1,4 @@
-// Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -16,7 +16,7 @@ namespace DiscordRPC {
 DiscordImpl::DiscordImpl(const Core::System& system_) : system{system_} {
     DiscordEventHandlers handlers{};
 
-    // The number is the client ID for Citra, it's used for images and the
+    // The number is the client ID for Lime, it's used for images and the
     // application name
     Discord_Initialize("719647875465871400", &handlers, 1, nullptr);
 }
