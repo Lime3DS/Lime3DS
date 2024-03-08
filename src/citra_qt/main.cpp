@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -233,7 +233,7 @@ GMainWindow::GMainWindow(Core::System& system_)
     ConnectMenuEvents();
     ConnectWidgetEvents();
 
-    LOG_INFO(Frontend, "Citra Version: {} | {}-{}", Common::g_build_fullname, Common::g_scm_branch,
+    LOG_INFO(Frontend, "Lime Version: {} | {}-{}", Common::g_build_fullname, Common::g_scm_branch,
              Common::g_scm_desc);
 #if CITRA_ARCH(x86_64)
     const auto& caps = Common::GetCPUCaps();
@@ -275,7 +275,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 #if defined(_WIN32)
     if (gl_renderer.startsWith(QStringLiteral("D3D12"))) {
         // OpenGLOn12 supports but does not yet advertise OpenGL 4.0+
-        // We can override the version here to allow Citra to work.
+        // We can override the version here to allow Lime to work.
         // TODO: Remove this when OpenGL 4.0+ is advertised.
         qputenv("MESA_GL_VERSION_OVERRIDE", "4.6");
     }
@@ -632,7 +632,7 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Load_File, QStringLiteral("Load File"));
     link_action_shortcut(ui->action_Load_Amiibo, QStringLiteral("Load Amiibo"));
     link_action_shortcut(ui->action_Remove_Amiibo, QStringLiteral("Remove Amiibo"));
-    link_action_shortcut(ui->action_Exit, QStringLiteral("Exit Citra"));
+    link_action_shortcut(ui->action_Exit, QStringLiteral("Exit Lime"));
     link_action_shortcut(ui->action_Restart, QStringLiteral("Restart Emulation"));
     link_action_shortcut(ui->action_Pause, QStringLiteral("Continue/Pause Emulation"));
     link_action_shortcut(ui->action_Stop, QStringLiteral("Stop Emulation"));
@@ -1109,10 +1109,10 @@ static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
         return {};
     }
     QVariantMap options = {};
-    //: TRANSLATORS: This string is shown to the user to explain why Citra needs to prevent the
+    //: TRANSLATORS: This string is shown to the user to explain why Lime needs to prevent the
     //: computer from sleeping
     options.insert(QString::fromLatin1("reason"),
-                   QCoreApplication::translate("GMainWindow", "Citra is running a game"));
+                   QCoreApplication::translate("GMainWindow", "Lime is running a game"));
     // 0x4: Suspend lock; 0x8: Idle lock
     QDBusReply<QDBusObjectPath> reply =
         xdp.call(QString::fromLatin1("Inhibit"),
@@ -1225,7 +1225,7 @@ bool GMainWindow::LoadROM(const QString& filename) {
 
         case Core::System::ResultStatus::ErrorLoader_ErrorGbaTitle:
             QMessageBox::critical(this, tr("Unsupported ROM"),
-                                  tr("GBA Virtual Console ROMs are not supported by Citra."));
+                                  tr("GBA Virtual Console ROMs are not supported by Lime."));
             break;
 
         default:
@@ -1261,7 +1261,7 @@ void GMainWindow::BootGame(const QString& filename) {
         return;
     }
 
-    LOG_INFO(Frontend, "Citra starting...");
+    LOG_INFO(Frontend, "Lime starting...");
     StoreRecentFile(filename); // Put the filename on top of the list
 
     if (movie_record_on_start) {
@@ -1684,7 +1684,7 @@ void GMainWindow::OnGameListDumpRomFS(QString game_path, u64 program_id) {
                 const auto& [base, update] = future_watcher->result();
                 if (base != Loader::ResultStatus::Success) {
                     QMessageBox::critical(
-                        this, tr("Citra"),
+                        this, tr("Lime"),
                         tr("Could not dump base RomFS.\nRefer to the log for details."));
                     return;
                 }
@@ -1835,7 +1835,7 @@ void GMainWindow::OnCIAInstallReport(Service::AM::InstallStatus status, QString 
     case Service::AM::InstallStatus::ErrorEncrypted:
         QMessageBox::critical(this, tr("Encrypted File"),
                               tr("%1 must be decrypted "
-                                 "before being used with Citra. A real 3DS is required.")
+                                 "before being used with Lime. A real 3DS is required.")
                                   .arg(filename));
         break;
     case Service::AM::InstallStatus::ErrorFileNotFound:
@@ -1897,9 +1897,9 @@ void GMainWindow::UninstallTitles(
     future_watcher.waitForFinished();
 
     if (failed) {
-        QMessageBox::critical(this, tr("Citra"), tr("Failed to uninstall '%1'.").arg(failed_name));
+        QMessageBox::critical(this, tr("Lime"), tr("Failed to uninstall '%1'.").arg(failed_name));
     } else if (!future_watcher.isCanceled()) {
-        QMessageBox::information(this, tr("Citra"),
+        QMessageBox::information(this, tr("Lime"),
                                  tr("Successfully uninstalled '%1'.").arg(first_name));
     }
 }
@@ -1991,8 +1991,8 @@ void GMainWindow::OnMenuReportCompatibility() {
         CompatDB compatdb{system.TelemetrySession(), this};
         compatdb.exec();
     } else {
-        QMessageBox::critical(this, tr("Missing Citra Account"),
-                              tr("You must link your Citra account to submit test cases."
+        QMessageBox::critical(this, tr("Missing Lime Account"),
+                              tr("You must link your Lime account to submit test cases."
                                  "<br/>Go to Emulation &gt; Configure... &gt; Web to do so."));
     }
 }
@@ -2435,7 +2435,7 @@ void GMainWindow::OnDumpVideo() {
         message_box.setText(
             tr("FFmpeg could not be loaded. Make sure you have a compatible version installed."
 #ifdef _WIN32
-               "\n\nTo install FFmpeg to Citra, press Open and select your FFmpeg directory."
+               "\n\nTo install FFmpeg to Lime, press Open and select your FFmpeg directory."
 #endif
                "\n\nTo view a guide on how to install FFmpeg, press Help."));
         message_box.setStandardButtons(QMessageBox::Ok | QMessageBox::Help
@@ -2479,7 +2479,7 @@ void GMainWindow::OnOpenFFmpeg() {
 
     for (auto& library_name : library_names) {
         if (!FileUtil::Exists(bin_dir + DIR_SEP + library_name)) {
-            QMessageBox::critical(this, tr("Citra"),
+            QMessageBox::critical(this, tr("Lime"),
                                   tr("The provided FFmpeg directory is missing %1. Please make "
                                      "sure the correct directory was selected.")
                                       .arg(QString::fromStdString(library_name)));
@@ -2503,9 +2503,9 @@ void GMainWindow::OnOpenFFmpeg() {
     FileUtil::ForeachDirectoryEntry(nullptr, bin_dir, process_file);
 
     if (success.load()) {
-        QMessageBox::information(this, tr("Citra"), tr("FFmpeg has been sucessfully installed."));
+        QMessageBox::information(this, tr("Lime"), tr("FFmpeg has been sucessfully installed."));
     } else {
-        QMessageBox::critical(this, tr("Citra"),
+        QMessageBox::critical(this, tr("Lime"),
                               tr("Installation of FFmpeg failed. Check the log file for details."));
     }
 }
@@ -2535,7 +2535,7 @@ void GMainWindow::StartVideoDumping(const QString& path) {
         system.RegisterVideoDumper(dumper);
     } else {
         QMessageBox::critical(
-            this, tr("Citra"),
+            this, tr("Lime"),
             tr("Could not start video dumping.<br>Refer to the log for details."));
         ui->action_Dump_Video->setChecked(false);
     }
@@ -2836,7 +2836,7 @@ bool GMainWindow::ConfirmClose() {
     }
 
     QMessageBox::StandardButton answer =
-        QMessageBox::question(this, tr("Citra"), tr("Would you like to exit now?"),
+        QMessageBox::question(this, tr("Lime"), tr("Would you like to exit now?"),
                               QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     return answer != QMessageBox::No;
 }
@@ -2929,7 +2929,7 @@ bool GMainWindow::ConfirmChangeGame() {
     }
 
     auto answer = QMessageBox::question(
-        this, tr("Citra"), tr("The game is still running. Would you like to stop emulation?"),
+        this, tr("Lime"), tr("The game is still running. Would you like to stop emulation?"),
         QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     return answer != QMessageBox::No;
 }
@@ -3055,12 +3055,12 @@ void GMainWindow::UpdateWindowTitle() {
     const QString full_name = QString::fromUtf8(Common::g_build_fullname);
 
     if (game_title.isEmpty()) {
-        setWindowTitle(QStringLiteral("Citra %1").arg(full_name));
+        setWindowTitle(QStringLiteral("Lime %1").arg(full_name));
     } else {
-        setWindowTitle(QStringLiteral("Citra %1 | %2").arg(full_name, game_title));
+        setWindowTitle(QStringLiteral("Lime %1 | %2").arg(full_name, game_title));
         render_window->setWindowTitle(
-            QStringLiteral("Citra %1 | %2 | %3").arg(full_name, game_title, tr("Primary Window")));
-        secondary_window->setWindowTitle(QStringLiteral("Citra %1 | %2 | %3")
+            QStringLiteral("Lime %1 | %2 | %3").arg(full_name, game_title, tr("Primary Window")));
+        secondary_window->setWindowTitle(QStringLiteral("Lime %1 | %2 | %3")
                                              .arg(full_name, game_title, tr("Secondary Window")));
     }
 }
@@ -3190,8 +3190,8 @@ int main(int argc, char* argv[]) {
     SCOPE_EXIT({ MicroProfileShutdown(); });
 
     // Init settings params
-    QCoreApplication::setOrganizationName(QStringLiteral("Citra team"));
-    QCoreApplication::setApplicationName(QStringLiteral("Citra"));
+    QCoreApplication::setOrganizationName(QStringLiteral("Lime team"));
+    QCoreApplication::setApplicationName(QStringLiteral("Lime"));
 
     auto rounding_policy = GetHighDpiRoundingPolicy();
     QApplication::setHighDpiScaleFactorRoundingPolicy(rounding_policy);

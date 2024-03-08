@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Citra Room
-Comment=Multiplayer room host for Citra
-Icon=citra
+Name=Lime Room
+Comment=Multiplayer room host for Lime
+Icon=lime
 TryExec=citra-room
 Exec=citra-room %f
 Categories=Game;Emulator;

@@ -1,4 +1,4 @@
-// Copyright 2016 Citra Emulator Project
+// Copyright 2024 Lime Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -269,7 +269,7 @@ ConfigureSystem::ConfigureSystem(Core::System& system_, QWidget* parent)
         ui->label_nus_download->setTextInteractionFlags(Qt::TextBrowserInteraction);
         ui->label_nus_download->setOpenExternalLinks(true);
         ui->label_nus_download->setText(
-            tr("Citra is missing keys to download system files. <br><a "
+            tr("Lime is missing keys to download system files. <br><a "
                "href='https://citra-emu.org/wiki/aes-keys/'><span style=\"text-decoration: "
                "underline; color:#039be5;\">How to get keys?</span></a>"));
     }
@@ -611,9 +611,9 @@ void ConfigureSystem::DownloadFromNUS() {
     future_watcher.waitForFinished();
 
     if (failed) {
-        QMessageBox::critical(this, tr("Citra"), tr("Downloading system files failed."));
+        QMessageBox::critical(this, tr("Lime"), tr("Downloading system files failed."));
     } else if (!future_watcher.isCanceled()) {
-        QMessageBox::information(this, tr("Citra"), tr("Successfully downloaded system files."));
+        QMessageBox::information(this, tr("Lime"), tr("Successfully downloaded system files."));
     }
 
     ui->button_start_download->setEnabled(true);
