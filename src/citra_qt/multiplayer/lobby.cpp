@@ -1,4 +1,4 @@
-// Copyright 2024 Lime Emulator Project
+// Copyright 2017 Citra Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -57,7 +57,7 @@ Lobby::Lobby(Core::System& system_, QWidget* parent, QStandardItemModel* list,
     ui->nickname->setValidator(validation.GetNickname());
     ui->nickname->setText(UISettings::values.nickname);
     if (ui->nickname->text().isEmpty() && !NetSettings::values.citra_username.empty()) {
-        // Use Lime Web Service user name as nickname by default
+        // Use Citra Web Service user name as nickname by default
         ui->nickname->setText(QString::fromStdString(NetSettings::values.citra_username));
     }
 

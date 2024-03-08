@@ -1,4 +1,4 @@
-// Copyright 2024 Lime Emulator Project
+// Copyright 2016 Citra Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -146,8 +146,8 @@ void ConfigureGeneral::SetConfiguration() {
 
 void ConfigureGeneral::ResetDefaults() {
     QMessageBox::StandardButton answer = QMessageBox::question(
-        this, tr("Lime"),
-        tr("Are you sure you want to <b>reset your settings</b> and close Lime?"),
+        this, tr("Citra"),
+        tr("Are you sure you want to <b>reset your settings</b> and close Citra?"),
         QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
     if (answer == QMessageBox::No) {
