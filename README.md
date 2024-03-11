@@ -12,6 +12,7 @@ Emulation never dies! it changes and moves forward!
 <br>
 It is written in C++ with portability in mind and builds are actively maintained for Windows, Linux, Android, and macOS.
 </h4>
+If anyone wants to help Continue This citra Fork please do because i am not a dev and i just wanted to keep citra safe.
 
 ## Release Builds
 
