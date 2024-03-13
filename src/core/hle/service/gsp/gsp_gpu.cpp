@@ -362,7 +362,8 @@ void GSP_GPU::SignalInterruptForThread(InterruptId interrupt_id, u32 thread_id) 
         auto* info = GetFrameBufferInfo(thread_id, screen_id);
         if (info->is_dirty) {
             system.GPU().SetBufferSwap(screen_id, info->framebuffer_info[info->index]);
-            info->is_dirty.Assign(false);
+            // Decompiling the GSP module shows that the dirty bit is assigned 1 for top screen, 0 for bottom
+            info->is_dirty.Assign(screen_id == 0);
         }
     }
 
