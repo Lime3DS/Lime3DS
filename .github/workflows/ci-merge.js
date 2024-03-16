@@ -200,7 +200,7 @@ async function mergebot(github, context, execa) {
     }
     console.info("The following pull requests will be merged:");
     console.table(displayList);
-    await fetchPullRequests(pulls, "https://github.com/RyzenDew/Lime-3DS-Emulator", execa);
+    await fetchPullRequests(pulls, "https://github.com/ryzenDew/Lime-3DS-Emulator", execa);
     const mergeResults = await mergePullRequests(pulls, execa);
     await generateReadme(pulls, context, mergeResults, execa);
     await tagAndPush(github, context.repo.owner, `${context.repo.repo}-canary`, execa, true);
