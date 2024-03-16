@@ -7,7 +7,7 @@ on:
 jobs:
   transifex:
     runs-on: ubuntu-latest
-    container: citraemu/build-environments:linux-fresh
+    container: RyzenDew/build-environments:linux-fresh
     if: ${{ github.repository == 'citra-emu/citra' }}
     steps:
       - uses: actions/checkout@v4
