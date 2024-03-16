@@ -28,7 +28,7 @@ jobs:
       matrix:
         target: ["appimage", "fresh"]
     container:
-      image: Lime-3DS-Emulator/build-environments:linux-${{ matrix.target }}
+      image: RyzenDew/build-environments:linux-${{ matrix.target }}
       options: -u 1001
     env:
       CCACHE_DIR: ${{ github.workspace }}/.ccache
