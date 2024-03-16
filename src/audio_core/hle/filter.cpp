@@ -67,7 +67,7 @@ std::array<s16, 2> SourceFilters::SimpleFilter::ProcessSample(const std::array<s
     std::array<s16, 2> y0;
     for (std::size_t i = 0; i < 2; i++) {
         const s32 tmp = (b0 * x0[i] + a1 * y1[i]) >> 15;
-        y0[i] = std::clamp(tmp, -32768, 32767);
+        y0[i] = std::clamp(tmp, -32768, 32768);
     }
 
     y1 = y0;
