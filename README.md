@@ -18,7 +18,7 @@ If anyone wants to help Continue This citra Fork please do because i am not a de
 
 https://github.com/RyzenDew/Lime-3DS-Emulator/releases
 
-## support me
+## How to support me
 
 Just subscribe to my YouTube https://www.youtube.com/c/MattsCreative 
 
