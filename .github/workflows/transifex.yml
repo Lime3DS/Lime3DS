@@ -7,8 +7,8 @@ on:
 jobs:
   transifex:
     runs-on: ubuntu-latest
-    container: RyzenDew/build-environments:linux-fresh
-    if: ${{ github.repository == 'citra-emu/citra' }}
+    container: ryzenDew/build-environments:linux-fresh
+    if: ${{ github.repository == 'ryzendew/Lime-3DS-Emulator' }}
     steps:
       - uses: actions/checkout@v4
         with:
