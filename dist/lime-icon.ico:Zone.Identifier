@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://eu-central.storage.cloudconvert.com/tasks/67a9e458-3474-4d84-8d9e-d795910c6ed5/lime-icon.ico?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20240316%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20240316T222934Z&X-Amz-Expires=86400&X-Amz-Signature=3d9f79a0bd678c115d139a8d6dd76d2f0007da15c36b0493c709236001b2ee93&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22lime-icon.ico%22&response-content-type=image%2Fvnd.microsoft.icon&x-id=GetObject
