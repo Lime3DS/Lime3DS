@@ -22,7 +22,7 @@ QString GetOpenGLRenderer() {
     QOpenGLContext context;
     if (context.create()) {
         context.makeCurrent(&surface);
-        return QString::fromUtf8(context.functions()->glGetString(GL_RENDERER));
+        return QString::fromUtf8(reinterpret_cast<const char*>(context.functions()->glGetString(GL_RENDERER)));
     } else {
         return QStringLiteral("");
     }
