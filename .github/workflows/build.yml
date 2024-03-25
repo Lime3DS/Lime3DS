@@ -1,4 +1,4 @@
-name: citra-build
+name: lime-build
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
       matrix:
         target: ["appimage", "fresh"]
     container:
-      image: RyzenDew/build-environments:linux-${{ matrix.target }}
+      image: polarzincomfrio/lime-build-environments:linux-${{ matrix.target }}
       options: -u 1001
     env:
       CCACHE_DIR: ${{ github.workspace }}/.ccache
@@ -126,10 +126,10 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        target: ["msvc", "msys2"]
+        target: ["msvc"]  # Removing "msys2" from the target list
     defaults:
       run:
-        shell: ${{ (matrix.target == 'msys2' && 'msys2') || 'bash' }} {0}
+        shell: bash {0} #shell: ${{ (matrix.target == 'msys2' && 'msys2') || 'bash' }} {0}
     env:
       CCACHE_DIR: ${{ github.workspace }}/.ccache
       CCACHE_COMPILERCHECK: content
@@ -149,20 +149,20 @@ jobs:
             ${{ runner.os }}-${{ matrix.target }}-
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
-        if: ${{ matrix.target == 'msvc' }}
+        # if: ${{ matrix.target == 'msvc' }}
       - name: Install extra tools (MSVC)
         run: choco install ccache ninja wget
-        if: ${{ matrix.target == 'msvc' }}
-      - name: Set up MSYS2
-        uses: msys2/setup-msys2@v2
-        if: ${{ matrix.target == 'msys2' }}
-        with:
-          msystem: clang64
-          update: true
-          install: git make p7zip
-          pacboy: >-
-            toolchain:p ccache:p cmake:p ninja:p
-            qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
+        # if: ${{ matrix.target == 'msvc' }}
+      # - name: Set up MSYS2
+      #   uses: msys2/setup-msys2@v2
+      #   if: ${{ matrix.target == 'msys2' }}
+      #   with:
+      #     msystem: clang64
+      #     update: true
+      #     install: git make p7zip
+      #     pacboy: >-
+      #       toolchain:p ccache:p cmake:p ninja:p
+      #       qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
       - name: Build

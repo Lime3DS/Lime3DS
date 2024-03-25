@@ -1,4 +1,4 @@
-name: citra-transifex
+name: lime-transifex
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
 jobs:
   transifex:
     runs-on: ubuntu-latest
-    container: RyzenDew/build-environments:linux-fresh
-    if: ${{ github.repository == 'citra-emu/citra' }}
+    container: polarzincomfrio/lime-build-environments:linux-fresh
+    if: ${{ github.repository == 'RyzenDew/Lime-3DS-Emulator' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -18,3 +18,4 @@ jobs:
         run: ./.ci/transifex.sh
         env:
           TX_TOKEN: ${{ secrets.TRANSIFEX_API_TOKEN }}
+# This will never build until there's a Transifex API TOKEN available
