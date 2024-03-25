@@ -19,7 +19,7 @@ If anyone wants to help feel free to make pull requests and contribute with the 
 
 ## Release Builds
 
-https://github.com/PabloMK7/citra/releases
+https://github.com/RyzenDew/Lime-3DS-Emulator/releases
 
 ## How to support me
 
