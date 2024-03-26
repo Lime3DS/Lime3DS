@@ -8,6 +8,7 @@
 
 Emulation never dies! it changes and moves forward!
 
+
 <h4 align="left"><b>Lime</b> is the rebith project for Citra the world's most popular, open-source, Nintendo 3DS emulator.
 <br>
 It is written in C++ with portability in mind and builds are actively maintained for Windows, Linux, Android, and macOS.
@@ -22,7 +23,6 @@ If anyone wants to help feel free to make pull requests and contribute with the 
 https://github.com/RyzenDew/Lime-3DS-Emulator/releases
 
 This is another fork that has Dev working on it also!
-https://github.com/PabloMK7/citra/releases
 
 ## How to support me
 

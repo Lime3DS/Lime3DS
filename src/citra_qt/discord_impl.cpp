@@ -16,9 +16,9 @@ namespace DiscordRPC {
 DiscordImpl::DiscordImpl(const Core::System& system_) : system{system_} {
     DiscordEventHandlers handlers{};
 
-    // The number is the client ID for Citra, it's used for images and the
-    // application name
-    Discord_Initialize("719647875465871400", &handlers, 1, nullptr);
+    // The number is the client ID for Lime3DS, it's used for images and the
+    // application name. rustygrape238 on discord is the RPC maintainer.
+    Discord_Initialize("1222229231367487539", &handlers, 1, nullptr);
 }
 
 DiscordImpl::~DiscordImpl() {
@@ -41,8 +41,8 @@ void DiscordImpl::Update() {
     }
 
     DiscordRichPresence presence{};
-    presence.largeImageKey = "citra";
-    presence.largeImageText = "Citra is an emulator for the Nintendo 3DS";
+    presence.largeImageKey = "large_icon";
+    presence.largeImageText = "Lime is an emulator for the 3DS!";
     if (is_powered_on) {
         presence.state = title.c_str();
         presence.details = "Currently in game";
