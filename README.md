@@ -16,6 +16,9 @@ If anyone wants to help Continue This citra Fork please do because i am not a de
 
 ## Release Builds
 
+https://github.com/ryzendew/Lime-3DS-Emulator/releases
+
+This is another fork that has Dev working on it also!
 https://github.com/PabloMK7/citra/releases
 
 ## How to support me
