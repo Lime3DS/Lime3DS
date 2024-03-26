@@ -21,6 +21,9 @@ If anyone wants to help feel free to make pull requests and contribute with the 
 
 https://github.com/RyzenDew/Lime-3DS-Emulator/releases
 
+This is another fork that has Dev working on it also!
+https://github.com/PabloMK7/citra/releases
+
 ## How to support me
 
 Just subscribe to my YouTube https://www.youtube.com/c/MattsCreative 
