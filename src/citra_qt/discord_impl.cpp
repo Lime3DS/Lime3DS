@@ -18,7 +18,7 @@ DiscordImpl::DiscordImpl(const Core::System& system_) : system{system_} {
 
     // The number is the client ID for Citra, it's used for images and the
     // application name
-    Discord_Initialize("719647875465871400", &handlers, 1, nullptr);
+    Discord_Initialize("1222229231367487539", &handlers, 1, nullptr);
 }
 
 DiscordImpl::~DiscordImpl() {
@@ -41,8 +41,8 @@ void DiscordImpl::Update() {
     }
 
     DiscordRichPresence presence{};
-    presence.largeImageKey = "citra";
-    presence.largeImageText = "Citra is an emulator for the Nintendo 3DS";
+    presence.largeImageKey = "large_icon";
+    presence.largeImageText = "Lime is an emulator for the 3DS!";
     if (is_powered_on) {
         presence.state = title.c_str();
         presence.details = "Currently in game";
