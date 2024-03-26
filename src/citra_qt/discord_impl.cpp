@@ -16,8 +16,8 @@ namespace DiscordRPC {
 DiscordImpl::DiscordImpl(const Core::System& system_) : system{system_} {
     DiscordEventHandlers handlers{};
 
-    // The number is the client ID for Citra, it's used for images and the
-    // application name
+    // The number is the client ID for Lime3DS, it's used for images and the
+    // application name. rustygrape238 on discord is the RPC maintainer.
     Discord_Initialize("1222229231367487539", &handlers, 1, nullptr);
 }
 
