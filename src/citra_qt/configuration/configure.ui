@@ -3,7 +3,7 @@
  <class>ConfigureDialog</class>
  <widget class="QDialog" name="ConfigureDialog">
   <property name="windowTitle">
-   <string>Citra Configuration</string>
+   <string>Lime Configuration</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
