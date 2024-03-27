@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://citra-emu.org/"><img src="https://i.imgur.com/ADJjMnR.png" alt="Lime" width="200"></a>
+  <a href="https://citra-emu.org/"><img src="https://i.imgur.com/wmtgeV5.png" alt="Lime 3DS" width="200"></a>
   <br>
   <b>Lime</b>
   <br>
