@@ -19,13 +19,13 @@
      <item>
       <widget class="QGroupBox" name="groupBoxWebConfig">
        <property name="title">
-        <string>Citra Web Service</string>
+        <string>Lime Web Service</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayoutCitraWebService">
         <item>
          <widget class="QLabel" name="web_credentials_disclaimer">
           <property name="text">
-           <string>By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</string>
+           <string>Currently not supported by Lime. By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</string>
           </property>
          </widget>
         </item>
@@ -128,7 +128,7 @@
         <item>
          <widget class="QCheckBox" name="toggle_telemetry">
           <property name="text">
-           <string>Share anonymous usage data with the Citra team</string>
+           <string>Share anonymous usage data with the Lime team</string>
           </property>
          </widget>
         </item>
