@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Citra</string>
+   <string>Lime</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -301,7 +301,7 @@
   </action>
   <action name="action_About">
    <property name="text">
-    <string>About Citra</string>
+    <string>About Lime</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
@@ -475,10 +475,10 @@
   </action>
   <action name="action_Open_Maintenance_Tool">
    <property name="text">
-    <string>Modify Citra Install</string>
+    <string>Modify Lime Install</string>
    </property>
    <property name="toolTip">
-    <string>Opens the maintenance tool to modify your Citra installation</string>
+    <string>Opens the maintenance tool to modify your Lime installation</string>
    </property>
   </action>
   <action name="action_Screen_Layout_Default">
@@ -587,7 +587,7 @@
   </action>
   <action name="action_Open_Citra_Folder">
    <property name="text">
-    <string>Open Citra Folder</string>
+    <string>Open Lime Folder</string>
    </property>
   </action>
   <action name="action_Configure_Current_Game">
