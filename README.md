@@ -18,6 +18,10 @@ If anyone wants to help feel free to make pull requests and contribute with the 
 ## To-Do
 - [ ] Fix Windows MSYS2 Build
 
+## Discord
+
+https://discord.gg/4ZjMpAp3M6 It's new and feel free to join and chat about lime or Citra but we do not do piracy!
+
 ## Release Builds
 
 https://github.com/RyzenDew/Lime-3DS-Emulator/releases
