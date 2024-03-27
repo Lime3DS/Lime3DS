@@ -1,8 +1,8 @@
 <h1 align="center">
   <br>
-  <a href="https://www.youtube.com/c/MattsCreative"><img src="https://i.imgur.com/wmtgeV5.png" alt="Lime 3DS" width="200"></a>
+  <a href="https://www.youtube.com/c/MattsCreative"><img src="https://i.imgur.com/04o1ajZ.png" alt="Lime 3DS" width="200"></a>
   <br>
-  <b>Lime</b>
+  <b>Lime3DS</b>
   <br>
 </h1>
 
@@ -17,6 +17,10 @@ If anyone wants to help feel free to make pull requests and contribute with the 
 
 ## To-Do
 - [ ] Fix Windows MSYS2 Build
+
+## Discord
+
+https://discord.gg/4ZjMpAp3M6 It's new and feel free to join and chat about lime or Citra but we do not do piracy!
 
 ## Release Builds
 
