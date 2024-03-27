@@ -2,7 +2,7 @@
   <br>
   <a href="https://www.youtube.com/c/MattsCreative"><img src="https://i.imgur.com/04o1ajZ.png" alt="Lime 3DS" width="200"></a>
   <br>
-  <b>Lime</b>
+  <b>Lime3DS</b>
   <br>
 </h1>
 
