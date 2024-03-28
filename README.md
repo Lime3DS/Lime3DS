@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://www.youtube.com/c/MattsCreative"><img src="https://i.imgur.com/04o1ajZ.png" alt="Lime 3DS" width="200"></a>
+  <a href="[https://github.com/Lime3DS]"><img src="https://i.imgur.com/04o1ajZ.png" alt="Lime 3DS" width="200"></a>
   <br>
   <b>Lime3DS</b>
   <br>
@@ -24,13 +24,13 @@ Join our [Discord](https://discord.com/invite/4ZjMpAp3M6) community and feel fre
 
 ## Release Builds
 
-[Lime Releases](https://github.com/RyzenDew/Lime-3DS-Emulator/releases)
+[Lime Releases](https://github.com/Lime3DS/Lime-3DS-Emulator/releases)
 
-[This](https://github.com/PabloMK7/citra/releases) is another fork that has Dev working on it also!
+[This](https://github.com/PabloMK7/citra/) is another fork that has Dev working on it also!
 
 ## How to support me
 
-Just subscribe to my [YouTube](https://www.youtube.com/c/MattsCreative)
+Just subscribe to [Matt's YouTube](https://www.youtube.com/c/MattsCreative)
 
 ## License
 
