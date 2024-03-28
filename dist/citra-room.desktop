@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Citra Room
-Comment=Multiplayer room host for Citra
+Name=Lime3DS Room
+Comment=Multiplayer room host for Lime3DS
 Icon=citra
 TryExec=citra-room
 Exec=citra-room %f
