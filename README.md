@@ -9,7 +9,7 @@
 Emulation never dies! it changes and moves forward!
 
 
-<h4 align="left"><b>Lime</b> is the rebith project for Citra the world's most popular, open-source, Nintendo 3DS emulator.
+<h4 align="left"><b>Lime</b> is the rebirth project for Citra the world's most popular, open-source, Nintendo 3DS emulator.
 <br>
 It is written in C++ with portability in mind and builds are actively maintained for Windows, Linux, Android, and macOS.
 </h4>
