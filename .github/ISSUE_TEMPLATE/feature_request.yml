@@ -4,7 +4,7 @@ labels: "request"
 body:
   - type: markdown
     attributes:
-      value: Tech support does not belong here. You should only file an issue here if you are requesting a feature you believe would make Citra better.
+      value: Tech support does not belong here. You should only file an issue here if you are requesting a feature you believe would make Lime better.
   - type: checkboxes
     attributes:
       label: Is there an existing issue for this?
@@ -23,6 +23,6 @@ body:
     id: why-feature
     attributes:
       label: Why would this feature be useful?
-      description: A brief description of why this feature would make Citra better.
+      description: A brief description of why this feature would make Lime better.
     validations:
       required: true
