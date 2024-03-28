@@ -20,19 +20,17 @@ If anyone wants to help feel free to make pull requests and contribute with the 
 
 ## Discord
 
-https://discord.gg/4ZjMpAp3M6 It's new and feel free to join and chat about lime or Citra but we do not do piracy!
+Join our [Discord](https://discord.com/invite/4ZjMpAp3M6) community and feel free to chat about lime or Citra, but we don't accept piracy!
 
 ## Release Builds
 
-https://github.com/RyzenDew/Lime-3DS-Emulator/releases
+[Lime Releases](https://github.com/RyzenDew/Lime-3DS-Emulator/releases)
 
-This is another fork that has Dev working on it also!
-
-https://github.com/PabloMK7/citra/releases
+[This](https://github.com/PabloMK7/citra/releases) is another fork that has Dev working on it also!
 
 ## How to support me
 
-Just subscribe to my YouTube https://www.youtube.com/c/MattsCreative 
+Just subscribe to my [YouTube](https://www.youtube.com/c/MattsCreative)
 
 ## License
 
