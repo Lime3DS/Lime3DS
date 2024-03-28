@@ -3,7 +3,7 @@
 # Determine the full revision name.
 GITDATE="`git show -s --date=short --format='%ad' | sed 's/-//g'`"
 GITREV="`git show -s --format='%h'`"
-REV_NAME="citra-$OS-$TARGET-$GITDATE-$GITREV"
+REV_NAME="lime-$OS-$TARGET-$GITDATE-$GITREV"
 
 # Determine the name of the release being built.
 if [[ "$GITHUB_REF_NAME" =~ ^canary- ]] || [[ "$GITHUB_REF_NAME" =~ ^nightly- ]]; then
