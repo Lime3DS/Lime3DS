@@ -23,8 +23,6 @@ Join our [Discord](https://discord.com/invite/4ZjMpAp3M6) community and feel fre
 
 [Lime Releases](https://github.com/Lime3DS/Lime-3DS-Emulator/releases)
 
-[This](https://github.com/PabloMK7/citra/) is another fork that has Dev working on it also!
-
 ## License
 
 Lime is licensed under the GPLv2 (or any later version). Refer to the [LICENSE.txt](https://raw.githubusercontent.com/RyzenDew/Lime-3DS-Emulator/master/license.txt) file.
