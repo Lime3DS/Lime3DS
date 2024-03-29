@@ -6,8 +6,6 @@
   <br>
 </h1>
 
-https://www.google.com/url?sa=i&url=https%3A%2F%2Ftenor.com%2Fsearch%2Flimes-gifs&psig=AOvVaw09VJSKRSFVDyN4lD13dh8q&ust=1711818211033000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJjD6PT5mYUDFQAAAAAdAAAAABAE
-
 <h4 align="left"><b>Lime</b> is the rebirth project for Citra the world's most popular, open-source, Nintendo 3DS emulator.
 <br>
 It is written in C++ with portability in mind and builds are actively maintained for Windows, Linux, Android, and macOS.
