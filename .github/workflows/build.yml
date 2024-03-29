@@ -256,7 +256,7 @@ jobs:
       - name: Create release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
           release_name: ${{ github.ref_name }}
@@ -265,6 +265,6 @@ jobs:
       - name: Upload artifacts
         uses: alexellis/upload-assets@0.4.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.7z","./**/*.zip","./**/*.apk","./**/*.aab"]'
