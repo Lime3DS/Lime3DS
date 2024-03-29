@@ -12,9 +12,6 @@ It is written in C++ with portability in mind and builds are actively maintained
 </h4>
 If anyone wants to help feel free to make pull requests and contribute with the Lime project.
 
-## To-Do
-- [ ] Fix Windows MSYS2 Build
-
 ## Discord
 
 Join our [Discord](https://discord.com/invite/4ZjMpAp3M6) community and feel free to chat about lime or Citra, but we don't accept piracy!
