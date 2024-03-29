@@ -2,7 +2,7 @@
   <br>
   <a href="[https://github.com/Lime3DS]"><img src="https://i.imgur.com/04o1ajZ.png" alt="Lime 3DS" width="200"></a>
   <br>
-  <b>Lime3DS</b>
+  <b>Lime-3DS</b>
   <br>
 </h1>
 
