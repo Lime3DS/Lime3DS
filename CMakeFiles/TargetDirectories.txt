@@ -1,0 +1,5 @@
+/var/host/home/daniel/repos/Lime-3DS-Emulator/CMakeFiles/edit_cache.dir
+/var/host/home/daniel/repos/Lime-3DS-Emulator/CMakeFiles/rebuild_cache.dir
+/var/host/home/daniel/repos/Lime-3DS-Emulator/common/CMakeFiles/lime_common.dir
+/var/host/home/daniel/repos/Lime-3DS-Emulator/common/CMakeFiles/edit_cache.dir
+/var/host/home/daniel/repos/Lime-3DS-Emulator/common/CMakeFiles/rebuild_cache.dir

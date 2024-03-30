@@ -1,4 +1,4 @@
-add_library(citra_core STATIC
+add_library(lime_core STATIC
     3ds.h
     arm/arm_interface.h
     arm/dyncom/arm_dyncom.cpp
@@ -474,19 +474,19 @@ add_library(citra_core STATIC
     tracer/recorder.h
 )
 
-create_target_directory_groups(citra_core)
+create_target_directory_groups(lime_core)
 
-target_link_libraries(citra_core PUBLIC citra_common PRIVATE audio_core network video_core)
-target_link_libraries(citra_core PRIVATE Boost::boost Boost::serialization Boost::iostreams httplib)
-target_link_libraries(citra_core PUBLIC dds-ktx PRIVATE cryptopp fmt lodepng open_source_archives)
+target_link_libraries(lime_core PUBLIC lime_common PRIVATE audio_core network video_core)
+target_link_libraries(lime_core PRIVATE Boost::boost Boost::serialization Boost::iostreams httplib)
+target_link_libraries(lime_core PUBLIC dds-ktx PRIVATE cryptopp fmt lodepng open_source_archives)
 
 if (ENABLE_WEB_SERVICE)
-    target_link_libraries(citra_core PRIVATE web_service)
+    target_link_libraries(lime_core PRIVATE web_service)
 endif()
 
 if (ENABLE_SCRIPTING)
-    target_compile_definitions(citra_core PUBLIC -DENABLE_SCRIPTING)
-    target_sources(citra_core PRIVATE
+    target_compile_definitions(lime_core PUBLIC -DENABLE_SCRIPTING)
+    target_sources(lime_core PRIVATE
         rpc/packet.cpp
         rpc/packet.h
         rpc/rpc_server.cpp
@@ -499,7 +499,7 @@ if (ENABLE_SCRIPTING)
 endif()
 
 if ("x86_64" IN_LIST ARCHITECTURE OR "arm64" IN_LIST ARCHITECTURE)
-    target_sources(citra_core PRIVATE
+    target_sources(lime_core PRIVATE
         arm/dynarmic/arm_dynarmic.cpp
         arm/dynarmic/arm_dynarmic.h
         arm/dynarmic/arm_dynarmic_cp15.cpp
@@ -509,9 +509,9 @@ if ("x86_64" IN_LIST ARCHITECTURE OR "arm64" IN_LIST ARCHITECTURE)
         arm/dynarmic/arm_tick_counts.cpp
         arm/dynarmic/arm_tick_counts.h
     )
-    target_link_libraries(citra_core PRIVATE dynarmic)
+    target_link_libraries(lime_core PRIVATE dynarmic)
 endif()
 
 if (CITRA_USE_PRECOMPILED_HEADERS)
-    target_precompile_headers(citra_core PRIVATE precompiled_headers.h)
+    target_precompile_headers(lime_core PRIVATE precompiled_headers.h)
 endif()

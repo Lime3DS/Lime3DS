@@ -31,7 +31,7 @@ add_library(citra-android SHARED
     native_log.cpp
 )
 
-target_link_libraries(citra-android PRIVATE audio_core citra_common citra_core input_common network)
+target_link_libraries(citra-android PRIVATE audio_core lime_common lime_core input_common network)
 target_link_libraries(citra-android PRIVATE android camera2ndk inih jnigraphics log mediandk yuv)
 
 if (ENABLE_OPENGL)
