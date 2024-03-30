@@ -70,6 +70,7 @@ public:
     ResultStatus DumpUpdateRomFS(const std::string& target_path) override;
 
     ResultStatus ReadTitle(std::string& title) override;
+    ResultStatus ReadTitleLong(std::string& title) override;
 
 private:
     /**

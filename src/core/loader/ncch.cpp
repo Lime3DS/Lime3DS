@@ -381,4 +381,22 @@ ResultStatus AppLoader_NCCH::ReadTitle(std::string& title) {
     return ResultStatus::Success;
 }
 
+ResultStatus AppLoader_NCCH::ReadTitleLong(std::string& title) {
+    std::vector<u8> data;
+    Loader::SMDH smdh;
+    ReadIcon(data);
+
+    if (!Loader::IsValidSMDH(data)) {
+        return ResultStatus::ErrorInvalidFormat;
+    }
+
+    std::memcpy(&smdh, data.data(), sizeof(Loader::SMDH));
+
+    const auto& long_title = smdh.GetLongTitle(SMDH::TitleLanguage::English);
+    auto title_end = std::find(long_title.begin(), long_title.end(), u'\0');
+    title = Common::UTF16ToUTF8(std::u16string{long_title.begin(), title_end});
+
+    return ResultStatus::Success;
+}
+
 } // namespace Loader
