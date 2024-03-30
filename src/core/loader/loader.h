@@ -258,7 +258,7 @@ public:
      * @param title Referencec to store the application title into
      * @param ResultStatus result of function
      */
-    virtual ResultStatus ReadTitleLong([[maybe_unused]]std::string& title) {
+    virtual ResultStatus ReadTitleLong([[maybe_unused]] std::string& title) {
         return ResultStatus::ErrorNotImplemented;
     }
 
