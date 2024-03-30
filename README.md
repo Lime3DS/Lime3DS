@@ -13,8 +13,9 @@ It is written in C++ with portability in mind and builds are actively maintained
 If anyone wants to help feel free to make pull requests and contribute with the Lime3DS project.
 
 ## Discord
-
-Join our [Discord](https://discord.com/invite/4ZjMpAp3M6) community and feel free to chat about emulators, but we won't accept piracy!
+[![](https://dcbadge.vercel.app/api/server/4ZjMpAp3M6)](https://discord.gg/4ZjMpAp3M6)
+<br>
+Join our Discord community and feel free to chat about emulators, but we won't accept piracy!
 
 ## Release Builds
 
