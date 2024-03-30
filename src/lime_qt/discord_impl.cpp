@@ -37,7 +37,7 @@ void DiscordImpl::Update() {
     std::string title;
     const bool is_powered_on = system.IsPoweredOn();
     if (is_powered_on) {
-        system.GetAppLoader().ReadTitle(title);
+        system.GetAppLoader().ReadTitleLong(title);
     }
 
     DiscordRichPresence presence{};
