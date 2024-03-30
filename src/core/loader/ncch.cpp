@@ -374,9 +374,14 @@ ResultStatus AppLoader_NCCH::ReadTitle(std::string& title) {
 
     std::memcpy(&smdh, data.data(), sizeof(Loader::SMDH));
 
-    const auto& short_title = smdh.GetShortTitle(SMDH::TitleLanguage::English);
-    auto title_end = std::find(short_title.begin(), short_title.end(), u'\0');
-    title = Common::UTF16ToUTF8(std::u16string{short_title.begin(), title_end});
+    // Replace title string for game being played with long title string.
+    // This looks much nicer and more pleasant:
+    // "Mario & Luigi Superstar..." to "Mario & Luigi Superstar Saga + Bowser's Minions".
+
+    // const auto& short_title = smdh.GetShortTitle(SMDH::TitleLanguage::English);
+    const auto& long_title = smdh.GetLongTitle(SMDH::TitleLanguage::English);
+    auto title_end = std::find(long_title.begin(), long_title.end(), u'\0');
+    title = Common::UTF16ToUTF8(std::u16string{long_title.begin(), title_end});
 
     return ResultStatus::Success;
 }
