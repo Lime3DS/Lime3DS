@@ -3061,11 +3061,14 @@ void GMainWindow::UpdateWindowTitle() {
     if (game_title_long.isEmpty()) {
         setWindowTitle(QStringLiteral("Lime %1").arg(full_name));
     } else {
-        setWindowTitle(QStringLiteral("Lime %1 | %2").arg(full_name, game_title_long));
+        setWindowTitle(QStringLiteral("Lime %1 | %2")
+                            .arg(full_name, game_title_long));
         render_window->setWindowTitle(
-            QStringLiteral("Lime %1 | %2 | %3").arg(full_name, game_title_long, tr("Primary Window")));
+            QStringLiteral("Lime %1 | %2 | %3")
+                .arg(full_name, game_title_long, tr("Primary Window")));
         secondary_window->setWindowTitle(
-            QStringLiteral("Lime %1 | %2 | %3").arg(full_name, game_title_long, tr("Secondary Window")));
+            QStringLiteral("Lime %1 | %2 | %3")
+                .arg(full_name, game_title_long, tr("Secondary Window")));
     }
 }
 
