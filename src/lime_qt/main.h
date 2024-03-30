@@ -321,6 +321,7 @@ private:
     std::unique_ptr<EmuThread> emu_thread;
     // The title of the game currently running
     QString game_title;
+    QString game_title_long;
     // The path to the game currently running
     QString game_path;
 
