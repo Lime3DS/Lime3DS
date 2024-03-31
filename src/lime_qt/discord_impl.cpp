@@ -42,11 +42,14 @@ void DiscordImpl::Update() {
 
     DiscordRichPresence presence{};
     presence.largeImageKey = "large_icon";
-    presence.largeImageText = "Lime is an emulator for the 3DS!";
+    presence.smallImageKey = "small_icon";
+    presence.smallImageText = "Lime is an emulator for the 3DS!";
     if (is_powered_on) {
+        presence.largeImageText = title.c_str();
         presence.state = title.c_str();
         presence.details = "Currently in game";
     } else {
+        presence.largeImageText = "Not in game";
         presence.details = "Not in game";
     }
     presence.startTimestamp = start_time;
