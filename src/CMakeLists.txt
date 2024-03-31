@@ -181,11 +181,11 @@ if (ENABLE_TESTS)
 endif()
 
 if (ENABLE_SDL2 AND ENABLE_SDL2_FRONTEND)
-    add_subdirectory(citra)
+    add_subdirectory(lime)
 endif()
 
 if (ENABLE_QT)
-    add_subdirectory(citra_qt)
+    add_subdirectory(lime_qt)
 endif()
 
 if (ENABLE_DEDICATED_ROOM)
@@ -194,7 +194,7 @@ endif()
 
 if (ANDROID)
     add_subdirectory(android/app/src/main/jni)
-    target_include_directories(citra-android PRIVATE android/app/src/main)
+    target_include_directories(lime-android PRIVATE android/app/src/main)
 endif()
 
 if (ENABLE_WEB_SERVICE)

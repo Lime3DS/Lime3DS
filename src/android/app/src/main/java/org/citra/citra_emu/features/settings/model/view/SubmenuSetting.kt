@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.model.view
+package io.github.lime3ds.features.settings.model.view
 
 class SubmenuSetting(
     titleId: Int,

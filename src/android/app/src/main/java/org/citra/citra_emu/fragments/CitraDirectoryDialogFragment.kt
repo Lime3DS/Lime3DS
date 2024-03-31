@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -14,11 +14,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.citra.citra_emu.R
-import org.citra.citra_emu.databinding.DialogCitraDirectoryBinding
-import org.citra.citra_emu.ui.main.MainActivity
-import org.citra.citra_emu.utils.PermissionsHandler
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.R
+import io.github.lime3ds.databinding.DialogCitraDirectoryBinding
+import io.github.lime3ds.ui.main.MainActivity
+import io.github.lime3ds.utils.PermissionsHandler
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class CitraDirectoryDialogFragment : DialogFragment() {
     private lateinit var binding: DialogCitraDirectoryBinding

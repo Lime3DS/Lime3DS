@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui
+package io.github.lime3ds.features.settings.ui
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,35 +12,35 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.text.TextUtils
 import androidx.preference.PreferenceManager
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.features.settings.model.AbstractBooleanSetting
-import org.citra.citra_emu.features.settings.model.AbstractIntSetting
-import org.citra.citra_emu.features.settings.model.AbstractSetting
-import org.citra.citra_emu.features.settings.model.AbstractStringSetting
-import org.citra.citra_emu.features.settings.model.BooleanSetting
-import org.citra.citra_emu.features.settings.model.IntSetting
-import org.citra.citra_emu.features.settings.model.ScaledFloatSetting
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.features.settings.model.StringSetting
-import org.citra.citra_emu.features.settings.model.AbstractShortSetting
-import org.citra.citra_emu.features.settings.model.view.DateTimeSetting
-import org.citra.citra_emu.features.settings.model.view.HeaderSetting
-import org.citra.citra_emu.features.settings.model.view.InputBindingSetting
-import org.citra.citra_emu.features.settings.model.view.RunnableSetting
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.features.settings.model.view.SingleChoiceSetting
-import org.citra.citra_emu.features.settings.model.view.SliderSetting
-import org.citra.citra_emu.features.settings.model.view.StringInputSetting
-import org.citra.citra_emu.features.settings.model.view.StringSingleChoiceSetting
-import org.citra.citra_emu.features.settings.model.view.SubmenuSetting
-import org.citra.citra_emu.features.settings.model.view.SwitchSetting
-import org.citra.citra_emu.features.settings.utils.SettingsFile
-import org.citra.citra_emu.fragments.ResetSettingsDialogFragment
-import org.citra.citra_emu.utils.BirthdayMonth
-import org.citra.citra_emu.utils.Log
-import org.citra.citra_emu.utils.SystemSaveGame
-import org.citra.citra_emu.utils.ThemeUtil
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.features.settings.model.AbstractBooleanSetting
+import io.github.lime3ds.features.settings.model.AbstractIntSetting
+import io.github.lime3ds.features.settings.model.AbstractSetting
+import io.github.lime3ds.features.settings.model.AbstractStringSetting
+import io.github.lime3ds.features.settings.model.BooleanSetting
+import io.github.lime3ds.features.settings.model.IntSetting
+import io.github.lime3ds.features.settings.model.ScaledFloatSetting
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.features.settings.model.StringSetting
+import io.github.lime3ds.features.settings.model.AbstractShortSetting
+import io.github.lime3ds.features.settings.model.view.DateTimeSetting
+import io.github.lime3ds.features.settings.model.view.HeaderSetting
+import io.github.lime3ds.features.settings.model.view.InputBindingSetting
+import io.github.lime3ds.features.settings.model.view.RunnableSetting
+import io.github.lime3ds.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.model.view.SingleChoiceSetting
+import io.github.lime3ds.features.settings.model.view.SliderSetting
+import io.github.lime3ds.features.settings.model.view.StringInputSetting
+import io.github.lime3ds.features.settings.model.view.StringSingleChoiceSetting
+import io.github.lime3ds.features.settings.model.view.SubmenuSetting
+import io.github.lime3ds.features.settings.model.view.SwitchSetting
+import io.github.lime3ds.features.settings.utils.SettingsFile
+import io.github.lime3ds.fragments.ResetSettingsDialogFragment
+import io.github.lime3ds.utils.BirthdayMonth
+import io.github.lime3ds.utils.Log
+import io.github.lime3ds.utils.SystemSaveGame
+import io.github.lime3ds.utils.ThemeUtil
 
 class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) {
     private var menuTag: String? = null

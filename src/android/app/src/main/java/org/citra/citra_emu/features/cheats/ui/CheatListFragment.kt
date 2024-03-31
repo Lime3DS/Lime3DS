@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.cheats.ui
+package io.github.lime3ds.features.cheats.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -23,10 +23,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.R
-import org.citra.citra_emu.databinding.FragmentCheatListBinding
-import org.citra.citra_emu.features.cheats.model.CheatsViewModel
-import org.citra.citra_emu.ui.main.MainActivity
+import io.github.lime3ds.R
+import io.github.lime3ds.databinding.FragmentCheatListBinding
+import io.github.lime3ds.features.cheats.model.CheatsViewModel
+import io.github.lime3ds.ui.main.MainActivity
 
 class CheatListFragment : Fragment() {
     private var _binding: FragmentCheatListBinding? = null

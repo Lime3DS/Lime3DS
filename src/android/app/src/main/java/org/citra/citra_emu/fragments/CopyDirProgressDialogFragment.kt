@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.app.Dialog
 import android.net.Uri
@@ -23,14 +23,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.databinding.DialogCopyDirBinding
-import org.citra.citra_emu.model.SetupCallback
-import org.citra.citra_emu.utils.CitraDirectoryHelper
-import org.citra.citra_emu.utils.FileUtil
-import org.citra.citra_emu.utils.PermissionsHandler
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.databinding.DialogCopyDirBinding
+import io.github.lime3ds.model.SetupCallback
+import io.github.lime3ds.utils.CitraDirectoryHelper
+import io.github.lime3ds.utils.FileUtil
+import io.github.lime3ds.utils.PermissionsHandler
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class CopyDirProgressDialog : DialogFragment() {
     private var _binding: DialogCopyDirBinding? = null

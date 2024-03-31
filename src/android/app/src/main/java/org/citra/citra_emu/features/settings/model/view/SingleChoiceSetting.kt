@@ -2,11 +2,11 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.model.view
+package io.github.lime3ds.features.settings.model.view
 
-import org.citra.citra_emu.features.settings.model.AbstractIntSetting
-import org.citra.citra_emu.features.settings.model.AbstractSetting
-import org.citra.citra_emu.features.settings.model.AbstractShortSetting
+import io.github.lime3ds.features.settings.model.AbstractIntSetting
+import io.github.lime3ds.features.settings.model.AbstractSetting
+import io.github.lime3ds.features.settings.model.AbstractShortSetting
 
 class SingleChoiceSetting(
     setting: AbstractSetting?,

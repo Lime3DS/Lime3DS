@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -24,21 +24,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.HomeSettingAdapter
-import org.citra.citra_emu.databinding.FragmentHomeSettingsBinding
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.features.settings.ui.SettingsActivity
-import org.citra.citra_emu.features.settings.utils.SettingsFile
-import org.citra.citra_emu.model.HomeSetting
-import org.citra.citra_emu.ui.main.MainActivity
-import org.citra.citra_emu.utils.GameHelper
-import org.citra.citra_emu.utils.PermissionsHandler
-import org.citra.citra_emu.viewmodel.HomeViewModel
-import org.citra.citra_emu.utils.GpuDriverHelper
-import org.citra.citra_emu.utils.Log
-import org.citra.citra_emu.viewmodel.DriverViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.HomeSettingAdapter
+import io.github.lime3ds.databinding.FragmentHomeSettingsBinding
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.features.settings.ui.SettingsActivity
+import io.github.lime3ds.features.settings.utils.SettingsFile
+import io.github.lime3ds.model.HomeSetting
+import io.github.lime3ds.ui.main.MainActivity
+import io.github.lime3ds.utils.GameHelper
+import io.github.lime3ds.utils.PermissionsHandler
+import io.github.lime3ds.viewmodel.HomeViewModel
+import io.github.lime3ds.utils.GpuDriverHelper
+import io.github.lime3ds.utils.Log
+import io.github.lime3ds.viewmodel.DriverViewModel
 
 class HomeSettingsFragment : Fragment() {
     private var _binding: FragmentHomeSettingsBinding? = null

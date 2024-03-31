@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Lime3DS Room
+Comment=Multiplayer room host for Lime3DS
+Icon=lime
+TryExec=lime-room
+Exec=lime-room %f
+Categories=Game;Emulator;
+Keywords=3DS;Nintendo

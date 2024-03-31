@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.ui.main
+package io.github.lime3ds.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -36,24 +36,24 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.R
-import org.citra.citra_emu.activities.EmulationActivity
-import org.citra.citra_emu.contracts.OpenFileResultContract
-import org.citra.citra_emu.databinding.ActivityMainBinding
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.features.settings.model.SettingsViewModel
-import org.citra.citra_emu.features.settings.ui.SettingsActivity
-import org.citra.citra_emu.features.settings.utils.SettingsFile
-import org.citra.citra_emu.fragments.SelectUserDirectoryDialogFragment
-import org.citra.citra_emu.utils.CiaInstallWorker
-import org.citra.citra_emu.utils.CitraDirectoryHelper
-import org.citra.citra_emu.utils.DirectoryInitialization
-import org.citra.citra_emu.utils.FileBrowserHelper
-import org.citra.citra_emu.utils.InsetsHelper
-import org.citra.citra_emu.utils.PermissionsHandler
-import org.citra.citra_emu.utils.ThemeUtil
-import org.citra.citra_emu.viewmodel.GamesViewModel
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.R
+import io.github.lime3ds.activities.EmulationActivity
+import io.github.lime3ds.contracts.OpenFileResultContract
+import io.github.lime3ds.databinding.ActivityMainBinding
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.features.settings.model.SettingsViewModel
+import io.github.lime3ds.features.settings.ui.SettingsActivity
+import io.github.lime3ds.features.settings.utils.SettingsFile
+import io.github.lime3ds.fragments.SelectUserDirectoryDialogFragment
+import io.github.lime3ds.utils.CiaInstallWorker
+import io.github.lime3ds.utils.CitraDirectoryHelper
+import io.github.lime3ds.utils.DirectoryInitialization
+import io.github.lime3ds.utils.FileBrowserHelper
+import io.github.lime3ds.utils.InsetsHelper
+import io.github.lime3ds.utils.PermissionsHandler
+import io.github.lime3ds.utils.ThemeUtil
+import io.github.lime3ds.viewmodel.GamesViewModel
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class MainActivity : AppCompatActivity(), ThemeProvider {
     private lateinit var binding: ActivityMainBinding

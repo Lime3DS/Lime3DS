@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 object EmulationLifecycleUtil {
     private var shutdownHooks: MutableList<Runnable> = ArrayList()

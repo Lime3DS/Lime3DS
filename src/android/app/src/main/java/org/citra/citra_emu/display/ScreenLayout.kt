@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.display
+package io.github.lime3ds.display
 
 enum class ScreenLayout(val int: Int) {
     // These must match what is defined in src/common/settings.h

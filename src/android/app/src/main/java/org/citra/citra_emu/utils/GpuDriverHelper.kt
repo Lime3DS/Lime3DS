@@ -2,15 +2,15 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.net.Uri
 import android.os.Build
 import androidx.documentfile.provider.DocumentFile
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.utils.FileUtil.asDocumentFile
-import org.citra.citra_emu.utils.FileUtil.inputStream
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.utils.FileUtil.asDocumentFile
+import io.github.lime3ds.utils.FileUtil.inputStream
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.IOException

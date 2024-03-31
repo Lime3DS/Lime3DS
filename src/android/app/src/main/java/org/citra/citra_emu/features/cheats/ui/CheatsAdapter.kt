@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.cheats.ui
+package io.github.lime3ds.features.cheats.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +11,9 @@ import android.widget.CompoundButton
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import org.citra.citra_emu.databinding.ListItemCheatBinding
-import org.citra.citra_emu.features.cheats.model.Cheat
-import org.citra.citra_emu.features.cheats.model.CheatsViewModel
+import io.github.lime3ds.databinding.ListItemCheatBinding
+import io.github.lime3ds.features.cheats.model.Cheat
+import io.github.lime3ds.features.cheats.model.CheatsViewModel
 
 class CheatsAdapter(
     private val activity: FragmentActivity,

@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -43,30 +43,30 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.EmulationNavigationDirections
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.R
-import org.citra.citra_emu.activities.EmulationActivity
-import org.citra.citra_emu.databinding.DialogCheckboxBinding
-import org.citra.citra_emu.databinding.DialogSliderBinding
-import org.citra.citra_emu.databinding.FragmentEmulationBinding
-import org.citra.citra_emu.display.ScreenAdjustmentUtil
-import org.citra.citra_emu.display.ScreenLayout
-import org.citra.citra_emu.features.settings.model.SettingsViewModel
-import org.citra.citra_emu.features.settings.ui.SettingsActivity
-import org.citra.citra_emu.features.settings.utils.SettingsFile
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.utils.DirectoryInitialization
-import org.citra.citra_emu.utils.DirectoryInitialization.DirectoryInitializationState
-import org.citra.citra_emu.utils.EmulationMenuSettings
-import org.citra.citra_emu.utils.FileUtil
-import org.citra.citra_emu.utils.GameHelper
-import org.citra.citra_emu.utils.GameIconUtils
-import org.citra.citra_emu.utils.EmulationLifecycleUtil
-import org.citra.citra_emu.utils.Log
-import org.citra.citra_emu.utils.ViewUtils
-import org.citra.citra_emu.viewmodel.EmulationViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.EmulationNavigationDirections
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.R
+import io.github.lime3ds.activities.EmulationActivity
+import io.github.lime3ds.databinding.DialogCheckboxBinding
+import io.github.lime3ds.databinding.DialogSliderBinding
+import io.github.lime3ds.databinding.FragmentEmulationBinding
+import io.github.lime3ds.display.ScreenAdjustmentUtil
+import io.github.lime3ds.display.ScreenLayout
+import io.github.lime3ds.features.settings.model.SettingsViewModel
+import io.github.lime3ds.features.settings.ui.SettingsActivity
+import io.github.lime3ds.features.settings.utils.SettingsFile
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.utils.DirectoryInitialization
+import io.github.lime3ds.utils.DirectoryInitialization.DirectoryInitializationState
+import io.github.lime3ds.utils.EmulationMenuSettings
+import io.github.lime3ds.utils.FileUtil
+import io.github.lime3ds.utils.GameHelper
+import io.github.lime3ds.utils.GameIconUtils
+import io.github.lime3ds.utils.EmulationLifecycleUtil
+import io.github.lime3ds.utils.Log
+import io.github.lime3ds.utils.ViewUtils
+import io.github.lime3ds.viewmodel.EmulationViewModel
 
 class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.FrameCallback {
     private val preferences: SharedPreferences

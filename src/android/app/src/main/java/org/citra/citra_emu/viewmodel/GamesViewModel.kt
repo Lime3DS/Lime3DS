@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.viewmodel
+package io.github.lime3ds.viewmodel
 
 import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.utils.GameHelper
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.utils.GameHelper
 
 class GamesViewModel : ViewModel() {
     val games get() = _games.asStateFlow()

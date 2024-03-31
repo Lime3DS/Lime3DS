@@ -2,25 +2,25 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.utils
+package io.github.lime3ds.features.settings.utils
 
 import android.content.Context
 import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.features.settings.model.AbstractSetting
-import org.citra.citra_emu.features.settings.model.BooleanSetting
-import org.citra.citra_emu.features.settings.model.FloatSetting
-import org.citra.citra_emu.features.settings.model.IntSetting
-import org.citra.citra_emu.features.settings.model.ScaledFloatSetting
-import org.citra.citra_emu.features.settings.model.SettingSection
-import org.citra.citra_emu.features.settings.model.Settings.SettingsSectionMap
-import org.citra.citra_emu.features.settings.model.StringSetting
-import org.citra.citra_emu.features.settings.ui.SettingsActivityView
-import org.citra.citra_emu.utils.BiMap
-import org.citra.citra_emu.utils.DirectoryInitialization.userDirectory
-import org.citra.citra_emu.utils.Log
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.features.settings.model.AbstractSetting
+import io.github.lime3ds.features.settings.model.BooleanSetting
+import io.github.lime3ds.features.settings.model.FloatSetting
+import io.github.lime3ds.features.settings.model.IntSetting
+import io.github.lime3ds.features.settings.model.ScaledFloatSetting
+import io.github.lime3ds.features.settings.model.SettingSection
+import io.github.lime3ds.features.settings.model.Settings.SettingsSectionMap
+import io.github.lime3ds.features.settings.model.StringSetting
+import io.github.lime3ds.features.settings.ui.SettingsActivityView
+import io.github.lime3ds.utils.BiMap
+import io.github.lime3ds.utils.DirectoryInitialization.userDirectory
+import io.github.lime3ds.utils.Log
 import org.ini4j.Wini
 import java.io.BufferedReader
 import java.io.FileNotFoundException

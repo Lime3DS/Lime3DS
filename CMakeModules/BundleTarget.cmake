@@ -124,7 +124,7 @@ if (BUNDLE_TARGET_EXECUTE)
             ${extra_linuxdeploy_args}
             --plugin checkrt
             --executable "${executable_path}"
-            --icon-file "${source_path}/dist/citra.svg"
+            --icon-file "${source_path}/dist/lime.svg"
             --desktop-file "${source_path}/dist/${executable_name}.desktop"
             --appdir "${appdir_path}"
             RESULT_VARIABLE linuxdeploy_appdir_result)
@@ -282,7 +282,7 @@ else()
             COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/bundle/dist/")
         add_custom_command(
             TARGET bundle
-            COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/dist/icon.png" "${CMAKE_BINARY_DIR}/bundle/dist/citra.png")
+            COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/dist/icon.png" "${CMAKE_BINARY_DIR}/bundle/dist/lime.png")
         add_custom_command(
             TARGET bundle
             COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/license.txt" "${CMAKE_BINARY_DIR}/bundle/")

@@ -2,12 +2,12 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui.viewholder
+package io.github.lime3ds.features.settings.ui.viewholder
 
 import android.view.View
-import org.citra.citra_emu.databinding.ListItemSettingsHeaderBinding
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.features.settings.ui.SettingsAdapter
+import io.github.lime3ds.databinding.ListItemSettingsHeaderBinding
+import io.github.lime3ds.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.ui.SettingsAdapter
 
 class HeaderViewHolder(val binding: ListItemSettingsHeaderBinding, adapter: SettingsAdapter) :
     SettingViewHolder(binding.root, adapter) {

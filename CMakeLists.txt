@@ -15,7 +15,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/externals/cmake-modul
 include(DownloadExternals)
 include(CMakeDependentOption)
 
-project(citra LANGUAGES C CXX ASM)
+project(lime LANGUAGES C CXX ASM)
 
 # Some submodules like to pick their own default build type if not specified.
 # Make sure we default to Release build type always, unless the generator has custom types.
@@ -156,9 +156,9 @@ configure_file(${PROJECT_SOURCE_DIR}/dist/compatibility_list/compatibility_list.
                ${PROJECT_BINARY_DIR}/dist/compatibility_list/compatibility_list.qrc
                COPYONLY)
 if (ENABLE_COMPATIBILITY_LIST_DOWNLOAD AND NOT EXISTS ${PROJECT_BINARY_DIR}/dist/compatibility_list/compatibility_list.json)
-    message(STATUS "Downloading compatibility list for citra...")
+    message(STATUS "Downloading compatibility list for lime...")
     file(DOWNLOAD
-        https://api.citra-emu.org/gamedb/
+        https://api.lime-emu.org/gamedb/
         "${PROJECT_BINARY_DIR}/dist/compatibility_list/compatibility_list.json" SHOW_PROGRESS)
 endif()
 if (EXISTS ${PROJECT_SOURCE_DIR}/dist/compatibility_list/compatibility_list.json)
@@ -317,7 +317,7 @@ if (NOT CLANG_FORMAT)
         message(STATUS "Clang format not found! Downloading...")
         set(CLANG_FORMAT "${PROJECT_BINARY_DIR}/externals/clang-format${CLANG_FORMAT_POSTFIX}.exe")
         file(DOWNLOAD
-            https://github.com/citra-emu/ext-windows-bin/raw/master/clang-format${CLANG_FORMAT_POSTFIX}.exe
+            https://github.com/lime-emu/ext-windows-bin/raw/master/clang-format${CLANG_FORMAT_POSTFIX}.exe
             "${CLANG_FORMAT}" SHOW_PROGRESS
             STATUS DOWNLOAD_SUCCESS)
         if (NOT DOWNLOAD_SUCCESS EQUAL 0)
@@ -434,11 +434,11 @@ add_subdirectory(src)
 add_subdirectory(dist/installer)
 
 
-# Set citra-qt project or citra project as default StartUp Project in Visual Studio depending on whether QT is enabled or not
+# Set lime-qt project or lime project as default StartUp Project in Visual Studio depending on whether QT is enabled or not
 if(ENABLE_QT)
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT citra-qt)
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT lime-qt)
 else()
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT citra)
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT lime)
 endif()
 
 # Create target for outputting distributable bundles.
@@ -446,13 +446,13 @@ endif()
 if (NOT ANDROID AND NOT IOS)
     include(BundleTarget)
     if (ENABLE_SDL2_FRONTEND)
-        bundle_target(citra)
+        bundle_target(lime)
     endif()
     if (ENABLE_QT)
-        bundle_target(citra-qt)
+        bundle_target(lime-qt)
     endif()
     if (ENABLE_DEDICATED_ROOM)
-        bundle_target(citra-room)
+        bundle_target(lime-room)
     endif()
 endif()
 
@@ -464,22 +464,22 @@ endif()
 # http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html
 # http://standards.freedesktop.org/shared-mime-info-spec/shared-mime-info-spec-latest.html
 if(ENABLE_QT AND UNIX AND NOT APPLE)
-    install(FILES "${PROJECT_SOURCE_DIR}/dist/citra-qt.desktop"
+    install(FILES "${PROJECT_SOURCE_DIR}/dist/lime-qt.desktop"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/applications")
-    install(FILES "${PROJECT_SOURCE_DIR}/dist/citra.svg"
+    install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.svg"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps")
-    install(FILES "${PROJECT_SOURCE_DIR}/dist/citra.xml"
+    install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.xml"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mime/packages")
 endif()
 
 if(UNIX)
     if(ENABLE_SDL2)
-        install(FILES "${PROJECT_SOURCE_DIR}/dist/citra.6"
+        install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.6"
                 DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
     endif()
 
     if (ENABLE_QT)
-        install(FILES "${PROJECT_SOURCE_DIR}/dist/citra-qt.6"
+        install(FILES "${PROJECT_SOURCE_DIR}/dist/lime-qt.6"
                 DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
     endif()
 endif()

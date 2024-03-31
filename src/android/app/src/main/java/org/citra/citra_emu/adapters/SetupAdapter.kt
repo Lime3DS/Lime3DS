@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.adapters
+package io.github.lime3ds.adapters
 
 import android.text.Html
 import android.text.method.LinkMovementMethod
@@ -13,11 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import org.citra.citra_emu.databinding.PageSetupBinding
-import org.citra.citra_emu.model.SetupCallback
-import org.citra.citra_emu.model.SetupPage
-import org.citra.citra_emu.model.StepState
-import org.citra.citra_emu.utils.ViewUtils
+import io.github.lime3ds.databinding.PageSetupBinding
+import io.github.lime3ds.model.SetupCallback
+import io.github.lime3ds.model.SetupPage
+import io.github.lime3ds.model.StepState
+import io.github.lime3ds.utils.ViewUtils
 
 class SetupAdapter(val activity: AppCompatActivity, val pages: List<SetupPage>) :
     RecyclerView.Adapter<SetupAdapter.SetupPageViewHolder>() {

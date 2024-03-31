@@ -2,14 +2,14 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui.viewholder
+package io.github.lime3ds.features.settings.ui.viewholder
 
 import android.view.View
 import android.widget.CompoundButton
-import org.citra.citra_emu.databinding.ListItemSettingSwitchBinding
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.features.settings.model.view.SwitchSetting
-import org.citra.citra_emu.features.settings.ui.SettingsAdapter
+import io.github.lime3ds.databinding.ListItemSettingSwitchBinding
+import io.github.lime3ds.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.model.view.SwitchSetting
+import io.github.lime3ds.features.settings.ui.SettingsAdapter
 
 class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter: SettingsAdapter) :
     SettingViewHolder(binding.root, adapter) {

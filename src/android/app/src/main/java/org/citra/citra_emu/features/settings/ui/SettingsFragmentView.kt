@@ -2,10 +2,10 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui
+package io.github.lime3ds.features.settings.ui
 
-import org.citra.citra_emu.features.settings.model.AbstractSetting
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.model.AbstractSetting
+import io.github.lime3ds.features.settings.model.view.SettingsItem
 
 /**
  * Abstraction for a screen showing a list of settings. Instances of

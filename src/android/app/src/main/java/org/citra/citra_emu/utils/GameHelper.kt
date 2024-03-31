@@ -2,18 +2,18 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.preference.PreferenceManager
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.model.CheapDocument
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.model.GameInfo
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.model.CheapDocument
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.model.GameInfo
 import java.io.IOException
 
 object GameHelper {

@@ -52,7 +52,7 @@ add_custom_command(OUTPUT scm_rev.cpp
       "${CMAKE_SOURCE_DIR}/CMakeModules/GenerateSCMRev.cmake"
 )
 
-add_library(citra_common STATIC
+add_library(lime_common STATIC
     aarch64/cpu_detect.cpp
     aarch64/cpu_detect.h
     aarch64/oaknut_abi.h
@@ -153,23 +153,23 @@ add_library(citra_common STATIC
 )
 
 if (UNIX AND NOT APPLE)
-  target_sources(citra_common PRIVATE
+  target_sources(lime_common PRIVATE
     linux/gamemode.cpp
     linux/gamemode.h
   )
 
-  target_link_libraries(citra_common PRIVATE gamemode)
+  target_link_libraries(lime_common PRIVATE gamemode)
 endif()
 
 if (APPLE)
-    target_sources(citra_common PUBLIC
+    target_sources(lime_common PUBLIC
         apple_authorization.h
         apple_authorization.cpp
     )
 endif()
 
 if (MSVC)
-  target_compile_options(citra_common PRIVATE
+  target_compile_options(lime_common PRIVATE
     /W4
 
     /we4242 # 'identifier': conversion from 'type1' to 'type2', possible loss of data
@@ -177,30 +177,30 @@ if (MSVC)
     /we4800 # Implicit conversion from 'type' to bool. Possible information loss
   )
 else()
-  target_compile_options(citra_common PRIVATE
+  target_compile_options(lime_common PRIVATE
     $<$<CXX_COMPILER_ID:Clang>:-fsized-deallocation>
   )
 endif()
 
-create_target_directory_groups(citra_common)
+create_target_directory_groups(lime_common)
 
-target_link_libraries(citra_common PUBLIC fmt library-headers microprofile Boost::boost Boost::serialization Boost::iostreams)
-target_link_libraries(citra_common PRIVATE zstd)
+target_link_libraries(lime_common PUBLIC fmt library-headers microprofile Boost::boost Boost::serialization Boost::iostreams)
+target_link_libraries(lime_common PRIVATE zstd)
 
 if ("x86_64" IN_LIST ARCHITECTURE)
-    target_link_libraries(citra_common PRIVATE xbyak)
+    target_link_libraries(lime_common PRIVATE xbyak)
 endif()
 
 if ("arm64" IN_LIST ARCHITECTURE)
-    target_link_libraries(citra_common PRIVATE oaknut)
+    target_link_libraries(lime_common PRIVATE oaknut)
 endif()
 
 if (CITRA_USE_PRECOMPILED_HEADERS)
-    target_precompile_headers(citra_common PRIVATE precompiled_headers.h)
+    target_precompile_headers(lime_common PRIVATE precompiled_headers.h)
 endif()
 
 find_library(BACKTRACE_LIBRARY backtrace)
 if (BACKTRACE_LIBRARY AND ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND CMAKE_CXX_COMPILER_ID STREQUAL GNU)
-    target_link_libraries(citra_common PRIVATE ${BACKTRACE_LIBRARY} dl)
-    target_compile_definitions(citra_common PRIVATE CITRA_LINUX_GCC_BACKTRACE)
+    target_link_libraries(lime_common PRIVATE ${BACKTRACE_LIBRARY} dl)
+    target_compile_definitions(lime_common PRIVATE CITRA_LINUX_GCC_BACKTRACE)
 endif()

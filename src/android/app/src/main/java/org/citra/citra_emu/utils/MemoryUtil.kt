@@ -1,13 +1,13 @@
 // SPDX-FileCopyrightText: 2023 yuzu Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
 import java.util.Locale
 import kotlin.math.ceil
 

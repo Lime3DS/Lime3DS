@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.activities
+package io.github.lime3ds.activities
 
 import android.Manifest.permission
 import android.annotation.SuppressLint
@@ -25,24 +25,24 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.R
-import org.citra.citra_emu.camera.StillImageCameraHelper.OnFilePickerResult
-import org.citra.citra_emu.contracts.OpenFileResultContract
-import org.citra.citra_emu.databinding.ActivityEmulationBinding
-import org.citra.citra_emu.display.ScreenAdjustmentUtil
-import org.citra.citra_emu.features.hotkeys.HotkeyUtility
-import org.citra.citra_emu.features.settings.model.SettingsViewModel
-import org.citra.citra_emu.features.settings.model.view.InputBindingSetting
-import org.citra.citra_emu.fragments.MessageDialogFragment
-import org.citra.citra_emu.utils.ControllerMappingHelper
-import org.citra.citra_emu.utils.FileBrowserHelper
-import org.citra.citra_emu.utils.ForegroundService
-import org.citra.citra_emu.utils.EmulationLifecycleUtil
-import org.citra.citra_emu.utils.EmulationMenuSettings
-import org.citra.citra_emu.utils.ThemeUtil
-import org.citra.citra_emu.viewmodel.EmulationViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.R
+import io.github.lime3ds.camera.StillImageCameraHelper.OnFilePickerResult
+import io.github.lime3ds.contracts.OpenFileResultContract
+import io.github.lime3ds.databinding.ActivityEmulationBinding
+import io.github.lime3ds.display.ScreenAdjustmentUtil
+import io.github.lime3ds.features.hotkeys.HotkeyUtility
+import io.github.lime3ds.features.settings.model.SettingsViewModel
+import io.github.lime3ds.features.settings.model.view.InputBindingSetting
+import io.github.lime3ds.fragments.MessageDialogFragment
+import io.github.lime3ds.utils.ControllerMappingHelper
+import io.github.lime3ds.utils.FileBrowserHelper
+import io.github.lime3ds.utils.ForegroundService
+import io.github.lime3ds.utils.EmulationLifecycleUtil
+import io.github.lime3ds.utils.EmulationMenuSettings
+import io.github.lime3ds.utils.ThemeUtil
+import io.github.lime3ds.viewmodel.EmulationViewModel
 
 class EmulationActivity : AppCompatActivity() {
     private val preferences: SharedPreferences

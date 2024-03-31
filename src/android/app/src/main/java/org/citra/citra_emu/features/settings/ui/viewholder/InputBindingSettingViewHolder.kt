@@ -2,15 +2,15 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui.viewholder
+package io.github.lime3ds.features.settings.ui.viewholder
 
 import android.view.View
 import androidx.preference.PreferenceManager
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.databinding.ListItemSettingBinding
-import org.citra.citra_emu.features.settings.model.view.InputBindingSetting
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.features.settings.ui.SettingsAdapter
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.databinding.ListItemSettingBinding
+import io.github.lime3ds.features.settings.model.view.InputBindingSetting
+import io.github.lime3ds.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.ui.SettingsAdapter
 
 class InputBindingSettingViewHolder(val binding: ListItemSettingBinding, adapter: SettingsAdapter) :
     SettingViewHolder(binding.root, adapter) {

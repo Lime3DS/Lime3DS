@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.cheats.ui
+package io.github.lime3ds.features.cheats.ui
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
@@ -21,10 +21,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.R
-import org.citra.citra_emu.databinding.FragmentCheatDetailsBinding
-import org.citra.citra_emu.features.cheats.model.Cheat
-import org.citra.citra_emu.features.cheats.model.CheatsViewModel
+import io.github.lime3ds.R
+import io.github.lime3ds.databinding.FragmentCheatDetailsBinding
+import io.github.lime3ds.features.cheats.model.Cheat
+import io.github.lime3ds.features.cheats.model.CheatsViewModel
 
 class CheatDetailsFragment : Fragment() {
     private val cheatsViewModel: CheatsViewModel by activityViewModels()

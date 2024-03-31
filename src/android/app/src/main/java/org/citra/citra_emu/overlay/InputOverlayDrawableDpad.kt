@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.overlay
+package io.github.lime3ds.overlay
 
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -10,7 +10,7 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.view.MotionEvent
-import org.citra.citra_emu.NativeLibrary
+import io.github.lime3ds.NativeLibrary
 
 /**
  * Custom [BitmapDrawable] that is capable

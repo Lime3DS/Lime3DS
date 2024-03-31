@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.Manifest
 import android.content.Intent
@@ -30,21 +30,21 @@ import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.SetupAdapter
-import org.citra.citra_emu.databinding.FragmentSetupBinding
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.model.SetupCallback
-import org.citra.citra_emu.model.SetupPage
-import org.citra.citra_emu.model.StepState
-import org.citra.citra_emu.ui.main.MainActivity
-import org.citra.citra_emu.utils.CitraDirectoryHelper
-import org.citra.citra_emu.utils.GameHelper
-import org.citra.citra_emu.utils.PermissionsHandler
-import org.citra.citra_emu.utils.ViewUtils
-import org.citra.citra_emu.viewmodel.GamesViewModel
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.SetupAdapter
+import io.github.lime3ds.databinding.FragmentSetupBinding
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.model.SetupCallback
+import io.github.lime3ds.model.SetupPage
+import io.github.lime3ds.model.StepState
+import io.github.lime3ds.ui.main.MainActivity
+import io.github.lime3ds.utils.CitraDirectoryHelper
+import io.github.lime3ds.utils.GameHelper
+import io.github.lime3ds.utils.PermissionsHandler
+import io.github.lime3ds.utils.ViewUtils
+import io.github.lime3ds.viewmodel.GamesViewModel
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class SetupFragment : Fragment() {
     private var _binding: FragmentSetupBinding? = null

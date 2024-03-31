@@ -2,15 +2,15 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui
+package io.github.lime3ds.features.settings.ui
 
 import android.os.Bundle
 import android.text.TextUtils
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.utils.SystemSaveGame
-import org.citra.citra_emu.utils.DirectoryInitialization
-import org.citra.citra_emu.utils.Log
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.utils.SystemSaveGame
+import io.github.lime3ds.utils.DirectoryInitialization
+import io.github.lime3ds.utils.Log
 
 class SettingsActivityPresenter(private val activityView: SettingsActivityView) {
     val settings: Settings get() = activityView.settings

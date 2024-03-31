@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.viewmodel
+package io.github.lime3ds.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.NativeLibrary.InstallStatus
-import org.citra.citra_emu.utils.Log
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.NativeLibrary.InstallStatus
+import io.github.lime3ds.utils.Log
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.min

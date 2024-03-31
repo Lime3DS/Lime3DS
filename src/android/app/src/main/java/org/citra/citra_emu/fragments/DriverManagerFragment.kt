@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,14 +21,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.DriverAdapter
-import org.citra.citra_emu.databinding.FragmentDriverManagerBinding
-import org.citra.citra_emu.utils.FileUtil.asDocumentFile
-import org.citra.citra_emu.utils.FileUtil.inputStream
-import org.citra.citra_emu.utils.GpuDriverHelper
-import org.citra.citra_emu.viewmodel.HomeViewModel
-import org.citra.citra_emu.viewmodel.DriverViewModel
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.DriverAdapter
+import io.github.lime3ds.databinding.FragmentDriverManagerBinding
+import io.github.lime3ds.utils.FileUtil.asDocumentFile
+import io.github.lime3ds.utils.FileUtil.inputStream
+import io.github.lime3ds.utils.GpuDriverHelper
+import io.github.lime3ds.viewmodel.HomeViewModel
+import io.github.lime3ds.viewmodel.DriverViewModel
 import java.io.IOException
 
 class DriverManagerFragment : Fragment() {

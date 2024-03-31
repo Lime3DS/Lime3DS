@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.model.view
+package io.github.lime3ds.features.settings.model.view
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,12 +11,12 @@ import android.view.InputDevice.MotionRange
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.preference.PreferenceManager
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.R
-import org.citra.citra_emu.features.hotkeys.Hotkey
-import org.citra.citra_emu.features.settings.model.AbstractSetting
-import org.citra.citra_emu.features.settings.model.Settings
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.R
+import io.github.lime3ds.features.hotkeys.Hotkey
+import io.github.lime3ds.features.settings.model.AbstractSetting
+import io.github.lime3ds.features.settings.model.Settings
 
 class InputBindingSetting(
     val abstractSetting: AbstractSetting,

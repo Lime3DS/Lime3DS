@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.ui
+package io.github.lime3ds.ui
 
 import android.content.Context
 import android.view.View
