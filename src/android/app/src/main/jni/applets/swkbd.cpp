@@ -124,9 +124,8 @@ jobject ToJavaValidationError(Frontend::ValidationError error) {
                               "Lio/github/lime3ds/applets/SoftwareKeyboard$ValidationError;"));
 }
 
-jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* env,
-                                                                           jclass clazz,
-                                                                           jstring text) {
+jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* env, jclass clazz,
+                                                                        jstring text) {
 
     const auto ret =
         Core::System::GetInstance().GetSoftwareKeyboard()->ValidateFilters(GetJString(env, text));
@@ -134,7 +133,7 @@ jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* 
 }
 
 jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateInput(JNIEnv* env, jclass clazz,
-                                                                         jstring text) {
+                                                                      jstring text) {
 
     const auto ret =
         Core::System::GetInstance().GetSoftwareKeyboard()->ValidateInput(GetJString(env, text));

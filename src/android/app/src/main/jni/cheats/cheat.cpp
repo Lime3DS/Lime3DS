@@ -30,22 +30,22 @@ jobject CheatToJava(JNIEnv* env, std::shared_ptr<Cheats::CheatBase> cheat) {
 extern "C" {
 
 JNIEXPORT void JNICALL Java_io_github_lime3ds_features_cheats_model_Cheat_finalize(JNIEnv* env,
-                                                                                      jobject obj) {
+                                                                                   jobject obj) {
     delete CheatFromJava(env, obj);
 }
 
-JNIEXPORT jstring JNICALL
-Java_io_github_lime3ds_features_cheats_model_Cheat_getName(JNIEnv* env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_io_github_lime3ds_features_cheats_model_Cheat_getName(JNIEnv* env,
+                                                                                     jobject obj) {
     return ToJString(env, (*CheatFromJava(env, obj))->GetName());
 }
 
-JNIEXPORT jstring JNICALL
-Java_io_github_lime3ds_features_cheats_model_Cheat_getNotes(JNIEnv* env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_io_github_lime3ds_features_cheats_model_Cheat_getNotes(JNIEnv* env,
+                                                                                      jobject obj) {
     return ToJString(env, (*CheatFromJava(env, obj))->GetComments());
 }
 
-JNIEXPORT jstring JNICALL
-Java_io_github_lime3ds_features_cheats_model_Cheat_getCode(JNIEnv* env, jobject obj) {
+JNIEXPORT jstring JNICALL Java_io_github_lime3ds_features_cheats_model_Cheat_getCode(JNIEnv* env,
+                                                                                     jobject obj) {
     return ToJString(env, (*CheatFromJava(env, obj))->GetCode());
 }
 

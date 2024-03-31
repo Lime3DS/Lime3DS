@@ -61,7 +61,7 @@ static Loader::SMDH* GetPointer(JNIEnv* env, jobject obj) {
 }
 
 JNIEXPORT jlong JNICALL Java_io_github_lime3ds_model_GameInfo_initialize(JNIEnv* env, jclass,
-                                                                            jstring j_path) {
+                                                                         jstring j_path) {
     std::vector<u8> smdh_data = GetSMDHData(GetJString(env, j_path));
 
     Loader::SMDH* smdh = nullptr;
@@ -148,8 +148,7 @@ jintArray Java_io_github_lime3ds_model_GameInfo_getIcon(JNIEnv* env, jobject obj
     return icon;
 }
 
-jboolean Java_io_github_lime3ds_model_GameInfo_getIsVisibleSystemTitle(JNIEnv* env,
-                                                                          jobject obj) {
+jboolean Java_io_github_lime3ds_model_GameInfo_getIsVisibleSystemTitle(JNIEnv* env, jobject obj) {
     Loader::SMDH* smdh = GetPointer(env, obj);
     if (smdh == nullptr) {
         return false;

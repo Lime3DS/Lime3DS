@@ -168,9 +168,9 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved) {
     // Initialize NativeLibrary
     const jclass native_library_class = env->FindClass("io/github/lime3ds/NativeLibrary");
     s_native_library_class = reinterpret_cast<jclass>(env->NewGlobalRef(native_library_class));
-    s_on_core_error = env->GetStaticMethodID(
-        s_native_library_class, "onCoreError",
-        "(Lio/github/lime3ds/NativeLibrary$CoreError;Ljava/lang/String;)Z");
+    s_on_core_error =
+        env->GetStaticMethodID(s_native_library_class, "onCoreError",
+                               "(Lio/github/lime3ds/NativeLibrary$CoreError;Ljava/lang/String;)Z");
     s_is_portrait_mode = env->GetStaticMethodID(s_native_library_class, "isPortraitMode", "()Z");
     s_landscape_screen_layout =
         env->GetStaticMethodID(s_native_library_class, "landscapeScreenLayout", "()I");
