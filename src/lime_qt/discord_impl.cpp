@@ -42,8 +42,6 @@ void DiscordImpl::Update() {
 
     DiscordRichPresence presence{};
     presence.largeImageKey = "large_icon";
-    presence.smallImageKey = "small_icon";
-    presence.smallImageText = Common::g_build_fullname;
     if (is_powered_on) {
         presence.largeImageText = title.c_str();
         presence.state = title.c_str();
