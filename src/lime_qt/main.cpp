@@ -3063,7 +3063,7 @@ void GMainWindow::UpdateWindowTitle() {
     } else {
         setWindowTitle(QStringLiteral("Lime %1 | %2").arg(full_name, game_title_long));
         render_window->setWindowTitle(QStringLiteral("Lime %1 | %2 | %3")
-                                            .arg(full_name, game_title_long, tr("Primary Window")));
+                                          .arg(full_name, game_title_long, tr("Primary Window")));
         secondary_window->setWindowTitle(
             QStringLiteral("Lime %1 | %2 | %3")
                 .arg(full_name, game_title_long, tr("Secondary Window")));
