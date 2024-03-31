@@ -5,5 +5,5 @@
         <item name="android:enforceNavigationBarContrast">false</item>
     </style>
 
-    <style name="Theme.Citra.Main" parent="Theme.V29.Citra" />
+    <style name="Theme.Lime.Main" parent="Theme.V29.Citra" />
 </resources>

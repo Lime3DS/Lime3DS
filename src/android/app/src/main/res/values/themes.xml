@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Citra.Splash.Main" parent="Theme.SplashScreen">
+    <style name="Theme.Lime.Splash.Main" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/citra_surface</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_citra</item>
-        <item name="postSplashScreenTheme">@style/Theme.Citra.Main</item>
+        <item name="postSplashScreenTheme">@style/Theme.Lime.Main</item>
     </style>
 
     <style name="Theme.Citra" parent="Theme.Material3.DayNight.NoActionBar">
@@ -45,6 +45,6 @@
     </style>
 
     <!-- Trick for API >= 29 specific changes -->
-    <style name="Theme.Citra.Main" parent="Theme.Citra" />
+    <style name="Theme.Lime.Main" parent="Theme.Citra" />
 
 </resources>

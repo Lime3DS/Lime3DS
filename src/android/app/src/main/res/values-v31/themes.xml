@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Citra.Main.MaterialYou" parent="Theme.Citra.Main">
+    <style name="Theme.Lime.Main.MaterialYou" parent="Theme.Lime.Main">
         <item name="colorPrimary">@color/m3_sys_color_dynamic_light_primary</item>
         <item name="colorOnPrimary">@color/m3_sys_color_dynamic_light_on_primary</item>
         <item name="colorPrimaryContainer">@color/m3_sys_color_dynamic_light_primary_container</item>
