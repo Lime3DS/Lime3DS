@@ -44,7 +44,7 @@ object NativeLibrary {
 
     init {
         try {
-            System.loadLibrary("citra-android")
+            System.loadLibrary("lime-android")
         } catch (ex: UnsatisfiedLinkError) {
             Log.error("[NativeLibrary] $ex")
         }
