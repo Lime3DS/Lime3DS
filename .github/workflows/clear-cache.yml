@@ -1,8 +1,10 @@
+# Workflow credited towards the Lemonade team (https://github.com/Lemonade-emu/Lemonade/blob/18f3b2cfc593b5a9c1eb5eda439f021284f4c993/.github/workflows/clear-cache.yml)
 name: Clear cache
-# Workflow credited towards Lemonade (https://github.com/Lemonade-emu/Lemonade/blob/18f3b2cfc593b5a9c1eb5eda439f021284f4c993/.github/workflows/clear-cache.yml)
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 */3 * *'
 
 permissions:
   actions: write
