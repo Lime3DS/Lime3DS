@@ -41,7 +41,7 @@ void DiscordImpl::Update() {
     }
 
     DiscordRichPresence presence{};
-    presence.largeImageKey = "large_icon";
+    presence.largeImageKey = "lime_large_icon";
     if (is_powered_on) {
         presence.largeImageText = title.c_str();
         presence.state = title.c_str();
