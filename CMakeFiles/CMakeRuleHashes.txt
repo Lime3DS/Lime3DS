@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-f736d6fbe5011b606cbbb0023400a4dd common/scm_rev.cpp
