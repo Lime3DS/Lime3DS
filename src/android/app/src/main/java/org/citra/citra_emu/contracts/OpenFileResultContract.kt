@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.contracts
+package io.github.lime3ds.contracts
 
 import android.content.Context
 import android.content.Intent

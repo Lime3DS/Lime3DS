@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.content.res.Resources
 import android.os.Bundle
@@ -26,18 +26,18 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.HomeNavigationDirections
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.R
-import org.citra.citra_emu.activities.EmulationActivity
-import org.citra.citra_emu.databinding.FragmentSystemFilesBinding
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.utils.SystemSaveGame
-import org.citra.citra_emu.viewmodel.GamesViewModel
-import org.citra.citra_emu.viewmodel.HomeViewModel
-import org.citra.citra_emu.viewmodel.SystemFilesViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.HomeNavigationDirections
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.R
+import io.github.lime3ds.activities.EmulationActivity
+import io.github.lime3ds.databinding.FragmentSystemFilesBinding
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.utils.SystemSaveGame
+import io.github.lime3ds.viewmodel.GamesViewModel
+import io.github.lime3ds.viewmodel.HomeViewModel
+import io.github.lime3ds.viewmodel.SystemFilesViewModel
 
 class SystemFilesFragment : Fragment() {
     private var _binding: FragmentSystemFilesBinding? = null

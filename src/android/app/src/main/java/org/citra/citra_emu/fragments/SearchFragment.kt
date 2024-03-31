@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -27,13 +27,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import info.debatty.java.stringsimilarity.Jaccard
 import info.debatty.java.stringsimilarity.JaroWinkler
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.GameAdapter
-import org.citra.citra_emu.databinding.FragmentSearchBinding
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.viewmodel.GamesViewModel
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.GameAdapter
+import io.github.lime3ds.databinding.FragmentSearchBinding
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.viewmodel.GamesViewModel
+import io.github.lime3ds.viewmodel.HomeViewModel
 import java.time.temporal.ChronoField
 import java.util.Locale
 

@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.adapters
+package io.github.lime3ds.adapters
 
 import android.net.Uri
 import android.os.SystemClock
@@ -23,15 +23,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.citra.citra_emu.HomeNavigationDirections
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.GameAdapter.GameViewHolder
-import org.citra.citra_emu.databinding.CardGameBinding
-import org.citra.citra_emu.features.cheats.ui.CheatsFragmentDirections
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.utils.GameIconUtils
-import org.citra.citra_emu.viewmodel.GamesViewModel
+import io.github.lime3ds.HomeNavigationDirections
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.GameAdapter.GameViewHolder
+import io.github.lime3ds.databinding.CardGameBinding
+import io.github.lime3ds.features.cheats.ui.CheatsFragmentDirections
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.utils.GameIconUtils
+import io.github.lime3ds.viewmodel.GamesViewModel
 
 class GameAdapter(private val activity: AppCompatActivity) :
     ListAdapter<Game, GameViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build()),

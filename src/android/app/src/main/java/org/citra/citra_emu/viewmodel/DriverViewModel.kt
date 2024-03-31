@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.viewmodel
+package io.github.lime3ds.viewmodel
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.utils.FileUtil.asDocumentFile
-import org.citra.citra_emu.utils.GpuDriverMetadata
-import org.citra.citra_emu.utils.GpuDriverHelper
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.utils.FileUtil.asDocumentFile
+import io.github.lime3ds.utils.GpuDriverMetadata
+import io.github.lime3ds.utils.GpuDriverHelper
 
 class DriverViewModel : ViewModel() {
     val areDriversLoading get() = _areDriversLoading.asStateFlow()

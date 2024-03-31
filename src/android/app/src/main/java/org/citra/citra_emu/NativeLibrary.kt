@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu
+package io.github.lime3ds
 
 import android.Manifest.permission
 import android.app.Dialog
@@ -20,10 +20,10 @@ import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.citra.citra_emu.activities.EmulationActivity
-import org.citra.citra_emu.utils.EmulationMenuSettings
-import org.citra.citra_emu.utils.FileUtil
-import org.citra.citra_emu.utils.Log
+import io.github.lime3ds.activities.EmulationActivity
+import io.github.lime3ds.utils.EmulationMenuSettings
+import io.github.lime3ds.utils.FileUtil
+import io.github.lime3ds.utils.Log
 import java.lang.ref.WeakReference
 import java.util.Date
 

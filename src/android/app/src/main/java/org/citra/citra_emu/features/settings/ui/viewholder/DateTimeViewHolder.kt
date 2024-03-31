@@ -2,19 +2,19 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui.viewholder
+package io.github.lime3ds.features.settings.ui.viewholder
 
 import android.annotation.SuppressLint
 import android.view.View
-import org.citra.citra_emu.databinding.ListItemSettingBinding
+import io.github.lime3ds.databinding.ListItemSettingBinding
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import org.citra.citra_emu.features.settings.model.view.DateTimeSetting
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.features.settings.ui.SettingsAdapter
+import io.github.lime3ds.features.settings.model.view.DateTimeSetting
+import io.github.lime3ds.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.ui.SettingsAdapter
 import java.text.SimpleDateFormat
 
 class DateTimeViewHolder(val binding: ListItemSettingBinding, adapter: SettingsAdapter) :

@@ -2,14 +2,14 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModelProvider
-import org.citra.citra_emu.NativeLibrary
-import org.citra.citra_emu.R
-import org.citra.citra_emu.activities.EmulationActivity
-import org.citra.citra_emu.viewmodel.EmulationViewModel
+import io.github.lime3ds.NativeLibrary
+import io.github.lime3ds.R
+import io.github.lime3ds.activities.EmulationActivity
+import io.github.lime3ds.viewmodel.EmulationViewModel
 
 @Keep
 object DiskShaderCacheProgress {

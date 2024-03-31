@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.adapters
+package io.github.lime3ds.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.databinding.ListItemSettingBinding
-import org.citra.citra_emu.fragments.LicenseBottomSheetDialogFragment
-import org.citra.citra_emu.model.License
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.databinding.ListItemSettingBinding
+import io.github.lime3ds.fragments.LicenseBottomSheetDialogFragment
+import io.github.lime3ds.model.License
 
 class LicenseAdapter(private val activity: AppCompatActivity, var licenses: List<License>) :
     RecyclerView.Adapter<LicenseAdapter.LicenseViewHolder>(),

@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.viewmodel
+package io.github.lime3ds.viewmodel
 
 import android.content.res.Resources
 import android.net.Uri
@@ -12,11 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.fragments.CitraDirectoryDialogFragment
-import org.citra.citra_emu.utils.GameHelper
-import org.citra.citra_emu.utils.PermissionsHandler
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.fragments.CitraDirectoryDialogFragment
+import io.github.lime3ds.utils.GameHelper
+import io.github.lime3ds.utils.PermissionsHandler
 
 class HomeViewModel : ViewModel() {
     val navigationVisible get() = _navigationVisible.asStateFlow()

@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.app.Dialog
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.citra.citra_emu.R
+import io.github.lime3ds.R
 
 class MessageDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

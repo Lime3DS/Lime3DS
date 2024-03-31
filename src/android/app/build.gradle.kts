@@ -26,7 +26,7 @@ val downloadedJniLibsPath = "${buildDir}/downloadedJniLibs"
 
 @Suppress("UnstableApiUsage")
 android {
-    namespace = "org.citra.citra_emu"
+    namespace = "io.github.lime3ds"
 
     compileSdkVersion = "android-34"
     ndkVersion = "26.1.10909125"
@@ -61,7 +61,7 @@ android {
 
     defaultConfig {
         // TODO If this is ever modified, change application_id in strings.xml
-        applicationId = "org.citra.citra_emu"
+        applicationId = "io.github.lime3ds"
         minSdk = 28
         targetSdk = 34
         versionCode = autoVersion

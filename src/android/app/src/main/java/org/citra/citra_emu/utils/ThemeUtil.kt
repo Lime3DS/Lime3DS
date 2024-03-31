@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.content.SharedPreferences
 import android.content.res.Configuration
@@ -13,10 +13,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.preference.PreferenceManager
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.ui.main.ThemeProvider
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.ui.main.ThemeProvider
 import kotlin.math.roundToInt
 
 object ThemeUtil {

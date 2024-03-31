@@ -2,13 +2,13 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.settings.ui.viewholder
+package io.github.lime3ds.features.settings.ui.viewholder
 
 import android.view.View
-import org.citra.citra_emu.databinding.ListItemSettingBinding
-import org.citra.citra_emu.features.settings.model.view.SettingsItem
-import org.citra.citra_emu.features.settings.model.view.SubmenuSetting
-import org.citra.citra_emu.features.settings.ui.SettingsAdapter
+import io.github.lime3ds.databinding.ListItemSettingBinding
+import io.github.lime3ds.features.settings.model.view.SettingsItem
+import io.github.lime3ds.features.settings.model.view.SubmenuSetting
+import io.github.lime3ds.features.settings.ui.SettingsAdapter
 
 class SubmenuViewHolder(val binding: ListItemSettingBinding, adapter: SettingsAdapter) :
     SettingViewHolder(binding.root, adapter) {

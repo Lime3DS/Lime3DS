@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.app.PendingIntent
 import android.app.Service
@@ -10,8 +10,8 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import org.citra.citra_emu.R
-import org.citra.citra_emu.activities.EmulationActivity
+import io.github.lime3ds.R
+import io.github.lime3ds.activities.EmulationActivity
 
 /**
  * A service that shows a permanent notification in the background to avoid the app getting

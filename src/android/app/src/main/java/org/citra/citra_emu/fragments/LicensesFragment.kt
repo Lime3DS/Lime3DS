@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,11 +18,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.LicenseAdapter
-import org.citra.citra_emu.databinding.FragmentLicensesBinding
-import org.citra.citra_emu.model.License
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.LicenseAdapter
+import io.github.lime3ds.databinding.FragmentLicensesBinding
+import io.github.lime3ds.model.License
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class LicensesFragment : Fragment() {
     private var _binding: FragmentLicensesBinding? = null

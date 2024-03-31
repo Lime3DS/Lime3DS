@@ -2,10 +2,10 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.features.hotkeys
+package io.github.lime3ds.features.hotkeys
 
-import org.citra.citra_emu.utils.EmulationLifecycleUtil
-import org.citra.citra_emu.display.ScreenAdjustmentUtil
+import io.github.lime3ds.utils.EmulationLifecycleUtil
+import io.github.lime3ds.display.ScreenAdjustmentUtil
 
 class HotkeyUtility(private val screenAdjustmentUtil: ScreenAdjustmentUtil) {
 

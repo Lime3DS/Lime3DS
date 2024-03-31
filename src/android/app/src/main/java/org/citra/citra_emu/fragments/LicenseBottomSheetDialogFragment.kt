@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.citra.citra_emu.databinding.DialogLicenseBinding
-import org.citra.citra_emu.model.License
-import org.citra.citra_emu.utils.SerializableHelper.parcelable
+import io.github.lime3ds.databinding.DialogLicenseBinding
+import io.github.lime3ds.model.License
+import io.github.lime3ds.utils.SerializableHelper.parcelable
 
 class LicenseBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private var _binding: DialogLicenseBinding? = null

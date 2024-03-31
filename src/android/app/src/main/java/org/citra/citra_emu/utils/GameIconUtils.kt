@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.graphics.Bitmap
 import android.widget.ImageView
@@ -18,8 +18,8 @@ import coil.memory.MemoryCache
 import coil.request.ImageRequest
 import coil.request.Options
 import coil.transform.RoundedCornersTransformation
-import org.citra.citra_emu.R
-import org.citra.citra_emu.model.Game
+import io.github.lime3ds.R
+import io.github.lime3ds.model.Game
 import java.nio.IntBuffer
 
 class GameIconFetcher(

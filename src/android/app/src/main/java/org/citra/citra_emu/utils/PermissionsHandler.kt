@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.preference.PreferenceManager
 import androidx.documentfile.provider.DocumentFile
-import org.citra.citra_emu.CitraApplication
+import io.github.lime3ds.CitraApplication
 
 object PermissionsHandler {
     const val CITRA_DIRECTORY = "CITRA_DIRECTORY"

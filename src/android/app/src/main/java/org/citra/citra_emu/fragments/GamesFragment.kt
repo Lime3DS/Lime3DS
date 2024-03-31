@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -25,14 +25,14 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.citra.citra_emu.CitraApplication
-import org.citra.citra_emu.R
-import org.citra.citra_emu.adapters.GameAdapter
-import org.citra.citra_emu.databinding.FragmentGamesBinding
-import org.citra.citra_emu.features.settings.model.Settings
-import org.citra.citra_emu.model.Game
-import org.citra.citra_emu.viewmodel.GamesViewModel
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.CitraApplication
+import io.github.lime3ds.R
+import io.github.lime3ds.adapters.GameAdapter
+import io.github.lime3ds.databinding.FragmentGamesBinding
+import io.github.lime3ds.features.settings.model.Settings
+import io.github.lime3ds.model.Game
+import io.github.lime3ds.viewmodel.GamesViewModel
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class GamesFragment : Fragment() {
     private var _binding: FragmentGamesBinding? = null

@@ -2,16 +2,16 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.utils
+package io.github.lime3ds.utils
 
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import org.citra.citra_emu.fragments.CitraDirectoryDialogFragment
-import org.citra.citra_emu.fragments.CopyDirProgressDialog
-import org.citra.citra_emu.model.SetupCallback
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.fragments.CitraDirectoryDialogFragment
+import io.github.lime3ds.fragments.CopyDirProgressDialog
+import io.github.lime3ds.model.SetupCallback
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 /**
  * Citra directory initialization ui flow controller.

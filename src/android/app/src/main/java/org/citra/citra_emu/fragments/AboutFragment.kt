@@ -2,7 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
-package org.citra.citra_emu.fragments
+package io.github.lime3ds.fragments
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -23,10 +23,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.transition.MaterialSharedAxis
-import org.citra.citra_emu.BuildConfig
-import org.citra.citra_emu.R
-import org.citra.citra_emu.databinding.FragmentAboutBinding
-import org.citra.citra_emu.viewmodel.HomeViewModel
+import io.github.lime3ds.BuildConfig
+import io.github.lime3ds.R
+import io.github.lime3ds.databinding.FragmentAboutBinding
+import io.github.lime3ds.viewmodel.HomeViewModel
 
 class AboutFragment : Fragment() {
     private var _binding: FragmentAboutBinding? = null
