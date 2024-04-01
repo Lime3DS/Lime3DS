@@ -511,7 +511,7 @@ object NativeLibrary {
     external fun loadState(slot: Int)
 
     /**
-     * Logs the Citra version, Android version and, CPU.
+     * Logs the Lime3DS version, Android version and, CPU.
      */
     external fun logDeviceInfo()
 
