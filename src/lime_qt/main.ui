@@ -296,7 +296,7 @@
   </action>
   <action name="action_FAQ">
    <property name="text">
-    <string>FAQ</string>
+    <string>FAQ (Discord)</string>
    </property>
   </action>
   <action name="action_About">
