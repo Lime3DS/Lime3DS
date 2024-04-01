@@ -48,13 +48,13 @@
     <string name="copied_to_clipboard">已复制到剪贴板</string>
     <string name="contributors">贡献者</string>
     <string name="contributors_description">Citra 团队的用 \u2764 打造</string>
-    <string name="contributors_link">https://github.com/citra-emu/citra/graphs/contributors</string>
+    <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
     <string name="licenses_description">Citra 安卓版的诞生离不开这些项目</string>
     <string name="build">构建版本</string>
     <string name="licenses">许可证</string>
-    <string name="support_link">https://discord.gg/FAXfZV9</string>
-    <string name="website_link">https://citra-emu.org/</string>
-    <string name="github_link">https://github.com/citra-emu</string>
+    <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
+    <string name="website_link">https://lime3ds.github.io/</string>
+    <string name="github_link">https://github.com/Lime3DS</string>
 
     <!-- Setup strings -->
     <string name="welcome">欢迎！</string>

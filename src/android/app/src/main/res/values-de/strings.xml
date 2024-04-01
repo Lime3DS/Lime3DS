@@ -35,13 +35,13 @@
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="contributors">Mitwirkende</string>
     <string name="contributors_description">Gemacht mit \u2764 vom Citra-Team</string>
-    <string name="contributors_link">https://github.com/citra-emu/citra/graphs/contributors</string>
+    <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
     <string name="licenses_description">Projekte, die Citra für Android ermöglichen</string>
     <string name="build">Build</string>
     <string name="licenses">Lizenzen</string>
-    <string name="support_link">https://discord.gg/FAXfZV9</string>
-    <string name="website_link">https://citra-emu.org/</string>
-    <string name="github_link">https://github.com/citra-emu</string>
+    <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
+    <string name="website_link">https://lime3ds.github.io/</string>
+    <string name="github_link">https://github.com/Lime3DS</string>
 
     <!-- Setup strings -->
     <string name="welcome">Willkommen!</string>
