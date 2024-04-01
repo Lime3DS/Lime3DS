@@ -6,7 +6,7 @@
     <string name="app_disclaimer">This software will run games for the Nintendo 3DS handheld game console. No game titles are included.\n\nBefore you can begin with emulating, please select a folder to store Lime3DS\'s user data in.\n\nWhat\'s this:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Lime3DS Android user data and storage</a></string>
     <string name="app_notification_channel_name" translatable="false">Lime3DS</string>
     <string name="app_notification_channel_id" translatable="false">Lime3DS</string>
-    <string name="app_notification_channel_description">Lime3DS 3DS emulator notifications</string>
+    <string name="app_notification_channel_description">Lime3DS emulator notifications</string>
     <string name="app_notification_running">Lime3DS is Running</string>
     <string name="app_game_install_description">Next, you will need to select a Game Folder. Lime3DS will display all of the 3DS ROMs inside of the selected folder in the app.\n\nCIA ROMs, updates and DLC will need to be installed separately by clicking on the folder icon and selecting Install CIA.</string>
 

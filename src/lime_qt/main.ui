@@ -475,10 +475,10 @@
   </action>
   <action name="action_Open_Maintenance_Tool">
    <property name="text">
-    <string>Modify Lime Install</string>
+    <string>Modify Lime3DS Install</string>
    </property>
    <property name="toolTip">
-    <string>Opens the maintenance tool to modify your Lime installation</string>
+    <string>Opens the maintenance tool to modify your Lime3DS installation</string>
    </property>
   </action>
   <action name="action_Screen_Layout_Default">
@@ -587,7 +587,7 @@
   </action>
   <action name="action_Open_Citra_Folder">
    <property name="text">
-    <string>Open Lime Folder</string>
+    <string>Open Lime3DS Folder</string>
    </property>
   </action>
   <action name="action_Configure_Current_Game">

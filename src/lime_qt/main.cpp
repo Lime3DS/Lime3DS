@@ -233,8 +233,8 @@ GMainWindow::GMainWindow(Core::System& system_)
     ConnectMenuEvents();
     ConnectWidgetEvents();
 
-    LOG_INFO(Frontend, "Lime Version: {} | {}-{}", Common::g_build_fullname, Common::g_scm_branch,
-             Common::g_scm_desc);
+    LOG_INFO(Frontend, "Lime3DS Version: {} | {}-{}", Common::g_build_fullname,
+             Common::g_scm_branch, Common::g_scm_desc);
 #if CITRA_ARCH(x86_64)
     const auto& caps = Common::GetCPUCaps();
     std::string cpu_string = caps.cpu_string;
@@ -1264,7 +1264,7 @@ void GMainWindow::BootGame(const QString& filename) {
         return;
     }
 
-    LOG_INFO(Frontend, "Lime starting...");
+    LOG_INFO(Frontend, "Lime3DS starting...");
     StoreRecentFile(filename); // Put the filename on top of the list
 
     if (movie_record_on_start) {
@@ -3059,13 +3059,13 @@ void GMainWindow::UpdateWindowTitle() {
     const QString full_name = QString::fromUtf8(Common::g_build_fullname);
 
     if (game_title_long.isEmpty()) {
-        setWindowTitle(QStringLiteral("Lime %1").arg(full_name));
+        setWindowTitle(QStringLiteral("Lime3DS %1").arg(full_name));
     } else {
-        setWindowTitle(QStringLiteral("Lime %1 | %2").arg(full_name, game_title_long));
-        render_window->setWindowTitle(QStringLiteral("Lime %1 | %2 | %3")
+        setWindowTitle(QStringLiteral("Lime3DS %1 | %2").arg(full_name, game_title_long));
+        render_window->setWindowTitle(QStringLiteral("Lime3DS %1 | %2 | %3")
                                           .arg(full_name, game_title_long, tr("Primary Window")));
         secondary_window->setWindowTitle(
-            QStringLiteral("Lime %1 | %2 | %3")
+            QStringLiteral("Lime3DS %1 | %2 | %3")
                 .arg(full_name, game_title_long, tr("Secondary Window")));
     }
 }
@@ -3195,7 +3195,7 @@ int main(int argc, char* argv[]) {
     SCOPE_EXIT({ MicroProfileShutdown(); });
 
     // Init settings params
-    QCoreApplication::setOrganizationName(QStringLiteral("Lime team"));
+    QCoreApplication::setOrganizationName(QStringLiteral("Lime3DS team"));
     QCoreApplication::setApplicationName(QStringLiteral("Lime"));
 
     auto rounding_policy = GetHighDpiRoundingPolicy();

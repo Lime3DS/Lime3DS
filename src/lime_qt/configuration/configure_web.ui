@@ -19,7 +19,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxWebConfig">
        <property name="title">
-        <string>Lime Web Service</string>
+        <string>Lime3DS Web Service</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayoutCitraWebService">
         <item>
@@ -128,7 +128,7 @@
         <item>
          <widget class="QCheckBox" name="toggle_telemetry">
           <property name="text">
-           <string>Share anonymous usage data with the Lime team</string>
+           <string>Share anonymous usage data with the Lime3DS team</string>
           </property>
          </widget>
         </item>

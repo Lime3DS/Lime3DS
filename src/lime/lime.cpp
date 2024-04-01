@@ -84,7 +84,7 @@ static void PrintHelp(const char* argv0) {
 }
 
 static void PrintVersion() {
-    std::cout << "Lime " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
+    std::cout << "Lime3DS " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
 }
 
 static void OnStateChanged(const Network::RoomMember::State& state) {
@@ -400,8 +400,8 @@ int main(int argc, char** argv) {
 
     const auto scope = emu_window->Acquire();
 
-    LOG_INFO(Frontend, "Lime Version: {} | {}-{}", Common::g_build_fullname, Common::g_scm_branch,
-             Common::g_scm_desc);
+    LOG_INFO(Frontend, "Lime3DS Version: {} | {}-{}", Common::g_build_fullname,
+             Common::g_scm_branch, Common::g_scm_desc);
     Settings::LogSettings();
 
     const Core::System::ResultStatus load_result{
