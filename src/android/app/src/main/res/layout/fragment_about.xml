@@ -42,7 +42,7 @@
                 android:layout_height="104dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_citra_full" />
+                android:src="@drawable/ic_lime_full" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"

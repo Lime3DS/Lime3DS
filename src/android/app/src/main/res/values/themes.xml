@@ -3,7 +3,7 @@
 
     <style name="Theme.Lime.Splash.Main" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/citra_surface</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_citra</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_lime</item>
         <item name="postSplashScreenTheme">@style/Theme.Lime.Main</item>
     </style>
 

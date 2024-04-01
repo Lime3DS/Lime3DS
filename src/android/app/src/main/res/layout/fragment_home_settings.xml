@@ -22,7 +22,7 @@
             android:layout_height="104dp"
             android:layout_margin="32dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_citra_full" />
+            android:src="@drawable/ic_lime_full" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_settings_list"
