@@ -62,7 +62,7 @@
 
     <!-- Setup strings -->
     <string name="welcome">Welcome!</string>
-    <string name="welcome_description">Learn how to setup &lt;b>Lime3DS&lt;/b> and jump into emulation.</string>
+    <string name="welcome_description">Learn how to set up &lt;b>Lime3DS&lt;/b> and jump into emulation.</string>
     <string name="get_started">Get started</string>
     <string name="step_complete">Complete!</string>
     <string name="games">Games</string>
