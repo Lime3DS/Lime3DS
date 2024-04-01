@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_disclaimer">Denne programvaren kjører spill for Nintendo 3DS håndholdte spillkonsoll. Ingen spilltitler er inkludert.\n\nFør du starter, vennligst plasser dine rettmessig eide 3DS-spillfiler på lagringsenheten.</string>
-    <string name="app_notification_channel_description">Citra 3DS emulator notifikasjoner</string>
-    <string name="app_notification_running">Citra kjører</string>
+    <string name="app_notification_channel_description">Lime3DS emulator notifikasjoner</string>
+    <string name="app_notification_running">Lime3DS kjører</string>
 
     <!-- Input related strings -->
     <string name="controller_circlepad">Gliplate</string>
@@ -75,8 +75,8 @@
 
     <!-- Premium strings -->
     <string name="premium_text">Premium</string>
-    <string name="premium_settings_upsell">Oppgrader til Premium og støtt Citra!</string>
-    <string name="premium_settings_upsell_description">Med Premium vil du støtte utviklerne til å fortsette å forbedre Citra, og få tilgang til disse eksklusive funksjonene!</string>
+    <string name="premium_settings_upsell">Oppgrader til Premium og støtt Lime3DS!</string>
+    <string name="premium_settings_upsell_description">Med Premium vil du støtte utviklerne til å fortsette å forbedre Lime3DS, og få tilgang til disse eksklusive funksjonene!</string>
     <string name="premium_settings_welcome">Velkommen til Premium.</string>
     <string name="premium_settings_welcome_description">Takk for støtten!</string>
 
@@ -140,7 +140,7 @@
     <string name="write_permission_needed">Du må gi skrivetilgang til ekstern lagring for at emulatoren skal fungere</string>
     <string name="load_settings">Laster Innstillinger...</string>
 
-    <string name="external_storage_not_mounted">Den eksterne lagringen må være tilgjengelig for å kunne bruke Citra</string>
+    <string name="external_storage_not_mounted">Den eksterne lagringen må være tilgjengelig for å kunne bruke Lime3DS</string>
 
     <string name="select_dir">Velg Denne Mappen</string>
     <string name="empty_gamelist">Ingen filer ble funnet, eller det er ikke valgt noen spillkatalog ennå.</string>
@@ -160,5 +160,5 @@
     <!-- Camera -->
     <string name="camera_select_image">Velg Bilde</string>
     <string name="camera">Kamera</string>
-    <string name="camera_permission_needed">Citra trenger tilgang til kameraet ditt for å emulere 3DS-kameraene.\n\n Alternativt kan du også stille \"Bildekilde\" til \"Stillbilde\" i kamerainnstillinger.</string>
+    <string name="camera_permission_needed">Lime3DS trenger tilgang til kameraet ditt for å emulere 3DS-kameraene.\n\n Alternativt kan du også stille \"Bildekilde\" til \"Stillbilde\" i kamerainnstillinger.</string>
 </resources>

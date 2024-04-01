@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Este software correrá juegos de la consola portátil Nintendo 3DS. No se incluye ningún juego.\n\nAntes de comenzar, elige una carpeta en donde guardar los datos de usuario de Citra.\n\nQué es ésto:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Datos de usuario de Citra Android y almacenamiento</a></string>
-    <string name="app_notification_channel_description">Notificaciones del Emulador Citra 3DS</string>
-    <string name="app_notification_running">Citra está ejecutándose</string>
-    <string name="app_game_install_description">A continuación, tendrás que seleccionar una Carpeta de Juegos. Citra mostrará todas las ROMs de 3DS en la carpeta seleccionada en la app.\n\nLas ROMs en CIA, actualizaciones y DLC tendrán que ser instaladas por separado al darle al icono de la carpeta y seleccionar Instalar CIA.</string>
+    <string name="app_disclaimer">Este software correrá juegos de la consola portátil Nintendo 3DS. No se incluye ningún juego.\n\nAntes de comenzar, elige una carpeta en donde guardar los datos de usuario de Lime3DS.\n\nQué es ésto:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Datos de usuario de Lime3DS Android y almacenamiento</a></string>
+    <string name="app_notification_channel_description">Notificaciones del Emulador Lime3DS</string>
+    <string name="app_notification_running">Lime3DS está ejecutándose</string>
+    <string name="app_game_install_description">A continuación, tendrás que seleccionar una Carpeta de Juegos. Lime3DS mostrará todas las ROMs de 3DS en la carpeta seleccionada en la app.\n\nLas ROMs en CIA, actualizaciones y DLC tendrán que ser instaladas por separado al darle al icono de la carpeta y seleccionar Instalar CIA.</string>
 
     <!-- Home Strings -->
     <string name="grid_menu_core_settings">Configuración</string>
@@ -15,7 +15,7 @@
     <string name="install_game_content">Instalar archivo CIA</string>
     <string name="install_game_content_description">Instalar juegos, actualizaciones o DLC</string>
     <string name="share_log">Compartir Registro</string>
-    <string name="share_log_description">Compartir el archivo de registro de Citra para depurar problemas</string>
+    <string name="share_log_description">Compartir el archivo de registro de Lime3DS para depurar problemas</string>
     <string name="gpu_driver_manager">Administrador de drivers de GPU</string>
     <string name="install_gpu_driver">Instalar drivers de GPU</string>
     <string name="install_gpu_driver_description">Instala drivers alternativos para, potencialmente, conseguir mejor rendimiento y/o precisión</string>
@@ -24,12 +24,12 @@
     <string name="custom_driver_not_supported_description">La carga de drivers personalizados no está soportada en este dispositivo.\n¡Compruebe esta opción otra vez en el futuro para ver si ya está soportada!</string>
     <string name="share_log_not_found">No se encontró ningún archivo de registro</string>
     <string name="select_games_folder">Seleccionar Directorio de Juego</string>
-    <string name="select_games_folder_description">Permite que Citra llene la lista de juegos</string>
+    <string name="select_games_folder_description">Permite que Lime3DS llene la lista de juegos</string>
     <string name="about">Acerca de</string>
     <string name="citra_description">Un emulador de 3DS de código abierto</string>
     <string name="about_description">Versión de compilación, créditos y más</string>
     <string name="games_dir_selected">Directorio de juegos seleccionado</string>
-    <string name="select_citra_user_folder_home_description">Cambia los archivos que Citra usa para cargar juegos</string>
+    <string name="select_citra_user_folder_home_description">Cambia los archivos que Lime3DS usa para cargar juegos</string>
     <string name="theme_and_color_description">Modifica el aspecto de la app</string>
     <string name="install_cia_title">Instalar CIA</string>
 
@@ -47,9 +47,9 @@
     <!-- About screen strings -->
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
     <string name="contributors">Contribuidores</string>
-    <string name="contributors_description">Hecho con \u2764 por parte del equipo de Citra</string>
+    <string name="contributors_description">Hecho con \u2764 por parte del equipo de Lime3DS</string>
     <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
-    <string name="licenses_description">Proyectos que han hecho que Citra para Android sea una realidad</string>
+    <string name="licenses_description">Proyectos que han hecho que Lime3DS para Android sea una realidad</string>
     <string name="build">Compilación</string>
     <string name="licenses">Licencias</string>
     <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
@@ -58,7 +58,7 @@
 
     <!-- Setup strings -->
     <string name="welcome">¡Bienvenido/a!</string>
-    <string name="welcome_description">Aprenda a configurar &lt;b>Citra&lt;/b> y entra en la emulación.</string>
+    <string name="welcome_description">Aprenda a configurar &lt;b>Lime3DS&lt;/b> y entra en la emulación.</string>
     <string name="get_started">Empezar</string>
     <string name="step_complete">¡Completado!</string>
     <string name="games">Juegos</string>
@@ -71,7 +71,7 @@
     <string name="notifications_description">Concede el permiso de notificaciones con el botón de debajo.</string>
     <string name="give_permission">Conceder permiso</string>
     <string name="notification_warning">¿Saltarse la concesión del permiso de notificaciones?</string>
-    <string name="notification_warning_description">Citra no podrá notificarte sobre información importante.</string>
+    <string name="notification_warning_description">Lime3DS no podrá notificarte sobre información importante.</string>
     <string name="camera_permission">Cámara</string>
     <string name="camera_permission_description">Concede el permiso de cámara debajo para emular la cámara de la 3DS.</string>
     <string name="microphone_permission">Micrófono</string>
@@ -87,7 +87,7 @@
     <string name="select_citra_user_folder_description"><![CDATA[Selecciona tu directorio con los<a href=\"https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">datos de usuario</a> con el botón de debajo.]]></string>
     <string name="select">Seleccionar</string>
     <string name="cannot_skip">No puedes saltarte este paso</string>
-    <string name="cannot_skip_directory_description">Este paso es imprescindible para que así Citra pueda funcionar. Por favor, seleccione un directorio y entonces podrás continuar.</string>
+    <string name="cannot_skip_directory_description">Este paso es imprescindible para que así Lime3DS pueda funcionar. Por favor, seleccione un directorio y entonces podrás continuar.</string>
     <string name="cannot_skip_directory_help">https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
 
     <!-- Search Strings -->
@@ -124,7 +124,7 @@
     <string name="system_type">Tipo de Sistema</string>
     <string name="download">Descargar</string>
     <string name="start">Iniciar</string>
-    <string name="keys_missing">Citra no tiene las claves para descargar los archivos de sistema.</string>
+    <string name="keys_missing">Lime3DS no tiene las claves para descargar los archivos de sistema.</string>
     <string name="how_to_get_keys"><![CDATA[<a href=\"https://citra-emu.org/wiki/aes-keys/\">¿Cómo obtener las claves?</a>]]></string>
     <string name="show_home_apps">Mostrar las apps del menú HOME en la lista de juegos</string>
     <string name="run_system_setup">Ejecutar la Configuración de la consola cuando se ejecute el Menú HOME</string>
@@ -141,7 +141,7 @@
     <string name="cancelling">Cancelando...</string>
     <string name="home_menu">Menú HOME</string>
     <string name="home_menu_warning">Advertencia de los Archivos de Sistema</string>
-    <string name="home_menu_warning_description">Debido a la lentitud del framework de Android de acceso al almacenamiento para acceder a los archivos de Citra, descargar múltiples versiones de los archivos de sistema pueden aumentar trágicamente los tiempos de carga para los juegos, los estados, y la lista de juegos. Sólo descarga los archivos que necesites para evitar problemas con las velocidades de carga.</string>
+    <string name="home_menu_warning_description">Debido a la lentitud del framework de Android de acceso al almacenamiento para acceder a los archivos de Lime3DS, descargar múltiples versiones de los archivos de sistema pueden aumentar trágicamente los tiempos de carga para los juegos, los estados, y la lista de juegos. Sólo descarga los archivos que necesites para evitar problemas con las velocidades de carga.</string>
 
     <!-- Generic buttons (Shared with lots of stuff) -->
     <string name="generic_buttons">Botones</string>
@@ -346,7 +346,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="write_permission_needed">Necesitas dar permisos de escritura al almacenamiento externo para que funcione el emulador.</string>
     <string name="load_settings">Cargando la configuración...</string>
 
-    <string name="external_storage_not_mounted">El almacenamiento externo necesita estar disponible para poder usar Citra.</string>
+    <string name="external_storage_not_mounted">El almacenamiento externo necesita estar disponible para poder usar Lime3DS.</string>
 
     <string name="select_dir">Selecciona Este Directorio</string>
     <string name="empty_gamelist">No se han encontrado archivos o todavía no se ha elegido el directorio de juegos.</string>
@@ -376,11 +376,11 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <!-- Camera -->
     <string name="camera_select_image">Seleccionar Imagen</string>
     <string name="camera">Cámara</string>
-    <string name="camera_permission_needed">Citra necesita permiso para acceder a tu cámara para emular las cámaras de la 3DS.\n\nO también puedes poner la \"Fuente de la imagen\" en \"Imagen normal\" en la Configuración de la Cámara.</string>
+    <string name="camera_permission_needed">Lime3DS necesita permiso para acceder a tu cámara para emular las cámaras de la 3DS.\n\nO también puedes poner la \"Fuente de la imagen\" en \"Imagen normal\" en la Configuración de la Cámara.</string>
 
     <!-- Microphone -->
     <string name="microphone">Micrófono</string>
-    <string name="microphone_permission_needed">Citra necesita acceder a tu micrófono para emular el micrófono de la 3DS.\n\nAlternativamente, puedes también cambiar el \"Dispositivo de entrada de audio\" en la Configuración de Audio.</string>
+    <string name="microphone_permission_needed">Lime3DS necesita acceder a tu micrófono para emular el micrófono de la 3DS.\n\nAlternativamente, puedes también cambiar el \"Dispositivo de entrada de audio\" en la Configuración de Audio.</string>
 
     <!-- Core Errors -->
     <string name="abort_button">Abortar</string>
@@ -416,7 +416,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
         <item quantity="many">Instalando %d archivos. Mira la notificación para más detalles.</item>
         <item quantity="other">Instalando%d archivos. Mira la notificación para más detalles.</item>
     </plurals>
-    <string name="cia_install_notification_channel_description">Notificaciones de Citra durante la instalación de CIA/s.</string>
+    <string name="cia_install_notification_channel_description">Notificaciones de Lime3DS durante la instalación de CIA/s.</string>
     <string name="cia_install_notification_title">Instalando CIA</string>
     <string name="cia_install_notification_installing">Instalando %s (%d/%d)</string>
     <string name="cia_install_notification_success_title">CIA instalado con éxito</string>
@@ -424,7 +424,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="cia_install_success">\"%s\" se ha instalado con éxito</string>
     <string name="cia_install_error_aborted">La instalación de \"%s\" ha sido abortada.\n Por favor, mira el log para más información.</string>
     <string name="cia_install_error_invalid">\"%s\" no es un CIA válido.</string>
-    <string name="cia_install_error_encrypted">\"%s\" debe ser desencriptado antes de ser usado en Citra .\n Se necesita una 3DS real.</string>
+    <string name="cia_install_error_encrypted">\"%s\" debe ser desencriptado antes de ser usado en Lime3DS .\n Se necesita una 3DS real.</string>
     <string name="cia_install_error_unknown">Ha ocurrido un error desconocido mientras se instalaba \"%s\".\n Por favor, mira el log para más detalles.</string>
 
     <!-- Theme Modes -->

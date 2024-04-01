@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">此软件可以运行任天堂 3DS 掌机游戏。本软件不包含任何游戏。\n\n在开始前，请选择一个文件夹来存储 Citra 用户数据。\n\n了解更多：\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>WiKi - Android 版 Citra 的用户数据及存储</a></string>
-    <string name="app_notification_channel_description">Citra 3DS 模拟器</string>
-    <string name="app_notification_running">Citra 正在运行</string>
-    <string name="app_game_install_description">接下来，您需要选择一个游戏目录。Citra 将显示所选目录中的所有 3DS ROM。\n\nCIA 格式的 ROM、游戏更新和 DLC 需要分别进行安装，具体为点击文件夹图标并选择“安装 CIA”。</string>
+    <string name="app_disclaimer">此软件可以运行任天堂 3DS 掌机游戏。本软件不包含任何游戏。\n\n在开始前，请选择一个文件夹来存储 Lime3DS 用户数据。\n\n了解更多：\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>WiKi - Android 版 Lime3DS 的用户数据及存储</a></string>
+    <string name="app_notification_channel_description">Lime3DS 模拟器</string>
+    <string name="app_notification_running">Lime3DS 正在运行</string>
+    <string name="app_game_install_description">接下来，您需要选择一个游戏目录。Lime3DS 将显示所选目录中的所有 3DS ROM。\n\nCIA 格式的 ROM、游戏更新和 DLC 需要分别进行安装，具体为点击文件夹图标并选择“安装 CIA”。</string>
 
     <!-- Home Strings -->
     <string name="grid_menu_core_settings">设置</string>
@@ -15,7 +15,7 @@
     <string name="install_game_content">安装 CIA 文件</string>
     <string name="install_game_content_description">安装游戏、游戏更新及 DLC</string>
     <string name="share_log">分享日志文件</string>
-    <string name="share_log_description">共享 Citra 的日志文件以进行调试</string>
+    <string name="share_log_description">共享 Lime3DS 的日志文件以进行调试</string>
     <string name="gpu_driver_manager">GPU 驱动管理器</string>
     <string name="install_gpu_driver">安装 GPU 驱动</string>
     <string name="install_gpu_driver_description">安装替代的驱动以获得更好的性能及画面精度</string>
@@ -24,12 +24,12 @@
     <string name="custom_driver_not_supported_description">此设备暂不支持自定义驱动。\n请之后再来查看您的设备是否已被支持。</string>
     <string name="share_log_not_found">未找到日志文件</string>
     <string name="select_games_folder">选择游戏文件夹</string>
-    <string name="select_games_folder_description">允许 Citra 填充游戏列表</string>
+    <string name="select_games_folder_description">允许 Lime3DS 填充游戏列表</string>
     <string name="about">关于</string>
     <string name="citra_description">一款开源的任天堂 3DS 模拟器</string>
     <string name="about_description">构建版本、贡献者以及更多</string>
     <string name="games_dir_selected">已选择游戏文件夹</string>
-    <string name="select_citra_user_folder_home_description">更改 Citra 用于加载游戏的相关文件</string>
+    <string name="select_citra_user_folder_home_description">更改 Lime3DS 用于加载游戏的相关文件</string>
     <string name="theme_and_color_description">更改应用程序的外观</string>
     <string name="install_cia_title">安装 CIA</string>
 
@@ -47,9 +47,9 @@
     <!-- About screen strings -->
     <string name="copied_to_clipboard">已复制到剪贴板</string>
     <string name="contributors">贡献者</string>
-    <string name="contributors_description">Citra 团队的用 \u2764 打造</string>
+    <string name="contributors_description">Lime3DS 团队的用 \u2764 打造</string>
     <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
-    <string name="licenses_description">Citra 安卓版的诞生离不开这些项目</string>
+    <string name="licenses_description">Lime3DS 安卓版的诞生离不开这些项目</string>
     <string name="build">构建版本</string>
     <string name="licenses">许可证</string>
     <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
@@ -58,7 +58,7 @@
 
     <!-- Setup strings -->
     <string name="welcome">欢迎！</string>
-    <string name="welcome_description">了解如何设置 &lt;b>Citra&lt;/b> 并进行模拟。</string>
+    <string name="welcome_description">了解如何设置 &lt;b>Lime3DS&lt;/b> 并进行模拟。</string>
     <string name="get_started">开始</string>
     <string name="step_complete">完成！</string>
     <string name="games">游戏</string>
@@ -71,7 +71,7 @@
     <string name="notifications_description">点击下面的按钮授予通知权限。</string>
     <string name="give_permission">授予权限</string>
     <string name="notification_warning">跳过通知权限授予？</string>
-    <string name="notification_warning_description">Citra 将无法通知您重要信息。</string>
+    <string name="notification_warning_description">Lime3DS 将无法通知您重要信息。</string>
     <string name="camera_permission">摄像头</string>
     <string name="camera_permission_description">在下方授予访问相机权限以模拟 3DS 的摄像头</string>
     <string name="microphone_permission">麦克风</string>
@@ -87,7 +87,7 @@
     <string name="select_citra_user_folder_description"><![CDATA[使用下方按钮选择您的<a href=\"https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">用户数据</a>文件夹。]]></string>
     <string name="select">选择</string>
     <string name="cannot_skip">此步骤不可跳过</string>
-    <string name="cannot_skip_directory_description">运行 Citra 的必需步骤。请选择一个文件夹，然后才可继续。</string>
+    <string name="cannot_skip_directory_description">运行 Lime3DS 的必需步骤。请选择一个文件夹，然后才可继续。</string>
     <string name="cannot_skip_directory_help">https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
 
     <!-- Search Strings -->
@@ -124,7 +124,7 @@
     <string name="system_type">系统类型</string>
     <string name="download">下载</string>
     <string name="start">开始</string>
-    <string name="keys_missing">Citra 缺失下载系统文件所需的密钥。</string>
+    <string name="keys_missing">Lime3DS 缺失下载系统文件所需的密钥。</string>
     <string name="how_to_get_keys"><![CDATA[<a href=\"https://citra-emu.org/wiki/aes-keys/\">如何获取密钥？</a>]]></string>
     <string name="show_home_apps">在游戏列表中显示 HOME 菜单小程序</string>
     <string name="run_system_setup">启动 HOME 菜单时运行系统设置</string>
@@ -132,7 +132,7 @@
     <string name="system_type_old_3ds">老版 3DS</string>
     <string name="system_type_new_3ds">新版 3DS</string>
     <string name="downloading_files">下载中...</string>
-    <string name="downloading_files_description">请不要关闭 Citra。</string>
+    <string name="downloading_files_description">请不要关闭 Lime3DS。</string>
     <string name="download_failed">下载失败</string>
     <string name="download_failed_description">请确保您的网络连接正常，然后重试。</string>
     <string name="download_success">下载完成！</string>
@@ -141,7 +141,7 @@
     <string name="cancelling">取消中...</string>
     <string name="home_menu">HOME 菜单</string>
     <string name="home_menu_warning">系统文件警告</string>
-    <string name="home_menu_warning_description">由于 Android 存储访问框架访问 Citra 文件的速度非常慢，下载多个版本的系统文件会大大降低游戏加载、即时存档和刷新游戏列表的速度。只下载您需要的文件，以免加载速度出现问题。</string>
+    <string name="home_menu_warning_description">由于 Android 存储访问框架访问 Lime3DS 文件的速度非常慢，下载多个版本的系统文件会大大降低游戏加载、即时存档和刷新游戏列表的速度。只下载您需要的文件，以免加载速度出现问题。</string>
 
     <!-- Generic buttons (Shared with lots of stuff) -->
     <string name="generic_buttons">按键</string>
@@ -343,10 +343,10 @@
     <string name="lock_drawer">锁定侧滑菜单</string>
     <string name="unlock_drawer">解锁侧滑菜单</string>
 
-    <string name="write_permission_needed">您需要允许 Citra 对外部存储器进行读写访问，以便模拟器正常工作。</string>
+    <string name="write_permission_needed">您需要允许 Lime3DS 对外部存储器进行读写访问，以便模拟器正常工作。</string>
     <string name="load_settings">正在加载设置...</string>
 
-    <string name="external_storage_not_mounted">需要有可用的外部存储器，Citra 才能正常工作。</string>
+    <string name="external_storage_not_mounted">需要有可用的外部存储器，Lime3DS 才能正常工作。</string>
 
     <string name="select_dir">选择此目录</string>
     <string name="empty_gamelist">找不到游戏文件或尚未添加游戏目录。</string>
@@ -376,11 +376,11 @@
     <!-- Camera -->
     <string name="camera_select_image">选择图像</string>
     <string name="camera">摄像头</string>
-    <string name="camera_permission_needed">Citra 需要访问您的摄像头来模拟 3DS 上的摄像头。\n\n或者，您也可以在设置—>摄像头中将“图像来源”设置为“静止图像”。</string>
+    <string name="camera_permission_needed">Lime3DS 需要访问您的摄像头来模拟 3DS 上的摄像头。\n\n或者，您也可以在设置—>摄像头中将“图像来源”设置为“静止图像”。</string>
 
     <!-- Microphone -->
     <string name="microphone">麦克风</string>
-    <string name="microphone_permission_needed">Citra 需要访问您的麦克风来模拟 3DS 实机上的麦克风。\n\n或者，您也可以在声音设置中更改“音频输入设备”。</string>
+    <string name="microphone_permission_needed">Lime3DS 需要访问您的麦克风来模拟 3DS 实机上的麦克风。\n\n或者，您也可以在声音设置中更改“音频输入设备”。</string>
 
     <!-- Core Errors -->
     <string name="abort_button">中止</string>
@@ -414,7 +414,7 @@
     <plurals name="cia_install_toast">
         <item quantity="other">正在安装 %d 个文件。请查看通知了解详情。</item>
     </plurals>
-    <string name="cia_install_notification_channel_description">CIA 文件安装时的 Citra 通知</string>
+    <string name="cia_install_notification_channel_description">CIA 文件安装时的 Lime3DS 通知</string>
     <string name="cia_install_notification_title">正在安装 CIA 文件</string>
     <string name="cia_install_notification_installing">正在安装 %s (%d/%d)</string>
     <string name="cia_install_notification_success_title">CIA 文件安装成功</string>
@@ -422,7 +422,7 @@
     <string name="cia_install_success">“%s”已安装成功</string>
     <string name="cia_install_error_aborted">“%s”的安装中断。\n 详情请参看日志文件</string>
     <string name="cia_install_error_invalid">“%s”不是有效的 CIA 文件</string>
-    <string name="cia_install_error_encrypted">“%s”需要解密才能被 Citra 识别。\n解密过程需要一台实体 3DS 游戏机</string>
+    <string name="cia_install_error_encrypted">“%s”需要解密才能被 Lime3DS 识别。\n解密过程需要一台实体 3DS 游戏机</string>
     <string name="cia_install_error_unknown">安装“%s”时出现未知错误。\n 有关详细信息，请参阅日志文件</string>
 
     <!-- Theme Modes -->

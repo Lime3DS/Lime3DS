@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_disclaimer">이 소프트웨어는 닌텐도 3DS 휴대용 게임 콘솔을 실행합니다. 게임타이틀이 포함되어있지 않습니다.\n\n실행하기전에 합법적으로 소유한 3DS 게임을 기기저장소에 저장하십시오.</string>
-    <string name="app_notification_channel_description">CItra 3DS 에뮬레이터 알림</string>
-    <string name="app_notification_running">Citra 실행중</string>
+    <string name="app_notification_channel_description">Lime3DS 에뮬레이터 알림</string>
+    <string name="app_notification_running">Lime3DS 실행중</string>
 
     <!-- Input related strings -->
     <string name="controller_circlepad">슬라이드 패드</string>
@@ -75,8 +75,8 @@
 
     <!-- Premium strings -->
     <string name="premium_text">프리미엄</string>
-    <string name="premium_settings_upsell">프리미엄으로 업그레이드하고 Citra를 지원하십시오!</string>
-    <string name="premium_settings_upsell_description">프리미엄으로 개발자가 Citra를 계속 개선 할 수 있도록 지원하고 이 독점 기능에 액세스하세요!</string>
+    <string name="premium_settings_upsell">프리미엄으로 업그레이드하고 Lime3DS를 지원하십시오!</string>
+    <string name="premium_settings_upsell_description">프리미엄으로 개발자가 Lime3DS를 계속 개선 할 수 있도록 지원하고 이 독점 기능에 액세스하세요!</string>
     <string name="premium_settings_welcome">프리미엄에 오신 것을 환영합니다.</string>
     <string name="premium_settings_welcome_description">지원해주셔서 감사합니다!</string>
 
@@ -142,7 +142,7 @@
     <string name="write_permission_needed">에뮬레이터가 작동하려면 외부 저장소에 대한 쓰기 액세스를 허용해야합니다.</string>
     <string name="load_settings"> 설정 불러오는중...</string>
 
-    <string name="external_storage_not_mounted">Citra를 사용하려면 외부 저장소를 사용할 수 있어야합니다</string>
+    <string name="external_storage_not_mounted">Lime3DS를 사용하려면 외부 저장소를 사용할 수 있어야합니다</string>
 
     <string name="select_dir">이 디렉토리 선택</string>
     <string name="empty_gamelist">파일이 없거나 아직 게임 디렉토리가 선택되지 않았습니다.</string>
@@ -162,5 +162,5 @@
     <!-- Camera -->
     <string name="camera_select_image">이미지 선택</string>
     <string name="camera">카메라</string>
-    <string name="camera_permission_needed">Citra는 3DS의 카메라를 에뮬레이션하기 위해 카메라에 액세스해야합니다.\n\n 그 대신에 카메라 설정에서 \"이미지 소스\"를 \"정지 이미지\"로 설정할 수도 있습니다.</string>
+    <string name="camera_permission_needed">Lime3DS는 3DS의 카메라를 에뮬레이션하기 위해 카메라에 액세스해야합니다.\n\n 그 대신에 카메라 설정에서 \"이미지 소스\"를 \"정지 이미지\"로 설정할 수도 있습니다.</string>
 </resources>

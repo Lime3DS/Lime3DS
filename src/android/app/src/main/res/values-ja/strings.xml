@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_disclaimer">このソフトではニンテンドー3DS用ゲームをプレイできますが、ゲーム自体は含まれていません。\n\n実行前に、3DSゲームファイルを端末のストレージに保存しておいてください。</string>
-    <string name="app_notification_channel_description">Citra 3DS 通知</string>
-    <string name="app_notification_running">Citraを実行中</string>
+    <string name="app_notification_channel_description">Lime3DS 通知</string>
+    <string name="app_notification_running">Lime3DSを実行中</string>
 
     <!-- Input related strings -->
     <string name="controller_circlepad">スライドパッド</string>
@@ -96,7 +96,7 @@
     <string name="write_permission_needed">動作させるためには外部ストレージへのアクセスを許可する必要があります。</string>
     <string name="load_settings">設定を読込中...</string>
 
-    <string name="external_storage_not_mounted">Citraを利用するには外部ストレージが必要です。</string>
+    <string name="external_storage_not_mounted">Lime3DSを利用するには外部ストレージが必要です。</string>
 
     <string name="select_dir">このフォルダを選択</string>
     <string name="empty_gamelist">ゲームファイルのあるフォルダが選択されていません</string>
