@@ -4,7 +4,8 @@ name: Clear cache
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 */3 * *'
+    - cron: '0 0 * * *'   # Midnight every day
+    - cron: '0 12 * * *'  # Noon every day
 
 permissions:
   actions: write
