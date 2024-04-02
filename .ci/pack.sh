@@ -3,14 +3,14 @@
 # Determine the full revision name.
 GITDATE="`git show -s --date=short --format='%ad' | sed 's/-//g'`"
 GITREV="`git show -s --format='%h'`"
-REV_NAME="lime-$OS-$TARGET-$GITDATE-$GITREV"
+REV_NAME="lime3ds-$OS-$TARGET-$GITDATE-$GITREV"
 
 # Determine the name of the release being built.
 if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
-    RELEASE_NAME=lime-$GITHUB_REF_NAME
-    REV_NAME="lime-$GITHUB_REF_NAME-$OS-$TARGET"
+    RELEASE_NAME=lime3ds-$GITHUB_REF_NAME
+    REV_NAME="lime3ds-$GITHUB_REF_NAME-$OS-$TARGET"
 else
-    RELEASE_NAME=lime-head
+    RELEASE_NAME=lime3ds-head
 fi
 
 # Archive and upload the artifacts.
