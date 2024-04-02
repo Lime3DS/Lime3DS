@@ -6,10 +6,10 @@ GITREV="`git show -s --format='%h'`"
 REV_NAME="lime-$OS-$TARGET-$GITDATE-$GITREV"
 
 # Determine the name of the release being built.
-if [[ "$GITHUB_REF_NAME" =~ ^canary- ]] || [[ "$GITHUB_REF_NAME" =~ ^nightly- ]]; then
-    RELEASE_NAME=$(echo $GITHUB_REF_NAME | cut -d- -f1)
+if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+    RELEASE_NAME=lime-$GITHUB_REF_NAME
 else
-    RELEASE_NAME=head
+    RELEASE_NAME=lime-head
 fi
 
 # Archive and upload the artifacts.
