@@ -8,6 +8,7 @@ REV_NAME="lime-$OS-$TARGET-$GITDATE-$GITREV"
 # Determine the name of the release being built.
 if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
     RELEASE_NAME=lime-$GITHUB_REF_NAME
+    REV_NAME="lime-$GITHUB_REF_NAME-$OS-$TARGET"
 else
     RELEASE_NAME=lime-head
 fi
