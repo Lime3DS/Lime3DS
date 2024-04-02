@@ -735,8 +735,8 @@ void Java_io_github_lime3ds_NativeLibrary_loadState([[maybe_unused]] JNIEnv* env
 
 void Java_io_github_lime3ds_NativeLibrary_logDeviceInfo([[maybe_unused]] JNIEnv* env,
                                                         [[maybe_unused]] jobject obj) {
-    LOG_INFO(Frontend, "Lime3DS Version: {} | {}-{}", Common::g_build_fullname,
-            Common::g_scm_branch, Common::g_scm_desc);
+    LOG_INFO(Frontend, "Citra Version: {} | {}-{}", Common::g_build_fullname, Common::g_scm_branch,
+             Common::g_scm_desc);
     LOG_INFO(Frontend, "Host CPU: {}", Common::GetCPUCaps().cpu_string);
     // There is no decent way to get the OS version, so we log the API level instead.
     LOG_INFO(Frontend, "Host OS: Android API level {}", android_get_device_api_level());
