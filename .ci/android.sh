@@ -1,9 +1,7 @@
 #!/bin/bash -ex
 
 export NDK_CCACHE=$(which ccache)
-[ "$GITHUB_REPOSITORY" = "citra-emu/citra-canary" ] &&
-   BUILD_FLAVOR=canary ||
-   BUILD_FLAVOR=nightly
+BUILD_FLAVOR=nightly
 
 if [ ! -z "${ANDROID_KEYSTORE_B64}" ]; then
     export ANDROID_KEYSTORE_FILE="${GITHUB_WORKSPACE}/ks.jks"
