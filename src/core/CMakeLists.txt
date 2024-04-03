@@ -467,6 +467,8 @@ add_library(lime_core STATIC
     savestate_data.h
     system_titles.cpp
     system_titles.h
+    telemetry_session.cpp
+    telemetry_session.h
     tracer/citrace.h
     tracer/recorder.cpp
     tracer/recorder.h

@@ -3585,6 +3585,143 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
 </context>
 <context>
+    <name>ConfigureWeb</name>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="14"/>
+        <source>Form</source>
+        <translation>Formulir</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="22"/>
+        <source>Citra Web Service</source>
+        <translation>Layanan Web Citra</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="28"/>
+        <source>By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</source>
+        <translation>Dengan memberikan nama user dan token, Anda menyetujui Citra untuk mengumpulkan data penggunaan tambahan, mungkin termaksud informasi identifikasi pengguna.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="46"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="140"/>
+        <source>Verify</source>
+        <translation>Verifikasi</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="53"/>
+        <source>Sign up</source>
+        <translation>Daftar</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="63"/>
+        <source>Token: </source>
+        <translation>Token: </translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="73"/>
+        <source>Username: </source>
+        <translation>Nama User:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="90"/>
+        <source>What is my token?</source>
+        <translation>Apa token Saya?</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="115"/>
+        <source>Web Service configuration can only be changed when a public room isn&apos;t being hosted.</source>
+        <translation>Konfigurasi Servis Web hanya bisa di ubah ketika ruangan publik sedang tidak digunakan</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="125"/>
+        <source>Telemetry</source>
+        <translation>Telemetri</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="131"/>
+        <source>Share anonymous usage data with the Citra team</source>
+        <translation>Bagikan data penggunaan anonim dengan tim Citra</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="138"/>
+        <source>Learn more</source>
+        <translation>Pelajari lebih Banyak</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="147"/>
+        <source>Telemetry ID:</source>
+        <translation>ID Telemetri:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="163"/>
+        <source>Regenerate</source>
+        <translation>Memperbarui</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="177"/>
+        <source>Discord Presence</source>
+        <translation>Status Discord</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="183"/>
+        <source>Show Current Game in your Discord Status</source>
+        <translation>Tampilkan Game Saat Ini ke Status Discord Anda</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="58"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Pelajari lebih banyak&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="66"/>
+        <source>&lt;a href=&apos;https://profile.citra-emu.org/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Sign up&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://profile.citra-emu.org/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Daftar&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="70"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/wiki/citra-web-service/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;What is my token?&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/wiki/citra-web-service/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Apa token saya ?&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="76"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="151"/>
+        <source>Unspecified</source>
+        <translation>Tidak di spesifikasi</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="87"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="111"/>
+        <source>Telemetry ID: 0x%1</source>
+        <translation>ID Telemetri: 0x%1</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="103"/>
+        <source>Token not verified</source>
+        <translation>Token tidak ter-verifikasi</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="104"/>
+        <source>Token was not verified. The change to your token has not been saved.</source>
+        <translation>Token tidak di verifikasi.
+Perubahan pada token anda belum tersimpan.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="130"/>
+        <source>Verifying...</source>
+        <translation>Mem-verifikasi...</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="152"/>
+        <source>Verification failed</source>
+        <translation>Verifikasi gagal</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="153"/>
+        <source>Verification failed. Check that you have entered your token correctly, and that your internet connection is working.</source>
+        <translation>Verifikasi gagal. Pastikan nama user dan token yang Anda masukkan benar dan koneksi internet Anda menyala.</translation>
+    </message>
+</context>
+<context>
     <name>DirectConnect</name>
     <message>
         <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="14"/>

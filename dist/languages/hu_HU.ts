@@ -3583,6 +3583,190 @@ Drag points to change position, or double-click table cells to edit values.</sou
     </message>
 </context>
 <context>
+    <name>ConfigureWeb</name>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="14"/>
+        <source>Form</source>
+        <translation>Forma</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="22"/>
+        <source>Citra Web Service</source>
+        <translation>Citra Web-szolgáltatás</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="28"/>
+        <source>By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</source>
+        <translation>A felhasználóneved és tokened megadásával, belegyezel abba, hogy a Citra használati adatokat gyűjtsön, ami felhasználó azonosító információt tartalmazhat.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="46"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="140"/>
+        <source>Verify</source>
+        <translation>Ellenőrzés</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="53"/>
+        <source>Sign up</source>
+        <translation>Regisztráció</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="63"/>
+        <source>Token: </source>
+        <translation>Token:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="73"/>
+        <source>Username: </source>
+        <translation>Felhasználónév:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="90"/>
+        <source>What is my token?</source>
+        <translation>Mi a tokenem?</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="115"/>
+        <source>Web Service configuration can only be changed when a public room isn&apos;t being hosted.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="125"/>
+        <source>Telemetry</source>
+        <translation>Telemetria</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="131"/>
+        <source>Share anonymous usage data with the Citra team</source>
+        <translation>Névtelen használati adat megosztása a Citra csapatával</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="138"/>
+        <source>Learn more</source>
+        <translation>Tudj meg többet</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="147"/>
+        <source>Telemetry ID:</source>
+        <translation>Telemetria ID:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="163"/>
+        <source>Regenerate</source>
+        <translation>Regeneráció</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="177"/>
+        <source>Discord Presence</source>
+        <translation>Discord jelenlét</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="183"/>
+        <source>Show Current Game in your Discord Status</source>
+        <translation>Jelenlegi játék megjelenítése a Discord állapotodban</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="58"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Tudj meg többet&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="66"/>
+        <source>&lt;a href=&apos;https://profile.citra-emu.org/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Sign up&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://profile.citra-emu.org/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Regisztráció&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="70"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/wiki/citra-web-service/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;What is my token?&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/wiki/citra-web-service/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Mi a tokenem?&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="76"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="151"/>
+        <source>Unspecified</source>
+        <translation>Nem meghatározott</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="87"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="111"/>
+        <source>Telemetry ID: 0x%1</source>
+        <translation>Telemetria ID: 0x%1</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="103"/>
+        <source>Token not verified</source>
+        <translation>Token nincs megerősítve</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="104"/>
+        <source>Token was not verified. The change to your token has not been saved.</source>
+        <translation>Token nincs megerősítve. A változtatások nem lettek elmentve.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="130"/>
+        <source>Verifying...</source>
+        <translation>Megerősítés...</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="152"/>
+        <source>Verification failed</source>
+        <translation>Ellenőrzés sikertelen</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="153"/>
+        <source>Verification failed. Check that you have entered your token correctly, and that your internet connection is working.</source>
+        <translation>Sikertelen megerősítés. Győződj meg róla, hogy helyesen írtad be a tokened, és van internetkapcsolatod.</translation>
+    </message>
+</context>
+<context>
+    <name>DirectConnect</name>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="14"/>
+        <source>Direct Connect</source>
+        <translation>Közvetlen Kapcsolódás</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="47"/>
+        <source>Server Address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="54"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Server address of the host&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="64"/>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="71"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port number the host is listening on&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Annak a portnak a száma, amire a gazda figyel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="77"/>
+        <source>24872</source>
+        <translation>24872</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="97"/>
+        <source>Nickname</source>
+        <translation>Becenév</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="111"/>
+        <source>Password</source>
+        <translation>Jelszó</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="153"/>
+        <source>Connect</source>
+        <translation>Kapcsolás</translation>
+    </message>
+</context>
+<context>
     <name>DirectConnectWindow</name>
     <message>
         <location filename="../../src/lime_qt/multiplayer/direct_connect.cpp" line="104"/>

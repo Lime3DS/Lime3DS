@@ -72,6 +72,7 @@ class AppLoader;
 namespace Core {
 
 class ARM_Interface;
+class TelemetrySession;
 class ExclusiveMonitor;
 class Timing;
 
@@ -162,6 +163,14 @@ public:
      */
     [[nodiscard]] bool IsPoweredOn() const {
         return is_powered_on;
+    }
+
+    /**
+     * Returns a reference to the telemetry session for this emulation session.
+     * @returns Reference to the telemetry session.
+     */
+    [[nodiscard]] Core::TelemetrySession& TelemetrySession() const {
+        return *telemetry_session;
     }
 
     /// Prepare the core emulation for a reschedule
@@ -375,6 +384,9 @@ private:
 
     /// When true, signals that a reschedule should happen
     bool reschedule_pending{};
+
+    /// Telemetry session for this emulation session
+    std::unique_ptr<Core::TelemetrySession> telemetry_session;
 
     std::unique_ptr<VideoCore::GPU> gpu;
 

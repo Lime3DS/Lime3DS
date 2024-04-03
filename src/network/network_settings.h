@@ -10,6 +10,7 @@ namespace NetSettings {
 
 struct Values {
     // WebService
+    bool enable_telemetry;
     std::string web_api_url;
     std::string citra_username;
     std::string citra_token;
