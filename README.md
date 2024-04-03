@@ -6,6 +6,10 @@
   <br>
 </h1>
 
+![](https://github.com/Lime3DS/Lime3DS/actions/workflows/build.yml/badge.svg)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Lime3DS/Lime3DS/total)
+![GitHub Release](https://img.shields.io/github/v/release/Lime3DS/Lime3DS)
+
 <h4 align="left"><b>Lime3DS</b> is a project which aims to revive Citra, the most popular open-source Nintendo 3DS emulator.</h4>
 
 It is written in C++ with portability in mind and builds are actively maintained for Windows, Linux, Android, and macOS.
