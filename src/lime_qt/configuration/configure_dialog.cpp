@@ -18,7 +18,6 @@
 #include "lime_qt/configuration/configure_storage.h"
 #include "lime_qt/configuration/configure_system.h"
 #include "lime_qt/configuration/configure_ui.h"
-#include "lime_qt/configuration/configure_web.h"
 #include "lime_qt/hotkeys.h"
 #include "ui_configure.h"
 
@@ -38,7 +37,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
       camera_tab{std::make_unique<ConfigureCamera>(this)},
       debug_tab{std::make_unique<ConfigureDebug>(is_powered_on, this)},
       storage_tab{std::make_unique<ConfigureStorage>(is_powered_on, this)},
-      web_tab{std::make_unique<ConfigureWeb>(this)}, ui_tab{std::make_unique<ConfigureUi>(this)} {
+      ui_tab{std::make_unique<ConfigureUi>(this)} {
     Settings::SetConfiguringGlobal(true);
 
     ui->setupUi(this);
@@ -53,11 +52,9 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
     ui->tabWidget->addTab(camera_tab.get(), tr("Camera"));
     ui->tabWidget->addTab(debug_tab.get(), tr("Debug"));
     ui->tabWidget->addTab(storage_tab.get(), tr("Storage"));
-    ui->tabWidget->addTab(web_tab.get(), tr("Web"));
     ui->tabWidget->addTab(ui_tab.get(), tr("UI"));
 
     hotkeys_tab->Populate(registry);
-    web_tab->SetWebServiceConfigEnabled(enable_web_config);
 
     PopulateSelectionList();
 
@@ -90,7 +87,6 @@ void ConfigureDialog::SetConfiguration() {
     audio_tab->SetConfiguration();
     camera_tab->SetConfiguration();
     debug_tab->SetConfiguration();
-    web_tab->SetConfiguration();
     ui_tab->SetConfiguration();
     storage_tab->SetConfiguration();
 }
@@ -106,7 +102,6 @@ void ConfigureDialog::ApplyConfiguration() {
     audio_tab->ApplyConfiguration();
     camera_tab->ApplyConfiguration();
     debug_tab->ApplyConfiguration();
-    web_tab->ApplyConfiguration();
     ui_tab->ApplyConfiguration();
     storage_tab->ApplyConfiguration();
     system.ApplySettings();
@@ -119,7 +114,7 @@ void ConfigureDialog::PopulateSelectionList() {
     ui->selectorList->clear();
 
     const std::array<std::pair<QString, QList<QWidget*>>, 5> items{
-        {{tr("General"), {general_tab.get(), web_tab.get(), debug_tab.get(), ui_tab.get()}},
+        {{tr("General"), {general_tab.get(), debug_tab.get(), ui_tab.get()}},
          {tr("System"), {system_tab.get(), camera_tab.get(), storage_tab.get()}},
          {tr("Graphics"), {enhancements_tab.get(), graphics_tab.get()}},
          {tr("Audio"), {audio_tab.get()}},
@@ -159,7 +154,6 @@ void ConfigureDialog::RetranslateUI() {
     audio_tab->RetranslateUI();
     camera_tab->RetranslateUI();
     debug_tab->RetranslateUI();
-    web_tab->RetranslateUI();
     ui_tab->RetranslateUI();
     storage_tab->RetranslateUI();
 }
@@ -179,7 +173,6 @@ void ConfigureDialog::UpdateVisibleTabs() {
                                                  {camera_tab.get(), tr("Camera")},
                                                  {debug_tab.get(), tr("Debug")},
                                                  {storage_tab.get(), tr("Storage")},
-                                                 {web_tab.get(), tr("Web")},
                                                  {ui_tab.get(), tr("UI")}};
 
     ui->tabWidget->clear();

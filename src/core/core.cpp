@@ -47,7 +47,6 @@
 #ifdef ENABLE_SCRIPTING
 #include "core/rpc/server.h"
 #endif
-#include "core/telemetry_session.h"
 #include "network/network.h"
 #include "video_core/custom_textures/custom_tex_manager.h"
 #include "video_core/gpu.h"
@@ -310,7 +309,6 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         restore_plugin_context.reset();
     }
 
-    telemetry_session->AddInitialInfo(*app_loader);
     std::shared_ptr<Kernel::Process> process;
     const Loader::ResultStatus load_result{app_loader->Load(process)};
     if (Loader::ResultStatus::Success != load_result) {
@@ -440,8 +438,6 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
                       Settings::values.output_device.GetValue());
     dsp_core->EnableStretching(Settings::values.enable_audio_stretching.GetValue());
 
-    telemetry_session = std::make_unique<Core::TelemetrySession>();
-
 #ifdef ENABLE_SCRIPTING
     rpc_server = std::make_unique<RPC::Server>(*this);
 #endif
@@ -566,16 +562,6 @@ void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> im
 }
 
 void System::Shutdown(bool is_deserializing) {
-    // Log last frame performance stats
-    const auto perf_results = GetAndResetPerfStats();
-    constexpr auto performance = Common::Telemetry::FieldType::Performance;
-
-    telemetry_session->AddField(performance, "Shutdown_EmulationSpeed",
-                                perf_results.emulation_speed * 100.0);
-    telemetry_session->AddField(performance, "Shutdown_Framerate", perf_results.game_fps);
-    telemetry_session->AddField(performance, "Shutdown_Frametime", perf_results.frametime * 1000.0);
-    telemetry_session->AddField(performance, "Mean_Frametime_MS",
-                                perf_stats ? perf_stats->GetMeanFrametime() : 0);
 
     // Shutdown emulation session
     is_powered_on = false;
@@ -587,7 +573,6 @@ void System::Shutdown(bool is_deserializing) {
         app_loader.reset();
     }
     custom_tex_manager.reset();
-    telemetry_session.reset();
 #ifdef ENABLE_SCRIPTING
     rpc_server.reset();
 #endif

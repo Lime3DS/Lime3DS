@@ -361,9 +361,6 @@ renderer_debug =
 # To LLE a service module add "LLE\<module name>=true"
 
 [WebService]
-# Whether or not to enable telemetry
-# 0 (default): No, 1: Yes
-enable_telemetry =
 # URL for Web API
 web_api_url = https://api.citra-emu.org
 # Username and token for Citra Web Service
