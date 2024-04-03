@@ -2,7 +2,7 @@
 
 GITDATE="`git show -s --date=short --format='%ad' | sed 's/-//g'`"
 GITREV="`git show -s --format='%h'`"
-REV_NAME="lime-unified-source-${GITDATE}-${GITREV}"
+REV_NAME="lime3ds-unified-source-${GITDATE}-${GITREV}"
 
 COMPAT_LIST='dist/compatibility_list/compatibility_list.json'
 
