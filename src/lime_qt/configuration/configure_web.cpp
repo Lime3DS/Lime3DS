@@ -16,7 +16,7 @@ ConfigureWeb::ConfigureWeb(QWidget* parent)
     ui->setupUi(this);
 
 #ifndef USE_DISCORD_PRESENCE
-    ui->discord_group->setVisible(false);
+    ui->discord_group->setEnabled(false);
 #endif
     SetConfiguration();
 }
