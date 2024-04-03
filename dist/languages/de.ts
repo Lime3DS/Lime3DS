@@ -3586,6 +3586,142 @@ Ziehe Punkte, um ihre Position zu verändern, oder doppelklicke auf Zellen in de
     </message>
 </context>
 <context>
+    <name>ConfigureWeb</name>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="14"/>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="22"/>
+        <source>Citra Web Service</source>
+        <translation>Citra Web Service</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="28"/>
+        <source>By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</source>
+        <translation>Mit dem Bereitstellen Ihres Nutzernamens und Tokens, erlauben Sie Citra, zusätzliche Nutzungsdaten zu sammeln. Die Nutzungsdaten können auch Daten zur Nutzeridentifikation beinhalten.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="46"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="140"/>
+        <source>Verify</source>
+        <translation>Verifizieren</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="53"/>
+        <source>Sign up</source>
+        <translation>Registrieren</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="63"/>
+        <source>Token: </source>
+        <translation>Token: </translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="73"/>
+        <source>Username: </source>
+        <translation>Nutzername:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="90"/>
+        <source>What is my token?</source>
+        <translation>Was ist mein Token?</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="115"/>
+        <source>Web Service configuration can only be changed when a public room isn&apos;t being hosted.</source>
+        <translation>Die Web-Service-Konfiguration kann nur geändert werden, wenn kein öffentlicher Raum gehostet wird.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="125"/>
+        <source>Telemetry</source>
+        <translation>Telemetrie</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="131"/>
+        <source>Share anonymous usage data with the Citra team</source>
+        <translation>Anonyme Nutzungsdaten an das Citra-Team senden</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="138"/>
+        <source>Learn more</source>
+        <translation>Mehr erfahren</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="147"/>
+        <source>Telemetry ID:</source>
+        <translation>Telemetrie-ID:</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="163"/>
+        <source>Regenerate</source>
+        <translation>Regenerieren</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="177"/>
+        <source>Discord Presence</source>
+        <translation>Discord Presence</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.ui" line="183"/>
+        <source>Show Current Game in your Discord Status</source>
+        <translation>Aktuelles Spiel in Ihrem Discordstatus anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="58"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Learn more&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Mehr erfahren&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="66"/>
+        <source>&lt;a href=&apos;https://profile.citra-emu.org/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Sign up&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://profile.citra-emu.org/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Anmelden&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="70"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/wiki/citra-web-service/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;What is my token?&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/wiki/citra-web-service/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Was ist mein Token?&lt;/span&gt;&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="76"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="151"/>
+        <source>Unspecified</source>
+        <translation>Nicht spezifiziert</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="87"/>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="111"/>
+        <source>Telemetry ID: 0x%1</source>
+        <translation>Telemetrie-ID: 0x%1</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="103"/>
+        <source>Token not verified</source>
+        <translation>Token nicht verifiziert</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="104"/>
+        <source>Token was not verified. The change to your token has not been saved.</source>
+        <translation>Der Token wurde nicht verifiziert. Die Änderung zu dem Token wurde nicht gespeichert.</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="130"/>
+        <source>Verifying...</source>
+        <translation>Verifizieren...</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="152"/>
+        <source>Verification failed</source>
+        <translation>Verifizierung fehlgeschlagen</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_web.cpp" line="153"/>
+        <source>Verification failed. Check that you have entered your token correctly, and that your internet connection is working.</source>
+        <translation>Verifizierung fehlgeschlagen. Stellen Sie sicher, dass Sie sowohl Ihren Token korrekt eingegeben haben und dass Sie mit dem Internet verbunden sind.</translation>
+    </message>
+</context>
+<context>
     <name>DirectConnect</name>
     <message>
         <location filename="../../src/lime_qt/multiplayer/direct_connect.ui" line="14"/>

@@ -130,6 +130,8 @@ add_library(lime_common STATIC
     string_util.cpp
     string_util.h
     swap.h
+    telemetry.cpp
+    telemetry.h
     texture.cpp
     texture.h
     thread.cpp
