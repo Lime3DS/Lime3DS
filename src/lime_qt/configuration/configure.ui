@@ -98,12 +98,6 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ConfigureWeb</class>
-   <extends>QWidget</extends>
-   <header>configuration/configure_web.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>ConfigureUi</class>
    <extends>QWidget</extends>
    <header>configuration/configure_ui.h</header>
