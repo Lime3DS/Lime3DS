@@ -61,7 +61,7 @@ object EmulationMenuSettings {
     var drawerLockMode: Int
         get() = preferences.getInt(
             "EmulationMenuSettings_DrawerLockMode",
-            DrawerLayout.LOCK_MODE_UNLOCKED
+            DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         )
         set(value) {
             preferences.edit()
