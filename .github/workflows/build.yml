@@ -81,7 +81,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
       - name: Install tools
-        run: brew install ccache ninja
+        run: brew install ccache ninja spirv-tools
       - name: Build
         run: ./.ci/macos.sh
       - name: Prepare outputs for caching
@@ -153,6 +153,11 @@ jobs:
       - name: Install extra tools (MSVC)
         run: choco install ccache ninja wget
         if: ${{ matrix.target == 'msvc' }}
+      - name: Install vulkan-sdk (MSVC)
+        run: |
+          wget https://sdk.lunarg.com/sdk/download/1.3.280.0/windows/VulkanSDK-1.3.280.0-Installer.exe -O D:/a/_temp/vulkan.exe
+          D:/a/_temp/vulkan.exe --accept-licenses --default-answer --confirm-command install
+        if: ${{ matrix.target == 'msvc' }}
       - name: Set up MSYS2
         uses: msys2/setup-msys2@v2
         if: ${{ matrix.target == 'msys2' }}
@@ -161,7 +166,7 @@ jobs:
           update: true
           install: git make p7zip
           pacboy: >-
-            toolchain:p ccache:p cmake:p ninja:p
+            toolchain:p ccache:p cmake:p ninja:p spirv-tools:p
             qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
