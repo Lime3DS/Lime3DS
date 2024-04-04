@@ -30,16 +30,20 @@ else()
 endif()
 string(SUBSTRING "${GIT_REV}" 0 7 GIT_SHORT_REV)
 
-# Generate cpp with Git revision from template
-# Also if this is a CI build, add the build name (ie: Nightly, Canary) to the scm_rev file as well
+# Set build version
 set(REPO_NAME "")
 set(BUILD_VERSION "0")
 set(BUILD_FULLNAME "${GIT_SHORT_REV}")
-if (DEFINED ENV{CI})
-    if (DEFINED ENV{GITHUB_ACTIONS})
-        if ($ENV{GITHUB_REF_TYPE} STREQUAL "tag")
-            set(BUILD_VERSION $ENV{GITHUB_REF_NAME})
-            set(BUILD_FULLNAME "${BUILD_VERSION}")
-        endif()
+if (DEFINED ENV{CI} AND DEFINED ENV{GITHUB_ACTIONS})
+    if ($ENV{GITHUB_REF_TYPE} STREQUAL "tag")
+        set(GIT_TAG $ENV{GITHUB_REF_NAME})
     endif()
+elseif (EXISTS "${SRC_DIR}/GIT-COMMIT" AND EXISTS "${SRC_DIR}/GIT-TAG")
+    file(READ "${SRC_DIR}/GIT-TAG" GIT_TAG)
+    string(STRIP ${GIT_TAG} GIT_TAG)
+endif()
+
+if (DEFINED GIT_TAG AND NOT "${GIT_TAG}" STREQUAL "unknown")
+    set(BUILD_VERSION "${GIT_TAG}")
+    set(BUILD_FULLNAME "${BUILD_VERSION}")
 endif()
