@@ -4,8 +4,10 @@ name: Clear cache
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'   # Midnight every day
-    - cron: '0 12 * * *'  # Noon every day
+    - cron: '0 0 * * *'   # 00:00 every day
+    - cron: '5 0 * * *'   # 00:05 every day
+    - cron: '0 12 * * *'  # 12:00 every day
+    - cron: '5 12 * * *'  # 12:05 every day
 
 permissions:
   actions: write
@@ -15,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clear cache
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7.0.1
         with:
           script: |
             console.log("About to clear")
