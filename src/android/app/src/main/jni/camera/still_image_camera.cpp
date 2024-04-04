@@ -15,8 +15,8 @@ static jmethodID s_load_image_from_file;
 namespace Camera::StillImage {
 
 void InitJNI(JNIEnv* env) {
-    s_still_image_camera_helper_class = reinterpret_cast<jclass>(
-        env->NewGlobalRef(env->FindClass("io/github/lime3ds/android/camera/StillImageCameraHelper")));
+    s_still_image_camera_helper_class = reinterpret_cast<jclass>(env->NewGlobalRef(
+        env->FindClass("io/github/lime3ds/android/camera/StillImageCameraHelper")));
     s_open_file_picker = env->GetStaticMethodID(s_still_image_camera_helper_class, "OpenFilePicker",
                                                 "()Ljava/lang/String;");
     s_load_image_from_file =

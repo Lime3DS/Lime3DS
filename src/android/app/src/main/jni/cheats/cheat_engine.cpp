@@ -20,13 +20,15 @@ static Cheats::CheatEngine& GetEngine() {
     return system.CheatEngine();
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_loadCheatFile(
-    JNIEnv* env, jclass, jlong title_id) {
+JNIEXPORT void JNICALL
+Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_loadCheatFile(JNIEnv* env, jclass,
+                                                                               jlong title_id) {
     GetEngine().LoadCheatFile(title_id);
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_saveCheatFile(
-    JNIEnv* env, jclass, jlong title_id) {
+JNIEXPORT void JNICALL
+Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_saveCheatFile(JNIEnv* env, jclass,
+                                                                               jlong title_id) {
     GetEngine().SaveCheatFile(title_id);
 }
 

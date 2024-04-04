@@ -83,10 +83,11 @@ void InitJNI(JNIEnv* env) {
     s_validation_error_class = reinterpret_cast<jclass>(env->NewGlobalRef(
         env->FindClass("io/github/lime3ds/android/applets/SoftwareKeyboard$ValidationError")));
 
-    s_swkbd_execute = env->GetStaticMethodID(
-        s_software_keyboard_class, "Execute",
-        "(Lio/github/lime3ds/android/applets/SoftwareKeyboard$KeyboardConfig;)Lio/github/lime3ds/android/"
-        "applets/SoftwareKeyboard$KeyboardData;");
+    s_swkbd_execute =
+        env->GetStaticMethodID(s_software_keyboard_class, "Execute",
+                               "(Lio/github/lime3ds/android/applets/"
+                               "SoftwareKeyboard$KeyboardConfig;)Lio/github/lime3ds/android/"
+                               "applets/SoftwareKeyboard$KeyboardData;");
     s_swkbd_show_error =
         env->GetStaticMethodID(s_software_keyboard_class, "ShowError", "(Ljava/lang/String;)V");
 }
@@ -120,20 +121,23 @@ jobject ToJavaValidationError(Frontend::ValidationError error) {
     JNIEnv* env = IDCache::GetEnvForThread();
     return env->GetStaticObjectField(
         s_validation_error_class,
-        env->GetStaticFieldID(s_validation_error_class, ValidationErrorNameMap.at(error),
-                              "Lio/github/lime3ds/android/applets/SoftwareKeyboard$ValidationError;"));
+        env->GetStaticFieldID(
+            s_validation_error_class, ValidationErrorNameMap.at(error),
+            "Lio/github/lime3ds/android/applets/SoftwareKeyboard$ValidationError;"));
 }
 
-jobject Java_io_github_lime3ds_android_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* env, jclass clazz,
-                                                                        jstring text) {
+jobject Java_io_github_lime3ds_android_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* env,
+                                                                                jclass clazz,
+                                                                                jstring text) {
 
     const auto ret =
         Core::System::GetInstance().GetSoftwareKeyboard()->ValidateFilters(GetJString(env, text));
     return ToJavaValidationError(ret);
 }
 
-jobject Java_io_github_lime3ds_android_applets_SoftwareKeyboard_ValidateInput(JNIEnv* env, jclass clazz,
-                                                                      jstring text) {
+jobject Java_io_github_lime3ds_android_applets_SoftwareKeyboard_ValidateInput(JNIEnv* env,
+                                                                              jclass clazz,
+                                                                              jstring text) {
 
     const auto ret =
         Core::System::GetInstance().GetSoftwareKeyboard()->ValidateInput(GetJString(env, text));

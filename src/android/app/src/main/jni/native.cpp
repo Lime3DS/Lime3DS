@@ -90,8 +90,9 @@ static jobject ToJavaCoreError(Core::System::ResultStatus result) {
     JNIEnv* env = IDCache::GetEnvForThread();
     const jclass core_error_class = IDCache::GetCoreErrorClass();
     return env->GetStaticObjectField(
-        core_error_class, env->GetStaticFieldID(core_error_class, name,
-                                                "Lio/github/lime3ds/android/NativeLibrary$CoreError;"));
+        core_error_class,
+        env->GetStaticFieldID(core_error_class, name,
+                              "Lio/github/lime3ds/android/NativeLibrary$CoreError;"));
 }
 
 static bool HandleCoreError(Core::System::ResultStatus result, const std::string& details) {
@@ -283,8 +284,9 @@ void InitializeGpuDriver(const std::string& hook_lib_dir, const std::string& cus
 
 extern "C" {
 
-void Java_io_github_lime3ds_android_NativeLibrary_surfaceChanged(JNIEnv* env, [[maybe_unused]] jobject obj,
-                                                         jobject surf) {
+void Java_io_github_lime3ds_android_NativeLibrary_surfaceChanged(JNIEnv* env,
+                                                                 [[maybe_unused]] jobject obj,
+                                                                 jobject surf) {
     s_surf = ANativeWindow_fromSurface(env, surf);
 
     if (window) {
@@ -300,7 +302,7 @@ void Java_io_github_lime3ds_android_NativeLibrary_surfaceChanged(JNIEnv* env, [[
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_surfaceDestroyed([[maybe_unused]] JNIEnv* env,
-                                                           [[maybe_unused]] jobject obj) {
+                                                                   [[maybe_unused]] jobject obj) {
     ANativeWindow_release(s_surf);
     s_surf = nullptr;
     if (window) {
@@ -309,26 +311,22 @@ void Java_io_github_lime3ds_android_NativeLibrary_surfaceDestroyed([[maybe_unuse
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_doFrame([[maybe_unused]] JNIEnv* env,
-                                                  [[maybe_unused]] jobject obj) {
+                                                          [[maybe_unused]] jobject obj) {
     if (stop_run || pause_emulation) {
         return;
     }
     window->TryPresenting();
 }
 
-void JNICALL Java_io_github_lime3ds_android_NativeLibrary_initializeGpuDriver(JNIEnv* env, jobject obj,
-                                                                      jstring hook_lib_dir,
-                                                                      jstring custom_driver_dir,
-                                                                      jstring custom_driver_name,
-                                                                      jstring file_redirect_dir) {
+void JNICALL Java_io_github_lime3ds_android_NativeLibrary_initializeGpuDriver(
+    JNIEnv* env, jobject obj, jstring hook_lib_dir, jstring custom_driver_dir,
+    jstring custom_driver_name, jstring file_redirect_dir) {
     InitializeGpuDriver(GetJString(env, hook_lib_dir), GetJString(env, custom_driver_dir),
                         GetJString(env, custom_driver_name), GetJString(env, file_redirect_dir));
 }
 
-void Java_io_github_lime3ds_android_NativeLibrary_notifyOrientationChange([[maybe_unused]] JNIEnv* env,
-                                                                  [[maybe_unused]] jobject obj,
-                                                                  jint layout_option,
-                                                                  jint rotation) {
+void Java_io_github_lime3ds_android_NativeLibrary_notifyOrientationChange(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jint layout_option, jint rotation) {
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(layout_option);
     auto& system = Core::System::GetInstance();
     if (system.IsPoweredOn()) {
@@ -339,8 +337,9 @@ void Java_io_github_lime3ds_android_NativeLibrary_notifyOrientationChange([[mayb
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_swapScreens([[maybe_unused]] JNIEnv* env,
-                                                      [[maybe_unused]] jobject obj,
-                                                      jboolean swap_screens, jint rotation) {
+                                                              [[maybe_unused]] jobject obj,
+                                                              jboolean swap_screens,
+                                                              jint rotation) {
     Settings::values.swap_screen = swap_screens;
     auto& system = Core::System::GetInstance();
     if (system.IsPoweredOn()) {
@@ -350,16 +349,16 @@ void Java_io_github_lime3ds_android_NativeLibrary_swapScreens([[maybe_unused]] J
     Camera::NDK::g_rotation = rotation;
 }
 
-jboolean Java_io_github_lime3ds_android_NativeLibrary_areKeysAvailable([[maybe_unused]] JNIEnv* env,
-                                                               [[maybe_unused]] jobject obj) {
+jboolean Java_io_github_lime3ds_android_NativeLibrary_areKeysAvailable(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj) {
     HW::AES::InitKeys();
     return HW::AES::IsKeyXAvailable(HW::AES::KeySlotID::NCCHSecure1) &&
            HW::AES::IsKeyXAvailable(HW::AES::KeySlotID::NCCHSecure2);
 }
 
 jstring Java_io_github_lime3ds_android_NativeLibrary_getHomeMenuPath(JNIEnv* env,
-                                                             [[maybe_unused]] jobject obj,
-                                                             jint region) {
+                                                                     [[maybe_unused]] jobject obj,
+                                                                     jint region) {
     const std::string path = Core::GetHomeMenuNcchPath(region);
     if (FileUtil::Exists(path)) {
         return ToJString(env, path);
@@ -368,8 +367,8 @@ jstring Java_io_github_lime3ds_android_NativeLibrary_getHomeMenuPath(JNIEnv* env
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_setUserDirectory(JNIEnv* env,
-                                                           [[maybe_unused]] jobject obj,
-                                                           jstring j_directory) {
+                                                                   [[maybe_unused]] jobject obj,
+                                                                   jstring j_directory) {
     FileUtil::SetCurrentDir(GetJString(env, j_directory));
 }
 
@@ -411,9 +410,8 @@ jobjectArray Java_io_github_lime3ds_android_NativeLibrary_getInstalledGamePaths(
     return jgames;
 }
 
-jlongArray Java_io_github_lime3ds_android_NativeLibrary_getSystemTitleIds(JNIEnv* env,
-                                                                  [[maybe_unused]] jobject obj,
-                                                                  jint system_type, jint region) {
+jlongArray Java_io_github_lime3ds_android_NativeLibrary_getSystemTitleIds(
+    JNIEnv* env, [[maybe_unused]] jobject obj, jint system_type, jint region) {
     const auto mode = static_cast<Core::SystemTitleSet>(system_type);
     const std::vector<u64> titles = Core::GetSystemTitleIds(mode, region);
     jlongArray jTitles = env->NewLongArray(titles.size());
@@ -422,9 +420,8 @@ jlongArray Java_io_github_lime3ds_android_NativeLibrary_getSystemTitleIds(JNIEnv
     return jTitles;
 }
 
-jobject Java_io_github_lime3ds_android_NativeLibrary_downloadTitleFromNus([[maybe_unused]] JNIEnv* env,
-                                                                  [[maybe_unused]] jobject obj,
-                                                                  jlong title) {
+jobject Java_io_github_lime3ds_android_NativeLibrary_downloadTitleFromNus(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jlong title) {
     const auto title_id = static_cast<u64>(title);
     Service::AM::InstallStatus status = Service::AM::InstallFromNus(title_id);
     if (status != Service::AM::InstallStatus::Success) {
@@ -455,20 +452,20 @@ jboolean JNICALL Java_io_github_lime3ds_android_utils_GpuDriverHelper_supportsCu
 
 // TODO(xperia64): ensure these cannot be called in an invalid state (e.g. after StopEmulation)
 void Java_io_github_lime3ds_android_NativeLibrary_unPauseEmulation([[maybe_unused]] JNIEnv* env,
-                                                           [[maybe_unused]] jobject obj) {
+                                                                   [[maybe_unused]] jobject obj) {
     pause_emulation = false;
     running_cv.notify_all();
     InputManager::NDKMotionHandler()->EnableSensors();
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_pauseEmulation([[maybe_unused]] JNIEnv* env,
-                                                         [[maybe_unused]] jobject obj) {
+                                                                 [[maybe_unused]] jobject obj) {
     pause_emulation = true;
     InputManager::NDKMotionHandler()->DisableSensors();
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_stopEmulation([[maybe_unused]] JNIEnv* env,
-                                                        [[maybe_unused]] jobject obj) {
+                                                                [[maybe_unused]] jobject obj) {
     stop_run = true;
     pause_emulation = false;
     window->StopPresenting();
@@ -476,21 +473,20 @@ void Java_io_github_lime3ds_android_NativeLibrary_stopEmulation([[maybe_unused]]
 }
 
 jboolean Java_io_github_lime3ds_android_NativeLibrary_isRunning([[maybe_unused]] JNIEnv* env,
-                                                        [[maybe_unused]] jobject obj) {
+                                                                [[maybe_unused]] jobject obj) {
     return static_cast<jboolean>(!stop_run);
 }
 
 jlong Java_io_github_lime3ds_android_NativeLibrary_getRunningTitleId([[maybe_unused]] JNIEnv* env,
-                                                             [[maybe_unused]] jobject obj) {
+                                                                     [[maybe_unused]] jobject obj) {
     u64 title_id{};
     Core::System::GetInstance().GetAppLoader().ReadProgramId(title_id);
     return static_cast<jlong>(title_id);
 }
 
-jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadEvent([[maybe_unused]] JNIEnv* env,
-                                                             [[maybe_unused]] jobject obj,
-                                                             [[maybe_unused]] jstring j_device,
-                                                             jint j_button, jint action) {
+jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadEvent(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, [[maybe_unused]] jstring j_device,
+    jint j_button, jint action) {
     bool consumed{};
     if (action) {
         consumed = InputManager::ButtonHandler()->PressKey(j_button);
@@ -501,10 +497,9 @@ jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadEvent([[maybe_unu
     return static_cast<jboolean>(consumed);
 }
 
-jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadMoveEvent([[maybe_unused]] JNIEnv* env,
-                                                                 [[maybe_unused]] jobject obj,
-                                                                 [[maybe_unused]] jstring j_device,
-                                                                 jint axis, jfloat x, jfloat y) {
+jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadMoveEvent(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, [[maybe_unused]] jstring j_device,
+    jint axis, jfloat x, jfloat y) {
     // Clamp joystick movement to supported minimum and maximum
     // Citra uses an inverted y axis sent by the frontend
     x = std::clamp(x, -1.f, 1.f);
@@ -521,29 +516,30 @@ jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadMoveEvent([[maybe
     return static_cast<jboolean>(InputManager::AnalogHandler()->MoveJoystick(axis, x, y));
 }
 
-jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadAxisEvent([[maybe_unused]] JNIEnv* env,
-                                                                 [[maybe_unused]] jobject obj,
-                                                                 [[maybe_unused]] jstring j_device,
-                                                                 jint axis_id, jfloat axis_val) {
+jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadAxisEvent(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, [[maybe_unused]] jstring j_device,
+    jint axis_id, jfloat axis_val) {
     return static_cast<jboolean>(
         InputManager::ButtonHandler()->AnalogButtonEvent(axis_id, axis_val));
 }
 
 jboolean Java_io_github_lime3ds_android_NativeLibrary_onTouchEvent([[maybe_unused]] JNIEnv* env,
-                                                           [[maybe_unused]] jobject obj, jfloat x,
-                                                           jfloat y, jboolean pressed) {
+                                                                   [[maybe_unused]] jobject obj,
+                                                                   jfloat x, jfloat y,
+                                                                   jboolean pressed) {
     return static_cast<jboolean>(
         window->OnTouchEvent(static_cast<int>(x + 0.5), static_cast<int>(y + 0.5), pressed));
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_onTouchMoved([[maybe_unused]] JNIEnv* env,
-                                                       [[maybe_unused]] jobject obj, jfloat x,
-                                                       jfloat y) {
+                                                               [[maybe_unused]] jobject obj,
+                                                               jfloat x, jfloat y) {
     window->OnTouchMoved((int)x, (int)y);
 }
 
-jlong Java_io_github_lime3ds_android_NativeLibrary_getTitleId(JNIEnv* env, [[maybe_unused]] jobject obj,
-                                                      jstring j_filename) {
+jlong Java_io_github_lime3ds_android_NativeLibrary_getTitleId(JNIEnv* env,
+                                                              [[maybe_unused]] jobject obj,
+                                                              jstring j_filename) {
     std::string filepath = GetJString(env, j_filename);
     const auto loader = Loader::GetLoader(filepath);
 
@@ -555,8 +551,8 @@ jlong Java_io_github_lime3ds_android_NativeLibrary_getTitleId(JNIEnv* env, [[may
 }
 
 jboolean Java_io_github_lime3ds_android_NativeLibrary_getIsSystemTitle(JNIEnv* env,
-                                                               [[maybe_unused]] jobject obj,
-                                                               jstring path) {
+                                                                       [[maybe_unused]] jobject obj,
+                                                                       jstring path) {
     const std::string filepath = GetJString(env, path);
     const auto loader = Loader::GetLoader(filepath);
 
@@ -571,27 +567,27 @@ jboolean Java_io_github_lime3ds_android_NativeLibrary_getIsSystemTitle(JNIEnv* e
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_createConfigFile([[maybe_unused]] JNIEnv* env,
-                                                           [[maybe_unused]] jobject obj) {
+                                                                   [[maybe_unused]] jobject obj) {
     Config{};
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_createLogFile([[maybe_unused]] JNIEnv* env,
-                                                        [[maybe_unused]] jobject obj) {
+                                                                [[maybe_unused]] jobject obj) {
     Common::Log::Initialize();
     Common::Log::Start();
     LOG_INFO(Frontend, "Logging backend initialised");
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_logUserDirectory(JNIEnv* env,
-                                                           [[maybe_unused]] jobject obj,
-                                                           jstring j_path) {
+                                                                   [[maybe_unused]] jobject obj,
+                                                                   jstring j_path) {
     std::string_view path = env->GetStringUTFChars(j_path, 0);
     LOG_INFO(Frontend, "User directory path: {}", path);
     env->ReleaseStringUTFChars(j_path, path.data());
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_reloadSettings([[maybe_unused]] JNIEnv* env,
-                                                         [[maybe_unused]] jobject obj) {
+                                                                 [[maybe_unused]] jobject obj) {
     Config{};
     Core::System& system{Core::System::GetInstance()};
 
@@ -605,8 +601,8 @@ void Java_io_github_lime3ds_android_NativeLibrary_reloadSettings([[maybe_unused]
     system.ApplySettings();
 }
 
-jdoubleArray Java_io_github_lime3ds_android_NativeLibrary_getPerfStats(JNIEnv* env,
-                                                               [[maybe_unused]] jobject obj) {
+jdoubleArray Java_io_github_lime3ds_android_NativeLibrary_getPerfStats(
+    JNIEnv* env, [[maybe_unused]] jobject obj) {
     auto& core = Core::System::GetInstance();
     jdoubleArray j_stats = env->NewDoubleArray(4);
 
@@ -623,9 +619,8 @@ jdoubleArray Java_io_github_lime3ds_android_NativeLibrary_getPerfStats(JNIEnv* e
     return j_stats;
 }
 
-void Java_io_github_lime3ds_android_NativeLibrary_run__Ljava_lang_String_2(JNIEnv* env,
-                                                                   [[maybe_unused]] jobject obj,
-                                                                   jstring j_path) {
+void Java_io_github_lime3ds_android_NativeLibrary_run__Ljava_lang_String_2(
+    JNIEnv* env, [[maybe_unused]] jobject obj, jstring j_path) {
     const std::string path = GetJString(env, j_path);
 
     if (!stop_run) {
@@ -640,15 +635,16 @@ void Java_io_github_lime3ds_android_NativeLibrary_run__Ljava_lang_String_2(JNIEn
     }
 }
 
-void Java_io_github_lime3ds_android_NativeLibrary_reloadCameraDevices([[maybe_unused]] JNIEnv* env,
-                                                              [[maybe_unused]] jobject obj) {
+void Java_io_github_lime3ds_android_NativeLibrary_reloadCameraDevices(
+    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj) {
     if (g_ndk_factory) {
         g_ndk_factory->ReloadCameraDevices();
     }
 }
 
-jboolean Java_io_github_lime3ds_android_NativeLibrary_loadAmiibo(JNIEnv* env, [[maybe_unused]] jobject obj,
-                                                         jstring j_file) {
+jboolean Java_io_github_lime3ds_android_NativeLibrary_loadAmiibo(JNIEnv* env,
+                                                                 [[maybe_unused]] jobject obj,
+                                                                 jstring j_file) {
     std::string filepath = GetJString(env, j_file);
     Core::System& system{Core::System::GetInstance()};
     Service::SM::ServiceManager& sm = system.ServiceManager();
@@ -661,7 +657,7 @@ jboolean Java_io_github_lime3ds_android_NativeLibrary_loadAmiibo(JNIEnv* env, [[
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_removeAmiibo([[maybe_unused]] JNIEnv* env,
-                                                       [[maybe_unused]] jobject obj) {
+                                                               [[maybe_unused]] jobject obj) {
     Core::System& system{Core::System::GetInstance()};
     Service::SM::ServiceManager& sm = system.ServiceManager();
     auto nfc = sm.GetService<Service::NFC::Module::Interface>("nfc:u");
@@ -672,9 +668,8 @@ void Java_io_github_lime3ds_android_NativeLibrary_removeAmiibo([[maybe_unused]] 
     nfc->RemoveAmiibo();
 }
 
-JNIEXPORT jobject JNICALL Java_io_github_lime3ds_android_utils_CiaInstallWorker_installCIA(JNIEnv* env,
-                                                                                   jobject jobj,
-                                                                                   jstring jpath) {
+JNIEXPORT jobject JNICALL Java_io_github_lime3ds_android_utils_CiaInstallWorker_installCIA(
+    JNIEnv* env, jobject jobj, jstring jpath) {
     std::string path = GetJString(env, jpath);
     Service::AM::InstallStatus res = Service::AM::InstallCIA(
         path, [env, jobj](std::size_t total_bytes_read, std::size_t file_size) {
@@ -685,8 +680,8 @@ JNIEXPORT jobject JNICALL Java_io_github_lime3ds_android_utils_CiaInstallWorker_
     return IDCache::GetJavaCiaInstallStatus(res);
 }
 
-jobjectArray Java_io_github_lime3ds_android_NativeLibrary_getSavestateInfo(JNIEnv* env,
-                                                                   [[maybe_unused]] jobject obj) {
+jobjectArray Java_io_github_lime3ds_android_NativeLibrary_getSavestateInfo(
+    JNIEnv* env, [[maybe_unused]] jobject obj) {
     const jclass date_class = env->FindClass("java/util/Date");
     const auto date_constructor = env->GetMethodID(date_class, "<init>", "(J)V");
 
@@ -720,17 +715,19 @@ jobjectArray Java_io_github_lime3ds_android_NativeLibrary_getSavestateInfo(JNIEn
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_saveState([[maybe_unused]] JNIEnv* env,
-                                                    [[maybe_unused]] jobject obj, jint slot) {
+                                                            [[maybe_unused]] jobject obj,
+                                                            jint slot) {
     Core::System::GetInstance().SendSignal(Core::System::Signal::Save, slot);
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_loadState([[maybe_unused]] JNIEnv* env,
-                                                    [[maybe_unused]] jobject obj, jint slot) {
+                                                            [[maybe_unused]] jobject obj,
+                                                            jint slot) {
     Core::System::GetInstance().SendSignal(Core::System::Signal::Load, slot);
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_logDeviceInfo([[maybe_unused]] JNIEnv* env,
-                                                        [[maybe_unused]] jobject obj) {
+                                                                [[maybe_unused]] jobject obj) {
     LOG_INFO(Frontend, "Lime3DS Version: {} | {}-{}", Common::g_build_fullname,
              Common::g_scm_branch, Common::g_scm_desc);
     LOG_INFO(Frontend, "Host CPU: {}", Common::GetCPUCaps().cpu_string);
