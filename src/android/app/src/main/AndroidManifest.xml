@@ -33,7 +33,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:name="io.github.lime3ds.LimeApplication"
+        android:name="io.github.lime3ds.android.LimeApplication"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
@@ -46,7 +46,7 @@
             android:resource="@xml/game_mode_config" />
 
         <activity
-            android:name="io.github.lime3ds.ui.main.MainActivity"
+            android:name="io.github.lime3ds.android.ui.main.MainActivity"
             android:theme="@style/Theme.Lime.Splash.Main"
             android:exported="true">
 
@@ -59,13 +59,13 @@
         </activity>
 
         <activity
-            android:name="io.github.lime3ds.features.settings.ui.SettingsActivity"
+            android:name="io.github.lime3ds.android.features.settings.ui.SettingsActivity"
             android:configChanges="orientation|screenSize|uiMode"
             android:theme="@style/Theme.Lime.Main"
             android:label="@string/preferences_settings"/>
 
         <activity
-            android:name="io.github.lime3ds.activities.EmulationActivity"
+            android:name="io.github.lime3ds.android.activities.EmulationActivity"
             android:exported="true"
             android:theme="@style/Theme.Lime.Main"
             android:launchMode="singleTop">
@@ -80,12 +80,12 @@
 
         </activity>
 
-        <service android:name="io.github.lime3ds.utils.ForegroundService" android:foregroundServiceType="specialUse">
+        <service android:name="io.github.lime3ds.android.utils.ForegroundService" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="Keep emulation running in background"/>
         </service>
 
         <activity
-            android:name="io.github.lime3ds.features.cheats.ui.CheatsActivity"
+            android:name="io.github.lime3ds.android.features.cheats.ui.CheatsActivity"
             android:exported="false"
             android:theme="@style/Theme.Lime.Main"
             android:label="@string/cheats"/>

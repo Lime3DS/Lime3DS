@@ -6,12 +6,12 @@
 
     <fragment
         android:id="@+id/gamesFragment"
-        android:name="io.github.lime3ds.fragments.GamesFragment"
+        android:name="io.github.lime3ds.android.fragments.GamesFragment"
         android:label="PlatformGamesFragment" />
 
     <fragment
         android:id="@+id/homeSettingsFragment"
-        android:name="io.github.lime3ds.fragments.HomeSettingsFragment"
+        android:name="io.github.lime3ds.android.fragments.HomeSettingsFragment"
         android:label="HomeSettingsFragment" >
         <action
             android:id="@+id/action_homeSettingsFragment_to_aboutFragment"
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/firstTimeSetupFragment"
-        android:name="io.github.lime3ds.fragments.SetupFragment"
+        android:name="io.github.lime3ds.android.fragments.SetupFragment"
         android:label="FirstTimeSetupFragment">
         <action
             android:id="@+id/action_firstTimeSetupFragment_to_gamesFragment"
@@ -37,12 +37,12 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="io.github.lime3ds.fragments.SearchFragment"
+        android:name="io.github.lime3ds.android.fragments.SearchFragment"
         android:label="SearchFragment" />
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="io.github.lime3ds.fragments.AboutFragment"
+        android:name="io.github.lime3ds.android.fragments.AboutFragment"
         android:label="AboutFragment" >
         <action
             android:id="@+id/action_aboutFragment_to_licensesFragment"
@@ -51,16 +51,16 @@
 
     <fragment
         android:id="@+id/licensesFragment"
-        android:name="io.github.lime3ds.fragments.LicensesFragment"
+        android:name="io.github.lime3ds.android.fragments.LicensesFragment"
         android:label="LicensesFragment" />
 
     <activity
         android:id="@+id/emulationActivity"
-        android:name="io.github.lime3ds.activities.EmulationActivity"
+        android:name="io.github.lime3ds.android.activities.EmulationActivity"
         android:label="EmulationActivity">
         <argument
             android:name="game"
-            app:argType="io.github.lime3ds.model.Game"
+            app:argType="io.github.lime3ds.android.model.Game"
             app:nullable="true"
             android:defaultValue="@null" />
     </activity>
@@ -72,12 +72,12 @@
 
     <fragment
         android:id="@+id/systemFilesFragment"
-        android:name="io.github.lime3ds.fragments.SystemFilesFragment"
+        android:name="io.github.lime3ds.android.fragments.SystemFilesFragment"
         android:label="SystemFilesFragment" />
 
     <fragment
         android:id="@+id/cheatsFragment"
-        android:name="io.github.lime3ds.features.cheats.ui.CheatsFragment"
+        android:name="io.github.lime3ds.android.features.cheats.ui.CheatsFragment"
         android:label="CheatsFragment" >
         <argument
             android:name="titleId"
@@ -91,7 +91,7 @@
 
     <fragment
         android:id="@+id/driverManagerFragment"
-        android:name="io.github.lime3ds.fragments.DriverManagerFragment"
+        android:name="io.github.lime3ds.android.fragments.DriverManagerFragment"
         android:label="DriverManagerFragment" />
 
 </navigation>

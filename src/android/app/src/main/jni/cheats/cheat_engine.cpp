@@ -20,18 +20,18 @@ static Cheats::CheatEngine& GetEngine() {
     return system.CheatEngine();
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_features_cheats_model_CheatEngine_loadCheatFile(
+JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_loadCheatFile(
     JNIEnv* env, jclass, jlong title_id) {
     GetEngine().LoadCheatFile(title_id);
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_features_cheats_model_CheatEngine_saveCheatFile(
+JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_saveCheatFile(
     JNIEnv* env, jclass, jlong title_id) {
     GetEngine().SaveCheatFile(title_id);
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_io_github_lime3ds_features_cheats_model_CheatEngine_getCheats(JNIEnv* env, jclass) {
+Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_getCheats(JNIEnv* env, jclass) {
     auto cheats = GetEngine().GetCheats();
 
     const jobjectArray array =
@@ -44,18 +44,18 @@ Java_io_github_lime3ds_features_cheats_model_CheatEngine_getCheats(JNIEnv* env, 
     return array;
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_features_cheats_model_CheatEngine_addCheat(
+JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_addCheat(
     JNIEnv* env, jclass, jobject j_cheat) {
     auto cheat = *CheatFromJava(env, j_cheat);
     GetEngine().AddCheat(std::move(cheat));
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_features_cheats_model_CheatEngine_removeCheat(
+JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_removeCheat(
     JNIEnv* env, jclass, jint index) {
     GetEngine().RemoveCheat(index);
 }
 
-JNIEXPORT void JNICALL Java_io_github_lime3ds_features_cheats_model_CheatEngine_updateCheat(
+JNIEXPORT void JNICALL Java_io_github_lime3ds_android_features_cheats_model_CheatEngine_updateCheat(
     JNIEnv* env, jclass, jint index, jobject j_new_cheat) {
     auto cheat = *CheatFromJava(env, j_new_cheat);
     GetEngine().UpdateCheat(index, std::move(cheat));

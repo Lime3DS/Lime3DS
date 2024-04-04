@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="io.github.lime3ds.activities.EmulationActivity">
+    tools:context="io.github.lime3ds.android.activities.EmulationActivity">
 
     <item
         android:id="@+id/menu_emulation_save_state"

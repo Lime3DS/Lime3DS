@@ -75,17 +75,17 @@ void AndroidKeyboard::ShowError(const std::string& error) {
 
 void InitJNI(JNIEnv* env) {
     s_software_keyboard_class = reinterpret_cast<jclass>(
-        env->NewGlobalRef(env->FindClass("io/github/lime3ds/applets/SoftwareKeyboard")));
+        env->NewGlobalRef(env->FindClass("io/github/lime3ds/android/applets/SoftwareKeyboard")));
     s_keyboard_config_class = reinterpret_cast<jclass>(env->NewGlobalRef(
-        env->FindClass("io/github/lime3ds/applets/SoftwareKeyboard$KeyboardConfig")));
+        env->FindClass("io/github/lime3ds/android/applets/SoftwareKeyboard$KeyboardConfig")));
     s_keyboard_data_class = reinterpret_cast<jclass>(env->NewGlobalRef(
-        env->FindClass("io/github/lime3ds/applets/SoftwareKeyboard$KeyboardData")));
+        env->FindClass("io/github/lime3ds/android/applets/SoftwareKeyboard$KeyboardData")));
     s_validation_error_class = reinterpret_cast<jclass>(env->NewGlobalRef(
-        env->FindClass("io/github/lime3ds/applets/SoftwareKeyboard$ValidationError")));
+        env->FindClass("io/github/lime3ds/android/applets/SoftwareKeyboard$ValidationError")));
 
     s_swkbd_execute = env->GetStaticMethodID(
         s_software_keyboard_class, "Execute",
-        "(Lio/github/lime3ds/applets/SoftwareKeyboard$KeyboardConfig;)Lio/github/lime3ds/"
+        "(Lio/github/lime3ds/android/applets/SoftwareKeyboard$KeyboardConfig;)Lio/github/lime3ds/android/"
         "applets/SoftwareKeyboard$KeyboardData;");
     s_swkbd_show_error =
         env->GetStaticMethodID(s_software_keyboard_class, "ShowError", "(Ljava/lang/String;)V");
@@ -121,10 +121,10 @@ jobject ToJavaValidationError(Frontend::ValidationError error) {
     return env->GetStaticObjectField(
         s_validation_error_class,
         env->GetStaticFieldID(s_validation_error_class, ValidationErrorNameMap.at(error),
-                              "Lio/github/lime3ds/applets/SoftwareKeyboard$ValidationError;"));
+                              "Lio/github/lime3ds/android/applets/SoftwareKeyboard$ValidationError;"));
 }
 
-jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* env, jclass clazz,
+jobject Java_io_github_lime3ds_android_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* env, jclass clazz,
                                                                         jstring text) {
 
     const auto ret =
@@ -132,7 +132,7 @@ jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateFilters(JNIEnv* 
     return ToJavaValidationError(ret);
 }
 
-jobject Java_io_github_lime3ds_applets_SoftwareKeyboard_ValidateInput(JNIEnv* env, jclass clazz,
+jobject Java_io_github_lime3ds_android_applets_SoftwareKeyboard_ValidateInput(JNIEnv* env, jclass clazz,
                                                                       jstring text) {
 
     const auto ret =

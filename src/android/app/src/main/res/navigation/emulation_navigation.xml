@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/emulationFragment"
-        android:name="io.github.lime3ds.fragments.EmulationFragment"
+        android:name="io.github.lime3ds.android.fragments.EmulationFragment"
         android:label="fragment_emulation"
         tools:layout="@layout/fragment_emulation" >
         <argument
             android:name="game"
-            app:argType="io.github.lime3ds.model.Game"
+            app:argType="io.github.lime3ds.android.model.Game"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
 
     <activity
         android:id="@+id/cheatsActivity"
-        android:name="io.github.lime3ds.features.cheats.ui.CheatsActivity"
+        android:name="io.github.lime3ds.android.features.cheats.ui.CheatsActivity"
         android:label="CheatsActivity">
         <argument
             android:name="titleId"

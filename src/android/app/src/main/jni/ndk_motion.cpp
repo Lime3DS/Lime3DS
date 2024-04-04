@@ -62,7 +62,7 @@ class NDKMotion final : public Input::MotionDevice {
     }
 
     void Construct() {
-        sensor_manager = ASensorManager_getInstanceForPackage("io.github.lime3ds");
+        sensor_manager = ASensorManager_getInstanceForPackage("io.github.lime3ds.android");
         looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
         if (!sensor_manager || !looper) {
             LOG_CRITICAL(Input, "Could not retrieve sensor manager");

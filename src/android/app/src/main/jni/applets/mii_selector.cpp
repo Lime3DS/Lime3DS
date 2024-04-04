@@ -66,16 +66,16 @@ void AndroidMiiSelector::Setup(const Frontend::MiiSelectorConfig& config) {
 
 void InitJNI(JNIEnv* env) {
     s_mii_selector_class = reinterpret_cast<jclass>(
-        env->NewGlobalRef(env->FindClass("io/github/lime3ds/applets/MiiSelector")));
+        env->NewGlobalRef(env->FindClass("io/github/lime3ds/android/applets/MiiSelector")));
     s_mii_selector_config_class = reinterpret_cast<jclass>(env->NewGlobalRef(
-        env->FindClass("io/github/lime3ds/applets/MiiSelector$MiiSelectorConfig")));
+        env->FindClass("io/github/lime3ds/android/applets/MiiSelector$MiiSelectorConfig")));
     s_mii_selector_data_class = reinterpret_cast<jclass>(
-        env->NewGlobalRef(env->FindClass("io/github/lime3ds/applets/MiiSelector$MiiSelectorData")));
+        env->NewGlobalRef(env->FindClass("io/github/lime3ds/android/applets/MiiSelector$MiiSelectorData")));
 
     s_mii_selector_execute =
         env->GetStaticMethodID(s_mii_selector_class, "Execute",
-                               "(Lio/github/lime3ds/applets/MiiSelector$MiiSelectorConfig;)Lio/"
-                               "github/lime3ds/applets/MiiSelector$MiiSelectorData;");
+                               "(Lio/github/lime3ds/android/applets/MiiSelector$MiiSelectorConfig;)Lio/"
+                               "github/lime3ds/android/applets/MiiSelector$MiiSelectorData;");
 }
 
 void CleanupJNI(JNIEnv* env) {

@@ -22,7 +22,7 @@
             android:focusableInTouchMode="false" />
 
         <!-- This is the onscreen input overlay -->
-        <io.github.lime3ds.overlay.InputOverlay
+        <io.github.lime3ds.android.overlay.InputOverlay
             android:id="@+id/surface_input_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

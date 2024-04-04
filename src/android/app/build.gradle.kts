@@ -26,7 +26,7 @@ val downloadedJniLibsPath = "${buildDir}/downloadedJniLibs"
 
 @Suppress("UnstableApiUsage")
 android {
-    namespace = "io.github.lime3ds"
+    namespace = "io.github.lime3ds.android"
 
     compileSdkVersion = "android-34"
     ndkVersion = "26.1.10909125"
@@ -61,7 +61,7 @@ android {
 
     defaultConfig {
         // TODO If this is ever modified, change application_id in strings.xml
-        applicationId = "io.github.lime3ds"
+        applicationId = "io.github.lime3ds.android"
         minSdk = 28
         targetSdk = 34
         versionCode = autoVersion

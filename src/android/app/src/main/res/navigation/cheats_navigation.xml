@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cheatsFragment"
-        android:name="io.github.lime3ds.features.cheats.ui.CheatsFragment"
+        android:name="io.github.lime3ds.android.features.cheats.ui.CheatsFragment"
         android:label="fragment_cheats"
         tools:layout="@layout/fragment_cheats">
         <argument

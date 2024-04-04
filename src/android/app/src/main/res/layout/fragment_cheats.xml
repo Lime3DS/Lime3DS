@@ -9,7 +9,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/cheat_list_container"
-        android:name="io.github.lime3ds.features.cheats.ui.CheatListFragment"
+        android:name="io.github.lime3ds.android.features.cheats.ui.CheatListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -17,7 +17,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/cheat_details_container"
-        android:name="io.github.lime3ds.features.cheats.ui.CheatDetailsFragment"
+        android:name="io.github.lime3ds.android.features.cheats.ui.CheatDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
