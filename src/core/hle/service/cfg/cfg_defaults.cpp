@@ -38,8 +38,8 @@ constexpr u8 DEFAULT_SOUND_OUTPUT_MODE = SOUND_STEREO;
 // constants.
 constexpr u64_le DEFAULT_CONSOLE_ID = 0;
 constexpr u32_le DEFAULT_CONSOLE_RANDOM_NUMBER = 0;
-constexpr UsernameBlock DEFAULT_USERNAME{{u"CITRA"}, 0, 0};
-constexpr BirthdayBlock DEFAULT_BIRTHDAY{3, 25}; // March 25th, 2014
+constexpr UsernameBlock DEFAULT_USERNAME{{u"LIME3DS"}, 0, 0};
+constexpr BirthdayBlock DEFAULT_BIRTHDAY{3, 4}; // March 4th, 2024
 constexpr u8 DEFAULT_LANGUAGE = LANGUAGE_EN;
 constexpr ConsoleCountryInfo DEFAULT_COUNTRY_INFO{
     {0, 0}, WASHINGTON_DC_STATE_ID, UNITED_STATES_COUNTRY_ID};

@@ -221,12 +221,12 @@ class SettingsActivity : AppCompatActivity(), SettingsActivityView {
 
         // Set default values for system config file
         SystemSaveGame.apply {
-            setUsername("CITRA")
-            setBirthday(3, 25)
+            setUsername("LIME3DS")
+            setBirthday(3, 4)
             setSystemLanguage(1)
             setSoundOutputMode(1)
             setCountryCode(49)
-            setPlayCoins(42)
+            setPlayCoins(300)
         }
 
         showToastMessage(getString(R.string.settings_reset), true)
