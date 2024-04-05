@@ -662,11 +662,11 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
             )
             .putFloat(
                 NativeLibrary.ButtonType.BUTTON_SWAP.toString() + "-X",
-                resources.getInteger(R.integer.N3DS_BUTTON_A_X).toFloat() / 1000 * maxX
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_X).toFloat() / 1000 * maxX
             )
             .putFloat(
                 NativeLibrary.ButtonType.BUTTON_SWAP.toString() + "-Y",
-                resources.getInteger(R.integer.N3DS_STICK_C_Y).toFloat() / 1000 * maxY
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_Y).toFloat() / 1000 * maxY
             )
             .apply()
     }
@@ -805,11 +805,11 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
             )
             .putFloat(
                 NativeLibrary.ButtonType.BUTTON_SWAP.toString() + portrait + "-X",
-                resources.getInteger(R.integer.N3DS_BUTTON_SELECT_PORTRAIT_X).toFloat() / 1000 * maxX
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_PORTRAIT_X).toFloat() / 1000 * maxX
             )
             .putFloat(
                 NativeLibrary.ButtonType.BUTTON_SWAP.toString() + portrait + "-Y",
-                resources.getInteger(R.integer.N3DS_BUTTON_B_PORTRAIT_Y).toFloat() / 1000 * maxY
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_PORTRAIT_Y).toFloat() / 1000 * maxY
             )
             .apply()
     }
