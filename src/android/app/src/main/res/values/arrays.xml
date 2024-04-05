@@ -78,6 +78,7 @@
         <item>@string/controller_circlepad</item>
         <item>@string/controller_c</item>
         <item>@string/button_home</item>
+        <item>@string/button_swap</item>
     </string-array>
 
     <string-array name="cameraImageSourceNames">
@@ -451,4 +452,5 @@
         <item>12</item>
     </integer-array>
 
+    <string name="button_swap">SWAP</string>
 </resources>
