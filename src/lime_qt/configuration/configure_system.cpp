@@ -611,9 +611,9 @@ void ConfigureSystem::DownloadFromNUS() {
     future_watcher.waitForFinished();
 
     if (failed) {
-        QMessageBox::critical(this, tr("Lime"), tr("Downloading system files failed."));
+        QMessageBox::critical(this, tr("Lime3DS"), tr("Downloading system files failed."));
     } else if (!future_watcher.isCanceled()) {
-        QMessageBox::information(this, tr("Lime"), tr("Successfully downloaded system files."));
+        QMessageBox::information(this, tr("Lime3DS"), tr("Successfully downloaded system files."));
     }
 
     ui->button_start_download->setEnabled(true);

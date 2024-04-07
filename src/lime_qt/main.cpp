@@ -1662,7 +1662,7 @@ void GMainWindow::OnGameListDumpRomFS(QString game_path, u64 program_id) {
                 const auto& [base, update] = future_watcher->result();
                 if (base != Loader::ResultStatus::Success) {
                     QMessageBox::critical(
-                        this, tr("Lime"),
+                        this, tr("Lime3DS"),
                         tr("Could not dump base RomFS.\nRefer to the log for details."));
                     return;
                 }
@@ -1875,9 +1875,9 @@ void GMainWindow::UninstallTitles(
     future_watcher.waitForFinished();
 
     if (failed) {
-        QMessageBox::critical(this, tr("Lime"), tr("Failed to uninstall '%1'.").arg(failed_name));
+        QMessageBox::critical(this, tr("Lime3DS"), tr("Failed to uninstall '%1'.").arg(failed_name));
     } else if (!future_watcher.isCanceled()) {
-        QMessageBox::information(this, tr("Lime"),
+        QMessageBox::information(this, tr("Lime3DS"),
                                  tr("Successfully uninstalled '%1'.").arg(first_name));
     }
 }
@@ -2457,7 +2457,7 @@ void GMainWindow::OnOpenFFmpeg() {
 
     for (auto& library_name : library_names) {
         if (!FileUtil::Exists(bin_dir + DIR_SEP + library_name)) {
-            QMessageBox::critical(this, tr("Lime"),
+            QMessageBox::critical(this, tr("Lime3DS"),
                                   tr("The provided FFmpeg directory is missing %1. Please make "
                                      "sure the correct directory was selected.")
                                       .arg(QString::fromStdString(library_name)));
@@ -2481,9 +2481,9 @@ void GMainWindow::OnOpenFFmpeg() {
     FileUtil::ForeachDirectoryEntry(nullptr, bin_dir, process_file);
 
     if (success.load()) {
-        QMessageBox::information(this, tr("Lime"), tr("FFmpeg has been sucessfully installed."));
+        QMessageBox::information(this, tr("Lime3DS"), tr("FFmpeg has been sucessfully installed."));
     } else {
-        QMessageBox::critical(this, tr("Lime"),
+        QMessageBox::critical(this, tr("Lime3DS"),
                               tr("Installation of FFmpeg failed. Check the log file for details."));
     }
 }
@@ -2513,7 +2513,7 @@ void GMainWindow::StartVideoDumping(const QString& path) {
         system.RegisterVideoDumper(dumper);
     } else {
         QMessageBox::critical(
-            this, tr("Lime"),
+            this, tr("Lime3DS"),
             tr("Could not start video dumping.<br>Refer to the log for details."));
         ui->action_Dump_Video->setChecked(false);
     }
@@ -2814,7 +2814,7 @@ bool GMainWindow::ConfirmClose() {
     }
 
     QMessageBox::StandardButton answer =
-        QMessageBox::question(this, tr("Lime"), tr("Would you like to exit now?"),
+        QMessageBox::question(this, tr("Lime3DS"), tr("Would you like to exit now?"),
                               QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     return answer != QMessageBox::No;
 }
@@ -2907,7 +2907,7 @@ bool GMainWindow::ConfirmChangeGame() {
     }
 
     auto answer = QMessageBox::question(
-        this, tr("Lime"), tr("The game is still running. Would you like to stop emulation?"),
+        this, tr("Lime3DS"), tr("The game is still running. Would you like to stop emulation?"),
         QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     return answer != QMessageBox::No;
 }
@@ -3170,7 +3170,7 @@ int main(int argc, char* argv[]) {
 
     // Init settings params
     QCoreApplication::setOrganizationName(QStringLiteral("Lime3DS team"));
-    QCoreApplication::setApplicationName(QStringLiteral("Lime"));
+    QCoreApplication::setApplicationName(QStringLiteral("Lime3DS"));
 
     auto rounding_policy = GetHighDpiRoundingPolicy();
     QApplication::setHighDpiScaleFactorRoundingPolicy(rounding_policy);
