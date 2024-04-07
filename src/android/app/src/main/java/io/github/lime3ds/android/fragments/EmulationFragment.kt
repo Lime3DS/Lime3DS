@@ -581,6 +581,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.menu.apply {
             findItem(R.id.menu_show_overlay).isChecked = EmulationMenuSettings.showOverlay
             findItem(R.id.menu_show_fps).isChecked = EmulationMenuSettings.showFps
+            findItem(R.id.menu_haptic_feedback).isChecked = EmulationMenuSettings.hapticFeedback
             findItem(R.id.menu_emulation_joystick_rel_center).isChecked =
                 EmulationMenuSettings.joystickRelCenter
             findItem(R.id.menu_emulation_dpad_slide_enable).isChecked =
@@ -597,6 +598,12 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
                 R.id.menu_show_fps -> {
                     EmulationMenuSettings.showFps = !EmulationMenuSettings.showFps
+                    updateShowFpsOverlay()
+                    true
+                }
+
+                R.id.menu_haptic_feedback -> {
+                    EmulationMenuSettings.hapticFeedback = !EmulationMenuSettings.hapticFeedback
                     updateShowFpsOverlay()
                     true
                 }

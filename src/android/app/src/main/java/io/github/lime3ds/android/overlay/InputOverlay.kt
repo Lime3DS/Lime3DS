@@ -86,7 +86,8 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
     }
 
     fun hapticFeedback(type:Int){
-        performHapticFeedback(type)
+        if(EmulationMenuSettings.hapticFeedback)
+            performHapticFeedback(type)
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
