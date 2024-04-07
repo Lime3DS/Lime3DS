@@ -607,7 +607,7 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Load_File, QStringLiteral("Load File"));
     link_action_shortcut(ui->action_Load_Amiibo, QStringLiteral("Load Amiibo"));
     link_action_shortcut(ui->action_Remove_Amiibo, QStringLiteral("Remove Amiibo"));
-    link_action_shortcut(ui->action_Exit, QStringLiteral("Exit Lime"));
+    link_action_shortcut(ui->action_Exit, QStringLiteral("Exit Lime3DS"));
     link_action_shortcut(ui->action_Restart, QStringLiteral("Restart Emulation"));
     link_action_shortcut(ui->action_Pause, QStringLiteral("Continue/Pause Emulation"));
     link_action_shortcut(ui->action_Stop, QStringLiteral("Stop Emulation"));
