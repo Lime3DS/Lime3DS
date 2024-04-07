@@ -921,14 +921,13 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
             var scale: Float = when (buttonId) {
                 NativeLibrary.ButtonType.BUTTON_HOME,
                 NativeLibrary.ButtonType.BUTTON_START,
-                NativeLibrary.ButtonType.BUTTON_SELECT -> 0.08f
+                NativeLibrary.ButtonType.BUTTON_SELECT,
+                NativeLibrary.ButtonType.BUTTON_SWAP -> 0.08f
 
                 NativeLibrary.ButtonType.TRIGGER_L,
                 NativeLibrary.ButtonType.TRIGGER_R,
                 NativeLibrary.ButtonType.BUTTON_ZL,
                 NativeLibrary.ButtonType.BUTTON_ZR -> 0.18f
-
-                NativeLibrary.ButtonType.BUTTON_SWAP -> 0.25f
 
                 else -> 0.11f
             }
