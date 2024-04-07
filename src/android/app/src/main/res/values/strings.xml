@@ -121,6 +121,7 @@
     <string name="button_select" translatable="false">SELECT</string>
     <string name="button_start" translatable="false">START</string>
     <string name="button_home">HOME</string>
+    <string name="button_swap">Swap Screens</string>
     <string name="button_x" translatable="false">X</string>
     <string name="button_y" translatable="false">Y</string>
     <string name="button_l" translatable="false">L</string>

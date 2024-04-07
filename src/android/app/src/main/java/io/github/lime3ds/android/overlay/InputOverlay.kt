@@ -76,6 +76,15 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
         overlayJoysticks.forEach { it.draw(canvas) }
     }
 
+    private fun swapScreen() {
+        val isEnabled = !EmulationMenuSettings.swapScreens
+        EmulationMenuSettings.swapScreens = isEnabled
+        NativeLibrary.swapScreens(
+            isEnabled,
+            (context as Activity).windowManager.defaultDisplay.rotation
+        )
+    }
+
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         if (isInEditMode) {
             return onTouchWhileEditing(event)
@@ -85,6 +94,11 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
             if (!button.updateStatus(event)) {
                 continue
             }
+
+            if (button.id == NativeLibrary.ButtonType.BUTTON_SWAP && button.status == NativeLibrary.ButtonState.PRESSED) {
+                swapScreen()
+            }
+
             NativeLibrary.onGamePadEvent(NativeLibrary.TouchScreenDevice, button.id, button.status)
             shouldUpdateView = true
         }
@@ -437,6 +451,18 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
                 )
             )
         }
+
+        if (preferences.getBoolean("buttonToggle14", false)) {
+            overlayButtons.add(
+                initializeOverlayButton(
+                    context,
+                    R.drawable.button_swap,
+                    R.drawable.button_swap_pressed,
+                    NativeLibrary.ButtonType.BUTTON_SWAP,
+                    orientation
+                )
+            )
+        }
     }
 
     fun refreshControls() {
@@ -634,6 +660,14 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
                 NativeLibrary.ButtonType.STICK_LEFT.toString() + "-Y",
                 resources.getInteger(R.integer.N3DS_STICK_MAIN_Y).toFloat() / 1000 * maxY
             )
+            .putFloat(
+                NativeLibrary.ButtonType.BUTTON_SWAP.toString() + "-X",
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_X).toFloat() / 1000 * maxX
+            )
+            .putFloat(
+                NativeLibrary.ButtonType.BUTTON_SWAP.toString() + "-Y",
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_Y).toFloat() / 1000 * maxY
+            )
             .apply()
     }
 
@@ -769,6 +803,14 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
                 NativeLibrary.ButtonType.STICK_LEFT.toString() + portrait + "-Y",
                 resources.getInteger(R.integer.N3DS_STICK_MAIN_PORTRAIT_Y).toFloat() / 1000 * maxY
             )
+            .putFloat(
+                NativeLibrary.ButtonType.BUTTON_SWAP.toString() + portrait + "-X",
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_PORTRAIT_X).toFloat() / 1000 * maxX
+            )
+            .putFloat(
+                NativeLibrary.ButtonType.BUTTON_SWAP.toString() + portrait + "-Y",
+                resources.getInteger(R.integer.N3DS_BUTTON_SWAP_PORTRAIT_Y).toFloat() / 1000 * maxY
+            )
             .apply()
     }
 
@@ -879,7 +921,8 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
             var scale: Float = when (buttonId) {
                 NativeLibrary.ButtonType.BUTTON_HOME,
                 NativeLibrary.ButtonType.BUTTON_START,
-                NativeLibrary.ButtonType.BUTTON_SELECT -> 0.08f
+                NativeLibrary.ButtonType.BUTTON_SELECT,
+                NativeLibrary.ButtonType.BUTTON_SWAP -> 0.08f
 
                 NativeLibrary.ButtonType.TRIGGER_L,
                 NativeLibrary.ButtonType.TRIGGER_R,

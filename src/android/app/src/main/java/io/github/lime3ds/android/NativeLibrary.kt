@@ -708,6 +708,7 @@ object NativeLibrary {
         const val DPAD = 780
         const val BUTTON_DEBUG = 781
         const val BUTTON_GPIO14 = 782
+        const val BUTTON_SWAP = 800
     }
 
     /**
