@@ -743,7 +743,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             // Buttons that are disabled by default
             var defaultValue = true
             when (i) {
-                6, 7, 12, 13 -> defaultValue = false
+                6, 7, 12, 13, 14 -> defaultValue = false
             }
             enabledButtons[i] = preferences.getBoolean("buttonToggle$i", defaultValue)
         }
@@ -819,7 +819,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         for (i in 0 until 15) {
             var defaultValue = true
             when (i) {
-                6, 7, 12, 13 -> defaultValue = false
+                6, 7, 12, 13, 14 -> defaultValue = false
             }
             editor.putBoolean("buttonToggle$i", defaultValue)
         }
