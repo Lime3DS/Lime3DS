@@ -78,9 +78,13 @@ void Swapchain::Create(u32 width_, u32 height_, vk::SurfaceKHR surface_) {
 }
 
 bool Swapchain::AcquireNextImage() {
+    if (needs_recreation) {
+        return false;
+    }
+
     MICROPROFILE_SCOPE(Vulkan_Acquire);
-    vk::Device device = instance.GetDevice();
-    vk::Result result =
+    const vk::Device device = instance.GetDevice();
+    const vk::Result result =
         device.acquireNextImageKHR(swapchain, std::numeric_limits<u64>::max(),
                                    image_acquired[frame_index], VK_NULL_HANDLE, &image_index);
 
@@ -102,10 +106,6 @@ bool Swapchain::AcquireNextImage() {
 }
 
 void Swapchain::Present() {
-    if (needs_recreation) {
-        return;
-    }
-
     const vk::PresentInfoKHR present_info = {
         .waitSemaphoreCount = 1,
         .pWaitSemaphores = &present_ready[image_index],
@@ -119,6 +119,10 @@ void Swapchain::Present() {
         [[maybe_unused]] vk::Result result = instance.GetPresentQueue().presentKHR(present_info);
     } catch (vk::OutOfDateKHRError&) {
         needs_recreation = true;
+        return;
+    } catch (vk::SurfaceLostKHRError&) {
+        needs_recreation = true;
+        return;
     } catch (const vk::SystemError& err) {
         LOG_CRITICAL(Render_Vulkan, "Swapchain presentation failed {}", err.what());
         UNREACHABLE();

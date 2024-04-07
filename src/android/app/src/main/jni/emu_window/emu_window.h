@@ -17,7 +17,7 @@ public:
     ~EmuWindow_Android();
 
     /// Called by the onSurfaceChanges() method to change the surface
-    void OnSurfaceChanged(ANativeWindow* surface);
+    bool OnSurfaceChanged(ANativeWindow* surface);
 
     /// Handles touch event that occur.(Touched or released)
     bool OnTouchEvent(int x, int y, bool pressed);

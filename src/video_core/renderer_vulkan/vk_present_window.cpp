@@ -473,7 +473,7 @@ void PresentWindow::CopyToSwapchain(Frame* frame) {
         .pSignalSemaphores = &present_ready,
     };
 
-    std::scoped_lock submit_lock{scheduler.submit_mutex};
+    std::scoped_lock submit_lock{scheduler.submit_mutex, recreate_surface_mutex};
 
     try {
         graphics_queue.submit(submit_info, frame->present_done);

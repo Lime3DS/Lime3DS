@@ -289,12 +289,13 @@ void Java_io_github_lime3ds_android_NativeLibrary_surfaceChanged(JNIEnv* env,
                                                                  jobject surf) {
     s_surf = ANativeWindow_fromSurface(env, surf);
 
+    bool notify = false;
     if (window) {
-        window->OnSurfaceChanged(s_surf);
+        notify = window->OnSurfaceChanged(s_surf);
     }
 
     auto& system = Core::System::GetInstance();
-    if (system.IsPoweredOn()) {
+    if (notify && system.IsPoweredOn()) {
         system.GPU().Renderer().NotifySurfaceChanged();
     }
 
