@@ -1875,7 +1875,8 @@ void GMainWindow::UninstallTitles(
     future_watcher.waitForFinished();
 
     if (failed) {
-        QMessageBox::critical(this, tr("Lime3DS"), tr("Failed to uninstall '%1'.").arg(failed_name));
+        QMessageBox::critical(this, tr("Lime3DS"),
+                              tr("Failed to uninstall '%1'.").arg(failed_name));
     } else if (!future_watcher.isCanceled()) {
         QMessageBox::information(this, tr("Lime3DS"),
                                  tr("Successfully uninstalled '%1'.").arg(first_name));
