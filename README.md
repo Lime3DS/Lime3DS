@@ -9,8 +9,9 @@
 <b>Lime3DS</b> is a project which aims to revive and continue work on Citra, a popular open-source Nintendo 3DS emulator which ceased development.
 
 ![](https://github.com/Lime3DS/Lime3DS/actions/workflows/build.yml/badge.svg)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Lime3DS/Lime3DS/total?logo=github)
 ![GitHub Release](https://img.shields.io/github/v/release/Lime3DS/Lime3DS)
+![GitHub Downloads](https://img.shields.io/github/downloads/Lime3DS/Lime3DS/total?logo=github)
+![Flathub Downloads](https://img.shields.io/flathub/downloads/io.github.lime3ds.Lime3DS?logo=flathub&label=downloads)
 
 ## Download
 Builds are actively maintained for Windows, Linux, Android, and MacOS.
