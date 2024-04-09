@@ -18,6 +18,8 @@ Builds are actively maintained for Windows, Linux, Android, and MacOS.
 
 Downloads are available on the [Lime3DS Releases](https://github.com/Lime3DS/Lime-3DS-Emulator/releases) page.
 
+Lime3DS is also available on [Flathub](https://flathub.org/en-GB/apps/io.github.lime3ds.Lime3DS)
+
 ## Contribute
 If you believe you can help with this project, please lend us your talent! We're a team of passionate enthusiasts who need all the help we can get.
 
