@@ -29,6 +29,7 @@ import kotlin.math.sqrt
  * @param rectOuter          [Rect] which represents the outer joystick bounds.
  * @param rectInner          [Rect] which represents the inner joystick bounds.
  * @param joystickId         Identifier for which joystick this is.
+ * @param opacity            0-255 alpha value
  */
 class InputOverlayDrawableJoystick(
     res: Resources,
@@ -37,7 +38,8 @@ class InputOverlayDrawableJoystick(
     bitmapInnerPressed: Bitmap,
     rectOuter: Rect,
     rectInner: Rect,
-    val joystickId: Int
+    val joystickId: Int,
+    val opacity: Int
 ) {
     var trackId = -1
     var xAxis = 0f
@@ -50,6 +52,7 @@ class InputOverlayDrawableJoystick(
     private var previousTouchY = 0
     val width: Int
     val height: Int
+    private val opacityId: Int
     private var virtBounds: Rect
     private var origBounds: Rect
     private val outerBitmap: BitmapDrawable
@@ -72,6 +75,7 @@ class InputOverlayDrawableJoystick(
         width = bitmapOuter.width
         height = bitmapOuter.height
         bounds = rectOuter
+        opacityId = opacity
         defaultStateInnerBitmap.bounds = rectInner
         pressedStateInnerBitmap.bounds = rectInner
         virtBounds = bounds
@@ -79,10 +83,14 @@ class InputOverlayDrawableJoystick(
         boundsBoxBitmap.alpha = 0
         boundsBoxBitmap.bounds = virtBounds
         setInnerBounds()
+        defaultStateInnerBitmap.alpha = opacity
+        pressedStateInnerBitmap.alpha = opacity
+        outerBitmap.alpha = opacity
     }
 
     fun draw(canvas: Canvas?) {
         outerBitmap.draw(canvas!!)
+        currentStateBitmapDrawable.alpha = opacityId
         currentStateBitmapDrawable.draw(canvas)
         boundsBoxBitmap.draw(canvas)
     }
@@ -103,7 +111,7 @@ class InputOverlayDrawableJoystick(
             }
             pressedState = true
             outerBitmap.alpha = 0
-            boundsBoxBitmap.alpha = 255
+            boundsBoxBitmap.alpha = opacityId
             if (EmulationMenuSettings.joystickRelCenter) {
                 virtBounds.offset(
                     xPosition - virtBounds.centerX(),
@@ -123,7 +131,7 @@ class InputOverlayDrawableJoystick(
             yAxis = 0.0f
             angle = 0.0f
             radius = 0.0f
-            outerBitmap.alpha = 255
+            outerBitmap.alpha = opacityId
             boundsBoxBitmap.alpha = 0
             virtBounds = Rect(origBounds.left, origBounds.top, origBounds.right, origBounds.bottom)
             bounds = Rect(origBounds.left, origBounds.top, origBounds.right, origBounds.bottom)

@@ -26,7 +26,8 @@ class InputOverlayDrawableButton(
     res: Resources,
     defaultStateBitmap: Bitmap,
     pressedStateBitmap: Bitmap,
-    val id: Int
+    val id: Int,
+    val opacity: Int
 ) {
     var trackId: Int
     private var previousTouchX = 0
@@ -35,6 +36,7 @@ class InputOverlayDrawableButton(
     private var controlPositionY = 0
     val width: Int
     val height: Int
+    private val opacityId: Int
     private val defaultStateBitmap: BitmapDrawable
     private val pressedStateBitmap: BitmapDrawable
     private var pressedState = false
@@ -42,6 +44,7 @@ class InputOverlayDrawableButton(
     init {
         this.defaultStateBitmap = BitmapDrawable(res, defaultStateBitmap)
         this.pressedStateBitmap = BitmapDrawable(res, pressedStateBitmap)
+        this.opacityId = this.opacity
         trackId = -1
         width = this.defaultStateBitmap.intrinsicWidth
         height = this.defaultStateBitmap.intrinsicHeight
@@ -114,7 +117,11 @@ class InputOverlayDrawableButton(
         controlPositionY = y
     }
 
-    fun draw(canvas: Canvas) = currentStateBitmapDrawable.draw(canvas)
+    fun draw(canvas: Canvas) {
+        val bitmapDrawable: BitmapDrawable = currentStateBitmapDrawable
+        bitmapDrawable.alpha = opacityId
+        bitmapDrawable.draw(canvas)
+    }
 
     private val currentStateBitmapDrawable: BitmapDrawable
         get() = if (pressedState) pressedStateBitmap else defaultStateBitmap
