@@ -315,6 +315,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="emulation_done">Hecho</string>
     <string name="emulation_toggle_controls">Activar Controles</string>
     <string name="emulation_control_scale">Ajustar Escala</string>
+    <string name="emulation_control_opacity">Ajustar Opacidad</string>
     <string name="emulation_control_joystick_rel_center">Posición central relativa del stick</string>
     <string name="emulation_control_dpad_slide_enable">Deslizamiento de la Cruceta</string>
     <string name="emulation_open_settings">Abrir Configuración</string>

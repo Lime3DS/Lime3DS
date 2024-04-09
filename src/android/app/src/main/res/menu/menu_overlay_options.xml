@@ -28,6 +28,10 @@
         android:id="@+id/menu_emulation_adjust_scale"
         android:title="@string/emulation_control_scale" />
 
+    <item
+        android:id="@+id/menu_emulation_adjust_opacity"
+        android:title="@string/emulation_control_opacity" />
+
     <group android:checkableBehavior="all">
         <item
             android:id="@+id/menu_emulation_joystick_rel_center"
