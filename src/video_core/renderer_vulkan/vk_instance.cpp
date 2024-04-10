@@ -409,9 +409,15 @@ bool Instance::CreateDevice() {
         vk::PhysicalDevicePipelineCreationCacheControlFeaturesEXT,
         vk::PhysicalDeviceFragmentShaderBarycentricFeaturesKHR>();
     const vk::StructureChain properties_chain =
-        physical_device.getProperties2<vk::PhysicalDeviceProperties2,
-                                       vk::PhysicalDevicePortabilitySubsetPropertiesKHR,
-                                       vk::PhysicalDeviceExternalMemoryHostPropertiesEXT>();
+        physical_device
+            .getProperties2<vk::PhysicalDeviceProperties2, vk::PhysicalDeviceDriverProperties,
+                            vk::PhysicalDevicePortabilitySubsetPropertiesKHR,
+                            vk::PhysicalDeviceExternalMemoryHostPropertiesEXT>();
+    const vk::PhysicalDeviceDriverProperties driver =
+        properties_chain.get<vk::PhysicalDeviceDriverProperties>();
+
+    driver_id = driver.driverID;
+    vendor_name = driver.driverName.data();
 
     features = feature_chain.get().features;
     if (available_extensions.empty()) {
