@@ -26,7 +26,7 @@ The app is available in the [Releases](https://github.com/Lime3DS/Lime3DS/releas
 Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
 
 ## Android
-Download the latest `t.apk`/`.aab` release from [Releases](https://github.com/Lime3DS/Lime3DS/releases). (A F-Droid/IzzyOnDroid release is planned to drop soon)
+Download the latest `.apk`/`.aab` release from [Releases](https://github.com/Lime3DS/Lime3DS/releases). (A F-Droid/IzzyOnDroid release is planned to drop soon)
 
 
 # Contribute
