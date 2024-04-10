@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import io.github.lime3ds.android.NativeLibrary
 import io.github.lime3ds.android.utils.EmulationMenuSettings
@@ -41,6 +42,8 @@ class InputOverlayDrawableJoystick(
     var trackId = -1
     var xAxis = 0f
     var yAxis = 0f
+    var angle = 0f
+    var radius = 0f
     private var controlPositionX = 0
     private var controlPositionY = 0
     private var previousTouchX = 0
@@ -84,7 +87,7 @@ class InputOverlayDrawableJoystick(
         boundsBoxBitmap.draw(canvas)
     }
 
-    fun updateStatus(event: MotionEvent): Boolean {
+    fun updateStatus(event: MotionEvent, overlay:InputOverlay): Boolean {
         val pointerIndex = event.actionIndex
         val xPosition = event.getX(pointerIndex).toInt()
         val yPosition = event.getY(pointerIndex).toInt()
@@ -109,6 +112,7 @@ class InputOverlayDrawableJoystick(
             }
             boundsBoxBitmap.bounds = virtBounds
             trackId = pointerId
+            overlay.hapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         }
         if (isActionUp) {
             if (trackId != pointerId) {
@@ -117,12 +121,15 @@ class InputOverlayDrawableJoystick(
             pressedState = false
             xAxis = 0.0f
             yAxis = 0.0f
+            angle = 0.0f
+            radius = 0.0f
             outerBitmap.alpha = 255
             boundsBoxBitmap.alpha = 0
             virtBounds = Rect(origBounds.left, origBounds.top, origBounds.right, origBounds.bottom)
             bounds = Rect(origBounds.left, origBounds.top, origBounds.right, origBounds.bottom)
             setInnerBounds()
             trackId = -1
+            overlay.hapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY_RELEASE)
             return true
         }
         if (trackId == -1) return false
@@ -142,6 +149,8 @@ class InputOverlayDrawableJoystick(
             val yAxis = touchY / maxY
             val oldXAxis = this.xAxis
             val oldYAxis = this.yAxis
+            val oldAngle = this.angle
+            val oldRadius = this.radius
 
             // Clamp the circle pad input to a circle
             val angle = atan2(yAxis.toDouble(), xAxis.toDouble()).toFloat()
@@ -152,6 +161,15 @@ class InputOverlayDrawableJoystick(
             this.xAxis = cos(angle.toDouble()).toFloat() * radius
             this.yAxis = sin(angle.toDouble()).toFloat() * radius
             setInnerBounds()
+
+            if (kotlin.math.abs(oldRadius - radius) > .34f
+                    || radius > .5f && kotlin.math.abs(oldAngle - angle) > kotlin.math.PI / 8) {
+                this.radius = radius
+                this.angle = angle
+
+                overlay.hapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
+            }
+
             return oldXAxis != this.xAxis && oldYAxis != this.yAxis
         }
         return false
