@@ -142,7 +142,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         retainInstance = true
         emulationState = EmulationState(game.path)
         emulationActivity = requireActivity() as EmulationActivity
-        screenAdjustmentUtil = ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
+        screenAdjustmentUtil =
+            ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
         EmulationLifecycleUtil.addShutdownHook(hook = { emulationState.stop() })
         EmulationLifecycleUtil.addPauseResumeHook(hook = { togglePause() })
     }
@@ -201,16 +202,18 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             }
         })
         binding.inGameMenu.menu.findItem(R.id.menu_lock_drawer).apply {
-            val titleId = if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
-                R.string.unlock_drawer
-            } else {
-                R.string.lock_drawer
-            }
-            val iconId = if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_UNLOCKED) {
-                R.drawable.ic_unlocked
-            } else {
-                R.drawable.ic_lock
-            }
+            val titleId =
+                if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
+                    R.string.unlock_drawer
+                } else {
+                    R.string.lock_drawer
+                }
+            val iconId =
+                if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_UNLOCKED) {
+                    R.drawable.ic_unlocked
+                } else {
+                    R.drawable.ic_lock
+                }
 
             title = getString(titleId)
             icon = ResourcesCompat.getDrawable(
@@ -413,7 +416,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     }
 
     private fun togglePause() {
-        if(emulationState.isPaused) {
+        if (emulationState.isPaused) {
             emulationState.unpause()
         } else {
             emulationState.pause()
@@ -847,33 +850,6 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 binding.surfaceInputOverlay.refreshControls()
             }
             .show()
-    }
-
-    private fun showAdjustScaleMenu() {
-        val popupMenu = PopupMenu(
-            requireContext(),
-            binding.inGameMenu.findViewById(R.id.menu_emulation_show_overlay)
-        )
-
-        popupMenu.menuInflater.inflate(R.menu.menu_savestates, popupMenu.menu)
-
-        popupMenu.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_emulation_save_state -> {
-                    showSaveStateSubmenu()
-                    true
-                }
-
-                R.id.menu_emulation_load_state -> {
-                    showLoadStateSubmenu()
-                    true
-                }
-
-                else -> true
-            }
-        }
-
-        popupMenu.show()
     }
 
     private fun showAdjustScaleDialog(target: String) {
