@@ -1074,7 +1074,7 @@ void GMainWindow::ShowUpdaterWidgets() {
 
 void GMainWindow::ShowUpdatePopup() {
     QNetworkAccessManager *manager = new QNetworkAccessManager();
-    QObject::connect(manager, &QNetworkAccessManager::finished, this, [=, this](QNetworkReply *reply) {
+    QObject::connect(manager, &QNetworkAccessManager::finished, this, [this](QNetworkReply *reply) {
         if (reply->error()) {
             return;
         } else {
