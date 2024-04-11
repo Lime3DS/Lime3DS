@@ -24,9 +24,11 @@ Download the latest `.apk` release from [Releases](https://github.com/Lime3DS/Li
 
 ### Linux
 
-The app is available in the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page as `.appimage` and `.tar.gz`.
+Lime3DS is available as an AppImage on the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page.
 
-<a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
+We are also on Flathub:
+
+<a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='180' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 # Contribute
 If you believe you can help with this project, please lend us your talent! We're a team of passionate enthusiasts who need all the help we can get.
