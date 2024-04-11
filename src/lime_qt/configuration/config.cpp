@@ -839,9 +839,7 @@ void Config::ReadWebServiceValues() {
     NetSettings::values.enable_telemetry =
         ReadSetting(QStringLiteral("enable_telemetry"), false).toBool();
     NetSettings::values.web_api_url =
-        ReadSetting(QStringLiteral("web_api_url"), QStringLiteral("https://api.citra-emu.org"))
-            .toString()
-            .toStdString();
+        ReadSetting(QStringLiteral("web_api_url"), QStringLiteral("")).toString().toStdString();
     NetSettings::values.citra_username =
         ReadSetting(QStringLiteral("citra_username")).toString().toStdString();
     NetSettings::values.citra_token =
@@ -1319,8 +1317,7 @@ void Config::SaveWebServiceValues() {
 
     WriteSetting(QStringLiteral("enable_telemetry"), NetSettings::values.enable_telemetry, false);
     WriteSetting(QStringLiteral("web_api_url"),
-                 QString::fromStdString(NetSettings::values.web_api_url),
-                 QStringLiteral("https://api.citra-emu.org"));
+                 QString::fromStdString(NetSettings::values.web_api_url), QStringLiteral(""));
     WriteSetting(QStringLiteral("citra_username"),
                  QString::fromStdString(NetSettings::values.citra_username));
     WriteSetting(QStringLiteral("citra_token"),

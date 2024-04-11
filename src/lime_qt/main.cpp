@@ -123,33 +123,6 @@ __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 
 constexpr int default_mouse_timeout = 2500;
 
-/**
- * "Callouts" are one-time instructional messages shown to the user. In the config settings, there
- * is a bitfield "callout_flags" options, used to track if a message has already been shown to the
- * user. This is 32-bits - if we have more than 32 callouts, we should retire and recycle old ones.
- */
-enum class CalloutFlag : uint32_t {
-    Telemetry = 0x1,
-};
-
-void GMainWindow::ShowTelemetryCallout() {
-    if (UISettings::values.callout_flags.GetValue() &
-        static_cast<uint32_t>(CalloutFlag::Telemetry)) {
-        return;
-    }
-
-    UISettings::values.callout_flags =
-        UISettings::values.callout_flags.GetValue() | static_cast<uint32_t>(CalloutFlag::Telemetry);
-    const QString telemetry_message =
-        tr("<a href='https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/'>Anonymous "
-           "data is collected</a> to help improve Citra. "
-           "<br/><br/>Would you like to share your usage data with us?");
-    if (QMessageBox::question(this, tr("Telemetry"), telemetry_message) == QMessageBox::Yes) {
-        NetSettings::values.enable_telemetry = true;
-        system.ApplySettings();
-    }
-}
-
 const int GMainWindow::max_recent_files_item;
 
 static QString PrettyProductName() {
@@ -263,8 +236,8 @@ GMainWindow::GMainWindow(Core::System& system_)
     game_list->LoadCompatibilityList();
     game_list->PopulateAsync(UISettings::values.game_dirs);
 
-    // Show one-time "callout" messages to the user
-    ShowTelemetryCallout();
+    NetSettings::values.enable_telemetry = false;
+    system.ApplySettings();
 
     mouse_hide_timer.setInterval(default_mouse_timeout);
     connect(&mouse_hide_timer, &QTimer::timeout, this, &GMainWindow::HideMouseCursor);
