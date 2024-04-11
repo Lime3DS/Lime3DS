@@ -1070,8 +1070,6 @@ void GMainWindow::ShowUpdaterWidgets() {
 
     connect(updater, &Updater::CheckUpdatesDone, this, &GMainWindow::OnUpdateFound);
 }
-#endif
-
 void GMainWindow::ShowUpdatePopup() {
     QNetworkAccessManager manager;
     QObject::connect(&manager, &QNetworkAccessManager::finished, this, [&](QNetworkReply *reply) {
@@ -1096,6 +1094,7 @@ void GMainWindow::ShowUpdatePopup() {
     QNetworkRequest networkRequest(url);
     manager.get(networkRequest);
 }
+#endif
 
 #if defined(HAVE_SDL2) && defined(__unix__) && !defined(__APPLE__)
 static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
