@@ -14,6 +14,7 @@
 #include <QtConcurrent/QtConcurrentRun>
 #include <QtGui>
 #include <QtWidgets>
+#include <QtNetwork/QtNetwork>
 #include <fmt/format.h>
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
@@ -272,6 +273,7 @@ GMainWindow::GMainWindow(Core::System& system_)
         CheckForUpdates();
     }
 #endif
+    ShowUpdatePopup();
 
     QStringList args = QApplication::arguments();
     if (args.size() < 2) {
@@ -1069,6 +1071,33 @@ void GMainWindow::ShowUpdaterWidgets() {
     connect(updater, &Updater::CheckUpdatesDone, this, &GMainWindow::OnUpdateFound);
 }
 #endif
+
+void GMainWindow::ShowUpdatePopup() {
+    QNetworkAccessManager *manager = new QNetworkAccessManager();
+    QObject::connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply) {
+        if (reply->error()) {
+            QMessageBox::critical(
+            this, tr("Cannot Fetch Github"),
+            tr( " "
+                "Could not fetch Github"));
+                return;
+        } else {
+            QJsonObject jsonObject = QJsonDocument::fromJson(reply->readAll()).object();
+            QString jsonTag = jsonObject[QStringLiteral("tag_name")].toString();
+            if (jsonTag != QString::fromUtf8(Common::g_build_fullname)) {
+                QMessageBox::information(
+                this, tr("New Lime3DS Version"),
+                tr( " "
+                    "A New Version of Lime3DS is Available!"
+                    "Download <a href='https://github.com/Lime3DS/Lime3DS/releases'>here</a>"
+                ));
+            }
+        }
+    });
+    QUrl url(QStringLiteral("https://api.github.com/repositories/767183985/releases/latest"));
+    QNetworkRequest networkRequest(url);
+    manager->get(networkRequest);
+}
 
 #if defined(HAVE_SDL2) && defined(__unix__) && !defined(__APPLE__)
 static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {

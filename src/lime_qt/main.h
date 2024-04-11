@@ -160,6 +160,7 @@ private:
     void ShowUpdatePrompt();
     void ShowNoUpdatePrompt();
     void CheckForUpdates();
+    void ShowUpdatePopup();
 #endif
 
     /**
