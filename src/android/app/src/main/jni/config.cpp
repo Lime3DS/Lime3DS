@@ -264,8 +264,9 @@ void Config::ReadValues() {
     }
 
     // Web Service
-    NetSettings::values.web_api_url =
-        sdl2_config->GetString("WebService", "web_api_url", "https://api.citra-emu.org");
+    NetSettings::values.enable_telemetry =
+        sdl2_config->GetBoolean("WebService", "enable_telemetry", false);
+    NetSettings::values.web_api_url = sdl2_config->GetString("WebService", "web_api_url", "");
     NetSettings::values.citra_username = sdl2_config->GetString("WebService", "citra_username", "");
     NetSettings::values.citra_token = sdl2_config->GetString("WebService", "citra_token", "");
 }

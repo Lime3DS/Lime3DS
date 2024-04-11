@@ -7,6 +7,10 @@
 #include <string_view>
 #include "common/common_types.h"
 
+namespace Core {
+class TelemetrySession;
+}
+
 namespace VideoCore {
 enum class CustomPixelFormat : u32;
 }
@@ -44,7 +48,7 @@ enum class DriverBug {
  */
 class Driver {
 public:
-    Driver();
+    Driver(Core::TelemetrySession& telemetry_session);
     ~Driver();
 
     /// Returns true of the driver has a particular bug stated in the DriverBug enum
@@ -139,6 +143,7 @@ private:
     void FindBugs();
 
 private:
+    Core::TelemetrySession& telemetry_session;
     Vendor vendor = Vendor::Unknown;
     DriverBug bugs{};
     bool is_suitable{};

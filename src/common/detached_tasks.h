@@ -12,10 +12,10 @@ namespace Common {
 /**
  * A background manager which ensures that all detached task is finished before program exits.
  *
- * Some tasks prefer executing asynchronously and don't care
- * about the result. These tasks are suitable for std::thread::detach().
- * However, this is unsafe if the task is launched just before the program exits
- * so we need to block on these tasks on program exit.
+ * Some tasks, telemetry submission for example, prefer executing asynchronously and don't care
+ * about the result. These tasks are suitable for std::thread::detach(). However, this is unsafe if
+ * the task is launched just before the program exits (which is a common case for telemetry), so we
+ * need to block on these tasks on program exit.
  *
  * To make detached task safe, a single DetachedTasks object should be placed in the main(), and
  * call WaitForAllTasks() after all program execution but before global/static variable destruction.

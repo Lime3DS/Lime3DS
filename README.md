@@ -15,24 +15,25 @@
 
 # Installation
 
-## Linux
-
-The app is available in the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page as `.appimage` and `.tar.gz`.
-
-<a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
-
-## Windows & MacOS
+### Windows & MacOS
 
 Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
 
-## Android
-Download the latest `.apk`/`.aab` release from [Releases](https://github.com/Lime3DS/Lime3DS/releases). (A F-Droid/IzzyOnDroid release is planned to drop soon)
+### Android
+Download the latest `.apk` release from [Releases](https://github.com/Lime3DS/Lime3DS/releases). (A F-Droid/IzzyOnDroid release is planned to drop soon)
 
+### Linux
+
+Lime3DS is available as an AppImage on the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page.
+
+We are also on Flathub:
+
+<a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='180' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 # Contribute
 If you believe you can help with this project, please lend us your talent! We're a team of passionate enthusiasts who need all the help we can get.
 
-## Discord
+# Discord
 Join our Discord community to discuss the project or talk with the developers.
 
 [![](https://dcbadge.vercel.app/api/server/4ZjMpAp3M6)](https://discord.gg/4ZjMpAp3M6)
