@@ -13,14 +13,23 @@
 
 <b>Lime3DS</b> is a project which aims to revive and continue work on Citra, a popular open-source Nintendo 3DS emulator which ceased development.
 
-## Download
-Builds are actively maintained for Windows, Linux, Android, and MacOS.
+# Installation
 
-Downloads are available on the [Lime3DS Releases](https://github.com/Lime3DS/Lime-3DS-Emulator/releases) page.
+## Linux
 
-Lime3DS is also available on [Flathub](https://flathub.org/en-GB/apps/io.github.lime3ds.Lime3DS)
+The app is available in the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page as `.appimage` and `.tar.gz`.
 
-## Contribute
+<a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
+
+## Windows & MacOS
+
+Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
+
+## Android
+Download the latest `.apk`/`.aab` release from [Releases](https://github.com/Lime3DS/Lime3DS/releases). (A F-Droid/IzzyOnDroid release is planned to drop soon)
+
+
+# Contribute
 If you believe you can help with this project, please lend us your talent! We're a team of passionate enthusiasts who need all the help we can get.
 
 ## Discord

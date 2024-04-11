@@ -99,6 +99,9 @@ public:
         case Dynarmic::A32::Exception::PreloadInstruction:
             return;
         }
+        for (int i = 0; i < 16; i++) {
+            LOG_CRITICAL(Debug, "r{:02d} = {:08X}", i, parent.GetReg(i));
+        }
         ASSERT_MSG(false, "ExceptionRaised(exception = {}, pc = {:08X}, code = {:08X})", exception,
                    pc, MemoryReadCode(pc).value());
     }
