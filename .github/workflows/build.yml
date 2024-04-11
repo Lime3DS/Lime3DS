@@ -80,6 +80,10 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.target }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.target }}-
+      - name: Setup XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - name: Install tools
         run: brew install ccache ninja spirv-tools
       - name: Build
@@ -248,6 +252,10 @@ jobs:
           key: ${{ runner.os }}-ios-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-ios-
+      - name: Setup XCode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - name: Install tools
         run: brew install ccache ninja
       - name: Build
