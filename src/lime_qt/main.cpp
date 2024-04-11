@@ -1074,13 +1074,9 @@ void GMainWindow::ShowUpdaterWidgets() {
 
 void GMainWindow::ShowUpdatePopup() {
     QNetworkAccessManager *manager = new QNetworkAccessManager();
-    QObject::connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply) {
+    QObject::connect(manager, &QNetworkAccessManager::finished, this, [=, this](QNetworkReply *reply) {
         if (reply->error()) {
-            QMessageBox::critical(
-            this, tr("Cannot Fetch Github"),
-            tr( " "
-                "Could not fetch Github"));
-                return;
+            return;
         } else {
             QJsonObject jsonObject = QJsonDocument::fromJson(reply->readAll()).object();
             QString jsonTag = jsonObject[QStringLiteral("tag_name")].toString();
