@@ -1073,8 +1073,8 @@ void GMainWindow::ShowUpdaterWidgets() {
 #endif
 
 void GMainWindow::ShowUpdatePopup() {
-    QNetworkAccessManager *manager = new QNetworkAccessManager();
-    QObject::connect(manager, &QNetworkAccessManager::finished, this, [this](QNetworkReply *reply) {
+    QNetworkAccessManager manager;
+    QObject::connect(&manager, &QNetworkAccessManager::finished, this, [&](QNetworkReply *reply) {
         if (reply->error()) {
             return;
         } else {
@@ -1092,7 +1092,7 @@ void GMainWindow::ShowUpdatePopup() {
     });
     QUrl url(QStringLiteral("https://api.github.com/repositories/767183985/releases/latest"));
     QNetworkRequest networkRequest(url);
-    manager->get(networkRequest);
+    manager.get(networkRequest);
 }
 
 #if defined(HAVE_SDL2) && defined(__unix__) && !defined(__APPLE__)
