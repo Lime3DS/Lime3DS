@@ -1075,7 +1075,8 @@ void GMainWindow::ShowUpdaterWidgets() {
 void GMainWindow::ShowUpdatePopup() {
     QNetworkAccessManager manager;
     QObject::connect(&manager, &QNetworkAccessManager::finished, this, [&](QNetworkReply *reply) {
-        if (reply->error()) {
+        if (reply->error() != QNetworkReply::NoError) {
+            manager.clearAccessCache();
             return;
         } else {
             QJsonObject jsonObject = QJsonDocument::fromJson(reply->readAll()).object();
@@ -1089,6 +1090,7 @@ void GMainWindow::ShowUpdatePopup() {
                 ));
             }
         }
+        reply->deleteLater();
     });
     QUrl url(QStringLiteral("https://api.github.com/repositories/767183985/releases/latest"));
     QNetworkRequest networkRequest(url);
