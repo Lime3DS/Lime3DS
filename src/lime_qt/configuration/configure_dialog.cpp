@@ -57,6 +57,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
     ui->tabWidget->addTab(ui_tab.get(), tr("UI"));
 
     hotkeys_tab->Populate(registry);
+    web_tab->SetWebServiceConfigEnabled(enable_web_config);
 
     PopulateSelectionList();
 

@@ -15,6 +15,7 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <fmt/format.h>
+#include "core/telemetry_session.h"
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
 #endif
@@ -127,6 +128,27 @@ constexpr int default_mouse_timeout = 2500;
  * is a bitfield "callout_flags" options, used to track if a message has already been shown to the
  * user. This is 32-bits - if we have more than 32 callouts, we should retire and recycle old ones.
  */
+enum class CalloutFlag : uint32_t {
+    Telemetry = 0x1,
+};
+
+void GMainWindow::ShowTelemetryCallout() {
+    if (UISettings::values.callout_flags.GetValue() &
+        static_cast<uint32_t>(CalloutFlag::Telemetry)) {
+        return;
+    }
+
+    UISettings::values.callout_flags =
+        UISettings::values.callout_flags.GetValue() | static_cast<uint32_t>(CalloutFlag::Telemetry);
+    const QString telemetry_message =
+        tr("<a href='https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/'>Anonymous "
+           "data is collected</a> to help improve Citra. "
+           "<br/><br/>Would you like to share your usage data with us?");
+    if (QMessageBox::question(this, tr("Telemetry"), telemetry_message) == QMessageBox::Yes) {
+        NetSettings::values.enable_telemetry = true;
+        system.ApplySettings();
+    }
+}
 
 const int GMainWindow::max_recent_files_item;
 
@@ -240,6 +262,9 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     game_list->LoadCompatibilityList();
     game_list->PopulateAsync(UISettings::values.game_dirs);
+
+    // Show one-time "callout" messages to the user
+    ShowTelemetryCallout();
 
     mouse_hide_timer.setInterval(default_mouse_timeout);
     connect(&mouse_hide_timer, &QTimer::timeout, this, &GMainWindow::HideMouseCursor);
@@ -1222,6 +1247,7 @@ bool GMainWindow::LoadROM(const QString& filename) {
 
     game_path = filename;
 
+    system.TelemetrySession().AddField(Common::Telemetry::FieldType::App, "Frontend", "Qt");
     return true;
 }
 
@@ -1967,7 +1993,7 @@ void GMainWindow::OnLoadComplete() {
 
 void GMainWindow::OnMenuReportCompatibility() {
     if (!NetSettings::values.citra_token.empty() && !NetSettings::values.citra_username.empty()) {
-        CompatDB compatdb{this};
+        CompatDB compatdb{system.TelemetrySession(), this};
         compatdb.exec();
     } else {
         QMessageBox::critical(this, tr("Missing Citra Account"),

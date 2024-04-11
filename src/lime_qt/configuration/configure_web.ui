@@ -15,6 +15,163 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QGroupBox" name="groupBoxWebConfig">
+       <property name="title">
+        <string>Lime3DS Web Service</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayoutCitraWebService">
+        <item>
+         <widget class="QLabel" name="web_credentials_disclaimer">
+          <property name="text">
+           <string>Currently not supported by Lime. By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayoutCitraUsername">
+          <item row="2" column="3">
+           <widget class="QPushButton" name="button_verify_login">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="text">
+             <string>Verify</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="web_signup_link">
+            <property name="text">
+             <string>Sign up</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="3">
+           <widget class="QLabel" name="username"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_token">
+            <property name="text">
+             <string>Token: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLabel" name="label_token_verified"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_username">
+            <property name="text">
+             <string>Username: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="3">
+           <widget class="QLineEdit" name="edit_token">
+            <property name="maxLength">
+             <number>80</number>
+            </property>
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="web_token_info_link">
+            <property name="text">
+             <string>What is my token?</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_disable_info">
+       <property name="text">
+        <string>Web Service configuration can only be changed when a public room isn't being hosted.</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Telemetry</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="toggle_telemetry">
+          <property name="text">
+           <string>Share anonymous usage data with the Lime3DS team</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="telemetry_learn_more">
+          <property name="text">
+           <string>Learn more</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayoutTelemetryId">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_telemetry_id">
+            <property name="text">
+             <string>Telemetry ID:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="button_regenerate_telemetry_id">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="text">
+             <string>Regenerate</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QGroupBox" name="discord_group">
      <property name="title">
       <string>Discord Presence</string>
@@ -46,6 +203,10 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>edit_token</tabstop>
+  <tabstop>button_verify_login</tabstop>
+  <tabstop>toggle_telemetry</tabstop>
+  <tabstop>button_regenerate_telemetry_id</tabstop>
   <tabstop>toggle_discordrpc</tabstop>
  </tabstops>
  <resources/>

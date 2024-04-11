@@ -8,6 +8,10 @@
 #include <QFutureWatcher>
 #include <QWizard>
 
+namespace Core {
+class TelemetrySession;
+}
+
 namespace Ui {
 class CompatDB;
 }
@@ -16,7 +20,7 @@ class CompatDB : public QWizard {
     Q_OBJECT
 
 public:
-    explicit CompatDB(QWidget* parent = nullptr);
+    explicit CompatDB(Core::TelemetrySession& telemetry_session_, QWidget* parent = nullptr);
     ~CompatDB();
 
 private:
@@ -27,4 +31,6 @@ private:
     void Submit();
     void OnTestcaseSubmitted();
     void EnableNext();
+
+    Core::TelemetrySession& telemetry_session;
 };

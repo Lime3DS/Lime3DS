@@ -26,6 +26,7 @@
 #include "core/loader/smdh.h"
 #include "core/memory.h"
 #include "core/system_titles.h"
+#include "core/telemetry_session.h"
 #include "network/network.h"
 
 namespace Loader {
@@ -272,6 +273,9 @@ ResultStatus AppLoader_NCCH::Load(std::shared_ptr<Kernel::Process>& process) {
     if (result == ResultStatus::Success) {
         overlay_ncch = &update_ncch;
     }
+
+    system.TelemetrySession().AddField(Common::Telemetry::FieldType::Session, "ProgramId",
+                                       program_id);
 
     if (auto room_member = Network::GetRoomMember().lock()) {
         Network::GameInfo game_info;

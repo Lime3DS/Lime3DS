@@ -152,6 +152,7 @@ private:
     void BootGame(const QString& filename);
     void ShutdownGame();
 
+    void ShowTelemetryCallout();
     void SetDiscordEnabled(bool state);
     void LoadAmiibo(const QString& filename);
 
