@@ -284,4 +284,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.7z","./**/*.zip","./**/*.apk","./**/*.aab"]'
+          asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.zip","./**/*.apk"]'
