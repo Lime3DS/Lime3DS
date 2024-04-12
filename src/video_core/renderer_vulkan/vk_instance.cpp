@@ -9,7 +9,6 @@
 #include "common/assert.h"
 #include "common/settings.h"
 #include "core/frontend/emu_window.h"
-#include "core/telemetry_session.h"
 #include "video_core/custom_textures/custom_format.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
 #include "video_core/renderer_vulkan/vk_platform.h"
@@ -138,8 +137,7 @@ Instance::Instance(bool enable_validation, bool dump_command_buffers)
                                                       enable_validation, dump_command_buffers)},
       physical_devices{instance->enumeratePhysicalDevices()} {}
 
-Instance::Instance(Core::TelemetrySession& telemetry, Frontend::EmuWindow& window,
-                   u32 physical_device_index)
+Instance::Instance(Frontend::EmuWindow& window, u32 physical_device_index)
     : library{OpenLibrary(&window)}, instance{CreateInstance(
                                          *library, window.GetWindowInfo().type,
                                          Settings::values.renderer_debug.GetValue(),
@@ -161,10 +159,9 @@ Instance::Instance(Core::TelemetrySession& telemetry, Frontend::EmuWindow& windo
             VK_VERSION_MAJOR(properties.apiVersion), VK_VERSION_MINOR(properties.apiVersion)));
     }
 
-    CollectTelemetryParameters(telemetry);
     CreateDevice();
-    CollectToolingInfo();
     CreateFormatTable();
+    CollectToolingInfo();
     CreateCustomFormatTable();
     CreateAttribTable();
 }
@@ -645,7 +642,10 @@ void Instance::CreateAllocator() {
     }
 }
 
-void Instance::CollectTelemetryParameters(Core::TelemetrySession& telemetry) {
+void Instance::CollectToolingInfo() {
+    if (!tooling_info) {
+        return;
+    }
     const vk::StructureChain property_chain =
         physical_device
             .getProperties2<vk::PhysicalDeviceProperties2, vk::PhysicalDeviceDriverProperties>();
@@ -664,19 +664,6 @@ void Instance::CollectTelemetryParameters(Core::TelemetrySession& telemetry) {
     LOG_INFO(Render_Vulkan, "VK_DRIVER: {}", driver_name);
     LOG_INFO(Render_Vulkan, "VK_DEVICE: {}", model_name);
     LOG_INFO(Render_Vulkan, "VK_VERSION: {}", api_version);
-
-    static constexpr auto field = Common::Telemetry::FieldType::UserSystem;
-    telemetry.AddField(field, "GPU_Vendor", vendor_name);
-    telemetry.AddField(field, "GPU_Model", model_name);
-    telemetry.AddField(field, "GPU_Vulkan_Driver", driver_name);
-    telemetry.AddField(field, "GPU_Vulkan_Version", api_version);
-    telemetry.AddField(field, "GPU_Vulkan_Extensions", extensions);
-}
-
-void Instance::CollectToolingInfo() {
-    if (!tooling_info) {
-        return;
-    }
     const auto tools = physical_device.getToolPropertiesEXT();
     for (const vk::PhysicalDeviceToolProperties& tool : tools) {
         const std::string_view name = tool.name;

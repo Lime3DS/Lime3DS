@@ -15,7 +15,6 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <fmt/format.h>
-#include "core/telemetry_session.h"
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
 #endif
@@ -122,6 +121,12 @@ __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 #endif
 
 constexpr int default_mouse_timeout = 2500;
+
+/**
+ * "Callouts" are one-time instructional messages shown to the user. In the config settings, there
+ * is a bitfield "callout_flags" options, used to track if a message has already been shown to the
+ * user. This is 32-bits - if we have more than 32 callouts, we should retire and recycle old ones.
+ */
 
 const int GMainWindow::max_recent_files_item;
 
@@ -235,9 +240,6 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     game_list->LoadCompatibilityList();
     game_list->PopulateAsync(UISettings::values.game_dirs);
-
-    NetSettings::values.enable_telemetry = false;
-    system.ApplySettings();
 
     mouse_hide_timer.setInterval(default_mouse_timeout);
     connect(&mouse_hide_timer, &QTimer::timeout, this, &GMainWindow::HideMouseCursor);
@@ -1220,7 +1222,6 @@ bool GMainWindow::LoadROM(const QString& filename) {
 
     game_path = filename;
 
-    system.TelemetrySession().AddField(Common::Telemetry::FieldType::App, "Frontend", "Qt");
     return true;
 }
 
@@ -1966,7 +1967,7 @@ void GMainWindow::OnLoadComplete() {
 
 void GMainWindow::OnMenuReportCompatibility() {
     if (!NetSettings::values.citra_token.empty() && !NetSettings::values.citra_username.empty()) {
-        CompatDB compatdb{system.TelemetrySession(), this};
+        CompatDB compatdb{this};
         compatdb.exec();
     } else {
         QMessageBox::critical(this, tr("Missing Citra Account"),
