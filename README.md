@@ -19,9 +19,25 @@
 
 Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
 
+---
 ### Android
-Download the latest `.apk` release from [Releases](https://github.com/Lime3DS/Lime3DS/releases). (A F-Droid/IzzyOnDroid release is planned to drop soon)
+The recommended method of downloading Lime3DS on Android is via Obtainium:
+1. Download and install Obtainium from [here](https://github.com/ImranR98/Obtainium/releases)
+2. Open Obtainium and click 'Add App'
+3. Type `https://github.com/Lime3DS/Lime3DS` into the 'App Source URL' section
+4. Click 'Add'
+5. Click 'Install' (or 'Update' if you have an existing APK install)
+6. Lime3DS is now ready to use
 
+Using Obtainium will allow for quick and easy installation of updates.
+\
+\
+\
+Alternatively, you can install the latest APK from the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page.
+
+This will require a new APK to be manually downloaded each time an update is released.
+
+---
 ### Linux
 
 Lime3DS is available as an AppImage on the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page.
