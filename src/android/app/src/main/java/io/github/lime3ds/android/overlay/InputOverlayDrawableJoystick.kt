@@ -52,7 +52,6 @@ class InputOverlayDrawableJoystick(
     private var previousTouchY = 0
     val width: Int
     val height: Int
-    private val opacityId: Int
     private var virtBounds: Rect
     private var origBounds: Rect
     private val outerBitmap: BitmapDrawable
@@ -75,7 +74,6 @@ class InputOverlayDrawableJoystick(
         width = bitmapOuter.width
         height = bitmapOuter.height
         bounds = rectOuter
-        opacityId = opacity
         defaultStateInnerBitmap.bounds = rectInner
         pressedStateInnerBitmap.bounds = rectInner
         virtBounds = bounds
@@ -90,7 +88,7 @@ class InputOverlayDrawableJoystick(
 
     fun draw(canvas: Canvas?) {
         outerBitmap.draw(canvas!!)
-        currentStateBitmapDrawable.alpha = opacityId
+        currentStateBitmapDrawable.alpha = opacity
         currentStateBitmapDrawable.draw(canvas)
         boundsBoxBitmap.draw(canvas)
     }
@@ -111,7 +109,7 @@ class InputOverlayDrawableJoystick(
             }
             pressedState = true
             outerBitmap.alpha = 0
-            boundsBoxBitmap.alpha = opacityId
+            boundsBoxBitmap.alpha = opacity
             if (EmulationMenuSettings.joystickRelCenter) {
                 virtBounds.offset(
                     xPosition - virtBounds.centerX(),
@@ -131,7 +129,7 @@ class InputOverlayDrawableJoystick(
             yAxis = 0.0f
             angle = 0.0f
             radius = 0.0f
-            outerBitmap.alpha = opacityId
+            outerBitmap.alpha = opacity
             boundsBoxBitmap.alpha = 0
             virtBounds = Rect(origBounds.left, origBounds.top, origBounds.right, origBounds.bottom)
             bounds = Rect(origBounds.left, origBounds.top, origBounds.right, origBounds.bottom)
