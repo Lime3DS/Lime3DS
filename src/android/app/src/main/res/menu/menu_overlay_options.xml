@@ -25,8 +25,62 @@
         android:title="@string/emulation_toggle_controls" />
 
     <item
-        android:id="@+id/menu_emulation_adjust_scale"
-        android:title="@string/emulation_control_scale" />
+        android:id="@+id/menu_emulation_adjust_scales"
+        android:title="@string/emulation_control_scale">
+        <menu>
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_reset_all"
+                android:title="@string/emulation_control_scale_reset_all" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale"
+                android:title="@string/emulation_control_scale_global" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_a"
+                android:title="@string/button_a" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_b"
+                android:title="@string/button_b" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_x"
+                android:title="@string/button_x" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_y"
+                android:title="@string/button_y" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_l"
+                android:title="@string/button_l" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_r"
+                android:title="@string/button_r" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_zl"
+                android:title="@string/button_zl" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_zr"
+                android:title="@string/button_zr" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_start"
+                android:title="@string/button_start" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_select"
+                android:title="@string/button_select" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_controller_dpad"
+                android:title="@string/controller_dpad" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_controller_circlepad"
+                android:title="@string/controller_circlepad" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_controller_c"
+                android:title="@string/controller_c" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_home"
+                android:title="@string/button_home" />
+            <item
+                android:id="@+id/menu_emulation_adjust_scale_button_swap"
+                android:title="@string/button_swap" />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/menu_emulation_adjust_opacity"
