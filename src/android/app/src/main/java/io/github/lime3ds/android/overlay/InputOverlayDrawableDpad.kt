@@ -25,6 +25,7 @@ import io.github.lime3ds.android.NativeLibrary
  * @param downId                          Identifier for the down button.
  * @param leftId                          Identifier for the left button.
  * @param rightId                         Identifier for the right button.
+ * @param opacity                         0-255 alpha value
  */
 class InputOverlayDrawableDpad(
     res: Resources,
@@ -34,7 +35,8 @@ class InputOverlayDrawableDpad(
     val upId: Int,
     val downId: Int,
     val leftId: Int,
-    val rightId: Int
+    val rightId: Int,
+    val opacity: Int
 ) {
     var trackId: Int
     private var previousTouchX = 0
@@ -137,6 +139,7 @@ class InputOverlayDrawableDpad(
 
         // Pressed up
         if (upButtonState && !leftButtonState && !rightButtonState) {
+            pressedOneDirectionStateBitmap.alpha = opacity
             pressedOneDirectionStateBitmap.draw(canvas)
             return
         }
@@ -145,6 +148,7 @@ class InputOverlayDrawableDpad(
         if (downButtonState && !leftButtonState && !rightButtonState) {
             canvas.save()
             canvas.rotate(180f, px.toFloat(), py.toFloat())
+            pressedOneDirectionStateBitmap.alpha = opacity
             pressedOneDirectionStateBitmap.draw(canvas)
             canvas.restore()
             return
@@ -154,6 +158,7 @@ class InputOverlayDrawableDpad(
         if (leftButtonState && !upButtonState && !downButtonState) {
             canvas.save()
             canvas.rotate(270f, px.toFloat(), py.toFloat())
+            pressedOneDirectionStateBitmap.alpha = opacity
             pressedOneDirectionStateBitmap.draw(canvas)
             canvas.restore()
             return
@@ -163,6 +168,7 @@ class InputOverlayDrawableDpad(
         if (rightButtonState && !upButtonState && !downButtonState) {
             canvas.save()
             canvas.rotate(90f, px.toFloat(), py.toFloat())
+            pressedOneDirectionStateBitmap.alpha = opacity
             pressedOneDirectionStateBitmap.draw(canvas)
             canvas.restore()
             return
@@ -170,6 +176,7 @@ class InputOverlayDrawableDpad(
 
         // Pressed up left
         if (upButtonState && leftButtonState && !rightButtonState) {
+            pressedTwoDirectionsStateBitmap.alpha = opacity
             pressedTwoDirectionsStateBitmap.draw(canvas)
             return
         }
@@ -178,6 +185,7 @@ class InputOverlayDrawableDpad(
         if (upButtonState && !leftButtonState && rightButtonState) {
             canvas.save()
             canvas.rotate(90f, px.toFloat(), py.toFloat())
+            pressedTwoDirectionsStateBitmap.alpha = opacity
             pressedTwoDirectionsStateBitmap.draw(canvas)
             canvas.restore()
             return
@@ -187,6 +195,7 @@ class InputOverlayDrawableDpad(
         if (downButtonState && leftButtonState && !rightButtonState) {
             canvas.save()
             canvas.rotate(270f, px.toFloat(), py.toFloat())
+            pressedTwoDirectionsStateBitmap.alpha = opacity
             pressedTwoDirectionsStateBitmap.draw(canvas)
             canvas.restore()
             return
@@ -196,12 +205,14 @@ class InputOverlayDrawableDpad(
         if (downButtonState && !leftButtonState && rightButtonState) {
             canvas.save()
             canvas.rotate(180f, px.toFloat(), py.toFloat())
+            pressedTwoDirectionsStateBitmap.alpha = opacity
             pressedTwoDirectionsStateBitmap.draw(canvas)
             canvas.restore()
             return
         }
 
         // Not pressed
+        defaultStateBitmap.alpha = opacity
         defaultStateBitmap.draw(canvas)
     }
 
