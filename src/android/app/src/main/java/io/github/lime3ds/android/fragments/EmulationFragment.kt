@@ -885,7 +885,6 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             .show()
     }
 
-    private fun setControlScale(scale: Int, target: String) {
     private fun showAdjustOpacityDialog() {
         val sliderBinding = DialogSliderBinding.inflate(layoutInflater)
 
@@ -917,7 +916,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             .show()
     }
 
-    private fun setControlScale(scale: Int) {
+    private fun setControlScale(scale: Int, target: String) {
         preferences.edit()
             .putInt(target, scale)
             .apply()
@@ -948,6 +947,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         resetScale("controlScale-" + NativeLibrary.ButtonType.STICK_C)
         resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_HOME)
         resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_SWAP)
+        binding.surfaceInputOverlay.refreshControls()
     }
     
     private fun setControlOpacity(opacity: Int) {
@@ -970,7 +970,6 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     private fun resetInputOverlay() {
         resetAllScales()
         preferences.edit()
-            .putInt("controlScale", 50)
             .putInt("controlOpacity", 50)
             .apply()
 
