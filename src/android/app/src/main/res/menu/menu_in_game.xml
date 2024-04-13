@@ -18,6 +18,11 @@
         android:title="@string/emulation_overlay_options" />
 
     <item
+        android:id="@+id/menu_emulation_rotate_screen"
+        android:icon="@drawable/ic_fit_screen"
+        android:title="@string/emulation_rotate_screen" />
+
+    <item
         android:id="@+id/menu_amiibo"
         android:icon="@drawable/ic_nfc"
         android:title="@string/menu_emulation_amiibo" />
