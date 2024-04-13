@@ -810,7 +810,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         sliderBinding.apply {
             slider.valueTo = 100f
-            slider.value = preferences.getInt("controlOpacity", 100).toFloat()
+            slider.value = preferences.getInt("controlOpacity", 50).toFloat()
             slider.addOnChangeListener(
                 Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
                     textValue.text = (progress.toInt()).toString()
@@ -831,7 +831,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 setControlOpacity(sliderBinding.slider.value.toInt())
             }
             .setNeutralButton(R.string.slider_default) { _: DialogInterface?, _: Int ->
-                setControlOpacity(100)
+                setControlOpacity(50)
             }
             .show()
     }
@@ -863,7 +863,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     private fun resetInputOverlay() {
         preferences.edit()
             .putInt("controlScale", 50)
-            .putInt("controlOpacity", 100)
+            .putInt("controlOpacity", 50)
             .apply()
 
         val editor = preferences.edit()
