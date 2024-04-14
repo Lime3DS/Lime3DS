@@ -398,8 +398,7 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
 
     title_id = 0;
     if (app_loader->ReadProgramId(title_id) != Loader::ResultStatus::Success) {
-        LOG_ERROR(Core, "Failed to find title id for ROM (Error {})",
-                  static_cast<u32>(load_result));
+        LOG_ERROR(Core, "Failed to find title id for ROM");
     }
     LoadOverrides(title_id);
 
