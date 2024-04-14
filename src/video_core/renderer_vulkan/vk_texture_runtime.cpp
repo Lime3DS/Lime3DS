@@ -733,8 +733,8 @@ Surface::Surface(TextureRuntime& runtime_, const VideoCore::SurfaceParams& param
     }
 
     runtime->render_manager.EndRendering();
-    scheduler->Record([raw_images, num_images, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
-        const auto barriers = MakeInitBarriers(aspect, raw_images, num_images);
+    scheduler->Record([raw_images, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
+        const auto barriers = MakeInitBarriers(aspect, raw_images);
         cmdbuf.pipelineBarrier(vk::PipelineStageFlagBits::eTopOfPipe,
                                vk::PipelineStageFlagBits::eTopOfPipe,
                                vk::DependencyFlagBits::eByRegion, {}, {}, barriers);
@@ -777,8 +777,8 @@ Surface::Surface(TextureRuntime& runtime_, const VideoCore::SurfaceBase& surface
     }
 
     runtime->render_manager.EndRendering();
-    scheduler->Record([raw_images, num_images, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
-        const auto barriers = MakeInitBarriers(aspect, raw_images, num_images);
+    scheduler->Record([raw_images, aspect = traits.aspect](vk::CommandBuffer cmdbuf) {
+        const auto barriers = MakeInitBarriers(aspect, raw_images);
         cmdbuf.pipelineBarrier(vk::PipelineStageFlagBits::eTopOfPipe,
                                vk::PipelineStageFlagBits::eTopOfPipe,
                                vk::DependencyFlagBits::eByRegion, {}, {}, barriers);
@@ -1491,8 +1491,7 @@ Framebuffer::Framebuffer(TextureRuntime& runtime, const VideoCore::FramebufferPa
                                       color->GetScaledHeight(), {});
     } else {
         render_pass = render_manager.GetRenderpass(formats[0], formats[1], false);
-        framebuffer =
-            MakeFramebuffer(device, render_pass, width, height, attachments, num_attachments);
+        framebuffer = MakeFramebuffer(device, render_pass, width, height, attachments);
     }
 }
 
