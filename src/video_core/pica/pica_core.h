@@ -109,10 +109,10 @@ public:
         friend class boost::serialization::access;
         template <class Archive>
         void serialize(Archive& ar, const u32 file_version) {
-            ar& input_vertex;
-            ar& current_attribute;
-            ar& reset_geometry_pipeline;
-            ar& queue;
+            ar & input_vertex;
+            ar & current_attribute;
+            ar & reset_geometry_pipeline;
+            ar & queue;
         }
     };
 
@@ -199,7 +199,7 @@ public:
 
             template <class Archive>
             void serialize(Archive& ar, const u32 file_version) {
-                ar& raw;
+                ar & raw;
             }
         };
 
@@ -256,19 +256,19 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const u32 file_version) {
-        ar& regs_lcd;
-        ar& regs.reg_array;
-        ar& gs_unit;
-        ar& vs_setup;
-        ar& gs_setup;
-        ar& proctex;
-        ar& lighting;
-        ar& fog;
-        ar& input_default_attributes;
-        ar& immediate;
-        ar& geometry_pipeline;
-        ar& primitive_assembler;
-        ar& cmd_list;
+        ar & regs_lcd;
+        ar & regs.reg_array;
+        ar & gs_unit;
+        ar & vs_setup;
+        ar & gs_setup;
+        ar & proctex;
+        ar & lighting;
+        ar & fog;
+        ar & input_default_attributes;
+        ar & immediate;
+        ar & geometry_pipeline;
+        ar & primitive_assembler;
+        ar & cmd_list;
     }
 
 private:

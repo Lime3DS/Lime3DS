@@ -366,17 +366,17 @@ Module::Module(Core::System& system_) : system(system_) {}
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& ac_connected;
-    ar& close_event;
-    ar& connect_event;
-    ar& disconnect_event;
+    ar & ac_connected;
+    ar & close_event;
+    ar & connect_event;
+    ar & disconnect_event;
     u32 connect_result_32 = connect_result.raw;
-    ar& connect_result_32;
+    ar & connect_result_32;
     connect_result.raw = connect_result_32;
     u32 close_result_32 = close_result.raw;
-    ar& close_result_32;
+    ar & close_result_32;
     close_result.raw = close_result_32;
-    ar& connected_pids;
+    ar & connected_pids;
     // default_config is never written to
 }
 SERIALIZE_IMPL(Module)

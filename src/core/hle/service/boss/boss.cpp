@@ -19,18 +19,18 @@ namespace Service::BOSS {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& task_finish_event;
-    ar& new_arrival_flag;
-    ar& ns_data_new_flag;
-    ar& ns_data_new_flag_privileged;
-    ar& output_flag;
+    ar & task_finish_event;
+    ar & new_arrival_flag;
+    ar & ns_data_new_flag;
+    ar & ns_data_new_flag_privileged;
+    ar & output_flag;
 }
 SERIALIZE_IMPL(Module)
 
 template <class Archive>
 void Module::SessionData::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(*this);
-    ar& online_service;
+    ar & online_service;
 }
 SERIALIZE_IMPL(Module::SessionData)
 

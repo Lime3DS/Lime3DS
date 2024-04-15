@@ -105,8 +105,8 @@ struct PageTable {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& pointers.refs;
-        ar& attributes;
+        ar & pointers.refs;
+        ar & attributes;
         for (std::size_t i = 0; i < PAGE_TABLE_NUM_ENTRIES; i++) {
             pointers.raw[i] = pointers.refs[i].GetPtr();
         }

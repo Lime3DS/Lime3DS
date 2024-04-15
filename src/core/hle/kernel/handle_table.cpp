@@ -101,10 +101,10 @@ void HandleTable::Clear() {
 
 template <class Archive>
 void HandleTable::serialize(Archive& ar, const unsigned int) {
-    ar& objects;
-    ar& generations;
-    ar& next_generation;
-    ar& next_free_slot;
+    ar & objects;
+    ar & generations;
+    ar & next_generation;
+    ar & next_free_slot;
 }
 SERIALIZE_IMPL(HandleTable)
 

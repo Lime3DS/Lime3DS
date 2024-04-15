@@ -151,19 +151,19 @@ template <class Archive>
 void Movie::serialize(Archive& ar, const unsigned int file_version) {
     // Only serialize what's needed to make savestates useful for TAS:
     u64 _current_byte = static_cast<u64>(current_byte);
-    ar& _current_byte;
+    ar & _current_byte;
     current_byte = static_cast<std::size_t>(_current_byte);
-    ar& current_input;
+    ar & current_input;
 
     std::vector<u8> recorded_input_ = recorded_input;
-    ar& recorded_input_;
+    ar & recorded_input_;
 
-    ar& init_time;
-    ar& base_ticks;
+    ar & init_time;
+    ar & base_ticks;
 
     if (Archive::is_loading::value) {
         u64 savestate_movie_id;
-        ar& savestate_movie_id;
+        ar & savestate_movie_id;
         if (id != savestate_movie_id) {
             if (savestate_movie_id == 0) {
                 throw std::runtime_error("You must close your movie to load this state");
@@ -172,12 +172,12 @@ void Movie::serialize(Archive& ar, const unsigned int file_version) {
             }
         }
     } else {
-        ar& id;
+        ar & id;
     }
 
     // Whether the state was made in MovieFinished state
     bool post_movie = play_mode == PlayMode::MovieFinished;
-    ar& post_movie;
+    ar & post_movie;
 
     if (Archive::is_loading::value && id != 0) {
         if (!read_only) {

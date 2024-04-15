@@ -100,9 +100,9 @@ bool CanBlitToSwapchain(const vk::PhysicalDevice& physical_device, vk::Format fo
 PresentWindow::PresentWindow(Frontend::EmuWindow& emu_window_, const Instance& instance_,
                              Scheduler& scheduler_)
     : emu_window{emu_window_}, instance{instance_}, scheduler{scheduler_},
-      surface{CreateSurface(instance.GetInstance(), emu_window)},
-      next_surface{surface}, swapchain{instance, emu_window.GetFramebufferLayout().width,
-                                       emu_window.GetFramebufferLayout().height, surface},
+      surface{CreateSurface(instance.GetInstance(), emu_window)}, next_surface{surface},
+      swapchain{instance, emu_window.GetFramebufferLayout().width,
+                emu_window.GetFramebufferLayout().height, surface},
       graphics_queue{instance.GetGraphicsQueue()}, present_renderpass{CreateRenderpass()},
       vsync_enabled{Settings::values.use_vsync_new.GetValue()},
       blit_supported{

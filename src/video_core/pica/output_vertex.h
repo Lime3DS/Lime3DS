@@ -32,14 +32,14 @@ struct OutputVertex {
 private:
     template <class Archive>
     void serialize(Archive& ar, const u32) {
-        ar& pos;
-        ar& quat;
-        ar& color;
-        ar& tc0;
-        ar& tc1;
-        ar& tc0_w;
-        ar& view;
-        ar& tc2;
+        ar & pos;
+        ar & quat;
+        ar & color;
+        ar & tc0;
+        ar & tc1;
+        ar & tc0_w;
+        ar & view;
+        ar & tc2;
     }
     friend class boost::serialization::access;
 };

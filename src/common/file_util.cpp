@@ -83,7 +83,7 @@
 #include <sys/stat.h>
 
 #ifndef S_ISDIR
-#define S_ISDIR(m) (((m)&S_IFMT) == S_IFDIR)
+#define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)
 #endif
 
 // This namespace has various generic functions related to files and paths.

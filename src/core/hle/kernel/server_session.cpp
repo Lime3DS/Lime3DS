@@ -21,12 +21,12 @@ namespace Kernel {
 template <class Archive>
 void ServerSession::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<WaitObject>(*this);
-    ar& name;
-    ar& parent;
-    ar& hle_handler;
-    ar& pending_requesting_threads;
-    ar& currently_handling;
-    ar& mapped_buffer_context;
+    ar & name;
+    ar & parent;
+    ar & hle_handler;
+    ar & pending_requesting_threads;
+    ar & currently_handling;
+    ar & mapped_buffer_context;
 }
 SERIALIZE_IMPL(ServerSession)
 

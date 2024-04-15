@@ -40,7 +40,7 @@ private:
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(
             *this);
-        ar& program_id;
+        ar & program_id;
     }
     friend class boost::serialization::access;
 };
@@ -725,7 +725,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-        ar& priority;
+        ar & priority;
     }
     friend class boost::serialization::access;
 };

@@ -81,11 +81,11 @@ struct FSTEntry {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& isDirectory;
-        ar& size;
+        ar & isDirectory;
+        ar & size;
         ar& Path::make(physicalName);
         ar& Path::make(virtualName);
-        ar& children;
+        ar & children;
     }
     friend class boost::serialization::access;
 };
@@ -395,13 +395,13 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& Path::make(filename);
-        ar& openmode;
-        ar& flags;
+        ar & openmode;
+        ar & flags;
         u64 pos;
         if (Archive::is_saving::value) {
             pos = Tell();
         }
-        ar& pos;
+        ar & pos;
         if (Archive::is_loading::value) {
             Open();
             Seek(pos, SEEK_SET);

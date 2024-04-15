@@ -41,13 +41,13 @@ namespace Service::APT {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int file_version) {
-    ar& shared_font_mem;
-    ar& shared_font_loaded;
-    ar& shared_font_relocated;
-    ar& cpu_percent;
-    ar& screen_capture_post_permission;
-    ar& applet_manager;
-    ar& wireless_reboot_info;
+    ar & shared_font_mem;
+    ar & shared_font_loaded;
+    ar & shared_font_relocated;
+    ar & cpu_percent;
+    ar & screen_capture_post_permission;
+    ar & applet_manager;
+    ar & wireless_reboot_info;
 }
 
 SERIALIZE_IMPL(Module)

@@ -16,8 +16,8 @@
 #include "ui_movie_play_dialog.h"
 
 MoviePlayDialog::MoviePlayDialog(QWidget* parent, GameList* game_list_, const Core::System& system_)
-    : QDialog(parent),
-      ui(std::make_unique<Ui::MoviePlayDialog>()), game_list{game_list_}, system{system_} {
+    : QDialog(parent), ui(std::make_unique<Ui::MoviePlayDialog>()), game_list{game_list_},
+      system{system_} {
     ui->setupUi(this);
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);

@@ -273,10 +273,10 @@ void MemoryRegionInfo::Unlock() {
 
 template <class Archive>
 void MemoryRegionInfo::serialize(Archive& ar, const unsigned int) {
-    ar& base;
-    ar& size;
-    ar& used;
-    ar& free_blocks;
+    ar & base;
+    ar & size;
+    ar & used;
+    ar & free_blocks;
     if (Archive::is_loading::value) {
         is_locked = true;
     }

@@ -25,7 +25,7 @@ namespace Kernel {
 template <class Archive>
 void WaitObject::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Object>(*this);
-    ar& waiting_threads;
+    ar & waiting_threads;
     // NB: hle_notifier *not* serialized since it's a callback!
     // Fortunately it's only used in one place (DSP) so we can reconstruct it there
 }

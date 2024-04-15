@@ -43,11 +43,11 @@ public:
 
             template <class Archive>
             void serialize(Archive& ar, const unsigned int) {
-                ar& no_flash;
-                ar& no_IR_Patch;
-                ar& low_title_Id;
-                ar& path;
-                ar& config;
+                ar & no_flash;
+                ar & no_IR_Patch;
+                ar & low_title_Id;
+                ar & path;
+                ar & config;
             }
             friend class boost::serialization::access;
         };

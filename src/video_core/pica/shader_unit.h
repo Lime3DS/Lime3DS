@@ -57,11 +57,11 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const u32 file_version) {
-        ar& input;
-        ar& temporary;
-        ar& output;
-        ar& conditional_code;
-        ar& address_registers;
+        ar & input;
+        ar & temporary;
+        ar & output;
+        ar & conditional_code;
+        ar & address_registers;
     }
 };
 
@@ -86,11 +86,11 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const u32 file_version) {
-        ar& buffer;
-        ar& vertex_id;
-        ar& prim_emit;
-        ar& winding;
-        ar& output_mask;
+        ar & buffer;
+        ar & vertex_id;
+        ar & prim_emit;
+        ar & winding;
+        ar & output_mask;
     }
 };
 
@@ -113,7 +113,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const u32 file_version) {
         ar& boost::serialization::base_object<ShaderUnit>(*this);
-        ar& emitter;
+        ar & emitter;
     }
 };
 

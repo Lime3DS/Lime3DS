@@ -30,7 +30,7 @@ public:
 
     void ClearInstructionCache() override;
     void InvalidateCacheRange(u32 start_address, std::size_t length) override;
-    void ClearExclusiveState() override{};
+    void ClearExclusiveState() override {};
 
     void SetPC(u32 pc) override;
     u32 GetPC() const override;

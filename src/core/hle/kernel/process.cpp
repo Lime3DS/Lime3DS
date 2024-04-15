@@ -35,36 +35,36 @@ namespace Kernel {
 
 template <class Archive>
 void AddressMapping::serialize(Archive& ar, const unsigned int) {
-    ar& address;
-    ar& size;
-    ar& read_only;
-    ar& unk_flag;
+    ar & address;
+    ar & size;
+    ar & read_only;
+    ar & unk_flag;
 }
 SERIALIZE_IMPL(AddressMapping)
 
 template <class Archive>
 void Process::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Object>(*this);
-    ar& handle_table;
-    ar& codeset; // TODO: Replace with apploader reference
-    ar& resource_limit;
-    ar& svc_access_mask;
-    ar& handle_table_size;
+    ar & handle_table;
+    ar & codeset; // TODO: Replace with apploader reference
+    ar & resource_limit;
+    ar & svc_access_mask;
+    ar & handle_table_size;
     ar&(boost::container::vector<AddressMapping, boost::container::dtl::static_storage_allocator<
                                                      AddressMapping, 8, 0, true>>&)address_mappings;
-    ar& flags.raw;
-    ar& no_thread_restrictions;
-    ar& kernel_version;
-    ar& ideal_processor;
-    ar& status;
-    ar& process_id;
-    ar& creation_time_ticks;
-    ar& vm_manager;
-    ar& memory_used;
-    ar& memory_region;
-    ar& holding_memory;
-    ar& holding_tls_memory;
-    ar& tls_slots;
+    ar & flags.raw;
+    ar & no_thread_restrictions;
+    ar & kernel_version;
+    ar & ideal_processor;
+    ar & status;
+    ar & process_id;
+    ar & creation_time_ticks;
+    ar & vm_manager;
+    ar & memory_used;
+    ar & memory_region;
+    ar & holding_memory;
+    ar & holding_tls_memory;
+    ar & tls_slots;
 }
 SERIALIZE_IMPL(Process)
 
@@ -83,19 +83,19 @@ CodeSet::~CodeSet() {}
 template <class Archive>
 void CodeSet::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Object>(*this);
-    ar& memory;
-    ar& segments;
-    ar& entrypoint;
-    ar& name;
-    ar& program_id;
+    ar & memory;
+    ar & segments;
+    ar & entrypoint;
+    ar & name;
+    ar & program_id;
 }
 SERIALIZE_IMPL(CodeSet)
 
 template <class Archive>
 void CodeSet::Segment::serialize(Archive& ar, const unsigned int) {
-    ar& offset;
-    ar& addr;
-    ar& size;
+    ar & offset;
+    ar & addr;
+    ar & size;
 }
 SERIALIZE_IMPL(CodeSet::Segment)
 
