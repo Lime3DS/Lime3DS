@@ -9,7 +9,6 @@
 #include "common/assert.h"
 #include "common/logging/log.h"
 #include "core/core.h"
-#include "core/telemetry_session.h"
 #include "video_core/pica/regs_framebuffer.h"
 #include "video_core/pica/regs_lighting.h"
 #include "video_core/pica/regs_texturing.h"
@@ -76,9 +75,6 @@ inline GLenum WrapMode(Pica::TexturingRegs::TextureConfig::WrapMode mode) {
     }
 
     if (index > 3) {
-        Core::System::GetInstance().TelemetrySession().AddField(
-            Common::Telemetry::FieldType::Session, "VideoCore_Pica_UnsupportedTextureWrapMode",
-            static_cast<u32>(index));
         LOG_WARNING(Render_OpenGL, "Using texture wrap mode {}", index);
     }
 

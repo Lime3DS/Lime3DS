@@ -46,20 +46,8 @@ function pack_artifacts() {
         tar czvf "$ARCHIVE_FULL_NAME" "$REV_NAME"
     fi
     mv "$ARCHIVE_FULL_NAME" artifacts/
-
-    if [ -z "$SKIP_7Z" ]; then
-        # Create .7z
-        ARCHIVE_FULL_NAME="$ARCHIVE_NAME.7z"
-        mv "$REV_NAME" "$RELEASE_NAME"
-        7z a "$ARCHIVE_FULL_NAME" "$RELEASE_NAME"
-        mv "$ARCHIVE_FULL_NAME" artifacts/
-
-        # Clean up created release artifacts directory.
-        rm -rf "$RELEASE_NAME"
-    else
-        # Clean up created rev artifacts directory.
-        rm -rf "$REV_NAME"
-    fi
+     # Clean up created rev artifacts directory.
+    rm -rf "$REV_NAME"
 }
 
 if [ -n "$UNPACKED" ]; then

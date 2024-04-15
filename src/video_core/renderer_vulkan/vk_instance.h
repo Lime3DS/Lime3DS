@@ -10,10 +10,6 @@
 #include "video_core/rasterizer_cache/pixel_format.h"
 #include "video_core/renderer_vulkan/vk_platform.h"
 
-namespace Core {
-class TelemetrySession;
-}
-
 namespace Frontend {
 class EmuWindow;
 }
@@ -41,8 +37,7 @@ struct FormatTraits {
 class Instance {
 public:
     explicit Instance(bool validation = false, bool dump_command_buffers = false);
-    explicit Instance(Core::TelemetrySession& telemetry, Frontend::EmuWindow& window,
-                      u32 physical_device_index);
+    explicit Instance(Frontend::EmuWindow& window, u32 physical_device_index);
     ~Instance();
 
     /// Returns the FormatTraits struct for the provided pixel format
@@ -285,8 +280,7 @@ private:
     /// Creates the VMA allocator handle
     void CreateAllocator();
 
-    /// Collects telemetry information from the device.
-    void CollectTelemetryParameters(Core::TelemetrySession& telemetry);
+    // Collects logging gpu info
     void CollectToolingInfo();
 
 private:

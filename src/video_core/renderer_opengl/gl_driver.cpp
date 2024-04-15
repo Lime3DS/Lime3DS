@@ -5,7 +5,6 @@
 #include <glad/glad.h>
 #include "common/assert.h"
 #include "common/settings.h"
-#include "core/telemetry_session.h"
 #include "video_core/custom_textures/custom_format.h"
 #include "video_core/renderer_opengl/gl_driver.h"
 #include "video_core/renderer_opengl/gl_vars.h"
@@ -70,12 +69,11 @@ static void APIENTRY DebugHandler(GLenum source, GLenum type, GLuint id, GLenum 
         level = Common::Log::Level::Debug;
         break;
     }
-
     LOG_GENERIC(Common::Log::Class::Render_OpenGL, level, "{} {} {}: {}", GetSource(source),
                 GetType(type), id, message);
 }
 
-Driver::Driver(Core::TelemetrySession& telemetry_session_) : telemetry_session{telemetry_session_} {
+Driver::Driver() {
     const bool enable_debug = Settings::values.renderer_debug.GetValue();
     if (enable_debug) {
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -135,12 +133,6 @@ void Driver::ReportDriverInfo() {
     LOG_INFO(Render_OpenGL, "GL_VERSION: {}", gl_version);
     LOG_INFO(Render_OpenGL, "GL_VENDOR: {}", gpu_vendor);
     LOG_INFO(Render_OpenGL, "GL_RENDERER: {}", gpu_model);
-
-    // Add the information to the telemetry system
-    constexpr auto user_system = Common::Telemetry::FieldType::UserSystem;
-    telemetry_session.AddField(user_system, "GPU_Vendor", std::string{gpu_vendor});
-    telemetry_session.AddField(user_system, "GPU_Model", std::string{gpu_model});
-    telemetry_session.AddField(user_system, "GPU_OpenGL_Version", std::string{gl_version});
 }
 
 void Driver::DeduceGLES() {

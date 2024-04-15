@@ -619,8 +619,93 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                     true
                 }
 
+                R.id.menu_emulation_adjust_scale_reset_all -> {
+                    resetAllScales()
+                    true
+                }
+
                 R.id.menu_emulation_adjust_scale -> {
-                    showAdjustScaleDialog()
+                    showAdjustScaleDialog("controlScale")
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_a -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_A)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_b -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_B)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_x -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_X)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_y -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_Y)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_l -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.TRIGGER_L)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_r -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.TRIGGER_R)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_zl -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_ZL)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_zr -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_ZR)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_start -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_START)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_select -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_SELECT)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_controller_dpad -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.DPAD)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_controller_circlepad -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.STICK_LEFT)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_controller_c -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.STICK_C)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_home -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_HOME)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_scale_button_swap -> {
+                    showAdjustScaleDialog("controlScale-" + NativeLibrary.ButtonType.BUTTON_SWAP)
+                    true
+                }
+
+                R.id.menu_emulation_adjust_opacity -> {
+                    showAdjustOpacityDialog()
                     true
                 }
 
@@ -769,16 +854,16 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             .show()
     }
 
-    private fun showAdjustScaleDialog() {
+    private fun showAdjustScaleDialog(target: String) {
         val sliderBinding = DialogSliderBinding.inflate(layoutInflater)
 
         sliderBinding.apply {
             slider.valueTo = 150f
-            slider.value = preferences.getInt("controlScale", 50).toFloat()
+            slider.value = preferences.getInt(target, 50).toFloat()
             slider.addOnChangeListener(
                 Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
                     textValue.text = (progress.toInt() + 50).toString()
-                    setControlScale(slider.value.toInt())
+                    setControlScale(slider.value.toInt(), target)
                 })
             textValue.text = (sliderBinding.slider.value.toInt() + 50).toString()
             textUnits.text = "%"
@@ -789,20 +874,85 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             .setTitle(R.string.emulation_control_scale)
             .setView(sliderBinding.root)
             .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int ->
-                setControlScale(previousProgress)
+                setControlScale(previousProgress, target)
             }
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-                setControlScale(sliderBinding.slider.value.toInt())
+                setControlScale(sliderBinding.slider.value.toInt(), target)
             }
             .setNeutralButton(R.string.slider_default) { _: DialogInterface?, _: Int ->
-                setControlScale(50)
+                setControlScale(50, target)
             }
             .show()
     }
 
-    private fun setControlScale(scale: Int) {
+    private fun showAdjustOpacityDialog() {
+        val sliderBinding = DialogSliderBinding.inflate(layoutInflater)
+
+        sliderBinding.apply {
+            slider.valueTo = 100f
+            slider.value = preferences.getInt("controlOpacity", 50).toFloat()
+            slider.addOnChangeListener(
+                Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
+                    textValue.text = (progress.toInt()).toString()
+                    setControlOpacity(slider.value.toInt())
+                })
+            textValue.text = (sliderBinding.slider.value.toInt()).toString()
+            textUnits.text = "%"
+        }
+        val previousProgress = sliderBinding.slider.value.toInt()
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.emulation_control_opacity)
+            .setView(sliderBinding.root)
+            .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int ->
+                setControlOpacity(previousProgress)
+            }
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                setControlOpacity(sliderBinding.slider.value.toInt())
+            }
+            .setNeutralButton(R.string.slider_default) { _: DialogInterface?, _: Int ->
+                setControlOpacity(50)
+            }
+            .show()
+    }
+
+    private fun setControlScale(scale: Int, target: String) {
         preferences.edit()
-            .putInt("controlScale", scale)
+            .putInt(target, scale)
+            .apply()
+        binding.surfaceInputOverlay.refreshControls()
+    }
+
+    private fun resetScale(target: String) {
+        preferences.edit().putInt(
+            target,
+            50
+        ).apply()
+    }
+
+    private fun resetAllScales() {
+        resetScale("controlScale")
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_A)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_B)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_X)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_Y)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.TRIGGER_L)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.TRIGGER_R)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_ZL)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_ZR)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_START)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_SELECT)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.DPAD)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.STICK_LEFT)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.STICK_C)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_HOME)
+        resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_SWAP)
+        binding.surfaceInputOverlay.refreshControls()
+    }
+    
+    private fun setControlOpacity(opacity: Int) {
+        preferences.edit()
+            .putInt("controlOpacity", opacity)
             .apply()
         binding.surfaceInputOverlay.refreshControls()
     }
@@ -818,8 +968,9 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     }
 
     private fun resetInputOverlay() {
+        resetAllScales()
         preferences.edit()
-            .putInt("controlScale", 50)
+            .putInt("controlOpacity", 50)
             .apply()
 
         val editor = preferences.edit()
