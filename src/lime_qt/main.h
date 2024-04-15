@@ -161,8 +161,8 @@ private:
     void ShowUpdatePrompt();
     void ShowNoUpdatePrompt();
     void CheckForUpdates();
-    void ShowUpdatePopup();
 #endif
+    void ShowUpdatePopup();
 
     /**
      * Stores the filename in the recently loaded files list.

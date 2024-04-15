@@ -193,6 +193,7 @@ GMainWindow::GMainWindow(Core::System& system_)
     InitializeRecentFileMenuActions();
     InitializeSaveStateMenuActions();
     InitializeHotkeys();
+    ShowUpdatePopup();
 #if ENABLE_QT_UPDATER
     ShowUpdaterWidgets();
 #else
@@ -271,8 +272,6 @@ GMainWindow::GMainWindow(Core::System& system_)
         CheckForUpdates();
     }
 #endif
-    ShowUpdatePopup();
-
     QStringList args = QApplication::arguments();
     if (args.size() < 2) {
         return;
@@ -1068,11 +1067,18 @@ void GMainWindow::ShowUpdaterWidgets() {
 
     connect(updater, &Updater::CheckUpdatesDone, this, &GMainWindow::OnUpdateFound);
 }
+#endif
+
 void GMainWindow::ShowUpdatePopup() {
-    QNetworkAccessManager manager;
-    QObject::connect(&manager, &QNetworkAccessManager::finished, this, [&](QNetworkReply *reply) {
-        if (reply->error() != QNetworkReply::NoError) {
-            manager.clearAccessCache();
+    QNetworkAccessManager* manager = new QNetworkAccessManager();
+    QObject::connect(manager, &QNetworkAccessManager::finished, this, [&](QNetworkReply *reply) {
+        if (reply->error()) {
+            QByteArray ba = reply->errorString().toLocal8Bit();
+            QMessageBox::information(
+                this, tr("New Lime3DS Version"),
+                tr( ba.data()
+                ));
+            manager->clearAccessCache();
             return;
         } else {
             QJsonObject jsonObject = QJsonDocument::fromJson(reply->readAll()).object();
@@ -1086,13 +1092,11 @@ void GMainWindow::ShowUpdatePopup() {
                 ));
             }
         }
-        reply->deleteLater();
     });
-    QUrl url(QStringLiteral("https://api.github.com/repositories/767183985/releases/latest"));
+    QUrl url(QStringLiteral("https://api.github.com/repos/Lime3DS/Lime3DS/releases/latest"));
     QNetworkRequest networkRequest(url);
-    manager.get(networkRequest);
+    manager->get(networkRequest);
 }
-#endif
 
 #if defined(HAVE_SDL2) && defined(__unix__) && !defined(__APPLE__)
 static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
