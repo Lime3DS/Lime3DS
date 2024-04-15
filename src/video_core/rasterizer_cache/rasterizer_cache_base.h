@@ -193,9 +193,6 @@ private:
     bool ValidateByReinterpretation(Surface& surface, SurfaceParams params,
                                     const SurfaceInterval& interval);
 
-    /// Return true if a surface with an invalid pixel format exists at the interval
-    bool IntervalHasInvalidPixelFormat(const SurfaceParams& params, SurfaceInterval interval);
-
     /// Create a new surface
     SurfaceId CreateSurface(const SurfaceParams& params);
 

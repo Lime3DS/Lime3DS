@@ -3899,6 +3899,11 @@ Please check your FFmpeg installation used for compilation.</source>
 <context>
     <name>GMainWindow</name>
     <message>
+        <location filename="../../src/lime_qt/main.cpp" line="144"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;Anonymous data is collected&lt;/a&gt; to help improve Citra. &lt;br/&gt;&lt;br/&gt;Would you like to share your usage data with us?</source>
+        <translation>Для оказания помощи в улучшении приложения Citra &lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;проводится сбор анонимных данных&lt;/a&gt;. &lt;br/&gt;&lt;br/&gt;Поделиться данными об использовании?</translation>
+    </message>
+    <message>
         <location filename="../../src/lime_qt/main.cpp" line="147"/>
         <source>Telemetry</source>
         <translation>Телеметрия</translation>

@@ -97,9 +97,6 @@ TelemetrySession::~TelemetrySession() {
 
     // Complete the session, submitting to the web service backend if necessary
     field_collection.Accept(*backend);
-    if (NetSettings::values.enable_telemetry) {
-        backend->Complete();
-    }
 }
 
 void TelemetrySession::AddInitialInfo(Loader::AppLoader& app_loader) {

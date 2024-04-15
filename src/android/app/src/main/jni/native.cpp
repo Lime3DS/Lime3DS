@@ -38,7 +38,6 @@
 #include "core/hle/service/nfc/nfc.h"
 #include "core/loader/loader.h"
 #include "core/savestate.h"
-#include "core/telemetry_session.h"
 #include "jni/android_common/android_common.h"
 #include "jni/applets/mii_selector.h"
 #include "jni/applets/swkbd.h"
@@ -166,7 +165,7 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
 #elif ENABLE_VULKAN
         window = std::make_unique<EmuWindow_Android_Vulkan>(s_surf, vulkan_library);
 #else
-// TODO: Add a null renderer backend for this, perhaps.
+        // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
         break;
@@ -207,9 +206,6 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     if (load_result != Core::System::ResultStatus::Success) {
         return load_result;
     }
-
-    auto& telemetry_session = system.TelemetrySession();
-    telemetry_session.AddField(Common::Telemetry::FieldType::App, "Frontend", "Android");
 
     stop_run = false;
     pause_emulation = false;

@@ -3897,6 +3897,11 @@ Please check your FFmpeg installation used for compilation.</source>
 <context>
     <name>GMainWindow</name>
     <message>
+        <location filename="../../src/lime_qt/main.cpp" line="144"/>
+        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;Anonymous data is collected&lt;/a&gt; to help improve Citra. &lt;br/&gt;&lt;br/&gt;Would you like to share your usage data with us?</source>
+        <translation>Citra를 개선하기위해 &lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;익명데이터가 수집됩니다&lt;/a&gt;. &lt;br/&gt;&lt;br/&gt;사용 데이터를 공유하시겠습니까?</translation>
+    </message>
+    <message>
         <location filename="../../src/lime_qt/main.cpp" line="147"/>
         <source>Telemetry</source>
         <translation>텔레메트리</translation>
