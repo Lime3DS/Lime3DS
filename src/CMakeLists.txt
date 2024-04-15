@@ -117,7 +117,7 @@ else()
 
     if (NOT CMAKE_BUILD_TYPE STREQUAL Debug)
         # _FORTIFY_SOURCE can't be used without optimizations.
-        add_compile_options(-Wp,-D_FORTIFY_SOURCE=2)
+        add_compile_options(-D_FORTIFY_SOURCE=2)
     endif()
 
     if (CITRA_WARNINGS_AS_ERRORS)

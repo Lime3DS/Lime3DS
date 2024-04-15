@@ -255,11 +255,11 @@ public:
         void serialize(Archive& ar, const unsigned int) {
             ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(
                 *this);
-            ar& ncch_program_id;
-            ar& data_path_type;
-            ar& open_mode.raw;
-            ar& path;
-            ar& file;
+            ar & ncch_program_id;
+            ar & data_path_type;
+            ar & open_mode.raw;
+            ar & path;
+            ar & file;
         }
         friend class boost::serialization::access;
     };

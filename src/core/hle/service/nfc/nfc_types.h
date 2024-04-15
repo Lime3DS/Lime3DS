@@ -150,9 +150,9 @@ struct TagUuid {
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& uid;
-        ar& nintendo_id;
-        ar& lock_bytes;
+        ar & uid;
+        ar & nintendo_id;
+        ar & lock_bytes;
     }
     friend class boost::serialization::access;
 };
@@ -259,9 +259,9 @@ struct NTAG215Password {
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& PWD;
-        ar& PACK;
-        ar& RFUI;
+        ar & PWD;
+        ar & PACK;
+        ar & RFUI;
     }
     friend class boost::serialization::access;
 };
@@ -344,7 +344,7 @@ struct SerializableAmiiboFile {
     };
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& raw;
+        ar & raw;
     }
     friend class boost::serialization::access;
 };
@@ -359,7 +359,7 @@ struct SerializableEncryptedAmiiboFile {
     };
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& raw;
+        ar & raw;
     }
     friend class boost::serialization::access;
 };

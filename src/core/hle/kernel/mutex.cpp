@@ -133,11 +133,11 @@ void Mutex::UpdatePriority() {
 template <class Archive>
 void Mutex::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<WaitObject>(*this);
-    ar& lock_count;
-    ar& priority;
-    ar& name;
-    ar& holding_thread;
-    ar& resource_limit;
+    ar & lock_count;
+    ar & priority;
+    ar & name;
+    ar & holding_thread;
+    ar & resource_limit;
 }
 SERIALIZE_IMPL(Mutex)
 

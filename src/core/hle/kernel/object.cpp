@@ -43,7 +43,7 @@ bool Object::IsWaitable() const {
 
 template <class Archive>
 void Object::serialize(Archive& ar, const unsigned int) {
-    ar& object_id;
+    ar & object_id;
 }
 SERIALIZE_IMPL(Object)
 

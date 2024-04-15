@@ -215,8 +215,8 @@ Joystick::~Joystick() {
 }
 
 ButtonFactory::ButtonFactory()
-    : button_list{std::make_shared<ButtonList>()}, analog_button_list{
-                                                       std::make_shared<AnalogButtonList>()} {}
+    : button_list{std::make_shared<ButtonList>()},
+      analog_button_list{std::make_shared<AnalogButtonList>()} {}
 
 std::unique_ptr<Input::ButtonDevice> ButtonFactory::Create(const Common::ParamPackage& params) {
     if (params.Has("axis")) {

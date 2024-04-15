@@ -118,17 +118,17 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         std::shared_ptr<Kernel::SharedMemory> _memory_ref = memory_ref.lock();
-        ar& _memory_ref;
+        ar & _memory_ref;
         memory_ref = _memory_ref;
-        ar& sharedmem_size;
-        ar& size;
-        ar& offset;
-        ar& initial_offset;
-        ar& looped_buffer;
-        ar& sample_size;
-        ar& gain;
-        ar& power;
-        ar& sample_rate;
+        ar & sharedmem_size;
+        ar & size;
+        ar & offset;
+        ar & initial_offset;
+        ar & looped_buffer;
+        ar & sample_size;
+        ar & gain;
+        ar & power;
+        ar & sample_rate;
         sharedmem_buffer = _memory_ref ? _memory_ref->GetPointer() : nullptr;
     }
     friend class boost::serialization::access;
@@ -400,19 +400,19 @@ struct MIC_U::Impl {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& change_mic_impl_requested;
-        ar& buffer_full_event;
+        ar & change_mic_impl_requested;
+        ar & buffer_full_event;
         // buffer_write_event set in constructor
-        ar& shared_memory;
-        ar& client_version;
-        ar& allow_shell_closed;
-        ar& clamp;
+        ar & shared_memory;
+        ar & client_version;
+        ar & allow_shell_closed;
+        ar & clamp;
         // mic interface set in constructor
-        ar& state;
+        ar & state;
         // Maintain the internal mic state
-        ar& encoding;
+        ar & encoding;
         bool is_sampling = mic && mic->IsSampling();
-        ar& is_sampling;
+        ar & is_sampling;
         if (Archive::is_loading::value) {
             if (is_sampling) {
                 CreateMic();

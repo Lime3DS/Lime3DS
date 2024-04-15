@@ -27,10 +27,10 @@ private:
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(
             *this);
-        ar& priority;
-        ar& offset;
-        ar& size;
-        ar& subfile;
+        ar & priority;
+        ar & offset;
+        ar & size;
+        ar & subfile;
     }
     friend class boost::serialization::access;
 };

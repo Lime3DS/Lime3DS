@@ -1458,8 +1458,8 @@ void Surface::BlitScale(const VideoCore::TextureBlit& blit, bool up_scale) {
 
 Framebuffer::Framebuffer(TextureRuntime& runtime, const VideoCore::FramebufferParams& params,
                          Surface* color, Surface* depth)
-    : VideoCore::FramebufferParams{params}, res_scale{color ? color->res_scale
-                                                            : (depth ? depth->res_scale : 1u)} {
+    : VideoCore::FramebufferParams{params},
+      res_scale{color ? color->res_scale : (depth ? depth->res_scale : 1u)} {
     auto& renderpass_cache = runtime.GetRenderpassCache();
     if (shadow_rendering && !color) {
         return;
@@ -1552,8 +1552,8 @@ Sampler::Sampler(TextureRuntime& runtime, const VideoCore::SamplerParams& params
 Sampler::~Sampler() = default;
 
 DebugScope::DebugScope(TextureRuntime& runtime, Common::Vec4f color, std::string_view label)
-    : scheduler{runtime.GetScheduler()}, has_debug_tool{
-                                             runtime.GetInstance().HasDebuggingToolAttached()} {
+    : scheduler{runtime.GetScheduler()},
+      has_debug_tool{runtime.GetInstance().HasDebuggingToolAttached()} {
     if (!has_debug_tool) {
         return;
     }

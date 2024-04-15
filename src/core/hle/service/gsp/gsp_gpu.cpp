@@ -674,11 +674,11 @@ SessionData* GSP_GPU::FindRegisteredThreadData(u32 thread_id) {
 template <class Archive>
 void GSP_GPU::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-    ar& shared_memory;
-    ar& active_thread_id;
-    ar& first_initialization;
-    ar& used_thread_ids;
-    ar& saved_vram;
+    ar & shared_memory;
+    ar & active_thread_id;
+    ar & first_initialization;
+    ar & used_thread_ids;
+    ar & saved_vram;
 }
 SERIALIZE_IMPL(GSP_GPU)
 
@@ -737,10 +737,10 @@ std::unique_ptr<Kernel::SessionRequestHandler::SessionDataBase> GSP_GPU::MakeSes
 template <class Archive>
 void SessionData::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(*this);
-    ar& gsp;
-    ar& interrupt_event;
-    ar& thread_id;
-    ar& registered;
+    ar & gsp;
+    ar & interrupt_event;
+    ar & thread_id;
+    ar & registered;
 }
 SERIALIZE_IMPL(SessionData)
 

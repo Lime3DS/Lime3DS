@@ -35,10 +35,10 @@ namespace Service::CECD {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& cecd_system_save_data_archive;
-    ar& cecinfo_event;
-    ar& cecinfosys_event;
-    ar& change_state_event;
+    ar & cecd_system_save_data_archive;
+    ar & cecinfo_event;
+    ar & cecinfosys_event;
+    ar & change_state_event;
 }
 SERIALIZE_IMPL(Module)
 

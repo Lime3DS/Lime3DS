@@ -60,7 +60,7 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& storage;
+        ar & storage;
     }
     friend class boost::serialization::access;
 };

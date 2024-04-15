@@ -23,11 +23,11 @@ namespace Service::IR {
 template <class Archive>
 void IR_RST::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-    ar& update_event;
-    ar& shared_memory;
-    ar& next_pad_index;
-    ar& raw_c_stick;
-    ar& update_period;
+    ar & update_event;
+    ar & shared_memory;
+    ar & next_pad_index;
+    ar & raw_c_stick;
+    ar & update_period;
     // update_callback_id and input devices are set separately
     ReloadInputDevices();
 }

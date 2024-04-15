@@ -26,8 +26,8 @@ struct NewsDBHeader {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& valid;
-        ar& flags;
+        ar & valid;
+        ar & flags;
     }
     friend class boost::serialization::access;
 };
@@ -57,19 +57,19 @@ struct NotificationHeader {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& flag_valid;
-        ar& flag_read;
-        ar& flag_jpeg;
-        ar& flag_boss;
-        ar& flag_optout;
-        ar& flag_url;
-        ar& flag_unk0x6;
-        ar& program_id;
-        ar& ns_data_id;
-        ar& version;
-        ar& jump_param;
-        ar& date_time;
-        ar& title;
+        ar & flag_valid;
+        ar & flag_read;
+        ar & flag_jpeg;
+        ar & flag_boss;
+        ar & flag_optout;
+        ar & flag_url;
+        ar & flag_unk0x6;
+        ar & program_id;
+        ar & ns_data_id;
+        ar & version;
+        ar & jump_param;
+        ar & date_time;
+        ar & title;
     }
     friend class boost::serialization::access;
 };
@@ -82,8 +82,8 @@ struct NewsDB {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& header;
-        ar& notifications;
+        ar & header;
+        ar & notifications;
     }
     friend class boost::serialization::access;
 };

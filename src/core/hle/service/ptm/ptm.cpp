@@ -224,9 +224,9 @@ Module::Module(Core::System& system_) : system(system_) {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& shell_open;
-    ar& battery_is_charging;
-    ar& pedometer_is_counting;
+    ar & shell_open;
+    ar & battery_is_charging;
+    ar & pedometer_is_counting;
 }
 SERIALIZE_IMPL(Module)
 

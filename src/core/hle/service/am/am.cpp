@@ -1796,9 +1796,9 @@ void Module::Interface::EndImportTicket(Kernel::HLERequestContext& ctx) {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& cia_installing;
-    ar& am_title_list;
-    ar& system_updater_mutex;
+    ar & cia_installing;
+    ar & am_title_list;
+    ar & system_updater_mutex;
 }
 SERIALIZE_IMPL(Module)
 

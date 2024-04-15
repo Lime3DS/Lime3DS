@@ -32,17 +32,17 @@ OnlineService::OnlineService(u64 program_id_, u64 extdata_id_)
 
 template <class Archive>
 void OnlineService::serialize(Archive& ar, const unsigned int) {
-    ar& current_props;
-    ar& task_id_list;
-    ar& program_id;
-    ar& extdata_id;
+    ar & current_props;
+    ar & task_id_list;
+    ar & program_id;
+    ar & extdata_id;
 }
 SERIALIZE_IMPL(OnlineService)
 
 template <class Archive>
 void BossTaskProperties::serialize(Archive& ar, const unsigned int) {
-    ar& task_result;
-    ar& properties;
+    ar & task_result;
+    ar & properties;
 }
 SERIALIZE_IMPL(BossTaskProperties)
 

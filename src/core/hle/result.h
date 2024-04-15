@@ -229,7 +229,7 @@ union Result {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& raw;
+        ar & raw;
     }
     friend class boost::serialization::access;
 };

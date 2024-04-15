@@ -98,11 +98,11 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& dsp_state;
-        ar& pipe_data;
-        ar& dsp_memory.raw_memory;
-        ar& sources;
-        ar& mixers;
+        ar & dsp_state;
+        ar & pipe_data;
+        ar & dsp_memory.raw_memory;
+        ar & sources;
+        ar & mixers;
         // interrupt_handler is reregistered when loading state from DSP_DSP
     }
     friend class boost::serialization::access;

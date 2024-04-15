@@ -61,8 +61,8 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
                                    Scheduler& scheduler, DescriptorPool& pool,
                                    RenderpassCache& renderpass_cache, u32 image_count)
     : RasterizerAccelerated{memory, pica}, instance{instance}, scheduler{scheduler},
-      renderpass_cache{renderpass_cache}, pipeline_cache{instance, scheduler, renderpass_cache,
-                                                         pool},
+      renderpass_cache{renderpass_cache},
+      pipeline_cache{instance, scheduler, renderpass_cache, pool},
       runtime{instance,   scheduler, renderpass_cache, pool, pipeline_cache.TextureProvider(),
               image_count},
       res_cache{memory, custom_tex_manager, runtime, regs, renderer},
@@ -958,10 +958,9 @@ void RasterizerVulkan::SyncAndUploadLUTsLF() {
     if (fs_uniform_block_data.fog_lut_dirty || invalidate) {
         std::array<Common::Vec2f, 128> new_data;
 
-        std::transform(pica.fog.lut.begin(), pica.fog.lut.end(), new_data.begin(),
-                       [](const auto& entry) {
-                           return Common::Vec2f{entry.ToFloat(), entry.DiffToFloat()};
-                       });
+        std::transform(
+            pica.fog.lut.begin(), pica.fog.lut.end(), new_data.begin(),
+            [](const auto& entry) { return Common::Vec2f{entry.ToFloat(), entry.DiffToFloat()}; });
 
         if (new_data != fog_lut_data || invalidate) {
             fog_lut_data = new_data;

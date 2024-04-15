@@ -43,12 +43,12 @@ bool VirtualMemoryArea::CanBeMergedWith(const VirtualMemoryArea& next) const {
 
 template <class Archive>
 void VirtualMemoryArea::serialize(Archive& ar, const unsigned int) {
-    ar& base;
-    ar& size;
-    ar& type;
-    ar& permissions;
-    ar& meminfo_state;
-    ar& backing_memory;
+    ar & base;
+    ar & size;
+    ar & type;
+    ar & permissions;
+    ar & meminfo_state;
+    ar & backing_memory;
 }
 SERIALIZE_IMPL(VirtualMemoryArea)
 
@@ -399,8 +399,8 @@ ResultVal<std::vector<std::pair<MemoryRef, u32>>> VMManager::GetBackingBlocksFor
 
 template <class Archive>
 void VMManager::serialize(Archive& ar, const unsigned int) {
-    ar& vma_map;
-    ar& page_table;
+    ar & vma_map;
+    ar & page_table;
     if (Archive::is_loading::value) {
         is_locked = true;
     }

@@ -599,14 +599,14 @@ public:
     template <typename G = E, std::enable_if_t<std::is_constructible_v<E, G&&>>* = nullptr,
               std::enable_if_t<!std::is_convertible_v<G&&, E>>* = nullptr>
     constexpr explicit Expected(Unexpected<G>&& e) noexcept(std::is_nothrow_constructible_v<E, G&&>)
-        : impl_base{unexpect_t{}, std::move(e.value())}, ctor_base{
-                                                             detail::default_constructor_tag{}} {}
+        : impl_base{unexpect_t{}, std::move(e.value())},
+          ctor_base{detail::default_constructor_tag{}} {}
 
     template <typename G = E, std::enable_if_t<std::is_constructible_v<E, G&&>>* = nullptr,
               std::enable_if_t<std::is_convertible_v<G&&, E>>* = nullptr>
     constexpr Expected(Unexpected<G>&& e) noexcept(std::is_nothrow_constructible_v<E, G&&>)
-        : impl_base{unexpect_t{}, std::move(e.value())}, ctor_base{
-                                                             detail::default_constructor_tag{}} {}
+        : impl_base{unexpect_t{}, std::move(e.value())},
+          ctor_base{detail::default_constructor_tag{}} {}
 
     template <typename... Args, std::enable_if_t<std::is_constructible_v<E, Args&&...>>* = nullptr>
     constexpr explicit Expected(unexpect_t, Args&&... args)

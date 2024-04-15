@@ -129,11 +129,11 @@ struct MessageParameter {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& sender_id;
-        ar& destination_id;
-        ar& signal;
-        ar& object;
-        ar& buffer;
+        ar & sender_id;
+        ar & destination_id;
+        ar & signal;
+        ar & object;
+        ar & buffer;
     }
     friend class boost::serialization::access;
 };
@@ -173,9 +173,9 @@ struct DeliverArg {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& param;
-        ar& hmac;
-        ar& source_program_id;
+        ar & param;
+        ar & hmac;
+        ar & source_program_id;
     }
     friend class boost::serialization::access;
 };
@@ -191,11 +191,11 @@ struct ApplicationJumpParameters {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& next_title_id;
-        ar& next_media_type;
-        ar& flags;
-        ar& current_title_id;
-        ar& current_media_type;
+        ar & next_title_id;
+        ar & next_media_type;
+        ar & flags;
+        ar & current_title_id;
+        ar & current_media_type;
     }
     friend class boost::serialization::access;
 };
@@ -207,8 +207,8 @@ struct ApplicationStartParameters {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& next_title_id;
-        ar& next_media_type;
+        ar & next_title_id;
+        ar & next_media_type;
     }
     friend class boost::serialization::access;
 };
@@ -237,14 +237,14 @@ struct CaptureBufferInfo {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& size;
-        ar& is_3d;
-        ar& top_screen_left_offset;
-        ar& top_screen_right_offset;
-        ar& top_screen_format;
-        ar& bottom_screen_left_offset;
-        ar& bottom_screen_right_offset;
-        ar& bottom_screen_format;
+        ar & size;
+        ar & is_3d;
+        ar & top_screen_left_offset;
+        ar & top_screen_right_offset;
+        ar & top_screen_format;
+        ar & bottom_screen_left_offset;
+        ar & bottom_screen_right_offset;
+        ar & bottom_screen_format;
     }
     friend class boost::serialization::access;
 };
@@ -454,15 +454,15 @@ private:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& applet_id;
-            ar& slot;
-            ar& title_id;
-            ar& registered;
-            ar& loaded;
-            ar& attributes.raw;
-            ar& notification;
-            ar& notification_event;
-            ar& parameter_event;
+            ar & applet_id;
+            ar & slot;
+            ar & title_id;
+            ar & registered;
+            ar & loaded;
+            ar & attributes.raw;
+            ar & notification;
+            ar & notification_event;
+            ar & parameter_event;
         }
         friend class boost::serialization::access;
     };
@@ -527,27 +527,27 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& next_parameter;
-        ar& app_jump_parameters;
-        ar& delayed_parameter;
-        ar& app_start_parameters;
-        ar& deliver_arg;
-        ar& capture_info;
-        ar& capture_buffer_info;
-        ar& active_slot;
-        ar& last_library_launcher_slot;
-        ar& last_prepared_library_applet;
-        ar& last_system_launcher_slot;
-        ar& last_jump_to_home_slot;
-        ar& ordered_to_close_sys_applet;
-        ar& ordered_to_close_application;
-        ar& application_cancelled;
-        ar& application_close_target;
-        ar& new_3ds_mode_blocked;
-        ar& lock;
-        ar& capture_info;
-        ar& applet_slots;
-        ar& library_applet_closing_command;
+        ar & next_parameter;
+        ar & app_jump_parameters;
+        ar & delayed_parameter;
+        ar & app_start_parameters;
+        ar & deliver_arg;
+        ar & capture_info;
+        ar & capture_buffer_info;
+        ar & active_slot;
+        ar & last_library_launcher_slot;
+        ar & last_prepared_library_applet;
+        ar & last_system_launcher_slot;
+        ar & last_jump_to_home_slot;
+        ar & ordered_to_close_sys_applet;
+        ar & ordered_to_close_application;
+        ar & application_cancelled;
+        ar & application_close_target;
+        ar & new_3ds_mode_blocked;
+        ar & lock;
+        ar & capture_info;
+        ar & applet_slots;
+        ar & library_applet_closing_command;
 
         if (Archive::is_loading::value) {
             LoadInputDevices();

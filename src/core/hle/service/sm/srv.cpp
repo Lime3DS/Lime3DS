@@ -32,8 +32,8 @@ namespace Service::SM {
 template <class Archive>
 void SRV::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-    ar& notification_semaphore;
-    ar& get_service_handle_delayed_map;
+    ar & notification_semaphore;
+    ar & get_service_handle_delayed_map;
 }
 
 constexpr int MAX_PENDING_NOTIFICATIONS = 16;
@@ -123,7 +123,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::HLERequestContext::WakeupCallback>(*this);
-        ar& name;
+        ar & name;
     }
     friend class boost::serialization::access;
 };

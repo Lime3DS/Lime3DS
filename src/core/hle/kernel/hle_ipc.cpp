@@ -64,8 +64,8 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::WakeupCallback>(*this);
-        ar& callback;
-        ar& context;
+        ar & callback;
+        ar & context;
     }
     friend class boost::serialization::access;
 };
@@ -89,7 +89,7 @@ void SessionRequestHandler::ClientDisconnected(std::shared_ptr<ServerSession> se
 
 template <class Archive>
 void SessionRequestHandler::serialize(Archive& ar, const unsigned int) {
-    ar& connected_sessions;
+    ar & connected_sessions;
 }
 SERIALIZE_IMPL(SessionRequestHandler)
 
@@ -99,8 +99,8 @@ SERIALIZE_IMPL(SessionRequestHandler::SessionDataBase)
 
 template <class Archive>
 void SessionRequestHandler::SessionInfo::serialize(Archive& ar, const unsigned int) {
-    ar& session;
-    ar& data;
+    ar & session;
+    ar & data;
 }
 SERIALIZE_IMPL(SessionRequestHandler::SessionInfo)
 
@@ -324,12 +324,12 @@ void HLERequestContext::ReportUnimplemented() const {
 
 template <class Archive>
 void HLERequestContext::serialize(Archive& ar, const unsigned int) {
-    ar& cmd_buf;
-    ar& session;
-    ar& thread;
-    ar& request_handles;
-    ar& static_buffers;
-    ar& request_mapped_buffers;
+    ar & cmd_buf;
+    ar & session;
+    ar & thread;
+    ar & request_handles;
+    ar & static_buffers;
+    ar & request_mapped_buffers;
 }
 SERIALIZE_IMPL(HLERequestContext)
 

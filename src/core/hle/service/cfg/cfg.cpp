@@ -37,10 +37,10 @@ namespace Service::CFG {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& cfg_config_file_buffer;
-    ar& cfg_system_save_data_archive;
-    ar& preferred_region_code;
-    ar& preferred_region_chosen;
+    ar & cfg_config_file_buffer;
+    ar & cfg_system_save_data_archive;
+    ar & preferred_region_code;
+    ar & preferred_region_chosen;
 }
 SERIALIZE_IMPL(Module)
 

@@ -61,11 +61,11 @@ public:
 
         template <class Archive>
         void serialize(Archive& ar, const unsigned int file_version) {
-            ar& cpu_registers;
-            ar& fpu_registers;
-            ar& cpsr;
-            ar& fpscr;
-            ar& fpexc;
+            ar & cpu_registers;
+            ar & fpu_registers;
+            ar & cpsr;
+            ar & fpscr;
+            ar & fpexc;
         }
     };
 

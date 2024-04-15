@@ -689,7 +689,7 @@ void System::serialize(Archive& ar, const unsigned int file_version) {
     if (Archive::is_saving::value) {
         num_cores = this->GetNumCores();
     }
-    ar& num_cores;
+    ar & num_cores;
 
     if (Archive::is_loading::value) {
         // When loading, we want to make sure any lingering state gets cleared out before we begin.
@@ -725,7 +725,7 @@ void System::serialize(Archive& ar, const unsigned int file_version) {
     ar&* memory.get();
     ar&* kernel.get();
     ar&* gpu.get();
-    ar& movie;
+    ar & movie;
 
     // This needs to be set from somewhere - might as well be here!
     if (Archive::is_loading::value) {

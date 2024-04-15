@@ -53,10 +53,10 @@ void ClientPort::ConnectionClosed() {
 template <class Archive>
 void ClientPort::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Object>(*this);
-    ar& server_port;
-    ar& max_sessions;
-    ar& active_sessions;
-    ar& name;
+    ar & server_port;
+    ar & max_sessions;
+    ar & active_sessions;
+    ar & name;
 }
 SERIALIZE_IMPL(ClientPort)
 

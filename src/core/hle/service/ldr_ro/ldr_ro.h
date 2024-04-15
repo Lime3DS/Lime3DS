@@ -20,7 +20,7 @@ private:
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler::SessionDataBase>(
             *this);
-        ar& loaded_crs;
+        ar & loaded_crs;
     }
     friend class boost::serialization::access;
 };

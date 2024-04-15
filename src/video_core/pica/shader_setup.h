@@ -38,9 +38,9 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const u32 file_version) {
-        ar& f;
-        ar& b;
-        ar& i;
+        ar & f;
+        ar & b;
+        ar & i;
     }
 };
 
@@ -90,14 +90,14 @@ private:
     friend class boost::serialization::access;
     template <class Archive>
     void serialize(Archive& ar, const u32 file_version) {
-        ar& uniforms;
-        ar& uniform_queue;
-        ar& program_code;
-        ar& swizzle_data;
-        ar& program_code_hash_dirty;
-        ar& swizzle_data_hash_dirty;
-        ar& program_code_hash;
-        ar& swizzle_data_hash;
+        ar & uniforms;
+        ar & uniform_queue;
+        ar & program_code;
+        ar & swizzle_data;
+        ar & program_code_hash_dirty;
+        ar & swizzle_data_hash_dirty;
+        ar & program_code_hash;
+        ar & swizzle_data_hash;
     }
 };
 

@@ -33,33 +33,33 @@ namespace Kernel {
 
 template <class Archive>
 void ThreadManager::serialize(Archive& ar, const unsigned int) {
-    ar& current_thread;
-    ar& ready_queue;
-    ar& wakeup_callback_table;
-    ar& thread_list;
+    ar & current_thread;
+    ar & ready_queue;
+    ar & wakeup_callback_table;
+    ar & thread_list;
 }
 SERIALIZE_IMPL(ThreadManager)
 
 template <class Archive>
 void Thread::serialize(Archive& ar, const unsigned int file_version) {
     ar& boost::serialization::base_object<WaitObject>(*this);
-    ar& context;
-    ar& thread_id;
-    ar& status;
-    ar& entry_point;
-    ar& stack_top;
-    ar& nominal_priority;
-    ar& current_priority;
-    ar& last_running_ticks;
-    ar& processor_id;
-    ar& tls_address;
-    ar& held_mutexes;
-    ar& pending_mutexes;
-    ar& owner_process;
-    ar& wait_objects;
-    ar& wait_address;
-    ar& name;
-    ar& wakeup_callback;
+    ar & context;
+    ar & thread_id;
+    ar & status;
+    ar & entry_point;
+    ar & stack_top;
+    ar & nominal_priority;
+    ar & current_priority;
+    ar & last_running_ticks;
+    ar & processor_id;
+    ar & tls_address;
+    ar & held_mutexes;
+    ar & pending_mutexes;
+    ar & owner_process;
+    ar & wait_objects;
+    ar & wait_address;
+    ar & name;
+    ar & wakeup_callback;
 }
 SERIALIZE_IMPL(Thread)
 

@@ -16,8 +16,8 @@ namespace Service::NFC {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int) {
-    ar& nfc_mode;
-    ar& device;
+    ar & nfc_mode;
+    ar & device;
 }
 SERIALIZE_IMPL(Module)
 

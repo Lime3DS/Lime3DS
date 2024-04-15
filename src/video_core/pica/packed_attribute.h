@@ -65,8 +65,8 @@ private:
 private:
     template <class Archive>
     void serialize(Archive& ar, const u32) {
-        ar& buffer;
-        ar& index;
+        ar & buffer;
+        ar & index;
     }
     friend class boost::serialization::access;
 };

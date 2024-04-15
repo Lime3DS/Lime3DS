@@ -1194,8 +1194,8 @@ static struct op fops[] = {
     {vfp_single_fnmul, 0}, {vfp_single_fsub, 0},  {vfp_single_fdiv, 0},
 };
 
-#define FREG_BANK(x) ((x)&0x18)
-#define FREG_IDX(x) ((x)&7)
+#define FREG_BANK(x) ((x) & 0x18)
+#define FREG_IDX(x) ((x) & 7)
 
 u32 vfp_single_cpdo(ARMul_State* state, u32 inst, u32 fpscr) {
     u32 op = inst & FOP_MASK;
