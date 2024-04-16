@@ -331,8 +331,8 @@ public:
 ShaderProgramManager::ShaderProgramManager(Frontend::EmuWindow& emu_window_, const Driver& driver_,
                                            bool separable)
     : emu_window{emu_window_}, driver{driver_},
-      strict_context_required{emu_window.StrictContextRequired()}, impl{std::make_unique<Impl>(
-                                                                       driver_, separable)} {}
+      strict_context_required{emu_window.StrictContextRequired()},
+      impl{std::make_unique<Impl>(driver_, separable)} {}
 
 ShaderProgramManager::~ShaderProgramManager() = default;
 

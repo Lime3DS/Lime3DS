@@ -61,12 +61,10 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
                                    Scheduler& scheduler, RenderManager& renderpass_cache,
                                    DescriptorUpdateQueue& update_queue_, u32 image_count)
     : RasterizerAccelerated{memory, pica}, instance{instance}, scheduler{scheduler},
-      renderpass_cache{renderpass_cache}, update_queue{update_queue_},
-      pipeline_cache{instance, scheduler, renderpass_cache, update_queue}, runtime{instance,
-                                                                                   scheduler,
-                                                                                   renderpass_cache,
-                                                                                   update_queue,
-                                                                                   image_count},
+      renderpass_cache{renderpass_cache},
+      pipeline_cache{instance, scheduler, renderpass_cache, pool},
+      runtime{instance,   scheduler, renderpass_cache, pool, pipeline_cache.TextureProvider(),
+              image_count},
       res_cache{memory, custom_tex_manager, runtime, regs, renderer},
       stream_buffer{instance, scheduler, BUFFER_USAGE, STREAM_BUFFER_SIZE},
       uniform_buffer{instance, scheduler, vk::BufferUsageFlagBits::eUniformBuffer,
@@ -966,10 +964,9 @@ void RasterizerVulkan::SyncAndUploadLUTsLF() {
     if (fs_uniform_block_data.fog_lut_dirty || invalidate) {
         std::array<Common::Vec2f, 128> new_data;
 
-        std::transform(pica.fog.lut.begin(), pica.fog.lut.end(), new_data.begin(),
-                       [](const auto& entry) {
-                           return Common::Vec2f{entry.ToFloat(), entry.DiffToFloat()};
-                       });
+        std::transform(
+            pica.fog.lut.begin(), pica.fog.lut.end(), new_data.begin(),
+            [](const auto& entry) { return Common::Vec2f{entry.ToFloat(), entry.DiffToFloat()}; });
 
         if (new_data != fog_lut_data || invalidate) {
             fog_lut_data = new_data;

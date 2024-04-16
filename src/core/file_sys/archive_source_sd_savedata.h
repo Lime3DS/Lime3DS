@@ -30,7 +30,7 @@ private:
     ArchiveSource_SDSaveData() = default;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& mount_point;
+        ar & mount_point;
     }
     friend class boost::serialization::access;
 };

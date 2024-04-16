@@ -17,8 +17,8 @@ namespace Service::FS {
 template <class Archive>
 void Directory::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-    ar& path;
-    ar& backend;
+    ar & path;
+    ar & backend;
 }
 
 Directory::Directory(std::unique_ptr<FileSys::DirectoryBackend>&& backend,

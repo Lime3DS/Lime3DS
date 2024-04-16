@@ -275,13 +275,13 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-        ar& daemon_bit_mask;
-        ar& default_daemon_bit_mask;
-        ar& daemon_status;
-        ar& exclusive_state;
-        ar& scan_interval;
-        ar& retry_interval;
-        ar& daemon_lock_enabled;
+        ar & daemon_bit_mask;
+        ar & default_daemon_bit_mask;
+        ar & daemon_status;
+        ar & exclusive_state;
+        ar & scan_interval;
+        ar & retry_interval;
+        ar & daemon_lock_enabled;
     }
     friend class boost::serialization::access;
 };

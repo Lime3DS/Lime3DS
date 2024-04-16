@@ -204,8 +204,8 @@ public:
     explicit Setting(const Type& default_val, const Type& min_val, const Type& max_val,
                      const std::string& name)
         requires(ranged)
-        : value{default_val},
-          default_value{default_val}, maximum{max_val}, minimum{min_val}, label{name} {}
+        : value{default_val}, default_value{default_val}, maximum{max_val}, minimum{min_val},
+          label{name} {}
 
     /**
      *  Returns a reference to the setting's value.
@@ -449,7 +449,7 @@ struct Values {
     Setting<bool> allow_plugin_loader{true, "allow_plugin_loader"};
 
     // Renderer
-    SwitchableSetting<GraphicsAPI, true> graphics_api {
+    SwitchableSetting<GraphicsAPI, true> graphics_api{
 #if defined(ENABLE_OPENGL)
         GraphicsAPI::OpenGL,
 #elif defined(ENABLE_VULKAN)
@@ -460,8 +460,7 @@ struct Values {
 // TODO: Add a null renderer backend for this, perhaps.
 #error "At least one renderer must be enabled."
 #endif
-            GraphicsAPI::Software, GraphicsAPI::Vulkan, "graphics_api"
-    };
+        GraphicsAPI::Software, GraphicsAPI::Vulkan, "graphics_api"};
     SwitchableSetting<u32> physical_device{0, "physical_device"};
     Setting<bool> use_gles{false, "use_gles"};
     Setting<bool> renderer_debug{false, "renderer_debug"};

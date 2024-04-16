@@ -43,8 +43,8 @@ struct GPU::Impl {
         : timing{system.CoreTiming()}, system{system}, memory{system.Memory()},
           debug_context{Pica::g_debug_context}, pica{memory, debug_context},
           renderer{VideoCore::CreateRenderer(emu_window, secondary_window, pica, system)},
-          rasterizer{renderer->Rasterizer()}, sw_blitter{std::make_unique<SwRenderer::SwBlitter>(
-                                                  memory, rasterizer)} {}
+          rasterizer{renderer->Rasterizer()},
+          sw_blitter{std::make_unique<SwRenderer::SwBlitter>(memory, rasterizer)} {}
     ~Impl() = default;
 };
 

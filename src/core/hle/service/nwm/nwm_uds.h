@@ -553,8 +553,8 @@ private:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& connected;
-            ar& node_id;
+            ar & connected;
+            ar & node_id;
         }
         friend class boost::serialization::access;
     };

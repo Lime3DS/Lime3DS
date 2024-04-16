@@ -602,8 +602,8 @@ void Surface::BlitScale(const VideoCore::TextureBlit& blit, bool up_scale) {
 
 Framebuffer::Framebuffer(TextureRuntime& runtime, const VideoCore::FramebufferParams& params,
                          const Surface* color, const Surface* depth)
-    : VideoCore::FramebufferParams{params}, res_scale{color ? color->res_scale
-                                                            : (depth ? depth->res_scale : 1u)} {
+    : VideoCore::FramebufferParams{params},
+      res_scale{color ? color->res_scale : (depth ? depth->res_scale : 1u)} {
 
     if (shadow_rendering && !color) {
         return;

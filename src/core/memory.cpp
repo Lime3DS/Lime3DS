@@ -77,10 +77,10 @@ private:
     friend class boost::serialization::access;
     template <typename Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
-        ar& vram;
-        ar& linear_heap;
-        ar& new_linear_heap;
-        ar& plugin_fb;
+        ar & vram;
+        ar & linear_heap;
+        ar & new_linear_heap;
+        ar & plugin_fb;
     }
 };
 
@@ -318,20 +318,20 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         bool save_n3ds_ram = Settings::values.is_new_3ds.GetValue();
-        ar& save_n3ds_ram;
+        ar & save_n3ds_ram;
         ar& boost::serialization::make_binary_object(vram.get(), Memory::VRAM_SIZE);
         ar& boost::serialization::make_binary_object(
             fcram.get(), save_n3ds_ram ? Memory::FCRAM_N3DS_SIZE : Memory::FCRAM_SIZE);
         ar& boost::serialization::make_binary_object(
             n3ds_extra_ram.get(), save_n3ds_ram ? Memory::N3DS_EXTRA_RAM_SIZE : 0);
-        ar& cache_marker;
-        ar& page_table_list;
+        ar & cache_marker;
+        ar & page_table_list;
         // dsp is set from Core::System at startup
-        ar& current_page_table;
-        ar& fcram_mem;
-        ar& vram_mem;
-        ar& n3ds_extra_ram_mem;
-        ar& dsp_mem;
+        ar & current_page_table;
+        ar & fcram_mem;
+        ar & vram_mem;
+        ar & n3ds_extra_ram_mem;
+        ar & dsp_mem;
     }
 };
 

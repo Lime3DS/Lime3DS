@@ -28,7 +28,7 @@ jobs:
       matrix:
         target: ["appimage", "fresh"]
     container:
-      image: polarzincomfrio/lime-build-environments:linux-${{ matrix.target }}
+      image: opensauce04/lime3ds-build:latest
       options: -u 1001
     env:
       CCACHE_DIR: ${{ github.workspace }}/.ccache

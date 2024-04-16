@@ -193,10 +193,10 @@ Result AddressArbiter::ArbitrateAddress(std::shared_ptr<Thread> thread, Arbitrat
 template <class Archive>
 void AddressArbiter::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Object>(*this);
-    ar& name;
-    ar& waiting_threads;
-    ar& timeout_callback;
-    ar& resource_limit;
+    ar & name;
+    ar & waiting_threads;
+    ar & timeout_callback;
+    ar & resource_limit;
 }
 SERIALIZE_IMPL(AddressArbiter)
 

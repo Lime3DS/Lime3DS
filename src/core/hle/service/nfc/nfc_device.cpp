@@ -21,21 +21,21 @@ SERVICE_CONSTRUCT_IMPL(Service::NFC::NfcDevice)
 namespace Service::NFC {
 template <class Archive>
 void NfcDevice::serialize(Archive& ar, const unsigned int) {
-    ar& tag_in_range_event;
-    ar& tag_out_of_range_event;
-    ar& is_initalized;
-    ar& is_data_moddified;
-    ar& is_app_area_open;
-    ar& is_plain_amiibo;
-    ar& is_write_protected;
-    ar& is_tag_in_range;
-    ar& allowed_protocols;
-    ar& device_state;
-    ar& connection_state;
-    ar& communication_state;
-    ar& amiibo_filename;
-    ar& tag;
-    ar& encrypted_tag;
+    ar & tag_in_range_event;
+    ar & tag_out_of_range_event;
+    ar & is_initalized;
+    ar & is_data_moddified;
+    ar & is_app_area_open;
+    ar & is_plain_amiibo;
+    ar & is_write_protected;
+    ar & is_tag_in_range;
+    ar & allowed_protocols;
+    ar & device_state;
+    ar & connection_state;
+    ar & communication_state;
+    ar & amiibo_filename;
+    ar & tag;
+    ar & encrypted_tag;
 }
 SERIALIZE_IMPL(NfcDevice)
 

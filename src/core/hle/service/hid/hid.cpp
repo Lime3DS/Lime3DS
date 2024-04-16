@@ -30,24 +30,24 @@ namespace Service::HID {
 
 template <class Archive>
 void Module::serialize(Archive& ar, const unsigned int file_version) {
-    ar& shared_mem;
-    ar& event_pad_or_touch_1;
-    ar& event_pad_or_touch_2;
-    ar& event_accelerometer;
-    ar& event_gyroscope;
-    ar& event_debug_pad;
-    ar& next_pad_index;
-    ar& next_touch_index;
-    ar& next_accelerometer_index;
-    ar& next_gyroscope_index;
-    ar& enable_accelerometer_count;
-    ar& enable_gyroscope_count;
+    ar & shared_mem;
+    ar & event_pad_or_touch_1;
+    ar & event_pad_or_touch_2;
+    ar & event_accelerometer;
+    ar & event_gyroscope;
+    ar & event_debug_pad;
+    ar & next_pad_index;
+    ar & next_touch_index;
+    ar & next_accelerometer_index;
+    ar & next_gyroscope_index;
+    ar & enable_accelerometer_count;
+    ar & enable_gyroscope_count;
     if (Archive::is_loading::value) {
         LoadInputDevices();
     }
-    ar& state.hex;
-    ar& circle_pad_old_x;
-    ar& circle_pad_old_y;
+    ar & state.hex;
+    ar & circle_pad_old_x;
+    ar & circle_pad_old_y;
     // Update events are set in the constructor
     // Devices are set from the implementation (and are stateless afaik)
 }

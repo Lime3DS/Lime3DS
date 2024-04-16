@@ -10,7 +10,7 @@ jobs:
   clang-format:
     runs-on: ubuntu-latest
     container:
-      image: polarzincomfrio/lime-build-environments:linux-fresh
+      image: opensauce04/lime3ds-build:latest
       options: -u 1001
     steps:
       - uses: actions/checkout@v4

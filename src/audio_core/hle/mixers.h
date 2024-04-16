@@ -57,11 +57,11 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& current_frame;
-        ar& state.intermediate_mixer_volume;
-        ar& state.aux_bus_enable;
-        ar& state.intermediate_mix_buffer;
-        ar& state.output_format;
+        ar & current_frame;
+        ar & state.intermediate_mixer_volume;
+        ar & state.aux_bus_enable;
+        ar & state.intermediate_mix_buffer;
+        ar & state.output_format;
     }
     friend class boost::serialization::access;
 };

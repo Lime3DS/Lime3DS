@@ -83,13 +83,13 @@ public:
     }
 
     /// Inform the driver to swap the front/back buffers and present the current image
-    virtual void SwapBuffers(){};
+    virtual void SwapBuffers() {};
 
     /// Makes the graphics context current for the caller thread
-    virtual void MakeCurrent(){};
+    virtual void MakeCurrent() {};
 
     /// Releases (dunno if this is the "right" word) the context from the caller thread
-    virtual void DoneCurrent(){};
+    virtual void DoneCurrent() {};
 
     /// Gets the GPU driver library (used by Android only)
     virtual std::shared_ptr<Common::DynamicLibrary> GetDriverLibrary() {
@@ -183,12 +183,12 @@ public:
     /**
      * Save current GraphicsContext.
      */
-    virtual void SaveContext(){};
+    virtual void SaveContext() {};
 
     /**
      * Restore saved GraphicsContext.
      */
-    virtual void RestoreContext(){};
+    virtual void RestoreContext() {};
 
     /**
      * Signal that a touch pressed event has occurred (e.g. mouse click pressed)

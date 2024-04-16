@@ -12,9 +12,8 @@
 #include "ui_configure_cheats.h"
 
 ConfigureCheats::ConfigureCheats(Cheats::CheatEngine& cheat_engine_, u64 title_id_, QWidget* parent)
-    : QWidget(parent),
-      ui(std::make_unique<Ui::ConfigureCheats>()), cheat_engine{cheat_engine_}, title_id{
-                                                                                    title_id_} {
+    : QWidget(parent), ui(std::make_unique<Ui::ConfigureCheats>()), cheat_engine{cheat_engine_},
+      title_id{title_id_} {
     // Setup gui control settings
     ui->setupUi(this);
     ui->tableCheats->setColumnWidth(0, 30);

@@ -31,9 +31,9 @@ namespace Service::NWM {
 template <class Archive>
 void NWM_UDS::serialize(Archive& ar, const unsigned int) {
     ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-    ar& node_map;
-    ar& connection_event;
-    ar& received_beacons;
+    ar & node_map;
+    ar & connection_event;
+    ar & received_beacons;
     // wifi_packet_received set in constructor
 }
 
@@ -1271,7 +1271,7 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::HLERequestContext::WakeupCallback>(*this);
-        ar& command_id;
+        ar & command_id;
     }
     friend class boost::serialization::access;
 };

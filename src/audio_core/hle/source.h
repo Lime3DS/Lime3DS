@@ -93,18 +93,18 @@ private:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& physical_address;
-            ar& length;
-            ar& adpcm_ps;
-            ar& adpcm_yn;
-            ar& adpcm_dirty;
-            ar& is_looping;
-            ar& buffer_id;
-            ar& mono_or_stereo;
-            ar& format;
-            ar& from_queue;
-            ar& play_position;
-            ar& has_played;
+            ar & physical_address;
+            ar & length;
+            ar & adpcm_ps;
+            ar & adpcm_yn;
+            ar & adpcm_dirty;
+            ar & is_looping;
+            ar & buffer_id;
+            ar & mono_or_stereo;
+            ar & format;
+            ar & from_queue;
+            ar & play_position;
+            ar & has_played;
         }
         friend class boost::serialization::access;
     };
@@ -163,20 +163,20 @@ private:
     private:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
-            ar& enabled;
-            ar& sync_count;
-            ar& gain;
-            ar& input_queue;
-            ar& mono_or_stereo;
-            ar& format;
-            ar& current_sample_number;
-            ar& current_buffer_physical_address;
-            ar& current_buffer;
-            ar& buffer_update;
-            ar& current_buffer_id;
-            ar& adpcm_coeffs;
-            ar& rate_multiplier;
-            ar& interpolation_mode;
+            ar & enabled;
+            ar & sync_count;
+            ar & gain;
+            ar & input_queue;
+            ar & mono_or_stereo;
+            ar & format;
+            ar & current_sample_number;
+            ar & current_buffer_physical_address;
+            ar & current_buffer;
+            ar & buffer_update;
+            ar & current_buffer_id;
+            ar & adpcm_coeffs;
+            ar & rate_multiplier;
+            ar & interpolation_mode;
         }
         friend class boost::serialization::access;
 
@@ -196,7 +196,7 @@ private:
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& state;
+        ar & state;
     }
     friend class boost::serialization::access;
 };

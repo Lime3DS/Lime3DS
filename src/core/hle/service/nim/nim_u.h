@@ -533,9 +533,9 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<Kernel::SessionRequestHandler>(*this);
-        ar& nim_system_update_event_for_menu;
-        ar& nim_system_update_event_for_news;
-        ar& nim_async_completion_event;
+        ar & nim_system_update_event_for_menu;
+        ar & nim_system_update_event_for_news;
+        ar & nim_async_completion_event;
     }
     friend class boost::serialization::access;
 };

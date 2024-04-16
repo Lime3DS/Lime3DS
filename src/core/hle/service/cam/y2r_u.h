@@ -96,10 +96,10 @@ struct ConversionBuffer {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& address;
-        ar& image_size;
-        ar& transfer_unit;
-        ar& gap;
+        ar & address;
+        ar & image_size;
+        ar & transfer_unit;
+        ar & gap;
     }
     friend class boost::serialization::access;
 };
@@ -127,20 +127,20 @@ struct ConversionConfiguration {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& input_format;
-        ar& output_format;
-        ar& rotation;
-        ar& block_alignment;
-        ar& input_line_width;
-        ar& input_lines;
-        ar& coefficients;
-        ar& padding;
-        ar& alpha;
-        ar& src_Y;
-        ar& src_U;
-        ar& src_V;
-        ar& src_YUYV;
-        ar& dst;
+        ar & input_format;
+        ar & output_format;
+        ar & rotation;
+        ar & block_alignment;
+        ar & input_line_width;
+        ar & input_lines;
+        ar & coefficients;
+        ar & padding;
+        ar & alpha;
+        ar & src_Y;
+        ar & src_U;
+        ar & src_V;
+        ar & src_YUYV;
+        ar & dst;
     }
     friend class boost::serialization::access;
 };
@@ -166,22 +166,22 @@ struct DitheringWeightParams {
 private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
-        ar& w0_xEven_yEven;
-        ar& w0_xOdd_yEven;
-        ar& w0_xEven_yOdd;
-        ar& w0_xOdd_yOdd;
-        ar& w1_xEven_yEven;
-        ar& w1_xOdd_yEven;
-        ar& w1_xEven_yOdd;
-        ar& w1_xOdd_yOdd;
-        ar& w2_xEven_yEven;
-        ar& w2_xOdd_yEven;
-        ar& w2_xEven_yOdd;
-        ar& w2_xOdd_yOdd;
-        ar& w3_xEven_yEven;
-        ar& w3_xOdd_yEven;
-        ar& w3_xEven_yOdd;
-        ar& w3_xOdd_yOdd;
+        ar & w0_xEven_yEven;
+        ar & w0_xOdd_yEven;
+        ar & w0_xEven_yOdd;
+        ar & w0_xOdd_yOdd;
+        ar & w1_xEven_yEven;
+        ar & w1_xOdd_yEven;
+        ar & w1_xEven_yOdd;
+        ar & w1_xOdd_yOdd;
+        ar & w2_xEven_yEven;
+        ar & w2_xOdd_yEven;
+        ar & w2_xEven_yOdd;
+        ar & w2_xOdd_yOdd;
+        ar & w3_xEven_yEven;
+        ar & w3_xOdd_yEven;
+        ar & w3_xEven_yOdd;
+        ar & w3_xOdd_yOdd;
     }
     friend class boost::serialization::access;
 };

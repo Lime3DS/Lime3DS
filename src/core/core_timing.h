@@ -154,18 +154,18 @@ public:
     private:
         template <class Archive>
         void save(Archive& ar, const unsigned int) const {
-            ar& time;
-            ar& fifo_order;
-            ar& user_data;
+            ar & time;
+            ar & fifo_order;
+            ar & user_data;
             std::string name = *(type->name);
             ar << name;
         }
 
         template <class Archive>
         void load(Archive& ar, const unsigned int) {
-            ar& time;
-            ar& fifo_order;
-            ar& user_data;
+            ar & time;
+            ar & fifo_order;
+            ar & user_data;
             std::string name;
             ar >> name;
             type = Global<Timing>().RegisterEvent(name, nullptr);
@@ -239,12 +239,12 @@ public:
         template <class Archive>
         void serialize(Archive& ar, const unsigned int) {
             MoveEvents();
-            ar& event_queue;
-            ar& event_fifo_id;
-            ar& slice_length;
-            ar& downcount;
-            ar& executed_ticks;
-            ar& idled_cycles;
+            ar & event_queue;
+            ar & event_fifo_id;
+            ar & slice_length;
+            ar & downcount;
+            ar & executed_ticks;
+            ar & idled_cycles;
         }
         friend class boost::serialization::access;
     };
@@ -308,8 +308,8 @@ private:
     template <class Archive>
     void serialize(Archive& ar, const unsigned int file_version) {
         // event_types set during initialization of other things
-        ar& timers;
-        ar& current_timer;
+        ar & timers;
+        ar & current_timer;
         if (Archive::is_loading::value) {
             event_queue_locked = true;
         }

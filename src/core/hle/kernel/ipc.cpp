@@ -257,11 +257,11 @@ Result TranslateCommandBuffer(Kernel::KernelSystem& kernel, Memory::MemorySystem
 
 template <class Archive>
 void MappedBufferContext::serialize(Archive& ar, const unsigned int) {
-    ar& permissions;
-    ar& size;
-    ar& source_address;
-    ar& target_address;
-    ar& buffer;
+    ar & permissions;
+    ar & size;
+    ar & source_address;
+    ar & target_address;
+    ar & buffer;
 }
 SERIALIZE_IMPL(MappedBufferContext)
 
