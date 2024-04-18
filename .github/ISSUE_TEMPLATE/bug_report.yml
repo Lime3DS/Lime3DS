@@ -51,6 +51,7 @@ body:
     id: system-config
     attributes:
       label: System Configuration
+      description: Information about your system. If using Linux, include whether you are using Flatpak or AppImage
       placeholder: |
         CPU: Intel i5-10400 / AMD Ryzen 5 3600
         GPU/Driver: NVIDIA GeForce GTX 1060 (Driver 512.95)
