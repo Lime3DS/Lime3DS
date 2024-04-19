@@ -385,7 +385,7 @@ std::vector<FileUtil::FSTEntry> CustomTexManager::GetTextures(u64 title_id) {
 }
 
 void CustomTexManager::CreateWorkers() {
-    const std::size_t num_workers = std::max(std::thread::hardware_concurrency(), 2U) - 1;
+    const std::size_t num_workers = std::max(std::thread::hardware_concurrency(), 2U) >> 1;
     workers = std::make_unique<Common::ThreadWorker>(num_workers, "Custom textures");
 }
 

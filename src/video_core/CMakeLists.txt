@@ -160,8 +160,8 @@ if (ENABLE_VULKAN)
         renderer_vulkan/vk_blit_helper.h
         renderer_vulkan/vk_common.cpp
         renderer_vulkan/vk_common.h
-        renderer_vulkan/vk_descriptor_pool.cpp
-        renderer_vulkan/vk_descriptor_pool.h
+        renderer_vulkan/vk_descriptor_update_queue.cpp
+        renderer_vulkan/vk_descriptor_update_queue.h
         renderer_vulkan/vk_graphics_pipeline.cpp
         renderer_vulkan/vk_graphics_pipeline.h
         renderer_vulkan/vk_master_semaphore.cpp
@@ -183,8 +183,8 @@ if (ENABLE_VULKAN)
         renderer_vulkan/vk_platform.h
         renderer_vulkan/vk_present_window.cpp
         renderer_vulkan/vk_present_window.h
-        renderer_vulkan/vk_renderpass_cache.cpp
-        renderer_vulkan/vk_renderpass_cache.h
+        renderer_vulkan/vk_render_manager.cpp
+        renderer_vulkan/vk_render_manager.h
         renderer_vulkan/vk_shader_util.cpp
         renderer_vulkan/vk_shader_util.h
         renderer_vulkan/vk_stream_buffer.cpp

@@ -9,7 +9,7 @@
 #include "video_core/renderer_vulkan/pica_to_vk.h"
 #include "video_core/renderer_vulkan/vk_graphics_pipeline.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
-#include "video_core/renderer_vulkan/vk_renderpass_cache.h"
+#include "video_core/renderer_vulkan/vk_render_manager.h"
 #include "video_core/renderer_vulkan/vk_shader_util.h"
 
 namespace Vulkan {
@@ -64,7 +64,7 @@ Shader::~Shader() {
     }
 }
 
-GraphicsPipeline::GraphicsPipeline(const Instance& instance_, RenderpassCache& renderpass_cache_,
+GraphicsPipeline::GraphicsPipeline(const Instance& instance_, RenderManager& renderpass_cache_,
                                    const PipelineInfo& info_, vk::PipelineCache pipeline_cache_,
                                    vk::PipelineLayout layout_, std::array<Shader*, 3> stages_,
                                    Common::ThreadWorker* worker_)

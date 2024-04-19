@@ -138,11 +138,11 @@ PresentWindow::PresentWindow(Frontend::EmuWindow& emu_window_, const Instance& i
 
     if (instance.HasDebuggingToolAttached()) {
         for (u32 i = 0; i < num_images; ++i) {
-            Vulkan::SetObjectName(device, swap_chain[i].cmdbuf, "Swapchain Command Buffer {}", i);
-            Vulkan::SetObjectName(device, swap_chain[i].render_ready,
-                                  "Swapchain Semaphore: render_ready {}", i);
-            Vulkan::SetObjectName(device, swap_chain[i].present_done,
-                                  "Swapchain Fence: present_done {}", i);
+            SetObjectName(device, swap_chain[i].cmdbuf, "Swapchain Command Buffer {}", i);
+            SetObjectName(device, swap_chain[i].render_ready,
+                          "Swapchain Semaphore: render_ready {}", i);
+            SetObjectName(device, swap_chain[i].present_done, "Swapchain Fence: present_done {}",
+                          i);
         }
     }
 

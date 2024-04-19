@@ -20,7 +20,7 @@ namespace Vulkan {
 class Instance;
 class Swapchain;
 class Scheduler;
-class RenderpassCache;
+class RenderManager;
 
 struct Frame {
     u32 width;

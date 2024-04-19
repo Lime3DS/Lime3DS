@@ -7,11 +7,10 @@
 #include "common/common_types.h"
 #include "common/math_util.h"
 #include "video_core/renderer_base.h"
-#include "video_core/renderer_vulkan/vk_descriptor_pool.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
 #include "video_core/renderer_vulkan/vk_present_window.h"
 #include "video_core/renderer_vulkan/vk_rasterizer.h"
-#include "video_core/renderer_vulkan/vk_renderpass_cache.h"
+#include "video_core/renderer_vulkan/vk_render_manager.h"
 #include "video_core/renderer_vulkan/vk_scheduler.h"
 
 namespace Core {
@@ -118,15 +117,15 @@ private:
 
     Instance instance;
     Scheduler scheduler;
-    RenderpassCache renderpass_cache;
-    DescriptorPool pool;
+    RenderManager renderpass_cache;
     PresentWindow main_window;
     StreamBuffer vertex_buffer;
+    DescriptorUpdateQueue update_queue;
     RasterizerVulkan rasterizer;
     std::unique_ptr<PresentWindow> second_window;
 
+    DescriptorHeap present_heap;
     vk::UniquePipelineLayout present_pipeline_layout;
-    DescriptorSetProvider present_set_provider;
     std::array<vk::Pipeline, PRESENT_PIPELINES> present_pipelines;
     std::array<vk::ShaderModule, PRESENT_PIPELINES> present_shaders;
     std::array<vk::Sampler, 2> present_samplers;
@@ -134,7 +133,6 @@ private:
     u32 current_pipeline = 0;
 
     std::array<ScreenInfo, 3> screen_infos{};
-    std::array<DescriptorData, 3> present_textures{};
     PresentUniformData draw_info{};
     vk::ClearColorValue clear_color{};
 };

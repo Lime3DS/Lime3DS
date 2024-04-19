@@ -39,9 +39,6 @@ private:
     /// Manages pool overflow allocating new resources.
     std::size_t ManageOverflow();
 
-    /// Allocates a new page of resources.
-    void Grow();
-
 protected:
     MasterSemaphore* master_semaphore{nullptr};
     std::size_t grow_step = 0;     ///< Number of new resources created after an overflow
@@ -59,9 +56,36 @@ public:
     vk::CommandBuffer Commit();
 
 private:
-    struct Pool;
     const Instance& instance;
-    std::vector<Pool> pools;
+    vk::UniqueCommandPool cmd_pool;
+    std::vector<vk::CommandBuffer> cmd_buffers;
+};
+
+class DescriptorHeap final : public ResourcePool {
+public:
+    explicit DescriptorHeap(const Instance& instance, MasterSemaphore* master_semaphore,
+                            std::span<const vk::DescriptorSetLayoutBinding> bindings,
+                            u32 descriptor_heap_count = 1024);
+    ~DescriptorHeap() override;
+
+    const vk::DescriptorSetLayout& Layout() const {
+        return *descriptor_set_layout;
+    }
+
+    void Allocate(std::size_t begin, std::size_t end) override;
+
+    vk::DescriptorSet Commit();
+
+private:
+    void AppendDescriptorPool();
+
+private:
+    vk::Device device;
+    vk::UniqueDescriptorSetLayout descriptor_set_layout;
+    u32 descriptor_heap_count;
+    std::vector<vk::DescriptorPoolSize> pool_sizes;
+    std::vector<vk::UniqueDescriptorPool> pools;
+    std::vector<vk::DescriptorSet> descriptor_sets;
 };
 
 } // namespace Vulkan

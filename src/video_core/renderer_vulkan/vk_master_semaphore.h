@@ -72,6 +72,8 @@ private:
 };
 
 class MasterSemaphoreFence : public MasterSemaphore {
+    using Waitable = std::pair<vk::Fence, u64>;
+
 public:
     explicit MasterSemaphoreFence(const Instance& instance);
     ~MasterSemaphoreFence() override;
@@ -86,20 +88,15 @@ public:
 private:
     void WaitThread(std::stop_token token);
 
-    vk::UniqueFence GetFreeFence();
+    vk::Fence GetFreeFence();
 
 private:
     const Instance& instance;
-
-    struct Fence {
-        vk::UniqueFence handle;
-        u64 signal_value;
-    };
-
-    std::queue<vk::UniqueFence> free_queue;
-    std::queue<Fence> wait_queue;
+    std::deque<vk::Fence> free_queue;
+    std::queue<Waitable> wait_queue;
     std::mutex free_mutex;
     std::mutex wait_mutex;
+    std::condition_variable free_cv;
     std::condition_variable_any wait_cv;
     std::jthread wait_thread;
 };

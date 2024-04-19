@@ -35,10 +35,10 @@ public:
      * @param size Size to reserve.
      * @returns A pair of a raw memory pointer (with offset added), and the buffer offset
      */
-    std::tuple<u8*, u64, bool> Map(u64 size, u64 alignment);
+    std::tuple<u8*, u32, bool> Map(u32 size, u64 alignment);
 
     /// Ensures that "size" bytes of memory are available to the GPU, potentially recording a copy.
-    void Commit(u64 size);
+    void Commit(u32 size);
 
     vk::Buffer Handle() const noexcept {
         return buffer;
@@ -70,8 +70,8 @@ private:
     vk::BufferUsageFlags usage{};
     BufferType type;
 
-    u64 offset{};       ///< Buffer iterator.
-    u64 mapped_size{};  ///< Size reserved for the current copy.
+    u32 offset{};       ///< Buffer iterator.
+    u32 mapped_size{};  ///< Size reserved for the current copy.
     bool is_coherent{}; ///< True if the buffer is coherent
 
     std::vector<Watch> current_watches;           ///< Watches recorded in the current iteration.

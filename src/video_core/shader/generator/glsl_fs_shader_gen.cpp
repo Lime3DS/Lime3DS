@@ -106,7 +106,11 @@ FragmentModule::FragmentModule(const FSConfig& config_, const Profile& profile_)
     out.reserve(RESERVE_SIZE);
     DefineExtensions();
     DefineInterface();
-    DefineBindings();
+    if (profile.is_vulkan) {
+        DefineBindingsVK();
+    } else {
+        DefineBindingsGL();
+    }
     DefineHelpers();
     DefineShadowHelpers();
     DefineLightingHelpers();
@@ -1272,7 +1276,43 @@ void FragmentModule::DefineInterface() {
     out += "layout (location = 0) out vec4 color;\n\n";
 }
 
-void FragmentModule::DefineBindings() {
+void FragmentModule::DefineBindingsVK() {
+    // Uniform and texture buffers
+    out += FSUniformBlockDef;
+    out += "layout(set = 0, binding = 3) uniform samplerBuffer texture_buffer_lut_lf;\n";
+    out += "layout(set = 0, binding = 4) uniform samplerBuffer texture_buffer_lut_rg;\n";
+    out += "layout(set = 0, binding = 5) uniform samplerBuffer texture_buffer_lut_rgba;\n\n";
+
+    // Texture samplers
+    const auto texture_type = config.texture.texture0_type.Value();
+    const auto sampler_tex0 = [&] {
+        switch (texture_type) {
+        case TextureType::Shadow2D:
+        case TextureType::ShadowCube:
+            return "usampler2D";
+        case TextureType::TextureCube:
+            return "samplerCube";
+        default:
+            return "sampler2D";
+        }
+    }();
+    for (u32 i = 0; i < 3; i++) {
+        const auto sampler = i == 0 ? sampler_tex0 : "sampler2D";
+        const auto num_descriptors = i == 0 && texture_type == TextureType::ShadowCube ? "[6]" : "";
+        out += fmt::format("layout(set = 1, binding = {0}) uniform {1} tex{0}{2};\n", i, sampler,
+                           num_descriptors);
+    }
+
+    // Utility textures
+    if (config.framebuffer.shadow_rendering) {
+        out += "layout(set = 2, binding = 0, r32ui) uniform uimage2D shadow_buffer;\n\n";
+    }
+    if (config.user.use_custom_normal) {
+        out += "layout(set = 2, binding = 1) uniform sampler2D tex_normal;\n";
+    }
+}
+
+void FragmentModule::DefineBindingsGL() {
     // Uniform and texture buffers
     out += FSUniformBlockDef;
     out += "layout(binding = 3) uniform samplerBuffer texture_buffer_lut_lf;\n";
@@ -1280,33 +1320,32 @@ void FragmentModule::DefineBindings() {
     out += "layout(binding = 5) uniform samplerBuffer texture_buffer_lut_rgba;\n\n";
 
     // Texture samplers
-    const auto texunit_set = profile.is_vulkan ? "set = 1, " : "";
     const auto texture_type = config.texture.texture0_type.Value();
     for (u32 i = 0; i < 3; i++) {
         const auto sampler =
             i == 0 && texture_type == TextureType::TextureCube ? "samplerCube" : "sampler2D";
-        out +=
-            fmt::format("layout({0}binding = {1}) uniform {2} tex{1};\n", texunit_set, i, sampler);
+        out += fmt::format("layout(binding = {0}) uniform {1} tex{0};\n", i, sampler);
     }
 
-    if (config.user.use_custom_normal && !profile.is_vulkan) {
+    // Utility textures
+    if (config.user.use_custom_normal) {
         out += "layout(binding = 6) uniform sampler2D tex_normal;\n";
     }
-    if (use_blend_fallback && !profile.is_vulkan) {
+    if (use_blend_fallback) {
         out += "layout(location = 7) uniform sampler2D tex_color;\n";
     }
 
-    // Storage images
-    static constexpr std::array postfixes = {"px", "nx", "py", "ny", "pz", "nz"};
-    const auto shadow_set = profile.is_vulkan ? "set = 2, " : "";
-    for (u32 i = 0; i < postfixes.size(); i++) {
-        out += fmt::format(
-            "layout({}binding = {}, r32ui) uniform readonly uimage2D shadow_texture_{};\n",
-            shadow_set, i, postfixes[i]);
+    // Shadow textures
+    if (texture_type == TextureType::Shadow2D || texture_type == TextureType::ShadowCube) {
+        static constexpr std::array postfixes = {"px", "nx", "py", "ny", "pz", "nz"};
+        for (u32 i = 0; i < postfixes.size(); i++) {
+            out += fmt::format(
+                "layout(binding = {}, r32ui) uniform readonly uimage2D shadow_texture_{};\n", i,
+                postfixes[i]);
+        }
     }
     if (config.framebuffer.shadow_rendering) {
-        out += fmt::format("layout({}binding = 6, r32ui) uniform uimage2D shadow_buffer;\n\n",
-                           shadow_set);
+        out += "layout(binding = 6, r32ui) uniform uimage2D shadow_buffer;\n\n";
     }
 }
 
@@ -1414,19 +1453,48 @@ float mix2(vec4 s, vec2 a) {
 )";
 
         if (config.texture.texture0_type == TexturingRegs::TextureConfig::Shadow2D) {
-            out += R"(
+            if (profile.is_vulkan) {
+                out += R"(
 float SampleShadow2D(ivec2 uv, uint z) {
-    if (any(bvec4( lessThan(uv, ivec2(0)), greaterThanEqual(uv, imageSize(shadow_texture_px)) )))
+    if (any(bvec4(lessThan(uv, ivec2(0)), greaterThanEqual(uv, textureSize(tex0, 0)))))
+        return 1.0;
+    return CompareShadow(texelFetch(tex0, uv, 0).x, z);
+}
+
+vec4 shadowTexture(vec2 uv, float w) {
+)";
+                if (!config.texture.shadow_texture_orthographic) {
+                    out += "uv /= w;";
+                }
+                out += R"(
+    uint z = uint(max(0, int(min(abs(w), 1.0) * float(0xFFFFFF)) - shadow_texture_bias));
+    vec2 coord = vec2(textureSize(tex0, 0)) * uv - vec2(0.5);
+    vec2 coord_floor = floor(coord);
+    vec2 f = coord - coord_floor;
+    ivec2 i = ivec2(coord_floor);
+    vec4 s = vec4(
+        SampleShadow2D(i              , z),
+        SampleShadow2D(i + ivec2(1, 0), z),
+        SampleShadow2D(i + ivec2(0, 1), z),
+        SampleShadow2D(i + ivec2(1, 1), z));
+    return vec4(mix2(s, f));
+}
+)";
+
+            } else {
+                out += R"(
+float SampleShadow2D(ivec2 uv, uint z) {
+    if (any(bvec4(lessThan(uv, ivec2(0)), greaterThanEqual(uv, imageSize(shadow_texture_px)))))
         return 1.0;
     return CompareShadow(imageLoad(shadow_texture_px, uv).x, z);
 }
 
 vec4 shadowTexture(vec2 uv, float w) {
 )";
-            if (!config.texture.shadow_texture_orthographic) {
-                out += "uv /= w;";
-            }
-            out += R"(
+                if (!config.texture.shadow_texture_orthographic) {
+                    out += "uv /= w;";
+                }
+                out += R"(
     uint z = uint(max(0, int(min(abs(w), 1.0) * float(0xFFFFFF)) - shadow_texture_bias));
     vec2 coord = vec2(imageSize(shadow_texture_px)) * uv - vec2(0.5);
     vec2 coord_floor = floor(coord);
@@ -1440,8 +1508,75 @@ vec4 shadowTexture(vec2 uv, float w) {
     return vec4(mix2(s, f));
 }
 )";
+            }
         } else if (config.texture.texture0_type == TexturingRegs::TextureConfig::ShadowCube) {
-            out += R"(
+            if (profile.is_vulkan) {
+                out += R"(
+uvec4 SampleShadowCube(int face, ivec2 i00, ivec2 i10, ivec2 i01, ivec2 i11) {
+    return uvec4(
+        texelFetch(tex0[face], i00, 0).r,
+        texelFetch(tex0[face], i10, 0).r,
+        texelFetch(tex0[face], i01, 0).r,
+        texelFetch(tex0[face], i11, 0).r);
+}
+
+vec4 shadowTextureCube(vec2 uv, float w) {
+    ivec2 size = textureSize(tex0[0], 0);
+    vec3 c = vec3(uv, w);
+    vec3 a = abs(c);
+    if (a.x > a.y && a.x > a.z) {
+        w = a.x;
+        uv = -c.zy;
+        if (c.x < 0.0) uv.x = -uv.x;
+    } else if (a.y > a.z) {
+        w = a.y;
+        uv = c.xz;
+        if (c.y < 0.0) uv.y = -uv.y;
+    } else {
+        w = a.z;
+        uv = -c.xy;
+        if (c.z > 0.0) uv.x = -uv.x;
+    }
+    uint z = uint(max(0, int(min(w, 1.0) * float(0xFFFFFF)) - shadow_texture_bias));
+    vec2 coord = vec2(size) * (uv / w * vec2(0.5) + vec2(0.5)) - vec2(0.5);
+    vec2 coord_floor = floor(coord);
+    vec2 f = coord - coord_floor;
+    ivec2 i00 = ivec2(coord_floor);
+    ivec2 i10 = i00 + ivec2(1, 0);
+    ivec2 i01 = i00 + ivec2(0, 1);
+    ivec2 i11 = i00 + ivec2(1, 1);
+    ivec2 cmin = ivec2(0), cmax = size - ivec2(1, 1);
+    i00 = clamp(i00, cmin, cmax);
+    i10 = clamp(i10, cmin, cmax);
+    i01 = clamp(i01, cmin, cmax);
+    i11 = clamp(i11, cmin, cmax);
+    uvec4 pixels;
+    if (a.x > a.y && a.x > a.z) {
+        if (c.x > 0.0)
+            pixels = SampleShadowCube(0, i00, i10, i01, i11);
+        else
+            pixels = SampleShadowCube(1, i00, i10, i01, i11);
+    } else if (a.y > a.z) {
+        if (c.y > 0.0)
+            pixels = SampleShadowCube(2, i00, i10, i01, i11);
+        else
+            pixels = SampleShadowCube(3, i00, i10, i01, i11);
+    } else {
+        if (c.z > 0.0)
+            pixels = SampleShadowCube(4, i00, i10, i01, i11);
+        else
+            pixels = SampleShadowCube(5, i00, i10, i01, i11);
+    }
+    vec4 s = vec4(
+        CompareShadow(pixels.x, z),
+        CompareShadow(pixels.y, z),
+        CompareShadow(pixels.z, z),
+        CompareShadow(pixels.w, z));
+    return vec4(mix2(s, f));
+}
+    )";
+            } else {
+                out += R"(
 vec4 shadowTextureCube(vec2 uv, float w) {
     ivec2 size = imageSize(shadow_texture_px);
     vec3 c = vec3(uv, w);
@@ -1523,6 +1658,7 @@ vec4 shadowTextureCube(vec2 uv, float w) {
     return vec4(mix2(s, f));
 }
     )";
+            }
         }
     }
 }

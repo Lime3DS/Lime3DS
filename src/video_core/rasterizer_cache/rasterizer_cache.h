@@ -600,14 +600,43 @@ typename T::Surface& RasterizerCache<T>::GetTextureCube(const TextureCubeConfig&
     auto [it, new_surface] = texture_cube_cache.try_emplace(config);
     TextureCube& cube = it->second;
 
+    const std::array addresses = {config.px, config.nx, config.py, config.ny, config.pz, config.nz};
+
     if (new_surface) {
+        Pica::Texture::TextureInfo info = {
+            .width = config.width,
+            .height = config.width,
+            .format = config.format,
+        };
+        info.SetDefaultStride();
+
+        u32 res_scale = 1;
+        for (u32 i = 0; i < addresses.size(); i++) {
+            if (!addresses[i]) {
+                continue;
+            }
+
+            SurfaceId& face_id = cube.face_ids[i];
+            if (!face_id) {
+                info.physical_address = addresses[i];
+                face_id = GetTextureSurface(info, config.levels - 1);
+                Surface& surface = slot_surfaces[face_id];
+                ASSERT_MSG(
+                    surface.levels >= config.levels,
+                    "Texture cube face levels are not enough to validate the levels requested");
+                surface.flags |= SurfaceFlagBits::Tracked;
+            }
+            Surface& surface = slot_surfaces[face_id];
+            res_scale = std::max(surface.res_scale, res_scale);
+        }
+
         SurfaceParams cube_params = {
             .addr = config.px,
             .width = config.width,
             .height = config.width,
             .stride = config.width,
             .levels = config.levels,
-            .res_scale = filter != Settings::TextureFilter::None ? resolution_scale_factor : 1,
+            .res_scale = res_scale,
             .texture_type = TextureType::CubeMap,
             .pixel_format = PixelFormatFromTextureFormat(config.format),
             .type = SurfaceType::Texture,
@@ -616,38 +645,20 @@ typename T::Surface& RasterizerCache<T>::GetTextureCube(const TextureCubeConfig&
         cube.surface_id = CreateSurface(cube_params);
     }
 
-    const u32 scaled_size = slot_surfaces[cube.surface_id].GetScaledWidth();
-    const std::array addresses = {config.px, config.nx, config.py, config.ny, config.pz, config.nz};
-
-    Pica::Texture::TextureInfo info = {
-        .width = config.width,
-        .height = config.width,
-        .format = config.format,
-    };
-    info.SetDefaultStride();
-
+    Surface& cube_surface = slot_surfaces[cube.surface_id];
     for (u32 i = 0; i < addresses.size(); i++) {
         if (!addresses[i]) {
             continue;
         }
-
-        SurfaceId& face_id = cube.face_ids[i];
-        if (!face_id) {
-            info.physical_address = addresses[i];
-            face_id = GetTextureSurface(info, config.levels - 1);
-            ASSERT_MSG(slot_surfaces[face_id].levels >= config.levels,
-                       "Texture cube face levels are not enough to validate the levels requested");
-        }
-        Surface& surface = slot_surfaces[face_id];
-        surface.flags |= SurfaceFlagBits::Tracked;
+        Surface& surface = slot_surfaces[cube.face_ids[i]];
         if (cube.ticks[i] == surface.modification_tick) {
             continue;
         }
         cube.ticks[i] = surface.modification_tick;
-        Surface& cube_surface = slot_surfaces[cube.surface_id];
+        boost::container::small_vector<TextureCopy, 8> upload_copies;
         for (u32 level = 0; level < config.levels; level++) {
-            const u32 width_lod = scaled_size >> level;
-            const TextureCopy texture_copy = {
+            const u32 width_lod = surface.GetScaledWidth() >> level;
+            upload_copies.push_back({
                 .src_level = level,
                 .dst_level = level,
                 .src_layer = 0,
@@ -655,9 +666,9 @@ typename T::Surface& RasterizerCache<T>::GetTextureCube(const TextureCubeConfig&
                 .src_offset = {0, 0},
                 .dst_offset = {0, 0},
                 .extent = {width_lod, width_lod},
-            };
-            runtime.CopyTextures(surface, cube_surface, texture_copy);
+            });
         }
+        runtime.CopyTextures(surface, cube_surface, upload_copies);
     }
 
     return slot_surfaces[cube.surface_id];

@@ -40,7 +40,7 @@ private:
 namespace Vulkan {
 
 class Instance;
-class RenderpassCache;
+class RenderManager;
 
 constexpr u32 MAX_SHADER_STAGES = 3;
 constexpr u32 MAX_VERTEX_ATTRIBUTES = 16;
@@ -126,7 +126,7 @@ struct AttachmentInfo {
 };
 
 /**
- * Information about a graphics/compute pipeline
+ * Information about a graphics pipeline
  */
 struct PipelineInfo {
     BlendingState blending;
@@ -165,7 +165,7 @@ struct Shader : public Common::AsyncHandle {
 
 class GraphicsPipeline : public Common::AsyncHandle {
 public:
-    explicit GraphicsPipeline(const Instance& instance, RenderpassCache& renderpass_cache,
+    explicit GraphicsPipeline(const Instance& instance, RenderManager& renderpass_cache,
                               const PipelineInfo& info, vk::PipelineCache pipeline_cache,
                               vk::PipelineLayout layout, std::array<Shader*, 3> stages,
                               Common::ThreadWorker* worker);
@@ -181,7 +181,7 @@ public:
 
 private:
     const Instance& instance;
-    RenderpassCache& renderpass_cache;
+    RenderManager& renderpass_cache;
     Common::ThreadWorker* worker;
 
     vk::UniquePipeline pipeline;
