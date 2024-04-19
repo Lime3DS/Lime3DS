@@ -88,9 +88,9 @@ class InputOverlayDrawableJoystick(
 
     fun draw(canvas: Canvas?) {
         outerBitmap.draw(canvas!!)
+        boundsBoxBitmap.draw(canvas)
         currentStateBitmapDrawable.alpha = opacity
         currentStateBitmapDrawable.draw(canvas)
-        boundsBoxBitmap.draw(canvas)
     }
 
     fun updateStatus(event: MotionEvent, overlay:InputOverlay): Boolean {
