@@ -462,8 +462,6 @@ void RasterizerVulkan::DrawTriangles() {
 }
 
 bool RasterizerVulkan::Draw(bool accelerate, bool is_indexed) {
-    MICROPROFILE_SCOPE(Vulkan_Drawing);
-
     const bool shadow_rendering = regs.framebuffer.IsShadowRendering();
     const bool has_stencil = regs.framebuffer.HasStencil();
 

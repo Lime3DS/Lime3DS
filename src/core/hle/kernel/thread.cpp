@@ -264,6 +264,11 @@ void Thread::WakeAfterDelay(s64 nanoseconds, bool thread_safe_mode) {
         return;
     std::size_t core = thread_safe_mode ? core_id : std::numeric_limits<std::size_t>::max();
 
+    if ((nanoseconds & 0x7000000000000000) == 0x7000000000000000) {
+        // fx jit bug
+        nanoseconds &= 0xFFFFFFFF;
+    }
+
     thread_manager.kernel.timing.ScheduleEvent(nsToCycles(nanoseconds),
                                                thread_manager.ThreadWakeupEventType, thread_id,
                                                core, thread_safe_mode);

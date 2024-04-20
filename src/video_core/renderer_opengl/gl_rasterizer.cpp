@@ -374,8 +374,6 @@ void RasterizerOpenGL::DrawTriangles() {
 }
 
 bool RasterizerOpenGL::Draw(bool accelerate, bool is_indexed) {
-    MICROPROFILE_SCOPE(OpenGL_Drawing);
-
     const bool shadow_rendering = regs.framebuffer.IsShadowRendering();
     const bool has_stencil = regs.framebuffer.HasStencil();
 
@@ -735,7 +733,6 @@ bool RasterizerOpenGL::AccelerateDisplay(const Pica::FramebufferConfig& config,
     if (framebuffer_addr == 0) {
         return false;
     }
-    MICROPROFILE_SCOPE(OpenGL_Display);
 
     VideoCore::SurfaceParams src_params;
     src_params.addr = framebuffer_addr;
