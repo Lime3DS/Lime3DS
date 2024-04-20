@@ -242,7 +242,7 @@ void Timing::Timer::SetNextSlice(s64 max_slice_length) {
             std::min<s64>(event_queue.front().time - executed_ticks, max_slice_length));
     }
 
-    downcount = slice_length;
+    downcount = slice_length >> downcount_hack;
 }
 
 void Timing::Timer::Idle() {

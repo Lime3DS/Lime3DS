@@ -203,13 +203,23 @@
        </widget>
       </item>
       <item row="3" column="0">
+       <widget class="QCheckBox" name="toggle_core_downcount_hack">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, core downcount will be limited to a smaller time slice, reducing CPU usage. May cause performance issues for some games, or may improve for another games&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Enable Core Downcount Hack</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
        <widget class="QCheckBox" name="toggle_renderer_debug">
         <property name="text">
          <string>Enable debug renderer</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="5" column="0">
        <widget class="QCheckBox" name="toggle_dump_command_buffers">
         <property name="text">
          <string>Dump command buffers</string>

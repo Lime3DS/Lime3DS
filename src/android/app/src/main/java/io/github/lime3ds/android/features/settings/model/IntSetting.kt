@@ -38,6 +38,7 @@ enum class IntSetting(
     CPU_JIT("use_cpu_jit", Settings.SECTION_CORE, 1),
     HW_SHADER("use_hw_shader", Settings.SECTION_RENDERER, 1),
     VSYNC("use_vsync_new", Settings.SECTION_RENDERER, 1),
+    CORE_DOWNCOUNT_HACK("core_downcount_hack", Settings.SECTION_CORE, 0),
     DEBUG_RENDERER("renderer_debug", Settings.SECTION_DEBUG, 0),
     TEXTURE_FILTER("texture_filter", Settings.SECTION_RENDERER, 0),
     USE_FRAME_LIMIT("use_frame_limit", Settings.SECTION_RENDERER, 1);
@@ -65,6 +66,7 @@ enum class IntSetting(
             LLE_APPLETS,
             GRAPHICS_API,
             VSYNC,
+            CORE_DOWNCOUNT_HACK,
             DEBUG_RENDERER,
             CPU_JIT,
             ASYNC_CUSTOM_LOADING,

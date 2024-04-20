@@ -457,6 +457,7 @@ void Config::ReadCoreValues() {
 
     if (global) {
         ReadBasicSetting(Settings::values.use_cpu_jit);
+        ReadBasicSetting(Settings::values.core_downcount_hack);
         ReadBasicSetting(Settings::values.delay_start_for_lle_modules);
     }
 
@@ -993,6 +994,7 @@ void Config::SaveCoreValues() {
 
     if (global) {
         WriteBasicSetting(Settings::values.use_cpu_jit);
+        WriteBasicSetting(Settings::values.core_downcount_hack);
         WriteBasicSetting(Settings::values.delay_start_for_lle_modules);
     }
 

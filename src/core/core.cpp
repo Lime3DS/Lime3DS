@@ -425,6 +425,10 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
     kernel->SetCPUs(cpu_cores);
     kernel->SetRunningCPU(cpu_cores[0].get());
 
+    if (Settings::values.core_downcount_hack) {
+        SetDowncountHack(true, num_cores);
+    }
+
     const auto audio_emulation = Settings::values.audio_emulation.GetValue();
     if (audio_emulation == Settings::AudioEmulation::HLE) {
         dsp_core = std::make_unique<AudioCore::DspHle>(*this);
@@ -562,6 +566,19 @@ void System::RegisterSoftwareKeyboard(std::shared_ptr<Frontend::SoftwareKeyboard
 
 void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> image_interface) {
     registered_image_interface = std::move(image_interface);
+}
+
+void System::SetDowncountHack(bool enabled, u32 num_cores) {
+    if (enabled) {
+        u32 hacks[4] = {1, 4, 2, 2};
+        for (u32 i = 0; i < num_cores; ++i) {
+            timing->GetTimer(i)->SetDowncountHack(hacks[i]);
+        }
+    } else {
+        for (u32 i = 0; i < num_cores; ++i) {
+            timing->GetTimer(i)->SetDowncountHack(0);
+        }
+    }
 }
 
 void System::Shutdown(bool is_deserializing) {

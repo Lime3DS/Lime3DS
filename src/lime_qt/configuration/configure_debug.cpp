@@ -71,6 +71,7 @@ ConfigureDebug::ConfigureDebug(bool is_powered_on_, QWidget* parent)
 #endif
 
     ui->toggle_cpu_jit->setEnabled(!is_powered_on);
+    ui->toggle_core_downcount_hack->setEnabled(!is_powered_on);
     ui->toggle_renderer_debug->setEnabled(!is_powered_on);
     ui->toggle_dump_command_buffers->setEnabled(!is_powered_on);
 
@@ -100,6 +101,7 @@ void ConfigureDebug::SetConfiguration() {
     ui->toggle_cpu_jit->setChecked(Settings::values.use_cpu_jit.GetValue());
     ui->delay_start_for_lle_modules->setChecked(
         Settings::values.delay_start_for_lle_modules.GetValue());
+    ui->toggle_core_downcount_hack->setChecked(Settings::values.core_downcount_hack.GetValue());
     ui->toggle_renderer_debug->setChecked(Settings::values.renderer_debug.GetValue());
     ui->toggle_dump_command_buffers->setChecked(Settings::values.dump_command_buffers.GetValue());
 
@@ -132,6 +134,7 @@ void ConfigureDebug::ApplyConfiguration() {
     Common::Log::SetGlobalFilter(filter);
     Settings::values.use_cpu_jit = ui->toggle_cpu_jit->isChecked();
     Settings::values.delay_start_for_lle_modules = ui->delay_start_for_lle_modules->isChecked();
+    Settings::values.core_downcount_hack = ui->toggle_core_downcount_hack->isChecked();
     Settings::values.renderer_debug = ui->toggle_renderer_debug->isChecked();
     Settings::values.dump_command_buffers = ui->toggle_dump_command_buffers->isChecked();
 
