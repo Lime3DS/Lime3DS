@@ -401,6 +401,7 @@ private:
         if (reg.empty() || dest_mask_num_components == 0) {
             return;
         }
+        DEBUG_ASSERT(value_num_components >= dest_num_components || value_num_components == 1);
 
         const std::string dest =
             fmt::format("{}{}", reg, dest_num_components != 1 ? dest_mask_swizzle : "");

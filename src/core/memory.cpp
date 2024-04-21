@@ -180,6 +180,8 @@ public:
                 break;
             }
             case PageType::Memory: {
+                DEBUG_ASSERT(page_table.pointers[page_index]);
+
                 const u8* src_ptr = page_table.pointers[page_index] + page_offset;
                 std::memcpy(dest_buffer, src_ptr, copy_amount);
                 break;
@@ -226,6 +228,8 @@ public:
                 break;
             }
             case PageType::Memory: {
+                DEBUG_ASSERT(page_table.pointers[page_index]);
+
                 u8* dest_ptr = page_table.pointers[page_index] + page_offset;
                 std::memcpy(dest_ptr, src_buffer, copy_amount);
                 break;
@@ -852,6 +856,8 @@ void MemorySystem::ZeroBlock(const Kernel::Process& process, const VAddr dest_ad
             break;
         }
         case PageType::Memory: {
+            DEBUG_ASSERT(page_table.pointers[page_index]);
+
             u8* dest_ptr = page_table.pointers[page_index] + page_offset;
             std::memset(dest_ptr, 0, copy_amount);
             break;
@@ -900,6 +906,7 @@ void MemorySystem::CopyBlock(const Kernel::Process& dest_process,
             break;
         }
         case PageType::Memory: {
+            DEBUG_ASSERT(page_table.pointers[page_index]);
             const u8* src_ptr = page_table.pointers[page_index] + page_offset;
             WriteBlock(dest_process, dest_addr, src_ptr, copy_amount);
             break;
