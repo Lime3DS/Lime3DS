@@ -422,7 +422,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     private fun rotateScreen() {
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             (context as? EmulationActivity)?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        } else if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSPACE) {
+        } else if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             (context as? EmulationActivity)?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         } else {
             (context as? EmulationActivity)?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
