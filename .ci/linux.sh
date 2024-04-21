@@ -1,7 +1,6 @@
 #!/bin/bash -ex
 
 if [ "$TARGET" = "appimage" ]; then
-    # Compile the AppImage we distribute with Clang.
     export EXTRA_CMAKE_FLAGS=(-DCMAKE_LINKER=/etc/bin/ld.lld)
 else
     # For the linux-fresh verification target, verify compilation without PCH as well.
@@ -24,10 +23,6 @@ ninja
 
 if [ "$TARGET" = "appimage" ]; then
     ninja bundle
-    # TODO: Our AppImage environment currently uses an older ccache version without the verbose flag.
-    ccache -s
-else
-    ccache -s -v
 fi
-
+ccache -s -v
 ctest -VV -C Release
