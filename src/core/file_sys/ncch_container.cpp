@@ -577,11 +577,26 @@ Loader::ResultStatus NCCHContainer::ApplyCodePatch(std::vector<u8>& code) const 
     const auto mods_path =
         fmt::format("{}mods/{:016X}/", FileUtil::GetUserPath(FileUtil::UserPath::LoadDir),
                     GetModId(ncch_header.program_id));
-    const std::array<PatchLocation, 6> patch_paths{{
+
+    constexpr u32 system_module_tid_high = 0x00040130;
+
+    std::string luma_ips_location;
+    if ((static_cast<u32>(ncch_header.program_id >> 32) & system_module_tid_high) ==
+        system_module_tid_high) {
+        luma_ips_location =
+            fmt::format("{}luma/sysmodules/{:016X}.ips",
+                        FileUtil::GetUserPath(FileUtil::UserPath::SDMCDir), ncch_header.program_id);
+    } else {
+        luma_ips_location =
+            fmt::format("{}luma/titles/{:016X}/code.ips",
+                        FileUtil::GetUserPath(FileUtil::UserPath::SDMCDir), ncch_header.program_id);
+    }
+    const std::array<PatchLocation, 7> patch_paths{{
         {mods_path + "exefs/code.ips", Patch::ApplyIpsPatch},
         {mods_path + "exefs/code.bps", Patch::ApplyBpsPatch},
         {mods_path + "code.ips", Patch::ApplyIpsPatch},
         {mods_path + "code.bps", Patch::ApplyBpsPatch},
+        {luma_ips_location, Patch::ApplyIpsPatch},
         {filepath + ".exefsdir/code.ips", Patch::ApplyIpsPatch},
         {filepath + ".exefsdir/code.bps", Patch::ApplyBpsPatch},
     }};
