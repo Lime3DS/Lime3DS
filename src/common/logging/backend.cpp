@@ -13,6 +13,7 @@
 #define _SH_DENYWR 0
 #endif
 
+#include <boost/algorithm/string/replace.hpp>
 #ifdef CITRA_LINUX_GCC_BACKTRACE
 #define BOOST_STACKTRACE_USE_BACKTRACE
 #include <boost/stacktrace.hpp>
@@ -89,7 +90,7 @@ class FileBackend final : public Backend {
 public:
     explicit FileBackend(const std::string& filename) {
         auto old_filename = filename;
-        old_filename += ".old.txt";
+        boost::replace_all(old_filename, ".txt", ".old.txt");
 
         // Existence checks are done within the functions themselves.
         // We don't particularly care if these succeed or not.
