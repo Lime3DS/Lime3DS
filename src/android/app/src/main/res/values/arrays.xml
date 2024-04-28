@@ -233,6 +233,31 @@
         <item>2</item>
     </integer-array>
 
+    <string-array name="resolutionFactorNames">
+        <item>@string/internal_resolution_setting_1x</item>
+        <item>@string/internal_resolution_setting_2x</item>
+        <item>@string/internal_resolution_setting_3x</item>
+        <item>@string/internal_resolution_setting_4x</item>
+        <item>@string/internal_resolution_setting_5x</item>
+        <item>@string/internal_resolution_setting_6x</item>
+        <item>@string/internal_resolution_setting_7x</item>
+        <item>@string/internal_resolution_setting_8x</item>
+        <item>@string/internal_resolution_setting_9x</item>
+        <item>@string/internal_resolution_setting_10x</item>
+    </string-array>
+    <integer-array name="resolutionFactorValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </integer-array>
+
     <string-array name="countries">
         <item></item>
         <item>@string/japan</item>
