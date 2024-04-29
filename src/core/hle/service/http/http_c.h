@@ -183,7 +183,7 @@ public:
     };
 
     struct RequestHeader {
-        RequestHeader(std::string name, std::string value) : name(name), value(value){};
+        RequestHeader(std::string name, std::string value) : name(name), value(value) {};
         std::string name;
         std::string value;
 
@@ -213,10 +213,10 @@ public:
 
     struct Param {
         Param(const std::vector<u8>& value)
-            : name(value.begin(), value.end()), value(value.begin(), value.end()){};
-        Param(const std::string& name, const std::string& value) : name(name), value(value){};
+            : name(value.begin(), value.end()), value(value.begin(), value.end()) {};
+        Param(const std::string& name, const std::string& value) : name(name), value(value) {};
         Param(const std::string& name, const std::vector<u8>& value)
-            : name(name), value(value.begin(), value.end()), is_binary(true){};
+            : name(name), value(value.begin(), value.end()), is_binary(true) {};
         std::string name;
         std::string value;
         bool is_binary = false;
