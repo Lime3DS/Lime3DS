@@ -24,6 +24,7 @@ class ConfigureSystem;
 class ConfigureInput;
 class ConfigureHotkeys;
 class ConfigureGraphics;
+class ConfigureLayout;
 class ConfigureEnhancements;
 class ConfigureAudio;
 class ConfigureCamera;
@@ -66,6 +67,7 @@ private:
     std::unique_ptr<ConfigureHotkeys> hotkeys_tab;
     std::unique_ptr<ConfigureGraphics> graphics_tab;
     std::unique_ptr<ConfigureEnhancements> enhancements_tab;
+    std::unique_ptr<ConfigureLayout> layout_tab;
     std::unique_ptr<ConfigureAudio> audio_tab;
     std::unique_ptr<ConfigureCamera> camera_tab;
     std::unique_ptr<ConfigureDebug> debug_tab;

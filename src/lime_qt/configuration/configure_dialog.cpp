@@ -15,6 +15,7 @@
 #include "lime_qt/configuration/configure_graphics.h"
 #include "lime_qt/configuration/configure_hotkeys.h"
 #include "lime_qt/configuration/configure_input.h"
+#include "lime_qt/configuration/configure_layout.h"
 #include "lime_qt/configuration/configure_storage.h"
 #include "lime_qt/configuration/configure_system.h"
 #include "lime_qt/configuration/configure_ui.h"
@@ -34,6 +35,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
       graphics_tab{
           std::make_unique<ConfigureGraphics>(gl_renderer, physical_devices, is_powered_on, this)},
       enhancements_tab{std::make_unique<ConfigureEnhancements>(this)},
+      layout_tab{std::make_unique<ConfigureLayout>(this)},
       audio_tab{std::make_unique<ConfigureAudio>(is_powered_on, this)},
       camera_tab{std::make_unique<ConfigureCamera>(this)},
       debug_tab{std::make_unique<ConfigureDebug>(is_powered_on, this)},
@@ -49,6 +51,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
     ui->tabWidget->addTab(hotkeys_tab.get(), tr("Hotkeys"));
     ui->tabWidget->addTab(graphics_tab.get(), tr("Graphics"));
     ui->tabWidget->addTab(enhancements_tab.get(), tr("Enhancements"));
+    ui->tabWidget->addTab(layout_tab.get(), tr("Layout"));
     ui->tabWidget->addTab(audio_tab.get(), tr("Audio"));
     ui->tabWidget->addTab(camera_tab.get(), tr("Camera"));
     ui->tabWidget->addTab(debug_tab.get(), tr("Debug"));
@@ -86,6 +89,7 @@ void ConfigureDialog::SetConfiguration() {
     input_tab->LoadConfiguration();
     graphics_tab->SetConfiguration();
     enhancements_tab->SetConfiguration();
+    layout_tab->SetConfiguration();
     audio_tab->SetConfiguration();
     camera_tab->SetConfiguration();
     debug_tab->SetConfiguration();
@@ -102,6 +106,7 @@ void ConfigureDialog::ApplyConfiguration() {
     hotkeys_tab->ApplyConfiguration(registry);
     graphics_tab->ApplyConfiguration();
     enhancements_tab->ApplyConfiguration();
+    layout_tab->ApplyConfiguration();
     audio_tab->ApplyConfiguration();
     camera_tab->ApplyConfiguration();
     debug_tab->ApplyConfiguration();
@@ -120,7 +125,7 @@ void ConfigureDialog::PopulateSelectionList() {
     const std::array<std::pair<QString, QList<QWidget*>>, 5> items{
         {{tr("General"), {general_tab.get(), web_tab.get(), debug_tab.get(), ui_tab.get()}},
          {tr("System"), {system_tab.get(), camera_tab.get(), storage_tab.get()}},
-         {tr("Graphics"), {enhancements_tab.get(), graphics_tab.get()}},
+         {tr("Graphics"), {enhancements_tab.get(), layout_tab.get(), graphics_tab.get()}},
          {tr("Audio"), {audio_tab.get()}},
          {tr("Controls"), {input_tab.get(), hotkeys_tab.get()}}}};
 
@@ -155,6 +160,7 @@ void ConfigureDialog::RetranslateUI() {
     hotkeys_tab->RetranslateUI();
     graphics_tab->RetranslateUI();
     enhancements_tab->RetranslateUI();
+    layout_tab->RetranslateUI();
     audio_tab->RetranslateUI();
     camera_tab->RetranslateUI();
     debug_tab->RetranslateUI();
@@ -173,6 +179,7 @@ void ConfigureDialog::UpdateVisibleTabs() {
                                                  {input_tab.get(), tr("Input")},
                                                  {hotkeys_tab.get(), tr("Hotkeys")},
                                                  {enhancements_tab.get(), tr("Enhancements")},
+                                                 {layout_tab.get(), tr("Layout")},
                                                  {graphics_tab.get(), tr("Advanced")},
                                                  {audio_tab.get(), tr("Audio")},
                                                  {camera_tab.get(), tr("Camera")},

@@ -17,15 +17,15 @@ enum class CheckState;
 }
 
 namespace Ui {
-class ConfigureEnhancements;
+class ConfigureLayout;
 }
 
-class ConfigureEnhancements : public QWidget {
+class ConfigureLayout : public QWidget {
     Q_OBJECT
 
 public:
-    explicit ConfigureEnhancements(QWidget* parent = nullptr);
-    ~ConfigureEnhancements();
+    explicit ConfigureLayout(QWidget* parent = nullptr);
+    ~ConfigureLayout();
 
     void ApplyConfiguration();
     void RetranslateUI();
@@ -37,11 +37,8 @@ private:
     void updateShaders(Settings::StereoRenderOption stereo_option);
     void updateTextureFilter(int index);
 
-    std::unique_ptr<Ui::ConfigureEnhancements> ui;
-    ConfigurationShared::CheckState linear_filter;
-    ConfigurationShared::CheckState dump_textures;
-    ConfigurationShared::CheckState custom_textures;
-    ConfigurationShared::CheckState preload_textures;
-    ConfigurationShared::CheckState async_custom_loading;
+    std::unique_ptr<Ui::ConfigureLayout> ui;
+    ConfigurationShared::CheckState swap_screen;
+    ConfigurationShared::CheckState upright_screen;
     QColor bg_color;
 };
