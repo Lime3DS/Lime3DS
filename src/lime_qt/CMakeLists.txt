@@ -48,6 +48,9 @@ add_executable(lime-qt
     configuration/configure_enhancements.cpp
     configuration/configure_enhancements.h
     configuration/configure_enhancements.ui
+    configuration/configure_layout.cpp
+    configuration/configure_layout.h
+    configuration/configure_layout.ui
     configuration/configure_dialog.cpp
     configuration/configure_dialog.h
     configuration/configure_general.cpp
