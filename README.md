@@ -50,8 +50,8 @@ We are also on Flathub:
 Please refer to our website's [wiki](https://lime3ds.github.io/pages/wiki.html) in order to find building instructions for Windows, Linux, Android and MacOS
 
 # What's next?
-We keep a public roadmap of what features are planned to be included in the next update or two.
-You can find this at https://github.com/Lime3DS/Lime3DS/milestones
+We keep a public roadmap of what features/bug fixes are planned to be included in the next update or two.
+You can find this at https://github.com/Lime3DS/Lime3DS/milestones.
 
 # How can I contribute?
 If you believe you can help with this project, please lend us your talent! We're a team of passionate enthusiasts who need all the help we can get.
