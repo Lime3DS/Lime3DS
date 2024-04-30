@@ -130,10 +130,10 @@ static bool CheckMicPermission() {
 }
 
 static Core::System::ResultStatus RunCitra(const std::string& filepath) {
-    // Citra core only supports a single running instance
+    // Lime3DS core only supports a single running instance
     std::scoped_lock lock(running_mutex);
 
-    LOG_INFO(Frontend, "Citra starting...");
+    LOG_INFO(Frontend, "Lime3DS starting...");
 
     MicroProfileOnThreadCreate("EmuThread");
 

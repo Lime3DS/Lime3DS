@@ -21,8 +21,8 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="14"/>
-        <source>About Citra</source>
-        <translation>Over Citra</translation>
+        <source>About Lime3DS</source>
+        <translation>Over Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="30"/>
@@ -31,8 +31,8 @@
     </message>
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="60"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Citra&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Citra&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Lime3DS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Lime3DS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="73"/>
@@ -45,14 +45,14 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt;&quot;&gt;Citra is a free and open source 3DS emulator licensed under GPLv2.0 or any later version.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt;&quot;&gt;Lime3DS is a free and open source 3DS emulator licensed under GPLv2.0 or any later version.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt;&quot;&gt;This software should not be used to play games you have not legally obtained.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt;&quot;&gt;Citra is een gratis en open source 3DS emulator gelicentieerd onder GPLv2.0 of een latere versie.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt;&quot;&gt;Lime3DS is een gratis en open source 3DS emulator gelicentieerd onder GPLv2.0 of een latere versie.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt;&quot;&gt;Deze software is niet bedoeld om spellen te spelen die je niet legaal verkregen hebt.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -63,8 +63,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="134"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt;&quot;&gt;&amp;quot;3DS&amp;quot; is a trademark of Nintendo. Citra is not affiliated with Nintendo in any way.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt;&quot;&gt;&amp;quot;3DS&amp;quot; is een handelsmerk van Nintendo. Citra is op geen enkele manier aan Nintendo verbonden.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt;&quot;&gt;&amp;quot;3DS&amp;quot; is a trademark of Nintendo. Lime3DS is not affiliated with Nintendo in any way.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt;&quot;&gt;&amp;quot;3DS&amp;quot; is een handelsmerk van Nintendo. Lime3DS is op geen enkele manier aan Nintendo verbonden.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -302,8 +302,8 @@ Dit zal hun Forum gebruikersnaam en IP adres verbannen.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="36"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Should you choose to submit a test case to the &lt;/span&gt;&lt;a href=&quot;https://citra-emu.org/game/&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Citra Compatibility List&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;, The following information will be collected and displayed on the site:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hardware Information (CPU / GPU / Operating System)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Which version of Citra you are running&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The connected Citra account&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Als je een rapport stuurt naar de &lt;/span&gt;&lt;a href=&quot;https://citra-emu.org/game/&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Citra Compatibiliteit Lijst&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;, wordt het volgende verzamelt en weergegeven op de site:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hardware Informatie (CPU / GPU / Bestuurings Systeem)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Welke versie van Citra u gebruikt&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Het verbonden Citra account&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Should you choose to submit a test case to the &lt;/span&gt;&lt;a href=&quot;https://citra-emu.org/game/&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Lime3DS Compatibility List&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;, The following information will be collected and displayed on the site:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hardware Information (CPU / GPU / Operating System)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Which version of Lime3DS you are running&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The connected Lime3DS account&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Als je een rapport stuurt naar de &lt;/span&gt;&lt;a href=&quot;https://citra-emu.org/game/&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Lime3DS Compatibiliteit Lijst&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;, wordt het volgende verzamelt en weergegeven op de site:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hardware Informatie (CPU / GPU / Bestuurings Systeem)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Welke versie van Lime3DS u gebruikt&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Het verbonden Lime3DS account&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="72"/>
@@ -367,8 +367,8 @@ Dit zal hun Forum gebruikersnaam en IP adres verbannen.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="182"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Independent of speed or performance, how well does this game play from start to finish on this version of Citra?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Onafhankelijk van snelheid of prestaties, Hoe goed speelt de game van het begin tot het einde op deze versie van Citra?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Independent of speed or performance, how well does this game play from start to finish on this version of Lime3DS?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Onafhankelijk van snelheid of prestaties, Hoe goed speelt de game van het begin tot het einde op deze versie van Lime3DS?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="206"/>
@@ -916,8 +916,8 @@ Wilt u de fout negeren en doorgaan?</translation>
     <name>ConfigureDialog</name>
     <message>
         <location filename="../../src/lime_qt/configuration/configure.ui" line="6"/>
-        <source>Citra Configuration</source>
-        <translation>Citra Configuratie</translation>
+        <source>Lime3DS Configuration</source>
+        <translation>Lime3DS Configuratie</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="46"/>
@@ -1412,13 +1412,13 @@ Wilt u de fout negeren en doorgaan?</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_general.cpp" line="149"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_general.cpp" line="150"/>
-        <source>Are you sure you want to &lt;b&gt;reset your settings&lt;/b&gt; and close Citra?</source>
-        <translation>Weet je het zeker dat je &lt;b&gt;instellingen wilt herstellen&lt;/b&gt; en Citra af wilt sluiten?</translation>
+        <source>Are you sure you want to &lt;b&gt;reset your settings&lt;/b&gt; and close Lime3DS?</source>
+        <translation>Weet je het zeker dat je &lt;b&gt;instellingen wilt herstellen&lt;/b&gt; en Lime3DS af wilt sluiten?</translation>
     </message>
 </context>
 <context>
@@ -2141,8 +2141,8 @@ Wilt u de fout negeren en doorgaan?</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_motion_touch.cpp" line="343"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_motion_touch.cpp" line="344"/>
@@ -2239,8 +2239,8 @@ Wilt u de fout negeren en doorgaan?</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="81"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="81"/>
@@ -3333,8 +3333,8 @@ Wilt u de fout negeren en doorgaan?</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_system.cpp" line="272"/>
-        <source>Citra is missing keys to download system files. &lt;br&gt;&lt;a href=&apos;https://citra-emu.org/wiki/aes-keys/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;How to get keys?&lt;/span&gt;&lt;/a&gt;</source>
-        <translation>Citra mist sleutels om systeembestanden te downloaden.&lt;br&gt;&lt;a href=&apos;https://citra-emu.org/wiki/aes-keys/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Hoe komt u aan sleutels?&lt;/span&gt;&lt;/a&gt;</translation>
+        <source>Lime3DS is missing keys to download system files. &lt;br&gt;&lt;a href=&apos;https://citra-emu.org/wiki/aes-keys/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;How to get keys?&lt;/span&gt;&lt;/a&gt;</source>
+        <translation>Lime3DS mist sleutels om systeembestanden te downloaden.&lt;br&gt;&lt;a href=&apos;https://citra-emu.org/wiki/aes-keys/&apos;&gt;&lt;span style=&quot;text-decoration: underline; color:#039be5;&quot;&gt;Hoe komt u aan sleutels?&lt;/span&gt;&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_system.cpp" line="349"/>
@@ -3365,8 +3365,8 @@ Wilt u de fout negeren en doorgaan?</translation>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_system.cpp" line="614"/>
         <location filename="../../src/lime_qt/configuration/configure_system.cpp" line="616"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_system.cpp" line="614"/>
@@ -3594,13 +3594,13 @@ Sleep punten om de positie te wijzigen of dubbelklik op tabelcellen om waarden t
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_web.ui" line="22"/>
-        <source>Citra Web Service</source>
-        <translation>Citra-webdienst</translation>
+        <source>Lime3DS Web Service</source>
+        <translation>Lime3DS-webdienst</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_web.ui" line="28"/>
-        <source>By providing your username and token, you agree to allow Citra to collect additional usage data, which may include user identifying information.</source>
-        <translation>Door het voorzien van je gebruikersnaam en token, ga je akkoord dat Citra aanvullende gebruiksdata verzameld, waaronder informatie waarmee de gebruiker zou kunnen worden geïdentificeerd.</translation>
+        <source>By providing your username and token, you agree to allow Lime3DS to collect additional usage data, which may include user identifying information.</source>
+        <translation>Door het voorzien van je gebruikersnaam en token, ga je akkoord dat Lime3DS aanvullende gebruiksdata verzameld, waaronder informatie waarmee de gebruiker zou kunnen worden geïdentificeerd.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_web.ui" line="46"/>
@@ -3640,8 +3640,8 @@ Sleep punten om de positie te wijzigen of dubbelklik op tabelcellen om waarden t
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_web.ui" line="131"/>
-        <source>Share anonymous usage data with the Citra team</source>
-        <translation>Deel anonieme gebruiksdata met het Citra team</translation>
+        <source>Share anonymous usage data with the Lime3DS team</source>
+        <translation>Deel anonieme gebruiksdata met het Lime3DS team</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_web.ui" line="138"/>
@@ -3850,8 +3850,8 @@ Sleep punten om de positie te wijzigen of dubbelklik op tabelcellen om waarden t
     <message>
         <location filename="../../src/lime_qt/dumping/dumping_dialog.cpp" line="25"/>
         <location filename="../../src/lime_qt/dumping/dumping_dialog.cpp" line="85"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/dumping/dumping_dialog.cpp" line="25"/>
@@ -3898,8 +3898,8 @@ Controleer de FFmpeg-installatie die wordt gebruikt voor de compilatie.</transla
     <name>GMainWindow</name>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="144"/>
-        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;Anonymous data is collected&lt;/a&gt; to help improve Citra. &lt;br/&gt;&lt;br/&gt;Would you like to share your usage data with us?</source>
-        <translation>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;Anonieme gegevens worden verzameld&lt;/a&gt; om Citra te helpen verbeteren. &lt;br/&gt;&lt;br/&gt; Wilt u uw gebruiksgegevens met ons delen?</translation>
+        <source>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;Anonymous data is collected&lt;/a&gt; to help improve Lime3DS. &lt;br/&gt;&lt;br/&gt;Would you like to share your usage data with us?</source>
+        <translation>&lt;a href=&apos;https://citra-emu.org/entry/telemetry-and-why-thats-a-good-thing/&apos;&gt;Anonieme gegevens worden verzameld&lt;/a&gt; om Lime3DS te helpen verbeteren. &lt;br/&gt;&lt;br/&gt; Wilt u uw gebruiksgegevens met ons delen?</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="147"/>
@@ -3971,9 +3971,9 @@ Controleer de FFmpeg-installatie die wordt gebruikt voor de compilatie.</transla
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1108"/>
-        <source>Citra is running a game</source>
-        <extracomment>TRANSLATORS: This string is shown to the user to explain why Citra needs to prevent the computer from sleeping</extracomment>
-        <translation>Citra is een spel aan het runnen</translation>
+        <source>Lime3DS is running a game</source>
+        <extracomment>TRANSLATORS: This string is shown to the user to explain why Lime3DS needs to prevent the computer from sleeping</extracomment>
+        <translation>Lime3DS is een spel aan het runnen</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1180"/>
@@ -4014,8 +4014,8 @@ Controleer de FFmpeg-installatie die wordt gebruikt voor de compilatie.</transla
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1221"/>
-        <source>GBA Virtual Console ROMs are not supported by Citra.</source>
-        <translation>GBA Virtual Console ROM&apos;s worden niet ondersteund door Citra.</translation>
+        <source>GBA Virtual Console ROMs are not supported by Lime3DS.</source>
+        <translation>GBA Virtual Console ROM&apos;s worden niet ondersteund door Lime3DS.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1226"/>
@@ -4080,8 +4080,8 @@ Controleer de FFmpeg-installatie die wordt gebruikt voor de compilatie.</transla
         <location filename="../../src/lime_qt/main.cpp" line="2531"/>
         <location filename="../../src/lime_qt/main.cpp" line="2832"/>
         <location filename="../../src/lime_qt/main.cpp" line="2925"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1681"/>
@@ -4178,8 +4178,8 @@ Raadpleeg het log voor meer informatie.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1830"/>
-        <source>%1 must be decrypted before being used with Citra. A real 3DS is required.</source>
-        <translation>%1 moet worden gedecodeerd voordat het met Citra kan worden gebruikt. Een echte 3DS is vereist.</translation>
+        <source>%1 must be decrypted before being used with Lime3DS. A real 3DS is required.</source>
+        <translation>%1 moet worden gedecodeerd voordat het met Lime3DS kan worden gebruikt. Een echte 3DS is vereist.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1835"/>
@@ -4218,13 +4218,13 @@ Raadpleeg het log voor meer informatie.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1987"/>
-        <source>Missing Citra Account</source>
-        <translation>Citra Account ontbreekt</translation>
+        <source>Missing Lime3DS Account</source>
+        <translation>Lime3DS Account ontbreekt</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="1988"/>
-        <source>You must link your Citra account to submit test cases.&lt;br/&gt;Go to Emulation &amp;gt; Configure... &amp;gt; Web to do so.</source>
-        <translation>U moet uw Citra-account koppelen om testcases te kunnen inzenden.&lt;br/&gt;Ga naar Emulatie &amp;gt; Configureren... &amp;gt; Web om dit te doen.</translation>
+        <source>You must link your Lime3DS account to submit test cases.&lt;br/&gt;Go to Emulation &amp;gt; Configure... &amp;gt; Web to do so.</source>
+        <translation>U moet uw Lime3DS-account koppelen om testcases te kunnen inzenden.&lt;br/&gt;Ga naar Emulatie &amp;gt; Configureren... &amp;gt; Web om dit te doen.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="2159"/>
@@ -4313,12 +4313,12 @@ Gebruik op eigen risico!</translation>
         <location filename="../../src/lime_qt/main.cpp" line="2429"/>
         <source>FFmpeg could not be loaded. Make sure you have a compatible version installed.
 
-To install FFmpeg to Citra, press Open and select your FFmpeg directory.
+To install FFmpeg to Lime3DS, press Open and select your FFmpeg directory.
 
 To view a guide on how to install FFmpeg, press Help.</source>
         <translation>FFmpeg kon niet worden geladen. Zorg ervoor dat u een compatibele versie hebt geïnstalleerd.
 
-Om FFmpeg op Citra te installeren, drukt u op Open en selecteert u uw FFmpeg-map.
+Om FFmpeg op Lime3DS te installeren, drukt u op Open en selecteert u uw FFmpeg-map.
 
 Om een handleiding te bekijken over hoe u FFmpeg installeert, drukt u op Help.</translation>
     </message>
@@ -4703,7 +4703,7 @@ Om een handleiding te bekijken over hoe u FFmpeg installeert, drukt u op Help.</
         <location filename="../../src/lime_qt/game_list.cpp" line="710"/>
         <location filename="../../src/lime_qt/game_list.cpp" line="720"/>
         <location filename="../../src/lime_qt/game_list.cpp" line="732"/>
-        <source>Citra</source>
+        <source>Lime3DS</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -5375,9 +5375,9 @@ scherm.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/multiplayer/host_room.cpp" line="165"/>
-        <source>Failed to announce the room to the public lobby. In order to host a room publicly, you must have a valid Citra account configured in Emulation -&gt; Configure -&gt; Web. If you do not want to publish a room in the public lobby, then select Unlisted instead.
+        <source>Failed to announce the room to the public lobby. In order to host a room publicly, you must have a valid Lime3DS account configured in Emulation -&gt; Configure -&gt; Web. If you do not want to publish a room in the public lobby, then select Unlisted instead.
 Debug Message: </source>
-        <translation>Het is niet gelukt om de kamer aan te kondigen in de openbare lobby. Om een ruimte publiekelijk te hosten, moet u een geldige Citra-account hebben geconfigureerd in Emulatie -&gt; Configuratie -&gt; Web. Als u een kamer niet wilt publiceren in de publieke lobby, selecteer dan Verborgen op de lijst.
+        <translation>Het is niet gelukt om de kamer aan te kondigen in de openbare lobby. Om een ruimte publiekelijk te hosten, moet u een geldige Lime3DS-account hebben geconfigureerd in Emulatie -&gt; Configuratie -&gt; Web. Als u een kamer niet wilt publiceren in de publieke lobby, selecteer dan Verborgen op de lijst.
 Debugbericht:</translation>
     </message>
 </context>
@@ -5628,8 +5628,8 @@ Debugbericht:</translation>
     <name>MainWindow</name>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="14"/>
-        <source>Citra</source>
-        <translation>Citra</translation>
+        <source>Lime3DS</source>
+        <translation>Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="53"/>
@@ -5783,8 +5783,8 @@ Debugbericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="304"/>
-        <source>About Citra</source>
-        <translation>Over Citra</translation>
+        <source>About Lime3DS</source>
+        <translation>Over Lime3DS</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="315"/>
@@ -5903,13 +5903,13 @@ Debugbericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="478"/>
-        <source>Modify Citra Install</source>
-        <translation>Citra Installatie Aanpassen</translation>
+        <source>Modify Lime3DS Install</source>
+        <translation>Lime3DS Installatie Aanpassen</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="481"/>
-        <source>Opens the maintenance tool to modify your Citra installation</source>
-        <translation>Opent de onderhouds-tool om de Citra installatie aan te passen</translation>
+        <source>Opens the maintenance tool to modify your Lime3DS installation</source>
+        <translation>Opent de onderhouds-tool om de Lime3DS installatie aan te passen</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="489"/>
@@ -5978,8 +5978,8 @@ Debugbericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="590"/>
-        <source>Open Citra Folder</source>
-        <translation>Open Citra Map</translation>
+        <source>Open Lime3DS Folder</source>
+        <translation>Open Lime3DS Map</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="598"/>
@@ -6099,8 +6099,8 @@ Debugbericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/movie/movie_play_dialog.cpp" line="54"/>
-        <source>Citra TAS Movie (*.ctm)</source>
-        <translation>Citra TAS film (*.ctm)</translation>
+        <source>Lime3DS TAS Movie (*.ctm)</source>
+        <translation>Lime3DS TAS film (*.ctm)</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/movie/movie_play_dialog.cpp" line="76"/>
@@ -6176,8 +6176,8 @@ Debugbericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/movie/movie_record_dialog.cpp" line="50"/>
-        <source>Citra TAS Movie (*.ctm)</source>
-        <translation>Citra TAS film (*.ctm)</translation>
+        <source>Lime3DS TAS Movie (*.ctm)</source>
+        <translation>Lime3DS TAS film (*.ctm)</translation>
     </message>
 </context>
 <context>
@@ -6297,8 +6297,8 @@ Debug bericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/multiplayer/message.cpp" line="33"/>
-        <source>Creating a room failed. Please retry. Restarting Citra might be necessary.</source>
-        <translation>Het aanmaken van een kamer is mislukt. Probeer het opnieuw. Mogelijk moet Citra opnieuw worden opgestart.</translation>
+        <source>Creating a room failed. Please retry. Restarting Lime3DS might be necessary.</source>
+        <translation>Het aanmaken van een kamer is mislukt. Probeer het opnieuw. Mogelijk moet Lime3DS opnieuw worden opgestart.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/multiplayer/message.cpp" line="35"/>
@@ -6307,8 +6307,8 @@ Debug bericht:</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/multiplayer/message.cpp" line="38"/>
-        <source>Version mismatch! Please update to the latest version of Citra. If the problem persists, contact the room host and ask them to update the server.</source>
-        <translation>Versie komt niet overeen! Werk bij naar de nieuwste versie van Citra. Als het probleem zich blijft voordoen, neem dan contact op met de host van de ruimte en vraag hen om de server bij te werken.</translation>
+        <source>Version mismatch! Please update to the latest version of Lime3DS. If the problem persists, contact the room host and ask them to update the server.</source>
+        <translation>Versie komt niet overeen! Werk bij naar de nieuwste versie van Lime3DS. Als het probleem zich blijft voordoen, neem dan contact op met de host van de ruimte en vraag hen om de server bij te werken.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/multiplayer/message.cpp" line="40"/>
