@@ -5,7 +5,6 @@
 #pragma once
 
 #include <array>
-#include <filesystem>
 #include <memory>
 #include <vector>
 #include <QMainWindow>
@@ -21,6 +20,9 @@
 #ifdef __unix__
 #include <QDBusObjectPath>
 #endif
+
+// Needs to be included at the end due to https://bugreports.qt.io/browse/QTBUG-73263
+#include <filesystem>
 
 class AboutDialog;
 class Config;

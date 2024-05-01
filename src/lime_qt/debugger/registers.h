@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <QDockWidget>
+#include "common/common_types.h"
 
 class QTreeWidget;
 class QTreeWidgetItem;
