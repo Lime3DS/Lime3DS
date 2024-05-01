@@ -15,6 +15,7 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <fmt/format.h>
+#include <fmt/ostream.h>
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
 #endif
@@ -82,6 +83,7 @@
 #include "common/x64/cpu_detect.h"
 #endif
 #include "common/settings.h"
+#include "common/string_util.h"
 #include "core/core.h"
 #include "core/dumping/backend.h"
 #include "core/file_sys/archive_extsavedata.h"
@@ -1805,7 +1807,7 @@ bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_vi
     out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
     ico_extension = "ico";
 #elif defined(__linux__) || defined(__FreeBSD__)
-    out_icon_path = FileUtil::GetDataDirectory("XDG_DATA_HOME") / "icons/hicolor/256x256";
+    out_icon_path = FileUtil::GetUserDirectory("XDG_DATA_HOME") + "icons/hicolor/256x256";
 #endif
     // Create icons directory if it doesn't exist
     if (!FileUtil::CreateDir(out_icon_path.string())) {

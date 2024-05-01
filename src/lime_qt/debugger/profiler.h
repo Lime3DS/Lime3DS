@@ -5,6 +5,7 @@
 #pragma once
 
 #include <QWidget>
+#include "common/common_types.h"
 #include "common/microprofile.h"
 
 class MicroProfileDialog : public QWidget {

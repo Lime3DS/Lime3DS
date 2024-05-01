@@ -281,7 +281,7 @@ void Module::Interface::GetLastResponseResult(Kernel::HLERequestContext& ctx) {
     rb.Push(ResultSuccess);
 }
 
-Module::Module(Core::System& system) : system(system){};
+Module::Module(Core::System& system) : system(system) {};
 Module::~Module() = default;
 
 void InstallInterfaces(Core::System& system) {

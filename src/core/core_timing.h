@@ -251,7 +251,7 @@ public:
 
     explicit Timing(std::size_t num_cores, u32 cpu_clock_percentage, s64 override_base_ticks = -1);
 
-    ~Timing(){};
+    ~Timing() {};
 
     /**
      * Returns the event_type identifier. if name is not unique, it will assert.

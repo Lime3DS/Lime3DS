@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <QFont>
 #include <QString>
+#include "common/common_types.h"
 
 /// Returns a QFont object appropriate to use as a monospace font for debugging widgets, etc.
 QFont GetMonospaceFont();
@@ -26,7 +27,7 @@ QPixmap CreateCirclePixmapFromColor(const QColor& color);
  * @param smdh_data SMDH data
  * @return QPixmap game icon
  */
-QPixmap GetQPixmapFromSMDH(std::vector<u8>& smdh_data);
+QPixmap GetQPixmapFromSMDH(const std::vector<u8>& smdh_data);
 
 /**
  * Saves a windows icon to a file
