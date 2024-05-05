@@ -475,6 +475,12 @@ void GameList::DonePopulating(const QStringList& watch_list) {
     item_model->sort(tree_view->header()->sortIndicatorSection(),
                      tree_view->header()->sortIndicatorOrder());
 
+    // resize all columns except for Name to fit their contents
+    for (int i = 1; i < COLUMN_COUNT; i++) {
+        tree_view->resizeColumnToContents(i);
+    }
+    tree_view->header()->setStretchLastSection(true);
+
     emit PopulatingCompleted();
 }
 
