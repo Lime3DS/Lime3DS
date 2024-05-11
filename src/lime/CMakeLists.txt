@@ -12,6 +12,8 @@ add_executable(lime
     resource.h
 )
 
+set_target_properties(lime PROPERTIES OUTPUT_NAME "lime3ds-cli")
+
 if (ENABLE_SOFTWARE_RENDERER)
     target_sources(lime PRIVATE
         emu_window/emu_window_sdl2_sw.cpp

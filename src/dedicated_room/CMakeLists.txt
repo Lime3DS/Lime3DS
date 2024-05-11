@@ -6,6 +6,8 @@ add_executable(lime-room
     lime-room.rc
 )
 
+set_target_properties(lime-room PROPERTIES OUTPUT_NAME "lime3ds-room")
+
 create_target_directory_groups(lime-room)
 
 target_link_libraries(lime-room PRIVATE lime_common network)
