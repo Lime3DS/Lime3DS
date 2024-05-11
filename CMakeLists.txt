@@ -471,15 +471,3 @@ if(ENABLE_QT AND UNIX AND NOT APPLE)
     install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.xml"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mime/packages")
 endif()
-
-if(UNIX)
-    if(ENABLE_SDL2)
-        install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.6"
-                DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
-    endif()
-
-    if (ENABLE_QT)
-        install(FILES "${PROJECT_SOURCE_DIR}/dist/lime-qt.6"
-                DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
-    endif()
-endif()
