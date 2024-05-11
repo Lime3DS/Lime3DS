@@ -1773,7 +1773,7 @@ bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
     int result = 0;
     QMessageBox::StandardButtons buttons;
     switch (message) {
-    case GMainWindow::CREATE_SHORTCUT_MSGBOX_FULLSCREEN_YES:
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT:
         buttons = QMessageBox::Yes | QMessageBox::No;
         result =
             QMessageBox::information(parent, tr("Create Shortcut"),
@@ -1783,7 +1783,7 @@ bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
         QMessageBox::information(parent, tr("Create Shortcut"),
                                  tr("Successfully created a shortcut to %1").arg(game_title));
         return false;
-    case GMainWindow::CREATE_SHORTCUT_MSGBOX_APPVOLATILE_WARNING:
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING:
         buttons = QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel;
         result =
             QMessageBox::warning(this, tr("Create Shortcut"),
@@ -1891,7 +1891,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
         std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
     if (citra_command.string().ends_with(appimage_ending) &&
         !UISettings::values.shortcut_already_warned) {
-        if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPVOLATILE_WARNING,
+        if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
                                       qt_game_title)) {
             return;
         }
@@ -1900,7 +1900,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
 #endif // __linux__
     // Create shortcut
     std::string arguments = fmt::format("-g \"{:s}\"", game_path);
-    if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_YES, qt_game_title)) {
+    if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT, qt_game_title)) {
         arguments = "-f " + arguments;
     }
     const std::string comment = fmt::format("Start {:s} with the Citra Emulator", game_title);

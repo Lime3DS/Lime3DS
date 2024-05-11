@@ -204,10 +204,10 @@ private:
     void closeEvent(QCloseEvent* event) override;
 
     enum {
-        CREATE_SHORTCUT_MSGBOX_FULLSCREEN_YES,
+        CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT,
         CREATE_SHORTCUT_MSGBOX_SUCCESS,
         CREATE_SHORTCUT_MSGBOX_ERROR,
-        CREATE_SHORTCUT_MSGBOX_APPVOLATILE_WARNING,
+        CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
     };
 
     bool CreateShortcutMessagesGUI(QWidget* parent, int message, const QString& game_title);
