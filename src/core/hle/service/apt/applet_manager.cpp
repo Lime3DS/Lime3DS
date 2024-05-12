@@ -574,7 +574,7 @@ Result AppletManager::PrepareToStartLibraryApplet(AppletId applet_id) {
 
     if (Settings::values.lle_applets) {
         auto cfg = Service::CFG::GetModule(system);
-        auto process = NS::LaunchTitle(FS::MediaType::NAND,
+        auto process = NS::LaunchTitle(system, FS::MediaType::NAND,
                                        GetTitleIdForApplet(applet_id, cfg->GetRegionValue()));
         if (process) {
             return ResultSuccess;
@@ -603,7 +603,7 @@ Result AppletManager::PreloadLibraryApplet(AppletId applet_id) {
 
     if (Settings::values.lle_applets) {
         auto cfg = Service::CFG::GetModule(system);
-        auto process = NS::LaunchTitle(FS::MediaType::NAND,
+        auto process = NS::LaunchTitle(system, FS::MediaType::NAND,
                                        GetTitleIdForApplet(applet_id, cfg->GetRegionValue()));
         if (process) {
             return ResultSuccess;
@@ -815,7 +815,7 @@ Result AppletManager::StartSystemApplet(AppletId applet_id, std::shared_ptr<Kern
         applet_id == AppletId::HomeMenu ? AppletSlot::HomeMenu : AppletSlot::SystemApplet;
     if (!GetAppletSlot(slot_id)->registered) {
         auto cfg = Service::CFG::GetModule(system);
-        auto process = NS::LaunchTitle(FS::MediaType::NAND,
+        auto process = NS::LaunchTitle(system, FS::MediaType::NAND,
                                        GetTitleIdForApplet(applet_id, cfg->GetRegionValue()));
         if (!process) {
             // TODO: Find the right error code.
@@ -1346,8 +1346,8 @@ Result AppletManager::StartApplication(const std::vector<u8>& parameter,
     active_slot = AppletSlot::Application;
 
     // Launch the title directly.
-    auto process =
-        NS::LaunchTitle(app_start_parameters->next_media_type, app_start_parameters->next_title_id);
+    auto process = NS::LaunchTitle(system, app_start_parameters->next_media_type,
+                                   app_start_parameters->next_title_id);
     if (!process) {
         LOG_CRITICAL(Service_APT, "Failed to launch title during application start, exiting.");
         system.RequestShutdown();
@@ -1423,7 +1423,7 @@ void AppletManager::EnsureHomeMenuLoaded() {
 
     auto cfg = Service::CFG::GetModule(system);
     auto menu_title_id = GetTitleIdForApplet(AppletId::HomeMenu, cfg->GetRegionValue());
-    auto process = NS::LaunchTitle(FS::MediaType::NAND, menu_title_id);
+    auto process = NS::LaunchTitle(system, FS::MediaType::NAND, menu_title_id);
     if (!process) {
         LOG_WARNING(Service_APT,
                     "The Home Menu failed to launch, application jumping will not work.");

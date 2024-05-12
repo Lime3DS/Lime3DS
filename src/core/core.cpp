@@ -263,6 +263,18 @@ System::ResultStatus System::Load(Frontend::EmuWindow& emu_window, const std::st
         return ResultStatus::ErrorGetLoader;
     }
 
+    if (restore_plugin_context.has_value() && restore_plugin_context->is_enabled &&
+        restore_plugin_context->use_user_load_parameters) {
+        u64_le program_id = 0;
+        app_loader->ReadProgramId(program_id);
+        if (restore_plugin_context->user_load_parameters.low_title_Id ==
+                static_cast<u32_le>(program_id) &&
+            restore_plugin_context->user_load_parameters.plugin_memory_strategy ==
+                Service::PLGLDR::PLG_LDR::PluginMemoryStrategy::PLG_STRATEGY_MODE3) {
+            app_loader->SetKernelMemoryModeOverride(Kernel::MemoryMode::Dev2);
+        }
+    }
+
     auto memory_mode = app_loader->LoadKernelMemoryMode();
     if (memory_mode.second != Loader::ResultStatus::Success) {
         LOG_CRITICAL(Core, "Failed to determine system mode (Error {})!",

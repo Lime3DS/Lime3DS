@@ -68,6 +68,9 @@ std::pair<std::optional<Kernel::MemoryMode>, ResultStatus> AppLoader_NCCH::LoadK
             return std::make_pair(std::nullopt, res);
         }
     }
+    if (memory_mode_override.has_value()) {
+        return std::make_pair(memory_mode_override, ResultStatus::Success);
+    }
 
     // Provide the memory mode from the exheader.
     auto& ncch_caps = overlay_ncch->exheader_header.arm11_system_local_caps;
@@ -158,7 +161,7 @@ ResultStatus AppLoader_NCCH::LoadExec(std::shared_ptr<Kernel::Process>& process)
         // APPLICATION. See:
         // https://github.com/LumaTeam/Luma3DS/blob/e2778a45/sysmodules/pm/source/launch.c#L237
         auto& ncch_caps = overlay_ncch->exheader_header.arm11_system_local_caps;
-        const auto o3ds_mode = static_cast<Kernel::MemoryMode>(ncch_caps.system_mode.Value());
+        const auto o3ds_mode = *LoadKernelMemoryMode().first;
         const auto n3ds_mode = static_cast<Kernel::New3dsMemoryMode>(ncch_caps.n3ds_mode);
         const bool is_new_3ds = Settings::values.is_new_3ds.GetValue();
         if (is_new_3ds && n3ds_mode == Kernel::New3dsMemoryMode::Legacy &&

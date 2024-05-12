@@ -118,12 +118,23 @@ public:
     }
 
     /**
+     * Forces the application memory mode to the specified value,
+     * overriding the memory mode specified in the metadata.
+     */
+    void SetKernelMemoryModeOverride(Kernel::MemoryMode mem_override) {
+        memory_mode_override = mem_override;
+    }
+
+    /**
      * Loads the memory mode that this application needs.
      * This function defaults to Dev1 (96MB allocated to the application) if it can't read the
      * information.
      * @returns A pair with the optional memory mode, and the status.
      */
     virtual std::pair<std::optional<Kernel::MemoryMode>, ResultStatus> LoadKernelMemoryMode() {
+        if (memory_mode_override.has_value()) {
+            return std::make_pair(*memory_mode_override, ResultStatus::Success);
+        }
         // 96MB allocated to the application.
         return std::make_pair(Kernel::MemoryMode::Dev1, ResultStatus::Success);
     }
@@ -266,6 +277,7 @@ protected:
     Core::System& system;
     FileUtil::IOFile file;
     bool is_loaded = false;
+    std::optional<Kernel::MemoryMode> memory_mode_override = std::nullopt;
 };
 
 /**
