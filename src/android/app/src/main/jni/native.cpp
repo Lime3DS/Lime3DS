@@ -82,6 +82,7 @@ static jobject ToJavaCoreError(Core::System::ResultStatus result) {
     static const std::map<Core::System::ResultStatus, const char*> CoreErrorNameMap{
         {Core::System::ResultStatus::ErrorSystemFiles, "ErrorSystemFiles"},
         {Core::System::ResultStatus::ErrorSavestate, "ErrorSavestate"},
+        {Core::System::ResultStatus::ErrorArticDisconnected, "ErrorArticDisconnected"},
         {Core::System::ResultStatus::ErrorUnknown, "ErrorUnknown"},
     };
 
@@ -179,6 +180,7 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     auto app_loader = Loader::GetLoader(filepath);
     if (app_loader) {
         app_loader->ReadProgramId(program_id);
+        system.RegisterAppLoaderEarly(app_loader);
         GameSettings::LoadOverrides(program_id);
     }
     system.ApplySettings();
@@ -232,6 +234,10 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
                 InputManager::NDKMotionHandler()->DisableSensors();
                 if (!HandleCoreError(result, system.GetStatusDetails())) {
                     // Frontend requests us to abort
+                    // If the error was an Artic disconnect, return shutdown request.
+                    if (result == Core::System::ResultStatus::ErrorArticDisconnected) {
+                        return Core::System::ResultStatus::ShutdownRequested;
+                    }
                     return result;
                 }
                 InputManager::NDKMotionHandler()->EnableSensors();
@@ -316,7 +322,9 @@ void Java_io_github_lime3ds_android_NativeLibrary_doFrame([[maybe_unused]] JNIEn
     if (stop_run || pause_emulation) {
         return;
     }
-    window->TryPresenting();
+    if (window) {
+        window->TryPresenting();
+    }
 }
 
 void JNICALL Java_io_github_lime3ds_android_NativeLibrary_initializeGpuDriver(

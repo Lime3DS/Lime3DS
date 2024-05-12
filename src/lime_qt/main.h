@@ -244,6 +244,7 @@ private slots:
     void OnConfigurePerGame();
     void OnMenuLoadFile();
     void OnMenuInstallCIA();
+    void OnMenuConnectArticBase();
     void OnMenuBootHomeMenu(u32 region);
     void OnUpdateProgress(std::size_t written, std::size_t total);
     void OnCIAInstallReport(Service::AM::InstallStatus status, QString filepath);
@@ -331,6 +332,8 @@ private:
     // Status bar elements
     QProgressBar* progress_bar = nullptr;
     QLabel* message_label = nullptr;
+    bool show_artic_label = false;
+    QLabel* artic_traffic_label = nullptr;
     QLabel* emu_speed_label = nullptr;
     QLabel* game_fps_label = nullptr;
     QLabel* emu_frametime_label = nullptr;

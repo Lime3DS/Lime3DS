@@ -78,6 +78,7 @@
     </widget>
     <addaction name="action_Load_File"/>
     <addaction name="action_Install_CIA"/>
+    <addaction name="action_Connect_Artic"/>
     <addaction name="menu_Boot_Home_Menu"/>
     <addaction name="separator"/>
     <addaction name="menu_recent_files"/>
@@ -221,6 +222,11 @@
    <property name="text">
     <string>Install CIA...</string>
    </property>
+  </action>
+  <action name="action_Connect_Artic">
+    <property name="text">
+      <string>Connect to Artic Base...</string>
+    </property>
   </action>
   <action name="action_Boot_Home_Menu_JPN">
    <property name="text">

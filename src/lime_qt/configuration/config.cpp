@@ -635,6 +635,8 @@ void Config::ReadPathValues() {
                 UISettings::values.game_dirs.append(game_dir);
             }
         }
+        UISettings::values.last_artic_base_addr =
+            ReadSetting(QStringLiteral("last_artic_base_addr"), QString{}).toString();
         UISettings::values.recent_files = ReadSetting(QStringLiteral("recentFiles")).toStringList();
         UISettings::values.language = ReadSetting(QStringLiteral("language"), QString{}).toString();
     }
@@ -1142,6 +1144,8 @@ void Config::SavePathValues() {
             WriteSetting(QStringLiteral("expanded"), game_dir.expanded, true);
         }
         qt_config->endArray();
+        WriteSetting(QStringLiteral("last_artic_base_addr"),
+                     UISettings::values.last_artic_base_addr, QString{});
         WriteSetting(QStringLiteral("recentFiles"), UISettings::values.recent_files);
         WriteSetting(QStringLiteral("language"), UISettings::values.language, QString{});
     }

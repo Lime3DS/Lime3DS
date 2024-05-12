@@ -101,6 +101,8 @@ PerfStats::Results PerfStats::GetAndResetStats(microseconds current_system_time_
     last_stats.frametime = duration_cast<DoubleSecs>(accumulated_frametime).count() /
                            static_cast<double>(system_frames);
     last_stats.emulation_speed = system_us_per_second.count() / 1'000'000.0;
+    last_stats.artic_transmitted = static_cast<double>(artic_transmitted) / interval;
+    last_stats.artic_events.raw = artic_events.raw | prev_artic_event.raw;
 
     // Reset counters
     reset_point = now;
@@ -108,6 +110,8 @@ PerfStats::Results PerfStats::GetAndResetStats(microseconds current_system_time_
     accumulated_frametime = Clock::duration::zero();
     system_frames = 0;
     game_frames = 0;
+    artic_transmitted = 0;
+    prev_artic_event.raw &= artic_events.raw;
 
     return last_stats;
 }

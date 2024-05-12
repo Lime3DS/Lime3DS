@@ -28,8 +28,8 @@ std::string IVFCArchive::GetName() const {
     return "IVFC";
 }
 
-ResultVal<std::unique_ptr<FileBackend>> IVFCArchive::OpenFile(const Path& path,
-                                                              const Mode& mode) const {
+ResultVal<std::unique_ptr<FileBackend>> IVFCArchive::OpenFile(const Path& path, const Mode& mode,
+                                                              u32 attributes) {
     std::unique_ptr<DelayGenerator> delay_generator = std::make_unique<IVFCDelayGenerator>();
     return std::make_unique<IVFCFile>(romfs_file, std::move(delay_generator));
 }
@@ -61,14 +61,14 @@ Result IVFCArchive::DeleteDirectoryRecursively(const Path& path) const {
     return ResultUnknown;
 }
 
-Result IVFCArchive::CreateFile(const Path& path, u64 size) const {
+Result IVFCArchive::CreateFile(const Path& path, u64 size, u32 attributes) const {
     LOG_CRITICAL(Service_FS, "Attempted to create a file in an IVFC archive ({}).", GetName());
     // TODO: Verify error code
     return Result(ErrorDescription::NotAuthorized, ErrorModule::FS, ErrorSummary::NotSupported,
                   ErrorLevel::Permanent);
 }
 
-Result IVFCArchive::CreateDirectory(const Path& path) const {
+Result IVFCArchive::CreateDirectory(const Path& path, u32 attributes) const {
     LOG_CRITICAL(Service_FS, "Attempted to create a directory in an IVFC archive ({}).", GetName());
     // TODO(wwylele): Use correct error code
     return ResultUnknown;
@@ -80,7 +80,7 @@ Result IVFCArchive::RenameDirectory(const Path& src_path, const Path& dest_path)
     return ResultUnknown;
 }
 
-ResultVal<std::unique_ptr<DirectoryBackend>> IVFCArchive::OpenDirectory(const Path& path) const {
+ResultVal<std::unique_ptr<DirectoryBackend>> IVFCArchive::OpenDirectory(const Path& path) {
     return std::make_unique<IVFCDirectory>();
 }
 
@@ -102,7 +102,7 @@ ResultVal<std::size_t> IVFCFile::Read(const u64 offset, const std::size_t length
 }
 
 ResultVal<std::size_t> IVFCFile::Write(const u64 offset, const std::size_t length, const bool flush,
-                                       const u8* buffer) {
+                                       const bool update_timestamp, const u8* buffer) {
     LOG_ERROR(Service_FS, "Attempted to write to IVFC file");
     // TODO(Subv): Find error code
     return 0ULL;
@@ -133,7 +133,8 @@ ResultVal<std::size_t> IVFCFileInMemory::Read(const u64 offset, const std::size_
 }
 
 ResultVal<std::size_t> IVFCFileInMemory::Write(const u64 offset, const std::size_t length,
-                                               const bool flush, const u8* buffer) {
+                                               const bool flush, const bool update_timestamp,
+                                               const u8* buffer) {
     LOG_ERROR(Service_FS, "Attempted to write to IVFC file");
     // TODO(Subv): Find error code
     return 0ULL;

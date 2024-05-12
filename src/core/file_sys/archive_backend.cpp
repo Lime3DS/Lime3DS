@@ -105,8 +105,7 @@ std::vector<u8> Path::AsBinary() const {
         std::vector<u8> to_return(u16str.size() * 2);
         for (std::size_t i = 0; i < u16str.size(); ++i) {
             u16 tmp_char = u16str.at(i);
-            to_return[i * 2] = (tmp_char & 0xFF00) >> 8;
-            to_return[i * 2 + 1] = (tmp_char & 0x00FF);
+            *reinterpret_cast<u16*>(to_return.data() + i * 2) = tmp_char;
         }
         return to_return;
     }

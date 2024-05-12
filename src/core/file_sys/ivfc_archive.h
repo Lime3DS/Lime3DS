@@ -101,16 +101,16 @@ public:
 
     std::string GetName() const override;
 
-    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path,
-                                                     const Mode& mode) const override;
+    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path, const Mode& mode,
+                                                     u32 attributes) override;
     Result DeleteFile(const Path& path) const override;
     Result RenameFile(const Path& src_path, const Path& dest_path) const override;
     Result DeleteDirectory(const Path& path) const override;
     Result DeleteDirectoryRecursively(const Path& path) const override;
-    Result CreateFile(const Path& path, u64 size) const override;
-    Result CreateDirectory(const Path& path) const override;
+    Result CreateFile(const Path& path, u64 size, u32 attributes) const override;
+    Result CreateDirectory(const Path& path, u32 attributes) const override;
     Result RenameDirectory(const Path& src_path, const Path& dest_path) const override;
-    ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) const override;
+    ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) override;
     u64 GetFreeBytes() const override;
 
 protected:
@@ -122,11 +122,11 @@ public:
     IVFCFile(std::shared_ptr<RomFSReader> file, std::unique_ptr<DelayGenerator> delay_generator_);
 
     ResultVal<std::size_t> Read(u64 offset, std::size_t length, u8* buffer) const override;
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override;
     u64 GetSize() const override;
     bool SetSize(u64 size) const override;
-    bool Close() const override {
+    bool Close() override {
         return false;
     }
     void Flush() const override {}
@@ -157,7 +157,7 @@ public:
     u32 Read(const u32 count, Entry* entries) override {
         return 0;
     }
-    bool Close() const override {
+    bool Close() override {
         return false;
     }
 };
@@ -168,11 +168,11 @@ public:
                      std::unique_ptr<DelayGenerator> delay_generator_);
 
     ResultVal<std::size_t> Read(u64 offset, std::size_t length, u8* buffer) const override;
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override;
     u64 GetSize() const override;
     bool SetSize(u64 size) const override;
-    bool Close() const override {
+    bool Close() override {
         return false;
     }
     void Flush() const override {}

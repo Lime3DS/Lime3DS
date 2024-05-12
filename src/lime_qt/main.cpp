@@ -388,6 +388,10 @@ void GMainWindow::InitializeWidgets() {
     progress_bar->hide();
     statusBar()->addPermanentWidget(progress_bar);
 
+    artic_traffic_label = new QLabel();
+    artic_traffic_label->setToolTip(
+        tr("Current Artic Base traffic speed. Higher values indicate bigger transfer loads."));
+
     emu_speed_label = new QLabel();
     emu_speed_label->setToolTip(tr("Current emulation speed. Values higher or lower than 100% "
                                    "indicate emulation is running faster or slower than a 3DS."));
@@ -399,7 +403,8 @@ void GMainWindow::InitializeWidgets() {
         tr("Time taken to emulate a 3DS frame, not counting framelimiting or v-sync. For "
            "full-speed emulation this should be at most 16.67 ms."));
 
-    for (auto& label : {emu_speed_label, game_fps_label, emu_frametime_label}) {
+    for (auto& label :
+         {artic_traffic_label, emu_speed_label, game_fps_label, emu_frametime_label}) {
         label->setVisible(false);
         label->setFrameStyle(QFrame::NoFrame);
         label->setContentsMargins(4, 0, 4, 0);
@@ -876,6 +881,7 @@ void GMainWindow::ConnectMenuEvents() {
     // File
     connect_menu(ui->action_Load_File, &GMainWindow::OnMenuLoadFile);
     connect_menu(ui->action_Install_CIA, &GMainWindow::OnMenuInstallCIA);
+    connect_menu(ui->action_Connect_Artic, &GMainWindow::OnMenuConnectArticBase);
     for (u32 region = 0; region < Core::NUM_SYSTEM_TITLE_REGIONS; region++) {
         connect_menu(ui->menu_Boot_Home_Menu->actions().at(region),
                      [this, region] { OnMenuBootHomeMenu(region); });
@@ -1213,6 +1219,11 @@ bool GMainWindow::LoadROM(const QString& filename) {
                                   tr("GBA Virtual Console ROMs are not supported by Citra."));
             break;
 
+        case Core::System::ResultStatus::ErrorArticDisconnected:
+            QMessageBox::critical(
+                this, tr("Artic Base Server"),
+                tr("An error has occurred whilst communicating with the Artic Base Server."));
+            break;
         default:
             QMessageBox::critical(
                 this, tr("Error while loading ROM!"),
@@ -1240,7 +1251,9 @@ bool GMainWindow::LoadROM(const QString& filename) {
 }
 
 void GMainWindow::BootGame(const QString& filename) {
-    if (filename.endsWith(QStringLiteral(".cia"))) {
+    const bool is_artic = filename.startsWith(QString::fromStdString("articbase://"));
+
+    if (!is_artic && filename.endsWith(QStringLiteral(".cia"))) {
         const auto answer = QMessageBox::question(
             this, tr("CIA must be installed before usage"),
             tr("Before using this CIA, you must install it. Do you want to install it now?"),
@@ -1252,8 +1265,12 @@ void GMainWindow::BootGame(const QString& filename) {
         return;
     }
 
+    show_artic_label = is_artic;
+
     LOG_INFO(Frontend, "Lime3DS starting...");
-    StoreRecentFile(filename); // Put the filename on top of the list
+    if (!is_artic) {
+        StoreRecentFile(filename); // Put the filename on top of the list
+    }
 
     if (movie_record_on_start) {
         movie.PrepareForRecording();
@@ -1263,16 +1280,26 @@ void GMainWindow::BootGame(const QString& filename) {
     }
 
     const std::string path = filename.toStdString();
-    const auto loader = Loader::GetLoader(path);
+    auto loader = Loader::GetLoader(path);
 
     u64 title_id{0};
-    loader->ReadProgramId(title_id);
+    Loader::ResultStatus res = loader->ReadProgramId(title_id);
 
-    // Load per game settings
-    const std::string name{FileUtil::GetFilename(filename.toStdString())};
-    const std::string config_file_name = title_id == 0 ? name : fmt::format("{:016X}", title_id);
-    LOG_INFO(Frontend, "Loading per game config file for title {}", config_file_name);
-    Config per_game_config(config_file_name, Config::ConfigType::PerGameConfig);
+    if (Loader::ResultStatus::Success == res) {
+        // Load per game settings
+        const std::string name{is_artic ? "" : FileUtil::GetFilename(filename.toStdString())};
+        const std::string config_file_name =
+            title_id == 0 ? name : fmt::format("{:016X}", title_id);
+        LOG_INFO(Frontend, "Loading per game config file for title {}", config_file_name);
+        Config per_game_config(config_file_name, Config::ConfigType::PerGameConfig);
+    }
+
+    // Artic Base Server cannot accept a client multiple times, so multiple loaders are not
+    // possible. Instead register the app loader early and do not create it again on system load.
+    if (!loader->SupportsMultipleInstancesForSameFile()) {
+        system.RegisterAppLoaderEarly(loader);
+    }
+
     system.ApplySettings();
 
     Settings::LogSettings();
@@ -1282,8 +1309,11 @@ void GMainWindow::BootGame(const QString& filename) {
     game_list->SaveInterfaceLayout();
     config->Save();
 
-    if (!LoadROM(filename))
+    if (!LoadROM(filename)) {
+        render_window->ReleaseRenderTarget();
+        secondary_window->ReleaseRenderTarget();
         return;
+    }
 
     // Set everything up
     if (movie_record_on_start) {
@@ -1437,6 +1467,8 @@ void GMainWindow::ShutdownGame() {
     // Disable status bar updates
     status_bar_update_timer.stop();
     message_label_used_for_movie = false;
+    show_artic_label = false;
+    artic_traffic_label->setVisible(false);
     emu_speed_label->setVisible(false);
     game_fps_label->setVisible(false);
     emu_frametime_label->setVisible(false);
@@ -2036,6 +2068,17 @@ void GMainWindow::OnMenuInstallCIA() {
 
     UISettings::values.roms_path = QFileInfo(filepaths[0]).path();
     InstallCIA(filepaths);
+}
+
+void GMainWindow::OnMenuConnectArticBase() {
+    bool ok = false;
+    auto res = QInputDialog::getText(this, tr("Connect to Artic Base"),
+                                     tr("Enter Artic Base server address:"), QLineEdit::Normal,
+                                     UISettings::values.last_artic_base_addr, &ok);
+    if (ok) {
+        UISettings::values.last_artic_base_addr = res;
+        BootGame(QString::fromStdString("articbase://").append(res));
+    }
 }
 
 void GMainWindow::OnMenuBootHomeMenu(u32 region) {
@@ -2864,6 +2907,51 @@ void GMainWindow::UpdateStatusBar() {
 
     auto results = system.GetAndResetPerfStats();
 
+    if (show_artic_label) {
+        const bool do_mb = results.artic_transmitted >= (1000.0 * 1000.0);
+        const double value = do_mb ? (results.artic_transmitted / (1000.0 * 1000.0))
+                                   : (results.artic_transmitted / 1000.0);
+        static const std::array<std::pair<Core::PerfStats::PerfArticEventBits, QString>, 4>
+            perf_events = {
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_SHARED_EXT_DATA,
+                               tr("(Accessing SharedExtData)")),
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_BOSS_EXT_DATA,
+                               tr("(Accessing BossExtData)")),
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_EXT_DATA,
+                               tr("(Accessing ExtData)")),
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_SAVE_DATA,
+                               tr("(Accessing SaveData)")),
+            };
+
+        const QString unit = do_mb ? tr("MB/s") : tr("KB/s");
+        QString event{};
+        for (auto p : perf_events) {
+            if (results.artic_events.Get(p.first)) {
+                event = QString::fromStdString(" ") + p.second;
+                break;
+            }
+        }
+
+        static const std::array label_color = {QStringLiteral("#ffffff"), QStringLiteral("#eed202"),
+                                               QStringLiteral("#ff3333")};
+
+        int style_index;
+
+        if (value > 200.0) {
+            style_index = 2;
+        } else if (value > 125.0) {
+            style_index = 1;
+        } else {
+            style_index = 0;
+        }
+        const QString style_sheet =
+            QStringLiteral("QLabel { color: %0; }").arg(label_color[style_index]);
+
+        artic_traffic_label->setText(
+            tr("Artic Base Traffic: %1 %2%3").arg(value, 0, 'f', 0).arg(unit).arg(event));
+        artic_traffic_label->setStyleSheet(style_sheet);
+    }
+
     if (Settings::values.frame_limit.GetValue() == 0) {
         emu_speed_label->setText(tr("Speed: %1%").arg(results.emulation_speed * 100.0, 0, 'f', 0));
     } else {
@@ -2874,6 +2962,9 @@ void GMainWindow::UpdateStatusBar() {
     game_fps_label->setText(tr("Game: %1 FPS").arg(results.game_fps, 0, 'f', 0));
     emu_frametime_label->setText(tr("Frame: %1 ms").arg(results.frametime * 1000.0, 0, 'f', 2));
 
+    if (show_artic_label) {
+        artic_traffic_label->setVisible(true);
+    }
     emu_speed_label->setVisible(true);
     game_fps_label->setVisible(true);
     emu_frametime_label->setVisible(true);
@@ -3025,6 +3116,7 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
 
     QString title, message;
     QMessageBox::Icon error_severity_icon;
+    bool can_continue = true;
     if (result == Core::System::ResultStatus::ErrorSystemFiles) {
         const QString common_message =
             tr("%1 is missing. Please <a "
@@ -3045,6 +3137,11 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
         title = tr("Save/load Error");
         message = QString::fromStdString(details);
         error_severity_icon = QMessageBox::Icon::Warning;
+    } else if (result == Core::System::ResultStatus::ErrorArticDisconnected) {
+        title = tr("Artic Base Server");
+        message = tr("A communication error has occurred. The game will quit.");
+        error_severity_icon = QMessageBox::Icon::Critical;
+        can_continue = false;
     } else {
         title = tr("Fatal Error");
         message =
@@ -3061,12 +3158,14 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
     message_box.setText(message);
     message_box.setIcon(error_severity_icon);
     if (error_severity_icon == QMessageBox::Icon::Critical) {
-        message_box.addButton(tr("Continue"), QMessageBox::RejectRole);
+        if (can_continue) {
+            message_box.addButton(tr("Continue"), QMessageBox::RejectRole);
+        }
         QPushButton* abort_button = message_box.addButton(tr("Quit Game"), QMessageBox::AcceptRole);
         if (result != Core::System::ResultStatus::ShutdownRequested)
             message_box.exec();
 
-        if (result == Core::System::ResultStatus::ShutdownRequested ||
+        if (!can_continue || result == Core::System::ResultStatus::ShutdownRequested ||
             message_box.clickedButton() == abort_button) {
             if (emu_thread) {
                 ShutdownGame();

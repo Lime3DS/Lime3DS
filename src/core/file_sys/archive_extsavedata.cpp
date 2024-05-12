@@ -10,6 +10,7 @@
 #include "common/common_types.h"
 #include "common/file_util.h"
 #include "common/logging/log.h"
+#include "core/file_sys/archive_artic.h"
 #include "core/file_sys/archive_extsavedata.h"
 #include "core/file_sys/disk_archive.h"
 #include "core/file_sys/errors.h"
@@ -37,7 +38,7 @@ public:
         return false;
     }
 
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override {
         if (offset > size) {
             return ResultWriteBeyondEnd;
@@ -49,7 +50,7 @@ public:
             length = size - offset;
         }
 
-        return DiskFile::Write(offset, length, flush, buffer);
+        return DiskFile::Write(offset, length, flush, update_timestamp, buffer);
     }
 
 private:
@@ -100,8 +101,8 @@ public:
         return "ExtSaveDataArchive: " + mount_point;
     }
 
-    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path,
-                                                     const Mode& mode) const override {
+    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path, const Mode& mode,
+                                                     u32 attributes) override {
         LOG_DEBUG(Service_FS, "called path={} mode={:01X}", path.DebugStr(), mode.hex);
 
         const PathParser path_parser(path);
@@ -234,69 +235,187 @@ Path ArchiveFactory_ExtSaveData::GetCorrectedPath(const Path& path) {
     return {binary_data};
 }
 
-ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_ExtSaveData::Open(const Path& path,
-                                                                            u64 program_id) {
-    const auto directory = type == ExtSaveDataType::Boss ? "boss/" : "user/";
-    const auto fullpath = GetExtSaveDataPath(mount_point, GetCorrectedPath(path)) + directory;
-    if (!FileUtil::Exists(fullpath)) {
-        // TODO(Subv): Verify the archive behavior of SharedExtSaveData compared to ExtSaveData.
-        // ExtSaveData seems to return FS_NotFound (120) when the archive doesn't exist.
-        if (type != ExtSaveDataType::Shared) {
-            return ResultNotFoundInvalidState;
-        } else {
-            return ResultNotFormatted;
-        }
+static Service::FS::ArchiveIdCode ExtSaveDataTypeToArchiveID(ExtSaveDataType type) {
+    switch (type) {
+    case FileSys::ExtSaveDataType::Normal:
+        return Service::FS::ArchiveIdCode::ExtSaveData;
+    case FileSys::ExtSaveDataType::Shared:
+        return Service::FS::ArchiveIdCode::SharedExtSaveData;
+    case FileSys::ExtSaveDataType::Boss:
+        return Service::FS::ArchiveIdCode::BossExtSaveData;
+    default:
+        return Service::FS::ArchiveIdCode::ExtSaveData;
     }
-    std::unique_ptr<DelayGenerator> delay_generator = std::make_unique<ExtSaveDataDelayGenerator>();
-    return std::make_unique<ExtSaveDataArchive>(fullpath, std::move(delay_generator));
 }
 
-Result ArchiveFactory_ExtSaveData::Format(const Path& path,
-                                          const FileSys::ArchiveFormatInfo& format_info,
-                                          u64 program_id) {
-    auto corrected_path = GetCorrectedPath(path);
-
-    // These folders are always created with the ExtSaveData
-    std::string user_path = GetExtSaveDataPath(mount_point, corrected_path) + "user/";
-    std::string boss_path = GetExtSaveDataPath(mount_point, corrected_path) + "boss/";
-    FileUtil::CreateFullPath(user_path);
-    FileUtil::CreateFullPath(boss_path);
-
-    // Write the format metadata
-    std::string metadata_path = GetExtSaveDataPath(mount_point, corrected_path) + "metadata";
-    FileUtil::IOFile file(metadata_path, "wb");
-
-    if (!file.IsOpen()) {
-        // TODO(Subv): Find the correct error code
-        return ResultUnknown;
+static Core::PerfStats::PerfArticEventBits ExtSaveDataTypeToPerfArtic(ExtSaveDataType type) {
+    switch (type) {
+    case FileSys::ExtSaveDataType::Normal:
+        return Core::PerfStats::PerfArticEventBits::ARTIC_EXT_DATA;
+    case FileSys::ExtSaveDataType::Shared:
+        return Core::PerfStats::PerfArticEventBits::ARTIC_SHARED_EXT_DATA;
+    case FileSys::ExtSaveDataType::Boss:
+        return Core::PerfStats::PerfArticEventBits::ARTIC_BOSS_EXT_DATA;
+    default:
+        return Core::PerfStats::PerfArticEventBits::ARTIC_EXT_DATA;
     }
+}
 
-    file.WriteBytes(&format_info, sizeof(format_info));
-    return ResultSuccess;
+ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_ExtSaveData::Open(const Path& path,
+                                                                            u64 program_id) {
+    if (IsUsingArtic()) {
+        EnsureCacheCreated();
+        return ArticArchive::Open(artic_client, ExtSaveDataTypeToArchiveID(type), path,
+                                  ExtSaveDataTypeToPerfArtic(type), *this,
+                                  type != FileSys::ExtSaveDataType::Normal);
+    } else {
+        const auto directory = type == ExtSaveDataType::Boss ? "boss/" : "user/";
+        const auto fullpath = GetExtSaveDataPath(mount_point, GetCorrectedPath(path)) + directory;
+        if (!FileUtil::Exists(fullpath)) {
+            // TODO(Subv): Verify the archive behavior of SharedExtSaveData compared to ExtSaveData.
+            // ExtSaveData seems to return FS_NotFound (120) when the archive doesn't exist.
+            if (type != ExtSaveDataType::Shared) {
+                return ResultNotFoundInvalidState;
+            } else {
+                return ResultNotFormatted;
+            }
+        }
+        std::unique_ptr<DelayGenerator> delay_generator =
+            std::make_unique<ExtSaveDataDelayGenerator>();
+        return std::make_unique<ExtSaveDataArchive>(fullpath, std::move(delay_generator));
+    }
+}
+
+Result ArchiveFactory_ExtSaveData::FormatAsExtData(const Path& path,
+                                                   const FileSys::ArchiveFormatInfo& format_info,
+                                                   u8 unknown, u64 program_id, u64 total_size,
+                                                   std::span<const u8> icon) {
+    if (IsUsingArtic()) {
+        ExtSaveDataArchivePath path_data;
+        std::memcpy(&path_data, path.AsBinary().data(), sizeof(path_data));
+
+        Service::FS::ExtSaveDataInfo artic_extdata_path;
+
+        artic_extdata_path.media_type = static_cast<u8>(path_data.media_type);
+        artic_extdata_path.unknown = unknown;
+        artic_extdata_path.save_id_low = path_data.save_low;
+        artic_extdata_path.save_id_high = path_data.save_high;
+
+        auto req = artic_client->NewRequest("FSUSER_CreateExtSaveData");
+
+        req.AddParameterBuffer(&artic_extdata_path, sizeof(artic_extdata_path));
+        req.AddParameterU32(format_info.number_directories);
+        req.AddParameterU32(format_info.number_files);
+        req.AddParameterU64(total_size);
+        req.AddParameterBuffer(icon.data(), icon.size());
+
+        return ArticArchive::RespResult(artic_client->Send(req));
+    } else {
+        auto corrected_path = GetCorrectedPath(path);
+
+        // These folders are always created with the ExtSaveData
+        std::string user_path = GetExtSaveDataPath(mount_point, corrected_path) + "user/";
+        std::string boss_path = GetExtSaveDataPath(mount_point, corrected_path) + "boss/";
+        FileUtil::CreateFullPath(user_path);
+        FileUtil::CreateFullPath(boss_path);
+
+        // Write the format metadata
+        std::string metadata_path = GetExtSaveDataPath(mount_point, corrected_path) + "metadata";
+        FileUtil::IOFile file(metadata_path, "wb");
+
+        if (!file.IsOpen()) {
+            // TODO(Subv): Find the correct error code
+            return ResultUnknown;
+        }
+
+        file.WriteBytes(&format_info, sizeof(format_info));
+
+        FileUtil::IOFile icon_file(FileSys::GetExtSaveDataPath(GetMountPoint(), path) + "icon",
+                                   "wb");
+        icon_file.WriteBytes(icon.data(), icon.size());
+
+        return ResultSuccess;
+    }
+}
+
+Result ArchiveFactory_ExtSaveData::DeleteExtData(Service::FS::MediaType media_type, u8 unknown,
+                                                 u32 high, u32 low) {
+    if (IsUsingArtic()) {
+        Service::FS::ExtSaveDataInfo artic_extdata_path;
+
+        artic_extdata_path.media_type = static_cast<u8>(media_type);
+        artic_extdata_path.unknown = unknown;
+        artic_extdata_path.save_id_low = low;
+        artic_extdata_path.save_id_high = high;
+
+        auto req = artic_client->NewRequest("FSUSER_DeleteExtSaveData");
+
+        req.AddParameterBuffer(&artic_extdata_path, sizeof(artic_extdata_path));
+
+        return ArticArchive::RespResult(artic_client->Send(req));
+    } else {
+        // Construct the binary path to the archive first
+        FileSys::Path path =
+            FileSys::ConstructExtDataBinaryPath(static_cast<u32>(media_type), high, low);
+
+        std::string media_type_directory;
+        if (media_type == Service::FS::MediaType::NAND) {
+            media_type_directory = FileUtil::GetUserPath(FileUtil::UserPath::NANDDir);
+        } else if (media_type == Service::FS::MediaType::SDMC) {
+            media_type_directory = FileUtil::GetUserPath(FileUtil::UserPath::SDMCDir);
+        } else {
+            LOG_ERROR(Service_FS, "Unsupported media type {}", media_type);
+            return ResultUnknown; // TODO(Subv): Find the right error code
+        }
+
+        // Delete all directories (/user, /boss) and the icon file.
+        std::string base_path = FileSys::GetExtDataContainerPath(
+            media_type_directory, media_type == Service::FS::MediaType::NAND);
+        std::string extsavedata_path = FileSys::GetExtSaveDataPath(base_path, path);
+        if (FileUtil::Exists(extsavedata_path) && !FileUtil::DeleteDirRecursively(extsavedata_path))
+            return ResultUnknown; // TODO(Subv): Find the right error code
+        return ResultSuccess;
+    }
 }
 
 ResultVal<ArchiveFormatInfo> ArchiveFactory_ExtSaveData::GetFormatInfo(const Path& path,
                                                                        u64 program_id) const {
-    std::string metadata_path = GetExtSaveDataPath(mount_point, path) + "metadata";
-    FileUtil::IOFile file(metadata_path, "rb");
+    if (IsUsingArtic()) {
+        auto req = artic_client->NewRequest("FSUSER_GetFormatInfo");
 
-    if (!file.IsOpen()) {
-        LOG_ERROR(Service_FS, "Could not open metadata information for archive");
-        // TODO(Subv): Verify error code
-        return ResultNotFormatted;
+        req.AddParameterS32(static_cast<u32>(ExtSaveDataTypeToArchiveID(type)));
+        auto path_artic = ArticArchive::BuildFSPath(path);
+        req.AddParameterBuffer(path_artic.data(), path_artic.size());
+
+        auto resp = artic_client->Send(req);
+        Result res = ArticArchive::RespResult(resp);
+        if (R_FAILED(res)) {
+            return res;
+        }
+
+        auto info_buf = resp->GetResponseBuffer(0);
+        if (!info_buf.has_value() || info_buf->second != sizeof(ArchiveFormatInfo)) {
+            return ResultUnknown;
+        }
+
+        ArchiveFormatInfo info;
+        memcpy(&info, info_buf->first, sizeof(info));
+        return info;
+    } else {
+        std::string metadata_path = GetExtSaveDataPath(mount_point, path) + "metadata";
+        FileUtil::IOFile file(metadata_path, "rb");
+
+        if (!file.IsOpen()) {
+            LOG_ERROR(Service_FS, "Could not open metadata information for archive");
+            // TODO(Subv): Verify error code
+            return ResultNotFormatted;
+        }
+
+        ArchiveFormatInfo info = {};
+        file.ReadBytes(&info, sizeof(info));
+        return info;
     }
-
-    ArchiveFormatInfo info = {};
-    file.ReadBytes(&info, sizeof(info));
-    return info;
 }
-
-void ArchiveFactory_ExtSaveData::WriteIcon(const Path& path, std::span<const u8> icon) {
-    std::string game_path = FileSys::GetExtSaveDataPath(GetMountPoint(), path);
-    FileUtil::IOFile icon_file(game_path + "icon", "wb");
-    icon_file.WriteBytes(icon.data(), icon.size());
-}
-
 } // namespace FileSys
 
 SERIALIZE_EXPORT_IMPL(FileSys::ExtSaveDataDelayGenerator)

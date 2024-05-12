@@ -11,7 +11,10 @@
 #include <boost/serialization/string.hpp>
 #include "common/common_types.h"
 #include "core/file_sys/archive_backend.h"
+#include "core/file_sys/artic_cache.h"
 #include "core/hle/result.h"
+#include "core/hle/service/fs/archive.h"
+#include "network/artic_base/artic_base_client.h"
 
 namespace FileSys {
 
@@ -22,7 +25,7 @@ enum class ExtSaveDataType {
 };
 
 /// File system interface to the ExtSaveData archive
-class ArchiveFactory_ExtSaveData final : public ArchiveFactory {
+class ArchiveFactory_ExtSaveData final : public ArchiveFactory, public ArticCacheProvider {
 public:
     ArchiveFactory_ExtSaveData(const std::string& mount_point, ExtSaveDataType type_);
 
@@ -31,21 +34,34 @@ public:
     }
 
     ResultVal<std::unique_ptr<ArchiveBackend>> Open(const Path& path, u64 program_id) override;
-    Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                  u64 program_id) override;
+
     ResultVal<ArchiveFormatInfo> GetFormatInfo(const Path& path, u64 program_id) const override;
+
+    bool IsSlow() override {
+        return IsUsingArtic();
+    }
 
     const std::string& GetMountPoint() const {
         return mount_point;
     }
 
-    /**
-     * Writes the SMDH icon of the ExtSaveData to file
-     * @param path Path of this ExtSaveData
-     * @param icon_data Binary data of the icon
-     * @param icon_size Size of the icon data
-     */
-    void WriteIcon(const Path& path, std::span<const u8> icon);
+    Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info, u64 program_id,
+                  u32 directory_buckets, u32 file_buckets) override {
+        return UnimplementedFunction(ErrorModule::FS);
+    };
+
+    Result FormatAsExtData(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
+                           u8 unknown, u64 program_id, u64 total_size, std::span<const u8> icon);
+
+    Result DeleteExtData(Service::FS::MediaType media_type, u8 unknown, u32 high, u32 low);
+
+    void RegisterArtic(std::shared_ptr<Network::ArticBase::Client>& client) {
+        artic_client = client;
+    }
+
+    bool IsUsingArtic() const {
+        return artic_client.get() != nullptr;
+    }
 
 private:
     /// Type of ext save data archive being accessed.
@@ -61,10 +77,13 @@ private:
     /// Returns a path with the correct SaveIdHigh value for Shared extdata paths.
     Path GetCorrectedPath(const Path& path);
 
+    std::shared_ptr<Network::ArticBase::Client> artic_client = nullptr;
+
     ArchiveFactory_ExtSaveData() = default;
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<ArchiveFactory>(*this);
+        ar& boost::serialization::base_object<ArticCacheProvider>(*this);
         ar & type;
         ar & mount_point;
     }

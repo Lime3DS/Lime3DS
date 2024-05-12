@@ -75,7 +75,7 @@ Result OnlineService::InitializeSession(u64 init_program_id) {
         boss_system_save_data_archive = std::move(archive_result).Unwrap();
     } else if (archive_result.Code() == FileSys::ResultNotFound) {
         // If the archive didn't exist, create the files inside
-        systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0);
+        systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0, 0, 0);
 
         // Open it again to get a valid archive now that the folder exists
         auto create_archive_result = systemsavedata_factory.Open(archive_path, 0);

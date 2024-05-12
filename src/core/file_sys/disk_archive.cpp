@@ -26,7 +26,7 @@ ResultVal<std::size_t> DiskFile::Read(const u64 offset, const std::size_t length
 }
 
 ResultVal<std::size_t> DiskFile::Write(const u64 offset, const std::size_t length, const bool flush,
-                                       const u8* buffer) {
+                                       const bool update_timestamp, const u8* buffer) {
     if (!mode.write_flag)
         return ResultInvalidOpenFlags;
 
@@ -47,7 +47,7 @@ bool DiskFile::SetSize(const u64 size) const {
     return true;
 }
 
-bool DiskFile::Close() const {
+bool DiskFile::Close() {
     return file->Close();
 }
 

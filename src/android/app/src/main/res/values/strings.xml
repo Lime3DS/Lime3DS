@@ -698,4 +698,11 @@
     <string name="november">November</string>
     <string name="december">December</string>
 
+    <!-- Artic base -->
+    <string name="artic_server_comm_error">Failed to communicate with the Artic Base server. Emulation will stop.</string>
+    <string name="artic_base">Artic Base</string>
+    <string name="artic_base_connect_description">Connect to a real console that is running an Artic Base server</string>
+    <string name="artic_base_connect">Connect to Artic Base</string>
+    <string name="artic_base_enter_address">Enter Artic Base server address</string>
+
 </resources>

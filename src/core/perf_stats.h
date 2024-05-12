@@ -9,6 +9,7 @@
 #include <chrono>
 #include <cstddef>
 #include <mutex>
+#include "common/bit_field.h"
 #include "common/common_types.h"
 #include "common/thread.h"
 
@@ -25,6 +26,28 @@ public:
 
     using Clock = std::chrono::high_resolution_clock;
 
+    enum class PerfArticEventBits {
+        NONE = 0,
+        ARTIC_SAVE_DATA = (1 << 0),
+        ARTIC_EXT_DATA = (1 << 1),
+        ARTIC_BOSS_EXT_DATA = (1 << 2),
+        ARTIC_SHARED_EXT_DATA = (1 << 3),
+    };
+    union PerfArticEvents {
+        u32 raw{};
+        BitField<0, 1, u32> artic_save_data;
+        BitField<1, 1, u32> artic_ext_data;
+        BitField<2, 1, u32> artic_boss_ext_data;
+        BitField<3, 1, u32> artic_shared_ext_data;
+
+        void Set(PerfArticEventBits event, bool set) {
+            raw = (raw & ~static_cast<u32>(event)) | (set ? static_cast<u32>(event) : 0);
+        }
+        bool Get(PerfArticEventBits event) {
+            return (raw & static_cast<u32>(event)) != 0;
+        }
+    };
+
     struct Results {
         /// System FPS (LCD VBlanks) in Hz
         double system_fps;
@@ -34,6 +57,10 @@ public:
         double frametime;
         /// Ratio of walltime / emulated time elapsed
         double emulation_speed;
+        /// Artic base bytes per second
+        double artic_transmitted = 0;
+        /// Artic base events
+        PerfArticEvents artic_events{};
     };
 
     void BeginSystemFrame();
@@ -54,6 +81,19 @@ public:
      * useful for scaling inputs or outputs moving between the two time domains.
      */
     double GetLastFrameTimeScale() const;
+
+    void AddArticBaseTraffic(u32 bytes) {
+        artic_transmitted += bytes;
+    }
+
+    void ReportPerfArticEvent(PerfArticEventBits event, bool set) {
+        if (set) {
+            artic_events.Set(event, set);
+            prev_artic_event.Set(event, set);
+        } else {
+            artic_events.Set(event, set);
+        }
+    }
 
 private:
     mutable std::mutex object_mutex;
@@ -77,6 +117,12 @@ private:
     u32 system_frames = 0;
     /// Cumulative number of game frames (GSP frame submissions) since last reset
     u32 game_frames = 0;
+    /// Cumulative number of transmitted artic base traffic
+    std::atomic<u32> artic_transmitted = 0;
+    // System events that affect performance
+    PerfArticEvents artic_events;
+
+    PerfArticEvents prev_artic_event;
 
     /// Point when the previous system frame ended
     Clock::time_point previous_frame_end = reset_point;

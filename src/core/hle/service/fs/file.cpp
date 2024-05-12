@@ -169,10 +169,9 @@ void File::Write(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
     u64 offset = rp.Pop<u64>();
     u32 length = rp.Pop<u32>();
-    u32 flush = rp.Pop<u32>();
-    auto& buffer = rp.PopMappedBuffer();
-    LOG_TRACE(Service_FS, "Write {}: offset=0x{:x} length={}, flush=0x{:x}", GetName(), offset,
-              length, flush);
+    u32 flags = rp.Pop<u32>();
+    LOG_TRACE(Service_FS, "Write {}: offset=0x{:x} length={}, flags=0x{:x}", GetName(), offset,
+              length, flags);
 
     IPC::RequestBuilder rb = rp.MakeBuilder(2, 2);
 
@@ -182,25 +181,75 @@ void File::Write(Kernel::HLERequestContext& ctx) {
     if (file->subfile) {
         rb.Push(FileSys::ResultUnsupportedOpenFlags);
         rb.Push<u32>(0);
+        rb.PushMappedBuffer(rp.PopMappedBuffer());
+        return;
+    }
+    bool flush = (flags & 0xFF) != 0, update_timestamp = (flags & 0xFF00) != 0;
+
+    if (!backend->AllowsCachedReads()) {
+        std::vector<u8> data(length);
+        auto& buffer = rp.PopMappedBuffer();
+        buffer.Read(data.data(), 0, data.size());
+        ResultVal<std::size_t> written =
+            backend->Write(offset, data.size(), flush, update_timestamp, data.data());
+
+        // Update file size
+        file->size = backend->GetSize();
+
+        if (written.Failed()) {
+            rb.Push(written.Code());
+            rb.Push<u32>(0);
+        } else {
+            rb.Push(ResultSuccess);
+            rb.Push<u32>(static_cast<u32>(*written));
+        }
         rb.PushMappedBuffer(buffer);
         return;
     }
 
-    std::vector<u8> data(length);
-    buffer.Read(data.data(), 0, data.size());
-    ResultVal<std::size_t> written = backend->Write(offset, data.size(), flush != 0, data.data());
+    struct AsyncData {
+        // Input
+        u32 length;
+        u64 offset;
+        bool flush;
+        bool update_timestamp;
+        Kernel::MappedBuffer* buffer;
+        FileSessionSlot* file;
 
-    // Update file size
-    file->size = backend->GetSize();
+        // Output
+        ResultVal<std::size_t> written;
+    };
+    auto async_data = std::make_shared<AsyncData>();
+    async_data->length = length;
+    async_data->offset = offset;
+    async_data->flush = flush;
+    async_data->update_timestamp = update_timestamp;
+    async_data->buffer = &rp.PopMappedBuffer();
+    async_data->file = file;
 
-    if (written.Failed()) {
-        rb.Push(written.Code());
-        rb.Push<u32>(0);
-    } else {
-        rb.Push(ResultSuccess);
-        rb.Push<u32>(static_cast<u32>(*written));
-    }
-    rb.PushMappedBuffer(buffer);
+    ctx.RunAsync(
+        [this, async_data](Kernel::HLERequestContext& ctx) {
+            std::vector<u8> data(async_data->length);
+            async_data->buffer->Read(data.data(), 0, data.size());
+            async_data->written = backend->Write(async_data->offset, data.size(), async_data->flush,
+                                                 async_data->update_timestamp, data.data());
+
+            // Update file size
+            async_data->file->size = backend->GetSize();
+            return 0;
+        },
+        [async_data](Kernel::HLERequestContext& ctx) {
+            IPC::RequestBuilder rb(ctx, 2, 2);
+            if (async_data->written.Failed()) {
+                rb.Push(async_data->written.Code());
+                rb.Push<u32>(0);
+            } else {
+                rb.Push(ResultSuccess);
+                rb.Push<u32>(static_cast<u32>(*async_data->written));
+            }
+            rb.PushMappedBuffer(*async_data->buffer);
+        },
+        true);
 }
 
 void File::GetSize(Kernel::HLERequestContext& ctx) {
@@ -219,17 +268,32 @@ void File::SetSize(Kernel::HLERequestContext& ctx) {
 
     FileSessionSlot* file = GetSessionData(ctx.Session());
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-
     // SetSize can not be called on subfiles.
     if (file->subfile) {
+        IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
         rb.Push(FileSys::ResultUnsupportedOpenFlags);
         return;
     }
 
-    file->size = size;
-    backend->SetSize(size);
-    rb.Push(ResultSuccess);
+    if (!backend->AllowsCachedReads()) {
+        IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+        file->size = size;
+        backend->SetSize(size);
+        rb.Push(ResultSuccess);
+        return;
+    }
+
+    ctx.RunAsync(
+        [file, size, this](Kernel::HLERequestContext& ctx) {
+            file->size = size;
+            backend->SetSize(size);
+            return 0;
+        },
+        [](Kernel::HLERequestContext& ctx) {
+            IPC::RequestBuilder rb(ctx, 1, 0);
+            rb.Push(ResultSuccess);
+        },
+        true);
 }
 
 void File::Close(Kernel::HLERequestContext& ctx) {
@@ -240,26 +304,53 @@ void File::Close(Kernel::HLERequestContext& ctx) {
         LOG_WARNING(Service_FS, "Closing File backend but {} clients still connected",
                     connected_sessions.size());
 
-    backend->Close();
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultSuccess);
+    if (!backend->AllowsCachedReads()) {
+        backend->Close();
+        IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+        rb.Push(ResultSuccess);
+        return;
+    }
+
+    ctx.RunAsync(
+        [this](Kernel::HLERequestContext& ctx) {
+            backend->Close();
+            return 0;
+        },
+        [](Kernel::HLERequestContext& ctx) {
+            IPC::RequestBuilder rb(ctx, 1, 0);
+            rb.Push(ResultSuccess);
+        },
+        true);
 }
 
 void File::Flush(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-
     const FileSessionSlot* file = GetSessionData(ctx.Session());
 
     // Subfiles can not be flushed.
     if (file->subfile) {
+        IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
         rb.Push(FileSys::ResultUnsupportedOpenFlags);
         return;
     }
 
-    backend->Flush();
-    rb.Push(ResultSuccess);
+    if (!backend->AllowsCachedReads()) {
+        IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+        backend->Flush();
+        rb.Push(ResultSuccess);
+    }
+
+    ctx.RunAsync(
+        [this](Kernel::HLERequestContext& ctx) {
+            backend->Flush();
+            return 0;
+        },
+        [](Kernel::HLERequestContext& ctx) {
+            IPC::RequestBuilder rb(ctx, 1, 0);
+            rb.Push(ResultSuccess);
+        },
+        true);
 }
 
 void File::SetPriority(Kernel::HLERequestContext& ctx) {

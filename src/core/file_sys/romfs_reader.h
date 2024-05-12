@@ -9,6 +9,12 @@
 #include "common/common_types.h"
 #include "common/file_util.h"
 #include "common/static_lru_cache.h"
+#include "core/file_sys/artic_cache.h"
+#include "network/artic_base/artic_base_client.h"
+
+namespace Loader {
+enum class ResultStatus;
+}
 
 namespace FileSys {
 
@@ -97,6 +103,53 @@ private:
     friend class boost::serialization::access;
 };
 
+/**
+ * A RomFS reader that reads from an artic base server.
+ */
+class ArticRomFSReader : public RomFSReader {
+public:
+    ArticRomFSReader() = default;
+    ArticRomFSReader(std::shared_ptr<Network::ArticBase::Client>& cli, bool is_update_romfs);
+
+    ~ArticRomFSReader() override;
+
+    std::size_t GetSize() const override {
+        return data_size;
+    }
+
+    std::size_t ReadFile(std::size_t offset, std::size_t length, u8* buffer) override;
+
+    bool AllowsCachedReads() const override;
+
+    bool CacheReady(std::size_t file_offset, std::size_t length) override;
+
+    Loader::ResultStatus OpenStatus() {
+        return load_status;
+    }
+
+    void ClearCache() {
+        cache.Clear();
+    }
+
+    void CloseFile();
+
+private:
+    std::shared_ptr<Network::ArticBase::Client> client;
+    size_t data_size = 0;
+    s32 romfs_handle = -1;
+    Loader::ResultStatus load_status;
+
+    ArticCache cache;
+
+    template <class Archive>
+    void serialize(Archive& ar, const unsigned int) {
+        ar& boost::serialization::base_object<RomFSReader>(*this);
+        ar & data_size;
+    }
+    friend class boost::serialization::access;
+};
+
 } // namespace FileSys
 
 BOOST_CLASS_EXPORT_KEY(FileSys::DirectRomFSReader)
+BOOST_CLASS_EXPORT_KEY(FileSys::ArticRomFSReader)

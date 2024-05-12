@@ -237,7 +237,7 @@ ResultVal<std::size_t> CIAFile::WriteContentData(u64 offset, std::size_t length,
 }
 
 ResultVal<std::size_t> CIAFile::Write(u64 offset, std::size_t length, bool flush,
-                                      const u8* buffer) {
+                                      bool update_timestamp, const u8* buffer) {
     written += length;
 
     // TODO(shinyquagsire23): Can we assume that things will only be written in sequence?
@@ -318,7 +318,7 @@ bool CIAFile::SetSize(u64 size) const {
     return false;
 }
 
-bool CIAFile::Close() const {
+bool CIAFile::Close() {
     bool complete =
         install_state >= CIAInstallState::TMDLoaded &&
         content_written.size() == container.GetTitleMetadata().GetContentCount() &&
@@ -390,7 +390,7 @@ ResultVal<std::size_t> TicketFile::Read(u64 offset, std::size_t length, u8* buff
 }
 
 ResultVal<std::size_t> TicketFile::Write(u64 offset, std::size_t length, bool flush,
-                                         const u8* buffer) {
+                                         bool update_timestamp, const u8* buffer) {
     written += length;
     data.resize(written);
     std::memcpy(data.data() + offset, buffer, length);
@@ -405,7 +405,7 @@ bool TicketFile::SetSize(u64 size) const {
     return false;
 }
 
-bool TicketFile::Close() const {
+bool TicketFile::Close() {
     FileSys::Ticket ticket;
     if (ticket.Load(data, 0) == Loader::ResultStatus::Success) {
         LOG_WARNING(Service_AM, "Discarding ticket for {:#016X}.", ticket.GetTitleID());
@@ -451,7 +451,7 @@ InstallStatus InstallCIA(const std::string& path,
         while (total_bytes_read != file_size) {
             std::size_t bytes_read = file.ReadBytes(buffer.data(), buffer.size());
             auto result = installFile.Write(static_cast<u64>(total_bytes_read), bytes_read, true,
-                                            static_cast<u8*>(buffer.data()));
+                                            false, static_cast<u8*>(buffer.data()));
 
             if (update_callback) {
                 update_callback(total_bytes_read, file_size);
@@ -561,7 +561,8 @@ InstallStatus InstallFromNus(u64 title_id, int version) {
         const u64 offset =
             Common::AlignUp(current_offset + data.size(), FileSys::CIA_SECTION_ALIGNMENT);
         data.resize(offset - current_offset, 0);
-        const auto result = install_file.Write(current_offset, data.size(), true, data.data());
+        const auto result =
+            install_file.Write(current_offset, data.size(), true, false, data.data());
         if (result.Failed()) {
             LOG_ERROR(Service_AM, "CIA file installation aborted with error code {:08x}",
                       result.Code().raw);
@@ -1420,9 +1421,9 @@ public:
         return file->backend->Read(offset + file_offset, length, buffer);
     }
 
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override {
-        return file->backend->Write(offset + file_offset, length, flush, buffer);
+        return file->backend->Write(offset + file_offset, length, flush, update_timestamp, buffer);
     }
 
     u64 GetSize() const override {
@@ -1431,7 +1432,7 @@ public:
     bool SetSize(u64 size) const override {
         return false;
     }
-    bool Close() const override {
+    bool Close() override {
         return false;
     }
     void Flush() const override {}

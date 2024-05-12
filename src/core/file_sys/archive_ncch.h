@@ -11,8 +11,10 @@
 #include <boost/serialization/export.hpp>
 #include <boost/serialization/vector.hpp>
 #include "core/file_sys/archive_backend.h"
+#include "core/file_sys/artic_cache.h"
 #include "core/file_sys/file_backend.h"
 #include "core/hle/result.h"
+#include "network/artic_base/artic_base_client.h"
 
 namespace Service::FS {
 enum class MediaType : u32;
@@ -48,16 +50,16 @@ public:
         return "NCCHArchive";
     }
 
-    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path,
-                                                     const Mode& mode) const override;
+    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path, const Mode& mode,
+                                                     u32 attributes) override;
     Result DeleteFile(const Path& path) const override;
     Result RenameFile(const Path& src_path, const Path& dest_path) const override;
     Result DeleteDirectory(const Path& path) const override;
     Result DeleteDirectoryRecursively(const Path& path) const override;
-    Result CreateFile(const Path& path, u64 size) const override;
-    Result CreateDirectory(const Path& path) const override;
+    Result CreateFile(const Path& path, u64 size, u32 attributes) const override;
+    Result CreateDirectory(const Path& path, u32 attributes) const override;
     Result RenameDirectory(const Path& src_path, const Path& dest_path) const override;
-    ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) const override;
+    ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) override;
     u64 GetFreeBytes() const override;
 
 protected:
@@ -82,11 +84,11 @@ public:
     explicit NCCHFile(std::vector<u8> buffer, std::unique_ptr<DelayGenerator> delay_generator_);
 
     ResultVal<std::size_t> Read(u64 offset, std::size_t length, u8* buffer) const override;
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override;
     u64 GetSize() const override;
     bool SetSize(u64 size) const override;
-    bool Close() const override {
+    bool Close() override {
         return false;
     }
     void Flush() const override {}
@@ -105,7 +107,7 @@ private:
 };
 
 /// File system interface to the NCCH archive
-class ArchiveFactory_NCCH final : public ArchiveFactory {
+class ArchiveFactory_NCCH final : public ArchiveFactory, public ArticCacheProvider {
 public:
     explicit ArchiveFactory_NCCH();
 
@@ -114,14 +116,29 @@ public:
     }
 
     ResultVal<std::unique_ptr<ArchiveBackend>> Open(const Path& path, u64 program_id) override;
-    Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                  u64 program_id) override;
+    Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info, u64 program_id,
+                  u32 directory_buckets, u32 file_buckets) override;
     ResultVal<ArchiveFormatInfo> GetFormatInfo(const Path& path, u64 program_id) const override;
 
+    bool IsSlow() override {
+        return IsUsingArtic();
+    }
+
+    void RegisterArtic(std::shared_ptr<Network::ArticBase::Client>& client) {
+        artic_client = client;
+    }
+
+    bool IsUsingArtic() const {
+        return artic_client.get() != nullptr;
+    }
+
 private:
+    std::shared_ptr<Network::ArticBase::Client> artic_client = nullptr;
+
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {
         ar& boost::serialization::base_object<ArchiveFactory>(*this);
+        ar& boost::serialization::base_object<ArticCacheProvider>(*this);
     }
     friend class boost::serialization::access;
 };

@@ -51,7 +51,7 @@ public:
         return data->size();
     }
 
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override {
         LOG_ERROR(Service_FS, "The file is read-only!");
         return ResultUnsupportedOpenFlags;
@@ -65,7 +65,7 @@ public:
         return false;
     }
 
-    bool Close() const override {
+    bool Close() override {
         return true;
     }
 
@@ -94,7 +94,8 @@ public:
         return "SelfNCCHArchive";
     }
 
-    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path, const Mode&) const override {
+    ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path, const Mode&,
+                                                     u32 attributes) override {
         // Note: SelfNCCHArchive doesn't check the open mode.
 
         if (path.GetType() != LowPathType::Binary) {
@@ -154,12 +155,12 @@ public:
         return ResultUnsupportedOpenFlags;
     }
 
-    Result CreateFile(const Path& path, u64 size) const override {
+    Result CreateFile(const Path& path, u64 size, u32 attributes) const override {
         LOG_ERROR(Service_FS, "Unsupported");
         return ResultUnsupportedOpenFlags;
     }
 
-    Result CreateDirectory(const Path& path) const override {
+    Result CreateDirectory(const Path& path, u32 attributes) const override {
         LOG_ERROR(Service_FS, "Unsupported");
         return ResultUnsupportedOpenFlags;
     }
@@ -169,7 +170,7 @@ public:
         return ResultUnsupportedOpenFlags;
     }
 
-    ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) const override {
+    ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) override {
         LOG_ERROR(Service_FS, "Unsupported");
         return ResultUnsupportedOpenFlags;
     }
@@ -297,7 +298,7 @@ ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_SelfNCCH::Open(const P
 }
 
 Result ArchiveFactory_SelfNCCH::Format(const Path&, const FileSys::ArchiveFormatInfo&,
-                                       u64 program_id) {
+                                       u64 program_id, u32 directory_buckets, u32 file_buckets) {
     LOG_ERROR(Service_FS, "Attempted to format a SelfNCCH archive.");
     return ResultInvalidPath;
 }

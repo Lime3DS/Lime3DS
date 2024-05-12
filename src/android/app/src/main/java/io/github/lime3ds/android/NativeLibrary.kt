@@ -183,13 +183,13 @@ object NativeLibrary {
     private var coreErrorAlertResult = false
     private val coreErrorAlertLock = Object()
 
-    private fun onCoreErrorImpl(title: String, message: String) {
+    private fun onCoreErrorImpl(title: String, message: String, canContinue: Boolean) {
         val emulationActivity = sEmulationActivity.get()
         if (emulationActivity == null) {
             Log.error("[NativeLibrary] EmulationActivity not present")
             return
         }
-        val fragment = CoreErrorDialogFragment.newInstance(title, message)
+        val fragment = CoreErrorDialogFragment.newInstance(title, message, canContinue)
         fragment.show(emulationActivity.supportFragmentManager, CoreErrorDialogFragment.TAG)
     }
 
@@ -207,6 +207,7 @@ object NativeLibrary {
         }
         val title: String
         val message: String
+        val canContinue: Boolean
         when (error) {
             CoreError.ErrorSystemFiles -> {
                 title = emulationActivity.getString(R.string.system_archive_not_found)
@@ -214,16 +215,25 @@ object NativeLibrary {
                     R.string.system_archive_not_found_message,
                     details.ifEmpty { emulationActivity.getString(R.string.system_archive_general) }
                 )
+                canContinue = true
             }
 
             CoreError.ErrorSavestate -> {
                 title = emulationActivity.getString(R.string.save_load_error)
                 message = details
+                canContinue = true
+            }
+
+            CoreError.ErrorArticDisconnected -> {
+                title = emulationActivity.getString(R.string.artic_base)
+                message = emulationActivity.getString(R.string.artic_server_comm_error)
+                canContinue = false
             }
 
             CoreError.ErrorUnknown -> {
                 title = emulationActivity.getString(R.string.fatal_error)
                 message = emulationActivity.getString(R.string.fatal_error_message)
+                canContinue = true
             }
 
             else -> {
@@ -232,7 +242,7 @@ object NativeLibrary {
         }
 
         // Show the AlertDialog on the main thread.
-        emulationActivity.runOnUiThread(Runnable { onCoreErrorImpl(title, message) })
+        emulationActivity.runOnUiThread(Runnable { onCoreErrorImpl(title, message, canContinue) })
 
         // Wait for the lock to notify that it is complete.
         synchronized(coreErrorAlertLock) {
@@ -346,6 +356,11 @@ object NativeLibrary {
             return
         }
 
+        if (resultCode == EmulationErrorDialogFragment.ShutdownRequested) {
+            emulationActivity.finish()
+            return
+        }
+
         emulationActivity.runOnUiThread {
             EmulationErrorDialogFragment.newInstance(resultCode).showNow(
                 emulationActivity.supportFragmentManager,
@@ -361,16 +376,23 @@ object NativeLibrary {
             emulationActivity = requireActivity() as EmulationActivity
 
             var captionId = R.string.loader_error_invalid_format
-            if (requireArguments().getInt(RESULT_CODE) == ErrorLoader_ErrorEncrypted) {
+            val result = requireArguments().getInt(RESULT_CODE)
+            if (result == ErrorLoader_ErrorEncrypted) {
                 captionId = R.string.loader_error_encrypted
+            }
+            if (result == ErrorArticDisconnected) {
+                captionId = R.string.artic_base
             }
 
             val alert = MaterialAlertDialogBuilder(requireContext())
                 .setTitle(captionId)
                 .setMessage(
                     Html.fromHtml(
-                        LimeApplication.appContext.resources.getString(R.string.redump_games),
-                        Html.FROM_HTML_MODE_LEGACY
+                        if (result == ErrorArticDisconnected)
+                            LimeApplication.appContext.resources.getString(R.string.artic_server_comm_error)
+                        else
+                            LimeApplication.appContext.resources.getString(R.string.redump_games),
+                    Html.FROM_HTML_MODE_LEGACY
                     )
                 )
                 .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
@@ -398,7 +420,10 @@ object NativeLibrary {
             const val ErrorLoader = 4
             const val ErrorLoader_ErrorEncrypted = 5
             const val ErrorLoader_ErrorInvalidFormat = 6
-            const val ErrorSystemFiles = 7
+            const val ErrorLoader_ErrorGBATitle = 7
+            const val ErrorSystemFiles = 8
+            const val ErrorSavestate = 9
+            const val ErrorArticDisconnected = 10
             const val ShutdownRequested = 11
             const val ErrorUnknown = 12
 
@@ -619,6 +644,7 @@ object NativeLibrary {
     enum class CoreError {
         ErrorSystemFiles,
         ErrorSavestate,
+        ErrorArticDisconnected,
         ErrorUnknown
     }
 
@@ -633,23 +659,33 @@ object NativeLibrary {
     }
 
     class CoreErrorDialogFragment : DialogFragment() {
+        private var userChosen = false
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val title = requireArguments().getString(TITLE)
             val message = requireArguments().getString(MESSAGE)
-            return MaterialAlertDialogBuilder(requireContext())
+            val canContinue = requireArguments().getBoolean(CAN_CONTINUE)
+            val dialog = MaterialAlertDialogBuilder(requireContext())
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(R.string.continue_button) { _: DialogInterface?, _: Int ->
+            if (canContinue) {
+                dialog.setPositiveButton(R.string.continue_button) { _: DialogInterface?, _: Int ->
                     coreErrorAlertResult = true
+                    userChosen = true
                 }
-                .setNegativeButton(R.string.abort_button) { _: DialogInterface?, _: Int ->
-                    coreErrorAlertResult = false
-                }.show()
+            }
+            dialog.setNegativeButton(R.string.abort_button) { _: DialogInterface?, _: Int ->
+                coreErrorAlertResult = false
+                userChosen = true
+            }
+            return dialog.show()
         }
 
         override fun onDismiss(dialog: DialogInterface) {
             super.onDismiss(dialog)
-            coreErrorAlertResult = true
+            val canContinue = requireArguments().getBoolean(CAN_CONTINUE)
+            if (!userChosen) {
+                coreErrorAlertResult = canContinue
+            }
             synchronized(coreErrorAlertLock) { coreErrorAlertLock.notify() }
         }
 
@@ -658,12 +694,14 @@ object NativeLibrary {
 
             const val TITLE = "title"
             const val MESSAGE = "message"
+            const val CAN_CONTINUE = "canContinue"
 
-            fun newInstance(title: String, message: String): CoreErrorDialogFragment {
+            fun newInstance(title: String, message: String, canContinue: Boolean): CoreErrorDialogFragment {
                 val frag = CoreErrorDialogFragment()
                 val args = Bundle()
                 args.putString(TITLE, title)
                 args.putString(MESSAGE, message)
+                args.putBoolean(CAN_CONTINUE, canContinue)
                 frag.arguments = args
                 return frag
             }

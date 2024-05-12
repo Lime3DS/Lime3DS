@@ -64,7 +64,8 @@ ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_SystemSaveData::Open(c
 
 Result ArchiveFactory_SystemSaveData::Format(const Path& path,
                                              const FileSys::ArchiveFormatInfo& format_info,
-                                             u64 program_id) {
+                                             u64 program_id, u32 directory_buckets,
+                                             u32 file_buckets) {
     std::string fullpath = GetSystemSaveDataPath(base_path, path);
     FileUtil::DeleteDirRecursively(fullpath);
     FileUtil::CreateFullPath(fullpath);

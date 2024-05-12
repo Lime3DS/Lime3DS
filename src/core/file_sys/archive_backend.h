@@ -103,6 +103,7 @@ struct ArchiveFormatInfo {
     u8 duplicate_data;         ///< Whether the archive should duplicate the data.
 };
 static_assert(std::is_trivial_v<ArchiveFormatInfo>, "ArchiveFormatInfo is not POD");
+static_assert(sizeof(ArchiveFormatInfo) == 16, "Invalid ArchiveFormatInfo size");
 
 class ArchiveBackend : NonCopyable {
 public:
@@ -119,8 +120,8 @@ public:
      * @param mode Mode to open the file with
      * @return Opened file, or error code
      */
-    virtual ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path,
-                                                             const Mode& mode) const = 0;
+    virtual ResultVal<std::unique_ptr<FileBackend>> OpenFile(const Path& path, const Mode& mode,
+                                                             u32 attributes = 0) = 0;
 
     /**
      * Delete a file specified by its path
@@ -157,14 +158,14 @@ public:
      * @param size The size of the new file, filled with zeroes
      * @return Result of the operation
      */
-    virtual Result CreateFile(const Path& path, u64 size) const = 0;
+    virtual Result CreateFile(const Path& path, u64 size, u32 attributes = 0) const = 0;
 
     /**
      * Create a directory specified by its path
      * @param path Path relative to the archive
      * @return Result of the operation
      */
-    virtual Result CreateDirectory(const Path& path) const = 0;
+    virtual Result CreateDirectory(const Path& path, u32 attributes = 0) const = 0;
 
     /**
      * Rename a Directory specified by its path
@@ -179,13 +180,27 @@ public:
      * @param path Path relative to the archive
      * @return Opened directory, or error code
      */
-    virtual ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) const = 0;
+    virtual ResultVal<std::unique_ptr<DirectoryBackend>> OpenDirectory(const Path& path) = 0;
 
     /**
      * Get the free space
      * @return The number of free bytes in the archive
      */
     virtual u64 GetFreeBytes() const = 0;
+
+    /**
+     * Close the archive
+     */
+    virtual void Close() {}
+
+    virtual Result Control(u32 action, u8* input, size_t input_size, u8* output,
+                           size_t output_size) {
+        LOG_WARNING(Service_FS,
+                    "(STUBBED) called, archive={}, action={:08X}, input_size={:08X}, "
+                    "output_size={:08X}",
+                    GetName(), action, input_size, output_size);
+        return ResultSuccess;
+    }
 
     u64 GetOpenDelayNs() {
         if (delay_generator != nullptr) {
@@ -194,6 +209,31 @@ public:
         LOG_ERROR(Service_FS, "Delay generator was not initalized. Using default");
         delay_generator = std::make_unique<DefaultDelayGenerator>();
         return delay_generator->GetOpenDelayNs();
+    }
+
+    virtual Result SetSaveDataSecureValue(u32 secure_value_slot, u64 secure_value, bool flush) {
+
+        // TODO: Generate and Save the Secure Value
+
+        LOG_WARNING(Service_FS,
+                    "(STUBBED) called, value=0x{:016x} secure_value_slot=0x{:04X} "
+                    "flush={}",
+                    secure_value, secure_value_slot, flush);
+
+        return ResultSuccess;
+    }
+
+    virtual ResultVal<std::tuple<bool, bool, u64>> GetSaveDataSecureValue(u32 secure_value_slot) {
+
+        // TODO: Implement Secure Value Lookup & Generation
+
+        LOG_WARNING(Service_FS, "(STUBBED) called secure_value_slot=0x{:08X}", secure_value_slot);
+
+        return std::make_tuple<bool, bool, u64>(false, true, 0);
+    }
+
+    virtual bool IsSlow() {
+        return false;
     }
 
 protected:
@@ -232,7 +272,7 @@ public:
      * @return Result of the operation, 0 on success
      */
     virtual Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                          u64 program_id) = 0;
+                          u64 program_id, u32 directory_buckets, u32 file_buckets) = 0;
 
     /**
      * Retrieves the format info about the archive with the specified path
@@ -241,6 +281,10 @@ public:
      * @return Format information about the archive or error code
      */
     virtual ResultVal<ArchiveFormatInfo> GetFormatInfo(const Path& path, u64 program_id) const = 0;
+
+    virtual bool IsSlow() {
+        return false;
+    }
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int) {}

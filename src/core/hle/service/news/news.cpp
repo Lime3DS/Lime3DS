@@ -151,7 +151,7 @@ void Module::Interface::ResetNotifications(Kernel::HLERequestContext& ctx) {
     FileSys::Path archive_path(news_system_savedata_id);
 
     // Format the SystemSaveData archive 0x00010035
-    systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0);
+    systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0, 0, 0);
 
     news->news_system_save_data_archive = systemsavedata_factory.Open(archive_path, 0).Unwrap();
 
@@ -655,7 +655,7 @@ Result Module::LoadNewsDBSavedata() {
     // If the archive didn't exist, create the files inside
     if (archive_result.Code() == FileSys::ResultNotFound) {
         // Format the archive to create the directories
-        systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0);
+        systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0, 0, 0);
 
         // Open it again to get a valid archive now that the folder exists
         news_system_save_data_archive = systemsavedata_factory.Open(archive_path, 0).Unwrap();
@@ -722,7 +722,7 @@ Result Module::SaveFileToSavedata(std::string filename, std::span<const u8> buff
     ASSERT_MSG(result.Succeeded(), "could not open file");
 
     auto file = std::move(result).Unwrap();
-    file->Write(0, buffer.size(), 1, buffer.data());
+    file->Write(0, buffer.size(), true, false, buffer.data());
     file->Close();
 
     return ResultSuccess;
