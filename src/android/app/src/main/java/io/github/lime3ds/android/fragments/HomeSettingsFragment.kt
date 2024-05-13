@@ -89,7 +89,7 @@ class HomeSettingsFragment : Fragment() {
                 {
                     val inflater = LayoutInflater.from(context)
                     val inputBinding = DialogSoftwareKeyboardBinding.inflate(inflater)
-                    var textInputValue: String = ""
+                    var textInputValue: String = preferences.getString("lastArticBaseAddr", "")!!
 
                     inputBinding.editTextInput.setText(textInputValue)
                     inputBinding.editTextInput.doOnTextChanged { text, _, _, _ ->
@@ -102,6 +102,9 @@ class HomeSettingsFragment : Fragment() {
                             .setTitle(getString(R.string.artic_base_enter_address))
                             .setPositiveButton(android.R.string.ok) { _, _ ->
                                 if (textInputValue.isNotEmpty()) {
+                                    preferences.edit()
+                                        .putString("lastArticBaseAddr", textInputValue)
+                                        .apply()
                                     val menu = Game(
                                         title = getString(R.string.artic_base),
                                         path = "articbase://$textInputValue",
