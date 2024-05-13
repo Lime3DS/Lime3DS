@@ -289,8 +289,13 @@ ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_ExtSaveData::Open(cons
 Result ArchiveFactory_ExtSaveData::FormatAsExtData(const Path& path,
                                                    const FileSys::ArchiveFormatInfo& format_info,
                                                    u8 unknown, u64 program_id, u64 total_size,
-                                                   std::span<const u8> icon) {
+                                                   std::optional<std::span<const u8>> icon) {
     if (IsUsingArtic()) {
+        if (!icon.has_value()) {
+            LOG_ERROR(Service_FS, "No icon provided while using Artic Base");
+            return ResultUnknown;
+        }
+
         ExtSaveDataArchivePath path_data;
         std::memcpy(&path_data, path.AsBinary().data(), sizeof(path_data));
 
@@ -307,7 +312,7 @@ Result ArchiveFactory_ExtSaveData::FormatAsExtData(const Path& path,
         req.AddParameterU32(format_info.number_directories);
         req.AddParameterU32(format_info.number_files);
         req.AddParameterU64(total_size);
-        req.AddParameterBuffer(icon.data(), icon.size());
+        req.AddParameterBuffer(icon->data(), icon->size());
 
         return ArticArchive::RespResult(artic_client->Send(req));
     } else {
@@ -330,10 +335,11 @@ Result ArchiveFactory_ExtSaveData::FormatAsExtData(const Path& path,
 
         file.WriteBytes(&format_info, sizeof(format_info));
 
-        FileUtil::IOFile icon_file(FileSys::GetExtSaveDataPath(GetMountPoint(), path) + "icon",
-                                   "wb");
-        icon_file.WriteBytes(icon.data(), icon.size());
-
+        if (icon.has_value()) {
+            FileUtil::IOFile icon_file(FileSys::GetExtSaveDataPath(GetMountPoint(), path) + "icon",
+                                       "wb");
+            icon_file.WriteBytes(icon->data(), icon->size());
+        }
         return ResultSuccess;
     }
 }

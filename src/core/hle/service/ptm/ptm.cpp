@@ -158,7 +158,8 @@ static void WriteGameCoinData(GameCoin gamecoin_data) {
     // If the archive didn't exist, create the files inside
     if (archive_result.Code() == FileSys::ResultNotFormatted) {
         // Format the archive to create the directories
-        extdata_archive_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0, 0, 0);
+        extdata_archive_factory.FormatAsExtData(archive_path, FileSys::ArchiveFormatInfo(), 0, 0, 0,
+                                                std::nullopt);
         // Open it again to get a valid archive now that the folder exists
         archive = extdata_archive_factory.Open(archive_path, 0).Unwrap();
         // Create the game coin file

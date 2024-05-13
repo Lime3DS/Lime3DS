@@ -5,6 +5,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <span>
 #include <string>
 #include <boost/serialization/export.hpp>
@@ -51,7 +52,8 @@ public:
     };
 
     Result FormatAsExtData(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                           u8 unknown, u64 program_id, u64 total_size, std::span<const u8> icon);
+                           u8 unknown, u64 program_id, u64 total_size,
+                           std::optional<std::span<const u8>> icon);
 
     Result DeleteExtData(Service::FS::MediaType media_type, u8 unknown, u32 high, u32 low);
 
