@@ -203,6 +203,7 @@
     <addaction name="separator"/>
     <addaction name="action_Report_Compatibility"/>
     <addaction name="separator"/>
+    <addaction name="action_Open_Log_Folder"/>
     <addaction name="action_FAQ"/>
     <addaction name="action_About"/>
    </widget>
@@ -477,6 +478,14 @@
    </property>
    <property name="text">
     <string>Fullscreen</string>
+   </property>
+  </action>
+  <action name="action_Open_Log_Folder">
+   <property name="text">
+    <string>Open Log Folder</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the Lime3DS Log folder</string>
    </property>
   </action>
   <action name="action_Open_Maintenance_Tool">
