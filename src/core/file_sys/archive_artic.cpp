@@ -383,7 +383,7 @@ ResultVal<std::size_t> ArticFileBackend::Read(u64 offset, std::size_t length, u8
     auto cache = cache_provider->ProvideCache(
         client, cache_provider->PathsToVector(archive_path, file_path), true);
 
-    if (cache != nullptr) {
+    if (cache != nullptr && (offset + static_cast<u64>(length)) < GetSize()) {
         return cache->Read(file_handle, offset, length, buffer);
     }
 
