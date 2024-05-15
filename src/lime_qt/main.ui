@@ -485,7 +485,7 @@
     <string>Open Log Folder</string>
    </property>
    <property name="toolTip">
-    <string>Opens the Lime3DS Log folder</string>
+    <string>Opens the Lime3DS log folder</string>
    </property>
   </action>
   <action name="action_Open_Maintenance_Tool">
