@@ -246,6 +246,8 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="audio_volume">Volumen</string>
     <string name="audio_stretch">Extensión de Audio</string>
     <string name="audio_stretch_description">Extiende el audio para reducir los parones. Cuando se active, la latencia de audio se incrementará y reducirá un poco el rendimiento.</string>
+    <string name="realtime_audio">Activar audio en tiempo real</string>
+    <string name="realtime_audio_description">Simula el audio de la Nintendo 3DS para HLE, corrigiendo el retraso del audio cuando la velocidad es inferior al 100%. Podría causar problemas de desincronización del audio</string>
     <string name="audio_input_type">Dispositivo de entrada de audio</string>
     <string name="sound_output_mode">Modo de salida del audio</string>
 

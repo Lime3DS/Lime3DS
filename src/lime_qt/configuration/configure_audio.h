@@ -39,5 +39,6 @@ private:
     void SetupPerGameUI();
 
     ConfigurationShared::CheckState audio_stretching;
+    ConfigurationShared::CheckState realtime_audio;
     std::unique_ptr<Ui::ConfigureAudio> ui;
 };

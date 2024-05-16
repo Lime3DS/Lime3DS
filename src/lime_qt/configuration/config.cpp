@@ -278,6 +278,7 @@ void Config::ReadAudioValues() {
 
     ReadGlobalSetting(Settings::values.audio_emulation);
     ReadGlobalSetting(Settings::values.enable_audio_stretching);
+    ReadGlobalSetting(Settings::values.enable_realtime_audio);
     ReadGlobalSetting(Settings::values.volume);
 
     if (global) {
@@ -885,6 +886,7 @@ void Config::SaveAudioValues() {
 
     WriteGlobalSetting(Settings::values.audio_emulation);
     WriteGlobalSetting(Settings::values.enable_audio_stretching);
+    WriteGlobalSetting(Settings::values.enable_realtime_audio);
     WriteGlobalSetting(Settings::values.volume);
 
     if (global) {

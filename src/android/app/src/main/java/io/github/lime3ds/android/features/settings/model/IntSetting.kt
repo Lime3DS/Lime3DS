@@ -35,6 +35,7 @@ enum class IntSetting(
     ASYNC_CUSTOM_LOADING("async_custom_loading", Settings.SECTION_UTILITY, 1),
     PRELOAD_TEXTURES("preload_textures", Settings.SECTION_UTILITY, 0),
     ENABLE_AUDIO_STRETCHING("enable_audio_stretching", Settings.SECTION_AUDIO, 1),
+    ENABLE_REALTIME_AUDIO("enable_realtime_audio", Settings.SECTION_AUDIO, 0),
     CPU_JIT("use_cpu_jit", Settings.SECTION_CORE, 1),
     HW_SHADER("use_hw_shader", Settings.SECTION_RENDERER, 1),
     VSYNC("use_vsync_new", Settings.SECTION_RENDERER, 1),

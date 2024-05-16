@@ -96,6 +96,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="toggle_realtime_audio">
+        <property name="toolTip">
+         <string>Simulates the Nintendo 3DS audio for HLE, fixing audio lag when speed is lower from 100%. Might cause audio desync issues</string>
+        </property>
+        <property name="text">
+         <string>Enable real-time audio</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QWidget" name="volume_layout" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="leftMargin">
