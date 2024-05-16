@@ -98,10 +98,10 @@
       <item>
        <widget class="QCheckBox" name="toggle_realtime_audio">
         <property name="toolTip">
-         <string>Simulates the Nintendo 3DS audio for HLE, fixing audio lag when speed is lower from 100%. Might cause audio desync issues</string>
+         <string>Scales audio playback speed to account for drops in emulation framerate. This means that audio will play at full speed even while the game framerate is low. May cause audio desync issues.</string>
         </property>
         <property name="text">
-         <string>Enable real-time audio</string>
+         <string>Enable realtime audio</string>
         </property>
        </widget>
       </item>
