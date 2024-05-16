@@ -252,7 +252,7 @@ enable_dsp_lle_thread =
 # 0: No, 1 (default): Yes
 enable_audio_stretching =
 
-# Simulates the Nintendo 3DS audio for HLE
+# Scales audio playback speed to account for drops in emulation framerate
 # 0 (default): No, 1: Yes
 enable_realtime_audio =
 
