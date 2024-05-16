@@ -64,6 +64,7 @@ void ConfigureAudio::SetConfiguration() {
     SetInputDeviceFromDeviceID();
 
     ui->toggle_audio_stretching->setChecked(Settings::values.enable_audio_stretching.GetValue());
+    ui->toggle_realtime_audio->setChecked(Settings::values.enable_realtime_audio.GetValue());
 
     const s32 volume =
         static_cast<s32>(Settings::values.volume.GetValue() * ui->volume_slider->maximum());
@@ -155,6 +156,8 @@ void ConfigureAudio::SetVolumeIndicatorText(int percentage) {
 void ConfigureAudio::ApplyConfiguration() {
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.enable_audio_stretching,
                                              ui->toggle_audio_stretching, audio_stretching);
+    ConfigurationShared::ApplyPerGameSetting(&Settings::values.enable_realtime_audio,
+                                             ui->toggle_realtime_audio, realtime_audio);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.audio_emulation,
                                              ui->emulation_combo_box);
     ConfigurationShared::ApplyPerGameSetting(
@@ -235,4 +238,7 @@ void ConfigureAudio::SetupPerGameUI() {
 
     ConfigurationShared::SetColoredTristate(
         ui->toggle_audio_stretching, Settings::values.enable_audio_stretching, audio_stretching);
+
+    ConfigurationShared::SetColoredTristate(ui->toggle_realtime_audio,
+                                            Settings::values.enable_realtime_audio, realtime_audio);
 }

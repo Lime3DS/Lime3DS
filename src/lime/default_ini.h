@@ -252,6 +252,10 @@ enable_dsp_lle_thread =
 # 0: No, 1 (default): Yes
 enable_audio_stretching =
 
+# Simulates the Nintendo 3DS audio for HLE
+# 0 (default): No, 1: Yes
+enable_realtime_audio =
+
 # Output volume.
 # 1.0 (default): 100%, 0.0; mute
 volume =

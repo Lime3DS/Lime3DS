@@ -2,6 +2,8 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+#include <algorithm>
+
 #include <boost/serialization/array.hpp>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/shared_ptr.hpp>
@@ -21,6 +23,7 @@
 #include "common/common_types.h"
 #include "common/hash.h"
 #include "common/logging/log.h"
+#include "common/settings.h"
 #include "core/core.h"
 #include "core/core_timing.h"
 
@@ -414,7 +417,12 @@ void DspHle::Impl::AudioTickCallback(s64 cycles_late) {
     }
 
     // Reschedule recurrent event
-    core_timing.ScheduleEvent(audio_frame_ticks - cycles_late, tick_event);
+    const double time_scale =
+        Settings::values.enable_realtime_audio
+            ? std::clamp(Core::System::GetInstance().GetLastFrameTimeScale(), 1.0, 3.0)
+            : 1.0;
+    s64 adjusted_ticks = static_cast<s64>(audio_frame_ticks / time_scale - cycles_late);
+    core_timing.ScheduleEvent(adjusted_ticks, tick_event);
 }
 
 DspHle::DspHle(Core::System& system, Memory::MemorySystem& memory, Core::Timing& timing)
