@@ -91,3 +91,6 @@
 [submodule "oaknut"]
 	path = externals/oaknut
 	url = https://github.com/merryhime/oaknut.git
+[submodule "lime3ds-compatibility-list"]
+	path = dist/compatibility_list
+	url = https://github.com/Lime3DS/compatibility-list
