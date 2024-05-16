@@ -133,7 +133,7 @@ double PerfStats::GetStableFrameTimeScale() const {
     std::scoped_lock lock{object_mutex};
 
     constexpr double FRAME_LENGTH_MILLIS = (1.0 / SCREEN_REFRESH_RATE) * 1000;
-    const short num_frames = std::min(50ul, current_index + 1);
+    const size_t num_frames = std::min<size_t>(50UL, current_index + 1);
     const double sum = std::accumulate(perf_history.begin() + current_index - num_frames,
                                        perf_history.begin() + current_index, 0.0);
     const double stable_frame_length = sum / num_frames;
