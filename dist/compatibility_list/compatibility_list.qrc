@@ -1,5 +1,0 @@
-<RCC>
-  <qresource prefix="compatibility_list">
-      <file>compatibility_list.json</file>
-  </qresource>
-</RCC>
