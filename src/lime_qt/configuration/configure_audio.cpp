@@ -49,6 +49,8 @@ ConfigureAudio::ConfigureAudio(bool is_powered_on, QWidget* parent)
             &ConfigureAudio::UpdateAudioOutputDevices);
     connect(ui->input_type_combo_box, qOverload<int>(&QComboBox::currentIndexChanged), this,
             &ConfigureAudio::UpdateAudioInputDevices);
+    connect(ui->emulation_combo_box, qOverload<int>(&QComboBox::currentIndexChanged), this,
+            &ConfigureAudio::SetHleFeaturesEnabled);
 }
 
 ConfigureAudio::~ConfigureAudio() {}
@@ -65,6 +67,7 @@ void ConfigureAudio::SetConfiguration() {
 
     ui->toggle_audio_stretching->setChecked(Settings::values.enable_audio_stretching.GetValue());
     ui->toggle_realtime_audio->setChecked(Settings::values.enable_realtime_audio.GetValue());
+    SetHleFeaturesEnabled();
 
     const s32 volume =
         static_cast<s32>(Settings::values.volume.GetValue() * ui->volume_slider->maximum());
@@ -151,6 +154,14 @@ void ConfigureAudio::SetInputDeviceFromDeviceID() {
 
 void ConfigureAudio::SetVolumeIndicatorText(int percentage) {
     ui->volume_indicator->setText(tr("%1%", "Volume percentage (e.g. 50%)").arg(percentage));
+}
+
+void ConfigureAudio::SetHleFeaturesEnabled() {
+    const bool is_hle =
+        ui->emulation_combo_box->currentIndex() == static_cast<int>(Settings::AudioEmulation::HLE);
+
+    ui->toggle_audio_stretching->setEnabled(is_hle);
+    ui->toggle_realtime_audio->setEnabled(is_hle);
 }
 
 void ConfigureAudio::ApplyConfiguration() {

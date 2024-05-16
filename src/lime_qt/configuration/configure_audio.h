@@ -35,6 +35,7 @@ private:
     void SetInputTypeFromInputType();
     void SetInputDeviceFromDeviceID();
     void SetVolumeIndicatorText(int percentage);
+    void SetHleFeaturesEnabled();
 
     void SetupPerGameUI();
 
