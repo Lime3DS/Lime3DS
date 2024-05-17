@@ -1,7 +1,6 @@
 #!/bin/bash -ex
 
 export NDK_CCACHE=$(which ccache)
-BUILD_FLAVOR=nightly
 
 if [ ! -z "${ANDROID_KEYSTORE_B64}" ]; then
     export ANDROID_KEYSTORE_FILE="${GITHUB_WORKSPACE}/ks.jks"
@@ -10,8 +9,8 @@ fi
 
 cd src/android
 chmod +x ./gradlew
-./gradlew assemble${BUILD_FLAVOR}Release
-./gradlew bundle${BUILD_FLAVOR}Release
+./gradlew assembleRelease
+./gradlew bundleRelease
 
 ccache -s -v
 

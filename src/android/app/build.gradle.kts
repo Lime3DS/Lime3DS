@@ -145,16 +145,6 @@ android {
     }
 
     flavorDimensions.add("version")
-    productFlavors {
-        create("canary") {
-            dimension = "version"
-            applicationIdSuffix = ".canary"
-        }
-
-        create("nightly") {
-            dimension = "version"
-        }
-    }
 
     externalNativeBuild {
         cmake {
