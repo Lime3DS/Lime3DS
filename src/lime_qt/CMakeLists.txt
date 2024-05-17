@@ -220,7 +220,7 @@ if (ENABLE_QT_TRANSLATION)
             SOURCES ${QT_SRCS} ${UIS}
             INCLUDE_DIRECTORIES ${QT_INCLUDES}
             NO_GLOBAL_TARGET)
-        add_custom_target(translation ALL DEPENDS citra-qt_lupdate)
+        add_custom_target(translation ALL DEPENDS lime-qt_lupdate)
     endif()
 
     # Find all TS files except en.ts

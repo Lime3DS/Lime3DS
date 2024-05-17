@@ -1,13 +1,13 @@
 [main]
 host = https://www.transifex.com
 
-[o:citra:p:citra:r:emulator]
+[o:lime3ds:p:lime3ds:r:emulator]
 file_filter = <lang>.ts
 source_file = en.ts
 source_lang = en
 type        = QT
 
-[o:citra:p:citra:r:android]
+[o:lime3ds:p:lime3ds:r:android]
 file_filter = ../../src/android/app/src/main/res/values-<lang>/strings.xml
 source_file = ../../src/android/app/src/main/res/values/strings.xml
 type = ANDROID
