@@ -4,7 +4,8 @@
     <string name="app_disclaimer">Denne programvaren kjører spill for Nintendo 3DS håndholdte spillkonsoll. Ingen spilltitler er inkludert.\n\nFør du starter, vennligst plasser dine rettmessig eide 3DS-spillfiler på lagringsenheten.</string>
     <string name="app_notification_channel_description">Lime3DS emulator notifikasjoner</string>
     <string name="app_notification_running">Lime3DS kjører</string>
-
+    <!-- Home Strings -->
+    <string name="grid_menu_core_settings">Innstillinger</string>
     <!-- Input related strings -->
     <string name="controller_circlepad">Gliplate</string>
     <string name="controller_c">C-Spak</string>
@@ -21,23 +22,15 @@
 
     <!-- Generic buttons (Shared with lots of stuff) -->
     <string name="generic_buttons">Taster</string>
-
-    <!-- Premium settings strings -->
-    <string name="design">Endre Tema (Lys, Mørk)</string>
-    <string name="design_updated">Tema oppdateres når du går ut av Innstillinger</string>
-
     <!-- Core settings strings -->
     <string name="cpu_jit">Aktiver CPU JIT</string>
     <string name="cpu_jit_description">Bruker Just-in-Time (JIT) kompilator til CPU emulering. Når dette er aktivert, vil spill ytelsen bli betydelig forbedret.</string>
     <string name="init_clock">Systemklokketype</string>
     <string name="init_clock_description">Sett den emulerte 3DS-klokken til enten å gjenspeile den på enheten din, eller start på en simulert dato og tid.</string>
-
-    <!-- System settings strings -->
     <string name="init_time">Overstyring av starttid på systemklokken</string>
     <string name="init_time_description">Hvis \"Systemklokketypen\" innstillingen er satt til \"Simulert Klokke\" Endrer dette startpunktet til den datoen og klokkeslettet.</string>
     <string name="emulated_region">Emulert region</string>
     <string name="emulated_language">Emulert Språk</string>
-
     <!-- Camera settings strings -->
     <string name="inner_camera">Indre Kamera</string>
     <string name="outer_left_camera">Ytre Venstre Kamera</string>
@@ -51,7 +44,6 @@
     <string name="camera_facing_external">Ekstern</string>
     <string name="image_flip">Vend Bilde</string>
 
-    <!-- Graphics settings strings -->
     <string name="vsync">Aktiver V-Sync</string>
     <string name="vsync_description">Synkroniserer spillrammefrekvensen med oppdateringsfrekvensen på enheten din.</string>
     <string name="linear_filtering">Aktiver lineær filtrering</string>
@@ -72,34 +64,19 @@
     <string name="internal_resolution_description">Angir oppløsningen som brukes til å gjengis på. En høy oppløsning vil forbedre visuell kvalitet mye, men er også ganske tung på ytelsen og kan forårsake feil i visse spill.</string>
     <string name="performance_warning">Å slå av denne innstillingen vil redusere emuleringsytelsen betydelig! For den beste opplevelsen, anbefales det at du lar denne innstillingen være aktivert.</string>
     <string name="debug_warning">Advarsel: Endring av disse innstillingene reduserer emuleringen</string>
-
-    <!-- Premium strings -->
-    <string name="premium_text">Premium</string>
-    <string name="premium_settings_upsell">Oppgrader til Premium og støtt Lime3DS!</string>
-    <string name="premium_settings_upsell_description">Med Premium vil du støtte utviklerne til å fortsette å forbedre Lime3DS, og få tilgang til disse eksklusive funksjonene!</string>
-    <string name="premium_settings_welcome">Velkommen til Premium.</string>
-    <string name="premium_settings_welcome_description">Takk for støtten!</string>
-
-    <!-- Audio settings strings -->
     <string name="audio_stretch">Aktiver lydstrekking</string>
     <string name="audio_stretch_description">Strekker lyd for å redusere stamming. Når dette er aktivert, øker lydforsinkelsen og reduserer ytelsen litt.</string>
-
     <!-- Miscellaneous -->
     <string name="clear">Tøm</string>
     <string name="slider_default">Standard</string>
     <string name="ini_saved">Lagret Innstillingene</string>
     <string name="gameid_saved">Lagret innstillinger for %1$s</string>
     <string name="error_saving">Feil ved lagring av %1$s.ini: %2$s</string>
-
-    <!-- Game Grid Screen-->
-    <string name="grid_menu_core_settings">Innstillinger</string>
-
     <!-- Add Directory Screen-->
     <string name="select_game_folder">Velg Spill Mappe</string>
 
     <!-- Preferences Screen -->
     <string name="preferences_settings">Innstillinger </string>
-    <string name="preferences_premium">Premium</string>
     <string name="preferences_general">Generelt</string>
     <string name="preferences_system">System</string>
     <string name="preferences_camera">Kamera</string>
@@ -107,12 +84,9 @@
     <string name="preferences_graphics">Grafikk</string>
     <string name="preferences_audio">Lyd</string>
     <string name="preferences_debug">Feilsøk</string>
-
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Ditt ROM er kryptert</string>
     <string name="loader_error_invalid_format">Ugyldig ROM format </string>
-
-    <!-- Emulation Menu -->
     <string name="emulation_show_fps">Vis FPS</string>
     <string name="emulation_configure_controls">Konfigurer Kontroller</string>
     <string name="emulation_edit_layout">Endre Utseende </string>
@@ -136,7 +110,6 @@
     <string name="select_amiibo">Velg Amiibo Fil</string>
     <string name="amiibo_load_error">Feil ved lesing av Amiibo</string>
     <string name="amiibo_load_error_message">Under lasting av den angitte Amiibo-filen oppstod det en feil. Kontroller at filen er riktig.</string>
-
     <string name="write_permission_needed">Du må gi skrivetilgang til ekstern lagring for at emulatoren skal fungere</string>
     <string name="load_settings">Laster Innstillinger...</string>
 
@@ -152,7 +125,6 @@
     <string name="max_length_exceeded">teksten er for lang (må ikke være mer enn %d tegn)</string>
     <string name="blank_input_not_allowed">Blank felt er ikke tillatt</string>
     <string name="empty_input_not_allowed">Tomt felt er ikke tillatt</string>
-
     <!-- Mii Selector -->
     <string name="mii_selector">Mii Velger</string>
     <string name="standard_mii">Standard Mii</string>
@@ -161,4 +133,5 @@
     <string name="camera_select_image">Velg Bilde</string>
     <string name="camera">Kamera</string>
     <string name="camera_permission_needed">Lime3DS trenger tilgang til kameraet ditt for å emulere 3DS-kameraene.\n\n Alternativt kan du også stille \"Bildekilde\" til \"Stillbilde\" i kamerainnstillinger.</string>
-</resources>
+
+    </resources>

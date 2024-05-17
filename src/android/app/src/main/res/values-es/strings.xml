@@ -663,8 +663,8 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <!-- Artic base -->
     <string name="artic_server_comm_error">Fallo de comunicación con el servidor Artic Base. La emulación se detendrá.</string>
     <string name="artic_base">Artic Base</string>
-    <string name="artic_base_connect">Conectar con Artic Base</string>
     <string name="artic_base_connect_description">Conectar con una consola real que esté ejecutando un servidor Artic Base</string>
+    <string name="artic_base_connect">Conectar con Artic Base</string>
     <string name="artic_base_enter_address">Introduce la dirección del servidor Artic Base</string>
 
 </resources>
