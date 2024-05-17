@@ -83,6 +83,7 @@ void LogSettings() {
     LOG_INFO(Config, "Lime3DS Configuration:");
     log_setting("Core_UseCpuJit", values.use_cpu_jit.GetValue());
     log_setting("Core_CPUClockPercentage", values.cpu_clock_percentage.GetValue());
+    log_setting("Core_RaiseTicks", values.raise_cpu_ticks.GetValue());
     log_setting("Renderer_UseGLES", values.use_gles.GetValue());
     log_setting("Renderer_GraphicsAPI", GetGraphicsAPIName(values.graphics_api.GetValue()));
     log_setting("Renderer_AsyncShaders", values.async_shader_compilation.GetValue());
@@ -177,6 +178,7 @@ void RestoreGlobalState(bool is_powered_on) {
 
     // Core
     values.cpu_clock_percentage.SetGlobal(true);
+    values.raise_cpu_ticks.SetGlobal(true);
     values.is_new_3ds.SetGlobal(true);
     values.lle_applets.SetGlobal(true);
 

@@ -965,6 +965,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
+                    IntSetting.RAISE_CPU_TICKS,
+                    R.string.raise_cpu_ticks,
+                    R.string.raise_cpu_ticks_description,
+                    IntSetting.RAISE_CPU_TICKS.key,
+                    IntSetting.RAISE_CPU_TICKS.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
                     IntSetting.DEBUG_RENDERER,
                     R.string.renderer_debug,
                     R.string.renderer_debug_description,

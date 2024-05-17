@@ -39,6 +39,7 @@ enum class IntSetting(
     CPU_JIT("use_cpu_jit", Settings.SECTION_CORE, 1),
     HW_SHADER("use_hw_shader", Settings.SECTION_RENDERER, 1),
     VSYNC("use_vsync_new", Settings.SECTION_RENDERER, 1),
+    RAISE_CPU_TICKS("raise_cpu_ticks", Settings.SECTION_CORE, 0),
     DEBUG_RENDERER("renderer_debug", Settings.SECTION_DEBUG, 0),
     TEXTURE_FILTER("texture_filter", Settings.SECTION_RENDERER, 0),
     USE_FRAME_LIMIT("use_frame_limit", Settings.SECTION_RENDERER, 1);

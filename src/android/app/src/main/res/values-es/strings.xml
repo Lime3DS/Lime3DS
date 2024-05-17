@@ -200,6 +200,8 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="renderer_debug_description">Archiva información adicional gráfica relacionada con la depuración. Cuando está activada, el rendimiento de los juegos será reducido considerablemente</string>
     <string name="vsync">Activar Sincronización Vertical</string>
     <string name="vsync_description">Sincroniza los cuadros por segundo del juego con la tasa de refresco de tu dispositivo.</string>
+    <string name="raise_cpu_ticks">Incrementar Ticks CPU</string>
+    <string name="raise_cpu_ticks_description">Agrega 16000 CPU ticks. Puede mejorar o disminuir el rendimiento, dependiendo del juego o si es un dispositivo de gama baja</string>
     <string name="linear_filtering">Filtro Linear</string>
     <string name="linear_filtering_description">Activa el filtro linear, que hace que los gráficos del juego se vean más suaves.</string>
     <string name="texture_filter_name">Filtro de Texturas</string>
