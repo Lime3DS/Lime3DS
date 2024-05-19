@@ -97,7 +97,7 @@ use_cpu_jit =
 # Range is any positive integer (but we suspect 25 - 400 is a good idea) Default is 100
 cpu_clock_percentage =
 
-# Adds 16000 CPU ticks.
+# Sets 16000 CPU ticks.
 # 0 (default): Off, 1: On
 raise_cpu_ticks =
 

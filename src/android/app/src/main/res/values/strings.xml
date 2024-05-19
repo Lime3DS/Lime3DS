@@ -216,7 +216,7 @@
     <string name="vsync">Enable V-Sync</string>
     <string name="vsync_description">Synchronizes the game frame rate to the refresh rate of your device.</string>
     <string name="raise_cpu_ticks">Raise CPU Ticks</string>
-    <string name="raise_cpu_ticks_description">Adds 16000 CPU ticks. May improve the performance or decrease, depending of the game or if it is a low-end device</string>
+    <string name="raise_cpu_ticks_description">Sets 16000 CPU ticks. May improve the performance or decrease, depending of the game or if it is a low-end device</string>
     <string name="linear_filtering">Linear Filtering</string>
     <string name="linear_filtering_description">Enables linear filtering, which causes game visuals to appear smoother.</string>
     <string name="texture_filter_name">Texture Filter</string>
