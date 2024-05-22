@@ -3470,7 +3470,7 @@ void GMainWindow::SyncMenuUISettings() {
     ui->action_Screen_Layout_Separate_Windows->setChecked(
         Settings::values.layout_option.GetValue() == Settings::LayoutOption::SeparateWindows);
     ui->action_Screen_Layout_Custom_Layout->setChecked(Settings::values.layout_option.GetValue() ==
-                                                      Settings::LayoutOption::CustomLayout);
+                                                       Settings::LayoutOption::CustomLayout);
     ui->action_Screen_Layout_Swap_Screens->setChecked(Settings::values.swap_screen.GetValue());
     ui->action_Screen_Layout_Upright_Screens->setChecked(
         Settings::values.upright_screen.GetValue());
