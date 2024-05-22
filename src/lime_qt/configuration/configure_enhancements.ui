@@ -146,7 +146,7 @@
           </item>
           <item>
            <widget class="QWidget" name="widget_shader" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
              <property name="leftMargin">
               <number>0</number>
              </property>
@@ -241,7 +241,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
@@ -281,7 +281,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
              <widget class="QLabel" name="label_3">
               <property name="text">
@@ -308,7 +308,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <widget class="QLabel" name="label_6">
               <property name="text">
@@ -500,7 +500,7 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
                <item>
                 <widget class="QGroupBox" name="gb_top_screen">
                  <property name="title">
@@ -664,11 +664,22 @@
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Values are in pixels starting from the top left corner of the display. Positive numbers only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
                <item>
                 <widget class="QLabel" name="lb_opacity_second_layer">
                  <property name="text">
-                  <string>Bottom Screen Opacity:</string>
+                  <string>Bottom Screen Opacity (OpenGL Only):</string>
                  </property>
                 </widget>
                </item>
