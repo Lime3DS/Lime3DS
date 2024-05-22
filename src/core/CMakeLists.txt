@@ -40,6 +40,8 @@ add_library(lime_core STATIC
     dumping/backend.h
     dumping/ffmpeg_backend.cpp
     dumping/ffmpeg_backend.h
+    file_sys/archive_artic.cpp
+    file_sys/archive_artic.h
     file_sys/archive_backend.cpp
     file_sys/archive_backend.h
     file_sys/archive_extsavedata.cpp
@@ -60,6 +62,8 @@ add_library(lime_core STATIC
     file_sys/archive_source_sd_savedata.h
     file_sys/archive_systemsavedata.cpp
     file_sys/archive_systemsavedata.h
+    file_sys/artic_cache.cpp
+    file_sys/artic_cache.h
     file_sys/cia_common.h
     file_sys/cia_container.cpp
     file_sys/cia_container.h
@@ -87,6 +91,10 @@ add_library(lime_core STATIC
     file_sys/romfs_reader.h
     file_sys/savedata_archive.cpp
     file_sys/savedata_archive.h
+    file_sys/secure_value_backend_artic.cpp
+    file_sys/secure_value_backend_artic.h
+    file_sys/secure_value_backend.cpp
+    file_sys/secure_value_backend.h
     file_sys/seed_db.cpp
     file_sys/seed_db.h
     file_sys/ticket.cpp
@@ -445,6 +453,8 @@ add_library(lime_core STATIC
     hw/y2r.h
     loader/3dsx.cpp
     loader/3dsx.h
+    loader/artic.cpp
+    loader/artic.h
     loader/elf.cpp
     loader/elf.h
     loader/loader.cpp
@@ -472,7 +482,7 @@ add_library(lime_core STATIC
     tracer/citrace.h
     tracer/recorder.cpp
     tracer/recorder.h
-)
+ )
 
 create_target_directory_groups(lime_core)
 

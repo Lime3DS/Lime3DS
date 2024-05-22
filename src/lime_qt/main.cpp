@@ -15,10 +15,12 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <fmt/format.h>
+#include <fmt/ostream.h>
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
 #endif
 #ifdef _WIN32
+#include <shlobj.h>
 #include <windows.h>
 #endif
 #ifdef __unix__
@@ -70,15 +72,18 @@
 #include "lime_qt/movie/movie_play_dialog.h"
 #include "lime_qt/movie/movie_record_dialog.h"
 #include "lime_qt/multiplayer/state.h"
+#include "lime_qt/play_time_manager.h"
 #include "lime_qt/qt_image_interface.h"
 #include "lime_qt/uisettings.h"
 #include "lime_qt/updater/updater.h"
 #include "lime_qt/util/clickable_label.h"
 #include "lime_qt/util/graphics_device_info.h"
+#include "lime_qt/util/util.h"
 #if CITRA_ARCH(x86_64)
 #include "common/x64/cpu_detect.h"
 #endif
 #include "common/settings.h"
+#include "common/string_util.h"
 #include "core/core.h"
 #include "core/dumping/backend.h"
 #include "core/file_sys/archive_extsavedata.h"
@@ -185,6 +190,8 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     SetDiscordEnabled(UISettings::values.enable_discord_presence.GetValue());
     discord_rpc->Update();
+
+    play_time_manager = std::make_unique<PlayTime::PlayTimeManager>();
 
     Network::Init();
 
@@ -337,7 +344,7 @@ void GMainWindow::InitializeWidgets() {
     secondary_window->hide();
     secondary_window->setParent(nullptr);
 
-    game_list = new GameList(this);
+    game_list = new GameList(*play_time_manager, this);
     ui->horizontalLayout->addWidget(game_list);
 
     game_list_placeholder = new GameListPlaceholder(this);
@@ -381,6 +388,10 @@ void GMainWindow::InitializeWidgets() {
     progress_bar->hide();
     statusBar()->addPermanentWidget(progress_bar);
 
+    artic_traffic_label = new QLabel();
+    artic_traffic_label->setToolTip(
+        tr("Current Artic Base traffic speed. Higher values indicate bigger transfer loads."));
+
     emu_speed_label = new QLabel();
     emu_speed_label->setToolTip(tr("Current emulation speed. Values higher or lower than 100% "
                                    "indicate emulation is running faster or slower than a 3DS."));
@@ -392,7 +403,8 @@ void GMainWindow::InitializeWidgets() {
         tr("Time taken to emulate a 3DS frame, not counting framelimiting or v-sync. For "
            "full-speed emulation this should be at most 16.67 ms."));
 
-    for (auto& label : {emu_speed_label, game_fps_label, emu_frametime_label}) {
+    for (auto& label :
+         {artic_traffic_label, emu_speed_label, game_fps_label, emu_frametime_label}) {
         label->setVisible(false);
         label->setFrameStyle(QFrame::NoFrame);
         label->setContentsMargins(4, 0, 4, 0);
@@ -823,8 +835,11 @@ void GMainWindow::ConnectWidgetEvents() {
     connect(game_list, &GameList::GameChosen, this, &GMainWindow::OnGameListLoadFile);
     connect(game_list, &GameList::OpenDirectory, this, &GMainWindow::OnGameListOpenDirectory);
     connect(game_list, &GameList::OpenFolderRequested, this, &GMainWindow::OnGameListOpenFolder);
+    connect(game_list, &GameList::RemovePlayTimeRequested, this,
+            &GMainWindow::OnGameListRemovePlayTimeData);
     connect(game_list, &GameList::NavigateToGamedbEntryRequested, this,
             &GMainWindow::OnGameListNavigateToGamedbEntry);
+    connect(game_list, &GameList::CreateShortcut, this, &GMainWindow::OnGameListCreateShortcut);
     connect(game_list, &GameList::DumpRomFSRequested, this, &GMainWindow::OnGameListDumpRomFS);
     connect(game_list, &GameList::AddDirectory, this, &GMainWindow::OnGameListAddDirectory);
     connect(game_list_placeholder, &GameListPlaceholder::AddDirectory, this,
@@ -866,6 +881,7 @@ void GMainWindow::ConnectMenuEvents() {
     // File
     connect_menu(ui->action_Load_File, &GMainWindow::OnMenuLoadFile);
     connect_menu(ui->action_Install_CIA, &GMainWindow::OnMenuInstallCIA);
+    connect_menu(ui->action_Connect_Artic, &GMainWindow::OnMenuConnectArticBase);
     for (u32 region = 0; region < Core::NUM_SYSTEM_TITLE_REGIONS; region++) {
         connect_menu(ui->menu_Boot_Home_Menu->actions().at(region),
                      [this, region] { OnMenuBootHomeMenu(region); });
@@ -935,6 +951,10 @@ void GMainWindow::ConnectMenuEvents() {
 
     // Help
     connect_menu(ui->action_Open_Citra_Folder, &GMainWindow::OnOpenCitraFolder);
+    connect_menu(ui->action_Open_Log_Folder, []() {
+        QString path = QString::fromStdString(FileUtil::GetUserPath(FileUtil::UserPath::LogDir));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+    });
     connect_menu(ui->action_FAQ, []() {
         QDesktopServices::openUrl(QUrl(QStringLiteral("https://discord.com/invite/4ZjMpAp3M6")));
     });
@@ -1203,6 +1223,11 @@ bool GMainWindow::LoadROM(const QString& filename) {
                                   tr("GBA Virtual Console ROMs are not supported by Citra."));
             break;
 
+        case Core::System::ResultStatus::ErrorArticDisconnected:
+            QMessageBox::critical(
+                this, tr("Artic Base Server"),
+                tr("An error has occurred whilst communicating with the Artic Base Server."));
+            break;
         default:
             QMessageBox::critical(
                 this, tr("Error while loading ROM!"),
@@ -1220,13 +1245,19 @@ bool GMainWindow::LoadROM(const QString& filename) {
     game_title_long = QString::fromStdString(title_long);
     UpdateWindowTitle();
 
+    u64 title_id;
+    system.GetAppLoader().ReadProgramId(title_id);
+
     game_path = filename;
+    game_title_id = title_id;
 
     return true;
 }
 
 void GMainWindow::BootGame(const QString& filename) {
-    if (filename.endsWith(QStringLiteral(".cia"))) {
+    const bool is_artic = filename.startsWith(QString::fromStdString("articbase://"));
+
+    if (!is_artic && filename.endsWith(QStringLiteral(".cia"))) {
         const auto answer = QMessageBox::question(
             this, tr("CIA must be installed before usage"),
             tr("Before using this CIA, you must install it. Do you want to install it now?"),
@@ -1238,8 +1269,12 @@ void GMainWindow::BootGame(const QString& filename) {
         return;
     }
 
+    show_artic_label = is_artic;
+
     LOG_INFO(Frontend, "Lime3DS starting...");
-    StoreRecentFile(filename); // Put the filename on top of the list
+    if (!is_artic) {
+        StoreRecentFile(filename); // Put the filename on top of the list
+    }
 
     if (movie_record_on_start) {
         movie.PrepareForRecording();
@@ -1249,16 +1284,26 @@ void GMainWindow::BootGame(const QString& filename) {
     }
 
     const std::string path = filename.toStdString();
-    const auto loader = Loader::GetLoader(path);
+    auto loader = Loader::GetLoader(path);
 
     u64 title_id{0};
-    loader->ReadProgramId(title_id);
+    Loader::ResultStatus res = loader->ReadProgramId(title_id);
 
-    // Load per game settings
-    const std::string name{FileUtil::GetFilename(filename.toStdString())};
-    const std::string config_file_name = title_id == 0 ? name : fmt::format("{:016X}", title_id);
-    LOG_INFO(Frontend, "Loading per game config file for title {}", config_file_name);
-    Config per_game_config(config_file_name, Config::ConfigType::PerGameConfig);
+    if (Loader::ResultStatus::Success == res) {
+        // Load per game settings
+        const std::string name{is_artic ? "" : FileUtil::GetFilename(filename.toStdString())};
+        const std::string config_file_name =
+            title_id == 0 ? name : fmt::format("{:016X}", title_id);
+        LOG_INFO(Frontend, "Loading per game config file for title {}", config_file_name);
+        Config per_game_config(config_file_name, Config::ConfigType::PerGameConfig);
+    }
+
+    // Artic Base Server cannot accept a client multiple times, so multiple loaders are not
+    // possible. Instead register the app loader early and do not create it again on system load.
+    if (!loader->SupportsMultipleInstancesForSameFile()) {
+        system.RegisterAppLoaderEarly(loader);
+    }
+
     system.ApplySettings();
 
     Settings::LogSettings();
@@ -1268,8 +1313,11 @@ void GMainWindow::BootGame(const QString& filename) {
     game_list->SaveInterfaceLayout();
     config->Save();
 
-    if (!LoadROM(filename))
+    if (!LoadROM(filename)) {
+        render_window->ReleaseRenderTarget();
+        secondary_window->ReleaseRenderTarget();
         return;
+    }
 
     // Set everything up
     if (movie_record_on_start) {
@@ -1423,6 +1471,8 @@ void GMainWindow::ShutdownGame() {
     // Disable status bar updates
     status_bar_update_timer.stop();
     message_label_used_for_movie = false;
+    show_artic_label = false;
+    artic_traffic_label->setVisible(false);
     emu_speed_label->setVisible(false);
     game_fps_label->setVisible(false);
     emu_frametime_label->setVisible(false);
@@ -1442,6 +1492,7 @@ void GMainWindow::ShutdownGame() {
     UpdateWindowTitle();
 
     game_path.clear();
+    game_title_id = 0;
 
     // Update the GUI
     UpdateMenuState();
@@ -1629,6 +1680,17 @@ void GMainWindow::OnGameListOpenFolder(u64 data_id, GameListOpenTarget target) {
     QDesktopServices::openUrl(QUrl::fromLocalFile(qpath));
 }
 
+void GMainWindow::OnGameListRemovePlayTimeData(u64 program_id) {
+    if (QMessageBox::question(this, tr("Remove Play Time Data"), tr("Reset play time?"),
+                              QMessageBox::Yes | QMessageBox::No,
+                              QMessageBox::No) != QMessageBox::Yes) {
+        return;
+    }
+
+    play_time_manager->ResetProgramPlayTime(program_id);
+    game_list->PopulateAsync(UISettings::values.game_dirs);
+}
+
 void GMainWindow::OnGameListNavigateToGamedbEntry(u64 program_id,
                                                   const CompatibilityList& compatibility_list) {
     auto it = FindMatchingCompatibilityEntry(compatibility_list, program_id);
@@ -1638,6 +1700,255 @@ void GMainWindow::OnGameListNavigateToGamedbEntry(u64 program_id,
         directory = it->second.second;
 
     QDesktopServices::openUrl(QUrl(QStringLiteral("https://citra-emu.org/game/") + directory));
+}
+
+bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
+                                     const std::string& comment,
+                                     const std::filesystem::path& icon_path,
+                                     const std::filesystem::path& command,
+                                     const std::string& arguments, const std::string& categories,
+                                     const std::string& keywords, const std::string& name) try {
+#if defined(__linux__) || defined(__FreeBSD__) // Linux and FreeBSD
+    std::filesystem::path shortcut_path_full = shortcut_path / (name + ".desktop");
+    std::ofstream shortcut_stream(shortcut_path_full, std::ios::binary | std::ios::trunc);
+    if (!shortcut_stream.is_open()) {
+        LOG_ERROR(Frontend, "Failed to create shortcut");
+        return false;
+    }
+    // TODO: Migrate fmt::print to std::print in futures STD C++ 23.
+    fmt::print(shortcut_stream, "[Desktop Entry]\n");
+    fmt::print(shortcut_stream, "Type=Application\n");
+    fmt::print(shortcut_stream, "Version=1.0\n");
+    fmt::print(shortcut_stream, "Name={}\n", name);
+    if (!comment.empty()) {
+        fmt::print(shortcut_stream, "Comment={}\n", comment);
+    }
+    if (std::filesystem::is_regular_file(icon_path)) {
+        fmt::print(shortcut_stream, "Icon={}\n", icon_path.string());
+    }
+    fmt::print(shortcut_stream, "TryExec={}\n", command.string());
+    fmt::print(shortcut_stream, "Exec={} {}\n", command.string(), arguments);
+    if (!categories.empty()) {
+        fmt::print(shortcut_stream, "Categories={}\n", categories);
+    }
+    if (!keywords.empty()) {
+        fmt::print(shortcut_stream, "Keywords={}\n", keywords);
+    }
+    return true;
+#elif defined(_WIN32) // Windows
+    HRESULT hr = CoInitialize(nullptr);
+    if (FAILED(hr)) {
+        LOG_ERROR(Frontend, "CoInitialize failed");
+        return false;
+    }
+    SCOPE_EXIT({ CoUninitialize(); });
+    IShellLinkW* ps1 = nullptr;
+    IPersistFile* persist_file = nullptr;
+    SCOPE_EXIT({
+        if (persist_file != nullptr) {
+            persist_file->Release();
+        }
+        if (ps1 != nullptr) {
+            ps1->Release();
+        }
+    });
+    HRESULT hres = CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, IID_IShellLinkW,
+                                    reinterpret_cast<void**>(&ps1));
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to create IShellLinkW instance");
+        return false;
+    }
+    hres = ps1->SetPath(command.c_str());
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to set path");
+        return false;
+    }
+    if (!arguments.empty()) {
+        hres = ps1->SetArguments(Common::UTF8ToUTF16W(arguments).data());
+        if (FAILED(hres)) {
+            LOG_ERROR(Frontend, "Failed to set arguments");
+            return false;
+        }
+    }
+    if (!comment.empty()) {
+        hres = ps1->SetDescription(Common::UTF8ToUTF16W(comment).data());
+        if (FAILED(hres)) {
+            LOG_ERROR(Frontend, "Failed to set description");
+            return false;
+        }
+    }
+    if (std::filesystem::is_regular_file(icon_path)) {
+        hres = ps1->SetIconLocation(icon_path.c_str(), 0);
+        if (FAILED(hres)) {
+            LOG_ERROR(Frontend, "Failed to set icon location");
+            return false;
+        }
+    }
+    hres = ps1->QueryInterface(IID_IPersistFile, reinterpret_cast<void**>(&persist_file));
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to get IPersistFile interface");
+        return false;
+    }
+    hres = persist_file->Save(std::filesystem::path{shortcut_path / (name + ".lnk")}.c_str(), TRUE);
+    if (FAILED(hres)) {
+        LOG_ERROR(Frontend, "Failed to save shortcut");
+        return false;
+    }
+    return true;
+#else                 // Unsupported platform
+    return false;
+#endif
+} catch (const std::exception& e) {
+    LOG_ERROR(Frontend, "Failed to create shortcut: {}", e.what());
+    return false;
+}
+
+// Messages in pre-defined message boxes for less code spaghetti
+bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
+                                            const QString& game_title) {
+    int result = 0;
+    QMessageBox::StandardButtons buttons;
+    switch (message) {
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT:
+        buttons = QMessageBox::Yes | QMessageBox::No;
+        result =
+            QMessageBox::information(parent, tr("Create Shortcut"),
+                                     tr("Do you want to launch the game in fullscreen?"), buttons);
+        return result == QMessageBox::Yes;
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_SUCCESS:
+        QMessageBox::information(parent, tr("Create Shortcut"),
+                                 tr("Successfully created a shortcut to %1").arg(game_title));
+        return false;
+    case GMainWindow::CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING:
+        buttons = QMessageBox::StandardButton::Ok | QMessageBox::StandardButton::Cancel;
+        result =
+            QMessageBox::warning(this, tr("Create Shortcut"),
+                                 tr("This will create a shortcut to the current AppImage. This may "
+                                    "not work well if you update. Continue?"),
+                                 buttons);
+        return result == QMessageBox::Ok;
+    default:
+        buttons = QMessageBox::Ok;
+        QMessageBox::critical(parent, tr("Create Shortcut"),
+                              tr("Failed to create a shortcut to %1").arg(game_title), buttons);
+        return false;
+    }
+}
+
+bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
+                                      std::filesystem::path& out_icon_path) {
+    // Get path to Citra icons directory & icon extension
+    std::string ico_extension = "png";
+#if defined(_WIN32)
+    out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
+    ico_extension = "ico";
+#elif defined(__linux__) || defined(__FreeBSD__)
+    out_icon_path = FileUtil::GetUserDirectory("XDG_DATA_HOME") + "/icons/hicolor/256x256";
+#endif
+    // Create icons directory if it doesn't exist
+    if (!FileUtil::CreateDir(out_icon_path.string())) {
+        QMessageBox::critical(
+            this, tr("Create Icon"),
+            tr("Cannot create icon file. Path \"%1\" does not exist and cannot be created.")
+                .arg(QString::fromStdString(out_icon_path.string())),
+            QMessageBox::StandardButton::Ok);
+        out_icon_path.clear();
+        return false;
+    }
+
+    // Create icon file path
+    out_icon_path /= (program_id == 0 ? fmt::format("citra-{}.{}", game_file_name, ico_extension)
+                                      : fmt::format("citra-{:016X}.{}", program_id, ico_extension));
+    return true;
+}
+
+void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
+                                           GameListShortcutTarget target) {
+    // Get path to citra executable
+    const QStringList args = QApplication::arguments();
+    std::filesystem::path citra_command = args[0].toStdString();
+    // If relative path, make it an absolute path
+    if (citra_command.c_str()[0] == '.') {
+        citra_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + citra_command.string();
+    }
+
+    // Shortcut path
+    std::filesystem::path shortcut_path{};
+    if (target == GameListShortcutTarget::Desktop) {
+        shortcut_path =
+            QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).toStdString();
+    } else if (target == GameListShortcutTarget::Applications) {
+        shortcut_path =
+            QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation).toStdString();
+    }
+
+    // Icon path and title
+    if (!std::filesystem::exists(shortcut_path)) {
+        CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_ERROR, {});
+        LOG_ERROR(Frontend, "Invalid shortcut target");
+        return;
+    }
+
+    // Get title from game file
+    const auto loader = Loader::GetLoader(game_path);
+    std::string game_title = fmt::format("{:016X}", program_id);
+    if (loader->ReadTitle(game_title) != Loader::ResultStatus::Success) {
+        game_title = fmt::format("{:016x}", program_id);
+    }
+
+    // Delete illegal characters from title
+    const std::string illegal_chars = "<>:\"/\\|?*.";
+    for (auto it = game_title.rbegin(); it != game_title.rend(); ++it) {
+        if (illegal_chars.find(*it) != std::string::npos) {
+            game_title.erase(it.base() - 1);
+        }
+    }
+
+    // Get icon from game file
+    std::vector<u8> icon_image_file;
+    if (loader->ReadIcon(icon_image_file) != Loader::ResultStatus::Success) {
+        LOG_WARNING(Frontend, "Could not read icon from {:s}", game_path);
+    }
+
+    const QPixmap pixmap = GetQPixmapFromSMDH(icon_image_file);
+    const QImage icon_data = pixmap.toImage();
+    std::filesystem::path out_icon_path;
+    if (MakeShortcutIcoPath(program_id, game_title, out_icon_path)) {
+        if (!SaveIconToFile(out_icon_path, icon_data)) {
+            LOG_ERROR(Frontend, "Could not write icon to file");
+        }
+    }
+
+    const auto qt_game_title = QString::fromStdString(game_title);
+#if defined(__linux__)
+    // Special case for AppImages
+    // Warn once if we are making a shortcut to a volatile AppImage
+    const std::string appimage_ending =
+        std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
+    if (citra_command.string().ends_with(appimage_ending) &&
+        !UISettings::values.shortcut_already_warned) {
+        if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
+                                      qt_game_title)) {
+            return;
+        }
+        UISettings::values.shortcut_already_warned = true;
+    }
+#endif // __linux__
+    // Create shortcut
+    std::string arguments = fmt::format("-g \"{:s}\"", game_path);
+    if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT, qt_game_title)) {
+        arguments = "-f " + arguments;
+    }
+    const std::string comment = fmt::format("Start {:s} with the Citra Emulator", game_title);
+    const std::string categories = "Game;Emulator;Qt;";
+    const std::string keywords = "3ds;Nintendo;";
+
+    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, citra_command, arguments,
+                           categories, keywords, game_title)) {
+        CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_SUCCESS, qt_game_title);
+        return;
+    }
+    CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_ERROR, qt_game_title);
 }
 
 void GMainWindow::OnGameListDumpRomFS(QString game_path, u64 program_id) {
@@ -1761,6 +2072,17 @@ void GMainWindow::OnMenuInstallCIA() {
 
     UISettings::values.roms_path = QFileInfo(filepaths[0]).path();
     InstallCIA(filepaths);
+}
+
+void GMainWindow::OnMenuConnectArticBase() {
+    bool ok = false;
+    auto res = QInputDialog::getText(this, tr("Connect to Artic Base"),
+                                     tr("Enter Artic Base server address:"), QLineEdit::Normal,
+                                     UISettings::values.last_artic_base_addr, &ok);
+    if (ok) {
+        UISettings::values.last_artic_base_addr = res;
+        BootGame(QString::fromStdString("articbase://").append(res));
+    }
 }
 
 void GMainWindow::OnMenuBootHomeMenu(u32 region) {
@@ -1913,6 +2235,9 @@ void GMainWindow::OnStartGame() {
 
     UpdateMenuState();
 
+    play_time_manager->SetProgramId(game_title_id);
+    play_time_manager->Start();
+
     discord_rpc->Update();
 
 #ifdef __unix__
@@ -1935,6 +2260,8 @@ void GMainWindow::OnPauseGame() {
     emu_thread->SetRunning(false);
     qt_cameras->PauseCameras();
 
+    play_time_manager->Stop();
+
     UpdateMenuState();
     AllowOSSleep();
 
@@ -1954,6 +2281,10 @@ void GMainWindow::OnPauseContinueGame() {
 }
 
 void GMainWindow::OnStopGame() {
+    play_time_manager->Stop();
+    // Update game list to show new play time
+    game_list->PopulateAsync(UISettings::values.game_dirs);
+
     ShutdownGame();
     graphics_api_button->setEnabled(true);
     Settings::RestoreGlobalState(false);
@@ -2580,6 +2911,51 @@ void GMainWindow::UpdateStatusBar() {
 
     auto results = system.GetAndResetPerfStats();
 
+    if (show_artic_label) {
+        const bool do_mb = results.artic_transmitted >= (1000.0 * 1000.0);
+        const double value = do_mb ? (results.artic_transmitted / (1000.0 * 1000.0))
+                                   : (results.artic_transmitted / 1000.0);
+        static const std::array<std::pair<Core::PerfStats::PerfArticEventBits, QString>, 4>
+            perf_events = {
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_SHARED_EXT_DATA,
+                               tr("(Accessing SharedExtData)")),
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_BOSS_EXT_DATA,
+                               tr("(Accessing BossExtData)")),
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_EXT_DATA,
+                               tr("(Accessing ExtData)")),
+                std::make_pair(Core::PerfStats::PerfArticEventBits::ARTIC_SAVE_DATA,
+                               tr("(Accessing SaveData)")),
+            };
+
+        const QString unit = do_mb ? tr("MB/s") : tr("KB/s");
+        QString event{};
+        for (auto p : perf_events) {
+            if (results.artic_events.Get(p.first)) {
+                event = QString::fromStdString(" ") + p.second;
+                break;
+            }
+        }
+
+        static const std::array label_color = {QStringLiteral("#ffffff"), QStringLiteral("#eed202"),
+                                               QStringLiteral("#ff3333")};
+
+        int style_index;
+
+        if (value > 200.0) {
+            style_index = 2;
+        } else if (value > 125.0) {
+            style_index = 1;
+        } else {
+            style_index = 0;
+        }
+        const QString style_sheet =
+            QStringLiteral("QLabel { color: %0; }").arg(label_color[style_index]);
+
+        artic_traffic_label->setText(
+            tr("Artic Base Traffic: %1 %2%3").arg(value, 0, 'f', 0).arg(unit).arg(event));
+        artic_traffic_label->setStyleSheet(style_sheet);
+    }
+
     if (Settings::values.frame_limit.GetValue() == 0) {
         emu_speed_label->setText(tr("Speed: %1%").arg(results.emulation_speed * 100.0, 0, 'f', 0));
     } else {
@@ -2590,6 +2966,9 @@ void GMainWindow::UpdateStatusBar() {
     game_fps_label->setText(tr("Game: %1 FPS").arg(results.game_fps, 0, 'f', 0));
     emu_frametime_label->setText(tr("Frame: %1 ms").arg(results.frametime * 1000.0, 0, 'f', 2));
 
+    if (show_artic_label) {
+        artic_traffic_label->setVisible(true);
+    }
     emu_speed_label->setVisible(true);
     game_fps_label->setVisible(true);
     emu_frametime_label->setVisible(true);
@@ -2741,6 +3120,7 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
 
     QString title, message;
     QMessageBox::Icon error_severity_icon;
+    bool can_continue = true;
     if (result == Core::System::ResultStatus::ErrorSystemFiles) {
         const QString common_message =
             tr("%1 is missing. Please <a "
@@ -2761,6 +3141,11 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
         title = tr("Save/load Error");
         message = QString::fromStdString(details);
         error_severity_icon = QMessageBox::Icon::Warning;
+    } else if (result == Core::System::ResultStatus::ErrorArticDisconnected) {
+        title = tr("Artic Base Server");
+        message = tr("A communication error has occurred. The game will quit.");
+        error_severity_icon = QMessageBox::Icon::Critical;
+        can_continue = false;
     } else {
         title = tr("Fatal Error");
         message =
@@ -2777,12 +3162,14 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
     message_box.setText(message);
     message_box.setIcon(error_severity_icon);
     if (error_severity_icon == QMessageBox::Icon::Critical) {
-        message_box.addButton(tr("Continue"), QMessageBox::RejectRole);
+        if (can_continue) {
+            message_box.addButton(tr("Continue"), QMessageBox::RejectRole);
+        }
         QPushButton* abort_button = message_box.addButton(tr("Quit Game"), QMessageBox::AcceptRole);
         if (result != Core::System::ResultStatus::ShutdownRequested)
             message_box.exec();
 
-        if (result == Core::System::ResultStatus::ShutdownRequested ||
+        if (!can_continue || result == Core::System::ResultStatus::ShutdownRequested ||
             message_box.clickedButton() == abort_button) {
             if (emu_thread) {
                 ShutdownGame();

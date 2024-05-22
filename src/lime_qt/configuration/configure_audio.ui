@@ -96,6 +96,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="toggle_realtime_audio">
+        <property name="toolTip">
+         <string>Scales audio playback speed to account for drops in emulation framerate. This means that audio will play at full speed even while the game framerate is low. May cause audio desync issues.</string>
+        </property>
+        <property name="text">
+         <string>Enable realtime audio</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QWidget" name="volume_layout" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="leftMargin">

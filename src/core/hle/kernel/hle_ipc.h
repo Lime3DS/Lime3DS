@@ -206,6 +206,11 @@ public:
         return {cmd_buf[0]};
     }
 
+    /// Returns the Command ID from the IPC command buffer.
+    u16 CommandID() const {
+        return static_cast<u16>(CommandHeader().command_id.Value());
+    }
+
     /**
      * Returns the session through which this request was made. This can be used as a map key to
      * access per-client data on services.

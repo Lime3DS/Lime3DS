@@ -11,7 +11,7 @@ BASE_ARTIFACT_ARCH="${BASE_ARTIFACT##*-}"
 mv $BASE_ARTIFACT $BUNDLE_DIR
 
 # Executable binary paths that need to be combined.
-BIN_PATHS=(lime lime-room lime-qt.app/Contents/MacOS/lime-qt)
+BIN_PATHS=(lime3ds-cli lime3ds-room lime3ds-gui.app/Contents/MacOS/lime3ds-gui)
 
 # Dylib paths that need to be combined.
 IFS=$'\n'
@@ -37,7 +37,7 @@ for OTHER_ARTIFACT in "${ARTIFACTS_LIST[@]:1}"; do
 done
 
 # Re-sign executables and bundles after combining.
-APP_PATHS=(lime lime-room lime-qt.app)
+APP_PATHS=(lime3ds-cli lime3ds-room lime3ds-gui.app)
 for APP_PATH in "${APP_PATHS[@]}"; do
     codesign --deep -fs - $BUNDLE_DIR/$APP_PATH
 done

@@ -4,7 +4,11 @@
 #include <cryptopp/modes.h>
 #include "common/archives.h"
 #include "common/logging/log.h"
+#include "core/file_sys/archive_artic.h"
+#include "core/file_sys/archive_backend.h"
 #include "core/file_sys/romfs_reader.h"
+#include "core/hle/service/fs/fs_user.h"
+#include "core/loader/loader.h"
 
 SERIALIZE_EXPORT_IMPL(FileSys::DirectRomFSReader)
 
@@ -107,6 +111,104 @@ std::vector<std::pair<std::size_t, std::size_t>> DirectRomFSReader::BreakupRead(
         length -= curr_page_len;
     }
     return ret;
+}
+
+ArticRomFSReader::ArticRomFSReader(std::shared_ptr<Network::ArticBase::Client>& cli,
+                                   bool is_update_romfs)
+    : client(cli), cache(cli) {
+    auto req = client->NewRequest("FSUSER_OpenFileDirectly");
+
+    FileSys::Path archive(FileSys::LowPathType::Empty, {});
+    std::vector<u8> fileVec(0xC);
+    fileVec[0] = static_cast<u8>(is_update_romfs ? 5 : 0);
+    FileSys::Path file(FileSys::LowPathType::Binary, fileVec);
+
+    req.AddParameterS32(static_cast<s32>(Service::FS::ArchiveIdCode::SelfNCCH));
+
+    auto archive_buf = ArticArchive::BuildFSPath(archive);
+    req.AddParameterBuffer(archive_buf.data(), archive_buf.size());
+    auto file_buf = ArticArchive::BuildFSPath(file);
+    req.AddParameterBuffer(file_buf.data(), file_buf.size());
+
+    req.AddParameterS32(1);
+    req.AddParameterS32(0);
+
+    auto resp = client->Send(req);
+
+    if (!resp.has_value() || !resp->Succeeded()) {
+        load_status = Loader::ResultStatus::Error;
+        return;
+    }
+    if (resp->GetMethodResult() != 0) {
+        load_status = Loader::ResultStatus::ErrorNotUsed;
+        return;
+    }
+
+    auto handle_buf = resp->GetResponseBuffer(0);
+    if (!handle_buf.has_value() || handle_buf->second != sizeof(s32)) {
+        load_status = Loader::ResultStatus::Error;
+        return;
+    }
+
+    romfs_handle = *reinterpret_cast<s32*>(handle_buf->first);
+
+    req = client->NewRequest("FSFILE_GetSize");
+
+    req.AddParameterS32(romfs_handle);
+
+    resp = client->Send(req);
+
+    if (!resp.has_value() || !resp->Succeeded()) {
+        load_status = Loader::ResultStatus::Error;
+        return;
+    }
+    if (resp->GetMethodResult() != 0) {
+        load_status = Loader::ResultStatus::ErrorNotUsed;
+        return;
+    }
+
+    auto size_buf = resp->GetResponseBuffer(0);
+    if (!size_buf.has_value() || size_buf->second != sizeof(u64)) {
+        load_status = Loader::ResultStatus::Error;
+        return;
+    }
+
+    data_size = static_cast<size_t>(*reinterpret_cast<u64*>(size_buf->first));
+    load_status = Loader::ResultStatus::Success;
+}
+
+ArticRomFSReader::~ArticRomFSReader() {
+    if (romfs_handle != -1) {
+        auto req = client->NewRequest("FSFILE_Close");
+        req.AddParameterS32(romfs_handle);
+        client->Send(req);
+        romfs_handle = -1;
+    }
+}
+
+std::size_t ArticRomFSReader::ReadFile(std::size_t offset, std::size_t length, u8* buffer) {
+    length = std::min(length, static_cast<std::size_t>(data_size) - offset);
+    auto res = cache.Read(romfs_handle, offset, length, buffer);
+    if (res.Failed())
+        return 0;
+    return res.Unwrap();
+}
+
+bool ArticRomFSReader::AllowsCachedReads() const {
+    return true;
+}
+
+bool ArticRomFSReader::CacheReady(std::size_t file_offset, std::size_t length) {
+    return cache.CacheReady(file_offset, length);
+}
+
+void ArticRomFSReader::CloseFile() {
+    if (romfs_handle != -1) {
+        auto req = client->NewRequest("FSFILE_Close");
+        req.AddParameterS32(romfs_handle);
+        client->Send(req);
+        romfs_handle = -1;
+    }
 }
 
 } // namespace FileSys

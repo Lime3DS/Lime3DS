@@ -13,6 +13,7 @@
 #include "common/swap.h"
 #include "common/zstd_compression.h"
 #include "core/core.h"
+#include "core/loader/loader.h"
 #include "core/movie.h"
 #include "core/savestate.h"
 #include "core/savestate_data.h"
@@ -122,6 +123,12 @@ std::vector<SaveStateInfo> ListSaveStates(u64 program_id, u64 movie_id) {
 }
 
 void System::SaveState(u32 slot) const {
+    if (app_loader) {
+        if (!app_loader->SupportsSaveStates()) {
+            throw std::runtime_error("The current app loader doesn't support save states");
+        }
+    }
+
     std::ostringstream sstream{std::ios_base::binary};
     // Serialize
     oarchive oa{sstream};
@@ -164,6 +171,11 @@ void System::SaveState(u32 slot) const {
 }
 
 void System::LoadState(u32 slot) {
+    if (app_loader) {
+        if (!app_loader->SupportsSaveStates()) {
+            throw std::runtime_error("The current app loader doesn't support save states");
+        }
+    }
     if (Network::GetRoomMember().lock()->IsConnected()) {
         throw std::runtime_error("Unable to load while connected to multiplayer");
     }

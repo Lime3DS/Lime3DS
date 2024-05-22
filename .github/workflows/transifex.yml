@@ -1,0 +1,20 @@
+name: lime-transifex
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  transifex:
+    runs-on: ubuntu-latest
+    container: opensauce04/lime3ds-build:latest
+    if: ${{ github.repository == 'Lime3DS/Lime3DS' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Update Translation
+        run: ./.ci/transifex.sh
+        env:
+          TX_TOKEN: ${{ secrets.TRANSIFEX_API_TOKEN }}

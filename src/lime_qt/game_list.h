@@ -10,6 +10,7 @@
 #include <QWidget>
 #include "common/common_types.h"
 #include "lime_qt/compatibility_list.h"
+#include "lime_qt/play_time_manager.h"
 #include "uisettings.h"
 
 namespace Service::FS {
@@ -45,6 +46,11 @@ enum class GameListOpenTarget {
     SHADER_CACHE = 8
 };
 
+enum class GameListShortcutTarget {
+    Desktop,
+    Applications,
+};
+
 class GameList : public QWidget {
     Q_OBJECT
 
@@ -55,10 +61,11 @@ public:
         COLUMN_REGION,
         COLUMN_FILE_TYPE,
         COLUMN_SIZE,
+        COLUMN_PLAY_TIME,
         COLUMN_COUNT, // Number of columns
     };
 
-    explicit GameList(GMainWindow* parent = nullptr);
+    explicit GameList(PlayTime::PlayTimeManager& play_time_manager_, GMainWindow* parent = nullptr);
     ~GameList() override;
 
     QString GetLastFilterResultItem() const;
@@ -80,12 +87,19 @@ public:
 
     void RefreshGameDirectory();
 
+    void ToggleFavorite(u64 program_id);
+    void AddFavorite(u64 program_id);
+    void RemoveFavorite(u64 program_id);
+
     static const QStringList supported_file_extensions;
 
 signals:
     void GameChosen(const QString& game_path);
     void ShouldCancelWorker();
     void OpenFolderRequested(u64 program_id, GameListOpenTarget target);
+    void CreateShortcut(u64 program_id, const std::string& game_path,
+                        GameListShortcutTarget target);
+    void RemovePlayTimeRequested(u64 program_id);
     void NavigateToGamedbEntryRequested(u64 program_id,
                                         const CompatibilityList& compatibility_list);
     void OpenPerGameGeneralRequested(const QString file);
@@ -113,6 +127,7 @@ private:
                       u64 extdata_id, Service::FS::MediaType media_type);
     void AddCustomDirPopup(QMenu& context_menu, QModelIndex selected);
     void AddPermDirPopup(QMenu& context_menu, QModelIndex selected);
+    void AddFavoritesPopup(QMenu& context_menu);
     void UpdateColumnVisibility();
 
     QString FindGameByProgramID(QStandardItem* current_item, u64 program_id, int role);
@@ -130,6 +145,8 @@ private:
     CompatibilityList compatibility_list;
 
     friend class GameListSearchField;
+
+    const PlayTime::PlayTimeManager& play_time_manager;
 };
 
 Q_DECLARE_METATYPE(GameListOpenTarget);

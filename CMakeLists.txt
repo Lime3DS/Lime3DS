@@ -464,22 +464,10 @@ endif()
 # http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html
 # http://standards.freedesktop.org/shared-mime-info-spec/shared-mime-info-spec-latest.html
 if(ENABLE_QT AND UNIX AND NOT APPLE)
-    install(FILES "${PROJECT_SOURCE_DIR}/dist/lime-qt.desktop"
+    install(FILES "${PROJECT_SOURCE_DIR}/dist/lime3ds-gui.desktop"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/applications")
     install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.svg"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps")
     install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.xml"
             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mime/packages")
-endif()
-
-if(UNIX)
-    if(ENABLE_SDL2)
-        install(FILES "${PROJECT_SOURCE_DIR}/dist/lime.6"
-                DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
-    endif()
-
-    if (ENABLE_QT)
-        install(FILES "${PROJECT_SOURCE_DIR}/dist/lime-qt.6"
-                DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
-    endif()
 endif()

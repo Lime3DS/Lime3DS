@@ -58,6 +58,11 @@ public:
         : RequestBuilder(
               context, Header{MakeHeader(command_id, normal_params_size, translate_params_size)}) {}
 
+    RequestBuilder(Kernel::HLERequestContext& context, unsigned normal_params_size,
+                   unsigned translate_params_size)
+        : RequestBuilder(context, Header{MakeHeader(context.CommandID(), normal_params_size,
+                                                    translate_params_size)}) {}
+
     // Validate on destruction, as there shouldn't be any case where we don't want it
     ~RequestBuilder() {
         ValidateHeader();

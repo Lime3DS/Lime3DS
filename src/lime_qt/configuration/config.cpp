@@ -278,6 +278,7 @@ void Config::ReadAudioValues() {
 
     ReadGlobalSetting(Settings::values.audio_emulation);
     ReadGlobalSetting(Settings::values.enable_audio_stretching);
+    ReadGlobalSetting(Settings::values.enable_realtime_audio);
     ReadGlobalSetting(Settings::values.volume);
 
     if (global) {
@@ -635,6 +636,8 @@ void Config::ReadPathValues() {
                 UISettings::values.game_dirs.append(game_dir);
             }
         }
+        UISettings::values.last_artic_base_addr =
+            ReadSetting(QStringLiteral("last_artic_base_addr"), QString{}).toString();
         UISettings::values.recent_files = ReadSetting(QStringLiteral("recentFiles")).toStringList();
         UISettings::values.language = ReadSetting(QStringLiteral("language"), QString{}).toString();
     }
@@ -804,6 +807,15 @@ void Config::ReadUIGameListValues() {
     ReadBasicSetting(UISettings::values.show_region_column);
     ReadBasicSetting(UISettings::values.show_type_column);
     ReadBasicSetting(UISettings::values.show_size_column);
+    ReadBasicSetting(UISettings::values.show_play_time_column);
+
+    const int favorites_size = qt_config->beginReadArray(QStringLiteral("favorites"));
+    for (int i = 0; i < favorites_size; i++) {
+        qt_config->setArrayIndex(i);
+        UISettings::values.favorited_ids.append(
+            ReadSetting(QStringLiteral("program_id")).toULongLong());
+    }
+    qt_config->endArray();
 
     qt_config->endGroup();
 }
@@ -874,6 +886,7 @@ void Config::SaveAudioValues() {
 
     WriteGlobalSetting(Settings::values.audio_emulation);
     WriteGlobalSetting(Settings::values.enable_audio_stretching);
+    WriteGlobalSetting(Settings::values.enable_realtime_audio);
     WriteGlobalSetting(Settings::values.volume);
 
     if (global) {
@@ -1133,6 +1146,8 @@ void Config::SavePathValues() {
             WriteSetting(QStringLiteral("expanded"), game_dir.expanded, true);
         }
         qt_config->endArray();
+        WriteSetting(QStringLiteral("last_artic_base_addr"),
+                     UISettings::values.last_artic_base_addr, QString{});
         WriteSetting(QStringLiteral("recentFiles"), UISettings::values.recent_files);
         WriteSetting(QStringLiteral("language"), UISettings::values.language, QString{});
     }
@@ -1285,6 +1300,15 @@ void Config::SaveUIGameListValues() {
     WriteBasicSetting(UISettings::values.show_region_column);
     WriteBasicSetting(UISettings::values.show_type_column);
     WriteBasicSetting(UISettings::values.show_size_column);
+    WriteBasicSetting(UISettings::values.show_play_time_column);
+
+    qt_config->beginWriteArray(QStringLiteral("favorites"));
+    for (int i = 0; i < UISettings::values.favorited_ids.size(); i++) {
+        qt_config->setArrayIndex(i);
+        WriteSetting(QStringLiteral("program_id"),
+                     QVariant::fromValue(UISettings::values.favorited_ids[i]));
+    }
+    qt_config->endArray();
 
     qt_config->endGroup();
 }

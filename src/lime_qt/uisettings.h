@@ -103,6 +103,7 @@ struct Values {
     Settings::Setting<bool> show_region_column{true, "show_region_column"};
     Settings::Setting<bool> show_type_column{true, "show_type_column"};
     Settings::Setting<bool> show_size_column{true, "show_size_column"};
+    Settings::Setting<bool> show_play_time_column{true, "show_play_time_column"};
 
     Settings::Setting<u16> screenshot_resolution_factor{0, "screenshot_resolution_factor"};
     Settings::SwitchableSetting<std::string> screenshot_path{"", "screenshotPath"};
@@ -116,6 +117,9 @@ struct Values {
     bool game_dir_deprecated_deepscan;
     QVector<UISettings::GameDir> game_dirs;
     QStringList recent_files;
+    QVector<u64> favorited_ids;
+    QString last_artic_base_addr;
+
     QString language;
 
     QString theme;
@@ -145,6 +149,8 @@ struct Values {
 
     // logging
     Settings::Setting<bool> show_console{false, "showConsole"};
+
+    bool shortcut_already_warned = false;
 };
 
 extern Values values;

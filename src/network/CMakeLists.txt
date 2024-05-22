@@ -1,6 +1,9 @@
 add_library(network STATIC
     announce_multiplayer_session.cpp
     announce_multiplayer_session.h
+    artic_base/artic_base_client.cpp
+    artic_base/artic_base_client.h
+    artic_base/artic_base_common.h
     network.cpp
     network.h
     network_settings.cpp
@@ -12,6 +15,8 @@ add_library(network STATIC
     room.h
     room_member.cpp
     room_member.h
+    socket_manager.cpp
+    socket_manager.h
     verify_user.cpp
     verify_user.h
 )

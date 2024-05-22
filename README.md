@@ -58,7 +58,11 @@ If you believe you can help with this project, please lend us your talent! We're
 
 If there is an issue you want solved or a feature you want implemented, feel free to open a pull request.
 
-Note: Please don't repeatedly merge `master` into your PR's branch. A maintainer will update the branch for you if/ when it is appropriate to do so
+<sup>(Please don't repeatedly merge `master` into your PR's branch. A maintainer will update the branch for you if/ when it is appropriate to do so)</sup>
+
+Additionally, [we are accepting language translations on Transifex](https://app.transifex.com/lime3ds/lime3ds). If you know a non-english language listed on our Transifex page, please feel free to contribute.
+
+Note: We are not currently accepting new languages for translation. Please do not request for new languages or language variants to be added.
 
 # Discord
 Join our Discord community to discuss the project or talk with the developers.

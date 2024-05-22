@@ -22,6 +22,7 @@
 #include "common/logging/log.h"
 #include "common/string_util.h"
 #include "core/loader/smdh.h"
+#include "lime_qt/play_time_manager.h"
 #include "lime_qt/uisettings.h"
 #include "lime_qt/util/util.h"
 
@@ -34,7 +35,8 @@ enum class GameListItemType {
     CustomDir = QStandardItem::UserType + 2,
     InstalledDir = QStandardItem::UserType + 3,
     SystemDir = QStandardItem::UserType + 4,
-    AddDir = QStandardItem::UserType + 5
+    AddDir = QStandardItem::UserType + 5,
+    Favorites = QStandardItem::UserType + 6,
 };
 
 Q_DECLARE_METATYPE(GameListItemType);
@@ -361,6 +363,31 @@ public:
     }
 };
 
+/**
+ * GameListItem for Play Time values.
+ * This object stores the play time of a game in seconds, and its readable
+ * representation in minutes/hours
+ */
+class GameListItemPlayTime : public GameListItem {
+public:
+    static constexpr int PlayTimeRole = SortRole;
+
+    GameListItemPlayTime() = default;
+    explicit GameListItemPlayTime(const qulonglong time_seconds) {
+        setData(time_seconds, PlayTimeRole);
+    }
+
+    void setData(const QVariant& value, int role) override {
+        qulonglong time_seconds = value.toULongLong();
+        GameListItem::setData(PlayTime::ReadablePlayTime(time_seconds), Qt::DisplayRole);
+        GameListItem::setData(value, PlayTimeRole);
+    }
+
+    bool operator<(const QStandardItem& other) const override {
+        return data(PlayTimeRole).toULongLong() < other.data(PlayTimeRole).toULongLong();
+    }
+};
+
 class GameListDir : public GameListItem {
 public:
     static constexpr int GameDirRole = Qt::UserRole + 2;
@@ -430,6 +457,28 @@ public:
     }
 };
 
+class GameListFavorites : public GameListItem {
+public:
+    explicit GameListFavorites() {
+        setData(type(), TypeRole);
+
+        const int icon_size = IconSizes.at(UISettings::values.game_list_icon_size.GetValue());
+        setData(QIcon::fromTheme(QStringLiteral("star"))
+                    .pixmap(icon_size)
+                    .scaled(icon_size, icon_size, Qt::IgnoreAspectRatio, Qt::SmoothTransformation),
+                Qt::DecorationRole);
+        setData(QObject::tr("Favorites"), Qt::DisplayRole);
+    }
+
+    int type() const override {
+        return static_cast<int>(GameListItemType::Favorites);
+    }
+
+    bool operator<(const QStandardItem& other) const override {
+        return false;
+    }
+};
+
 class GameList;
 class QHBoxLayout;
 class QTreeView;
@@ -444,6 +493,7 @@ public:
     explicit GameListSearchField(GameList* parent = nullptr);
 
     void setFilterResult(int visible, int total);
+    bool IsEmpty() const;
 
     void clear();
     void setFocus();

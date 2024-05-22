@@ -14,6 +14,7 @@
 //---------------------------------------------------------------------------//
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <list>
 #include <tuple>

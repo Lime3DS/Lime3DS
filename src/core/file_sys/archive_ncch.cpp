@@ -15,6 +15,7 @@
 #include "common/string_util.h"
 #include "common/swap.h"
 #include "core/core.h"
+#include "core/file_sys/archive_artic.h"
 #include "core/file_sys/archive_ncch.h"
 #include "core/file_sys/errors.h"
 #include "core/file_sys/ivfc_archive.h"
@@ -69,8 +70,9 @@ Path MakeNCCHFilePath(NCCHFileOpenType open_type, u32 content_index, NCCHFilePat
     return FileSys::Path(std::move(file));
 }
 
-ResultVal<std::unique_ptr<FileBackend>> NCCHArchive::OpenFile(const Path& path,
-                                                              const Mode& mode) const {
+ResultVal<std::unique_ptr<FileBackend>> NCCHArchive::OpenFile(const Path& path, const Mode& mode,
+                                                              u32 attributes) {
+
     if (path.GetType() != LowPathType::Binary) {
         LOG_ERROR(Service_FS, "Path need to be Binary");
         return ResultInvalidPath;
@@ -207,14 +209,14 @@ Result NCCHArchive::DeleteDirectoryRecursively(const Path& path) const {
     return ResultUnknown;
 }
 
-Result NCCHArchive::CreateFile(const Path& path, u64 size) const {
+Result NCCHArchive::CreateFile(const Path& path, u64 size, u32 attributes) const {
     LOG_CRITICAL(Service_FS, "Attempted to create a file in an NCCH archive ({}).", GetName());
     // TODO: Verify error code
     return Result(ErrorDescription::NotAuthorized, ErrorModule::FS, ErrorSummary::NotSupported,
                   ErrorLevel::Permanent);
 }
 
-Result NCCHArchive::CreateDirectory(const Path& path) const {
+Result NCCHArchive::CreateDirectory(const Path& path, u32 attributes) const {
     LOG_CRITICAL(Service_FS, "Attempted to create a directory in an NCCH archive ({}).", GetName());
     // TODO(wwylele): Use correct error code
     return ResultUnknown;
@@ -226,7 +228,7 @@ Result NCCHArchive::RenameDirectory(const Path& src_path, const Path& dest_path)
     return ResultUnknown;
 }
 
-ResultVal<std::unique_ptr<DirectoryBackend>> NCCHArchive::OpenDirectory(const Path& path) const {
+ResultVal<std::unique_ptr<DirectoryBackend>> NCCHArchive::OpenDirectory(const Path& path) {
     LOG_CRITICAL(Service_FS, "Attempted to open a directory within an NCCH archive ({}).",
                  GetName().c_str());
     // TODO(shinyquagsire23): Use correct error code
@@ -255,7 +257,7 @@ ResultVal<std::size_t> NCCHFile::Read(const u64 offset, const std::size_t length
 }
 
 ResultVal<std::size_t> NCCHFile::Write(const u64 offset, const std::size_t length, const bool flush,
-                                       const u8* buffer) {
+                                       const bool update_timestamp, const u8* buffer) {
     LOG_ERROR(Service_FS, "Attempted to write to NCCH file");
     // TODO(shinyquagsire23): Find error code
     return 0ULL;
@@ -274,6 +276,13 @@ ArchiveFactory_NCCH::ArchiveFactory_NCCH() {}
 
 ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_NCCH::Open(const Path& path,
                                                                      u64 program_id) {
+
+    if (IsUsingArtic()) {
+        EnsureCacheCreated();
+        return ArticArchive::Open(artic_client, Service::FS::ArchiveIdCode::NCCH, path,
+                                  Core::PerfStats::PerfArticEventBits::NONE, *this, false);
+    }
+
     if (path.GetType() != LowPathType::Binary) {
         LOG_ERROR(Service_FS, "Path need to be Binary");
         return ResultInvalidPath;
@@ -293,7 +302,7 @@ ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_NCCH::Open(const Path&
 }
 
 Result ArchiveFactory_NCCH::Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                                   u64 program_id) {
+                                   u64 program_id, u32 directory_buckets, u32 file_buckets) {
     LOG_ERROR(Service_FS, "Attempted to format a NCCH archive.");
     // TODO: Verify error code
     return Result(ErrorDescription::NotAuthorized, ErrorModule::FS, ErrorSummary::NotSupported,

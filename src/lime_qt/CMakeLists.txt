@@ -172,6 +172,8 @@ add_executable(lime-qt
     multiplayer/state.cpp
     multiplayer/state.h
     multiplayer/validation.h
+    play_time_manager.cpp
+    play_time_manager.h
     precompiled_headers.h
     uisettings.cpp
     uisettings.h
@@ -188,6 +190,8 @@ add_executable(lime-qt
     util/util.cpp
     util/util.h
 )
+
+set_target_properties(lime-qt PROPERTIES OUTPUT_NAME "lime3ds-gui")
 
 file(GLOB COMPAT_LIST
      ${PROJECT_BINARY_DIR}/dist/compatibility_list/compatibility_list.qrc
@@ -216,7 +220,7 @@ if (ENABLE_QT_TRANSLATION)
             SOURCES ${QT_SRCS} ${UIS}
             INCLUDE_DIRECTORIES ${QT_INCLUDES}
             NO_GLOBAL_TARGET)
-        add_custom_target(translation ALL DEPENDS citra-qt_lupdate)
+        add_custom_target(translation ALL DEPENDS lime-qt_lupdate)
     endif()
 
     # Find all TS files except en.ts

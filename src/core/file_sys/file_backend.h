@@ -37,7 +37,7 @@ public:
      * @return Number of bytes written, or error code
      */
     virtual ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
-                                         const u8* buffer) = 0;
+                                         bool update_timestamp, const u8* buffer) = 0;
 
     /**
      * Get the amount of time a 3ds needs to read those data
@@ -79,7 +79,7 @@ public:
      * Close the file
      * @return true if the file closed correctly
      */
-    virtual bool Close() const = 0;
+    virtual bool Close() = 0;
 
     /**
      * Flushes the file

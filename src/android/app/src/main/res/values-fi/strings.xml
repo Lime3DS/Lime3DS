@@ -4,7 +4,8 @@
     <string name="app_disclaimer">Tämä sovellus pelaa Nintendo 3DS-käsikonsolin pelejä. Pelejä itse ei tule sovelluksen mukana.\n\nEnnen kuin jatkat, laita itse omistamasi 3DS-pelien pelitiedostot laitteesi tallennustilaan.</string>
     <string name="app_notification_channel_description">Lime3DS emulaattorin ilmoitukset</string>
     <string name="app_notification_running">Lime3DS on päällä</string>
-
+    <!-- Home Strings -->
+    <string name="grid_menu_core_settings">Asetukset</string>
     <string name="controller_c">C-Tikku</string>
     <string name="controller_triggers">Liipaisimet</string>
     <string name="controller_dpad">D-Pad</string>
@@ -14,22 +15,14 @@
     <string name="input_binding_description_horizontal_axis">Liikuta tattia vasemmalle tai oikealle.</string>
     <!-- Generic buttons (Shared with lots of stuff) -->
     <string name="generic_buttons">Nappulat</string>
-
-    <!-- Premium settings strings -->
-    <string name="design">Vaihda teema (Vaalea, Tumma)</string>
-    <string name="design_updated">Teema päivittyy kun asetukset suljetaan</string>
-
     <!-- Core settings strings -->
     <string name="cpu_jit">Aktivoi CPU JIT</string>
     <string name="cpu_jit_description">Käyttää Just-in-Time (JIT) kääntäjää prosessorin emulointiin. Kun tämä on päällä, pelien suorituskyky on huomattavasti parempi.</string>
     <string name="init_clock">Järjestelmän kellotyyppi</string>
     <string name="init_clock_description">Aseta emuloidun 3DS:n kello samaksi kuin laitteesi kello, tai aloita kello simuloidusta päivämäärästä ja ajasta.</string>
-
-    <!-- System settings strings -->
     <string name="init_time">Järjestelmän kellon aloitusajan yliajo.</string>
     <string name="emulated_region">Emuloitu alue</string>
     <string name="emulated_language">Emuloitu kieli</string>
-
     <!-- Camera settings strings -->
     <string name="inner_camera">Sisäkamera</string>
     <string name="outer_left_camera">Vasen Ulkokamera</string>
@@ -43,7 +36,6 @@
     <string name="camera_facing_external">Ulkoinen</string>
     <string name="image_flip">Kuvan kääntö</string>
 
-    <!-- Graphics settings strings -->
     <string name="vsync">Aktivoi V-Sync</string>
     <string name="vsync_description">Synkronoi pelin virkistystaajuus laitteesi virkistystaajuuteen.</string>
     <string name="hw_shaders">Aktivoi Laitteistovarjostin</string>
@@ -51,14 +43,10 @@
     <string name="frame_limit_enable">Aktivoi nopeuden rajoitus</string>
     <string name="frame_limit_enable_description">Kun aktivoitu, emulaation nopeus on rajoitettu asetettuun prosenttiin normaalista nopeudesta.</string>
     <string name="frame_limit_slider">Rajoita nopeusprosenttia</string>
-    <!-- Audio settings strings -->
     <string name="audio_stretch">Aktivoi äänen venytys</string>
     <!-- Miscellaneous -->
     <string name="clear">Tyhjennä</string>
     <string name="slider_default">Oletus</string>
-    <!-- Game Grid Screen-->
-    <string name="grid_menu_core_settings">Asetukset</string>
-
     <!-- Add Directory Screen-->
     <string name="select_game_folder">Valitse pelikansio</string>
 
@@ -72,8 +60,6 @@
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Pelitiedostosi on salattu.</string>
     <string name="loader_error_invalid_format">Epäsopiva pelitiedoston formaatti</string>
-
-    <!-- Emulation Menu -->
     <string name="emulation_show_fps">Näytä FPS</string>
     <string name="emulation_done">Valmis</string>
     <string name="emulation_open_settings">Avaa asetukset</string>

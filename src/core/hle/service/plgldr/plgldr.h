@@ -33,10 +33,16 @@ namespace Service::PLGLDR {
 
 class PLG_LDR final : public ServiceFramework<PLG_LDR> {
 public:
+    enum class PluginMemoryStrategy : u8 {
+        PLG_STRATEGY_NONE = 2,
+        PLG_STRATEGY_SWAP = 0,
+        PLG_STRATEGY_MODE3 = 1,
+    };
+
     struct PluginLoaderContext {
         struct PluginLoadParameters {
             u8 no_flash = 0;
-            u8 no_IR_Patch = 0;
+            PluginMemoryStrategy plugin_memory_strategy = PluginMemoryStrategy::PLG_STRATEGY_SWAP;
             u32_le low_title_Id = 0;
             char path[256] = {0};
             u32_le config[32] = {0};
@@ -44,7 +50,7 @@ public:
             template <class Archive>
             void serialize(Archive& ar, const unsigned int) {
                 ar & no_flash;
-                ar & no_IR_Patch;
+                ar & plugin_memory_strategy;
                 ar & low_title_Id;
                 ar & path;
                 ar & config;

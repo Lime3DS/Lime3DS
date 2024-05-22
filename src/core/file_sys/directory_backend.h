@@ -49,7 +49,11 @@ public:
      * Close the directory
      * @return true if the directory closed correctly
      */
-    virtual bool Close() const = 0;
+    virtual bool Close() = 0;
+
+    virtual bool IsSlow() {
+        return false;
+    }
 
 private:
     template <class Archive>

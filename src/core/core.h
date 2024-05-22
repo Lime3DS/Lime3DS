@@ -100,6 +100,7 @@ public:
                                    ///< Console
         ErrorSystemFiles,          ///< Error in finding system files
         ErrorSavestate,            ///< Error saving or loading
+        ErrorArticDisconnected,    ///< Error when artic base disconnects
         ShutdownRequested,         ///< Emulated program requested a system shutdown
         ErrorUnknown               ///< Any other error
     };
@@ -178,7 +179,21 @@ public:
 
     [[nodiscard]] PerfStats::Results GetAndResetPerfStats();
 
+    void ReportArticTraffic(u32 bytes) {
+        if (perf_stats) {
+            perf_stats->AddArticBaseTraffic(bytes);
+        }
+    }
+
+    void ReportPerfArticEvent(PerfStats::PerfArticEventBits event, bool set) {
+        if (perf_stats) {
+            perf_stats->ReportPerfArticEvent(event, set);
+        }
+    }
+
     [[nodiscard]] PerfStats::Results GetLastPerfStats();
+
+    double GetStableFrameTimeScale();
 
     /**
      * Gets a reference to the emulated CPU.
@@ -355,6 +370,8 @@ public:
     /// Applies any changes to settings to this core instance.
     void ApplySettings();
 
+    void RegisterAppLoaderEarly(std::unique_ptr<Loader::AppLoader>& loader);
+
 private:
     /**
      * Initialize the emulated system.
@@ -374,6 +391,9 @@ private:
 
     /// AppLoader used to load the current executing application
     std::unique_ptr<Loader::AppLoader> app_loader;
+
+    // Temporary app loader passed from frontend
+    std::unique_ptr<Loader::AppLoader> early_app_loader;
 
     /// ARM11 CPU core
     std::vector<std::shared_ptr<ARM_Interface>> cpu_cores;

@@ -729,7 +729,7 @@ static const std::string& GetHomeDirectory() {
  * @return The directory path
  * @sa http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
  */
-[[maybe_unused]] static const std::string GetUserDirectory(const std::string& envvar) {
+[[maybe_unused]] const std::string GetUserDirectory(const std::string& envvar) {
     const char* directory = getenv(envvar.c_str());
 
     std::string user_dir;
@@ -826,6 +826,8 @@ void SetUserPath(const std::string& path) {
     g_paths.emplace(UserPath::DumpDir, user_path + DUMP_DIR DIR_SEP);
     g_paths.emplace(UserPath::LoadDir, user_path + LOAD_DIR DIR_SEP);
     g_paths.emplace(UserPath::StatesDir, user_path + STATES_DIR DIR_SEP);
+    g_paths.emplace(UserPath::IconsDir, user_path + ICONS_DIR DIR_SEP);
+    g_paths.emplace(UserPath::PlayTimeDir, user_path + LOG_DIR DIR_SEP);
     g_default_paths = g_paths;
 }
 

@@ -12,8 +12,11 @@
 
 #ifdef __cpp_lib_jthread
 
+#include <chrono>
+#include <condition_variable>
 #include <stop_token>
 #include <thread>
+#include <utility>
 
 namespace Common {
 
@@ -22,11 +25,23 @@ void CondvarWait(Condvar& cv, Lock& lock, std::stop_token token, Pred&& pred) {
     cv.wait(lock, token, std::move(pred));
 }
 
+template <typename Rep, typename Period>
+bool StoppableTimedWait(std::stop_token token, const std::chrono::duration<Rep, Period>& rel_time) {
+    std::condition_variable_any cv;
+    std::mutex m;
+
+    // Perform the timed wait.
+    std::unique_lock lk{m};
+    return !cv.wait_for(lk, token, rel_time, [&] { return token.stop_requested(); });
+}
+
 } // namespace Common
 
 #else
 
 #include <atomic>
+#include <chrono>
+#include <condition_variable>
 #include <functional>
 #include <map>
 #include <memory>
@@ -331,6 +346,30 @@ void CondvarWait(Condvar& cv, Lock& lock, std::stop_token token, Pred pred) {
 
     std::stop_callback callback(token, [&] { cv.notify_all(); });
     cv.wait(lock, [&] { return pred() || token.stop_requested(); });
+}
+
+template <typename Rep, typename Period>
+bool StoppableTimedWait(std::stop_token token, const std::chrono::duration<Rep, Period>& rel_time) {
+    if (token.stop_requested()) {
+        return false;
+    }
+
+    bool stop_requested = false;
+    std::condition_variable cv;
+    std::mutex m;
+
+    std::stop_callback cb(token, [&] {
+        // Wake up the waiting thread.
+        {
+            std::scoped_lock lk{m};
+            stop_requested = true;
+        }
+        cv.notify_one();
+    });
+
+    // Perform the timed wait.
+    std::unique_lock lk{m};
+    return !cv.wait_for(lk, rel_time, [&] { return stop_requested; });
 }
 
 } // namespace Common

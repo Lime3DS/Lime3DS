@@ -44,10 +44,10 @@ class RunnableViewHolder(val binding: ListItemSettingBinding, adapter: SettingsA
     }
 
     override fun onClick(clicked: View) {
-        if (!setting.isRuntimeRunnable && !NativeLibrary.isRunning()) {
-            setting.runnable.invoke()
-        } else {
+        if (!setting.isRuntimeRunnable && NativeLibrary.isRunning()) {
             adapter.onClickDisabledSetting()
+        } else {
+            setting.runnable.invoke()
         }
     }
 

@@ -78,6 +78,7 @@
     </widget>
     <addaction name="action_Load_File"/>
     <addaction name="action_Install_CIA"/>
+    <addaction name="action_Connect_Artic"/>
     <addaction name="menu_Boot_Home_Menu"/>
     <addaction name="separator"/>
     <addaction name="menu_recent_files"/>
@@ -202,6 +203,7 @@
     <addaction name="separator"/>
     <addaction name="action_Report_Compatibility"/>
     <addaction name="separator"/>
+    <addaction name="action_Open_Log_Folder"/>
     <addaction name="action_FAQ"/>
     <addaction name="action_About"/>
    </widget>
@@ -221,6 +223,11 @@
    <property name="text">
     <string>Install CIA...</string>
    </property>
+  </action>
+  <action name="action_Connect_Artic">
+    <property name="text">
+      <string>Connect to Artic Base...</string>
+    </property>
   </action>
   <action name="action_Boot_Home_Menu_JPN">
    <property name="text">
@@ -471,6 +478,14 @@
    </property>
    <property name="text">
     <string>Fullscreen</string>
+   </property>
+  </action>
+  <action name="action_Open_Log_Folder">
+   <property name="text">
+    <string>Open Log Folder</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the Lime3DS log folder</string>
    </property>
   </action>
   <action name="action_Open_Maintenance_Tool">

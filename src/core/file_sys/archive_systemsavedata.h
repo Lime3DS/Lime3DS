@@ -20,8 +20,8 @@ public:
     explicit ArchiveFactory_SystemSaveData(const std::string& mount_point);
 
     ResultVal<std::unique_ptr<ArchiveBackend>> Open(const Path& path, u64 program_id) override;
-    Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                  u64 program_id) override;
+    Result Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info, u64 program_id,
+                  u32 directory_buckets, u32 file_buckets) override;
     ResultVal<ArchiveFormatInfo> GetFormatInfo(const Path& path, u64 program_id) const override;
 
     std::string GetName() const override {

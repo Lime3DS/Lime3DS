@@ -204,7 +204,10 @@ void PLG_LDR::SetLoadSettings(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
 
     plgldr_context.use_user_load_parameters = true;
-    plgldr_context.user_load_parameters.no_flash = rp.Pop<u32>() == 1;
+    u32_le flags = rp.Pop<u32>();
+    plgldr_context.user_load_parameters.no_flash = (flags & 1) == 1;
+    plgldr_context.user_load_parameters.plugin_memory_strategy =
+        static_cast<PluginMemoryStrategy>((flags >> 8) & 0xF);
     plgldr_context.user_load_parameters.low_title_Id = rp.Pop<u32>();
 
     auto path = rp.PopMappedBuffer();

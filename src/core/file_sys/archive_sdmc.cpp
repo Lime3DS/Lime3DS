@@ -43,8 +43,8 @@ public:
     SERIALIZE_DELAY_GENERATOR
 };
 
-ResultVal<std::unique_ptr<FileBackend>> SDMCArchive::OpenFile(const Path& path,
-                                                              const Mode& mode) const {
+ResultVal<std::unique_ptr<FileBackend>> SDMCArchive::OpenFile(const Path& path, const Mode& mode,
+                                                              u32 attributes) {
     Mode modified_mode;
     modified_mode.hex = mode.hex;
 
@@ -222,7 +222,7 @@ Result SDMCArchive::DeleteDirectoryRecursively(const Path& path) const {
         path, mount_point, [](const std::string& p) { return FileUtil::DeleteDirRecursively(p); });
 }
 
-Result SDMCArchive::CreateFile(const FileSys::Path& path, u64 size) const {
+Result SDMCArchive::CreateFile(const FileSys::Path& path, u64 size, u32 attributes) const {
     const PathParser path_parser(path);
 
     if (!path_parser.IsValid()) {
@@ -267,7 +267,7 @@ Result SDMCArchive::CreateFile(const FileSys::Path& path, u64 size) const {
                   ErrorLevel::Info);
 }
 
-Result SDMCArchive::CreateDirectory(const Path& path) const {
+Result SDMCArchive::CreateDirectory(const Path& path, u32 attributes) const {
     const PathParser path_parser(path);
 
     if (!path_parser.IsValid()) {
@@ -331,7 +331,7 @@ Result SDMCArchive::RenameDirectory(const Path& src_path, const Path& dest_path)
                   ErrorSummary::NothingHappened, ErrorLevel::Status);
 }
 
-ResultVal<std::unique_ptr<DirectoryBackend>> SDMCArchive::OpenDirectory(const Path& path) const {
+ResultVal<std::unique_ptr<DirectoryBackend>> SDMCArchive::OpenDirectory(const Path& path) {
     const PathParser path_parser(path);
 
     if (!path_parser.IsValid()) {
@@ -392,7 +392,7 @@ ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_SDMC::Open(const Path&
 }
 
 Result ArchiveFactory_SDMC::Format(const Path& path, const FileSys::ArchiveFormatInfo& format_info,
-                                   u64 program_id) {
+                                   u64 program_id, u32 directory_buckets, u32 file_buckets) {
     // This is kind of an undesirable operation, so let's just ignore it. :)
     return ResultSuccess;
 }

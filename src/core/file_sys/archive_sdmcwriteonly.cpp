@@ -41,7 +41,8 @@ public:
 };
 
 ResultVal<std::unique_ptr<FileBackend>> SDMCWriteOnlyArchive::OpenFile(const Path& path,
-                                                                       const Mode& mode) const {
+                                                                       const Mode& mode,
+                                                                       u32 attributes) {
     if (mode.read_flag) {
         LOG_ERROR(Service_FS, "Read flag is not supported");
         return ResultInvalidReadFlag;
@@ -49,8 +50,7 @@ ResultVal<std::unique_ptr<FileBackend>> SDMCWriteOnlyArchive::OpenFile(const Pat
     return SDMCArchive::OpenFileBase(path, mode);
 }
 
-ResultVal<std::unique_ptr<DirectoryBackend>> SDMCWriteOnlyArchive::OpenDirectory(
-    const Path& path) const {
+ResultVal<std::unique_ptr<DirectoryBackend>> SDMCWriteOnlyArchive::OpenDirectory(const Path& path) {
     LOG_ERROR(Service_FS, "Not supported");
     return ResultUnsupportedOpenFlags;
 }
@@ -83,7 +83,8 @@ ResultVal<std::unique_ptr<ArchiveBackend>> ArchiveFactory_SDMCWriteOnly::Open(co
 
 Result ArchiveFactory_SDMCWriteOnly::Format(const Path& path,
                                             const FileSys::ArchiveFormatInfo& format_info,
-                                            u64 program_id) {
+                                            u64 program_id, u32 directory_buckets,
+                                            u32 file_buckets) {
     // TODO(wwylele): hwtest this
     LOG_ERROR(Service_FS, "Attempted to format a SDMC write-only archive.");
     return ResultUnknown;

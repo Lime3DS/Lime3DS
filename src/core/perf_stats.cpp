@@ -101,6 +101,8 @@ PerfStats::Results PerfStats::GetAndResetStats(microseconds current_system_time_
     last_stats.frametime = duration_cast<DoubleSecs>(accumulated_frametime).count() /
                            static_cast<double>(system_frames);
     last_stats.emulation_speed = system_us_per_second.count() / 1'000'000.0;
+    last_stats.artic_transmitted = static_cast<double>(artic_transmitted) / interval;
+    last_stats.artic_events.raw = artic_events.raw | prev_artic_event.raw;
 
     // Reset counters
     reset_point = now;
@@ -108,6 +110,8 @@ PerfStats::Results PerfStats::GetAndResetStats(microseconds current_system_time_
     accumulated_frametime = Clock::duration::zero();
     system_frames = 0;
     game_frames = 0;
+    artic_transmitted = 0;
+    prev_artic_event.raw &= artic_events.raw;
 
     return last_stats;
 }
@@ -123,6 +127,17 @@ double PerfStats::GetLastFrameTimeScale() const {
 
     constexpr double FRAME_LENGTH = 1.0 / SCREEN_REFRESH_RATE;
     return duration_cast<DoubleSecs>(previous_frame_length).count() / FRAME_LENGTH;
+}
+
+double PerfStats::GetStableFrameTimeScale() const {
+    std::scoped_lock lock{object_mutex};
+
+    constexpr double FRAME_LENGTH_MILLIS = (1.0 / SCREEN_REFRESH_RATE) * 1000;
+    const size_t num_frames = std::min<size_t>(50UL, current_index + 1);
+    const double sum = std::accumulate(perf_history.begin() + current_index - num_frames,
+                                       perf_history.begin() + current_index, 0.0);
+    const double stable_frame_length = sum / num_frames;
+    return stable_frame_length / FRAME_LENGTH_MILLIS;
 }
 
 void FrameLimiter::WaitOnce() {

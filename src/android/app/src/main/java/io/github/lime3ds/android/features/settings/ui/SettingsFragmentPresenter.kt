@@ -860,6 +860,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
+                SwitchSetting(
+                    IntSetting.ENABLE_REALTIME_AUDIO,
+                    R.string.realtime_audio,
+                    R.string.realtime_audio_description,
+                    IntSetting.ENABLE_REALTIME_AUDIO.key,
+                    IntSetting.ENABLE_REALTIME_AUDIO.defaultValue
+                )
+            )
+            add(
                 SingleChoiceSetting(
                     IntSetting.AUDIO_INPUT_TYPE,
                     R.string.audio_input_type,

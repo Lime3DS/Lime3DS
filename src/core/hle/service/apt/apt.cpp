@@ -217,7 +217,7 @@ bool Module::LoadSharedFont() {
     const FileSys::Path file_path(std::vector<u8>(20, 0));
     FileSys::Mode open_mode = {};
     open_mode.read_flag.Assign(1);
-    auto file_result = archive.OpenFile(file_path, open_mode);
+    auto file_result = archive.OpenFile(file_path, open_mode, 0);
     if (file_result.Failed())
         return false;
 

@@ -501,7 +501,7 @@ Result Module::UpdateConfigNANDSavegame() {
     ASSERT_MSG(config_result.Succeeded(), "could not open file");
 
     auto config = std::move(config_result).Unwrap();
-    config->Write(0, CONFIG_SAVEFILE_SIZE, 1, cfg_config_file_buffer.data());
+    config->Write(0, CONFIG_SAVEFILE_SIZE, true, false, cfg_config_file_buffer.data());
 
     return ResultSuccess;
 }
@@ -553,7 +553,7 @@ Result Module::LoadConfigNANDSaveFile() {
     // If the archive didn't exist, create the files inside
     if (archive_result.Code() == FileSys::ResultNotFound) {
         // Format the archive to create the directories
-        systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0);
+        systemsavedata_factory.Format(archive_path, FileSys::ArchiveFormatInfo(), 0, 0, 0);
 
         // Open it again to get a valid archive now that the folder exists
         cfg_system_save_data_archive = systemsavedata_factory.Open(archive_path, 0).Unwrap();

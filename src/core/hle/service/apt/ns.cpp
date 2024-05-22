@@ -9,13 +9,25 @@
 
 namespace Service::NS {
 
-std::shared_ptr<Kernel::Process> LaunchTitle(FS::MediaType media_type, u64 title_id) {
+std::shared_ptr<Kernel::Process> LaunchTitle(Core::System& system, FS::MediaType media_type,
+                                             u64 title_id) {
     std::string path = AM::GetTitleContentPath(media_type, title_id);
     auto loader = Loader::GetLoader(path);
 
     if (!loader) {
         LOG_WARNING(Service_NS, "Could not find .app for title 0x{:016x}", title_id);
         return nullptr;
+    }
+
+    auto plg_ldr = Service::PLGLDR::GetService(system);
+    if (plg_ldr) {
+        const auto& plg_context = plg_ldr->GetPluginLoaderContext();
+        if (plg_context.is_enabled && plg_context.use_user_load_parameters &&
+            plg_context.user_load_parameters.low_title_Id == static_cast<u32>(title_id) &&
+            plg_context.user_load_parameters.plugin_memory_strategy ==
+                PLGLDR::PLG_LDR::PluginMemoryStrategy::PLG_STRATEGY_MODE3) {
+            loader->SetKernelMemoryModeOverride(Kernel::MemoryMode::Dev2);
+        }
     }
 
     std::shared_ptr<Kernel::Process> process;

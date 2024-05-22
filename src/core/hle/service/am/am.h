@@ -86,11 +86,11 @@ public:
     Result WriteTicket();
     Result WriteTitleMetadata();
     ResultVal<std::size_t> WriteContentData(u64 offset, std::size_t length, const u8* buffer);
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override;
     u64 GetSize() const override;
     bool SetSize(u64 size) const override;
-    bool Close() const override;
+    bool Close() override;
     void Flush() const override;
 
 private:
@@ -121,11 +121,11 @@ public:
     ~TicketFile();
 
     ResultVal<std::size_t> Read(u64 offset, std::size_t length, u8* buffer) const override;
-    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush,
+    ResultVal<std::size_t> Write(u64 offset, std::size_t length, bool flush, bool update_timestamp,
                                  const u8* buffer) override;
     u64 GetSize() const override;
     bool SetSize(u64 size) const override;
-    bool Close() const override;
+    bool Close() override;
     void Flush() const override;
 
 private:
