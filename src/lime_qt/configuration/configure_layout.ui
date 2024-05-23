@@ -192,14 +192,14 @@
               <string>Top Screen</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="0" column="0">
+              <item row="2" column="0">
                <widget class="QLabel" name="lb_top_left">
                 <property name="text">
                  <string>Left</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="2" column="1">
                <widget class="QSpinBox" name="custom_top_left">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -209,14 +209,14 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
+              <item row="0" column="0">
                <widget class="QLabel" name="lb_top_top">
                 <property name="text">
                  <string>Top</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="0" column="1">
                <widget class="QSpinBox" name="custom_top_top">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -226,14 +226,14 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="3" column="0">
                <widget class="QLabel" name="lb_top_right">
                 <property name="text">
                  <string>Right</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="3" column="1">
                <widget class="QSpinBox" name="custom_top_right">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -243,14 +243,14 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
+              <item row="1" column="0">
                <widget class="QLabel" name="lb_top_bottom">
                 <property name="text">
                  <string>Bottom</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="1">
+              <item row="1" column="1">
                <widget class="QSpinBox" name="custom_top_bottom">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -275,14 +275,14 @@
               <string>Bottom Screen</string>
              </property>
              <layout class="QGridLayout" name="gridLayout">
-              <item row="0" column="0">
+              <item row="2" column="0">
                <widget class="QLabel" name="lb_bottom_left">
                 <property name="text">
                  <string>Left</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
+              <item row="2" column="1">
                <widget class="QSpinBox" name="custom_bottom_left">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -292,14 +292,14 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
+              <item row="0" column="0">
                <widget class="QLabel" name="lb_bottom_top">
                 <property name="text">
                  <string>Top</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="0" column="1">
                <widget class="QSpinBox" name="custom_bottom_top">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -309,14 +309,14 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="3" column="0">
                <widget class="QLabel" name="lb_bottom_right">
                 <property name="text">
                  <string>Right</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="3" column="1">
                <widget class="QSpinBox" name="custom_bottom_right">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -326,14 +326,14 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
+              <item row="1" column="0">
                <widget class="QLabel" name="lb_bottom_bottom">
                 <property name="text">
                  <string>Bottom</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="1">
+              <item row="1" column="1">
                <widget class="QSpinBox" name="custom_bottom_bottom">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
@@ -353,7 +353,7 @@
            <item>
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>NOTE: Values are in pixels starting from the top left corner of the computer screen. Positive numbers only.</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Values are in pixels starting from the top left corner of the display. Positive numbers only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -364,7 +364,7 @@
            <item>
             <widget class="QLabel" name="lb_opacity_second_layer">
              <property name="text">
-              <string>Bottom Screen Opacity (OpenGL Only)</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bottom Screen Opacity % (OpenGL Only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
