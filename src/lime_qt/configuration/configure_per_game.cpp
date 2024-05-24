@@ -18,6 +18,7 @@
 #include "lime_qt/configuration/configure_enhancements.h"
 #include "lime_qt/configuration/configure_general.h"
 #include "lime_qt/configuration/configure_graphics.h"
+#include "lime_qt/configuration/configure_layout.h"
 #include "lime_qt/configuration/configure_per_game.h"
 #include "lime_qt/configuration/configure_system.h"
 #include "lime_qt/util/util.h"
@@ -36,6 +37,7 @@ ConfigurePerGame::ConfigurePerGame(QWidget* parent, u64 title_id_, const QString
     audio_tab = std::make_unique<ConfigureAudio>(is_powered_on, this);
     general_tab = std::make_unique<ConfigureGeneral>(this);
     enhancements_tab = std::make_unique<ConfigureEnhancements>(this);
+    layout_tab = std::make_unique<ConfigureLayout>(this);
     graphics_tab =
         std::make_unique<ConfigureGraphics>(gl_renderer, physical_devices, is_powered_on, this);
     system_tab = std::make_unique<ConfigureSystem>(system, this);
@@ -47,6 +49,7 @@ ConfigurePerGame::ConfigurePerGame(QWidget* parent, u64 title_id_, const QString
     ui->tabWidget->addTab(general_tab.get(), tr("General"));
     ui->tabWidget->addTab(system_tab.get(), tr("System"));
     ui->tabWidget->addTab(enhancements_tab.get(), tr("Enhancements"));
+    ui->tabWidget->addTab(layout_tab.get(), tr("Layout"));
     ui->tabWidget->addTab(graphics_tab.get(), tr("Graphics"));
     ui->tabWidget->addTab(audio_tab.get(), tr("Audio"));
     ui->tabWidget->addTab(debug_tab.get(), tr("Debug"));
@@ -102,6 +105,7 @@ void ConfigurePerGame::ApplyConfiguration() {
     general_tab->ApplyConfiguration();
     system_tab->ApplyConfiguration();
     enhancements_tab->ApplyConfiguration();
+    layout_tab->ApplyConfiguration();
     graphics_tab->ApplyConfiguration();
     audio_tab->ApplyConfiguration();
     debug_tab->ApplyConfiguration();
