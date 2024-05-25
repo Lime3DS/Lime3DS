@@ -33,6 +33,7 @@ import io.github.lime3ds.android.contracts.OpenFileResultContract
 import io.github.lime3ds.android.databinding.ActivityEmulationBinding
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.features.hotkeys.HotkeyUtility
+import org.citra.citra_emu.features.settings.model.BooleanSetting
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
 import io.github.lime3ds.android.fragments.EmulationFragment
@@ -72,6 +73,10 @@ class EmulationActivity : AppCompatActivity() {
         settingsViewModel.settings.loadSettings()
 
         super.onCreate(savedInstanceState)
+
+        if (BooleanSetting.FORCE_MAX_GPU_CLOCKS.boolean) {
+            NativeLibrary.enableAdrenoTurboMode(true) 
+        }
 
         binding = ActivityEmulationBinding.inflate(layoutInflater)
         screenAdjustmentUtil = ScreenAdjustmentUtil(windowManager, settingsViewModel.settings)
@@ -129,6 +134,9 @@ class EmulationActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        if (BooleanSetting.FORCE_MAX_GPU_CLOCKS.boolean) {
+            NativeLibrary.enableAdrenoTurboMode(false) 
+        }
         EmulationLifecycleUtil.clear()
         isEmulationRunning = false
         instance = null

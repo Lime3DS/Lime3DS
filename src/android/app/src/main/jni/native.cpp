@@ -257,6 +257,12 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     return Core::System::ResultStatus::Success;
 }
 
+void EnableAdrenoTurboMode(bool enable) {
+#if defined(ENABLE_VULKAN) && CITRA_ARCH(arm64)
+    adrenotools_set_turbo(enable);
+#endif
+}
+
 void InitializeGpuDriver(const std::string& hook_lib_dir, const std::string& custom_driver_dir,
                          const std::string& custom_driver_name,
                          const std::string& file_redirect_dir) {
@@ -334,8 +340,15 @@ void JNICALL Java_io_github_lime3ds_android_NativeLibrary_initializeGpuDriver(
                         GetJString(env, custom_driver_name), GetJString(env, file_redirect_dir));
 }
 
-void Java_io_github_lime3ds_android_NativeLibrary_notifyOrientationChange(
-    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jint layout_option, jint rotation) {
+void JNICALL Java_io_github_lime3ds_android_1emu_NativeLibrary_enableAdrenoTurboMode(JNIEnv* env, jobject obj,
+                                                                           jboolean enable) {
+    EnableAdrenoTurboMode(enable);
+}
+
+void Java_io_github_lime3ds_android_1emu_NativeLibrary_notifyOrientationChange([[maybe_unused]] JNIEnv* env,
+                                                                     [[maybe_unused]] jobject obj,
+                                                                     jint layout_option,
+                                                                     jint rotation) {
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(layout_option);
     auto& system = Core::System::GetInstance();
     if (system.IsPoweredOn()) {

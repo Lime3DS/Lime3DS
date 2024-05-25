@@ -451,6 +451,13 @@ class SettingsAdapter(
         ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
     }
 
+    fun onForceMaximumGpuClocksDisabled() {
+        MessageDialogFragment.newInstance(
+            R.string.force_max_gpu_clocks_unsupported,
+            R.string.force_max_gpu_clocks_desc_unsupported
+        ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
+    }
+    
     fun onClickRegenerateConsoleId() {
         MaterialAlertDialogBuilder(context)
             .setTitle(R.string.regenerate_console_id)

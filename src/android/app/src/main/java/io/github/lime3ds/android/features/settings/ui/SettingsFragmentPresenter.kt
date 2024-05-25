@@ -734,6 +734,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
+                SwitchSetting(
+                    BooleanSetting.FORCE_MAX_GPU_CLOCKS,
+                    R.string.force_max_gpu_clocks,
+                    R.string.force_max_gpu_clocks_description,
+                    BooleanSetting.FORCE_MAX_GPU_CLOCKS.key,
+                    BooleanSetting.FORCE_MAX_GPU_CLOCKS.defaultValue
+                )
+            )
+            add(
                 SingleChoiceSetting(
                     IntSetting.TEXTURE_FILTER,
                     R.string.texture_filter_name,
