@@ -85,7 +85,10 @@ jobs:
         with:
           xcode-version: latest-stable
       - name: Install tools
-        run: brew install ccache ninja spirv-tools
+        run: brew install ccache ninja 
+      - name: Install spirv-tools (arm64)
+        run: brew install spirv-tools
+        if: ${{ matrix.target == 'arm64' }}
       - name: Build
         run: ./.ci/macos.sh
       - name: Prepare outputs for caching
