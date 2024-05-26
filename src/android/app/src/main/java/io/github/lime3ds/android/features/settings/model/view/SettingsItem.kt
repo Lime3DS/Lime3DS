@@ -6,6 +6,7 @@ package io.github.lime3ds.android.features.settings.model.view
 
 import io.github.lime3ds.android.NativeLibrary
 import io.github.lime3ds.android.features.settings.model.AbstractSetting
+import io.github.lime3ds.android.activities.EmulationActivity
 
 /**
  * ViewModel abstraction for an Item in the RecyclerView powering SettingsFragments.
@@ -23,7 +24,7 @@ abstract class SettingsItem(
 
     val isEditable: Boolean
         get() {
-            if (!NativeLibrary.isRunning()) return true
+            if (!EmulationActivity.isRunning()) return true
             return setting?.isRuntimeEditable ?: false
         }
 
