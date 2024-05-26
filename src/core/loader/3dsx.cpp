@@ -261,7 +261,7 @@ static THREEDSX_Error Load3DSXFile(Core::System& system, FileUtil::IOFile& file,
     std::memcpy(&pst, program_image.data() + sizeof(u32), sizeof(PrmStruct));
     if (pst.magic == MakeMagic('_', 'p', 'r', 'm')) {
         static constexpr u32 Argc = 1;
-        static constexpr std::string_view Argv = "Citra";
+        static constexpr std::string_view Argv = "Lime3DS";
 
         // Initialize the argument buffer
         const size_t extra_page_offset = program_image.size() - PageSize;
