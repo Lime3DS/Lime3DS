@@ -135,9 +135,9 @@
      <addaction name="action_Screen_Layout_Default"/>
      <addaction name="action_Screen_Layout_Single_Screen"/>
      <addaction name="action_Screen_Layout_Large_Screen"/>
-     <addaction name="action_Screen_Layout_Hybrid_Screen"/>
      <addaction name="action_Screen_Layout_Side_by_Side"/>
      <addaction name="action_Screen_Layout_Separate_Windows"/>
+     <addaction name="action_Screen_Layout_Hybrid_Screen"/>
      <addaction name="action_Screen_Layout_Custom_Layout"/>
      <addaction name="separator"/>
      <addaction name="action_Screen_Layout_Upright_Screens"/>
@@ -521,14 +521,6 @@
     <string>Large Screen</string>
    </property>
   </action>
-  <action name="action_Screen_Layout_Hybrid_Screen">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Hybrid Screen</string>
-   </property>
-  </action>
   <action name="action_Screen_Layout_Side_by_Side">
    <property name="checkable">
     <bool>true</bool>
@@ -543,6 +535,14 @@
    </property>
    <property name="text">
     <string>Separate Windows</string>
+   </property>
+  </action>
+  <action name="action_Screen_Layout_Hybrid_Screen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hybrid Screen</string>
    </property>
   </action>
   <action name="action_Screen_Layout_Custom_Layout">

@@ -465,9 +465,9 @@ void GMainWindow::InitializeWidgets() {
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Default);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Single_Screen);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Large_Screen);
-    actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Hybrid_Screen);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Side_by_Side);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Separate_Windows);
+    actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Hybrid_Screen);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Custom_Layout);
 }
 
