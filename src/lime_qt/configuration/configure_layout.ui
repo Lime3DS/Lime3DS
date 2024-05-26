@@ -77,6 +77,11 @@
            </item>
            <item>
             <property name="text">
+             <string>Hybrid Screen</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string>Custom Layout</string>
             </property>
            </item>

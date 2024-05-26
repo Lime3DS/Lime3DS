@@ -25,7 +25,7 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
     connect(ui->layout_combobox,
             static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
             [this](int currentIndex) {
-                ui->custom_layout_group->setEnabled(ui->layout_combobox->currentIndex() == 5);
+                ui->custom_layout_group->setEnabled(ui->layout_combobox->currentIndex() == 6);
             });
 
     connect(ui->bg_button, &QPushButton::clicked, this, [this] {
