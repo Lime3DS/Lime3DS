@@ -486,14 +486,14 @@ struct Values {
     SwitchableSetting<float, true> large_screen_proportion{4.f, 1.f, 16.f,
                                                            "large_screen_proportion"};
     Setting<bool> custom_layout{false, "custom_layout"};
-    Setting<u16> custom_top_left{0, "custom_top_left"};
-    Setting<u16> custom_top_top{0, "custom_top_top"};
-    Setting<u16> custom_top_right{400, "custom_top_right"};
-    Setting<u16> custom_top_bottom{240, "custom_top_bottom"};
-    Setting<u16> custom_bottom_left{40, "custom_bottom_left"};
-    Setting<u16> custom_bottom_top{240, "custom_bottom_top"};
-    Setting<u16> custom_bottom_right{360, "custom_bottom_right"};
-    Setting<u16> custom_bottom_bottom{480, "custom_bottom_bottom"};
+    Setting<u16> custom_top_x{0, "custom_top_x"};
+    Setting<u16> custom_top_y{0, "custom_top_y"};
+    Setting<u16> custom_top_width{400, "custom_top_width"};
+    Setting<u16> custom_top_height{240, "custom_top_height"};
+    Setting<u16> custom_bottom_x{40, "custom_bottom_x"};
+    Setting<u16> custom_bottom_y{240, "custom_bottom_y"};
+    Setting<u16> custom_bottom_width{360, "custom_bottom_width"};
+    Setting<u16> custom_bottom_height{480, "custom_bottom_height"};
     Setting<u16> custom_second_layer_opacity{100, "custom_second_layer_opacity"};
 
     SwitchableSetting<float> bg_red{0.f, "bg_red"};

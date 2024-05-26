@@ -198,14 +198,14 @@
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="0" column="0">
-               <widget class="QLabel" name="lb_top_left">
+               <widget class="QLabel" name="lb_top_x">
                 <property name="text">
                  <string>X Position</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QSpinBox" name="custom_top_left">
+               <widget class="QSpinBox" name="custom_top_x">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -215,14 +215,14 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QLabel" name="lb_top_top">
+               <widget class="QLabel" name="lb_top_y">
                 <property name="text">
                  <string>Y Position</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QSpinBox" name="custom_top_top">
+               <widget class="QSpinBox" name="custom_top_y">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -232,14 +232,14 @@
                </widget>
               </item>
               <item row="2" column="0">
-               <widget class="QLabel" name="lb_top_right">
+               <widget class="QLabel" name="lb_top_width">
                 <property name="text">
                  <string>Width</string>
                 </property>
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QSpinBox" name="custom_top_right">
+               <widget class="QSpinBox" name="custom_top_width">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -249,14 +249,14 @@
                </widget>
               </item>
               <item row="3" column="0">
-               <widget class="QLabel" name="lb_top_bottom">
+               <widget class="QLabel" name="lb_top_height">
                 <property name="text">
                  <string>Height</string>
                 </property>
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="QSpinBox" name="custom_top_bottom">
+               <widget class="QSpinBox" name="custom_top_height">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -281,14 +281,14 @@
              </property>
              <layout class="QGridLayout" name="gridLayout">
               <item row="0" column="0">
-               <widget class="QLabel" name="lb_bottom_left">
+               <widget class="QLabel" name="lb_bottom_x">
                 <property name="text">
                  <string>X Position</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QSpinBox" name="custom_bottom_left">
+               <widget class="QSpinBox" name="custom_bottom_x">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -298,14 +298,14 @@
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QLabel" name="lb_bottom_top">
+               <widget class="QLabel" name="lb_bottom_y">
                 <property name="text">
                  <string>Y Position</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QSpinBox" name="custom_bottom_top">
+               <widget class="QSpinBox" name="custom_bottom_y">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -315,14 +315,14 @@
                </widget>
               </item>
               <item row="2" column="0">
-               <widget class="QLabel" name="lb_bottom_right">
+               <widget class="QLabel" name="lb_bottom_width">
                 <property name="text">
                  <string>Width</string>
                 </property>
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QSpinBox" name="custom_bottom_right">
+               <widget class="QSpinBox" name="custom_bottom_width">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>
@@ -332,14 +332,14 @@
                </widget>
               </item>
               <item row="3" column="0">
-               <widget class="QLabel" name="lb_bottom_bottom">
+               <widget class="QLabel" name="lb_bottom_height">
                 <property name="text">
                  <string>Height</string>
                 </property>
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="QSpinBox" name="custom_bottom_bottom">
+               <widget class="QSpinBox" name="custom_bottom_height">
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::NoButtons</enum>
                 </property>

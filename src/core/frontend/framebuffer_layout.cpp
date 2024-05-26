@@ -377,18 +377,18 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped) {
 
     FramebufferLayout res{width, height, true, true, {}, {}, !Settings::values.upright_screen};
 
-    Common::Rectangle<u32> top_screen{Settings::values.custom_top_left.GetValue(),
-                                      Settings::values.custom_top_top.GetValue(),
-                                      (u32)(Settings::values.custom_top_left.GetValue() +
-                                            Settings::values.custom_top_right.GetValue()),
-                                      (u32)(Settings::values.custom_top_top.GetValue() +
-                                            Settings::values.custom_top_bottom.GetValue())};
-    Common::Rectangle<u32> bot_screen{Settings::values.custom_bottom_left.GetValue(),
-                                      Settings::values.custom_bottom_top.GetValue(),
-                                      (u32)(Settings::values.custom_bottom_left.GetValue() +
-                                            Settings::values.custom_bottom_right.GetValue()),
-                                      (u32)(Settings::values.custom_bottom_top.GetValue() +
-                                            Settings::values.custom_bottom_bottom.GetValue())};
+    Common::Rectangle<u32> top_screen{Settings::values.custom_top_x.GetValue(),
+                                      Settings::values.custom_top_y.GetValue(),
+                                      (u32)(Settings::values.custom_top_x.GetValue() +
+                                            Settings::values.custom_top_width.GetValue()),
+                                      (u32)(Settings::values.custom_top_y.GetValue() +
+                                            Settings::values.custom_top_height.GetValue())};
+    Common::Rectangle<u32> bot_screen{Settings::values.custom_bottom_x.GetValue(),
+                                      Settings::values.custom_bottom_y.GetValue(),
+                                      (u32)(Settings::values.custom_bottom_x.GetValue() +
+                                            Settings::values.custom_bottom_width.GetValue()),
+                                      (u32)(Settings::values.custom_bottom_y.GetValue() +
+                                            Settings::values.custom_bottom_height.GetValue())};
 
     if (is_swapped) {
         res.top_screen = bot_screen;
@@ -402,10 +402,10 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped) {
 
 FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondary) {
     if (Settings::values.custom_layout.GetValue() == true) {
-        return CustomFrameLayout(std::max(Settings::values.custom_top_right.GetValue(),
-                                          Settings::values.custom_bottom_right.GetValue()),
-                                 std::max(Settings::values.custom_top_bottom.GetValue(),
-                                          Settings::values.custom_bottom_bottom.GetValue()),
+        return CustomFrameLayout(std::max(Settings::values.custom_top_width.GetValue(),
+                                          Settings::values.custom_bottom_width.GetValue()),
+                                 std::max(Settings::values.custom_top_height.GetValue(),
+                                          Settings::values.custom_bottom_height.GetValue()),
                                  Settings::values.swap_screen.GetValue());
     }
 
