@@ -56,14 +56,14 @@ void ConfigureLayout::SetConfiguration() {
     ui->toggle_swap_screen->setChecked(Settings::values.swap_screen.GetValue());
     ui->toggle_upright_screen->setChecked(Settings::values.upright_screen.GetValue());
     ui->large_screen_proportion->setValue(Settings::values.large_screen_proportion.GetValue());
-    ui->custom_top_left->setValue(Settings::values.custom_top_left.GetValue());
-    ui->custom_top_top->setValue(Settings::values.custom_top_top.GetValue());
-    ui->custom_top_right->setValue(Settings::values.custom_top_right.GetValue());
-    ui->custom_top_bottom->setValue(Settings::values.custom_top_bottom.GetValue());
-    ui->custom_bottom_left->setValue(Settings::values.custom_bottom_left.GetValue());
-    ui->custom_bottom_top->setValue(Settings::values.custom_bottom_top.GetValue());
-    ui->custom_bottom_right->setValue(Settings::values.custom_bottom_right.GetValue());
-    ui->custom_bottom_bottom->setValue(Settings::values.custom_bottom_bottom.GetValue());
+    ui->custom_top_x->setValue(Settings::values.custom_top_x.GetValue());
+    ui->custom_top_y->setValue(Settings::values.custom_top_y.GetValue());
+    ui->custom_top_width->setValue(Settings::values.custom_top_width.GetValue());
+    ui->custom_top_height->setValue(Settings::values.custom_top_height.GetValue());
+    ui->custom_bottom_x->setValue(Settings::values.custom_bottom_x.GetValue());
+    ui->custom_bottom_y->setValue(Settings::values.custom_bottom_y.GetValue());
+    ui->custom_bottom_width->setValue(Settings::values.custom_bottom_width.GetValue());
+    ui->custom_bottom_height->setValue(Settings::values.custom_bottom_height.GetValue());
     ui->custom_second_layer_opacity->setValue(
         Settings::values.custom_second_layer_opacity.GetValue());
     bg_color =
@@ -82,14 +82,14 @@ void ConfigureLayout::RetranslateUI() {
 void ConfigureLayout::ApplyConfiguration() {
     Settings::values.large_screen_proportion = ui->large_screen_proportion->value();
 
-    Settings::values.custom_top_left = ui->custom_top_left->value();
-    Settings::values.custom_top_top = ui->custom_top_top->value();
-    Settings::values.custom_top_right = ui->custom_top_right->value();
-    Settings::values.custom_top_bottom = ui->custom_top_bottom->value();
-    Settings::values.custom_bottom_left = ui->custom_bottom_left->value();
-    Settings::values.custom_bottom_top = ui->custom_bottom_top->value();
-    Settings::values.custom_bottom_right = ui->custom_bottom_right->value();
-    Settings::values.custom_bottom_bottom = ui->custom_bottom_bottom->value();
+    Settings::values.custom_top_x = ui->custom_top_x->value();
+    Settings::values.custom_top_y = ui->custom_top_y->value();
+    Settings::values.custom_top_width = ui->custom_top_width->value();
+    Settings::values.custom_top_height = ui->custom_top_height->value();
+    Settings::values.custom_bottom_x = ui->custom_bottom_x->value();
+    Settings::values.custom_bottom_y = ui->custom_bottom_y->value();
+    Settings::values.custom_bottom_width = ui->custom_bottom_width->value();
+    Settings::values.custom_bottom_height = ui->custom_bottom_height->value();
     Settings::values.custom_second_layer_opacity = ui->custom_second_layer_opacity->value();
 
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.layout_option, ui->layout_combobox);

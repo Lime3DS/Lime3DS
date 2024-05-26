@@ -174,14 +174,14 @@ void Config::ReadValues() {
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(sdl2_config->GetInteger(
         "Layout", "layout_option", static_cast<int>(Settings::LayoutOption::MobileLandscape)));
     ReadSetting("Layout", Settings::values.custom_layout);
-    ReadSetting("Layout", Settings::values.custom_top_left);
-    ReadSetting("Layout", Settings::values.custom_top_top);
-    ReadSetting("Layout", Settings::values.custom_top_right);
-    ReadSetting("Layout", Settings::values.custom_top_bottom);
-    ReadSetting("Layout", Settings::values.custom_bottom_left);
-    ReadSetting("Layout", Settings::values.custom_bottom_top);
-    ReadSetting("Layout", Settings::values.custom_bottom_right);
-    ReadSetting("Layout", Settings::values.custom_bottom_bottom);
+    ReadSetting("Layout", Settings::values.custom_top_x);
+    ReadSetting("Layout", Settings::values.custom_top_y);
+    ReadSetting("Layout", Settings::values.custom_top_width);
+    ReadSetting("Layout", Settings::values.custom_top_height);
+    ReadSetting("Layout", Settings::values.custom_bottom_x);
+    ReadSetting("Layout", Settings::values.custom_bottom_y);
+    ReadSetting("Layout", Settings::values.custom_bottom_width);
+    ReadSetting("Layout", Settings::values.custom_bottom_height);
     ReadSetting("Layout", Settings::values.cardboard_screen_size);
     ReadSetting("Layout", Settings::values.cardboard_x_shift);
     ReadSetting("Layout", Settings::values.cardboard_y_shift);
