@@ -25,8 +25,18 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
     connect(ui->layout_combobox,
             static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
             [this](int currentIndex) {
-                ui->custom_layout_group->setEnabled(ui->layout_combobox->currentIndex() == 6);
+                ui->custom_layout_group->setEnabled(ui->layout_combobox->currentIndex() ==
+                                                    (uint)(Settings::LayoutOption::CustomLayout));
             });
+
+    ui->large_screen_proportion->setEnabled(
+        (Settings::values.layout_option.GetValue() == Settings::LayoutOption::LargeScreen));
+    connect(
+        ui->layout_combobox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        this, [this](int currentIndex) {
+            ui->large_screen_proportion->setEnabled(ui->layout_combobox->currentIndex() ==
+                                                    (uint)(Settings::LayoutOption::LargeScreen));
+        });
 
     connect(ui->bg_button, &QPushButton::clicked, this, [this] {
         const QColor new_bg_color = QColorDialog::getColor(bg_color);
