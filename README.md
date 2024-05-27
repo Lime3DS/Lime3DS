@@ -49,6 +49,11 @@ We are also on Flathub:
 # Build Instructions
 Please refer to our website's [wiki](https://lime3ds.github.io/pages/wiki.html) in order to find building instructions for Windows, Linux, Android and MacOS
 
+# Compatibility Reporting
+Reports for game compatibility can be made here: https://github.com/Lime3DS/compatibility-list
+
+Please ensure that you have read the contributing document before submitting a report.
+
 # What's next?
 We keep a public roadmap of what features/bug fixes are planned to be included in the next update or two.
 You can find this at https://github.com/Lime3DS/Lime3DS/milestones.
