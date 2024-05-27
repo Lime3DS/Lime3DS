@@ -444,37 +444,47 @@ This would ban both their forum username and their IP address.</source>
         <translation>启动音频拉伸</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="117"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="101"/>
+        <source>Scales audio playback speed to account for drops in emulation framerate. This means that audio will play at full speed even while the game framerate is low. May cause audio desync issues.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="104"/>
+        <source>Enable realtime audio</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="127"/>
         <source>Use global volume</source>
         <translation>使用全局音量</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="122"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="132"/>
         <source>Set volume:</source>
         <translation>音量：</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="130"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="140"/>
         <source>Volume:</source>
         <translation>音量:</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="175"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="185"/>
         <source>0 %</source>
         <translation>0 %</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="191"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="201"/>
         <source>Microphone</source>
         <translation>麦克风</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="197"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="207"/>
         <source>Input Type</source>
         <translation>输入类型</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="207"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="217"/>
         <source>Input Device</source>
         <translation>输入设备</translation>
     </message>
@@ -485,7 +495,7 @@ This would ban both their forum username and their IP address.</source>
         <translation>自动</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_audio.cpp" line="152"/>
+        <location filename="../../src/lime_qt/configuration/configure_audio.cpp" line="156"/>
         <source>%1%</source>
         <comment>Volume percentage (e.g. 50%)</comment>
         <translation>%1%</translation>
@@ -920,87 +930,93 @@ Would you like to ignore the error and continue?</source>
         <translation>Lime3DS 设置</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="46"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="121"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="171"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="48"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="126"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="177"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="47"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="122"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="172"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="49"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="127"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="178"/>
         <source>System</source>
         <translation>系统</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="48"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="173"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="50"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="179"/>
         <source>Input</source>
         <translation>输入</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="49"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="174"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="51"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="180"/>
         <source>Hotkeys</source>
         <translation>热键</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="50"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="123"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="52"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="128"/>
         <source>Graphics</source>
         <translation>图形</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="51"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="175"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="53"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="181"/>
         <source>Enhancements</source>
         <translation>增强性功能</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="52"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="124"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="177"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="54"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="182"/>
+        <source>Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="55"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="129"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="184"/>
         <source>Audio</source>
         <translation>声音</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="53"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="178"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="56"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="185"/>
         <source>Camera</source>
         <translation>摄像头</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="54"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="179"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="57"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="186"/>
         <source>Debug</source>
         <translation>调试</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="55"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="180"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="58"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="187"/>
         <source>Storage</source>
         <translation>存储</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="56"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="181"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="59"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="188"/>
         <source>Web</source>
         <translation>网络</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="57"/>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="182"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="60"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="189"/>
         <source>UI</source>
         <translation>界面</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="125"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="130"/>
         <source>Controls</source>
         <translation>控制</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="176"/>
+        <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="183"/>
         <source>Advanced</source>
         <translation>高级选项</translation>
     </message>
@@ -1109,18 +1125,18 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="189"/>
+        <source>Nearest Neighbor</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="194"/>
         <source>ScaleForce</source>
         <translation>强制缩放</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="194"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="199"/>
         <source>xBRZ</source>
         <translation>xBRZ</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="199"/>
-        <source>MMPX</source>
-        <translation>MMPX</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="213"/>
@@ -1139,7 +1155,6 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="234"/>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="358"/>
         <source>Side by Side</source>
         <translation>并排屏幕</translation>
     </message>
@@ -1185,101 +1200,46 @@ Would you like to ignore the error and continue?</source>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="314"/>
-        <source>Layout</source>
-        <translation>布局</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="335"/>
-        <source>Screen Layout:</source>
-        <translation>屏幕布局：</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="343"/>
-        <source>Default</source>
-        <translation>默认</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="348"/>
-        <source>Single Screen</source>
-        <translation>单屏</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="353"/>
-        <source>Large Screen</source>
-        <translation>大屏</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="363"/>
-        <source>Separate Windows</source>
-        <translation>分离窗口</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="368"/>
-        <source>Hybrid Screen</source>
-        <translation>混合式屏幕</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="379"/>
-        <source>Swap Screens</source>
-        <translation>交换上下屏</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="386"/>
-        <source>Rotate Screens Upright</source>
-        <translation>垂直式画面旋转</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="408"/>
-        <source>Large Screen Proportion:</source>
-        <translation>大屏比例：</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="446"/>
-        <source>Background Color:</source>
-        <translation>背景颜色：</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="469"/>
         <source>Utility</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="475"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="320"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Replace textures with PNG files.&lt;/p&gt;&lt;p&gt;Textures are loaded from load/textures/[Title ID]/.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;使用 PNG 文件进行纹理的替换。&lt;/p&gt;&lt;p&gt;将于 load/textures/[Title ID]/ 目录下加载纹理文件。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="478"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="323"/>
         <source>Use Custom Textures</source>
         <translation>使用自定义纹理</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="485"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="330"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dump textures to PNG files.&lt;/p&gt;&lt;p&gt;Textures are dumped to dump/textures/[Title ID]/.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;将纹理转储为 PNG 文件。&lt;/p&gt;&lt;p&gt;转储的文件保存于 dump/textures/[Title ID]/ 目录下。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="488"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="333"/>
         <source>Dump Textures</source>
         <translation>转储纹理文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="495"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="340"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load all custom textures into memory on boot, instead of loading them when the game requires them.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;游戏启动时将所有的自定义纹理加载到内存中，而不是在需要时才进行加载。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="498"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="343"/>
         <source>Preload Custom Textures</source>
         <translation>预加载自定义纹理</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="505"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="350"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load custom textures asynchronously with background threads to reduce loading stutter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在后台线程中异步加载自定义纹理，以减少加载带来的卡顿&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="508"/>
+        <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="353"/>
         <source>Async Custom Texture Loading</source>
         <translation>异步加载自定义纹理</translation>
     </message>
@@ -1952,6 +1912,124 @@ Would you like to ignore the error and continue?</source>
     </message>
 </context>
 <context>
+    <name>ConfigureLayout</name>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="20"/>
+        <source>Form</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="26"/>
+        <source>Screens</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="47"/>
+        <source>Screen Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="55"/>
+        <source>Default</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="60"/>
+        <source>Single Screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="65"/>
+        <source>Large Screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="70"/>
+        <source>Side by Side</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="75"/>
+        <source>Separate Windows</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="80"/>
+        <source>Hybrid Screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="85"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="189"/>
+        <source>Custom Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="96"/>
+        <source>Swap Screens</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="103"/>
+        <source>Rotate Screens Upright</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="125"/>
+        <source>Large Screen Proportion</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="163"/>
+        <source>Background Color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="197"/>
+        <source>Top Screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="203"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="286"/>
+        <source>X Position</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="220"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="303"/>
+        <source>Y Position</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="237"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="320"/>
+        <source>Width</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="254"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="337"/>
+        <source>Height</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="280"/>
+        <source>Bottom Screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="361"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Values are in pixels starting from the top left corner of the display. Positive numbers only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="372"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bottom Screen Opacity % (OpenGL Only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ConfigureMotionTouch</name>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_motion_touch.ui" line="6"/>
@@ -2198,52 +2276,57 @@ Would you like to ignore the error and continue?</source>
         <translation>使用全局设置 (%1)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="47"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="49"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="48"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="50"/>
         <source>System</source>
         <translation>系统</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="49"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="51"/>
         <source>Enhancements</source>
         <translation>功能增强</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="50"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="52"/>
+        <source>Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="53"/>
         <source>Graphics</source>
         <translation>图形</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="51"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="54"/>
         <source>Audio</source>
         <translation>声音</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="52"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="55"/>
         <source>Debug</source>
         <translation>调试</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="53"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="56"/>
         <source>Cheats</source>
         <translation>金手指</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="56"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="59"/>
         <source>Properties</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="81"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="84"/>
         <source>Citra</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="81"/>
+        <location filename="../../src/lime_qt/configuration/configure_per_game.cpp" line="84"/>
         <source>Are you sure you want to &lt;b&gt;reset your settings for this game&lt;/b&gt;?</source>
         <translation>您确定要&lt;b&gt;重置此游戏的设置吗&lt;/b&gt;？</translation>
     </message>
@@ -3795,390 +3878,390 @@ Please check your FFmpeg installation used for compilation.</source>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="396"/>
-        <location filename="../../src/lime_qt/main.cpp" line="3475"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3483"/>
         <source>Current emulation speed. Values higher or lower than 100% indicate emulation is running faster or slower than a 3DS.</source>
         <translation>当前模拟速度。高于或低于 100% 的值表示模拟正在运行得比实际 3DS 更快或更慢。</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="399"/>
-        <location filename="../../src/lime_qt/main.cpp" line="3477"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3485"/>
         <source>How many frames per second the game is currently displaying. This will vary from game to game and scene to scene.</source>
         <translation>游戏当前运行的帧率。这将因游戏和场景的不同而有所不同。</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="403"/>
-        <location filename="../../src/lime_qt/main.cpp" line="3480"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3488"/>
         <source>Time taken to emulate a 3DS frame, not counting framelimiting or v-sync. For full-speed emulation this should be at most 16.67 ms.</source>
         <translation>在不计算速度限制和垂直同步的情况下，模拟一个 3DS 帧的实际时间。若要进行全速模拟，这个数值不应超过 16.67 毫秒。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="560"/>
+        <location filename="../../src/lime_qt/main.cpp" line="561"/>
         <source>Clear Recent Files</source>
         <translation>清除最近文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="990"/>
+        <location filename="../../src/lime_qt/main.cpp" line="992"/>
         <source>&amp;Continue</source>
         <translation>继续 (&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="992"/>
+        <location filename="../../src/lime_qt/main.cpp" line="994"/>
         <source>&amp;Pause</source>
         <translation>暂停 (&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1066"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1068"/>
         <source>Update Available</source>
         <translation>更新可用</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1067"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1069"/>
         <source>An update is available. Would you like to install it now?</source>
         <translation>有更新可用。您想现在安装吗？</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1077"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1079"/>
         <source>No Update Found</source>
         <translation>没有发现更新</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1077"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1079"/>
         <source>No update is found.</source>
         <translation>没有找到更新。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1110"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1112"/>
         <source>Citra is running a game</source>
         <extracomment>TRANSLATORS: This string is shown to the user to explain why Citra needs to prevent the computer from sleeping</extracomment>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1182"/>
-        <location filename="../../src/lime_qt/main.cpp" line="1213"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1184"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1215"/>
         <source>Invalid ROM Format</source>
         <translation>无效 ROM 格式</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1183"/>
-        <location filename="../../src/lime_qt/main.cpp" line="1214"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1185"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1216"/>
         <source>Your ROM format is not supported.&lt;br/&gt;Please follow the guides to redump your &lt;a href=&apos;https://citra-emu.org/wiki/dumping-game-cartridges/&apos;&gt;game cartridges&lt;/a&gt; or &lt;a href=&apos;https://citra-emu.org/wiki/dumping-installed-titles/&apos;&gt;installed titles&lt;/a&gt;.</source>
         <translation>您的 ROM 格式不受支持。&lt;br/&gt;请按照 wiki 文章来重新转储您的&lt;a href=&apos;https://citra-emu.org/wiki/dumping-game-cartridges/&apos;&gt;游戏卡带&lt;/a&gt;或&lt;a href=&apos;https://citra-emu.org/wiki/dumping-installed-titles/&apos;&gt;已安装的游戏&lt;/a&gt;。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1193"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1195"/>
         <source>ROM Corrupted</source>
         <translation>ROM 损坏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1194"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1196"/>
         <source>Your ROM is corrupted. &lt;br/&gt;Please follow the guides to redump your &lt;a href=&apos;https://citra-emu.org/wiki/dumping-game-cartridges/&apos;&gt;game cartridges&lt;/a&gt; or &lt;a href=&apos;https://citra-emu.org/wiki/dumping-installed-titles/&apos;&gt;installed titles&lt;/a&gt;.</source>
         <translation>您的 ROM 已损坏。&lt;br/&gt; 请按照 wiki 文章来重新转储您的&lt;a href=&apos;https://citra-emu.org/wiki/dumping-game-cartridges/&apos;&gt;游戏卡带&lt;/a&gt;或&lt;a href=&apos;https://citra-emu.org/wiki/dumping-installed-titles/&apos;&gt;已安装的游戏&lt;/a&gt;。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1203"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1205"/>
         <source>ROM Encrypted</source>
         <translation>加密 ROM</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1204"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1206"/>
         <source>Your ROM is encrypted. &lt;br/&gt;Please follow the guides to redump your &lt;a href=&apos;https://citra-emu.org/wiki/dumping-game-cartridges/&apos;&gt;game cartridges&lt;/a&gt; or &lt;a href=&apos;https://citra-emu.org/wiki/dumping-installed-titles/&apos;&gt;installed titles&lt;/a&gt;.</source>
         <translation>您的 ROM 是加密的。&lt;br/&gt; 请按照 wiki 文章重新转储您的&lt;a href=&apos;https://citra-emu.org/wiki/dumping-game-cartridges/&apos;&gt;游戏卡带&lt;/a&gt;或&lt;a href=&apos;https://citra-emu.org/wiki/dumping-installed-titles/&apos;&gt;已安装的游戏&lt;/a&gt;。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1222"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1224"/>
         <source>Unsupported ROM</source>
         <translation>不支持的 ROM</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1223"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1225"/>
         <source>GBA Virtual Console ROMs are not supported by Citra.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1228"/>
-        <location filename="../../src/lime_qt/main.cpp" line="3145"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1230"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3151"/>
         <source>Artic Base Server</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1229"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1231"/>
         <source>An error has occurred whilst communicating with the Artic Base Server.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1233"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1235"/>
         <source>Error while loading ROM!</source>
         <translation>加载 ROM 时出错！</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1234"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1236"/>
         <source>An unknown error occurred. Please see the log for more details.</source>
         <translation>发生了一个未知错误。详情请参阅日志。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1262"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1264"/>
         <source>CIA must be installed before usage</source>
         <translation>CIA 文件必须安装后才能使用</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1263"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1265"/>
         <source>Before using this CIA, you must install it. Do you want to install it now?</source>
         <translation>在使用这个 CIA 文件前，您必须先进行安装。您希望现在就安装它吗？</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1558"/>
-        <location filename="../../src/lime_qt/main.cpp" line="1559"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1560"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1561"/>
         <source>Slot %1</source>
         <translation>插槽 %1</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1566"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1568"/>
         <source>Slot %1 - %2 %3</source>
         <translation>插槽 %1 - %2 %3</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1673"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1675"/>
         <source>Error Opening %1 Folder</source>
         <translation>无法打开 %1 文件夹</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1674"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2008"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1676"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2010"/>
         <source>Folder does not exist!</source>
         <translation>文件夹不存在！</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1684"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1686"/>
         <source>Remove Play Time Data</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1684"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1686"/>
         <source>Reset play time?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1815"/>
-        <location filename="../../src/lime_qt/main.cpp" line="1819"/>
-        <location filename="../../src/lime_qt/main.cpp" line="1825"/>
-        <location filename="../../src/lime_qt/main.cpp" line="1832"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1817"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1821"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1827"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1834"/>
         <source>Create Shortcut</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1816"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1818"/>
         <source>Do you want to launch the game in fullscreen?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1820"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1822"/>
         <source>Successfully created a shortcut to %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1826"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1828"/>
         <source>This will create a shortcut to the current AppImage. This may not work well if you update. Continue?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1833"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1835"/>
         <source>Failed to create a shortcut to %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1851"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1853"/>
         <source>Create Icon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1852"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1854"/>
         <source>Cannot create icon file. Path &quot;%1&quot; does not exist and cannot be created.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1955"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1957"/>
         <source>Dumping...</source>
         <translation>转储中...</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1955"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2165"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1957"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2167"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1976"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2200"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2203"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2792"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2816"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2818"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2848"/>
-        <location filename="../../src/lime_qt/main.cpp" line="3205"/>
-        <location filename="../../src/lime_qt/main.cpp" line="3298"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1978"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2202"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2205"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2798"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2822"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2824"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2854"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3211"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3304"/>
         <source>Lime3DS</source>
         <translation>Lime3DS</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="1977"/>
+        <location filename="../../src/lime_qt/main.cpp" line="1979"/>
         <source>Could not dump base RomFS.
 Refer to the log for details.</source>
         <translation>无法转储 RomFS 。
 有关详细信息，请参考日志文件。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2008"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2010"/>
         <source>Error Opening %1</source>
         <translation>无法打开 %1</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2015"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2017"/>
         <source>Select Directory</source>
         <translation>选择目录</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2039"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2041"/>
         <source>Properties</source>
         <translation>属性</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2040"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2042"/>
         <source>The game properties could not be loaded.</source>
         <translation>无法加载游戏属性。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2050"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2052"/>
         <source>3DS Executable (%1);;All Files (*.*)</source>
         <comment>%1 is an identifier for the 3DS executable file extensions.</comment>
         <translation>3DS 可执行文件 (%1);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2054"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2056"/>
         <source>Load File</source>
         <translation>加载文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2066"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2068"/>
         <source>Load Files</source>
         <translation>加载多个文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2067"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2069"/>
         <source>3DS Installation File (*.CIA*)</source>
         <translation>3DS 安装文件 (*.CIA*)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2067"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2069"/>
         <source>All Files (*.*)</source>
         <translation>所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2079"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2081"/>
         <source>Connect to Artic Base</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2080"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2082"/>
         <source>Enter Artic Base server address:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2120"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2122"/>
         <source>%1 has been installed successfully.</source>
         <translation>%1 已成功安装。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2123"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2125"/>
         <source>Unable to open File</source>
         <translation>无法打开文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2124"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2126"/>
         <source>Could not open %1</source>
         <translation>无法打开 %1</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2128"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2130"/>
         <source>Installation aborted</source>
         <translation>安装失败</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2129"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2131"/>
         <source>The installation of %1 was aborted. Please see the log for more details</source>
         <translation>%1 的安装过程失败。详情请参看日志</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2133"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2135"/>
         <source>Invalid File</source>
         <translation>文件无效</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2133"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2135"/>
         <source>%1 is not a valid CIA</source>
         <translation>%1 不是有效的 CIA 文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2136"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2138"/>
         <source>Encrypted File</source>
         <translation>文件已加密</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2137"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2139"/>
         <source>%1 must be decrypted before being used with Lime. A real 3DS is required.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2142"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2144"/>
         <source>Unable to find File</source>
         <translation>无法找到文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2143"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2145"/>
         <source>Could not find %1</source>
         <translation>找不到 %1</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2165"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2167"/>
         <source>Uninstalling &apos;%1&apos;...</source>
         <translation>正在卸载“ %1 ”...</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2201"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2203"/>
         <source>Failed to uninstall &apos;%1&apos;.</source>
         <translation>卸载“ %1 ”失败。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2204"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2206"/>
         <source>Successfully uninstalled &apos;%1&apos;.</source>
         <translation>“ %1 ”卸载成功。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2217"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2219"/>
         <source>File not found</source>
         <translation>找不到文件</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2218"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2220"/>
         <source>File &quot;%1&quot; not found</source>
         <translation>文件 &quot;%1&quot; 未找到</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2304"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2306"/>
         <source>Missing Citra Account</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2305"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2307"/>
         <source>You must link your Citra account to submit test cases.&lt;br/&gt;Go to Emulation &amp;gt; Configure... &amp;gt; Web to do so.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2476"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2482"/>
         <source>Savestates</source>
         <translation>保存状态</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2477"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2483"/>
         <source>Warning: Savestates are NOT a replacement for in-game saves, and are not meant to be reliable.
 
 Use at your own risk!</source>
@@ -4187,76 +4270,76 @@ Use at your own risk!</source>
 您必须自行承担使用风险。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2553"/>
         <location filename="../../src/lime_qt/main.cpp" line="2559"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2584"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2565"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2590"/>
         <source>Error opening amiibo data file</source>
         <translation>打开 Amiibo 数据文件时出错</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2554"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2560"/>
         <source>A tag is already in use.</source>
         <translation>当前已有 Amiibo 标签在使用中。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2560"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2566"/>
         <source>Game is not looking for amiibos.</source>
         <translation>游戏未在寻找 Amiibo。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2565"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2571"/>
         <source>Amiibo File (%1);; All Files (*.*)</source>
         <translation>Amiibo 文件 (%1);;所有文件 (*.*)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2566"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2572"/>
         <source>Load Amiibo</source>
         <translation>加载 Amiibo</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2585"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2591"/>
         <source>Unable to open amiibo file &quot;%1&quot; for reading.</source>
         <translation>无法打开 Amiibo 文件 %1 。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2659"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2665"/>
         <source>Record Movie</source>
         <translation>录制影像</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2659"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2665"/>
         <source>Movie recording cancelled.</source>
         <translation>影像录制已取消。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2672"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2693"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2678"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2699"/>
         <source>Movie Saved</source>
         <translation>影像已保存</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2673"/>
-        <location filename="../../src/lime_qt/main.cpp" line="2693"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2679"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2699"/>
         <source>The movie is successfully saved.</source>
         <translation>影像已成功保存。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2712"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2718"/>
         <source>Invalid Screenshot Directory</source>
         <translation>无效的截图保存目录</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2713"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2719"/>
         <source>Cannot create specified screenshot directory. Screenshot path is set back to its default value.</source>
         <translation>无法创建指定的截图保存目录。截图保存路径将重设为默认值。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2744"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2750"/>
         <source>Could not load video dumper</source>
         <translation>无法加载视频转储器</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2746"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2752"/>
         <source>FFmpeg could not be loaded. Make sure you have a compatible version installed.
 
 To install FFmpeg to Lime, press Open and select your FFmpeg directory.
@@ -4265,198 +4348,198 @@ To view a guide on how to install FFmpeg, press Help.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2771"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2777"/>
         <source>Select FFmpeg Directory</source>
         <translation>选择 FFmpeg 目录</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2793"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2799"/>
         <source>The provided FFmpeg directory is missing %1. Please make sure the correct directory was selected.</source>
         <translation>选择的 FFmpeg 目录中缺少 %1 。请确保选择了正确的目录。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2816"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2822"/>
         <source>FFmpeg has been sucessfully installed.</source>
         <translation>FFmpeg 已成功安装。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2819"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2825"/>
         <source>Installation of FFmpeg failed. Check the log file for details.</source>
         <translation>安装 FFmpeg 失败。详情请参阅日志文件。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2849"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2855"/>
         <source>Could not start video dumping.&lt;br&gt;Refer to the log for details.</source>
         <translation>无法转储屏幕录像。&lt;br&gt;有关详细信息，请参考日志文件。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2895"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2901"/>
         <source>Recording %1</source>
         <translation>录制中 %1</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2899"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2905"/>
         <source>Playing %1 / %2</source>
         <translation>播放中 %1 / %2</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2903"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2909"/>
         <source>Movie Finished</source>
         <translation>录像播放完毕</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2921"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2927"/>
         <source>(Accessing SharedExtData)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2923"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2929"/>
         <source>(Accessing BossExtData)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2925"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2931"/>
         <source>(Accessing ExtData)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2927"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2933"/>
         <source>(Accessing SaveData)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2930"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2936"/>
         <source>MB/s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2930"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2936"/>
         <source>KB/s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2955"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2961"/>
         <source>Artic Base Traffic: %1 %2%3</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2960"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2966"/>
         <source>Speed: %1%</source>
         <translation>速度: %1%</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2962"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2968"/>
         <source>Speed: %1% / %2%</source>
         <translation>速度: %1% / %2%</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2966"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2972"/>
         <source>Game: %1 FPS</source>
         <translation>FPS: %1</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="2967"/>
+        <location filename="../../src/lime_qt/main.cpp" line="2973"/>
         <source>Frame: %1 ms</source>
         <translation>帧延迟：%1 毫秒</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3054"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3060"/>
         <source>VOLUME: MUTE</source>
         <translation>音量: 静音</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3057"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3063"/>
         <source>VOLUME: %1%</source>
         <comment>Volume percentage (e.g. 50%)</comment>
         <translation>音量: %1%</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3126"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3132"/>
         <source>%1 is missing. Please &lt;a href=&apos;https://citra-emu.org/wiki/dumping-system-archives-and-the-shared-fonts-from-a-3ds-console/&apos;&gt;dump your system archives&lt;/a&gt;.&lt;br/&gt;Continuing emulation may result in crashes and bugs.</source>
         <translation>未找到 %1。 请&lt;a href=&apos;https://citra-emu.org/wiki/dumping-system-archives-and-the-shared-fonts-from-a-3ds-console/&apos;&gt;转储您的系统档案&lt;/a&gt;。&lt;br/&gt;继续进行模拟可能会导致崩溃和错误。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3134"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3140"/>
         <source>A system archive</source>
         <translation>系统档案</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3137"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3143"/>
         <source>System Archive Not Found</source>
         <translation>未找到系统档案</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3138"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3144"/>
         <source>System Archive Missing</source>
         <translation>系统档案丢失</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3141"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3147"/>
         <source>Save/load Error</source>
         <translation>保存/读取出现错误</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3146"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3152"/>
         <source>A communication error has occurred. The game will quit.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3150"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3156"/>
         <source>Fatal Error</source>
         <translation>致命错误</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3152"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3158"/>
         <source>A fatal error occurred. &lt;a href=&apos;https://community.citra-emu.org/t/how-to-upload-the-log-file/296&apos;&gt;Check the log&lt;/a&gt; for details.&lt;br/&gt;Continuing emulation may result in crashes and bugs.</source>
         <translation>发生了致命错误。请&lt;a href=&apos;https://community.citra-emu.org/t/how-to-upload-the-log-file/296&apos;&gt;参阅日志&lt;/a&gt;了解详细信息。&lt;br/&gt;继续进行模拟可能会导致崩溃和错误。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3156"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3162"/>
         <source>Fatal Error encountered</source>
         <translation>发生致命错误</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3166"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3172"/>
         <source>Continue</source>
         <translation>继续</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3168"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3174"/>
         <source>Quit Game</source>
         <translation>退出游戏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3182"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3188"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3205"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3211"/>
         <source>Would you like to exit now?</source>
         <translation>您现在要退出么？</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3298"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3304"/>
         <source>The game is still running. Would you like to stop emulation?</source>
         <translation>游戏仍在运行。您想停止模拟吗？</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3417"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3423"/>
         <source>Playback Completed</source>
         <translation>播放完成</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3417"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3423"/>
         <source>Movie playback completed.</source>
         <translation>影像播放完成。</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3428"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3434"/>
         <source>Primary Window</source>
         <translation>主窗口</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.cpp" line="3431"/>
+        <location filename="../../src/lime_qt/main.cpp" line="3437"/>
         <source>Secondary Window</source>
         <translation>次级窗口</translation>
     </message>
@@ -5701,322 +5784,327 @@ Debug Message: </source>
         <translation>屏幕布局</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="160"/>
+        <location filename="../../src/lime_qt/main.ui" line="161"/>
         <source>Multiplayer</source>
         <translation>多人游戏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="171"/>
+        <location filename="../../src/lime_qt/main.ui" line="172"/>
         <source>Tools</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="175"/>
+        <location filename="../../src/lime_qt/main.ui" line="176"/>
         <source>Movie</source>
         <translation>影像</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="186"/>
+        <location filename="../../src/lime_qt/main.ui" line="187"/>
         <source>Frame Advance</source>
         <translation>逐帧播放</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="199"/>
+        <location filename="../../src/lime_qt/main.ui" line="200"/>
         <source>&amp;Help</source>
         <translation>帮助 (&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="219"/>
+        <location filename="../../src/lime_qt/main.ui" line="220"/>
         <source>Load File...</source>
         <translation>加载文件…</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="224"/>
+        <location filename="../../src/lime_qt/main.ui" line="225"/>
         <source>Install CIA...</source>
         <translation>安装 CIA…</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="229"/>
+        <location filename="../../src/lime_qt/main.ui" line="230"/>
         <source>Connect to Artic Base...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="234"/>
+        <location filename="../../src/lime_qt/main.ui" line="235"/>
         <source>JPN</source>
         <translation>日本</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="239"/>
+        <location filename="../../src/lime_qt/main.ui" line="240"/>
         <source>USA</source>
         <translation>北美</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="244"/>
+        <location filename="../../src/lime_qt/main.ui" line="245"/>
         <source>EUR</source>
         <translation>欧洲</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="249"/>
+        <location filename="../../src/lime_qt/main.ui" line="250"/>
         <source>AUS</source>
         <translation>澳大利亚</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="254"/>
+        <location filename="../../src/lime_qt/main.ui" line="255"/>
         <source>CHN</source>
         <translation>中国大陆</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="259"/>
+        <location filename="../../src/lime_qt/main.ui" line="260"/>
         <source>KOR</source>
         <translation>韩国</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="264"/>
+        <location filename="../../src/lime_qt/main.ui" line="265"/>
         <source>TWN</source>
         <translation>港澳台</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="269"/>
+        <location filename="../../src/lime_qt/main.ui" line="270"/>
         <source>E&amp;xit</source>
         <translation>退出 (&amp;X)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="277"/>
+        <location filename="../../src/lime_qt/main.ui" line="278"/>
         <source>&amp;Pause</source>
         <translation>暂停 (&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="285"/>
+        <location filename="../../src/lime_qt/main.ui" line="286"/>
         <source>&amp;Stop</source>
         <translation>停止 (&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="293"/>
+        <location filename="../../src/lime_qt/main.ui" line="294"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="301"/>
+        <location filename="../../src/lime_qt/main.ui" line="302"/>
         <source>Load</source>
         <translation>读取</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="306"/>
+        <location filename="../../src/lime_qt/main.ui" line="307"/>
         <source>Discord</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="311"/>
+        <location filename="../../src/lime_qt/main.ui" line="312"/>
         <source>About Lime</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="322"/>
+        <location filename="../../src/lime_qt/main.ui" line="323"/>
         <source>Single Window Mode</source>
         <translation>单窗口模式</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="327"/>
+        <location filename="../../src/lime_qt/main.ui" line="328"/>
         <source>Save to Oldest Slot</source>
         <translation>覆盖保存到最旧存档</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="332"/>
+        <location filename="../../src/lime_qt/main.ui" line="333"/>
         <source>Load from Newest Slot</source>
         <translation>读取最新存档</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="337"/>
+        <location filename="../../src/lime_qt/main.ui" line="338"/>
         <source>Configure...</source>
         <translation>设置…</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="348"/>
+        <location filename="../../src/lime_qt/main.ui" line="349"/>
         <source>Display Dock Widget Headers</source>
         <translation>显示停靠小部件的标题</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="356"/>
+        <location filename="../../src/lime_qt/main.ui" line="357"/>
         <source>Show Filter Bar</source>
         <translation>显示搜索栏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="364"/>
+        <location filename="../../src/lime_qt/main.ui" line="365"/>
         <source>Show Status Bar</source>
         <translation>显示状态栏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="369"/>
+        <location filename="../../src/lime_qt/main.ui" line="370"/>
         <source>Create Pica Surface Viewer</source>
         <translation>新建 Pica 表面浏览器</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="374"/>
+        <location filename="../../src/lime_qt/main.ui" line="375"/>
         <source>Record...</source>
         <translation>录制...</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="379"/>
+        <location filename="../../src/lime_qt/main.ui" line="380"/>
         <source>Play...</source>
         <translation>播放...</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="384"/>
+        <location filename="../../src/lime_qt/main.ui" line="385"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="392"/>
+        <location filename="../../src/lime_qt/main.ui" line="393"/>
         <source>Save without Closing</source>
         <translation>保存并不关闭</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="403"/>
+        <location filename="../../src/lime_qt/main.ui" line="404"/>
         <source>Read-Only Mode</source>
         <translation>只读模式</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="411"/>
+        <location filename="../../src/lime_qt/main.ui" line="412"/>
         <source>Enable Frame Advancing</source>
         <translation>逐帧播放</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="419"/>
+        <location filename="../../src/lime_qt/main.ui" line="420"/>
         <source>Advance Frame</source>
         <translation>播放下一帧</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="427"/>
+        <location filename="../../src/lime_qt/main.ui" line="428"/>
         <source>Capture Screenshot</source>
         <translation>捕获截图</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="435"/>
+        <location filename="../../src/lime_qt/main.ui" line="436"/>
         <source>Dump Video</source>
         <translation>转储屏幕录像</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="443"/>
+        <location filename="../../src/lime_qt/main.ui" line="444"/>
         <source>Browse Public Game Lobby</source>
         <translation>浏览公共游戏大厅</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="451"/>
+        <location filename="../../src/lime_qt/main.ui" line="452"/>
         <source>Create Room</source>
         <translation>创建房间</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="459"/>
+        <location filename="../../src/lime_qt/main.ui" line="460"/>
         <source>Leave Room</source>
         <translation>离开房间</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="464"/>
+        <location filename="../../src/lime_qt/main.ui" line="465"/>
         <source>Direct Connect to Room</source>
         <translation>直接连接到房间</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="472"/>
+        <location filename="../../src/lime_qt/main.ui" line="473"/>
         <source>Show Current Room</source>
         <translation>显示当前房间</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="480"/>
+        <location filename="../../src/lime_qt/main.ui" line="481"/>
         <source>Fullscreen</source>
         <translation>全屏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="485"/>
+        <location filename="../../src/lime_qt/main.ui" line="486"/>
         <source>Open Log Folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="488"/>
+        <location filename="../../src/lime_qt/main.ui" line="489"/>
         <source>Opens the Lime3DS log folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="493"/>
+        <location filename="../../src/lime_qt/main.ui" line="494"/>
         <source>Modify Lime3DS Install</source>
         <translation>更改 Lime3DS 安装</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="496"/>
+        <location filename="../../src/lime_qt/main.ui" line="497"/>
         <source>Opens the maintenance tool to modify your Lime3DS installation</source>
         <translation>打开维护工具修改 Lime3DS 安装</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="504"/>
+        <location filename="../../src/lime_qt/main.ui" line="505"/>
         <source>Default</source>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="512"/>
+        <location filename="../../src/lime_qt/main.ui" line="513"/>
         <source>Single Screen</source>
         <translation>单屏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="520"/>
+        <location filename="../../src/lime_qt/main.ui" line="521"/>
         <source>Large Screen</source>
         <translation>大屏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="528"/>
-        <source>Hybrid Screen</source>
-        <translation>混合式屏幕</translation>
-    </message>
-    <message>
-        <location filename="../../src/lime_qt/main.ui" line="536"/>
+        <location filename="../../src/lime_qt/main.ui" line="529"/>
         <source>Side by Side</source>
         <translation>横屏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="544"/>
+        <location filename="../../src/lime_qt/main.ui" line="537"/>
         <source>Separate Windows</source>
         <translation>分离窗口</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="552"/>
+        <location filename="../../src/lime_qt/main.ui" line="545"/>
+        <source>Hybrid Screen</source>
+        <translation>混合式屏幕</translation>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/main.ui" line="553"/>
+        <source>Custom Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/main.ui" line="561"/>
         <source>Swap Screens</source>
         <translation>交换上下屏</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="560"/>
+        <location filename="../../src/lime_qt/main.ui" line="569"/>
         <source>Rotate Upright</source>
         <translation>垂直式画面旋转</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="565"/>
+        <location filename="../../src/lime_qt/main.ui" line="574"/>
         <source>Check for Updates</source>
         <translation>检查更新</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="573"/>
+        <location filename="../../src/lime_qt/main.ui" line="582"/>
         <source>Report Compatibility</source>
         <translation>报告兼容性</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="584"/>
+        <location filename="../../src/lime_qt/main.ui" line="593"/>
         <source>Restart</source>
         <translation>重新启动</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="592"/>
+        <location filename="../../src/lime_qt/main.ui" line="601"/>
         <source>Load...</source>
         <translation>加载...</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="600"/>
+        <location filename="../../src/lime_qt/main.ui" line="609"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="605"/>
+        <location filename="../../src/lime_qt/main.ui" line="614"/>
         <source>Open Lime3DS Folder</source>
         <translation>打开 Lime3DS 文件夹</translation>
     </message>
     <message>
-        <location filename="../../src/lime_qt/main.ui" line="613"/>
+        <location filename="../../src/lime_qt/main.ui" line="622"/>
         <source>Configure Current Game...</source>
         <translation>配置当前游戏…</translation>
     </message>

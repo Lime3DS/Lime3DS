@@ -11,10 +11,12 @@
     <string name="home_options">Optionen</string>
     <string name="home_search">Suche</string>
     <string name="home_games">Spiele</string>
+    <string name="settings_description">Emulator Einstellungen ändern </string>
     <string name="install_game_content">CIA-Datei installieren</string>
     <string name="share_log">Log teilen</string>
     <string name="gpu_driver_manager">GPU-Treiber Verwaltung</string>
     <string name="install_gpu_driver">GPU-Treiber installieren</string>
+    <string name="install_gpu_driver_description">Installiere Alternative Treiber für bessere Leistung oder Qualität</string>
     <string name="driver_already_installed">Treiber bereits installiert</string>
     <string name="share_log_not_found">Keine Log-Datei gefunden</string>
     <string name="select_games_folder">Spieleordner auswählen</string>
@@ -54,6 +56,7 @@
     <string name="give_permission">Berechtigung erteilen</string>
     <string name="camera_permission">Kamera</string>
     <string name="microphone_permission">Mikrofon</string>
+    <string name="permission_denied">Zugriff verboten </string>
     <string name="add_games_warning_help">https://citra-emu.org/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">Hilfe</string>
     <string name="warning_skip">Überspringen</string>

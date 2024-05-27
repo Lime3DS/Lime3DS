@@ -113,6 +113,7 @@
     <string name="input_binding_description_vertical_axis">Mueve el joystick arriba o abajo.</string>
     <string name="input_binding_description_horizontal_axis">Mueve el joystick a izquierda o derecha.</string>
     <string name="button_home">HOME</string>
+    <string name="button_swap">Intercambiar Pantallas</string>
     <string name="input_message_analog_only">¡Este control debe asignarse a un stick analógico del mando o a un eje del Pad de Control!</string>
     <string name="input_message_button_only">¡Este control debe asignarse a un botón del mando!</string>
 
@@ -157,6 +158,7 @@
     <!-- System settings strings -->
     <string name="username">Nombre de usuario/a</string>
     <string name="new_3ds">Modo New 3DS</string>
+    <string name="lle_applets">Usar Applets LLE (si están instaladas)</string>
     <string name="clock">Reloj</string>
     <string name="init_time">Tiempo de compensación</string>
     <string name="init_time_description">Si el reloj está en \"Reloj emulado\", ésto cambia la fecha y hora de inicio.</string>
@@ -216,6 +218,16 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="frame_limit_slider_description">Especifica el valor al que se limita la velocidad de emulación. Con el valor por defecto del 100%, la emulación se limitará a la velocidad normal. Los valores altos o altos incrementarán o reducirán el límite de velocidad.</string>
     <string name="internal_resolution">Resolución interna</string>
     <string name="internal_resolution_description">Especifica la resolución a la que se quiera renderizar. Una alta resolución mejorará la calidad visual un montón, pero también causará un gran impacto en el rendimiento y puede causar fallos en ciertos juegos.</string>
+    <string name="internal_resolution_setting_1x">Nativa (400x240)</string>
+    <string name="internal_resolution_setting_2x">2x Nativa (800x480)</string>
+    <string name="internal_resolution_setting_3x">3x Nativa (1200x720)</string>
+    <string name="internal_resolution_setting_4x">4x Nativa (1600x960)</string>
+    <string name="internal_resolution_setting_5x">5x Nativa (2000x1200)</string>
+    <string name="internal_resolution_setting_6x">6x Nativa (2400x1440)</string>
+    <string name="internal_resolution_setting_7x">7x Nativa (2800x1680)</string>
+    <string name="internal_resolution_setting_8x">8x Nativa (3200x1920)</string>
+    <string name="internal_resolution_setting_9x">9x Nativa (3600x2160)</string>
+    <string name="internal_resolution_setting_10x">10x Nativa (4000x2400)</string>
     <string name="performance_warning">¡Desactivar esta opción reducirá la velocidad de emulación! Para obtener la mejor experiencia, se recomienda que se mantenga activada.</string>
     <string name="debug_warning">Aviso: Modificar estas configuraciones reducirán la velocidad de emulación.</string>
     <string name="stereoscopy">Estereoscopía</string>
@@ -311,12 +323,15 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="emulation_empty_state_slot">Estado %1$d</string>
     <string name="emulation_occupied_state_slot">Estado %1$d - %2$tF %2$tR</string>
     <string name="emulation_show_fps">Mostrar FPS</string>
+    <string name="emulation_haptic_feedback">Respuesta Háptica</string>
     <string name="emulation_overlay_options">Opciones de estilo</string>
     <string name="emulation_configure_controls">Configurar Controles</string>
     <string name="emulation_edit_layout">Editar Estilo</string>
     <string name="emulation_done">Hecho</string>
     <string name="emulation_toggle_controls">Activar Controles</string>
     <string name="emulation_control_scale">Ajustar Escala</string>
+    <string name="emulation_control_scale_global">Escala Global</string>
+    <string name="emulation_control_scale_reset_all">Reiniciar Todo</string>
     <string name="emulation_control_opacity">Ajustar Opacidad</string>
     <string name="emulation_control_joystick_rel_center">Posición central relativa del stick</string>
     <string name="emulation_control_dpad_slide_enable">Deslizamiento de la Cruceta</string>
@@ -429,6 +444,17 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="cia_install_error_invalid">\"%s\" no es un CIA válido.</string>
     <string name="cia_install_error_encrypted">\"%s\" debe ser desencriptado antes de ser usado en Lime3DS .\n Se necesita una 3DS real.</string>
     <string name="cia_install_error_unknown">Ha ocurrido un error desconocido mientras se instalaba \"%s\".\n Por favor, mira el log para más detalles.</string>
+
+    <!-- Memory Sizes -->
+    <string name="memory_formatted">%1$s %2$s</string>
+    <string name="memory_byte">Byte</string>
+    <string name="memory_byte_shorthand">B</string>
+    <string name="memory_kilobyte">KB</string>
+    <string name="memory_megabyte">MB</string>
+    <string name="memory_gigabyte">GB</string>
+    <string name="memory_terabyte">TB</string>
+    <string name="memory_petabyte">PB</string>
+    <string name="memory_exabyte">EB</string>
 
     <!-- Theme Modes -->
     <string name="change_theme_mode">Cambiar Modo de Tema</string>

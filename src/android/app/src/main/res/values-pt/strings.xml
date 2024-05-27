@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_disclaimer">Este software irá executar jogos feitos para o console portátil Nintendo 3DS. Nenhum título de jogo está incluído.\n\nAntes de começar a emular, selecione uma pasta para armazenar os dados do usuário do Lime3DS.\n\nO que é isto:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Dados e armazenamento do usuário do Lime3DS Android</a></string>
-    <string name="app_notification_channel_description">Notificações do emulador de Lime3DS</string>
-    <string name="app_notification_running">Lime3DS em Funcionamento</string>
+    <string name="app_notification_channel_description">Notificações do emulador Lime3DS</string>
+    <string name="app_notification_running">Lime3DS está rodando</string>
     <string name="app_game_install_description">Em seguida, você precisará selecionar uma pasta de jogo. O Lime3DS exibirá todas as ROMs 3DS dentro da pasta selecionada no aplicativo.\n\nROMs, atualizações e DLC no formato CIA precisarão ser instalados separadamente clicando no ícone da pasta e selecionando Instalar CIA.</string>
 
     <!-- Home Strings -->
@@ -16,7 +16,7 @@
     <string name="install_game_content_description">Instale jogos, atualizações ou DLC</string>
     <string name="share_log">Compartilhar registro</string>
     <string name="share_log_description">Compartilhe o arquivo de log do Lime3DS para depurar problemas</string>
-    <string name="gpu_driver_manager">Gerenciador de driver de GPU</string>
+    <string name="gpu_driver_manager">Gerenciador de driver da GPU</string>
     <string name="install_gpu_driver">Instale o driver da GPU</string>
     <string name="install_gpu_driver_description">Instale drivers alternativos para poder obter desempenho ou precisão</string>
     <string name="driver_already_installed">Driver já instalado</string>
@@ -316,4 +316,46 @@
     <!-- Countries -->
     <string name="japan">Japão</string>
     <string name="anguilla">Anguilla</string>
-    </resources>
+    <string name="brazil">Brasil</string>
+    <string name="indonesia">Indonésia</string>
+    <string name="singapore">Singapura</string>
+    <string name="thailand">Tailândia</string>
+    <string name="philippines">Filipinas</string>
+    <string name="malaysia">Malásia</string>
+    <string name="china">China</string>
+    <string name="united_arab_emirates">Emirados Árabes Unidos</string>
+    <string name="india">Índia</string>
+    <string name="egypt">Egito</string>
+    <string name="oman">Omã</string>
+    <string name="qatar">Catar</string>
+    <string name="kuwait">Kuwait</string>
+    <string name="saudi_arabia">Arábia Saudita</string>
+    <string name="syria">Síria</string>
+    <string name="bahrain">Bahrein</string>
+    <string name="jordan">Jordan</string>
+    <string name="san_marino">San Marino</string>
+    <string name="vatican_city">Cidade do Vaticano</string>
+    <string name="bermuda">Bermudas</string>
+
+    <!-- Months -->
+    <string name="january">Janeiro</string>
+    <string name="february">Fevereiro</string>
+    <string name="march">Março</string>
+    <string name="april">Abril</string>
+    <string name="may">Maio</string>
+    <string name="june">Junho</string>
+    <string name="july">Julho</string>
+    <string name="august">Agosto</string>
+    <string name="september">Setembro</string>
+    <string name="october">Outubro</string>
+    <string name="november">Novembro</string>
+    <string name="december">Dezembro</string>
+
+    <!-- Artic base -->
+    <string name="artic_server_comm_error">Falha ao comunicar-se com o servidor Artic Base. A emulação será interrompida.</string>
+    <string name="artic_base">Artic Base</string>
+    <string name="artic_base_connect_description">Conecte-se a um console real que esteja executando um servidor Artic Base</string>
+    <string name="artic_base_connect">Conectar-se ao Artic Base</string>
+    <string name="artic_base_enter_address">Digite o endereço do servidor Artic Base</string>
+
+</resources>
