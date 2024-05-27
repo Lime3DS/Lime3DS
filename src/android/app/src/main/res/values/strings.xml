@@ -108,8 +108,14 @@
     <string name="controller_triggers">Triggers</string>
     <string name="controller_trigger">Trigger</string>
     <string name="controller_dpad">D-Pad</string>
+    <string name="controller_dpad_axis">D-Pad (Axis)</string>
+    <string name="controller_dpad_button">D-Pad (Button)</string>
     <string name="controller_axis_vertical">Up/Down Axis</string>
     <string name="controller_axis_horizontal">Left/Right Axis</string>
+    <string name="direction_up">Up</string>
+    <string name="direction_down">Down</string>
+    <string name="direction_left">Left</string>
+    <string name="direction_right">Right</string>
     <string name="input_dialog_title">Bind %1$s %2$s</string>
     <string name="input_dialog_description">Press or move an input.</string>
     <string name="input_binding">Input Binding</string>

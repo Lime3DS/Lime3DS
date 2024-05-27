@@ -191,7 +191,7 @@ class SettingsActivity : AppCompatActivity(), SettingsActivityView {
         presenter.onSettingsReset()
 
         val controllerKeys = Settings.buttonKeys + Settings.circlePadKeys + Settings.cStickKeys +
-                Settings.dPadKeys + Settings.triggerKeys
+                Settings.dPadAxisKeys + Settings.dPadButtonKeys + Settings.triggerKeys
         val editor =
             PreferenceManager.getDefaultSharedPreferences(LimeApplication.appContext).edit()
         controllerKeys.forEach { editor.remove(it) }
