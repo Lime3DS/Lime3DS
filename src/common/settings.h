@@ -42,7 +42,9 @@ enum class LayoutOption : u32 {
     SeparateWindows,
 #endif
     HybridScreen,
+#ifndef ANDROID // TODO: Implement custom layouts on Android
     CustomLayout,
+#endif
     // Similiar to default, but better for mobile devices in portrait mode. Top screen in clamped to
     // the top of the frame, and the bottom screen is enlarged to match the top screen.
     MobilePortrait,

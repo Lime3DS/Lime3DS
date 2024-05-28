@@ -228,10 +228,12 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
                 Layout::LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                          false, 2.25f, Layout::VerticalAlignment::Top);
             break;
+#ifndef ANDROID // TODO: Implement custom layouts on Android
         case Settings::LayoutOption::CustomLayout:
             layout =
                 Layout::CustomFrameLayout(width, height, Settings::values.swap_screen.GetValue());
             break;
+#endif
         case Settings::LayoutOption::Default:
         default:
             layout =
