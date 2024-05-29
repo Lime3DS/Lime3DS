@@ -19,6 +19,7 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
     SetConfiguration();
 
     ui->layout_group->setEnabled(!Settings::values.custom_layout);
+    ui->layout_group->setEnabled(!Settings::values.new_custom_layout);
 
     ui->custom_layout_group->setEnabled(
         (Settings::values.layout_option.GetValue() == Settings::LayoutOption::CustomLayout));
@@ -74,8 +75,8 @@ void ConfigureLayout::SetConfiguration() {
     ui->custom_bottom_y->setValue(Settings::values.custom_bottom_y.GetValue());
     ui->custom_bottom_width->setValue(Settings::values.custom_bottom_width.GetValue());
     ui->custom_bottom_height->setValue(Settings::values.custom_bottom_height.GetValue());
-    ui->custom_second_layer_opacity->setValue(
-        Settings::values.custom_second_layer_opacity.GetValue());
+    ui->new_custom_second_layer_opacity->setValue(
+        Settings::values.new_custom_second_layer_opacity.GetValue());
     bg_color =
         QColor::fromRgbF(Settings::values.bg_red.GetValue(), Settings::values.bg_green.GetValue(),
                          Settings::values.bg_blue.GetValue());
@@ -100,7 +101,7 @@ void ConfigureLayout::ApplyConfiguration() {
     Settings::values.custom_bottom_y = ui->custom_bottom_y->value();
     Settings::values.custom_bottom_width = ui->custom_bottom_width->value();
     Settings::values.custom_bottom_height = ui->custom_bottom_height->value();
-    Settings::values.custom_second_layer_opacity = ui->custom_second_layer_opacity->value();
+    Settings::values.new_custom_second_layer_opacity = ui->new_custom_second_layer_opacity->value();
 
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.layout_option, ui->layout_combobox);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.swap_screen, ui->toggle_swap_screen,

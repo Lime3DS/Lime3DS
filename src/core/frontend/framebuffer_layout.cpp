@@ -377,6 +377,31 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped) {
 
     FramebufferLayout res{width, height, true, true, {}, {}, !Settings::values.upright_screen};
 
+    Common::Rectangle<u32> top_screen{Settings::values.custom_top_left.GetValue(),
+                                      Settings::values.custom_top_top.GetValue(),
+                                      Settings::values.custom_top_right.GetValue(),
+                                      Settings::values.custom_top_bottom.GetValue()};
+    Common::Rectangle<u32> bot_screen{Settings::values.custom_bottom_left.GetValue(),
+                                      Settings::values.custom_bottom_top.GetValue(),
+                                      Settings::values.custom_bottom_right.GetValue(),
+                                      Settings::values.custom_bottom_bottom.GetValue()};
+
+    if (is_swapped) {
+        res.top_screen = bot_screen;
+        res.bottom_screen = top_screen;
+    } else {
+        res.top_screen = top_screen;
+        res.bottom_screen = bot_screen;
+    }
+    return res;
+}
+
+FramebufferLayout NewCustomFrameLayout(u32 width, u32 height, bool is_swapped) {
+    ASSERT(width > 0);
+    ASSERT(height > 0);
+
+    FramebufferLayout res{width, height, true, true, {}, {}, !Settings::values.upright_screen};
+
     Common::Rectangle<u32> top_screen{Settings::values.custom_top_x.GetValue(),
                                       Settings::values.custom_top_y.GetValue(),
                                       (u32)(Settings::values.custom_top_x.GetValue() +
@@ -407,6 +432,12 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
                                  std::max(Settings::values.custom_top_height.GetValue(),
                                           Settings::values.custom_bottom_height.GetValue()),
                                  Settings::values.swap_screen.GetValue());
+    } else if (Settings::values.new_custom_layout.GetValue() == true) {
+        return NewCustomFrameLayout(std::max(Settings::values.custom_top_right.GetValue(),
+                                             Settings::values.custom_bottom_right.GetValue()),
+                                    std::max(Settings::values.custom_top_bottom.GetValue(),
+                                             Settings::values.custom_bottom_bottom.GetValue()),
+                                    Settings::values.swap_screen.GetValue());
     }
 
     int width, height;

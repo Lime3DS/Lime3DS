@@ -518,7 +518,20 @@ void Config::ReadLayoutValues() {
 
     if (global) {
         ReadBasicSetting(Settings::values.mono_render_option);
+
+        // Legacy Custom Layout
         ReadBasicSetting(Settings::values.custom_layout);
+        ReadBasicSetting(Settings::values.custom_top_left);
+        ReadBasicSetting(Settings::values.custom_top_top);
+        ReadBasicSetting(Settings::values.custom_top_right);
+        ReadBasicSetting(Settings::values.custom_top_bottom);
+        ReadBasicSetting(Settings::values.custom_bottom_left);
+        ReadBasicSetting(Settings::values.custom_bottom_top);
+        ReadBasicSetting(Settings::values.custom_bottom_right);
+        ReadBasicSetting(Settings::values.custom_bottom_bottom);
+
+        // New Custom Layout
+        ReadBasicSetting(Settings::values.new_custom_layout);
         ReadBasicSetting(Settings::values.custom_top_x);
         ReadBasicSetting(Settings::values.custom_top_y);
         ReadBasicSetting(Settings::values.custom_top_width);
@@ -527,6 +540,7 @@ void Config::ReadLayoutValues() {
         ReadBasicSetting(Settings::values.custom_bottom_y);
         ReadBasicSetting(Settings::values.custom_bottom_width);
         ReadBasicSetting(Settings::values.custom_bottom_height);
+
         ReadBasicSetting(Settings::values.custom_second_layer_opacity);
     }
 
@@ -1060,7 +1074,20 @@ void Config::SaveLayoutValues() {
 
     if (global) {
         WriteBasicSetting(Settings::values.mono_render_option);
+
+        // Legacy Custom Layout
         WriteBasicSetting(Settings::values.custom_layout);
+        WriteBasicSetting(Settings::values.custom_top_left);
+        WriteBasicSetting(Settings::values.custom_top_top);
+        WriteBasicSetting(Settings::values.custom_top_right);
+        WriteBasicSetting(Settings::values.custom_top_bottom);
+        WriteBasicSetting(Settings::values.custom_bottom_left);
+        WriteBasicSetting(Settings::values.custom_bottom_top);
+        WriteBasicSetting(Settings::values.custom_bottom_right);
+        WriteBasicSetting(Settings::values.custom_bottom_bottom);
+
+        // New Custom Layout
+        WriteBasicSetting(Settings::values.new_custom_layout);
         WriteBasicSetting(Settings::values.custom_top_x);
         WriteBasicSetting(Settings::values.custom_top_y);
         WriteBasicSetting(Settings::values.custom_top_width);
@@ -1069,6 +1096,7 @@ void Config::SaveLayoutValues() {
         WriteBasicSetting(Settings::values.custom_bottom_y);
         WriteBasicSetting(Settings::values.custom_bottom_width);
         WriteBasicSetting(Settings::values.custom_bottom_height);
+
         WriteBasicSetting(Settings::values.custom_second_layer_opacity);
     }
 

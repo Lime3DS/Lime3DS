@@ -148,6 +148,14 @@ FramebufferLayout SeparateWindowsLayout(u32 width, u32 height, bool is_secondary
 FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped);
 
 /**
+ * Factory method for constructing a custom FramebufferLayout using the new options
+ * @param width Window framebuffer width in pixels
+ * @param height Window framebuffer height in pixels
+ * @return Newly created FramebufferLayout object with default screen regions initialized
+ */
+FramebufferLayout NewCustomFrameLayout(u32 width, u32 height, bool is_swapped);
+
+/**
  * Convenience method to get frame layout by resolution scale
  * Read from the current settings to determine which layout to use.
  * @param res_scale resolution scale factor

@@ -374,7 +374,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="custom_second_layer_opacity">
+            <widget class="QSpinBox" name="new_custom_second_layer_opacity">
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::PlusMinus</enum>
              </property>
