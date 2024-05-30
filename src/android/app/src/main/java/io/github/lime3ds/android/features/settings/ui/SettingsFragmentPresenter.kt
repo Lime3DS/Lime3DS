@@ -108,57 +108,65 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_general,
-                    0,
+                    R.string.preferences_general_description,
+                    R.drawable.ic_general_settings,
                     Settings.SECTION_CORE
                 )
             )
             add(
                 SubmenuSetting(
                     R.string.preferences_system,
-                    0,
+                    R.string.preferences_system_description,
+                    R.drawable.ic_system_settings,
                     Settings.SECTION_SYSTEM
                 )
             )
             add(
                 SubmenuSetting(
                     R.string.preferences_camera,
-                    0,
+                    R.string.preferences_camera_description,
+                    R.drawable.ic_camera_settings,
                     Settings.SECTION_CAMERA
                 )
             )
             add(
                 SubmenuSetting(
                     R.string.preferences_controls,
-                    0,
+                    R.string.preferences_controls_description,
+                    R.drawable.ic_controls_settings,
                     Settings.SECTION_CONTROLS
                 )
             )
             add(
                 SubmenuSetting(
                     R.string.preferences_graphics,
-                    0,
+                    R.string.preferences_graphics_description,
+                    R.drawable.ic_graphics,
                     Settings.SECTION_RENDERER
                 )
             )
             add(
                 SubmenuSetting(
                     R.string.preferences_audio,
-                    0,
+                    R.string.preferences_audio_description,
+                    R.drawable.ic_audio,
                     Settings.SECTION_AUDIO
                 )
             )
             add(
                 SubmenuSetting(
                     R.string.preferences_debug,
-                    0,
+                    R.string.preferences_debug_description,
+                    R.drawable.ic_code,
                     Settings.SECTION_DEBUG
                 )
             )
             add(
                 RunnableSetting(
                     R.string.reset_to_default,
-                    0,
+                    R.string.reset_to_default_description,
                     false,
+                    R.drawable.ic_restore,
                     {
                         ResetSettingsDialogFragment().show(
                             settingsActivity.supportFragmentManager,
@@ -303,6 +311,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     R.string.console_id,
                     0,
                     false,
+                    0,
                     { settingsAdapter.onClickRegenerateConsoleId() },
                     { "0x${SystemSaveGame.getConsoleId().toHexString().uppercase()}" }
                 )

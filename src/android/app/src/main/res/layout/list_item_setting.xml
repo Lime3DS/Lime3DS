@@ -10,42 +10,59 @@
     android:focusable="true"
     android:gravity="center_vertical"
     android:minHeight="72dp"
-    android:padding="@dimen/spacing_large">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_setting_name"
-            style="@style/TextAppearance.Material3.HeadlineMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:textSize="16sp"
-            app:lineHeight="22dp"
-            tools:text="Setting Name" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_setting_description"
-            style="@style/TextAppearance.Material3.BodySmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:textAlignment="viewStart"
-            tools:text="@string/app_disclaimer" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_setting_value"
-            style="@style/TextAppearance.Material3.LabelMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:textAlignment="viewStart"
-            android:textStyle="bold"
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_gravity="center_vertical"
             android:visibility="gone"
-            tools:text="1x" />
+            app:tint="?attr/colorOnSurface" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_setting_name"
+                style="@style/TextAppearance.Material3.HeadlineMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:textSize="17sp"
+                app:lineHeight="22dp"
+                tools:text="Setting Name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_setting_description"
+                style="@style/TextAppearance.Material3.BodySmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:textAlignment="viewStart"
+                tools:text="@string/app_disclaimer" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_setting_value"
+                style="@style/TextAppearance.Material3.LabelMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                tools:text="1x" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

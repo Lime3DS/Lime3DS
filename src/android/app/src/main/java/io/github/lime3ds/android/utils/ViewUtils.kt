@@ -5,6 +5,7 @@
 package io.github.lime3ds.android.utils
 
 import android.view.View
+import android.view.ViewGroup
 
 object ViewUtils {
     fun showView(view: View, length: Long = 300) {
@@ -32,5 +33,29 @@ object ViewUtils {
         }.withEndAction {
             view.visibility = View.INVISIBLE
         }.start()
+    }
+
+    fun View.updateMargins(
+        left: Int = -1,
+        top: Int = -1,
+        right: Int = -1,
+        bottom: Int = -1
+    ) {
+        val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.apply {
+            if (left != -1) {
+                leftMargin = left
+            }
+            if (top != -1) {
+                topMargin = top
+            }
+            if (right != -1) {
+                rightMargin = right
+            }
+            if (bottom != -1) {
+                bottomMargin = bottom
+            }
+        }
+        this.layoutParams = layoutParams
     }
 }

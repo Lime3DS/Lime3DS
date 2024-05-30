@@ -4,10 +4,13 @@
 
 package io.github.lime3ds.android.features.settings.model.view
 
+import androidx.annotation.DrawableRes
+
 class RunnableSetting(
     titleId: Int,
     descriptionId: Int,
     val isRuntimeRunnable: Boolean,
+    @DrawableRes val iconId: Int = 0,
     val runnable: () -> Unit,
     val value: (() -> String)? = null
 ) : SettingsItem(null, titleId, descriptionId) {

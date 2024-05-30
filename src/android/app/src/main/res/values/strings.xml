@@ -294,6 +294,7 @@
     <string name="learn_more">Learn More</string>
     <string name="close">Close</string>
     <string name="reset_to_default">Reset to Default</string>
+    <string name="reset_to_default_description">Resets all settings</string>
     <string name="redump_games"><![CDATA[Please follow the guides to redump your <a href="https://citra-emu.org/wiki/dumping-game-cartridges/">game cartidges</a> or <a href="https://citra-emu.org/wiki/dumping-installed-titles/">installed titles</a>.]]></string>
     <string name="option_default">Default</string>
     <string name="none">None</string>
@@ -321,12 +322,19 @@
     <!-- Preferences Screen -->
     <string name="preferences_settings">Settings</string>
     <string name="preferences_general">General</string>
+    <string name="preferences_general_description">Limit Speed</string>
     <string name="preferences_system">System</string>
+    <string name="preferences_system_description">Username, Region, Language</string>
     <string name="preferences_camera">Camera</string>
+    <string name="preferences_camera_description">Camera, Flip, Camera Image Source</string>
     <string name="preferences_controls">Gamepad</string>
+    <string name="preferences_controls_description">Map controllers</string>
     <string name="preferences_graphics">Graphics</string>
+    <string name="preferences_graphics_description">Graphics API, Resolution, Textures</string>
     <string name="preferences_audio">Audio</string>
+    <string name="preferences_audio_description">Volume, Audio Stretching, Realtime Audio</string>
     <string name="preferences_debug">Debug</string>
+    <string name="preferences_debug_description">Caution ! Advanced settings </string>
     <string name="preferences_theme">Theme and Color</string>
 
     <!-- ROM loading errors -->
