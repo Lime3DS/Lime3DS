@@ -10,6 +10,7 @@
 #include "core/core.h"
 #include "core/memory.h"
 #include "video_core/debug_utils/debug_utils.h"
+#include "video_core/gpu.h"
 #include "video_core/pica/pica_core.h"
 #include "video_core/pica/vertex_loader.h"
 #include "video_core/rasterizer_interface.h"
@@ -54,6 +55,7 @@ PicaCore::PicaCore(Memory::MemorySystem& memory_, std::shared_ptr<DebugContext> 
 PicaCore::~PicaCore() = default;
 
 void PicaCore::InitializeRegs() {
+
     auto& framebuffer_top = regs.framebuffer_config[0];
     auto& framebuffer_sub = regs.framebuffer_config[1];
 
@@ -119,6 +121,7 @@ void PicaCore::ProcessCmdList(PAddr list, u32 size) {
 }
 
 void PicaCore::WriteInternalReg(u32 id, u32 value, u32 mask) {
+
     if (id >= RegsInternal::NUM_REGS) {
         LOG_ERROR(
             HW_GPU,
@@ -133,6 +136,10 @@ void PicaCore::WriteInternalReg(u32 id, u32 value, u32 mask) {
         0x00ffff00, 0x00ffffff, 0xff000000, 0xff0000ff, 0xff00ff00, 0xff00ffff,
         0xffff0000, 0xffff00ff, 0xffffff00, 0xffffffff,
     };
+
+    // If we're skipping this frame, only allow trigger IRQ
+    if (VideoCore::g_skip_frame && id != PICA_REG_INDEX(trigger_irq))
+        return;
 
     // TODO: Figure out how register masking acts on e.g. vs.uniform_setup.set_value
     const u32 old_value = regs.internal.reg_array[id];

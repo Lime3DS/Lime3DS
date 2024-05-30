@@ -204,6 +204,58 @@
         </layout>
        </widget>
       </item>
+      <item>
+       <widget class="QWidget" name="widget_frame_skip" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="frame_skip_label">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of frames to skip.&lt;/p&gt;&lt;p&gt;WARNING: Results may vary depending on using the Vulkan or OpenGL renderer. If set too high, the screen may not render at all. Use with caution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Frame Skip</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="frame_skip_combobox">
+           <item>
+            <property name="text">
+             <string>Disabled</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>x2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>x4</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>x8</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -214,7 +266,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
@@ -254,7 +306,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
@@ -281,7 +333,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
@@ -377,6 +429,7 @@
   <tabstop>toggle_linear_filter</tabstop>
   <tabstop>shader_combobox</tabstop>
   <tabstop>texture_filter_combobox</tabstop>
+  <tabstop>frame_skip_combobox</tabstop>
   <tabstop>render_3d_combobox</tabstop>
   <tabstop>factor_3d</tabstop>
   <tabstop>mono_rendering_eye</tabstop>

@@ -41,6 +41,7 @@ enum class IntSetting(
     VSYNC("use_vsync_new", Settings.SECTION_RENDERER, 1),
     DEBUG_RENDERER("renderer_debug", Settings.SECTION_DEBUG, 0),
     TEXTURE_FILTER("texture_filter", Settings.SECTION_RENDERER, 0),
+    FRAME_SKIP("frame_skip", Settings.SECTION_RENDERER, 0),
     USE_FRAME_LIMIT("use_frame_limit", Settings.SECTION_RENDERER, 1);
 
     override var int: Int = defaultValue

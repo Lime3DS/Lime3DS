@@ -38,6 +38,9 @@ constexpr u64 FRAME_TICKS = 4481136ull;
 class GraphicsDebugger;
 class RendererBase;
 
+// Frame skip
+extern bool g_skip_frame;
+
 /**
  * The GPU class is the high level interface to the video_core for core services.
  */

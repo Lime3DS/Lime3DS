@@ -235,6 +235,8 @@
     <string name="frame_limit_enable_description">When enabled, emulation speed will be limited to a specified percentage of normal speed.</string>
     <string name="frame_limit_slider">Limit Speed Percent</string>
     <string name="frame_limit_slider_description">Specifies the percentage to limit emulation speed. With the default of 100% emulation will be limited to normal speed. Values higher or lower will increase or decrease the speed limit.</string>
+    <string name="frame_skip_name">Frame Skip</string>
+    <string name="frame_skip_description">The amount of frames to skip. Best matched with the Enable VSync and Enable Real Time Audio options.</string>
     <string name="internal_resolution">Internal Resolution</string>
     <string name="internal_resolution_description">Specifies the resolution used to render at. A high resolution will improve visual quality a lot but is also quite heavy on performance and might cause glitches in certain games.</string>
     <string name="internal_resolution_setting_1x">Native (400x240)</string>
@@ -551,6 +553,12 @@
     <string name="scaleforce">ScaleForce</string>
     <string name="xbrz">xBRZ</string>
     <string name="mmpx">MMPX</string>
+
+    <!-- Frame skip names -->
+    <string name="disabled">Disabled</string>
+    <string name="x2">x2</string>
+    <string name="x4">x4</string>
+    <string name="x8">x8</string>
 
     <!-- Sound output modes -->
     <string name="mono">Mono</string>

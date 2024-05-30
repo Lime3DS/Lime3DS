@@ -433,6 +433,7 @@ struct Values {
 
     // Core
     Setting<bool> use_cpu_jit{true, "use_cpu_jit"};
+    SwitchableSetting<u8> frame_skip{0, "frame_skip"};
     SwitchableSetting<s32, true> cpu_clock_percentage{100, 5, 400, "cpu_clock_percentage"};
     SwitchableSetting<bool> is_new_3ds{true, "is_new_3ds"};
     SwitchableSetting<bool> lle_applets{false, "lle_applets"};
