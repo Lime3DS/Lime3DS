@@ -17,7 +17,9 @@ class SubmenuViewHolder(val binding: ListItemSettingBinding, adapter: SettingsAd
 
     override fun bind(item: SettingsItem) {
         this.item = item as SubmenuSetting
-        if (item.iconId != 0) {
+        if (item.iconId == 0) {
+            binding.icon.visibility = View.GONE
+        } else {
             binding.icon.visibility = View.VISIBLE
             binding.icon.setImageDrawable(
                 ResourcesCompat.getDrawable(
@@ -26,10 +28,7 @@ class SubmenuViewHolder(val binding: ListItemSettingBinding, adapter: SettingsAd
                     binding.icon.context.theme
                 )
             )
-        } else {
-            binding.icon.visibility = View.GONE
         }
-
         binding.textSettingName.setText(item.nameId)
         if (item.descriptionId != 0) {
             binding.textSettingDescription.setText(item.descriptionId)

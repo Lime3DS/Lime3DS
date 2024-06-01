@@ -43,18 +43,10 @@ object ViewUtils {
     ) {
         val layoutParams = this.layoutParams as ViewGroup.MarginLayoutParams
         layoutParams.apply {
-            if (left != -1) {
-                leftMargin = left
-            }
-            if (top != -1) {
-                topMargin = top
-            }
-            if (right != -1) {
-                rightMargin = right
-            }
-            if (bottom != -1) {
-                bottomMargin = bottom
-            }
+            if (left != -1) leftMargin = left
+            if (top != -1) topMargin = top
+            if (right != -1) rightMargin = right
+            if (bottom != -1) bottomMargin = bottom
         }
         this.layoutParams = layoutParams
     }
