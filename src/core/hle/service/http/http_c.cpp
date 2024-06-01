@@ -381,10 +381,10 @@ void Context::MakeRequestNonSSL(httplib::Request& request, const URLInfo& url_in
 
     if (!client->send(request, response, error)) {
         LOG_ERROR(Service_HTTP, "Request failed: {}: {}", error, httplib::to_string(error));
-        state = RequestState::TimedOut;
+        state = RequestState::Completed;
     } else {
         LOG_DEBUG(Service_HTTP, "Request successful");
-        state = RequestState::ReadyToDownloadContent;
+        state = RequestState::ReceivingBody;
     }
 }
 
@@ -439,10 +439,10 @@ void Context::MakeRequestSSL(httplib::Request& request, const URLInfo& url_info,
 
     if (!client->send(request, response, error)) {
         LOG_ERROR(Service_HTTP, "Request failed: {}: {}", error, httplib::to_string(error));
-        state = RequestState::TimedOut;
+        state = RequestState::Completed;
     } else {
         LOG_DEBUG(Service_HTTP, "Request successful");
-        state = RequestState::ReadyToDownloadContent;
+        state = RequestState::ReceivingBody;
     }
 }
 
@@ -696,6 +696,7 @@ void HTTP_C::ReceiveDataImpl(Kernel::HLERequestContext& ctx, bool timeout) {
                                               http_context.current_copied_data,
                                           0, remaining_data);
                 http_context.current_copied_data += remaining_data;
+                http_context.state = RequestState::Completed;
                 rb.Push(ResultSuccess);
             } else {
                 async_data->buffer->Write(http_context.response.body.data() +
