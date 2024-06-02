@@ -108,7 +108,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_general,
-                    R.string.preferences_general_description,
+                    0,
                     R.drawable.ic_general_settings,
                     Settings.SECTION_CORE
                 )
@@ -116,7 +116,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_system,
-                    R.string.preferences_system_description,
+                    0,
                     R.drawable.ic_system_settings,
                     Settings.SECTION_SYSTEM
                 )
@@ -124,7 +124,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_camera,
-                    R.string.preferences_camera_description,
+                    0,
                     R.drawable.ic_camera_settings,
                     Settings.SECTION_CAMERA
                 )
@@ -132,7 +132,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_controls,
-                    R.string.preferences_controls_description,
+                    0,
                     R.drawable.ic_controls_settings,
                     Settings.SECTION_CONTROLS
                 )
@@ -140,7 +140,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_graphics,
-                    R.string.preferences_graphics_description,
+                    0,
                     R.drawable.ic_graphics,
                     Settings.SECTION_RENDERER
                 )
@@ -148,7 +148,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_audio,
-                    R.string.preferences_audio_description,
+                    0,
                     R.drawable.ic_audio,
                     Settings.SECTION_AUDIO
                 )
@@ -156,7 +156,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SubmenuSetting(
                     R.string.preferences_debug,
-                    R.string.preferences_debug_description,
+                    0,
                     R.drawable.ic_code,
                     Settings.SECTION_DEBUG
                 )
@@ -164,7 +164,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 RunnableSetting(
                     R.string.reset_to_default,
-                    R.string.reset_to_default_description,
+                    0,
                     false,
                     R.drawable.ic_restore,
                     {
