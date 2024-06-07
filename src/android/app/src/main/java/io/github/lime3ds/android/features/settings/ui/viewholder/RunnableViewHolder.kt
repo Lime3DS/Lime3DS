@@ -19,7 +19,9 @@ class RunnableViewHolder(val binding: ListItemSettingBinding, adapter: SettingsA
 
     override fun bind(item: SettingsItem) {
         setting = item as RunnableSetting
-        if (item.iconId != 0) {
+        if (item.iconId == 0) {
+            binding.icon.visibility = View.GONE
+        } else {
             binding.icon.visibility = View.VISIBLE
             binding.icon.setImageDrawable(
                 ResourcesCompat.getDrawable(
@@ -28,8 +30,6 @@ class RunnableViewHolder(val binding: ListItemSettingBinding, adapter: SettingsA
                     binding.icon.context.theme
                 )
             )
-        } else {
-            binding.icon.visibility = View.GONE
         }
         
         binding.textSettingName.setText(item.nameId)

@@ -294,7 +294,6 @@
     <string name="learn_more">Learn More</string>
     <string name="close">Close</string>
     <string name="reset_to_default">Reset to Default</string>
-    <string name="reset_to_default_description">Resets all settings</string>
     <string name="redump_games"><![CDATA[Please follow the guides to redump your <a href="https://citra-emu.org/wiki/dumping-game-cartridges/">game cartidges</a> or <a href="https://citra-emu.org/wiki/dumping-installed-titles/">installed titles</a>.]]></string>
     <string name="option_default">Default</string>
     <string name="none">None</string>
