@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.lime3ds.android.databinding.FragmentSettingsBinding
 import io.github.lime3ds.android.features.settings.model.AbstractSetting
 import io.github.lime3ds.android.features.settings.model.view.SettingsItem
-import io.github.lime3ds.android.utils.ViewUtils.updateMargins
 
 
 class SettingsFragment : Fragment(), SettingsFragmentView {
@@ -103,12 +102,12 @@ class SettingsFragment : Fragment(), SettingsFragmentView {
         ) { _: View, windowInsets: WindowInsetsCompat ->
             val barInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             val cutoutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
-
-            val leftInsets = barInsets.left + cutoutInsets.left
-            val rightInsets = barInsets.right + cutoutInsets.right
             
-            binding.listSettings.updateMargins(left = leftInsets, right = rightInsets)
-            binding.listSettings.updatePadding(bottom = barInsets.bottom)
+            binding.listSettings.updatePadding(
+                left = barInsets.left + cutoutInsets.left,
+                right = barInsets.right + cutoutInsets.right,
+                bottom = barInsets.bottom
+            )
             windowInsets
         }
     }
