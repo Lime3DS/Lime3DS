@@ -35,7 +35,7 @@
         android:id="@+id/frame_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <View

@@ -14,10 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.divider.MaterialDividerItemDecoration
 import io.github.lime3ds.android.databinding.FragmentSettingsBinding
 import io.github.lime3ds.android.features.settings.model.AbstractSetting
 import io.github.lime3ds.android.features.settings.model.view.SettingsItem
+
 
 class SettingsFragment : Fragment(), SettingsFragmentView {
     override var activityView: SettingsActivityView? = null
@@ -51,15 +51,9 @@ class SettingsFragment : Fragment(), SettingsFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         settingsAdapter = SettingsAdapter(this, requireActivity())
-        val dividerDecoration = MaterialDividerItemDecoration(
-            requireContext(),
-            LinearLayoutManager.VERTICAL
-        )
-        dividerDecoration.isLastItemDecorated = false
         binding.listSettings.apply {
             adapter = settingsAdapter
             layoutManager = LinearLayoutManager(activity)
-            addItemDecoration(dividerDecoration)
         }
         fragmentPresenter.onViewCreated(settingsAdapter!!)
 
@@ -104,10 +98,16 @@ class SettingsFragment : Fragment(), SettingsFragmentView {
 
     private fun setInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(
-            binding.listSettings
-        ) { view: View, windowInsets: WindowInsetsCompat ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(bottom = insets.bottom)
+            binding.root
+        ) { _: View, windowInsets: WindowInsetsCompat ->
+            val barInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val cutoutInsets = windowInsets.getInsets(WindowInsetsCompat.Type.displayCutout())
+
+            binding.listSettings.updatePadding(
+                left = barInsets.left + cutoutInsets.left,
+                right = barInsets.right + cutoutInsets.right,
+                bottom = barInsets.bottom
+            )
             windowInsets
         }
     }
