@@ -67,12 +67,11 @@ class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter
 
     override fun onLongClick(clicked: View): Boolean {
         if (setting.isEditable) {
-            if (!isForceMaxGpuClockSpeedClickable()) { 
-                adapter.onForceMaximumGpuClockSpeedDisabled()
-                return false
-            } else {
+            if (isForceMaxGpuClockSpeedClickable()) {
                 return adapter.onLongClick(setting.setting!!, bindingAdapterPosition)
             }
+            adapter.onForceMaximumGpuClockSpeedDisabled()
+            return false
         } else {
             adapter.onClickDisabledSetting()
         }
