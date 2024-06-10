@@ -451,10 +451,10 @@ class SettingsAdapter(
         ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
     }
 
-    fun onForceMaximumGpuClocksDisabled() {
+    fun onForceMaximumGpuClockSpeedDisabled() {
         MessageDialogFragment.newInstance(
-            R.string.force_max_gpu_clocks_unsupported,
-            R.string.force_max_gpu_clocks_desc_unsupported
+            R.string.force_max_gpu_clock_speed_unsupported,
+            R.string.force_max_gpu_clock_speed_unsupported_desc
         ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
     }
     

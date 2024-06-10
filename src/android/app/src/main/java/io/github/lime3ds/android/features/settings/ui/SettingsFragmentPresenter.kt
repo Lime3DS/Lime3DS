@@ -735,11 +735,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
-                    BooleanSetting.FORCE_MAX_GPU_CLOCKS,
-                    R.string.force_max_gpu_clocks,
-                    R.string.force_max_gpu_clocks_description,
-                    BooleanSetting.FORCE_MAX_GPU_CLOCKS.key,
-                    BooleanSetting.FORCE_MAX_GPU_CLOCKS.defaultValue
+                    BooleanSetting.FORCE_MAX_GPU_CLOCK_SPEED,
+                    R.string.force_max_gpu_clock_speed,
+                    R.string.force_max_gpu_clock_speed_description,
+                    BooleanSetting.FORCE_MAX_GPU_CLOCK_SPEED.key,
+                    BooleanSetting.FORCE_MAX_GPU_CLOCK_SPEED.defaultValue
                 )
             )
             add(
