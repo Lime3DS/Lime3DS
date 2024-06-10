@@ -40,13 +40,9 @@ class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter
         binding.switchWidget.isEnabled = setting.isEditable && isForceMaxGpuClockSpeedClickable()
 
         if (setting.isEditable) {
-            if (!isForceMaxGpuClockSpeedClickable()) {
-                binding.textSettingName.alpha = 0.5f
-                binding.textSettingDescription.alpha = 0.5f
-            } else {
-                binding.textSettingName.alpha = 1f
-                binding.textSettingDescription.alpha = 1f
-            }
+            val alphaValue = if (isForceMaxGpuClockSpeedClickable()) 1f else 0.5f
+            binding.textSettingName.alpha = alphaValue
+            binding.textSettingDescription.alpha = alphaValue
         } else {
             binding.textSettingName.alpha = 0.5f
             binding.textSettingDescription.alpha = 0.5f
