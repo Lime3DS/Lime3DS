@@ -180,8 +180,14 @@ function(download_moltenvk)
     set(MOLTENVK_TAR "${CMAKE_BINARY_DIR}/externals/MoltenVK.tar")
     if (NOT EXISTS ${MOLTENVK_DIR})
         if (NOT EXISTS ${MOLTENVK_TAR})
-            file(DOWNLOAD https://github.com/KhronosGroup/MoltenVK/releases/download/v1.2.7-rc2/MoltenVK-all.tar
+            # Note: v1.27 is the last version that uses dylib on iOS; future versions use dynamic XCFramework
+            if (IOS)
+                file(DOWNLOAD https://github.com/KhronosGroup/MoltenVK/releases/download/v1.2.7/MoltenVK-all.tar
                 ${MOLTENVK_TAR} SHOW_PROGRESS)
+            else()
+                file(DOWNLOAD https://github.com/KhronosGroup/MoltenVK/releases/download/v1.2.9/MoltenVK-all.tar
+                ${MOLTENVK_TAR} SHOW_PROGRESS)
+            endif()
         endif()
 
         execute_process(COMMAND ${CMAKE_COMMAND} -E tar xf "${MOLTENVK_TAR}"
