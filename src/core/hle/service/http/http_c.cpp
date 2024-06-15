@@ -2094,6 +2094,15 @@ HTTP_C::HTTP_C() : ServiceFramework("http:C", 32) {
         {0x0037, &HTTP_C::SetKeepAlive, "SetKeepAlive"},
         {0x0038, &HTTP_C::SetPostDataTypeSize, "SetPostDataTypeSize"},
         {0x0039, &HTTP_C::Finalize, "Finalize"},
+									{0x003A, nullptr, "SetKeepAlive?"}, 
+									{0x003B, nullptr, "SetCrl"}, 
+									{0x003C, nullptr, "SetInternalCrl"}, 
+									{0x003D, nullptr, "SetCrlStore"}, 
+									{0x003E, nullptr, "CreateCrlStore"},
+									{0x003F, nullptr, "DestroyCrlStore"}, 
+									{0x0040, nullptr, "AddCrlToCrlStore"}, 
+									{0x0041, nullptr, "AddInternalCrl"}, 
+									{0x0042, nullptr, "RemoveCrlFromCrlStore"}, 
         // clang-format on
     };
     RegisterHandlers(functions);
