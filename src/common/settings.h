@@ -42,9 +42,6 @@ enum class LayoutOption : u32 {
     SeparateWindows,
 #endif
     HybridScreen,
-#ifndef ANDROID // TODO: Implement custom layouts on Android
-    CustomLayout,
-#endif
     // Similiar to default, but better for mobile devices in portrait mode. Top screen in clamped to
     // the top of the frame, and the bottom screen is enlarged to match the top screen.
     MobilePortrait,
@@ -494,8 +491,8 @@ struct Values {
     Setting<u16> custom_top_bottom{240, "custom_top_bottom"};
     Setting<u16> custom_bottom_left{40, "custom_bottom_left"};
     Setting<u16> custom_bottom_top{240, "custom_bottom_top"};
-    Setting<u16> custom_bottom_right{320, "custom_bottom_right"};
-    Setting<u16> custom_bottom_bottom{240, "custom_bottom_bottom"};
+    Setting<u16> custom_bottom_right{360, "custom_bottom_right"};
+    Setting<u16> custom_bottom_bottom{480, "custom_bottom_bottom"};
     Setting<u16> custom_second_layer_opacity{100, "custom_second_layer_opacity"};
 
     SwitchableSetting<float> bg_red{0.f, "bg_red"};
