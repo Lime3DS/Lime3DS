@@ -150,7 +150,7 @@ void Module::Interface::ConfigureNew3DSCPU(Kernel::HLERequestContext& ctx) {
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
     rb.Push(ResultSuccess);
 
-    LOG_WARNING(Service_PM, "(STUBBED) called");
+    LOG_WARNING(Service_PTM, "(STUBBED) called");
 }
 
 static void WriteGameCoinData(GameCoin gamecoin_data) {
