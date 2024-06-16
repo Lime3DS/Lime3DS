@@ -728,11 +728,11 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             if (GpuDriverHelper.supportsCustomDriverLoading()) {
                 add(
                     SwitchSetting(
-                        BooleanSetting.FORCE_MAX_GPU_CLOCK_SPEED,
-                        R.string.force_max_gpu_clock_speed,
-                        R.string.force_max_gpu_clock_speed_description,
-                        BooleanSetting.FORCE_MAX_GPU_CLOCK_SPEED.key,
-                        BooleanSetting.FORCE_MAX_GPU_CLOCK_SPEED.defaultValue
+                        BooleanSetting.ADRENO_GPU_BOOST,
+                        R.string.adreno_gpu_boost,
+                        R.string.adreno_gpu_boost_description,
+                        BooleanSetting.ADRENO_GPU_BOOST.key,
+                        BooleanSetting.ADRENO_GPU_BOOST.defaultValue
                     )
                 )
             }
