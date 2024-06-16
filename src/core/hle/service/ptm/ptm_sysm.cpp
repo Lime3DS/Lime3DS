@@ -61,7 +61,7 @@ PTM_S_Common::PTM_S_Common(std::shared_ptr<Module> ptm, const char* name)
         {0x0812, nullptr, "IsShutdownByBatteryEmpty"},
         {0x0813, nullptr, "FormatSavedata"},
         {0x0814, nullptr, "GetLegacyJumpProhibitedFlag"},
-        {0x0818, nullptr, "ConfigureNew3DSCPU"},
+        {0x0818, &PTM_S_Common::ConfigureNew3DSCPU, "ConfigureNew3DSCPU"},
         // clang-format on
     };
     RegisterHandlers(functions);
