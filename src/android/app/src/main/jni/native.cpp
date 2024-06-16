@@ -340,8 +340,9 @@ void JNICALL Java_io_github_lime3ds_android_NativeLibrary_initializeGpuDriver(
                         GetJString(env, custom_driver_name), GetJString(env, file_redirect_dir));
 }
 
-void JNICALL Java_io_github_lime3ds_android_1emu_NativeLibrary_enableAdrenoTurboMode(
-    JNIEnv* env, jobject obj, jboolean enable) {
+void JNICALL Java_io_github_lime3ds_android_NativeLibrary_enableAdrenoTurboMode(JNIEnv* env,
+                                                                                jobject obj,
+                                                                                jboolean enable) {
     EnableAdrenoTurboMode(enable);
 }
 
