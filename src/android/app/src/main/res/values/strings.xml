@@ -265,8 +265,6 @@
     <string name="use_disk_shader_cache_description">Reduce stuttering by storing and loading generated shaders to disk. It cannot be used without Enabling Hardware Shader.</string>
     <string name="force_max_gpu_clock_speed">Force Maximum GPU Clock Speed (Adreno Only)</string>
     <string name="force_max_gpu_clock_speed_description">Forces the GPU to run at its maximum possible clock speed (May cause excessive heating and power usage)</string>
-    <string name="force_max_gpu_clock_speed_unsupported_desc">Your device does not support forcing maximum GPU clock speed</string>
-    <string name="force_max_gpu_clock_speed_unsupported">Forcing maximum GPU clock speed is not supported</string>
     <string name="utility">Utility</string>
     <string name="dump_textures">Dump Textures</string>
     <string name="dump_textures_description">Textures are dumped to dump/textures/[Title ID]/.</string>

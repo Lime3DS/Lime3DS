@@ -10,18 +10,14 @@ import io.github.lime3ds.android.databinding.ListItemSettingSwitchBinding
 import io.github.lime3ds.android.features.settings.model.view.SettingsItem
 import io.github.lime3ds.android.features.settings.model.view.SwitchSetting
 import io.github.lime3ds.android.features.settings.ui.SettingsAdapter
-import io.github.lime3ds.android.utils.GpuDriverHelper
-import io.github.lime3ds.android.R
 
 class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter: SettingsAdapter) :
     SettingViewHolder(binding.root, adapter) {
 
     private lateinit var setting: SwitchSetting
-    private lateinit var settingitem: SettingsItem
-    
+
     override fun bind(item: SettingsItem) {
         setting = item as SwitchSetting
-        settingitem = item
         binding.textSettingName.setText(item.nameId)
         if (item.descriptionId != 0) {
             binding.textSettingDescription.setText(item.descriptionId)
@@ -37,25 +33,16 @@ class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter
             adapter.onBooleanClick(item, bindingAdapterPosition, binding.switchWidget.isChecked)
         }
 
-        binding.switchWidget.isEnabled = setting.isEditable && isForceMaxGpuClockSpeedClickable()
+        binding.switchWidget.isEnabled = setting.isEditable
 
-        if (setting.isEditable) {
-            val alphaValue = if (isForceMaxGpuClockSpeedClickable()) 1f else 0.5f
-            binding.textSettingName.alpha = alphaValue
-            binding.textSettingDescription.alpha = alphaValue
-        } else {
-            binding.textSettingName.alpha = 0.5f
-            binding.textSettingDescription.alpha = 0.5f
-        }
+        val textAlpha = if (setting.isEditable) 1f else 0.5f
+        binding.textSettingName.alpha = textAlpha
+        binding.textSettingDescription.alpha = textAlpha
     }
 
     override fun onClick(clicked: View) {
         if (setting.isEditable) {
-            if (isForceMaxGpuClockSpeedClickable()) { 
-                binding.switchWidget.toggle()
-            } else {
-                adapter.onForceMaximumGpuClockSpeedDisabled()
-            }
+            binding.switchWidget.toggle()
         } else {
             adapter.onClickDisabledSetting()
         }
@@ -63,23 +50,10 @@ class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter
 
     override fun onLongClick(clicked: View): Boolean {
         if (setting.isEditable) {
-            if (isForceMaxGpuClockSpeedClickable()) {
-                return adapter.onLongClick(setting.setting!!, bindingAdapterPosition)
-            }
-            adapter.onForceMaximumGpuClockSpeedDisabled()
-            return false
+            return adapter.onLongClick(setting.setting!!, bindingAdapterPosition)
         } else {
             adapter.onClickDisabledSetting()
         }
         return false
     }
-
-    private fun isForceMaxGpuClockSpeedClickable(): Boolean {
-        return if (settingitem.nameId == R.string.force_max_gpu_clock_speed) {
-            GpuDriverHelper.supportsCustomDriverLoading()
-        } else {
-            true
-        }
-    }
-        
 }

@@ -450,13 +450,6 @@ class SettingsAdapter(
             R.string.setting_not_editable_description
         ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
     }
-
-    fun onForceMaximumGpuClockSpeedDisabled() {
-        MessageDialogFragment.newInstance(
-            R.string.force_max_gpu_clock_speed_unsupported,
-            R.string.force_max_gpu_clock_speed_unsupported_desc
-        ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
-    }
     
     fun onClickRegenerateConsoleId() {
         MaterialAlertDialogBuilder(context)
