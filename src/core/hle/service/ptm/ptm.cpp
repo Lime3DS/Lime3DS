@@ -145,6 +145,14 @@ void Module::Interface::GetSystemTime(Kernel::HLERequestContext& ctx) {
     rb.Push(console_time);
 }
 
+void Module::Interface::ConfigureNew3DSCPU(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+    rb.Push(ResultSuccess);
+
+    LOG_WARNING(Service_PM, "(STUBBED) called");
+}
+
 static void WriteGameCoinData(GameCoin gamecoin_data) {
     const std::string& nand_directory = FileUtil::GetUserPath(FileUtil::UserPath::NANDDir);
     FileSys::ArchiveFactory_ExtSaveData extdata_archive_factory(nand_directory,
