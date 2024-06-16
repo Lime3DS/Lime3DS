@@ -147,11 +147,11 @@ public:
          */
         void GetSystemTime(Kernel::HLERequestContext& ctx);
 
-		/**
-		 * PTM::ConfigureNew3DSCPU service function
-		 *
-		 */
-		void ConfigureNew3DSCPU(Kernel::HLERequestContext& ctx);
+	/**
+	 * PTM::ConfigureNew3DSCPU service function
+	 *
+	 */
+	void ConfigureNew3DSCPU(Kernel::HLERequestContext& ctx);
 
     protected:
         std::shared_ptr<Module> ptm;
