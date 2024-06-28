@@ -38,6 +38,7 @@ import io.github.lime3ds.android.features.settings.model.view.SwitchSetting
 import io.github.lime3ds.android.features.settings.utils.SettingsFile
 import io.github.lime3ds.android.fragments.ResetSettingsDialogFragment
 import io.github.lime3ds.android.utils.BirthdayMonth
+import io.github.lime3ds.android.utils.GpuDriverHelper
 import io.github.lime3ds.android.utils.Log
 import io.github.lime3ds.android.utils.SystemSaveGame
 import io.github.lime3ds.android.utils.ThemeUtil
@@ -724,6 +725,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.SHADERS_ACCURATE_MUL.defaultValue
                 )
             )
+            if (GpuDriverHelper.supportsCustomDriverLoading()) {
+                add(
+                    SwitchSetting(
+                        BooleanSetting.ADRENO_GPU_BOOST,
+                        R.string.adreno_gpu_boost,
+                        R.string.adreno_gpu_boost_description,
+                        BooleanSetting.ADRENO_GPU_BOOST.key,
+                        BooleanSetting.ADRENO_GPU_BOOST.defaultValue
+                    )
+                )
+            }
             add(
                 SwitchSetting(
                     IntSetting.DISK_SHADER_CACHE,

@@ -450,7 +450,7 @@ class SettingsAdapter(
             R.string.setting_not_editable_description
         ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
     }
-
+    
     fun onClickRegenerateConsoleId() {
         MaterialAlertDialogBuilder(context)
             .setTitle(R.string.regenerate_console_id)

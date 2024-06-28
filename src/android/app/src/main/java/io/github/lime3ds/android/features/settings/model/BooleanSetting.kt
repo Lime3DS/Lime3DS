@@ -13,7 +13,8 @@ enum class BooleanSetting(
     ASYNC_SHADERS("async_shader_compilation", Settings.SECTION_RENDERER, false),
     PLUGIN_LOADER("plugin_loader", Settings.SECTION_SYSTEM, false),
     ALLOW_PLUGIN_LOADER("allow_plugin_loader", Settings.SECTION_SYSTEM, true),
-    SWAP_SCREEN("swap_screen", Settings.SECTION_LAYOUT, false);
+    SWAP_SCREEN("swap_screen", Settings.SECTION_LAYOUT, false),
+    ADRENO_GPU_BOOST("adreno_gpu_boost", Settings.SECTION_RENDERER, false);
 
     override var boolean: Boolean = defaultValue
 
@@ -33,7 +34,8 @@ enum class BooleanSetting(
     companion object {
         private val NOT_RUNTIME_EDITABLE = listOf(
             PLUGIN_LOADER,
-            ALLOW_PLUGIN_LOADER
+            ALLOW_PLUGIN_LOADER,
+            ADRENO_GPU_BOOST
         )
 
         fun from(key: String): BooleanSetting? =

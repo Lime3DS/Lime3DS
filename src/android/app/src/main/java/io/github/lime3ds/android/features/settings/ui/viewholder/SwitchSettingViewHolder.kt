@@ -34,13 +34,10 @@ class SwitchSettingViewHolder(val binding: ListItemSettingSwitchBinding, adapter
         }
 
         binding.switchWidget.isEnabled = setting.isEditable
-        if (setting.isEditable) {
-            binding.textSettingName.alpha = 1f
-            binding.textSettingDescription.alpha = 1f
-        } else {
-            binding.textSettingName.alpha = 0.5f
-            binding.textSettingDescription.alpha = 0.5f
-        }
+
+        val textAlpha = if (setting.isEditable) 1f else 0.5f
+        binding.textSettingName.alpha = textAlpha
+        binding.textSettingDescription.alpha = textAlpha
     }
 
     override fun onClick(clicked: View) {

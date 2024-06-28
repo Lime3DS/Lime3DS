@@ -263,6 +263,8 @@
     <string name="use_shader_jit">Shader JIT</string>
     <string name="use_disk_shader_cache">Disk Shader Cache</string>
     <string name="use_disk_shader_cache_description">Reduce stuttering by storing and loading generated shaders to disk. It cannot be used without Enabling Hardware Shader.</string>
+    <string name="adreno_gpu_boost">Adreno GPU Boost (Experimental)</string>
+    <string name="adreno_gpu_boost_description">Increases graphics throughput on supported devices, improving performance. Use of this setting can increase power usage and temperature. May cause stability issues on certain devices.</string>
     <string name="utility">Utility</string>
     <string name="dump_textures">Dump Textures</string>
     <string name="dump_textures_description">Textures are dumped to dump/textures/[Title ID]/.</string>
