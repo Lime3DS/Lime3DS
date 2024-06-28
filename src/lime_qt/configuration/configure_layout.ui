@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
+    <width>705</width>
     <height>950</height>
    </rect>
   </property>
@@ -392,7 +392,6 @@
        </widget>
       </item>
      </layout>
->>>>>>> b2607fd99 (citra_qt: Remove scroll bar from Layout and Enhancements tabs):src/citra_qt/configuration/configure_layout.ui
     </widget>
    </item>
    <item>
