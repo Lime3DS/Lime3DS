@@ -22,6 +22,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="layout_group">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="title">
       <string>Screens</string>
      </property>
@@ -408,7 +411,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="separate_window_config_group">
+    <widget class="QGroupBox" name="single_screen_layout_config_group">
      <property name="minimumSize">
       <size>
        <width>0</width>
