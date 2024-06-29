@@ -297,7 +297,7 @@
           <property name="title">
            <string>Bottom Screen</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout">
+          <layout class="QGridLayout" name="gridLayout_1">
            <item row="0" column="0">
             <widget class="QLabel" name="lb_bottom_x">
              <property name="text">
@@ -421,15 +421,15 @@
      <property name="title">
       <string>Single Screen Layout</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
+     <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QGroupBox" name="gb_top_screen_2">
           <property name="title">
            <string>Top Screen</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_2">
+          <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">
             <widget class="QLabel" name="lb_top_stretch">
              <property name="text">
@@ -488,7 +488,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="gb_bottom_screen">
+         <widget class="QGroupBox" name="gb_bottom_screen_2">
           <property name="minimumSize">
            <size>
             <width>0</width>
