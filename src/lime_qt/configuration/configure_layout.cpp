@@ -27,6 +27,17 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
                     currentIndex == (uint)(Settings::LayoutOption::LargeScreen));
             });
 
+    ui->single_screen_layout_config_group->setEnabled(
+        (Settings::values.layout_option.GetValue() == Settings::LayoutOption::SingleScreen) ||
+        (Settings::values.layout_option.GetValue() == Settings::LayoutOption::SeparateWindows));
+    connect(ui->layout_combobox,
+            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+            [this](int currentIndex) {
+                ui->single_screen_layout_config_group->setEnabled(
+                    (currentIndex == (uint)(Settings::LayoutOption::SingleScreen)) ||
+                    (currentIndex == (uint)(Settings::LayoutOption::SeparateWindows)));
+            });
+
     ui->custom_layout_group->setEnabled(
         (Settings::values.layout_option.GetValue() == Settings::LayoutOption::CustomLayout));
     connect(ui->layout_combobox,
