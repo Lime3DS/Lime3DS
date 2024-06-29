@@ -173,9 +173,20 @@ FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool swapped, bool up
         emulation_aspect_ratio = (swapped) ? BOT_SCREEN_ASPECT_RATIO : TOP_SCREEN_ASPECT_RATIO;
     }
 
+    const bool stretched = (Settings::values.screen_top_stretch.GetValue() && !swapped) ||
+                           (Settings::values.screen_bottom_stretch.GetValue() && swapped);
     float window_aspect_ratio = static_cast<float>(height) / width;
 
-    if (window_aspect_ratio < emulation_aspect_ratio) {
+    if (stretched) {
+        top_screen = {Settings::values.screen_top_leftright_padding.GetValue(),
+                      Settings::values.screen_top_topbottom_padding.GetValue(),
+                      width - Settings::values.screen_top_leftright_padding.GetValue(),
+                      height - Settings::values.screen_top_topbottom_padding.GetValue()};
+        bot_screen = {Settings::values.screen_bottom_leftright_padding.GetValue(),
+                      Settings::values.screen_bottom_topbottom_padding.GetValue(),
+                      width - Settings::values.screen_bottom_leftright_padding.GetValue(),
+                      height - Settings::values.screen_bottom_topbottom_padding.GetValue()};
+    } else if (window_aspect_ratio < emulation_aspect_ratio) {
         top_screen =
             top_screen.TranslateX((screen_window_area.GetWidth() - top_screen.GetWidth()) / 2);
         bot_screen =

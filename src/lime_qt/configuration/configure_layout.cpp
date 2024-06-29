@@ -18,25 +18,44 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
     SetupPerGameUI();
     SetConfiguration();
 
-    ui->layout_group->setEnabled(!Settings::values.custom_layout);
+    ui->large_screen_proportion->setEnabled(
+        (Settings::values.layout_option.GetValue() == Settings::LayoutOption::LargeScreen));
+    connect(ui->layout_combobox,
+            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+            [this](int currentIndex) {
+                ui->large_screen_proportion->setEnabled(
+                    currentIndex == (uint)(Settings::LayoutOption::LargeScreen));
+            });
 
     ui->custom_layout_group->setEnabled(
         (Settings::values.layout_option.GetValue() == Settings::LayoutOption::CustomLayout));
     connect(ui->layout_combobox,
             static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
             [this](int currentIndex) {
-                ui->custom_layout_group->setEnabled(ui->layout_combobox->currentIndex() ==
+                ui->custom_layout_group->setEnabled(currentIndex ==
                                                     (uint)(Settings::LayoutOption::CustomLayout));
             });
 
-    ui->large_screen_proportion->setEnabled(
-        (Settings::values.layout_option.GetValue() == Settings::LayoutOption::LargeScreen));
+    ui->screen_top_leftright_padding->setEnabled(Settings::values.screen_top_stretch.GetValue());
+    connect(ui->screen_top_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+            this,
+            [this](bool checkState) { ui->screen_top_leftright_padding->setEnabled(checkState); });
+    ui->screen_top_topbottom_padding->setEnabled(Settings::values.screen_top_stretch.GetValue());
+    connect(ui->screen_top_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+            this,
+            [this](bool checkState) { ui->screen_top_topbottom_padding->setEnabled(checkState); });
+    ui->screen_bottom_leftright_padding->setEnabled(
+        Settings::values.screen_bottom_topbottom_padding.GetValue());
     connect(
-        ui->layout_combobox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-        this, [this](int currentIndex) {
-            ui->large_screen_proportion->setEnabled(ui->layout_combobox->currentIndex() ==
-                                                    (uint)(Settings::LayoutOption::LargeScreen));
-        });
+        ui->screen_bottom_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+        this,
+        [this](bool checkState) { ui->screen_bottom_leftright_padding->setEnabled(checkState); });
+    ui->screen_bottom_topbottom_padding->setEnabled(
+        Settings::values.screen_bottom_topbottom_padding.GetValue());
+    connect(
+        ui->screen_bottom_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+        this,
+        [this](bool checkState) { ui->screen_bottom_topbottom_padding->setEnabled(checkState); });
 
     connect(ui->bg_button, &QPushButton::clicked, this, [this] {
         const QColor new_bg_color = QColorDialog::getColor(bg_color);
@@ -66,6 +85,7 @@ void ConfigureLayout::SetConfiguration() {
     ui->toggle_swap_screen->setChecked(Settings::values.swap_screen.GetValue());
     ui->toggle_upright_screen->setChecked(Settings::values.upright_screen.GetValue());
     ui->large_screen_proportion->setValue(Settings::values.large_screen_proportion.GetValue());
+
     ui->custom_top_x->setValue(Settings::values.custom_top_x.GetValue());
     ui->custom_top_y->setValue(Settings::values.custom_top_y.GetValue());
     ui->custom_top_width->setValue(Settings::values.custom_top_width.GetValue());
@@ -76,6 +96,17 @@ void ConfigureLayout::SetConfiguration() {
     ui->custom_bottom_height->setValue(Settings::values.custom_bottom_height.GetValue());
     ui->custom_second_layer_opacity->setValue(
         Settings::values.custom_second_layer_opacity.GetValue());
+
+    ui->screen_top_stretch->setChecked(Settings::values.screen_top_stretch.GetValue());
+    ui->screen_top_leftright_padding->setValue(
+        Settings::values.screen_top_leftright_padding.GetValue());
+    ui->screen_top_topbottom_padding->setValue(
+        Settings::values.screen_top_topbottom_padding.GetValue());
+    ui->screen_bottom_stretch->setChecked(Settings::values.screen_bottom_stretch.GetValue());
+    ui->screen_bottom_leftright_padding->setValue(
+        Settings::values.screen_bottom_leftright_padding.GetValue());
+    ui->screen_bottom_topbottom_padding->setValue(
+        Settings::values.screen_bottom_topbottom_padding.GetValue());
     bg_color =
         QColor::fromRgbF(Settings::values.bg_red.GetValue(), Settings::values.bg_green.GetValue(),
                          Settings::values.bg_blue.GetValue());
@@ -101,6 +132,13 @@ void ConfigureLayout::ApplyConfiguration() {
     Settings::values.custom_bottom_width = ui->custom_bottom_width->value();
     Settings::values.custom_bottom_height = ui->custom_bottom_height->value();
     Settings::values.custom_second_layer_opacity = ui->custom_second_layer_opacity->value();
+
+    Settings::values.screen_top_stretch = ui->screen_top_stretch->checkState();
+    Settings::values.screen_top_leftright_padding = ui->screen_top_leftright_padding->value();
+    Settings::values.screen_top_topbottom_padding = ui->screen_top_topbottom_padding->value();
+    Settings::values.screen_bottom_stretch = ui->screen_bottom_stretch->checkState();
+    Settings::values.screen_bottom_leftright_padding = ui->screen_bottom_leftright_padding->value();
+    Settings::values.screen_bottom_topbottom_padding = ui->screen_bottom_topbottom_padding->value();
 
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.layout_option, ui->layout_combobox);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.swap_screen, ui->toggle_swap_screen,
