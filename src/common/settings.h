@@ -498,6 +498,13 @@ struct Values {
     Setting<u16> custom_bottom_height{240, "custom_bottom_height"};
     Setting<u16> custom_second_layer_opacity{100, "custom_second_layer_opacity"};
 
+    SwitchableSetting<bool> screen_top_stretch{false, "screen_top_stretch"};
+    Setting<u16> screen_top_leftright_padding{0, "screen_top_leftright_padding"};
+    Setting<u16> screen_top_topbottom_padding{0, "screen_top_topbottom_padding"};
+    SwitchableSetting<bool> screen_bottom_stretch{false, "screen_bottom_stretch"};
+    Setting<u16> screen_bottom_leftright_padding{0, "screen_bottom_leftright_padding"};
+    Setting<u16> screen_bottom_topbottom_padding{0, "screen_bottom_topbottom_padding"};
+
     SwitchableSetting<float> bg_red{0.f, "bg_red"};
     SwitchableSetting<float> bg_green{0.f, "bg_green"};
     SwitchableSetting<float> bg_blue{0.f, "bg_blue"};
