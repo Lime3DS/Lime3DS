@@ -104,8 +104,14 @@
     <string name="controller_triggers">Botones Traseros</string>
     <string name="controller_trigger">Botón Trasero</string>
     <string name="controller_dpad">Pad de Control</string>
+    <string name="controller_dpad_axis">D-Pad (Axis)</string>
+    <string name="controller_dpad_button">D-Pad (Botón)</string>
     <string name="controller_axis_vertical">Eje Vertical</string>
     <string name="controller_axis_horizontal">Eje Horizontal</string>
+    <string name="direction_up">Arriba</string>
+    <string name="direction_down">Abajo</string>
+    <string name="direction_left">Izquierda</string>
+    <string name="direction_right">Derecha</string>
     <string name="input_dialog_title">Asigna %1$s %2$s</string>
     <string name="input_dialog_description">Pulsa o mueve un botón/palanca.</string>
     <string name="input_binding">Asignación de botones</string>

@@ -1919,113 +1919,154 @@ Would you like to ignore the error and continue?</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="26"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="29"/>
         <source>Screens</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="47"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="50"/>
         <source>Screen Layout</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="55"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="58"/>
         <source>Default</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="60"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="63"/>
         <source>Single Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="65"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="68"/>
         <source>Large Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="70"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="73"/>
         <source>Side by Side</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="75"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="78"/>
         <source>Separate Windows</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="80"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="83"/>
         <source>Hybrid Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="85"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="189"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="88"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="195"/>
         <source>Custom Layout</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="96"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="99"/>
         <source>Swap Screens</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="103"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="106"/>
         <source>Rotate Screens Upright</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="125"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="128"/>
         <source>Large Screen Proportion</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="163"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="166"/>
         <source>Background Color</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="197"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="203"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="430"/>
         <source>Top Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="203"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="286"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="209"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="304"/>
         <source>X Position</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="220"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="303"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="219"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="239"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="259"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="279"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="314"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="334"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="354"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="374"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="446"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="473"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="522"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="535"/>
+        <source>px</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="229"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="324"/>
         <source>Y Position</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="237"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="320"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="249"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="344"/>
         <source>Width</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="254"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="337"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="269"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="364"/>
         <source>Height</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="280"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="298"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="499"/>
         <source>Bottom Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="361"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Values are in pixels starting from the top left corner of the display. Positive numbers only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="391"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bottom Screen Opacity % (OpenGL Only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="372"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bottom Screen Opacity % (OpenGL Only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="422"/>
+        <source>Single Screen Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="436"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="545"/>
+        <source>Stretch</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="456"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="505"/>
+        <source>Left/Right Padding</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="463"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="512"/>
+        <source>Top/Bottom Padding</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="566"/>
+        <source>Note: These settings affect the Single Screen and Separate Windows layouts</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -59,7 +59,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="118"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://lime3ds.github.io/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Website&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://discord.com/invite/4ZjMpAp3M6&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Discord&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/Lime3DS/Lime3DS&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Source Code&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/orgs/Lime3DS/people&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Main Contributors&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/Lime3DS/Lime3DS/blob/master/license.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;License&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://lime3ds.github.io/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Website&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://discord.com/invite/4ZjMpAp3M6&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Discord&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/Lime3DS/Lime3DS&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Bron Code&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/orgs/Lime3DS/people&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Hoofd Bijdragers&lt;/span&gt;&lt;/a&gt; | &lt;a href=&quot;https://github.com/Lime3DS/Lime3DS/blob/master/license.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#039be5;&quot;&gt;Licentie&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/aboutdialog.ui" line="134"/>
@@ -130,7 +130,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/lime_qt/configuration/configure_motion_touch.cpp" line="42"/>
         <source>Touch the top left corner &lt;br&gt;of your touchpad.</source>
-        <translation>Raak de hoek linksboven &lt;br&gt;van je touchpad aan.</translation>
+        <translation>Raak de hoek linksboven &lt;br&gt;van je touchpad aan.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_motion_touch.cpp" line="45"/>
@@ -303,7 +303,7 @@ Dit zal hun Forum gebruikersnaam en IP adres verbannen.</translation>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="36"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Should you choose to submit a test case to the &lt;/span&gt;&lt;a href=&quot;https://citra-emu.org/game/&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Lime3DS Compatibility List&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;, The following information will be collected and displayed on the site:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hardware Information (CPU / GPU / Operating System)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Which version of Lime3DS you are running&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The connected Citra account&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Mocht je ervoor kiezen om een testcase toe te voegen aan de &lt;/span&gt;&lt;a href=&quot;https://citra-emu.org/game/&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;Lime3DS Compatibility List&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;, zal volgende informatie verzameld worden en weergegeven worden op de website:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Hardware Informatie (CPU / GPU / Besturingssysteem)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;De versie van Lime3DS die je momenteel gebruikt&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Het verbonden Citra account&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="72"/>
@@ -368,7 +368,7 @@ Dit zal hun Forum gebruikersnaam en IP adres verbannen.</translation>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="182"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Independent of speed or performance, how well does this game play from start to finish on this version of Lime?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Onafhankelijk van de snelheid of prestaties, hoe goed kan je dit spel spelen van het begin tot het einde in deze versie van Lime?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/compatdb.ui" line="206"/>
@@ -446,12 +446,12 @@ Dit zal hun Forum gebruikersnaam en IP adres verbannen.</translation>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="101"/>
         <source>Scales audio playback speed to account for drops in emulation framerate. This means that audio will play at full speed even while the game framerate is low. May cause audio desync issues.</source>
-        <translation type="unfinished"/>
+        <translation>Herschaald de afspeelsnelheid van het geluid om rekening te houden met dalingen in de beeldsnelheid van de emulatie. Dit betekent dat het geluid op volle snelheid zal spelen ook al is de beeldsnelheid laag. Kan mogelijks problemen geven met de synchronisatie van audio.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="104"/>
         <source>Enable realtime audio</source>
-        <translation type="unfinished"/>
+        <translation>Inschakelen realtime audio</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_audio.ui" line="127"/>
@@ -492,7 +492,7 @@ Dit zal hun Forum gebruikersnaam en IP adres verbannen.</translation>
         <location filename="../../src/lime_qt/configuration/configure_audio.cpp" line="24"/>
         <location filename="../../src/lime_qt/configuration/configure_audio.cpp" line="36"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_audio.cpp" line="156"/>
@@ -884,17 +884,17 @@ Wilt u de fout negeren en doorgaan?</translation>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_debug.ui" line="225"/>
         <source>Miscellaneus</source>
-        <translation type="unfinished"/>
+        <translation>Overige</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_debug.ui" line="231"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Introduces a delay to the first ever launched app thread if LLE modules are enabled, to allow them to initialize.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Veroorzaakt een vertraging bij de allereerste uitgevoerde app thread als LLE modules zijn ingeschakeld, zodat ze kunnen worden geïnitialiseerd.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_debug.ui" line="234"/>
         <source>Delay app start for LLE module initialization</source>
-        <translation type="unfinished"/>
+        <translation>Vertraag app start voor de LLE module initialisatie</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_debug.ui" line="244"/>
@@ -971,7 +971,7 @@ Wilt u de fout negeren en doorgaan?</translation>
         <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="54"/>
         <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="182"/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Lay-out</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_dialog.cpp" line="55"/>
@@ -1126,7 +1126,7 @@ Wilt u de fout negeren en doorgaan?</translation>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="189"/>
         <source>Nearest Neighbor</source>
-        <translation type="unfinished"/>
+        <translation>Dichtstbijzijnde Buur</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_enhancements.ui" line="194"/>
@@ -1269,7 +1269,7 @@ Wilt u de fout negeren en doorgaan?</translation>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_general.ui" line="42"/>
         <source>Mute audio when in background</source>
-        <translation type="unfinished"/>
+        <translation>Demp geluid wanneer in de achtergond</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_general.ui" line="49"/>
@@ -1279,7 +1279,7 @@ Wilt u de fout negeren en doorgaan?</translation>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_general.ui" line="56"/>
         <source>Enable Gamemode</source>
-        <translation type="unfinished"/>
+        <translation>Schakel Gamemode in</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/configuration/configure_general.ui" line="66"/>
@@ -1919,113 +1919,154 @@ Wilt u de fout negeren en doorgaan?</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="26"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="29"/>
         <source>Screens</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="47"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="50"/>
         <source>Screen Layout</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="55"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="58"/>
         <source>Default</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="60"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="63"/>
         <source>Single Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="65"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="68"/>
         <source>Large Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="70"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="73"/>
         <source>Side by Side</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="75"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="78"/>
         <source>Separate Windows</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="80"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="83"/>
         <source>Hybrid Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="85"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="189"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="88"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="195"/>
         <source>Custom Layout</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="96"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="99"/>
         <source>Swap Screens</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="103"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="106"/>
         <source>Rotate Screens Upright</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="125"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="128"/>
         <source>Large Screen Proportion</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="163"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="166"/>
         <source>Background Color</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="197"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="203"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="430"/>
         <source>Top Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="203"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="286"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="209"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="304"/>
         <source>X Position</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="220"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="303"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="219"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="239"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="259"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="279"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="314"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="334"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="354"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="374"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="446"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="473"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="522"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="535"/>
+        <source>px</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="229"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="324"/>
         <source>Y Position</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="237"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="320"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="249"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="344"/>
         <source>Width</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="254"/>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="337"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="269"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="364"/>
         <source>Height</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="280"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="298"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="499"/>
         <source>Bottom Screen</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="361"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Values are in pixels starting from the top left corner of the display. Positive numbers only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="391"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bottom Screen Opacity % (OpenGL Only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="372"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bottom Screen Opacity % (OpenGL Only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="422"/>
+        <source>Single Screen Layout</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="436"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="545"/>
+        <source>Stretch</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="456"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="505"/>
+        <source>Left/Right Padding</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="463"/>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="512"/>
+        <source>Top/Bottom Padding</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../src/lime_qt/configuration/configure_layout.ui" line="566"/>
+        <source>Note: These settings affect the Single Screen and Separate Windows layouts</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4410,12 +4451,12 @@ To view a guide on how to install FFmpeg, press Help.</source>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="2936"/>
         <source>MB/s</source>
-        <translation type="unfinished"/>
+        <translation>MB/s</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="2936"/>
         <source>KB/s</source>
-        <translation type="unfinished"/>
+        <translation>KB/s</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="2961"/>
@@ -4445,13 +4486,13 @@ To view a guide on how to install FFmpeg, press Help.</source>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="3060"/>
         <source>VOLUME: MUTE</source>
-        <translation type="unfinished"/>
+        <translation>VOLUME: STIL</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="3063"/>
         <source>VOLUME: %1%</source>
         <comment>Volume percentage (e.g. 50%)</comment>
-        <translation type="unfinished"/>
+        <translation>VOLUME: %1%</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="3132"/>
@@ -4481,7 +4522,7 @@ To view a guide on how to install FFmpeg, press Help.</source>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="3152"/>
         <source>A communication error has occurred. The game will quit.</source>
-        <translation type="unfinished"/>
+        <translation>Er is een communicatiefout opgetreden. Het spel zal afsluiten.</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.cpp" line="3156"/>
@@ -4672,22 +4713,22 @@ To view a guide on how to install FFmpeg, press Help.</source>
         <location filename="../../src/lime_qt/game_list.cpp" line="533"/>
         <location filename="../../src/lime_qt/game_list.cpp" line="948"/>
         <source>Play time</source>
-        <translation type="unfinished"/>
+        <translation>Gespeelde tijd</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="572"/>
         <source>Favorite</source>
-        <translation type="unfinished"/>
+        <translation>Favoriet</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="574"/>
         <source>Open</source>
-        <translation type="unfinished"/>
+        <translation>Open</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="575"/>
         <source>Application Location</source>
-        <translation type="unfinished"/>
+        <translation>Applicatie Locatie</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="577"/>
@@ -4757,17 +4798,17 @@ To view a guide on how to install FFmpeg, press Help.</source>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="599"/>
         <source>Game</source>
-        <translation type="unfinished"/>
+        <translation>Game</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="600"/>
         <source>Update</source>
-        <translation type="unfinished"/>
+        <translation>Update</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="601"/>
         <source>DLC</source>
-        <translation type="unfinished"/>
+        <translation>DLC</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="603"/>
@@ -4782,17 +4823,17 @@ To view a guide on how to install FFmpeg, press Help.</source>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="607"/>
         <source>Create Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Maak snelkoppeling</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="608"/>
         <source>Add to Desktop</source>
-        <translation type="unfinished"/>
+        <translation>Voeg toe aan Bureaublad</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="610"/>
         <source>Add to Applications Menu</source>
-        <translation type="unfinished"/>
+        <translation>Voeg to aan Applicatie Menu</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="614"/>
@@ -4818,13 +4859,13 @@ This will delete the game if installed, as well as any installed updates or DLC.
         <location filename="../../src/lime_qt/game_list.cpp" line="756"/>
         <location filename="../../src/lime_qt/game_list.cpp" line="783"/>
         <source>%1 (Update)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (Update)</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="760"/>
         <location filename="../../src/lime_qt/game_list.cpp" line="794"/>
         <source>%1 (DLC)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (DLC)</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/game_list.cpp" line="767"/>
@@ -5889,12 +5930,12 @@ Debug Message: </source>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="307"/>
         <source>Discord</source>
-        <translation type="unfinished"/>
+        <translation>Discord</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="312"/>
         <source>About Lime</source>
-        <translation type="unfinished"/>
+        <translation>Over Lime</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="323"/>
@@ -6014,7 +6055,7 @@ Debug Message: </source>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="486"/>
         <source>Open Log Folder</source>
-        <translation type="unfinished"/>
+        <translation>Open Log Map</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="489"/>
@@ -6064,7 +6105,7 @@ Debug Message: </source>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="553"/>
         <source>Custom Layout</source>
-        <translation type="unfinished"/>
+        <translation>Gepersonaliseerde Lay-out</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/main.ui" line="561"/>
@@ -6703,7 +6744,7 @@ Misschien hebben ze de kamer verlaten.</translation>
     <message>
         <location filename="../../src/lime_qt/game_list_p.h" line="470"/>
         <source>Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Favorieten</translation>
     </message>
     <message>
         <location filename="../../src/lime_qt/multiplayer/chat_room.cpp" line="134"/>
