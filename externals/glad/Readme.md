@@ -6,6 +6,6 @@ python -m glad --profile core --out-path glad/ --api "gl=4.3,gles2=3.2" --genera
 
 You can also generate the source using [this site](https://glad.dav1d.de/):
 1. Select '4.3' for GL, '3.2' for GLES2, and 'Core' for Profile.
-2. Input the currently supported extensions from [here](https://github.com/citra-emu/citra/blob/master/externals/glad/include/glad/glad.h#L9), plus any new required extensions.
+2. Input the currently supported extensions from [here](https://github.com/Lime3DS/Lime3DS/blob/master/externals/glad/include/glad/glad.h#L9), plus any new required extensions.
 3. Click Generate and download the generated source zip.
 4. Unzip the new source over the current glad source files.
