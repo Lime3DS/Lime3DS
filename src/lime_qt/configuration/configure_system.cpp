@@ -270,7 +270,8 @@ ConfigureSystem::ConfigureSystem(Core::System& system_, QWidget* parent)
         ui->label_nus_download->setOpenExternalLinks(true);
         ui->label_nus_download->setText(
             tr("Lime3DS is missing keys to download system files. <br><a "
-               "href='https://citra-emu.org/wiki/aes-keys/'><span style=\"text-decoration: "
+               "href='https://web.archive.org/web/20240304203412/https://citra-emu.org/wiki/"
+               "aes-keys/'><span style=\"text-decoration: "
                "underline; color:#039be5;\">How to get keys?</span></a>"));
     }
 
