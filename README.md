@@ -54,6 +54,23 @@ Reports for game compatibility can be made here: https://github.com/Lime3DS/comp
 
 Please ensure that you have read the contributing document before submitting a report.
 
+# Minimum Requirements
+Below are the minimum requirements to run Lime3DS:
+### Desktop
+```
+Operating System: Windows 10 (64-bit), MacOS Ventura, or modern 64-bit Linux
+CPU: x86-64 (64-bit) CPU. Single core performance higher than 1,800 on Passmark
+GPU: OpenGL 4.3 or Vulkan 1.1 support
+Memory: 2GB of RAM. 4GB is recommended
+```
+### Android
+```
+Operating System: Android 9.0+
+CPU: Snapdragon 835 SoC or better
+GPU: OpenGL ES 3.2 or Vulkan 1.1 support
+Memory: 2GB of RAM. 4GB is recommended
+```
+
 # What's next?
 We keep a public roadmap of what features/bug fixes are planned to be included in the next update or two.
 You can find this at https://github.com/Lime3DS/Lime3DS/milestones.
