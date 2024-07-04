@@ -6,6 +6,7 @@ package io.github.lime3ds.android.features.settings.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -1084,6 +1085,33 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     blackBackgrounds,
                     R.string.use_black_backgrounds,
                     R.string.use_black_backgrounds_description
+                )
+            )
+
+            val deviceOrientationSetting: AbstractIntSetting = object : AbstractIntSetting {
+                override var int: Int
+                    get() = preferences.getInt(key, defaultValue)
+                    set(value) {
+                        preferences.edit()
+                            .putInt(key, value)
+                            .apply()
+                        settingsActivity.recreate()
+                    }
+                override val key: String = Settings.PREF_DEFAULT_SCREEN_ORIENTATION
+                override val section: String? = null
+                override val isRuntimeEditable: Boolean = true
+                override val valueAsString: String
+                    get() = int.toString()
+                override val defaultValue: Int = ActivityInfo.SCREEN_ORIENTATION_USER
+            }
+
+            add(
+                SingleChoiceSetting(
+                    deviceOrientationSetting,
+                    R.string.device_orientation_title,
+                    R.string.device_orientation_description,
+                    R.array.deviceOrientationEntries,
+                    R.array.deviceOrientationValues
                 )
             )
         }

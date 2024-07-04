@@ -490,6 +490,14 @@
     <string name="use_black_backgrounds">Black Backgrounds</string>
     <string name="use_black_backgrounds_description">When using the dark theme, apply black backgrounds.</string>
 
+    <!-- Device Orientation -->
+    <string name="device_orientation_title">Screen Orientation</string>
+    <string name="device_orientation_description">How should Lime3DS display your games?</string>
+    <string name="device_orientation_system">Follow System Setting</string>
+    <string name="device_orientation_landscape">Landscape</string>
+    <string name="device_orientation_portrait">Portrait</string>
+    <string name="device_orientation_auto">Follow Device</string>
+
     <!-- Clock types -->
     <string name="device_clock">Device Clock</string>
     <string name="simulated_clock">Simulated Clock</string>

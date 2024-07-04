@@ -34,6 +34,7 @@ import io.github.lime3ds.android.databinding.ActivityEmulationBinding
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.features.hotkeys.HotkeyUtility
 import io.github.lime3ds.android.features.settings.model.BooleanSetting
+import io.github.lime3ds.android.features.settings.model.Settings.Companion.PREF_DEFAULT_SCREEN_ORIENTATION
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
 import io.github.lime3ds.android.fragments.EmulationFragment
@@ -198,6 +199,8 @@ class EmulationActivity : AppCompatActivity() {
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+
+        this.requestedOrientation = preferences.getInt(PREF_DEFAULT_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_USER)
     }
 
     // Gets button presses
