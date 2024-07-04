@@ -8,6 +8,8 @@ cmake_policy(SET CMP0069 NEW)
 # Honor visibility properties for all targets
 # Set the default so subdirectory cmake_minimum_required calls won't unset the policy.
 cmake_policy(SET CMP0063 NEW)
+# Allow conditions to be used in cmake_dependent_option
+cmake_policy(SET CMP0127 NEW)
 set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
@@ -80,7 +82,7 @@ option(ENABLE_OPENAL "Enables the OpenAL audio backend" ON)
 CMAKE_DEPENDENT_OPTION(ENABLE_LIBUSB "Enable libusb for GameCube Adapter support" ON "NOT IOS" OFF)
 
 CMAKE_DEPENDENT_OPTION(ENABLE_SOFTWARE_RENDERER "Enables the software renderer" ON "NOT ANDROID" OFF)
-CMAKE_DEPENDENT_OPTION(ENABLE_OPENGL "Enables the OpenGL renderer" ON "NOT APPLE" OFF)
+CMAKE_DEPENDENT_OPTION(ENABLE_OPENGL "Enables the OpenGL renderer" ON "NOT APPLE AND NOT (LINUX AND CMAKE_SYSTEM_PROCESSOR STREQUAL \"aarch64\")" OFF)
 option(ENABLE_VULKAN "Enables the Vulkan renderer" ON)
 
 option(USE_DISCORD_PRESENCE "Enables Discord Rich Presence" OFF)
