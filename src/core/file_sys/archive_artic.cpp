@@ -387,24 +387,34 @@ ResultVal<std::size_t> ArticFileBackend::Read(u64 offset, std::size_t length, u8
         return cache->Read(file_handle, offset, length, buffer);
     }
 
-    auto req = client->NewRequest("FSFILE_Read");
+    size_t read_amount = 0;
+    while (read_amount != length) {
+        size_t to_read =
+            std::min<size_t>(client->GetServerRequestMaxSize() - 0x100, length - read_amount);
 
-    req.AddParameterS32(file_handle);
-    req.AddParameterU64(offset);
-    req.AddParameterU32(static_cast<u32>(length));
+        auto req = client->NewRequest("FSFILE_Read");
+        req.AddParameterS32(file_handle);
+        req.AddParameterS64(static_cast<s64>(offset + read_amount));
+        req.AddParameterS32(static_cast<s32>(to_read));
+        auto resp = client->Send(req);
+        if (!resp.has_value() || !resp->Succeeded())
+            return Result(-1);
 
-    auto resp = client->Send(req);
-    auto res = ArticArchive::RespResult(resp);
-    if (res.IsError())
-        return res;
+        auto res = Result(static_cast<u32>(resp->GetMethodResult()));
+        if (res.IsError())
+            return res;
 
-    auto read_buf = resp->GetResponseBuffer(0);
-    if (!read_buf || read_buf->second > length) {
-        return std::size_t(0);
+        auto read_buff = resp->GetResponseBuffer(0);
+        if (!read_buff.has_value())
+            return Result(-1);
+        size_t actually_read = read_buff->second;
+
+        memcpy(buffer + read_amount, read_buff->first, actually_read);
+        read_amount += actually_read;
+        if (actually_read != to_read)
+            break;
     }
-
-    memcpy(buffer, read_buf->first, read_buf->second);
-    return read_buf->second;
+    return read_amount;
 }
 
 ResultVal<std::size_t> ArticFileBackend::Write(u64 offset, std::size_t length, bool flush,
@@ -415,25 +425,36 @@ ResultVal<std::size_t> ArticFileBackend::Write(u64 offset, std::size_t length, b
     if (cache != nullptr) {
         return cache->Write(file_handle, offset, length, buffer, flags);
     } else {
-        auto req = client->NewRequest("FSFILE_Write");
+        size_t written_amount = 0;
+        while (written_amount != length) {
+            size_t to_write = std::min<size_t>(client->GetServerRequestMaxSize() - 0x100,
+                                               length - written_amount);
 
-        req.AddParameterS32(file_handle);
-        req.AddParameterU64(offset);
-        req.AddParameterU32(static_cast<u32>(length));
-        req.AddParameterU32(flags);
-        req.AddParameterBuffer(buffer, length);
+            auto req = client->NewRequest("FSFILE_Write");
+            req.AddParameterS32(file_handle);
+            req.AddParameterS64(static_cast<s64>(offset + written_amount));
+            req.AddParameterS32(static_cast<s32>(to_write));
+            req.AddParameterS32(static_cast<s32>(flags));
+            req.AddParameterBuffer(buffer + written_amount, to_write);
+            auto resp = client->Send(req);
+            if (!resp.has_value() || !resp->Succeeded())
+                return Result(-1);
 
-        auto resp = client->Send(req);
-        auto res = ArticArchive::RespResult(resp);
-        if (res.IsError())
-            return res;
+            auto res = Result(static_cast<u32>(resp->GetMethodResult()));
+            if (res.IsError())
+                return res;
 
-        auto writen_buf = resp->GetResponseS32(0);
-        if (!writen_buf) {
-            return std::size_t(0);
+            auto actually_written_opt = resp->GetResponseS32(0);
+            if (!actually_written_opt.has_value())
+                return Result(-1);
+
+            size_t actually_written = static_cast<size_t>(actually_written_opt.value());
+
+            written_amount += actually_written;
+            if (actually_written != to_write)
+                break;
         }
-
-        return std::size_t(*writen_buf);
+        return written_amount;
     }
 }
 
