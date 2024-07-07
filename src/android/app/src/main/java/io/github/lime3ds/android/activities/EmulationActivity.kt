@@ -201,7 +201,7 @@ class EmulationActivity : AppCompatActivity() {
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
-        this.requestedOrientation = preferences.getInt(PREF_DEFAULT_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_USER)
+        this.requestedOrientation = preferences.getInt(Settings.PREF_DEFAULT_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_USER)
     }
 
     // Gets button presses
