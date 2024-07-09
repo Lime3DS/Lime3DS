@@ -491,12 +491,12 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_emulation_save_state -> {
-                    showSaveStateSubmenu()
+                    showStateSubmenu(true)
                     true
                 }
 
                 R.id.menu_emulation_load_state -> {
-                    showLoadStateSubmenu()
+                    showStateSubmenu(false)
                     true
                 }
 
@@ -507,7 +507,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.show()
     }
 
-    private fun showSaveStateSubmenu() {
+    private fun showStateSubmenu(isSaving: Boolean) {
+
         val savestates = NativeLibrary.getSavestateInfo()
 
         val popupMenu = PopupMenu(
@@ -518,44 +519,34 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.menu.apply {
             for (i in 0 until NativeLibrary.SAVESTATE_SLOT_COUNT) {
                 val slot = i + 1
-                val text = getString(R.string.emulation_empty_state_slot, slot)
-                add(text).setEnabled(true).setOnMenuItemClickListener {
-                    displaySavestateWarning()
-                    NativeLibrary.saveState(slot)
+                var enableClick = isSaving
+                val text = if (slot == NativeLibrary.QUICKSAVE_SLOT) {
+                    enableClick = false
+                    getString(R.string.emulation_quicksave_slot)
+                } else {
+                    getString(R.string.emulation_empty_state_slot, slot)
+                }
+                add(text).setEnabled(enableClick).setOnMenuItemClickListener {
+                    if(isSaving) {
+                        NativeLibrary.saveState(slot)
+                    } else {
+                        NativeLibrary.loadState(slot)
+                        binding.drawerLayout.close()
+                        Toast.makeText(context,
+                            getString(R.string.quickload_loading),
+                            Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
             }
         }
 
         savestates?.forEach {
-            val text = getString(R.string.emulation_occupied_state_slot, it.slot, it.time)
-            popupMenu.menu.getItem(it.slot - 1).setTitle(text)
-        }
-
-        popupMenu.show()
-    }
-
-    private fun showLoadStateSubmenu() {
-        val savestates = NativeLibrary.getSavestateInfo()
-
-        val popupMenu = PopupMenu(
-            requireContext(),
-            binding.inGameMenu.findViewById(R.id.menu_emulation_savestates)
-        )
-
-        popupMenu.menu.apply {
-            for (i in 0 until NativeLibrary.SAVESTATE_SLOT_COUNT) {
-                val slot = i + 1
-                val text = getString(R.string.emulation_empty_state_slot, slot)
-                add(text).setEnabled(false).setOnMenuItemClickListener {
-                    NativeLibrary.loadState(slot)
-                    true
-                }
+            val text = if(it.slot == NativeLibrary.QUICKSAVE_SLOT) {
+                getString(R.string.emulation_occupied_quicksave_slot, it.time)
+            } else{
+                getString(R.string.emulation_occupied_state_slot, it.slot, it.time)
             }
-        }
-
-        savestates?.forEach {
-            val text = getString(R.string.emulation_occupied_state_slot, it.slot, it.time)
             popupMenu.menu.getItem(it.slot - 1).setTitle(text).setEnabled(true)
         }
 

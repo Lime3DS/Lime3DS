@@ -715,4 +715,13 @@
     <string name="artic_base_connect">Connect to Artic Base</string>
     <string name="artic_base_enter_address">Enter Artic Base server address</string>
 
+
+    <!-- Quickload&Save-->
+    <string name="emulation_quicksave_slot">Quicksave</string>
+    <string name="emulation_quicksave">Quicksave</string>
+    <string name="emulation_quickload">Quickload</string>
+    <string name="emulation_occupied_quicksave_slot">Quicksave - %1$tF %1$tR</string>
+    <string name="quicksave_saving">Saving…</string>
+    <string name="quickload_loading">Loading…</string>
+
 </resources>
