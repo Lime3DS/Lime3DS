@@ -211,6 +211,7 @@
     <string name="image_flip">Flip</string>
 
     <!-- Graphics settings strings -->
+    <string name="graphics_ui">UI</string>
     <string name="renderer">Renderer</string>
     <string name="graphics_api">Graphics API</string>
     <string name="spirv_shader_gen">Enable SPIR-V shader generation</string>

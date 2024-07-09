@@ -667,6 +667,19 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addGraphicsSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_graphics))
         sl.apply {
+            add(HeaderSetting(R.string.graphics_ui))
+            add(
+                SingleChoiceSetting(
+                    IntSetting.DEVICE_ORIENTATION,
+                    R.string.device_orientation_title,
+                    R.string.device_orientation_description,
+                    R.array.deviceOrientationEntries,
+                    R.array.deviceOrientationValues,
+                    IntSetting.DEVICE_ORIENTATION.key,
+                    IntSetting.DEVICE_ORIENTATION.defaultValue,
+                )
+            )
+
             add(HeaderSetting(R.string.renderer))
             add(
                 SingleChoiceSetting(
@@ -1085,33 +1098,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     blackBackgrounds,
                     R.string.use_black_backgrounds,
                     R.string.use_black_backgrounds_description
-                )
-            )
-
-            val deviceOrientationSetting: AbstractIntSetting = object : AbstractIntSetting {
-                override var int: Int
-                    get() = preferences.getInt(key, defaultValue)
-                    set(value) {
-                        preferences.edit()
-                            .putInt(key, value)
-                            .apply()
-                        settingsActivity.recreate()
-                    }
-                override val key: String = Settings.PREF_DEFAULT_SCREEN_ORIENTATION
-                override val section: String? = null
-                override val isRuntimeEditable: Boolean = true
-                override val valueAsString: String
-                    get() = int.toString()
-                override val defaultValue: Int = ActivityInfo.SCREEN_ORIENTATION_USER
-            }
-
-            add(
-                SingleChoiceSetting(
-                    deviceOrientationSetting,
-                    R.string.device_orientation_title,
-                    R.string.device_orientation_description,
-                    R.array.deviceOrientationEntries,
-                    R.array.deviceOrientationValues
                 )
             )
         }
