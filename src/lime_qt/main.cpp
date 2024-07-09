@@ -838,8 +838,6 @@ void GMainWindow::ConnectWidgetEvents() {
     connect(game_list, &GameList::OpenFolderRequested, this, &GMainWindow::OnGameListOpenFolder);
     connect(game_list, &GameList::RemovePlayTimeRequested, this,
             &GMainWindow::OnGameListRemovePlayTimeData);
-    connect(game_list, &GameList::NavigateToGamedbEntryRequested, this,
-            &GMainWindow::OnGameListNavigateToGamedbEntry);
     connect(game_list, &GameList::CreateShortcut, this, &GMainWindow::OnGameListCreateShortcut);
     connect(game_list, &GameList::DumpRomFSRequested, this, &GMainWindow::OnGameListDumpRomFS);
     connect(game_list, &GameList::AddDirectory, this, &GMainWindow::OnGameListAddDirectory);
@@ -1707,17 +1705,6 @@ void GMainWindow::OnGameListRemovePlayTimeData(u64 program_id) {
 
     play_time_manager->ResetProgramPlayTime(program_id);
     game_list->PopulateAsync(UISettings::values.game_dirs);
-}
-
-void GMainWindow::OnGameListNavigateToGamedbEntry(u64 program_id,
-                                                  const CompatibilityList& compatibility_list) {
-    auto it = FindMatchingCompatibilityEntry(compatibility_list, program_id);
-
-    QString directory;
-    if (it != compatibility_list.end())
-        directory = it->second.second;
-
-    QDesktopServices::openUrl(QUrl(QStringLiteral("https://citra-emu.org/game/") + directory));
 }
 
 bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,

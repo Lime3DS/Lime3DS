@@ -232,8 +232,6 @@ private slots:
     void OnGameListLoadFile(QString game_path);
     void OnGameListOpenFolder(u64 program_id, GameListOpenTarget target);
     void OnGameListRemovePlayTimeData(u64 program_id);
-    void OnGameListNavigateToGamedbEntry(u64 program_id,
-                                         const CompatibilityList& compatibility_list);
     void OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
                                   GameListShortcutTarget target);
     void OnGameListDumpRomFS(QString game_path, u64 program_id);

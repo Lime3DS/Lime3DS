@@ -100,8 +100,6 @@ signals:
     void CreateShortcut(u64 program_id, const std::string& game_path,
                         GameListShortcutTarget target);
     void RemovePlayTimeRequested(u64 program_id);
-    void NavigateToGamedbEntryRequested(u64 program_id,
-                                        const CompatibilityList& compatibility_list);
     void OpenPerGameGeneralRequested(const QString file);
     void DumpRomFSRequested(QString game_path, u64 program_id);
     void OpenDirectory(const QString& directory);
