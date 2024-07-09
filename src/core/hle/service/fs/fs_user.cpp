@@ -1026,7 +1026,9 @@ void FS_USER::CreateSystemSaveData(Kernel::HLERequestContext& ctx) {
         file_buckets, duplicate);
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(archives.CreateSystemSaveData(savedata_high, savedata_low));
+    rb.Push(archives.CreateSystemSaveData(savedata_high, savedata_low, total_size, block_size,
+                                          directories, files, directory_buckets, file_buckets,
+                                          duplicate ? 1 : 0));
 }
 
 void FS_USER::CreateLegacySystemSaveData(Kernel::HLERequestContext& ctx) {
@@ -1048,7 +1050,8 @@ void FS_USER::CreateLegacySystemSaveData(Kernel::HLERequestContext& ctx) {
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
     // With this command, the SystemSaveData always has save_high = 0 (Always created in the NAND)
-    rb.Push(archives.CreateSystemSaveData(0, savedata_id));
+    rb.Push(archives.CreateSystemSaveData(0, savedata_id, total_size, block_size, directories,
+                                          files, directory_buckets, file_buckets, duplicate));
 }
 
 void FS_USER::InitializeWithSdkVersion(Kernel::HLERequestContext& ctx) {

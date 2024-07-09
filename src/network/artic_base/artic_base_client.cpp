@@ -197,7 +197,8 @@ bool Client::Connect() {
             shutdown(main_socket, SHUT_RDWR);
             closesocket(main_socket);
             LOG_ERROR(Network, "Incompatible server version: {}", version_value);
-            SignalCommunicationError();
+            SignalCommunicationError("\nIncompatible Artic Base Server version.\nCheck for updates "
+                                     "to Artic Base Server or Citra.");
             return false;
         }
     } else {
@@ -369,11 +370,11 @@ std::optional<Client::Response> Client::Send(Request& request) {
     return std::optional<Client::Response>(std::move(resp.response));
 }
 
-void Client::SignalCommunicationError() {
+void Client::SignalCommunicationError(const std::string& msg) {
     StopImpl(true);
     LOG_CRITICAL(Network, "Communication error");
     if (communication_error_callback)
-        communication_error_callback();
+        communication_error_callback(msg);
 }
 
 void Client::PingFunction() {

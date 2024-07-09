@@ -21,8 +21,9 @@ public:
     Apploader_Artic(Core::System& system_, const std::string& server_addr, u16 server_port)
         : AppLoader(system_, FileUtil::IOFile()) {
         client = std::make_shared<Network::ArticBase::Client>(server_addr, server_port);
-        client->SetCommunicationErrorCallback([&system_]() {
-            system_.SetStatus(Core::System::ResultStatus::ErrorArticDisconnected);
+        client->SetCommunicationErrorCallback([&system_](const std::string& msg) {
+            system_.SetStatus(Core::System::ResultStatus::ErrorArticDisconnected,
+                              msg.empty() ? nullptr : msg.c_str());
         });
         client->SetArticReportTrafficCallback(
             [&system_](u32 bytes) { system_.ReportArticTraffic(bytes); });

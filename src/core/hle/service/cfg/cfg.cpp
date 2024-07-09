@@ -251,7 +251,7 @@ void Module::Interface::GetTransferableId(Kernel::HLERequestContext& ctx) {
 
     std::array<u8, 12> buffer;
     const Result result =
-        cfg->GetConfigBlock(ConsoleUniqueID2BlockID, 8, AccessFlag::SystemRead, buffer.data());
+        cfg->GetConfigBlock(ConsoleUniqueID2BlockID, 8, AccessFlag::Global, buffer.data());
     rb.Push(result);
     if (result.IsSuccess()) {
         std::memcpy(&buffer[8], &app_id_salt, sizeof(u32));
@@ -438,11 +438,42 @@ ResultVal<void*> Module::GetConfigBlockPointer(u32 block_id, u32 size, AccessFla
 }
 
 Result Module::GetConfigBlock(u32 block_id, u32 size, AccessFlag accesss_flag, void* output) {
-    void* pointer = nullptr;
-    CASCADE_RESULT(pointer, GetConfigBlockPointer(block_id, size, accesss_flag));
-    std::memcpy(output, pointer, size);
+    bool get_from_artic =
+        block_id == ConsoleUniqueID2BlockID &&
+        (static_cast<u16>(accesss_flag) & static_cast<u16>(AccessFlag::UserRead)) != 0;
 
-    return ResultSuccess;
+    if (get_from_artic && artic_client.get()) {
+        auto req = artic_client->NewRequest("CFGU_GetConfigInfoBlk2");
+
+        req.AddParameterS32(block_id);
+        req.AddParameterU32(size);
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value() || !resp->Succeeded())
+            return Result(-1);
+
+        auto res = Result(static_cast<u32>(resp->GetMethodResult()));
+        if (res.IsError())
+            return res;
+
+        auto buff = resp->GetResponseBuffer(0);
+        if (!buff.has_value())
+            return Result(-1);
+        size_t actually_read = buff->second;
+        if (actually_read > size)
+            return Result(-1);
+
+        memcpy(output, buff->first, actually_read);
+        return ResultSuccess;
+
+    } else {
+        void* pointer = nullptr;
+        CASCADE_RESULT(pointer, GetConfigBlockPointer(block_id, size, accesss_flag));
+        std::memcpy(output, pointer, size);
+
+        return ResultSuccess;
+    }
 }
 
 Result Module::SetConfigBlock(u32 block_id, u32 size, AccessFlag accesss_flag, const void* input) {

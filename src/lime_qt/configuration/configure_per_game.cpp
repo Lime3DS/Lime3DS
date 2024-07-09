@@ -143,7 +143,14 @@ void ConfigurePerGame::LoadConfiguration() {
     ui->display_title_id->setText(
         QStringLiteral("%1").arg(title_id, 16, 16, QLatin1Char{'0'}).toUpper());
 
-    const auto loader = Loader::GetLoader(filename);
+    std::unique_ptr<Loader::AppLoader> loader_ptr;
+    Loader::AppLoader* loader;
+    if (system.IsPoweredOn()) {
+        loader = &system.GetAppLoader();
+    } else {
+        loader_ptr = Loader::GetLoader(filename);
+        loader = loader_ptr.get();
+    }
 
     std::string title;
     if (loader->ReadTitle(title) == Loader::ResultStatus::Success)

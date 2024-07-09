@@ -32,6 +32,7 @@ public:
         ARTIC_EXT_DATA = (1 << 1),
         ARTIC_BOSS_EXT_DATA = (1 << 2),
         ARTIC_SHARED_EXT_DATA = (1 << 3),
+        ARTIC_SYSTEM_SAVE_DATA = (1 << 4),
     };
     union PerfArticEvents {
         u32 raw{};
