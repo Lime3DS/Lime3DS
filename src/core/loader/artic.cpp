@@ -21,7 +21,10 @@
 #include "core/hle/kernel/process.h"
 #include "core/hle/kernel/resource_limit.h"
 #include "core/hle/service/am/am.h"
+#include "core/hle/service/am/am_app.h"
+#include "core/hle/service/am/am_net.h"
 #include "core/hle/service/cfg/cfg.h"
+#include "core/hle/service/cfg/cfg_u.h"
 #include "core/hle/service/fs/archive.h"
 #include "core/hle/service/fs/fs_user.h"
 #include "core/loader/artic.h"
@@ -335,9 +338,28 @@ ResultStatus Apploader_Artic::Load(std::shared_ptr<Kernel::Process>& process) {
     system.ArchiveManager().RegisterArticSaveDataSource(client);
     system.ArchiveManager().RegisterArticExtData(client);
     system.ArchiveManager().RegisterArticNCCH(client);
+    system.ArchiveManager().RegisterArticSystemSaveData(client);
 
     auto fs_user = system.ServiceManager().GetService<Service::FS::FS_USER>("fs:USER");
-    fs_user->RegisterSecureValueBackend(std::make_shared<FileSys::ArticSecureValueBackend>(client));
+    if (fs_user.get()) {
+        fs_user->RegisterSecureValueBackend(
+            std::make_shared<FileSys::ArticSecureValueBackend>(client));
+    }
+
+    auto cfg = system.ServiceManager().GetService<Service::CFG::CFG_U>("cfg:u");
+    if (cfg.get()) {
+        cfg->UseArticClient(client);
+    }
+
+    auto amnet = system.ServiceManager().GetService<Service::AM::AM_NET>("am:net");
+    if (amnet.get()) {
+        amnet->UseArticClient(client);
+    }
+
+    auto amapp = system.ServiceManager().GetService<Service::AM::AM_APP>("am:app");
+    if (amapp.get()) {
+        amapp->UseArticClient(client);
+    }
 
     ParseRegionLockoutInfo(ncch_program_id);
 

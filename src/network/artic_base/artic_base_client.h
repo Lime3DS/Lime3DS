@@ -80,7 +80,7 @@ public:
         StopImpl(false);
     }
 
-    void SetCommunicationErrorCallback(const std::function<void()>& callback) {
+    void SetCommunicationErrorCallback(const std::function<void(const std::string&)>& callback) {
         communication_error_callback = callback;
     }
 
@@ -98,7 +98,7 @@ public:
     }
 
 private:
-    static constexpr const int SERVER_VERSION = 0;
+    static constexpr const int SERVER_VERSION = 1;
 
     std::string address;
     u16 port;
@@ -109,8 +109,8 @@ private:
         return currRequestID++;
     }
 
-    void SignalCommunicationError();
-    std::function<void()> communication_error_callback;
+    void SignalCommunicationError(const std::string& msg = "");
+    std::function<void(const std::string&)> communication_error_callback;
 
     std::function<void(u64)> report_artic_event_callback;
 

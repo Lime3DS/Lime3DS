@@ -10,12 +10,15 @@
 #include <boost/serialization/string.hpp>
 #include "common/common_types.h"
 #include "core/file_sys/archive_backend.h"
+#include "core/file_sys/artic_cache.h"
 #include "core/hle/result.h"
+#include "core/hle/service/fs/archive.h"
+#include "network/artic_base/artic_base_client.h"
 
 namespace FileSys {
 
 /// File system interface to the SystemSaveData archive
-class ArchiveFactory_SystemSaveData final : public ArchiveFactory {
+class ArchiveFactory_SystemSaveData final : public ArchiveFactory, public ArticCacheProvider {
 public:
     explicit ArchiveFactory_SystemSaveData(const std::string& mount_point);
 
@@ -24,12 +27,30 @@ public:
                   u32 directory_buckets, u32 file_buckets) override;
     ResultVal<ArchiveFormatInfo> GetFormatInfo(const Path& path, u64 program_id) const override;
 
+    Result FormatAsSysData(u32 high, u32 low, u32 total_size, u32 block_size,
+                           u32 number_directories, u32 number_files, u32 number_directory_buckets,
+                           u32 number_file_buckets, u8 duplicate_data);
+
     std::string GetName() const override {
         return "SystemSaveData";
     }
 
+    bool IsSlow() override {
+        return IsUsingArtic();
+    }
+
+    void RegisterArtic(std::shared_ptr<Network::ArticBase::Client>& client) {
+        artic_client = client;
+    }
+
+    bool IsUsingArtic() const {
+        return artic_client.get() != nullptr;
+    }
+
 private:
     std::string base_path;
+
+    std::shared_ptr<Network::ArticBase::Client> artic_client = nullptr;
 
     ArchiveFactory_SystemSaveData() = default;
     template <class Archive>
