@@ -601,21 +601,33 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addControlsSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_controls))
         sl.apply {
+            add(HeaderSetting(R.string.auto_configure))
+
+            add(
+                RunnableSetting(
+                    R.string.auto_configure,
+                    0,
+                    false,
+                    0,
+                    { settingsAdapter.onClickAutoconfigureControls() }
+                )
+            )
+
             add(HeaderSetting(R.string.generic_buttons))
             Settings.buttonKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.buttonTitles[i]))
             }
 
             add(HeaderSetting(R.string.controller_circlepad))
             Settings.circlePadKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.axisTitles[i]))
             }
 
             add(HeaderSetting(R.string.controller_c))
             Settings.cStickKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.axisTitles[i]))
             }
 
@@ -623,43 +635,26 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             //       less user-facingly hacky
             add(HeaderSetting(R.string.controller_dpad_axis))
             Settings.dPadAxisKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.axisTitles[i]))
             }
             add(HeaderSetting(R.string.controller_dpad_button))
             Settings.dPadButtonKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.dpadTitles[i]))
             }
 
             add(HeaderSetting(R.string.controller_triggers))
             Settings.triggerKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.triggerTitles[i]))
             }
 
             add(HeaderSetting(R.string.controller_hotkeys))
             Settings.hotKeys.forEachIndexed { i: Int, key: String ->
-                val button = getInputObject(key)
+                val button = InputBindingSetting.getInputObject(key, preferences)
                 add(InputBindingSetting(button, Settings.hotkeyTitles[i]))
             }
-        }
-    }
-
-    private fun getInputObject(key: String): AbstractStringSetting {
-        return object : AbstractStringSetting {
-            override var string: String
-                get() = preferences.getString(key, "")!!
-                set(value) {
-                    preferences.edit()
-                        .putString(key, value)
-                        .apply()
-                }
-            override val key = key
-            override val section = Settings.SECTION_CONTROLS
-            override val isRuntimeEditable = true
-            override val valueAsString = preferences.getString(key, "")!!
-            override val defaultValue = ""
         }
     }
 

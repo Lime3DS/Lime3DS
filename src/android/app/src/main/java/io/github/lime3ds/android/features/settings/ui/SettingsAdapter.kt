@@ -38,6 +38,7 @@ import io.github.lime3ds.android.features.settings.model.AbstractStringSetting
 import io.github.lime3ds.android.features.settings.model.FloatSetting
 import io.github.lime3ds.android.features.settings.model.ScaledFloatSetting
 import io.github.lime3ds.android.features.settings.model.AbstractShortSetting
+import io.github.lime3ds.android.features.settings.model.Settings
 import io.github.lime3ds.android.features.settings.model.view.DateTimeSetting
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
 import io.github.lime3ds.android.features.settings.model.view.SettingsItem
@@ -59,6 +60,7 @@ import io.github.lime3ds.android.features.settings.ui.viewholder.SubmenuViewHold
 import io.github.lime3ds.android.features.settings.ui.viewholder.SwitchSettingViewHolder
 import io.github.lime3ds.android.fragments.MessageDialogFragment
 import io.github.lime3ds.android.fragments.MotionBottomSheetDialogFragment
+import io.github.lime3ds.android.utils.PermissionsHandler.preferences
 import io.github.lime3ds.android.utils.SystemSaveGame
 import java.lang.IllegalStateException
 import java.lang.NumberFormatException
@@ -461,6 +463,32 @@ class SettingsAdapter(
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
+    }
+
+    fun onClickAutoconfigureControls() {
+
+        val buttons = arrayListOf(
+            Settings.buttonKeys,
+            Settings.circlePadKeys,
+            Settings.cStickKeys,
+            Settings.dPadAxisKeys,
+            Settings.dPadButtonKeys,
+            Settings.triggerKeys
+        )
+
+        val titles = arrayListOf(
+            Settings.buttonTitles,
+            Settings.axisTitles,
+            Settings.axisTitles,
+            Settings.axisTitles,
+            Settings.dpadTitles,
+            Settings.triggerTitles
+        )
+
+        Settings.buttonTitles
+        ControllerAutomappingDialog(context, buttons, titles, preferences).show()
+
+
     }
 
     fun closeDialog() {

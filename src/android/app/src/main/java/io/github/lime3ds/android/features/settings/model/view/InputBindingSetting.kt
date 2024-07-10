@@ -16,6 +16,7 @@ import io.github.lime3ds.android.NativeLibrary
 import io.github.lime3ds.android.R
 import io.github.lime3ds.android.features.hotkeys.Hotkey
 import io.github.lime3ds.android.features.settings.model.AbstractSetting
+import io.github.lime3ds.android.features.settings.model.AbstractStringSetting
 import io.github.lime3ds.android.features.settings.model.Settings
 
 class InputBindingSetting(
@@ -301,5 +302,22 @@ class InputBindingSetting(
          */
         fun getInputAxisOrientationKey(axis: Int): String =
             "${getInputAxisKey(axis)}_GuestOrientation"
+
+        fun getInputObject(key: String, preferences: SharedPreferences): AbstractStringSetting {
+            return object : AbstractStringSetting {
+                override var string: String
+                    get() = preferences.getString(key, "")!!
+                    set(value) {
+                        preferences.edit()
+                            .putString(key, value)
+                            .apply()
+                    }
+                override val key = key
+                override val section = Settings.SECTION_CONTROLS
+                override val isRuntimeEditable = true
+                override val valueAsString = preferences.getString(key, "")!!
+                override val defaultValue = ""
+            }
+        }
     }
 }
