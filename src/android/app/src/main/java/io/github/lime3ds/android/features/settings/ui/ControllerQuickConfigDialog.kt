@@ -11,12 +11,12 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import io.github.lime3ds.android.R
-import io.github.lime3ds.android.databinding.DialogControllerautomappingBinding
+import io.github.lime3ds.android.databinding.DialogControllerQuickConfigBinding
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
 import kotlin.math.abs
 
 
-class ControllerAutomappingDialog(
+class ControllerQuickConfigDialog(
     private var context: Context,
     buttons: ArrayList<List<String>>,
     titles: ArrayList<List<Int>>,
@@ -25,7 +25,7 @@ class ControllerAutomappingDialog(
 
     private var index = 0
     val inflater = LayoutInflater.from(context)
-    val automappingBinding = DialogControllerautomappingBinding.inflate(inflater)
+    val automappingBinding = DialogControllerQuickConfigBinding.inflate(inflater)
     var dialog: AlertDialog? = null
 
     var allButtons = arrayListOf<String>()
@@ -90,7 +90,7 @@ class ControllerAutomappingDialog(
 
         var lastTitle = setting?.value ?: ""
         if(lastTitle.isBlank()) {
-            lastTitle = context.getString(R.string.automapping_unassigned)
+            lastTitle = context.getString(R.string.controller_quick_config_unassigned)
         }
         automappingBinding.lastMappingDescription.text = lastTitle
         automappingBinding.lastMappingIcon.setImageDrawable(automappingBinding.currentMappingIcon.drawable)
@@ -103,7 +103,7 @@ class ControllerAutomappingDialog(
 
         if (allButtons.size-1 < index) {
             dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.text =
-                context.getString(R.string.automapping_dialog_finish)
+                context.getString(R.string.controller_quick_config_finish)
             dialog?.getButton(AlertDialog.BUTTON_NEGATIVE)?.visibility = View.GONE
         }
 
@@ -149,10 +149,7 @@ class ControllerAutomappingDialog(
     private var prevDeviceId = 0
     private var waitingForEvent = true
     private var setting: InputBindingSetting? = null
-
-
     private var debounceTimestamp = System.currentTimeMillis()
-
 
     private fun onKeyEvent(event: KeyEvent): Boolean {
         return when (event.action) {
@@ -179,7 +176,6 @@ class ControllerAutomappingDialog(
         if (event.action != MotionEvent.ACTION_MOVE) return false
 
         val input = event.device
-
         val motionRanges = input.motionRanges
 
         if (input.id != prevDeviceId) {

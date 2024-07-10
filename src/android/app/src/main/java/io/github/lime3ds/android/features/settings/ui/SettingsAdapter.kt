@@ -60,7 +60,7 @@ import io.github.lime3ds.android.features.settings.ui.viewholder.SubmenuViewHold
 import io.github.lime3ds.android.features.settings.ui.viewholder.SwitchSettingViewHolder
 import io.github.lime3ds.android.fragments.MessageDialogFragment
 import io.github.lime3ds.android.fragments.MotionBottomSheetDialogFragment
-import io.github.lime3ds.android.utils.PermissionsHandler.preferences
+import io.github.lime3ds.android.utils.PermissionsHandler
 import io.github.lime3ds.android.utils.SystemSaveGame
 import java.lang.IllegalStateException
 import java.lang.NumberFormatException
@@ -465,8 +465,7 @@ class SettingsAdapter(
             .show()
     }
 
-    fun onClickAutoconfigureControls() {
-
+    fun onClickControllerQuickConfig() {
         val buttons = arrayListOf(
             Settings.buttonKeys,
             Settings.circlePadKeys,
@@ -485,10 +484,7 @@ class SettingsAdapter(
             Settings.triggerTitles
         )
 
-        Settings.buttonTitles
-        ControllerAutomappingDialog(context, buttons, titles, preferences).show()
-
-
+        ControllerQuickConfigDialog(context, buttons, titles, PermissionsHandler.preferences).show()
     }
 
     fun closeDialog() {

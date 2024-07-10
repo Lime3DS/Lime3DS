@@ -136,6 +136,9 @@
     <string name="button_zr" translatable="false">ZR</string>
     <string name="input_message_analog_only">This control must be bound to a gamepad analog stick or D-pad axis!</string>
     <string name="input_message_button_only">This control must be bound to a gamepad button!</string>
+    <string name="controller_quick_config">Quick Configure</string>
+    <string name="controller_quick_config_finish">Finish</string>
+    <string name="controller_quick_config_unassigned">Unassigned</string>
 
     <!-- System files strings -->
     <string name="system_files">System Files</string>
@@ -165,7 +168,6 @@
     <string name="home_menu_warning_description">Due to how slow Android\'s storage access framework is for accessing Lime3DS\'s files, downloading multiple versions of system files can dramatically slow down loading for games, save states, and the games list. Only download the files that you require to avoid any issues with loading speeds.</string>
 
     <!-- Generic buttons (Shared with lots of stuff) -->
-    <string name="auto_configure">Auto Configuration</string>
     <string name="generic_buttons">Buttons</string>
     <string name="button">Button</string>
 
@@ -715,7 +717,5 @@
     <string name="artic_base_connect_description">Connect to a real console that is running an Artic Base server</string>
     <string name="artic_base_connect">Connect to Artic Base</string>
     <string name="artic_base_enter_address">Enter Artic Base server address</string>
-    <string name="automapping_dialog_finish">Finish</string>
-    <string name="automapping_unassigned">Unassigned</string>
 
 </resources>

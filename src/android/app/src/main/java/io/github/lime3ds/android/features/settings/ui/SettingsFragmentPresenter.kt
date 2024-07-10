@@ -601,15 +601,13 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addControlsSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_controls))
         sl.apply {
-            add(HeaderSetting(R.string.auto_configure))
-
             add(
                 RunnableSetting(
-                    R.string.auto_configure,
+                    R.string.controller_quick_config,
                     0,
                     false,
                     0,
-                    { settingsAdapter.onClickAutoconfigureControls() }
+                    { settingsAdapter.onClickControllerQuickConfig() }
                 )
             )
 
