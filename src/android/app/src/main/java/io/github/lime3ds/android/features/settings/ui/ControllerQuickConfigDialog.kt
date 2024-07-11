@@ -22,10 +22,9 @@ class ControllerQuickConfigDialog(
     titles: ArrayList<List<Int>>,
     private var preferences: SharedPreferences
 ) {
-
     private var index = 0
     val inflater = LayoutInflater.from(context)
-    val automappingBinding = DialogControllerQuickConfigBinding.inflate(inflater)
+    val quickConfigBinding = DialogControllerQuickConfigBinding.inflate(inflater)
     var dialog: AlertDialog? = null
 
     var allButtons = arrayListOf<String>()
@@ -42,14 +41,13 @@ class ControllerQuickConfigDialog(
                 allTitles.add(title)
             }
         }
-
     }
 
     fun show() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder
-            .setView(automappingBinding.root)
-            .setTitle("Automapper")
+            .setView(quickConfigBinding.root)
+            .setTitle("Quick Configure")
             .setPositiveButton("Next") {_,_ -> }
             .setNegativeButton("Close") { dialog, which ->
                 dialog.dismiss()
@@ -59,7 +57,7 @@ class ControllerQuickConfigDialog(
         dialog?.show()
 
         dialog?.setOnKeyListener { _, _, event -> onKeyEvent(event) }
-        automappingBinding.root.setOnGenericMotionListener { _, event -> onMotionEvent(event) }
+        quickConfigBinding.root.setOnGenericMotionListener { _, event -> onMotionEvent(event) }
 
         // Prepare the first element
         prepareUIforIndex(index)
@@ -69,7 +67,6 @@ class ControllerQuickConfigDialog(
             // Skip to next:
             prepareUIforIndex(index++)
         }
-
     }
 
     private fun prepareUIforIndex(i: Int) {
@@ -78,9 +75,9 @@ class ControllerQuickConfigDialog(
             return
         }
 
-        if(index>0) {
-            automappingBinding.lastMappingIcon.visibility = View.VISIBLE
-            automappingBinding.lastMappingDescription.visibility = View.VISIBLE
+        if (index>0) {
+            quickConfigBinding.lastMappingIcon.visibility = View.VISIBLE
+            quickConfigBinding.lastMappingDescription.visibility = View.VISIBLE
         }
 
         val currentButton = allButtons[i]
@@ -89,28 +86,25 @@ class ControllerQuickConfigDialog(
         val button = InputBindingSetting.getInputObject(currentButton, preferences)
 
         var lastTitle = setting?.value ?: ""
-        if(lastTitle.isBlank()) {
+        if (lastTitle.isBlank()) {
             lastTitle = context.getString(R.string.controller_quick_config_unassigned)
         }
-        automappingBinding.lastMappingDescription.text = lastTitle
-        automappingBinding.lastMappingIcon.setImageDrawable(automappingBinding.currentMappingIcon.drawable)
+        quickConfigBinding.lastMappingDescription.text = lastTitle
+        quickConfigBinding.lastMappingIcon.setImageDrawable(quickConfigBinding.currentMappingIcon.drawable)
+
         setting = InputBindingSetting(button, currentTitleInt)
-
-        automappingBinding.currentMappingTitle.text = calculateTitle()
-        automappingBinding.currentMappingDescription.text = setting?.value
-        automappingBinding.currentMappingIcon.setImageDrawable(getIcon())
-
+        quickConfigBinding.currentMappingTitle.text = calculateTitle()
+        quickConfigBinding.currentMappingDescription.text = setting?.value
+        quickConfigBinding.currentMappingIcon.setImageDrawable(getIcon())
 
         if (allButtons.size-1 < index) {
             dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.text =
                 context.getString(R.string.controller_quick_config_finish)
             dialog?.getButton(AlertDialog.BUTTON_NEGATIVE)?.visibility = View.GONE
         }
-
     }
 
     private fun calculateTitle(): String {
-
         val inputTypeId = when {
             setting!!.isCirclePad() -> R.string.controller_circlepad
             setting!!.isCStick() -> R.string.controller_c
@@ -135,7 +129,7 @@ class ControllerQuickConfigDialog(
             setting!!.isDPad() -> R.drawable.dpad
             else -> {
                 val resourceTitle = context.resources.getResourceEntryName(setting!!.nameId)
-                if(resourceTitle.startsWith("direction")) {
+                if (resourceTitle.startsWith("direction")) {
                     R.drawable.dpad
                 } else {
                     context.resources.getIdentifier(resourceTitle, "drawable", context.packageName)
@@ -154,26 +148,24 @@ class ControllerQuickConfigDialog(
     private fun onKeyEvent(event: KeyEvent): Boolean {
         return when (event.action) {
             KeyEvent.ACTION_UP -> {
-                if(System.currentTimeMillis()-debounceTimestamp < 500) {
+                if (System.currentTimeMillis()-debounceTimestamp < 500) {
                     return true
                 }
 
                 debounceTimestamp = System.currentTimeMillis()
-
                 index++
                 setting?.onKeyInput(event)
                 prepareUIforIndex(index)
                 // Even if we ignore the key, we still consume it. Thus return true regardless.
                 true
             }
-
             else -> false
         }
     }
 
     private fun onMotionEvent(event: MotionEvent): Boolean {
-        if (event.source and InputDevice.SOURCE_CLASS_JOYSTICK == 0) return false
-        if (event.action != MotionEvent.ACTION_MOVE) return false
+        if ((event.source and InputDevice.SOURCE_CLASS_JOYSTICK == 0) ||
+            event.action != MotionEvent.ACTION_MOVE) return false
 
         val input = event.device
         val motionRanges = input.motionRanges
@@ -224,7 +216,6 @@ class ControllerQuickConfigDialog(
                 }
                 previousValues[i] = origValue
             }
-
             // If only one axis moved, that's the winner.
             if (numMovedAxis == 1) {
                 waitingForEvent = false
@@ -233,5 +224,4 @@ class ControllerQuickConfigDialog(
         }
         return true
     }
-
 }
