@@ -148,7 +148,7 @@ class ControllerQuickConfigDialog(
     private fun onKeyEvent(event: KeyEvent): Boolean {
         return when (event.action) {
             KeyEvent.ACTION_UP -> {
-                if (System.currentTimeMillis()-debounceTimestamp < 500) {
+                if (System.currentTimeMillis()-debounceTimestamp < DEBOUNCE_TIMER) {
                     return true
                 }
 
@@ -223,5 +223,9 @@ class ControllerQuickConfigDialog(
             }
         }
         return true
+    }
+
+    companion object {
+        private const val DEBOUNCE_TIMER = 100
     }
 }
