@@ -723,5 +723,6 @@
     <string name="emulation_occupied_quicksave_slot">Quicksave - %1$tF %1$tR</string>
     <string name="quicksave_saving">Saving…</string>
     <string name="quickload_loading">Loading…</string>
+    <string name="quickload_not_found">No Quicksave available.</string>
 
 </resources>

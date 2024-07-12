@@ -518,7 +518,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         popupMenu.menu.apply {
             for (i in 0 until NativeLibrary.SAVESTATE_SLOT_COUNT) {
-                val slot = i + 1
+                val slot = i
                 var enableClick = isSaving
                 val text = if (slot == NativeLibrary.QUICKSAVE_SLOT) {
                     enableClick = false
@@ -526,6 +526,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 } else {
                     getString(R.string.emulation_empty_state_slot, slot)
                 }
+
                 add(text).setEnabled(enableClick).setOnMenuItemClickListener {
                     if(isSaving) {
                         NativeLibrary.saveState(slot)
@@ -542,12 +543,15 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         }
 
         savestates?.forEach {
+            var enableClick = true
             val text = if(it.slot == NativeLibrary.QUICKSAVE_SLOT) {
+                // do not allow saving in quicksave slot
+                enableClick = !isSaving
                 getString(R.string.emulation_occupied_quicksave_slot, it.time)
             } else{
                 getString(R.string.emulation_occupied_state_slot, it.slot, it.time)
             }
-            popupMenu.menu.getItem(it.slot - 1).setTitle(text).setEnabled(true)
+            popupMenu.menu.getItem(it.slot).setTitle(text).setEnabled(enableClick)
         }
 
         popupMenu.show()
