@@ -29,9 +29,14 @@ class HotkeyUtility(private val screenAdjustmentUtil: ScreenAdjustmentUtil, priv
                         Toast.LENGTH_SHORT).show()
                 }
                 Hotkey.QUICKLOAD.button -> {
-                    NativeLibrary.loadState(NativeLibrary.QUICKSAVE_SLOT)
+                    val wasLoaded = NativeLibrary.loadStateIfAvailable(NativeLibrary.QUICKSAVE_SLOT)
+                    val stringRes = if(wasLoaded) {
+                        R.string.quickload_loading
+                    } else {
+                        R.string.quickload_not_found
+                    }
                     Toast.makeText(context,
-                        context.getString(R.string.quickload_loading),
+                        context.getString(stringRes),
                         Toast.LENGTH_SHORT).show()
                 }
                 else -> {}

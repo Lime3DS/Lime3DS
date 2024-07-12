@@ -530,12 +530,27 @@ object NativeLibrary {
     external fun removeAmiibo()
 
     const val SAVESTATE_SLOT_COUNT = 11
-    const val QUICKSAVE_SLOT = 11
+    const val QUICKSAVE_SLOT = 0
 
     external fun getSavestateInfo(): Array<SaveStateInfo>?
 
     external fun saveState(slot: Int)
 
+
+    fun loadStateIfAvailable(slot: Int): Boolean {
+        var available = false
+        getSavestateInfo()?.forEach {
+            if (it.slot == slot){
+                available = true
+                return@forEach
+            }
+        }
+        if (available) {
+            loadState(slot)
+            return true
+        }
+        return false
+    }
     external fun loadState(slot: Int)
 
     /**
