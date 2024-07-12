@@ -35,6 +35,8 @@ class InputBindingSetting(
                 .apply()
         }
 
+    private var key: String = ""
+
     /**
      * Returns true if this key is for the 3DS Circle Pad
      */
@@ -226,6 +228,29 @@ class InputBindingSetting(
         writeButtonMapping(getInputButtonKey(keyEvent.keyCode))
         val uiString = "${keyEvent.device.name}: Button ${keyEvent.keyCode}"
         value = uiString
+    }
+
+    /**
+     * Stores the provided key input setting as an Android preference.
+     * Only gets applied when apply(); is called.
+     *
+     * @param keyEvent KeyEvent of this key press.
+     */
+    fun onKeyInputDeferred(keyEvent: KeyEvent) {
+        if (!isButtonMappingSupported()) {
+            Toast.makeText(context, R.string.input_message_analog_only, Toast.LENGTH_LONG).show()
+            return
+        }
+        key = getInputButtonKey(keyEvent.keyCode)
+        val uiString = "${keyEvent.device.name}: Button ${keyEvent.keyCode}"
+        value = uiString
+    }
+
+    /**
+     * Stores the provided key input setting as an Android preference.
+     */
+    fun applyMapping() {
+        writeButtonMapping(key)
     }
 
     /**

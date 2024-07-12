@@ -71,6 +71,7 @@ class ControllerQuickConfigDialog(
 
     private fun prepareUIforIndex(i: Int) {
         if (allButtons.size-1 < i) {
+            settingsList.forEach { it.applyMapping() }
             dialog?.dismiss()
             return
         }
@@ -145,6 +146,8 @@ class ControllerQuickConfigDialog(
     private var setting: InputBindingSetting? = null
     private var debounceTimestamp = System.currentTimeMillis()
 
+    private var settingsList = arrayListOf<InputBindingSetting>()
+
     private fun onKeyEvent(event: KeyEvent): Boolean {
         return when (event.action) {
             KeyEvent.ACTION_UP -> {
@@ -154,7 +157,10 @@ class ControllerQuickConfigDialog(
 
                 debounceTimestamp = System.currentTimeMillis()
                 index++
-                setting?.onKeyInput(event)
+                setting?.let {
+                    it.onKeyInputDeferred(event)
+                    settingsList.add(it)
+                }
                 prepareUIforIndex(index)
                 // Even if we ignore the key, we still consume it. Thus return true regardless.
                 true
