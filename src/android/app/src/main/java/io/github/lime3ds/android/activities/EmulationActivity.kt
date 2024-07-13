@@ -73,7 +73,11 @@ class EmulationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtil.setTheme(this)
 
-        settingsViewModel.settings.loadSettings()
+
+        isActivityRecreated = savedInstanceState != null
+        if (!isActivityRecreated) {
+            settingsViewModel.settings.loadSettings()
+        }
 
         super.onCreate(savedInstanceState)
 
@@ -89,7 +93,6 @@ class EmulationActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navController.setGraph(R.navigation.emulation_navigation, intent.extras)
 
-        isActivityRecreated = savedInstanceState != null
 
         // Set these options now so that the SurfaceView the game renders into is the right size.
         enableFullscreenImmersive()
