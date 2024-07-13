@@ -497,7 +497,6 @@
     <string name="device_orientation_system">Follow System Setting</string>
     <string name="device_orientation_landscape">Landscape</string>
     <string name="device_orientation_portrait">Portrait</string>
-    <string name="device_orientation_auto">Follow Device</string>
 
     <!-- Clock types -->
     <string name="device_clock">Device Clock</string>

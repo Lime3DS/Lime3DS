@@ -196,7 +196,6 @@
         <item>@string/device_orientation_system</item>
         <item>@string/device_orientation_landscape</item>
         <item>@string/device_orientation_portrait</item>
-        <item>@string/device_orientation_auto</item>
     </string-array>
 
     <!-- See: https://developer.android.com/reference/android/content/pm/ActivityInfo#SCREEN_ORIENTATION_SENSOR-->
@@ -204,7 +203,6 @@
         <item>2</item>
         <item>6</item>
         <item>7</item>
-        <item>4</item>
     </integer-array>
 
     <string-array name="systemFileRegions">
