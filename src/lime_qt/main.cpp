@@ -344,6 +344,11 @@ void GMainWindow::InitializeWidgets() {
     secondary_window->hide();
     secondary_window->setParent(nullptr);
 
+    action_secondary_fullscreen = new QAction(secondary_window);
+    action_secondary_toggle_screen = new QAction(secondary_window);
+    action_secondary_swap_screen = new QAction(secondary_window);
+    action_secondary_rotate_screen = new QAction(secondary_window);
+
     game_list = new GameList(*play_time_manager, this);
     ui->horizontalLayout->addWidget(game_list);
 
@@ -600,7 +605,7 @@ void GMainWindow::InitializeSaveStateMenuActions() {
     UpdateSaveStates();
 }
 
-void GMainWindow::InitializeHotkeys() {
+void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
     hotkey_registry.LoadHotkeys();
 
     const QString main_window = QStringLiteral("Main Window");
@@ -643,28 +648,32 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Show_Room, QStringLiteral("Multiplayer Show Current Room"));
     link_action_shortcut(ui->action_Leave_Room, QStringLiteral("Multiplayer Leave Room"));
 
-    const auto add_secondary_window_hotkey = [this](QKeySequence hotkey, const char* slot) {
+    const auto add_secondary_window_hotkey = [this](QAction* action, QKeySequence hotkey,
+                                                    const char* slot) {
         // This action will fire specifically when secondary_window is in focus
-        QAction* secondary_window_action = new QAction(secondary_window);
-        secondary_window_action->setShortcut(hotkey);
-
-        connect(secondary_window_action, SIGNAL(triggered()), this, slot);
-        secondary_window->addAction(secondary_window_action);
+        action->setShortcut(hotkey);
+        disconnect(action, SIGNAL(triggered()), this, slot);
+        connect(action, SIGNAL(triggered()), this, slot);
+        secondary_window->addAction(action);
     };
 
     // Use the same fullscreen hotkey as the main window
     const auto fullscreen_hotkey = hotkey_registry.GetKeySequence(main_window, fullscreen);
-    add_secondary_window_hotkey(fullscreen_hotkey, SLOT(ToggleSecondaryFullscreen()));
+    add_secondary_window_hotkey(action_secondary_fullscreen, fullscreen_hotkey,
+                                SLOT(ToggleSecondaryFullscreen()));
 
     const auto toggle_screen_hotkey =
         hotkey_registry.GetKeySequence(main_window, toggle_screen_layout);
-    add_secondary_window_hotkey(toggle_screen_hotkey, SLOT(ToggleScreenLayout()));
+    add_secondary_window_hotkey(action_secondary_toggle_screen, toggle_screen_hotkey,
+                                SLOT(ToggleScreenLayout()));
 
     const auto swap_screen_hotkey = hotkey_registry.GetKeySequence(main_window, swap_screens);
-    add_secondary_window_hotkey(swap_screen_hotkey, SLOT(TriggerSwapScreens()));
+    add_secondary_window_hotkey(action_secondary_swap_screen, swap_screen_hotkey,
+                                SLOT(TriggerSwapScreens()));
 
     const auto rotate_screen_hotkey = hotkey_registry.GetKeySequence(main_window, rotate_screens);
-    add_secondary_window_hotkey(rotate_screen_hotkey, SLOT(TriggerRotateScreens()));
+    add_secondary_window_hotkey(action_secondary_rotate_screen, rotate_screen_hotkey,
+                                SLOT(TriggerRotateScreens()));
 
     const auto connect_shortcut = [&](const QString& action_name, const auto& function) {
         const auto* hotkey = hotkey_registry.GetHotkey(main_window, action_name, this);
