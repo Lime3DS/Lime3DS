@@ -407,6 +407,12 @@ private:
     u32 newest_slot;
     u64 newest_slot_time;
 
+    // Secondary window actions
+    QAction* action_secondary_fullscreen;
+    QAction* action_secondary_toggle_screen;
+    QAction* action_secondary_swap_screen;
+    QAction* action_secondary_rotate_screen;
+
     QTranslator translator;
 
     // stores default icon theme search paths for the platform
