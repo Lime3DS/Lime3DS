@@ -128,6 +128,8 @@ void Config::ReadValues() {
         static_cast<u16>(sdl2_config->GetInteger("Controls", "udp_input_port",
                                                  InputCommon::CemuhookUDP::DEFAULT_PORT));
 
+    ReadSetting("Controls", Settings::values.use_artic_base_controller);
+
     // Core
     ReadSetting("Core", Settings::values.use_cpu_jit);
     ReadSetting("Core", Settings::values.cpu_clock_percentage);

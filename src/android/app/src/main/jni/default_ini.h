@@ -86,6 +86,9 @@ udp_input_port=
 # The pad to request data on. Should be between 0 (Pad 1) and 3 (Pad 4). (Default 0)
 udp_pad_index=
 
+# Use Artic Controller when connected to Artic Base Server. (Default 0)
+use_artic_base_controller=
+
 [Core]
 # Whether to use the Just-In-Time (JIT) compiler for CPU emulation
 # 0: Interpreter (slow), 1 (default): JIT (fast)

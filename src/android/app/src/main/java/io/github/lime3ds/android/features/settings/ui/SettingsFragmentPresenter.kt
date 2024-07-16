@@ -643,6 +643,16 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 val button = getInputObject(key)
                 add(InputBindingSetting(button, Settings.hotkeyTitles[i]))
             }
+            add(HeaderSetting(R.string.miscellaneous))
+            add(
+                SwitchSetting(
+                    IntSetting.USE_ARTIC_BASE_CONTROLLER,
+                    R.string.use_artic_base_controller,
+                    R.string.use_artic_base_controller_desc,
+                    IntSetting.USE_ARTIC_BASE_CONTROLLER.key,
+                    IntSetting.USE_ARTIC_BASE_CONTROLLER.defaultValue
+                )
+            )
         }
     }
 

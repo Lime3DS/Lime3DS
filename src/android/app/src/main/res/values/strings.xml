@@ -714,5 +714,8 @@
     <string name="artic_base_connect_description">Connect to a real console that is running an Artic Base server</string>
     <string name="artic_base_connect">Connect to Artic Base</string>
     <string name="artic_base_enter_address">Enter Artic Base server address</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="use_artic_base_controller">Use Artic Controller when connected to Artic Base Server</string>
+    <string name="use_artic_base_controller_desc">Use the controls provided by Artic Base Server when connected to it instead of the configured input device.</string>
 
 </resources>
