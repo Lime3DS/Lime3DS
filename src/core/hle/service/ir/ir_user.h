@@ -14,6 +14,10 @@ class Event;
 class SharedMemory;
 } // namespace Kernel
 
+namespace Service::HID {
+class ArticBaseController;
+};
+
 namespace Service::IR {
 
 class BufferManager;
@@ -56,6 +60,8 @@ public:
     ~IR_USER();
 
     void ReloadInputDevices();
+
+    void UseArticController(const std::shared_ptr<Service::HID::ArticBaseController>& ac);
 
 private:
     /**

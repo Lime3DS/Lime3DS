@@ -328,6 +328,8 @@ void Config::ReadCameraValues() {
 void Config::ReadControlValues() {
     qt_config->beginGroup(QStringLiteral("Controls"));
 
+    ReadBasicSetting(Settings::values.use_artic_base_controller);
+
     int num_touch_from_button_maps =
         qt_config->beginReadArray(QStringLiteral("touch_from_button_maps"));
 
@@ -939,6 +941,8 @@ void Config::SaveCameraValues() {
 
 void Config::SaveControlValues() {
     qt_config->beginGroup(QStringLiteral("Controls"));
+
+    WriteBasicSetting(Settings::values.use_artic_base_controller);
 
     WriteSetting(QStringLiteral("profile"), Settings::values.current_input_profile_index, 0);
     qt_config->beginWriteArray(QStringLiteral("profiles"));

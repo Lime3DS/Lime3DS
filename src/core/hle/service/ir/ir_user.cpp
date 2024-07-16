@@ -480,6 +480,12 @@ void IR_USER::ReloadInputDevices() {
     extra_hid->RequestInputDevicesReload();
 }
 
+void IR_USER::UseArticController(const std::shared_ptr<Service::HID::ArticBaseController>& ac) {
+    if (extra_hid.get()) {
+        extra_hid->UseArticController(ac);
+    }
+}
+
 IRDevice::IRDevice(SendFunc send_func_) : send_func(send_func_) {}
 IRDevice::~IRDevice() = default;
 
