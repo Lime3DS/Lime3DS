@@ -159,11 +159,15 @@ static QString PrettyProductName() {
 
 GMainWindow::GMainWindow(Core::System& system_)
     : ui{std::make_unique<Ui::MainWindow>()}, system{system_}, movie{system.Movie()},
-      config{std::make_unique<Config>()}, emu_thread{nullptr} {
+      emu_thread{nullptr} {
     Common::Log::Initialize();
     Common::Log::Start();
 
     Debugger::ToggleConsole();
+
+    CheckForMigration();
+
+    this->config = std::make_unique<Config>();
 
 #ifdef __unix__
     SetGamemodeEnabled(Settings::values.enable_gamemode.GetValue());
@@ -1098,6 +1102,55 @@ void GMainWindow::ShowUpdaterWidgets() {
     connect(updater, &Updater::CheckUpdatesDone, this, &GMainWindow::OnUpdateFound);
 }
 #endif
+
+void GMainWindow::CheckForMigration() {
+    namespace fs = std::filesystem;
+    if (fs::is_directory(FileUtil::GetUserPath(FileUtil::UserPath::LegacyUserDir)) &&
+        !fs::is_directory(FileUtil::GetUserPath(FileUtil::UserPath::UserDir))) {
+        if (QMessageBox::information(
+                this, tr("Migration"),
+                tr("Lime3DS has moved to a new data directory.\n\n"
+                   "Would you like to migrate your Citra data to this new "
+                   "location?\n"
+                   "(This may take a while; The old data will not be deleted)"),
+                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) {
+            MigrateUserData();
+        } else {
+            QMessageBox::information(this, tr("Migration"),
+                                     tr("You can manually re-trigger this prompt by deleting the "
+                                        "new user data directory:\n"
+                                        "%1")
+                                         .arg(QString::fromStdString(
+                                             FileUtil::GetUserPath(FileUtil::UserPath::UserDir))),
+                                     QMessageBox::Ok);
+        }
+    }
+}
+
+void GMainWindow::MigrateUserData() {
+    namespace fs = std::filesystem;
+    const auto copyOptions = fs::copy_options::update_existing | fs::copy_options::recursive;
+
+    fs::copy(FileUtil::GetUserPath(FileUtil::UserPath::LegacyUserDir),
+             FileUtil::GetUserPath(FileUtil::UserPath::UserDir), copyOptions);
+    if (fs::is_directory(FileUtil::GetUserPath(FileUtil::UserPath::LegacyConfigDir))) {
+        fs::copy(FileUtil::GetUserPath(FileUtil::UserPath::LegacyConfigDir),
+                 FileUtil::GetUserPath(FileUtil::UserPath::ConfigDir), copyOptions);
+    }
+    if (fs::is_directory(FileUtil::GetUserPath(FileUtil::UserPath::LegacyCacheDir))) {
+        fs::copy(FileUtil::GetUserPath(FileUtil::UserPath::LegacyCacheDir),
+                 FileUtil::GetUserPath(FileUtil::UserPath::CacheDir), copyOptions);
+    }
+
+    QMessageBox::information(
+        this, tr("Migration"),
+        tr("Data was migrated successfully. Lime3DS will now start.\n\n"
+           "If you wish to clean up the files which were left in the old data location, you can do "
+           "so by deleting the following directory:\n"
+           "%1")
+            .arg(QString::fromStdString(FileUtil::GetUserPath(FileUtil::UserPath::LegacyUserDir))),
+        QMessageBox::Ok);
+}
 
 #if defined(HAVE_SDL2) && defined(__unix__) && !defined(__APPLE__)
 static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
