@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">此软件可以运行任天堂 3DS 掌机游戏。本软件不包含任何游戏。\n\n在开始前，请选择一个文件夹来存储 Lime3DS 用户数据。\n\n了解更多：\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>WiKi - Android 版 Lime3DS 的用户数据及存储</a></string>
     <string name="app_notification_channel_description">Lime3DS 模拟器</string>
     <string name="app_notification_running">Lime3DS 正在运行</string>
     <string name="app_game_install_description">接下来，您需要选择一个游戏目录。Lime3DS 将显示所选目录中的所有 3DS ROM。\n\nCIA 格式的 ROM、游戏更新和 DLC 需要分别进行安装，具体为点击文件夹图标并选择“安装 CIA”。</string>
@@ -79,17 +78,13 @@
     <string name="permission_denied">授权遭拒</string>
     <string name="add_games_warning">跳过选择游戏文件夹？</string>
     <string name="add_games_warning_description">如果不选择游戏文件夹，游戏将不会显示在游戏列表中。</string>
-    <string name="add_games_warning_help">https://citra-emu.org/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">帮助</string>
     <string name="warning_skip">跳过</string>
     <string name="warning_cancel">取消</string>
     <string name="select_citra_user_folder">选择用户文件夹</string>
-    <string name="select_citra_user_folder_description"><![CDATA[使用下方按钮选择您的<a href=\"https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">用户数据</a>文件夹。]]></string>
     <string name="select">选择</string>
     <string name="cannot_skip">此步骤不可跳过</string>
     <string name="cannot_skip_directory_description">运行 Lime3DS 的必需步骤。请选择一个文件夹，然后才可继续。</string>
-    <string name="cannot_skip_directory_help">https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
-
     <!-- Search Strings -->
     <string name="search_and_filter_games">搜索和游戏过滤器</string>
     <string name="home_search_games">搜索游戏</string>
@@ -125,7 +120,6 @@
     <string name="download">下载</string>
     <string name="start">开始</string>
     <string name="keys_missing">Lime3DS 缺失下载系统文件所需的密钥。</string>
-    <string name="how_to_get_keys"><![CDATA[<a href=\"https://citra-emu.org/wiki/aes-keys/\">如何获取密钥？</a>]]></string>
     <string name="show_home_apps">在游戏列表中显示 HOME 菜单小程序</string>
     <string name="run_system_setup">启动 HOME 菜单时运行系统设置</string>
     <string name="system_type_minimal">最小化</string>
@@ -261,7 +255,6 @@
     <string name="learn_more">了解更多</string>
     <string name="close">关闭</string>
     <string name="reset_to_default">恢复默认</string>
-    <string name="redump_games"><![CDATA[请按照指南重新转储您的<a href=\"https://citra-emu.org/wiki/dumping-game-cartridges/\">游戏卡带</a>或<a href=\"https://citra-emu.org/wiki/dumping-installed-titles/\">已安装的游戏</a>。]]></string>
     <string name="option_default">默认</string>
     <string name="none">无</string>
     <string name="auto">自动</string>
