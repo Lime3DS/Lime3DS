@@ -387,33 +387,27 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped, bool
     ASSERT(height > 0);
 
     FramebufferLayout res{width, height, true, true, {}, {}, !Settings::values.upright_screen};
-    u16 top_x = is_portrait_mode ?
-            Settings::values.custom_portrait_top_x.GetValue() :
-            Settings::values.custom_top_x.GetValue();
-    u16 top_width = is_portrait_mode ?
-                   Settings::values.custom_portrait_top_width.GetValue() :
-                   Settings::values.custom_top_width.GetValue();
-    u16 top_y = is_portrait_mode ?
-                   Settings::values.custom_portrait_top_y.GetValue() :
-                   Settings::values.custom_top_y.GetValue();
-    u16 top_height = is_portrait_mode ?
-                   Settings::values.custom_portrait_top_height.GetValue() :
-                   Settings::values.custom_top_height.GetValue();
-    u16 bottom_x = is_portrait_mode ?
-                   Settings::values.custom_portrait_bottom_x.GetValue() :
-                   Settings::values.custom_bottom_x.GetValue();
-    u16 bottom_width = is_portrait_mode ?
-                   Settings::values.custom_portrait_bottom_width.GetValue() :
-                   Settings::values.custom_bottom_width.GetValue();
-    u16 bottom_y = is_portrait_mode ?
-                   Settings::values.custom_portrait_bottom_y.GetValue() :
-                   Settings::values.custom_bottom_y.GetValue();
-    u16 bottom_height = is_portrait_mode ?
-                   Settings::values.custom_portrait_bottom_height.GetValue() :
-                   Settings::values.custom_bottom_height.GetValue();
+    u16 top_x = is_portrait_mode ? Settings::values.custom_portrait_top_x.GetValue()
+                                 : Settings::values.custom_top_x.GetValue();
+    u16 top_width = is_portrait_mode ? Settings::values.custom_portrait_top_width.GetValue()
+                                     : Settings::values.custom_top_width.GetValue();
+    u16 top_y = is_portrait_mode ? Settings::values.custom_portrait_top_y.GetValue()
+                                 : Settings::values.custom_top_y.GetValue();
+    u16 top_height = is_portrait_mode ? Settings::values.custom_portrait_top_height.GetValue()
+                                      : Settings::values.custom_top_height.GetValue();
+    u16 bottom_x = is_portrait_mode ? Settings::values.custom_portrait_bottom_x.GetValue()
+                                    : Settings::values.custom_bottom_x.GetValue();
+    u16 bottom_width = is_portrait_mode ? Settings::values.custom_portrait_bottom_width.GetValue()
+                                        : Settings::values.custom_bottom_width.GetValue();
+    u16 bottom_y = is_portrait_mode ? Settings::values.custom_portrait_bottom_y.GetValue()
+                                    : Settings::values.custom_bottom_y.GetValue();
+    u16 bottom_height = is_portrait_mode ? Settings::values.custom_portrait_bottom_height.GetValue()
+                                         : Settings::values.custom_bottom_height.GetValue();
 
-    Common::Rectangle<u32> top_screen{top_x, top_y, (u32)(top_x + top_width), (u32)(top_y + top_height)};
-    Common::Rectangle<u32> bot_screen{bottom_x, bottom_y, (u32)(bottom_x + bottom_width), (u32)(bottom_y + bottom_height)};
+    Common::Rectangle<u32> top_screen{top_x, top_y, (u32)(top_x + top_width),
+                                      (u32)(top_y + top_height)};
+    Common::Rectangle<u32> bot_screen{bottom_x, bottom_y, (u32)(bottom_x + bottom_width),
+                                      (u32)(bottom_y + bottom_height)};
 
     if (is_swapped) {
         res.top_screen = bot_screen;
@@ -427,29 +421,28 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped, bool
 
 FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondary) {
     bool is_portrait_mode =
-            Settings::values.layout_option.GetValue() == Settings::LayoutOption::MobilePortrait;
-    if (Settings::values.custom_layout.GetValue() == true && ! is_portrait_mode) {
+        Settings::values.layout_option.GetValue() == Settings::LayoutOption::MobilePortrait;
+    if (Settings::values.custom_layout.GetValue() == true && !is_portrait_mode) {
         return CustomFrameLayout(std::max(Settings::values.custom_top_x.GetValue() +
-                                          Settings::values.custom_top_width.GetValue(),
+                                              Settings::values.custom_top_width.GetValue(),
                                           Settings::values.custom_bottom_x.GetValue() +
-                                          Settings::values.custom_bottom_width.GetValue()),
+                                              Settings::values.custom_bottom_width.GetValue()),
                                  std::max(Settings::values.custom_top_y.GetValue() +
-                                          Settings::values.custom_top_height.GetValue(),
+                                              Settings::values.custom_top_height.GetValue(),
                                           Settings::values.custom_bottom_y.GetValue() +
-                                          Settings::values.custom_bottom_height.GetValue()),
-                                 Settings::values.swap_screen.GetValue(),
-                                 is_portrait_mode);
-    }else if (Settings::values.custom_portrait_layout.GetValue() == true && is_portrait_mode) {
-        return CustomFrameLayout(std::max(Settings::values.custom_portrait_top_x.GetValue() +
-                                          Settings::values.custom_portrait_top_width.GetValue(),
-                                          Settings::values.custom_portrait_bottom_x.GetValue() +
-                                          Settings::values.custom_portrait_bottom_width.GetValue()),
-                                 std::max(Settings::values.custom_portrait_top_y.GetValue() +
-                                          Settings::values.custom_portrait_top_height.GetValue(),
-                                          Settings::values.custom_portrait_bottom_y.GetValue() +
-                                          Settings::values.custom_portrait_bottom_height.GetValue()),
-                                 Settings::values.swap_screen.GetValue(),
-                                 is_portrait_mode);
+                                              Settings::values.custom_bottom_height.GetValue()),
+                                 Settings::values.swap_screen.GetValue(), is_portrait_mode);
+    } else if (Settings::values.custom_portrait_layout.GetValue() == true && is_portrait_mode) {
+        return CustomFrameLayout(
+            std::max(Settings::values.custom_portrait_top_x.GetValue() +
+                         Settings::values.custom_portrait_top_width.GetValue(),
+                     Settings::values.custom_portrait_bottom_x.GetValue() +
+                         Settings::values.custom_portrait_bottom_width.GetValue()),
+            std::max(Settings::values.custom_portrait_top_y.GetValue() +
+                         Settings::values.custom_portrait_top_height.GetValue(),
+                     Settings::values.custom_portrait_bottom_y.GetValue() +
+                         Settings::values.custom_portrait_bottom_height.GetValue()),
+            Settings::values.swap_screen.GetValue(), is_portrait_mode);
     }
 
     int width, height;

@@ -515,7 +515,6 @@ struct Values {
     Setting<u16> custom_portrait_bottom_width{360, "custom_portrait_bottom_width"};
     Setting<u16> custom_portrait_bottom_height{480, "custom_portrait_bottom_height"};
 
-
     SwitchableSetting<float> bg_red{0.f, "bg_red"};
     SwitchableSetting<float> bg_green{0.f, "bg_green"};
     SwitchableSetting<float> bg_blue{0.f, "bg_blue"};
