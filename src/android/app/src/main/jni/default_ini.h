@@ -176,14 +176,13 @@ anaglyph_shader_name =
 filter_mode =
 
 [Layout]
-# Layout for the screen inside the render window.
-# 0 (default): Default Top Bottom Screen, 1: Single Screen Only, 2: Large Screen Small Screen, 3: Side by Side
+# Layout for the screen inside the render window, landscape mode
+# 0 (default): Default Top Bottom Screen,
+# 1: Single Screen Only,
+# 2: Large Screen Small Screen
+# 3: Side by Side
+# 4: Custom Layout
 layout_option =
-
-# Toggle custom layout (using the settings below) on or off.
-# Only applies to landscape on Android
-# 0 (default): Off, 1: On
-custom_layout =
 
 # Screen placement when using Custom layout option
 # 0x, 0y is the top left corner of the render window.
@@ -196,12 +195,12 @@ custom_bottom_y =
 custom_bottom_width =
 custom_bottom_height =
 
-# Custom Layout Options for Android Portrait Mode
-# Toggle custom layout (using the settings below) on or off.
-# 0 (default): Off, 1: On
-custom_portrait_layout =
+# Layout for the portrait mode
+# 0 (default): Top and bottom screens at top, full width
+# 1: Custom Layout
+portrait_layout_option =
 
-# Screen placement when using Custom layout option
+# Screen placement when using Portrait Custom layout option
 # 0x, 0y is the top left corner of the render window.
 custom_portrait_top_x =
 custom_portrait_top_y =

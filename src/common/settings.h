@@ -33,6 +33,7 @@ enum class InitTicks : u32 {
     Fixed = 1,
 };
 
+/** Defines the layout option for desktop and mobile landscape */
 enum class LayoutOption : u32 {
     Default,
     SingleScreen,
@@ -42,17 +43,18 @@ enum class LayoutOption : u32 {
     SeparateWindows,
 #endif
     HybridScreen,
-#ifndef ANDROID // TODO: Implement custom layouts on Android
     CustomLayout,
-#endif
-    // Similiar to default, but better for mobile devices in portrait mode. Top screen in clamped to
-    // the top of the frame, and the bottom screen is enlarged to match the top screen.
-    MobilePortrait,
 
     // Similiar to LargeScreen, but better for mobile devices in landscape mode. The screens are
     // clamped to the top of the frame, and the bottom screen is a bit bigger.
     MobileLandscape,
 };
+
+enum class PortraitLayoutOption : u32 {
+    //formerly mobile portrait
+    PortraitTopFullWidth,
+    PortraitCustomLayout
+}
 
 enum class StereoRenderOption : u32 {
     Off = 0,
@@ -481,12 +483,15 @@ struct Values {
     SwitchableSetting<TextureFilter> texture_filter{TextureFilter::None, "texture_filter"};
     SwitchableSetting<TextureSampling> texture_sampling{TextureSampling::GameControlled,
                                                         "texture_sampling"};
-
     SwitchableSetting<LayoutOption> layout_option{LayoutOption::Default, "layout_option"};
+    SwitchableSetting<PortraitLayoutOption> portrait_layout_option{
+        PortraitLayoutOption::PortraitTopFullWidth, "portrait_layout_option"};
     SwitchableSetting<bool> swap_screen{false, "swap_screen"};
     SwitchableSetting<bool> upright_screen{false, "upright_screen"};
     SwitchableSetting<float, true> large_screen_proportion{4.f, 1.f, 16.f,
                                                            "large_screen_proportion"};
+    // I think the custom_layout setting below is no longer needed
+    // since custom layout is now just part of the layout option above?
     Setting<bool> custom_layout{false, "custom_layout"};
     Setting<u16> custom_top_x{0, "custom_top_x"};
     Setting<u16> custom_top_y{0, "custom_top_y"};
@@ -505,7 +510,8 @@ struct Values {
     Setting<u16> screen_bottom_leftright_padding{0, "screen_bottom_leftright_padding"};
     Setting<u16> screen_bottom_topbottom_padding{0, "screen_bottom_topbottom_padding"};
 
-    Setting<bool> custom_portrait_layout{false, "custom_portrait_layout"};
+    SwitchableSetting<PortraitLayoutOption> portrait_layout_option{
+        PortraitLayoutOption::PortraitTopFullWidth, "portrait_layout_option"};
     Setting<u16> custom_portrait_top_x{0, "custom_portrait_top_x"};
     Setting<u16> custom_portrait_top_y{0, "custom_portrait_top_y"};
     Setting<u16> custom_portrait_top_width{400, "custom_portrait_top_width"};

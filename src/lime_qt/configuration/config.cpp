@@ -536,7 +536,7 @@ void Config::ReadLayoutValues() {
         ReadBasicSetting(Settings::values.screen_bottom_stretch);
         ReadBasicSetting(Settings::values.screen_bottom_leftright_padding);
         ReadBasicSetting(Settings::values.screen_bottom_topbottom_padding);
-        ReadBasicSetting(Settings::values.custom_portrait_layout);
+        ReadBasicSetting(Settings::values.portrait_layout_option);
         ReadBasicSetting(Settings::values.custom_portrait_top_x);
         ReadBasicSetting(Settings::values.custom_portrait_top_y);
         ReadBasicSetting(Settings::values.custom_portrait_top_width);

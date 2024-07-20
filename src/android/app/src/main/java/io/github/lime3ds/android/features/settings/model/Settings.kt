@@ -131,7 +131,6 @@ class Settings {
         const val KEY_CSTICK_AXIS_HORIZONTAL = "cstick_axis_horizontal"
         const val KEY_DPAD_AXIS_VERTICAL = "dpad_axis_vertical"
         const val KEY_DPAD_AXIS_HORIZONTAL = "dpad_axis_horizontal"
-
         const val HOTKEY_SCREEN_SWAP = "hotkey_screen_swap"
         const val HOTKEY_CYCLE_LAYOUT = "hotkey_toggle_layout"
         const val HOTKEY_CLOSE_GAME = "hotkey_close_game"

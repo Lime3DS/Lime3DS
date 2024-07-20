@@ -25,18 +25,37 @@ class ScreenAdjustmentUtil(private val windowManager: WindowManager,
         settings.saveSetting(BooleanSetting.SWAP_SCREEN, SettingsFile.FILE_NAME_CONFIG)
     }
 
+    // TODO: Consider how cycling should handle custom layout
+    // right now it simply skips it
     fun cycleLayouts() {
-        val nextLayout = (EmulationMenuSettings.landscapeScreenLayout + 1) % ScreenLayout.entries.size
-        changeScreenOrientation(ScreenLayout.from(nextLayout))
+        val nextLayout = if (NativeLibrary.isPortraitMode) {
+            (EmulationMenuSettings.portraitScreenLayout + 1) % (PortraitScreenLayout.entries.size - 1)
+        } else {
+            (EmulationMenuSettings.landscapeScreenLayout + 1) % (ScreenLayout.entries.size - 1)
+        }
+        settings.loadSettings()
+
+        changeScreenOrientation(nextLayout)
     }
 
-    fun changeScreenOrientation(layoutOption: ScreenLayout) {
-        EmulationMenuSettings.landscapeScreenLayout = layoutOption.int
-        NativeLibrary.notifyOrientationChange(
-            EmulationMenuSettings.landscapeScreenLayout,
-            windowManager.defaultDisplay.rotation
-        )
-        IntSetting.SCREEN_LAYOUT.int = layoutOption.int
-        settings.saveSetting(IntSetting.SCREEN_LAYOUT, SettingsFile.FILE_NAME_CONFIG)
+    fun changeScreenOrientation(layoutOption: Int) {
+        if (NativeLibrary.isPortraitMode) {
+            EmulationMenuSettings.portraitScreenLayout = layoutOption
+            NativeLibrary.notifyOrientationChange(
+                EmulationMenuSettings.portraitScreenLayout,
+                windowManager.defaultDisplay.rotation
+            )
+            IntSetting.PORTRAIT_SCREEN_LAYOUT.int = layoutOption
+            settings.saveSetting(IntSetting.PORTRAIT_SCREEN_LAYOUT, SettingsFile.FILE_NAME_CONFIG)
+
+        } else {
+            EmulationMenuSettings.landscapeScreenLayout = layoutOption
+            NativeLibrary.notifyOrientationChange(
+                EmulationMenuSettings.landscapeScreenLayout,
+                windowManager.defaultDisplay.rotation
+            )
+            IntSetting.SCREEN_LAYOUT.int = layoutOption
+            settings.saveSetting(IntSetting.SCREEN_LAYOUT, SettingsFile.FILE_NAME_CONFIG)
+        }
     }
 }
