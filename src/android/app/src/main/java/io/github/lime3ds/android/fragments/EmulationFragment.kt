@@ -799,13 +799,13 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             ScreenLayout.CUSTOM_LAYOUT.int ->
                 R.id.menu_screen_layout_custom
 
-            else -> R.id.menu_portrait_layout_top_full
+            else -> R.id.menu_screen_layout_landscape
         }
         popupMenu.menu.findItem(layoutOptionMenuItem).setChecked(true)
 
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.menu_portrait_layout_top_full -> {
+                R.id.menu_screen_layout_landscape -> {
                     screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_LANDSCAPE.int)
                     true
                 }
@@ -862,12 +862,12 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_portrait_layout_top_full -> {
-                    screenAdjustmentUtil.changeScreenOrientation(PortraitScreenLayout.TOP_FULL_WIDTH.int)
+                    screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.TOP_FULL_WIDTH.int)
                     true
                 }
 
                 R.id.menu_portrait_layout_custom -> {
-                    screenAdjustmentUtil.changeScreenOrientation(PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int)
+                    screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int)
                     true
                 }
 

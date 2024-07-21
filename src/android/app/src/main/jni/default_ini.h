@@ -181,7 +181,8 @@ filter_mode =
 # 1: Single Screen Only,
 # 2: Large Screen Small Screen
 # 3: Side by Side
-# 4: Custom Layout
+# 4: Hybrid
+# 5: Custom Layout
 layout_option =
 
 # Screen placement when using Custom layout option

@@ -190,7 +190,6 @@ void Config::ReadValues() {
         static_cast<Settings::PortraitLayoutOption>(sdl2_config->GetInteger(
             "Layout", "portrait_layout_option",
             static_cast<int>(Settings::PortraitLayoutOption::PortraitTopFullWidth)));
-    ))
     ReadSetting("Layout", Settings::values.custom_portrait_top_x);
     ReadSetting("Layout", Settings::values.custom_portrait_top_y);
     ReadSetting("Layout", Settings::values.custom_portrait_top_width);

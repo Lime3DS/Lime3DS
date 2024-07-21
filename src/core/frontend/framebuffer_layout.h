@@ -168,7 +168,6 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout);
 std::pair<unsigned, unsigned> GetMinimumSizeFromLayout(Settings::LayoutOption layout,
                                                        bool upright_screen);
 
-std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout(
-    Settings::PortraitLayoutOption layout);
+std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout();
 
 } // namespace Layout

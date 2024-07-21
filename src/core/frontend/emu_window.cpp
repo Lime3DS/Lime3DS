@@ -180,7 +180,7 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
     const Settings::PortraitLayoutOption portrait_layout_option =
         Settings::values.portrait_layout_option.GetValue();
     const auto min_size = is_portrait_mode
-                              ? Layout::GetMinimumSizeFromPortraitLayout(portrait_layout_option)
+                              ? Layout::GetMinimumSizeFromPortraitLayout()
                               : Layout::GetMinimumSizeFromLayout(
                                     layout_option, Settings::values.upright_screen.GetValue());
 
@@ -202,7 +202,7 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
         case Settings::LayoutOption::CustomLayout:
             layout = Layout::CustomFrameLayout(
                 width, height, Settings::values.swap_screen.GetValue(), is_portrait_mode);
-
+            break;
         case Settings::LayoutOption::SingleScreen:
             layout =
                 Layout::SingleFrameLayout(width, height, Settings::values.swap_screen.GetValue(),

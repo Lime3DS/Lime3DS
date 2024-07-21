@@ -27,6 +27,7 @@ static jclass s_native_library_class;
 static jmethodID s_on_core_error;
 static jmethodID s_is_portrait_mode;
 static jmethodID s_landscape_screen_layout;
+static jmethodID s_portrait_screen_layout;
 static jmethodID s_exit_emulation_activity;
 static jmethodID s_request_camera_permission;
 static jmethodID s_request_mic_permission;
@@ -88,6 +89,10 @@ jmethodID GetIsPortraitMode() {
 
 jmethodID GetLandscapeScreenLayout() {
     return s_landscape_screen_layout;
+}
+
+jmethodID GetPortraitScreenLayout() {
+    return s_portrait_screen_layout;
 }
 
 jmethodID GetExitEmulationActivity() {
@@ -174,6 +179,8 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved) {
     s_is_portrait_mode = env->GetStaticMethodID(s_native_library_class, "isPortraitMode", "()Z");
     s_landscape_screen_layout =
         env->GetStaticMethodID(s_native_library_class, "landscapeScreenLayout", "()I");
+    s_portrait_screen_layout =
+        env->GetStaticMethodID(s_native_library_class, "portraitScreenLayout", "()I");
     s_exit_emulation_activity =
         env->GetStaticMethodID(s_native_library_class, "exitEmulationActivity", "(I)V");
     s_request_camera_permission =
