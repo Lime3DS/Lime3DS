@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import io.github.lime3ds.android.HomeNavigationDirections
@@ -214,6 +215,10 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
             view.findNavController().navigate(action)
             bottomSheetDialog.dismiss()
         }
+
+        val bottomSheetBehavior = bottomSheetDialog.getBehavior()
+        bottomSheetBehavior.skipCollapsed = true
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         bottomSheetDialog.show()
     }

@@ -6,10 +6,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
- <com.google.android.material.bottomsheet.BottomSheetDragHandleView
-    android:id="@+id/drag_handle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/drag_handle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -66,9 +66,9 @@
             style="@style/ThemeOverlay.Material3.Button.IconButton.Filled.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="start|center"
             android:layout_marginTop="16dp"
+            android:gravity="start|center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/game_icon">
@@ -83,7 +83,8 @@
                 android:focusedByDefault="true"
                 android:text="@string/play"
                 app:icon="@drawable/ic_play" />
-            <TextView android:layout_width="0dp"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -111,5 +112,7 @@
                 android:text="@string/cheats" />
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
