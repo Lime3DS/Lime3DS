@@ -438,11 +438,7 @@
     
     <!-- About Game Dialog -->
     <string name="play">Play</string>
-    <string name="save_management">Save management</string>
     <string name="add_ons">Add-ons</string>
-    <string name="delete_save">Delete save</string>
-    <string name="import_save">Import</string>
-    <string name="export_save">Export</string>
 
     <!-- Cheats -->
     <string name="cheats">Cheats</string>
