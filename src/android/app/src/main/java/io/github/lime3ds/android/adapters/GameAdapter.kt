@@ -195,7 +195,7 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
     }
 
     private fun showAboutGameDialog(context: Context, game: Game, holder: GameViewHolder, view: View) {
-        val bottomSheetView = inflater.inflate(R.layout.game_about_dialog, null)
+        val bottomSheetView = inflater.inflate(R.layout.dialog_about_game, null)
 
         val bottomSheetDialog = BottomSheetDialog(context)
         bottomSheetDialog.setContentView(bottomSheetView)
