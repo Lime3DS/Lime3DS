@@ -209,14 +209,6 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
             view.findNavController().navigate(action)
         }
 
-        bottomSheetView.findViewById<MaterialButton>(R.id.game_settings).setOnClickListener {
-            SettingsActivity.launch(
-                context,
-                SettingsFile.FILE_NAME_CONFIG,
-                ""
-            )
-        }
-
         bottomSheetView.findViewById<MaterialButton>(R.id.cheats).setOnClickListener {
             val action = CheatsFragmentDirections.actionGlobalCheatsFragment(holder.game.titleId)
             view.findNavController().navigate(action)

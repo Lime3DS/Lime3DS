@@ -76,47 +76,31 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/game_play"
                 style="@style/Widget.Material3.Button.Icon"
-                android:layout_width="167dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:contentDescription="@string/play"
                 android:focusedByDefault="true"
                 android:text="@string/play"
-                app:icon="@drawable/ic_play"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/game_settings"
-                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                android:layout_width="48dp"
+                app:icon="@drawable/ic_play" />
+            <TextView android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="?attr/colorAccent"
-                app:icon="@drawable/ic_settings"
-                app:iconGravity="textStart" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/add_ons"
-            style="?attr/textAppearanceLabelLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/add_ons"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontal_layout" />
-
         <LinearLayout
-            android:id="@+id/layout_horizontal_saves"
+            android:id="@+id/game_button_tray"
             style="@style/ThemeOverlay.Material3.Button.IconButton.Filled.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
             android:gravity="start|center"
-            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_ons">
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_layout">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cheats"
