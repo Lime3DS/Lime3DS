@@ -330,7 +330,7 @@
     <string name="preferences_audio">Audio</string>
     <string name="preferences_debug">Debug</string>
     <string name="preferences_theme">Theme and Color</string>
-
+    <string name="preferences_layout">Layout</string>
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Your ROM is Encrypted</string>
     <string name="loader_error_invalid_format">Invalid ROM format</string>
@@ -367,6 +367,17 @@
     <string name="emulation_screen_layout_hybrid">Hybrid Screens</string>
     <string name="emulation_portrait_layout_top_full">Default</string>
     <string name="emulation_screen_layout_custom">Custom Layout</string>
+    <string name="emulation_adjust_custom_layout">Adjust Custom Layout in Settings</string>
+    <string name="emulation_landscape_custom_layout">Landscape Custom Layout</string>
+    <string name="emulation_portrait_custom_layout">Portrait Custom Layout</string>
+    <string name="emulation_layout_top_x">Top Screen X-Position</string>
+    <string name="emulation_layout_top_y">Top Screen Y-Position</string>
+    <string name="emulation_layout_top_width">Top Screen Width</string>
+    <string name="emulation_layout_top_height">Top Screen Height</string>
+    <string name="emulation_layout_bottom_x">Bottom Screen X-Position</string>
+    <string name="emulation_layout_bottom_y">Bottom Screen Y-Position</string>
+    <string name="emulation_layout_bottom_width">Bottom Screen Width</string>
+    <string name="emulation_layout_bottom_height">Bottom Screen Height</string>
     <string name="emulation_cycle_landscape_layouts">Cycle Layouts</string>
     <string name="emulation_swap_screens">Swap Screens</string>
     <string name="emulation_touch_overlay_reset">Reset Overlay</string>
@@ -717,5 +728,7 @@
     <string name="artic_base_connect_description">Connect to a real console that is running an Artic Base server</string>
     <string name="artic_base_connect">Connect to Artic Base</string>
     <string name="artic_base_enter_address">Enter Artic Base server address</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

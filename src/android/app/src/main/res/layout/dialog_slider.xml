@@ -16,8 +16,9 @@
         android:layout_below="@+id/text_value"
         android:layout_marginBottom="@dimen/spacing_medlarge" />
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
+        android:inputType="number"
         android:layout_height="wrap_content"
         tools:text="75"
         android:id="@+id/text_value"
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         tools:text="%"
         android:id="@+id/text_units"
-        android:layout_alignTop="@+id/text_value"
+        android:layout_alignBaseline="@+id/text_value"
         android:layout_toEndOf="@+id/text_value" />
 
 </RelativeLayout>

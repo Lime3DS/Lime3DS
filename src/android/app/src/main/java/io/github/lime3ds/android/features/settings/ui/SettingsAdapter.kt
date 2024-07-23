@@ -7,13 +7,16 @@ package io.github.lime3ds.android.features.settings.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Color
 import android.icu.util.Calendar
 import android.icu.util.TimeZone
+import android.text.Editable
 import android.text.InputFilter
+import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
@@ -73,7 +76,7 @@ class SettingsAdapter(
     private var clickedPosition: Int
     private var dialog: AlertDialog? = null
     private var sliderProgress = 0
-    private var textSliderValue: TextView? = null
+    private var textSliderValue: EditText? = null
     private var textInputValue: String = ""
 
     private var defaultCancelListener =
@@ -258,16 +261,33 @@ class SettingsAdapter(
         val sliderBinding = DialogSliderBinding.inflate(inflater)
 
         textSliderValue = sliderBinding.textValue
-        textSliderValue!!.text = sliderProgress.toString()
+        textSliderValue!!.setText(sliderProgress.toString())
         sliderBinding.textUnits.text = item.units
 
         sliderBinding.slider.apply {
             valueFrom = item.min.toFloat()
             valueTo = item.max.toFloat()
             value = sliderProgress.toFloat()
+            textSliderValue!!.addTextChangedListener( object : TextWatcher {
+                    override fun afterTextChanged(s: Editable) {
+                        val textValue = s.toString().toIntOrNull();
+                        if (textValue == null || textValue < valueFrom || textValue > valueTo) {
+                            textSliderValue!!.setTextColor(Color.parseColor("#ff0000"));
+                        } else {
+                            textSliderValue!!.setTextColor(Color.parseColor("#000000"));
+                            value = textValue.toFloat();
+                        }
+                    }
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                })
+
             addOnChangeListener { _: Slider, value: Float, _: Boolean ->
                 sliderProgress = value.toInt()
-                textSliderValue!!.text = sliderProgress.toString()
+                if (textSliderValue!!.text.toString() != value.toInt().toString()) {
+                    textSliderValue!!.setText(value.toInt().toString())
+                    textSliderValue!!.setSelection(textSliderValue!!.length())
+                }
             }
         }
 

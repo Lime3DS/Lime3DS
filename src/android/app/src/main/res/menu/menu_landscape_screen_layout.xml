@@ -22,6 +22,12 @@
         <item
             android:id="@+id/menu_screen_layout_custom"
             android:title="@string/emulation_screen_layout_custom" />
+
     </group>
+
+    <item
+        android:id="@+id/menu_adjust_custom_layout"
+        android:title="@string/emulation_adjust_custom_layout"
+        android:enabled="false" />
 
 </menu>

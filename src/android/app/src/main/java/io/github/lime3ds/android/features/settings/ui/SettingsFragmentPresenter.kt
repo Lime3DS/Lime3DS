@@ -6,6 +6,7 @@ package io.github.lime3ds.android.features.settings.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -42,6 +43,7 @@ import io.github.lime3ds.android.utils.GpuDriverHelper
 import io.github.lime3ds.android.utils.Log
 import io.github.lime3ds.android.utils.SystemSaveGame
 import io.github.lime3ds.android.utils.ThemeUtil
+import kotlin.math.min
 
 class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) {
     private var menuTag: String? = null
@@ -91,6 +93,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             Settings.SECTION_CAMERA -> addCameraSettings(sl)
             Settings.SECTION_CONTROLS -> addControlsSettings(sl)
             Settings.SECTION_RENDERER -> addGraphicsSettings(sl)
+            Settings.SECTION_LAYOUT -> addLayoutSettings(sl)
             Settings.SECTION_AUDIO -> addAudioSettings(sl)
             Settings.SECTION_DEBUG -> addDebugSettings(sl)
             Settings.SECTION_THEME -> addThemeSettings(sl)
@@ -101,6 +104,23 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
         }
         settingsList = sl
         fragmentView.showSettingsList(settingsList!!)
+    }
+
+    /** Returns the portrait mode width */
+    private fun getWidth(): Int {
+        val dm = Resources.getSystem().displayMetrics;
+        return if (dm.widthPixels < dm.heightPixels)
+            dm.widthPixels
+        else
+            dm.heightPixels
+    }
+
+    private fun getHeight(): Int {
+        val dm = Resources.getSystem().displayMetrics;
+        return if (dm.widthPixels < dm.heightPixels)
+            dm.heightPixels
+        else
+            dm.widthPixels
     }
 
     private fun addConfigSettings(sl: ArrayList<SettingsItem>) {
@@ -148,6 +168,14 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SubmenuSetting(
+                    R.string.preferences_layout,
+                    0,
+                    R.drawable.ic_fit_screen,
+                    Settings.SECTION_LAYOUT
+                )
+            )
+            add(
+                SubmenuSetting(
                     R.string.preferences_audio,
                     0,
                     R.drawable.ic_audio,
@@ -162,6 +190,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     Settings.SECTION_DEBUG
                 )
             )
+
             add(
                 RunnableSetting(
                     R.string.reset_to_default,
@@ -860,6 +889,232 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             //         BooleanSetting.PRELOAD_TEXTURES.defaultValue
             //     )
             // )
+        }
+    }
+
+    private fun addLayoutSettings(sl: ArrayList<SettingsItem>) {
+        settingsActivity.setToolbarTitle("Layout")
+        sl.apply {
+            add(
+                SingleChoiceSetting(
+                    IntSetting.SCREEN_LAYOUT,
+                    R.string.emulation_switch_screen_layout,
+                    0,
+                    R.array.landscapeLayouts,
+                    R.array.landscapeLayoutValues,
+                    IntSetting.SCREEN_LAYOUT.key,
+                    IntSetting.SCREEN_LAYOUT.defaultValue
+                )
+            )
+            add(
+                SingleChoiceSetting(
+                    IntSetting.PORTRAIT_SCREEN_LAYOUT,
+                    R.string.emulation_switch_portrait_layout,
+                    0,
+                    R.array.portraitLayouts,
+                    R.array.portraitLayoutValues,
+                    IntSetting.PORTRAIT_SCREEN_LAYOUT.key,
+                    IntSetting.PORTRAIT_SCREEN_LAYOUT.defaultValue
+                )
+            )
+            add(
+                HeaderSetting(R.string.emulation_landscape_custom_layout)
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_TOP_X,
+                    R.string.emulation_layout_top_x,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.LANDSCAPE_TOP_X.key,
+                    IntSetting.LANDSCAPE_TOP_X.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_TOP_Y,
+                    R.string.emulation_layout_top_y,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.LANDSCAPE_TOP_Y.key,
+                    IntSetting.LANDSCAPE_TOP_Y.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_TOP_WIDTH,
+                    R.string.emulation_layout_top_width,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.LANDSCAPE_TOP_WIDTH.key,
+                    IntSetting.LANDSCAPE_TOP_WIDTH.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_TOP_HEIGHT,
+                    R.string.emulation_layout_top_height,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.LANDSCAPE_TOP_HEIGHT.key,
+                    IntSetting.LANDSCAPE_TOP_HEIGHT.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_BOTTOM_X,
+                    R.string.emulation_layout_bottom_x,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.LANDSCAPE_BOTTOM_X.key,
+                    IntSetting.LANDSCAPE_BOTTOM_X.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_BOTTOM_Y,
+                    R.string.emulation_layout_bottom_y,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.LANDSCAPE_BOTTOM_Y.key,
+                    IntSetting.LANDSCAPE_BOTTOM_Y.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_BOTTOM_WIDTH,
+                    R.string.emulation_layout_bottom_width,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.LANDSCAPE_BOTTOM_WIDTH.key,
+                    IntSetting.LANDSCAPE_BOTTOM_WIDTH.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.LANDSCAPE_BOTTOM_HEIGHT,
+                    R.string.emulation_layout_bottom_height,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.LANDSCAPE_BOTTOM_HEIGHT.key,
+                    IntSetting.LANDSCAPE_BOTTOM_HEIGHT.defaultValue.toFloat()
+                )
+            )
+            add(
+                HeaderSetting(R.string.emulation_portrait_custom_layout)
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_TOP_X,
+                    R.string.emulation_layout_top_x,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.PORTRAIT_TOP_X.key,
+                    IntSetting.PORTRAIT_TOP_X.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_TOP_Y,
+                    R.string.emulation_layout_top_y,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.PORTRAIT_TOP_Y.key,
+                    IntSetting.PORTRAIT_TOP_Y.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_TOP_WIDTH,
+                    R.string.emulation_layout_top_width,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.PORTRAIT_TOP_WIDTH.key,
+                    IntSetting.PORTRAIT_TOP_WIDTH.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_TOP_HEIGHT,
+                    R.string.emulation_layout_top_height,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.PORTRAIT_TOP_HEIGHT.key,
+                    IntSetting.PORTRAIT_TOP_HEIGHT.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_BOTTOM_X,
+                    R.string.emulation_layout_bottom_x,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.PORTRAIT_BOTTOM_X.key,
+                    IntSetting.PORTRAIT_BOTTOM_X.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_BOTTOM_Y,
+                    R.string.emulation_layout_bottom_y,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.PORTRAIT_BOTTOM_Y.key,
+                    IntSetting.PORTRAIT_BOTTOM_Y.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_BOTTOM_WIDTH,
+                    R.string.emulation_layout_bottom_width,
+                    0,
+                    0,
+                    getWidth(),
+                    "px",
+                    IntSetting.PORTRAIT_BOTTOM_WIDTH.key,
+                    IntSetting.PORTRAIT_BOTTOM_WIDTH.defaultValue.toFloat()
+                )
+            )
+            add(
+                SliderSetting(
+                    IntSetting.PORTRAIT_BOTTOM_HEIGHT,
+                    R.string.emulation_layout_bottom_height,
+                    0,
+                    0,
+                    getHeight(),
+                    "px",
+                    IntSetting.PORTRAIT_BOTTOM_HEIGHT.key,
+                    IntSetting.PORTRAIT_BOTTOM_HEIGHT.defaultValue.toFloat()
+                )
+            )
         }
     }
 

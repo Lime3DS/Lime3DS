@@ -28,26 +28,7 @@ object EmulationMenuSettings {
                 .putBoolean("EmulationMenuSettings_DpadSlideEnable", value)
                 .apply()
         }
-    var landscapeScreenLayout: Int
-        get() = preferences.getInt(
-            "EmulationMenuSettings_LandscapeScreenLayout",
-            ScreenLayout.LARGE_SCREEN.int
-        )
-        set(value) {
-            preferences.edit()
-                .putInt("EmulationMenuSettings_LandscapeScreenLayout", value)
-                .apply()
-        }
-    var portraitScreenLayout: Int
-        get() = preferences.getInt(
-            "EmulationMenuSettings_PortraitScreenLayout",
-            PortraitScreenLayout.TOP_FULL_WIDTH.int
-        )
-        set(value) {
-            preferences.edit()
-                .putInt("EmulationMenuSettings_PortraitScreenLayout", value)
-                .apply()
-        }
+
     var showFps: Boolean
         get() = preferences.getBoolean("EmulationMenuSettings_ShowFps", false)
         set(value) {
