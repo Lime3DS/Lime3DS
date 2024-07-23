@@ -162,7 +162,8 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
 
             binding.textGameTitle.text = game.title
             binding.textCompany.text = game.company
-            binding.textFilename.text = game.filename
+            binding.textGameRegion.text = game.regions
+
 
             val backgroundColorId =
                 if (
@@ -187,8 +188,8 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
                     binding.textCompany.ellipsize = TextUtils.TruncateAt.MARQUEE
                     binding.textCompany.isSelected = true
 
-                    binding.textFilename.ellipsize = TextUtils.TruncateAt.MARQUEE
-                    binding.textFilename.isSelected = true
+                    binding.textGameRegion.ellipsize = TextUtils.TruncateAt.MARQUEE
+                    binding.textGameRegion.isSelected = true
                 },
                 3000
             )
@@ -201,11 +202,12 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
         val bottomSheetDialog = BottomSheetDialog(context)
         bottomSheetDialog.setContentView(bottomSheetView)
 
-        bottomSheetView.findViewById<TextView>(R.id.game_title).text = game.title
-        bottomSheetView.findViewById<TextView>(R.id.game_author).text = game.company
+        bottomSheetView.findViewById<TextView>(R.id.about_game_title).text = game.title
+        bottomSheetView.findViewById<TextView>(R.id.about_game_id).text = String.format("%016X", game.titleId)
+        bottomSheetView.findViewById<TextView>(R.id.about_game_filename).text = game.filename
         GameIconUtils.loadGameIcon(activity, game, bottomSheetView.findViewById(R.id.game_icon))
 
-        bottomSheetView.findViewById<MaterialButton>(R.id.game_play).setOnClickListener {
+        bottomSheetView.findViewById<MaterialButton>(R.id.about_game_play).setOnClickListener {
             val action = HomeNavigationDirections.actionGlobalEmulationActivity(holder.game)
             view.findNavController().navigate(action)
         }

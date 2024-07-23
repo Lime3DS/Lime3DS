@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:nextFocusRight="@id/game_play"
+        android:nextFocusRight="@id/about_game_play"
         android:paddingHorizontal="16dp"
         android:paddingBottom="8dp">
 
@@ -26,8 +26,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
-            tools:src="@drawable/default_icon" />
+            app:shapeAppearance="?attr/shapeAppearanceCornerLarge" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -40,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/game_title"
+                android:id="@+id/about_game_title"
                 style="?attr/textAppearanceTitleMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,13 +50,23 @@
                 tools:text="Game Title" />
 
             <TextView
-                android:id="@+id/game_author"
+                android:id="@+id/about_game_id"
                 style="?attr/textAppearanceBodyMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/game_title"
-                app:layout_constraintTop_toBottomOf="@id/game_title"
-                tools:text="Game Author" />
+                app:layout_constraintStart_toStartOf="@id/about_game_filename"
+                app:layout_constraintTop_toBottomOf="@id/about_game_filename"
+                tools:text="Game ID" />
+                     
+            <TextView
+                android:id="@+id/about_game_filename"
+                style="?attr/textAppearanceBodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/about_game_title"
+                app:layout_constraintTop_toBottomOf="@id/about_game_title"
+                tools:text="Game Filename" />       
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -74,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@id/game_icon">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/game_play"
+                android:id="@+id/about_game_play"
                 style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
