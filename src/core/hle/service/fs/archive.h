@@ -264,11 +264,12 @@ public:
 
     /**
      * Creates the SystemSaveData archive folder for the specified save data id
-     * @param high The high word of the SystemSaveData archive to create
-     * @param low The low word of the SystemSaveData archive to create
      * @return Result 0 on success or the corresponding code on error
      */
-    Result CreateSystemSaveData(u32 high, u32 low);
+    Result CreateSystemSaveData(u32 high, u32 low, u32 total_size, u32 block_size,
+                                u32 number_directories, u32 number_files,
+                                u32 number_directory_buckets, u32 number_file_buckets,
+                                u8 duplicate_data);
 
     /**
      * Returns capacity and free space information about the given media type.
@@ -295,6 +296,8 @@ public:
     void RegisterArticExtData(std::shared_ptr<Network::ArticBase::Client>& client);
 
     void RegisterArticNCCH(std::shared_ptr<Network::ArticBase::Client>& client);
+
+    void RegisterArticSystemSaveData(std::shared_ptr<Network::ArticBase::Client>& client);
 
 private:
     Core::System& system;

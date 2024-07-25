@@ -1,13 +1,11 @@
-name: lime-format
+name: lime-license
 
 on:
-  push:
-    branches: [ "*" ]
   pull_request:
     branches: [ master ]
 
 jobs:
-  clang-format:
+  license-header:
     runs-on: ubuntu-latest
     container:
       image: opensauce04/lime3ds-build:latest
@@ -16,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Clang format
-        env:
-          COMMIT_RANGE: ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
-        run: ./.ci/clang-format.sh
+      - name: Fetch master branch
+        run: git fetch origin master:master
+      - name: Check license headers
+        run: ./.ci/license-header.rb

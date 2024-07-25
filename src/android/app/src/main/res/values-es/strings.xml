@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Este software correrá juegos de la consola portátil Nintendo 3DS. No se incluye ningún juego.\n\nAntes de comenzar, elige una carpeta en donde guardar los datos de usuario de Lime3DS.\n\nQué es ésto:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Datos de usuario de Lime3DS Android y almacenamiento</a></string>
     <string name="app_notification_channel_description">Notificaciones del Emulador Lime3DS</string>
     <string name="app_notification_running">Lime3DS está ejecutándose</string>
     <string name="app_game_install_description">A continuación, tendrás que seleccionar una Carpeta de Juegos. Lime3DS mostrará todas las ROMs de 3DS en la carpeta seleccionada en la app.\n\nLas ROMs en CIA, actualizaciones y DLC tendrán que ser instaladas por separado al darle al icono de la carpeta y seleccionar Instalar CIA.</string>
@@ -79,17 +78,13 @@
     <string name="permission_denied">Permiso denegado</string>
     <string name="add_games_warning">¿Saltarse la selección de la carpeta de juegos?</string>
     <string name="add_games_warning_description">Los juegos no se mostrarán en la lista de juegos si no se selecciona una carpeta.</string>
-    <string name="add_games_warning_help">https://citra-emu.org/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">Ayuda</string>
     <string name="warning_skip">Saltar</string>
     <string name="warning_cancel">Cancelar</string>
     <string name="select_citra_user_folder">Seleccionar Carpeta de Usuario</string>
-    <string name="select_citra_user_folder_description"><![CDATA[Selecciona tu directorio con los<a href=\"https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">datos de usuario</a> con el botón de debajo.]]></string>
     <string name="select">Seleccionar</string>
     <string name="cannot_skip">No puedes saltarte este paso</string>
     <string name="cannot_skip_directory_description">Este paso es imprescindible para que así Lime3DS pueda funcionar. Por favor, seleccione un directorio y entonces podrás continuar.</string>
-    <string name="cannot_skip_directory_help">https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
-
     <!-- Search Strings -->
     <string name="search_and_filter_games">Buscar y Filtrar Juegos</string>
     <string name="home_search_games">Buscar Juegos</string>
@@ -132,7 +127,6 @@
     <string name="download">Descargar</string>
     <string name="start">Iniciar</string>
     <string name="keys_missing">Lime3DS no tiene las claves para descargar los archivos de sistema.</string>
-    <string name="how_to_get_keys"><![CDATA[<a href=\"https://citra-emu.org/wiki/aes-keys/\">¿Cómo obtener las claves?</a>]]></string>
     <string name="show_home_apps">Mostrar las apps del menú HOME en la lista de juegos</string>
     <string name="run_system_setup">Ejecutar la Configuración de la consola cuando se ejecute el Menú HOME</string>
     <string name="system_type_minimal">Mínimo</string>
@@ -281,7 +275,6 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="learn_more">Más Información</string>
     <string name="close">Cerrar</string>
     <string name="reset_to_default">Restablecer valores de fábrica</string>
-    <string name="redump_games"><![CDATA[Por favor, siga la guía para volver a volcar tus<a href=\"https://citra-emu.org/wiki/dumping-game-cartridges/\">cartuchos de juego</a> o <a href=\"https://citra-emu.org/wiki/dumping-installed-titles/\">títulos instalados</a>.]]></string>
     <string name="option_default">Por defecto</string>
     <string name="none">Ninguno</string>
     <string name="auto">Auto</string>

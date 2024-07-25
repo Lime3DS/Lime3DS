@@ -14,7 +14,7 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Update Translation
+      - name: Update translation
         run: ./.ci/transifex.sh
         env:
           TX_TOKEN: ${{ secrets.TRANSIFEX_API_TOKEN }}

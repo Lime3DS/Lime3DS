@@ -841,6 +841,13 @@
        </item>
       </layout>
      </item>
+     <item>
+       <widget class="QCheckBox" name="use_artic_controller">
+         <property name="text">
+           <string>Use Artic Controller when connected to Artic Base Server</string>
+         </property>
+       </widget>
+     </item>
     </layout>
    </item>
   </layout>

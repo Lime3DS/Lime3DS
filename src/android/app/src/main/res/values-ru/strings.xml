@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Данное программное обеспечение предназначено для запуска игр от портативной консоли Nintendo 3DS. Приложение не содержит предустановленных игр.\n\nПожалуйста, перед запуском эмуляции укажите папку хранения пользовательских данных Lime3DS.\n\nПодробнее:\n<a href='https://github.com/citra-emu/citra/wiki/Lime3DS-Android-user-data-and-storage'>Wiki - Lime3DS Android user data and storage</a></string>
     <string name="app_notification_channel_description">Уведомления эмулятора Lime3DS</string>
     <string name="app_notification_running">Lime3DS выполняется</string>
     <string name="app_game_install_description">Далее укажите папку с играм. Образы игр 3DS из выбранной папки отобразятся в приложении.\n\nДля установки образов CIA, обновлений и DLC нажмите на значок папки и выберите \'Установить CIA\'.</string>
@@ -79,17 +78,13 @@
     <string name="permission_denied">Отказано в разрешении</string>
     <string name="add_games_warning">Пропустить выбор папки с играми?</string>
     <string name="add_games_warning_description">Если не выбрать папку, игры не будут отображены в списке.</string>
-    <string name="add_games_warning_help">https://citra-emu.org/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">Помощь</string>
     <string name="warning_skip">Пропустить</string>
     <string name="warning_cancel">Отмена</string>
     <string name="select_citra_user_folder">Выбор папки пользователя</string>
-    <string name="select_citra_user_folder_description"><![CDATA[С помощью кнопки внизу выберите <a href=\"https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">папку пользователя</a>.]]></string>
     <string name="select">Выбрать</string>
     <string name="cannot_skip">Вы не можете пропустить данное действие</string>
     <string name="cannot_skip_directory_description">Данный шаг требуется для работы Lime3DS. Пожалуйста, укажите папку, чтобы продолжить.</string>
-    <string name="cannot_skip_directory_help">https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
-
     <!-- Search Strings -->
     <string name="search_and_filter_games">Поиск и сортировка игр</string>
     <string name="home_search_games">Найти игры</string>
@@ -125,7 +120,6 @@
     <string name="download">Скачать</string>
     <string name="start">Запустить</string>
     <string name="keys_missing">В Lime3DS отсутствуют ключи для загрузки системных файлов.</string>
-    <string name="how_to_get_keys"><![CDATA[<a href=\"https://citra-emu.org/wiki/aes-keys/\">Как получить ключи?</a>]]></string>
     <string name="show_home_apps">Показывать приложения меню HOME в списке игр</string>
     <string name="run_system_setup">Запускать настройку системы при загрузке меню HOME</string>
     <string name="system_type_minimal">Минимальный</string>
@@ -260,7 +254,6 @@
     <string name="learn_more">Подробнее</string>
     <string name="close">Закрыть</string>
     <string name="reset_to_default">Сброс настроек</string>
-    <string name="redump_games"><![CDATA[Пожалуйста, следуйте инструкциям для создания нового дампа <a href=\"https://citra-emu.org/wiki/dumping-game-cartridges/\">игровых картриджей</a> или <a href=\"https://citra-emu.org/wiki/dumping-installed-titles/\">установленных игр</a>.]]></string>
     <string name="option_default">По умолчанию</string>
     <string name="none">Нет</string>
     <string name="auto">Автоматически</string>
