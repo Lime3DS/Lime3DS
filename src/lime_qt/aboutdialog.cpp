@@ -2,6 +2,8 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+// This is an epic test message
+
 #include <QIcon>
 #include "aboutdialog.h"
 #include "common/scm_rev.h"

@@ -4,6 +4,7 @@
 
 package io.github.lime3ds.android.activities
 
+// This is an epic test message
 import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.app.Activity
