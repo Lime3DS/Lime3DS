@@ -16,7 +16,6 @@ puts 'done'
 
 print 'Checking files...'
 issue_files = []
-
 branch_changed_files.each do |file_name|
    if file_name.end_with?('.cpp', '.h', '.kt')
       file_content = File.read(file_name)
