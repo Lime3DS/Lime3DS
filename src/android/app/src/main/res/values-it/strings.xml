@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Questo software permette di eseguire videogiochi rilasciati per la console portatile Nintendo 3DS. Non è incluso nessun titolo.\n\n Prima di poter iniziare il processo di emulazione bisogna scegliere una cartella nella memoria interna che conterrà i dati utente.\n\n Spiegazione:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - User Data e Memoria Intena</a></string>
     <string name="app_notification_channel_description">Notifiche dell\'emulatore Lime3DS</string>
     <string name="app_notification_running">Lime3DS è in Esecuzione</string>
     <string name="app_game_install_description">Ora, seleziona una Cartella dei giochi. Lime3DS visualizzerà tutte le ROM per il 3DS nella cartella nell\'app.\n\n Le rom Cia, glki aggiornamenti e i DLC dovranno essere installati separatamente toccando l\'icona cartella e selezionando \"Installa CIA\".</string>

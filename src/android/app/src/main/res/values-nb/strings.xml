@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Denne programvaren kjører spill for Nintendo 3DS håndholdte spillkonsoll. Ingen spilltitler er inkludert.\n\nFør du starter, vennligst plasser dine rettmessig eide 3DS-spillfiler på lagringsenheten.</string>
     <string name="app_notification_channel_description">Lime3DS emulator notifikasjoner</string>
     <string name="app_notification_running">Lime3DS kjører</string>
     <!-- Home Strings -->

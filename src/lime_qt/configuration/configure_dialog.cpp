@@ -30,7 +30,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
       system{system_}, is_powered_on{system.IsPoweredOn()},
       general_tab{std::make_unique<ConfigureGeneral>(this)},
       system_tab{std::make_unique<ConfigureSystem>(system, this)},
-      input_tab{std::make_unique<ConfigureInput>(this)},
+      input_tab{std::make_unique<ConfigureInput>(system, this)},
       hotkeys_tab{std::make_unique<ConfigureHotkeys>(this)},
       graphics_tab{
           std::make_unique<ConfigureGraphics>(gl_renderer, physical_devices, is_powered_on, this)},

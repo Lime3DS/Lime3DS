@@ -121,6 +121,81 @@ Client::Request::Request(u32 request_id, const std::string& method, size_t max_p
                 std::min<size_t>(request_packet.method.size(), method.size()));
 }
 
+void Client::UDPStream::Start() {
+    thread_run = true;
+    handle_thread = std::thread(&Client::UDPStream::Handle, this);
+}
+
+void Client::UDPStream::Handle() {
+    struct sockaddr_in* servaddr = reinterpret_cast<sockaddr_in*>(serv_sockaddr_in.data());
+    socklen_t serv_sockaddr_len = static_cast<socklen_t>(serv_sockaddr_in.size());
+    memcpy(servaddr, client.GetServerAddr().data(), client.GetServerAddr().size());
+    servaddr->sin_port = htons(port);
+
+    main_socket = ::socket(AF_INET, SOCK_DGRAM, 0);
+    if (main_socket == static_cast<SocketHolder>(-1) || !thread_run) {
+        LOG_ERROR(Network, "Failed to create socket");
+        return;
+    }
+
+    if (!SetNonBlock(main_socket, true) || !thread_run) {
+        closesocket(main_socket);
+        LOG_ERROR(Network, "Cannot set non-blocking socket mode");
+        return;
+    }
+
+    // Limit receive buffer so that packets don't get qeued and are dropped instead.
+    int buffer_size_int = static_cast<int>(buffer_size);
+    if (::setsockopt(main_socket, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<char*>(&buffer_size_int),
+                     sizeof(buffer_size_int)) ||
+        !thread_run) {
+        closesocket(main_socket);
+        LOG_ERROR(Network, "Cannot change receive buffer size");
+        return;
+    }
+
+    // Send data to server so that it knows client address.
+    char zero = '\0';
+    int send_res =
+        ::sendto(main_socket, &zero, sizeof(char), 0,
+                 reinterpret_cast<struct sockaddr*>(serv_sockaddr_in.data()), serv_sockaddr_len);
+    if (send_res < 0 || !thread_run) {
+        closesocket(main_socket);
+        LOG_ERROR(Network, "Cannot send data to socket");
+        return;
+    }
+
+    ready = true;
+    std::vector<u8> buffer(buffer_size);
+    while (thread_run) {
+        std::chrono::steady_clock::time_point before = std::chrono::steady_clock::now();
+
+        int packet_size = ::recvfrom(
+            main_socket, reinterpret_cast<char*>(buffer.data()), static_cast<int>(buffer.size()), 0,
+            reinterpret_cast<struct sockaddr*>(serv_sockaddr_in.data()), &serv_sockaddr_len);
+        if (packet_size > 0) {
+            if (client.report_traffic_callback) {
+                client.report_traffic_callback(packet_size);
+            }
+
+            buffer.resize(packet_size);
+            {
+                std::scoped_lock l(current_buffer_mutex);
+                current_buffer = buffer;
+            }
+        }
+
+        auto elapsed = std::chrono::steady_clock::now() - before;
+
+        std::unique_lock lk(thread_cv_mutex);
+        thread_cv.wait_for(lk, elapsed < read_interval ? (read_interval - elapsed)
+                                                       : std::chrono::microseconds(50));
+    }
+    ready = false;
+
+    closesocket(main_socket);
+}
+
 Client::~Client() {
     StopImpl(false);
 
@@ -182,6 +257,7 @@ bool Client::Connect() {
     servaddr.sin_addr.s_addr = ((struct sockaddr_in*)(addrinfo->ai_addr))->sin_addr.s_addr;
     servaddr.sin_port = htons(port);
     freeaddrinfo(addrinfo);
+    memcpy(last_sockaddr_in.data(), &servaddr, last_sockaddr_in.size());
 
     if (!ConnectWithTimeout(main_socket, &servaddr, sizeof(servaddr), 10)) {
         closesocket(main_socket);
@@ -249,15 +325,15 @@ bool Client::Connect() {
     std::string str_port;
     std::stringstream ss_port(worker_ports.value());
     while (std::getline(ss_port, str_port, ',')) {
-        int port = str_to_int(str_port);
-        if (port < 0 || port > USHRT_MAX) {
+        int port_curr = str_to_int(str_port);
+        if (port_curr < 0 || port_curr > static_cast<int>(USHRT_MAX)) {
             shutdown(main_socket, SHUT_RDWR);
             closesocket(main_socket);
             LOG_ERROR(Network, "Couldn't parse server worker ports");
             SignalCommunicationError();
             return false;
         }
-        ports.push_back(static_cast<u16>(port));
+        ports.push_back(static_cast<u16>(port_curr));
     }
     if (ports.empty()) {
         shutdown(main_socket, SHUT_RDWR);
@@ -294,6 +370,29 @@ bool Client::Connect() {
     return true;
 }
 
+std::shared_ptr<Client::UDPStream> Client::NewUDPStream(
+    const std::string stream_id, size_t buffer_size,
+    const std::chrono::milliseconds& read_interval) {
+
+    auto req = NewRequest("#" + stream_id);
+
+    auto resp = Send(req);
+
+    if (!resp.has_value()) {
+        return nullptr;
+    }
+
+    auto port_udp = resp->GetResponseS32(0);
+    if (!port_udp.has_value()) {
+        return nullptr;
+    }
+
+    udp_streams.push_back(std::make_shared<UDPStream>(*this, static_cast<u16>(*port_udp),
+                                                      buffer_size, read_interval));
+
+    return udp_streams.back();
+}
+
 void Client::StopImpl(bool from_error) {
     bool expected = false;
     if (!stopped.compare_exchange_strong(expected, true))
@@ -301,6 +400,10 @@ void Client::StopImpl(bool from_error) {
 
     if (!from_error) {
         SendSimpleRequest("STOP");
+    }
+
+    for (auto it = udp_streams.begin(); it != udp_streams.end(); it++) {
+        it->get()->Stop();
     }
 
     if (ping_thread.joinable()) {

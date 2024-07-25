@@ -60,6 +60,61 @@ public:
         std::vector<std::pair<const void*, size_t>> pending_big_buffers;
     };
 
+    class UDPStream {
+    public:
+        std::vector<u8> GetLastPacket() {
+            std::scoped_lock l(current_buffer_mutex);
+            return current_buffer;
+        }
+
+        bool IsReady() {
+            return ready;
+        }
+
+        void Start();
+        void Stop() {
+            if (thread_run && handle_thread.joinable()) {
+                std::scoped_lock l2(thread_cv_mutex);
+                thread_run = false;
+                thread_cv.notify_one();
+            }
+        }
+
+        UDPStream(Client& _client, u16 _port, size_t _buffer_size,
+                  const std::chrono::milliseconds& _read_interval)
+            : client(_client), port(_port), buffer_size(_buffer_size),
+              read_interval(_read_interval) {}
+
+        ~UDPStream() {
+            Stop();
+            if (handle_thread.joinable()) {
+                handle_thread.join();
+            }
+        }
+
+    private:
+        void Handle();
+
+        Client& client;
+        u16 port;
+        size_t buffer_size;
+        std::chrono::milliseconds read_interval;
+
+        std::array<u8, 16> serv_sockaddr_in{};
+        bool ready = false;
+
+        std::mutex current_buffer_mutex;
+        std::vector<u8> current_buffer;
+
+        SocketHolder main_socket = -1;
+
+        std::thread handle_thread;
+        std::condition_variable thread_cv;
+        std::mutex thread_cv_mutex;
+        std::atomic<bool> thread_run = true;
+    };
+    friend class UDPStream;
+
     Client(const std::string& _address, u16 _port) : address(_address), port(_port) {
         SocketManager::EnableSockets();
     }
@@ -75,6 +130,10 @@ public:
     Request NewRequest(const std::string& method) {
         return Request(GetNextRequestID(), method, max_parameter_count);
     }
+
+    std::shared_ptr<UDPStream> NewUDPStream(
+        const std::string stream_id, size_t buffer_size,
+        const std::chrono::milliseconds& read_interval = std::chrono::milliseconds(0));
 
     void Stop() {
         StopImpl(false);
@@ -97,11 +156,17 @@ public:
         report_artic_event_callback = callback;
     }
 
+    // Returns the server address as a sockaddr_in struct
+    const std::array<u8, 16>& GetServerAddr() {
+        return last_sockaddr_in;
+    }
+
 private:
-    static constexpr const int SERVER_VERSION = 1;
+    static constexpr const int SERVER_VERSION = 2;
 
     std::string address;
     u16 port;
+    std::array<u8, 16> last_sockaddr_in;
 
     SocketHolder main_socket = -1;
     std::atomic<u32> currRequestID;
@@ -124,7 +189,7 @@ private:
     std::thread ping_thread;
     std::condition_variable ping_cv;
     std::mutex ping_cv_mutex;
-    bool ping_run = true;
+    std::atomic<bool> ping_run = true;
 
     void StopImpl(bool from_error);
 
@@ -144,6 +209,8 @@ private:
         const std::vector<ArticBaseCommon::RequestParameter>& params,
         const std::chrono::nanoseconds& read_timeout = std::chrono::nanoseconds(0));
     std::optional<std::string> SendSimpleRequest(const std::string& method);
+
+    std::vector<std::shared_ptr<UDPStream>> udp_streams;
 
     class Handler {
     public:
@@ -240,6 +307,14 @@ public:
                 return std::nullopt;
             }
             return *reinterpret_cast<u64*>(buf->first);
+        }
+
+        std::optional<float> GetResponseFloat(u32 buffer_id) const {
+            auto buf = GetResponseBuffer(buffer_id);
+            if (!buf.has_value() || buf->second != sizeof(float)) {
+                return std::nullopt;
+            }
+            return *reinterpret_cast<float*>(buf->first);
         }
 
     private:

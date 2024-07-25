@@ -171,6 +171,9 @@ private:
     void CheckForUpdates();
 #endif
 
+    void CheckForMigration();
+    void MigrateUserData();
+
     /**
      * Stores the filename in the recently loaded files list.
      * The new filename is stored at the beginning of the recently loaded files list.

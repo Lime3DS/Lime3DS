@@ -83,6 +83,7 @@ void LogSettings() {
     LOG_INFO(Config, "Lime3DS Configuration:");
     log_setting("Core_UseCpuJit", values.use_cpu_jit.GetValue());
     log_setting("Core_CPUClockPercentage", values.cpu_clock_percentage.GetValue());
+    log_setting("Controller_UseArticController", values.use_artic_base_controller.GetValue());
     log_setting("Renderer_UseGLES", values.use_gles.GetValue());
     log_setting("Renderer_GraphicsAPI", GetGraphicsAPIName(values.graphics_api.GetValue()));
     log_setting("Renderer_AsyncShaders", values.async_shader_compilation.GetValue());
