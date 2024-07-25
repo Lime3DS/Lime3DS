@@ -27,6 +27,7 @@
 #include "core/hle/service/cfg/cfg_u.h"
 #include "core/hle/service/fs/archive.h"
 #include "core/hle/service/fs/fs_user.h"
+#include "core/hle/service/hid/hid_user.h"
 #include "core/loader/artic.h"
 #include "core/loader/smdh.h"
 #include "core/memory.h"
@@ -359,6 +360,13 @@ ResultStatus Apploader_Artic::Load(std::shared_ptr<Kernel::Process>& process) {
     auto amapp = system.ServiceManager().GetService<Service::AM::AM_APP>("am:app");
     if (amapp.get()) {
         amapp->UseArticClient(client);
+    }
+
+    if (Settings::values.use_artic_base_controller.GetValue()) {
+        auto hid_user = system.ServiceManager().GetService<Service::HID::User>("hid:USER");
+        if (hid_user.get()) {
+            hid_user->GetModule()->UseArticClient(client);
+        }
     }
 
     ParseRegionLockoutInfo(ncch_program_id);

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Tämä sovellus pelaa Nintendo 3DS-käsikonsolin pelejä. Pelejä itse ei tule sovelluksen mukana.\n\nEnnen kuin jatkat, laita itse omistamasi 3DS-pelien pelitiedostot laitteesi tallennustilaan.</string>
     <string name="app_notification_channel_description">Lime3DS emulaattorin ilmoitukset</string>
     <string name="app_notification_running">Lime3DS on päällä</string>
     <!-- Home Strings -->

@@ -428,6 +428,7 @@ struct Values {
     int current_input_profile_index;          ///< The current input profile index
     std::vector<InputProfile> input_profiles; ///< The list of input profiles
     std::vector<TouchFromButtonMap> touch_from_button_maps;
+    Setting<bool> use_artic_base_controller{false, "use_artic_base_controller"};
 
     SwitchableSetting<bool> enable_gamemode{true, "enable_gamemode"};
 

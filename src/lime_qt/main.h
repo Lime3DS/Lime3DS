@@ -171,6 +171,9 @@ private:
     void CheckForUpdates();
 #endif
 
+    void CheckForMigration();
+    void MigrateUserData();
+
     /**
      * Stores the filename in the recently loaded files list.
      * The new filename is stored at the beginning of the recently loaded files list.
@@ -406,6 +409,12 @@ private:
     u64 oldest_slot_time;
     u32 newest_slot;
     u64 newest_slot_time;
+
+    // Secondary window actions
+    QAction* action_secondary_fullscreen;
+    QAction* action_secondary_toggle_screen;
+    QAction* action_secondary_swap_screen;
+    QAction* action_secondary_rotate_screen;
 
     QTranslator translator;
 

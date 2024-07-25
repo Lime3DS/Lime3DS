@@ -14,13 +14,11 @@
 #include "common/common_funcs.h"
 #include "common/common_types.h"
 #include "common/settings.h"
+#include "core/core.h"
 #include "core/core_timing.h"
 #include "core/frontend/input.h"
 #include "core/hle/service/service.h"
-
-namespace Core {
-class System;
-}
+#include "network/artic_base/artic_base_client.h"
 
 namespace Kernel {
 class Event;
@@ -199,6 +197,44 @@ struct DirectionState {
 /// Translates analog stick axes to directions. This is exposed for ir_rst module to use.
 DirectionState GetStickDirectionState(s16 circle_pad_x, s16 circle_pad_y);
 
+class ArticBaseController {
+public:
+    struct ControllerData {
+        u32 index{};
+        u32 pad{};
+        s16 c_pad_x{};
+        s16 c_pad_y{};
+        u16 touch_x{};
+        u16 touch_y{};
+        s16 c_stick_x{};
+        s16 c_stick_y{};
+        s16 accel_x{};
+        s16 accel_y{};
+        s16 accel_z{};
+        s16 gyro_x{};
+        s16 gyro_y{};
+        s16 gyro_z{};
+    };
+    static_assert(sizeof(ControllerData) == 0x20, "Incorrect ControllerData size");
+
+    ArticBaseController(const std::shared_ptr<Network::ArticBase::Client>& client);
+
+    bool IsCreated() {
+        return udp_stream.get();
+    }
+
+    bool IsReady() {
+        return udp_stream.get() ? udp_stream->IsReady() : false;
+    }
+
+    ControllerData GetControllerData();
+
+private:
+    std::shared_ptr<Network::ArticBase::Client::UDPStream> udp_stream;
+    u32 last_packet_id{};
+    ControllerData last_controller_data{};
+};
+
 class Module final {
 public:
     explicit Module(Core::System& system);
@@ -296,6 +332,8 @@ public:
         std::shared_ptr<Module> hid;
     };
 
+    void UseArticClient(const std::shared_ptr<Network::ArticBase::Client>& client);
+
     void ReloadInputDevices();
 
     const PadState& GetState() const;
@@ -354,6 +392,9 @@ private:
     std::unique_ptr<Input::MotionDevice> motion_device;
     std::unique_ptr<Input::TouchDevice> touch_device;
     std::unique_ptr<Input::TouchDevice> touch_btn_device;
+
+    std::shared_ptr<ArticBaseController> artic_controller;
+    std::shared_ptr<Network::ArticBase::Client> artic_client;
 
     template <class Archive>
     void serialize(Archive& ar, const unsigned int);

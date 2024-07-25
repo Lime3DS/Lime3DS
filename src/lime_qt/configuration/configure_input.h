@@ -30,7 +30,7 @@ class ConfigureInput : public QWidget {
     Q_OBJECT
 
 public:
-    explicit ConfigureInput(QWidget* parent = nullptr);
+    explicit ConfigureInput(Core::System& system, QWidget* parent = nullptr);
     ~ConfigureInput() override;
 
     /// Save all button configurations to settings file
@@ -50,6 +50,7 @@ signals:
     void InputKeysChanged(QList<QKeySequence> new_key_list);
 
 private:
+    Core::System& system;
     std::unique_ptr<Ui::ConfigureInput> ui;
 
     std::unique_ptr<QTimer> timeout_timer;

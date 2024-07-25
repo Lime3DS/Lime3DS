@@ -18,18 +18,23 @@
 #define EMU_DATA_DIR USER_DIR
 #else
 #ifdef _WIN32
-#define EMU_DATA_DIR "Citra"
+#define EMU_DATA_DIR "Lime3DS"
+#define LEGACY_EMU_DATA_DIR "Citra"
 #elif defined(__APPLE__)
 #include <TargetConditionals.h>
-#if TARGET_OS_IPHONE
-#define APPLE_EMU_DATA_DIR "Documents" DIR_SEP "Citra"
+#if TARGET_OS_IPHONE // TODO: Kill iOS
+#define APPLE_EMU_DATA_DIR "Documents" DIR_SEP "Lime3DS"
+#define LEGACY_APPLE_EMU_DATA_DIR "Documents" DIR_SEP "Citra"
 #else
-#define APPLE_EMU_DATA_DIR "Library" DIR_SEP "Application Support" DIR_SEP "Citra"
+#define APPLE_EMU_DATA_DIR "Library" DIR_SEP "Application Support" DIR_SEP "Lime3DS"
+#define LEGACY_APPLE_EMU_DATA_DIR "Library" DIR_SEP "Application Support" DIR_SEP "Citra"
 #endif
 // For compatibility with XDG paths.
-#define EMU_DATA_DIR "citra-emu"
+#define EMU_DATA_DIR "lime3ds-emu"
+#define LEGACY_EMU_DATA_DIR "citra-emu"
 #else
-#define EMU_DATA_DIR "citra-emu"
+#define EMU_DATA_DIR "lime3ds-emu"
+#define LEGACY_EMU_DATA_DIR "citra-emu"
 #endif
 #endif
 
