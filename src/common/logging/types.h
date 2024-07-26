@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -100,7 +101,7 @@ enum class Class : u8 {
     Input,           ///< Input emulation
     Network,         ///< Network emulation
     Movie,           ///< Movie (Input Recording) Playback
-    WebService,      ///< Interface to Citra Web Services
+    WebService,      ///< Interface to Lime3DS Web Services
     RPC_Server,      ///< RPC server
     Count,           ///< Total number of logging classes
 };

@@ -522,6 +522,6 @@ if ("x86_64" IN_LIST ARCHITECTURE OR "arm64" IN_LIST ARCHITECTURE)
     target_link_libraries(lime_core PRIVATE dynarmic)
 endif()
 
-if (CITRA_USE_PRECOMPILED_HEADERS)
+if (LIME3DS_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(lime_core PRIVATE precompiled_headers.h)
 endif()

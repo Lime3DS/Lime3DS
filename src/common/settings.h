@@ -1,4 +1,5 @@
 // Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -418,7 +419,7 @@ struct TouchFromButtonMap {
     std::vector<std::string> buttons;
 };
 
-/// A special region value indicating that citra will automatically select a region
+/// A special region value indicating that lime3ds will automatically select a region
 /// value to fit the region lockout info of the game
 static constexpr s32 REGION_VALUE_AUTO_SELECT = -1;
 

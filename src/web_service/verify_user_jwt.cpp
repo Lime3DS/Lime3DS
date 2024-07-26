@@ -1,4 +1,5 @@
 // Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -33,7 +34,7 @@ Network::VerifyUser::UserData VerifyUserJWT::LoadUserData(const std::string& ver
     using namespace jwt::params;
     std::error_code error;
     auto decoded =
-        jwt::decode(token, algorithms({"rs256"}), error, secret(pub_key), issuer("citra-core"),
+        jwt::decode(token, algorithms({"rs256"}), error, secret(pub_key), issuer("lime3ds-core"),
                     aud(audience), validate_iat(true), validate_jti(true));
     if (error) {
         LOG_INFO(WebService, "Verification failed: category={}, code={}, message={}",

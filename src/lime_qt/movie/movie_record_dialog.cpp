@@ -1,4 +1,5 @@
 // Copyright 2020 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -47,7 +48,7 @@ QString MovieRecordDialog::GetAuthor() const {
 void MovieRecordDialog::OnToolButtonClicked() {
     const QString path =
         QFileDialog::getSaveFileName(this, tr("Record Movie"), UISettings::values.movie_record_path,
-                                     tr("Citra TAS Movie (*.ctm)"));
+                                     tr("Lime3DS TAS Movie (*.ctm)"));
     if (path.isEmpty()) {
         return;
     }

@@ -1,9 +1,10 @@
 // Copyright 2013 Dolphin Emulator Project / 2022 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2+
 // Refer to the license.txt file included.
 
 #include "common/arch.h"
-#if CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(arm64)
 
 #include <cstring>
 #include <fstream>
@@ -114,4 +115,4 @@ const CPUCaps& GetCPUCaps() {
 
 } // namespace Common
 
-#endif // CITRA_ARCH(arm64)
+#endif // LIME3DS_ARCH(arm64)

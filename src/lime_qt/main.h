@@ -1,4 +1,5 @@
 // Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -254,7 +255,7 @@ private slots:
     void OnConfigure();
     void OnLoadAmiibo();
     void OnRemoveAmiibo();
-    void OnOpenCitraFolder();
+    void OnOpenLime3DSFolder();
     void OnToggleFilterBar();
     void OnDisplayTitleBars(bool);
     void InitializeHotkeys();
@@ -284,8 +285,8 @@ private slots:
     void StartVideoDumping(const QString& path);
     void OnStopVideoDumping();
     void OnCoreError(Core::System::ResultStatus, std::string);
-    /// Called whenever a user selects Help->About Citra
-    void OnMenuAboutCitra();
+    /// Called whenever a user selects Help->About Lime3DS
+    void OnMenuAboutLime3DS();
 
 #if ENABLE_QT_UPDATER
     void OnUpdateFound(bool found, bool error);
@@ -348,7 +349,7 @@ private:
     MultiplayerState* multiplayer_state = nullptr;
     std::unique_ptr<Config> config;
 
-    // Whether emulation is currently running in Citra.
+    // Whether emulation is currently running in Lime3DS.
     bool emulation_running = false;
     std::unique_ptr<EmuThread> emu_thread;
     // The title of the game currently running

@@ -1,4 +1,5 @@
 // Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -57,7 +58,7 @@ namespace Request {
 struct Version {};
 /**
  * Requests the server to send information about what controllers are plugged into the ports
- * In citra's case, we only have one controller, so for simplicity's sake, we can just send a
+ * In lime3ds's case, we only have one controller, so for simplicity's sake, we can just send a
  * request explicitly for the first controller port and leave it at that. In the future it would be
  * nice to make this configurable
  */

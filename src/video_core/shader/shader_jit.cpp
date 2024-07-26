@@ -1,19 +1,20 @@
 // Copyright 2016 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(x86_64) || LIME3DS_ARCH(arm64)
 
 #include "common/assert.h"
 #include "common/hash.h"
 #include "common/microprofile.h"
 #include "video_core/shader/shader.h"
 #include "video_core/shader/shader_jit.h"
-#if CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(arm64)
 #include "video_core/shader/shader_jit_a64_compiler.h"
 #endif
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 #include "video_core/shader/shader_jit_x64_compiler.h"
 #endif
 
@@ -54,4 +55,4 @@ void JitEngine::Run(const ShaderSetup& setup, ShaderUnit& state) const {
 
 } // namespace Pica::Shader
 
-#endif // CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+#endif // LIME3DS_ARCH(x86_64) || LIME3DS_ARCH(arm64)

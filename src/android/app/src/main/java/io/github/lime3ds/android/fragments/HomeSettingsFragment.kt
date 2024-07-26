@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -156,10 +157,10 @@ class HomeSettingsFragment : Fragment() {
                 driverViewModel.selectedDriverMetadata
             ),
             HomeSetting(
-                R.string.select_citra_user_folder,
-                R.string.select_citra_user_folder_home_description,
+                R.string.select_lime3ds_user_folder,
+                R.string.select_lime3ds_user_folder_home_description,
                 R.drawable.ic_home,
-                { mainActivity.openCitraDirectory.launch(null) },
+                { mainActivity.openLime3DSDirectory.launch(null) },
                 details = homeViewModel.userDir
             ),
             HomeSetting(
@@ -243,7 +244,7 @@ class HomeSettingsFragment : Fragment() {
     private fun shareLog() {
         val logDirectory = DocumentFile.fromTreeUri(
             requireContext(),
-            PermissionsHandler.citraDirectory
+            PermissionsHandler.lime3dsDirectory
         )?.findFile("log")
         val currentLog = logDirectory?.findFile("lime3ds_log.txt")
         val oldLog = logDirectory?.findFile("lime3ds_log.old.txt")

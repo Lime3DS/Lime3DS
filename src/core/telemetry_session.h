@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -82,8 +83,8 @@ u64 RegenerateTelemetryId();
 
 /**
  * Verifies the username and token.
- * @param username Citra username to use for authentication.
- * @param token Citra token to use for authentication.
+ * @param username Lime3DS username to use for authentication.
+ * @param token Lime3DS token to use for authentication.
  * @returns Future with bool indicating whether the verification succeeded
  */
 bool VerifyLogin(const std::string& username, const std::string& token);

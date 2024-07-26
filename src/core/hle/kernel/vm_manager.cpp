@@ -1,4 +1,5 @@
 // Copyright 2015 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -253,8 +254,8 @@ VMManager::VMAIter VMManager::StripIterConstness(const VMAHandle& iter) {
 }
 
 ResultVal<VMManager::VMAIter> VMManager::CarveVMA(VAddr base, u32 size) {
-    ASSERT_MSG((size & Memory::CITRA_PAGE_MASK) == 0, "non-page aligned size: {:#10X}", size);
-    ASSERT_MSG((base & Memory::CITRA_PAGE_MASK) == 0, "non-page aligned base: {:#010X}", base);
+    ASSERT_MSG((size & Memory::LIME3DS_PAGE_MASK) == 0, "non-page aligned size: {:#10X}", size);
+    ASSERT_MSG((base & Memory::LIME3DS_PAGE_MASK) == 0, "non-page aligned base: {:#010X}", base);
 
     VMAIter vma_handle = StripIterConstness(FindVMA(base));
     if (vma_handle == vma_map.end()) {
@@ -289,8 +290,9 @@ ResultVal<VMManager::VMAIter> VMManager::CarveVMA(VAddr base, u32 size) {
 }
 
 ResultVal<VMManager::VMAIter> VMManager::CarveVMARange(VAddr target, u32 size) {
-    ASSERT_MSG((size & Memory::CITRA_PAGE_MASK) == 0, "non-page aligned size: {:#10X}", size);
-    ASSERT_MSG((target & Memory::CITRA_PAGE_MASK) == 0, "non-page aligned base: {:#010X}", target);
+    ASSERT_MSG((size & Memory::LIME3DS_PAGE_MASK) == 0, "non-page aligned size: {:#10X}", size);
+    ASSERT_MSG((target & Memory::LIME3DS_PAGE_MASK) == 0, "non-page aligned base: {:#010X}",
+               target);
 
     const VAddr target_end = target + size;
     ASSERT(target_end >= target);

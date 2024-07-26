@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -13,7 +14,7 @@ namespace WebService {
 
 /**
  * Implementation of AnnounceMultiplayerRoom::Backend that (de)serializes room information into/from
- * JSON, and submits/gets it to/from the Citra web service
+ * JSON, and submits/gets it to/from the Lime3DS web service
  */
 class RoomJson : public AnnounceMultiplayerRoom::Backend {
 public:

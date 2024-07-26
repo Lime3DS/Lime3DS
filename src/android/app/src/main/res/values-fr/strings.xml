@@ -25,10 +25,10 @@
     <string name="select_games_folder">Sélectionner le dossier des jeux</string>
     <string name="select_games_folder_description">Permet à Lime3DS de remplir la liste des jeux</string>
     <string name="about">À propos</string>
-    <string name="citra_description">Un émulateur 3DS open-source</string>
+    <string name="lime3ds_description">Un émulateur 3DS open-source</string>
     <string name="about_description">Numéro de build, crédits et plus encore</string>
     <string name="games_dir_selected">Répertoire de jeux sélectionné</string>
-    <string name="select_citra_user_folder_home_description">Modifie les fichiers que Lime3DS utilise pour charger les jeux</string>
+    <string name="select_lime3ds_user_folder_home_description">Modifie les fichiers que Lime3DS utilise pour charger les jeux</string>
     <string name="theme_and_color_description">Modifier l\'apparence de l\'application</string>
     <string name="install_cia_title">Installer un CIA</string>
 
@@ -81,7 +81,7 @@
     <string name="warning_help">Aide</string>
     <string name="warning_skip">Sauter</string>
     <string name="warning_cancel">Annuler</string>
-    <string name="select_citra_user_folder">Sélectionnez le dossier utilisateur
+    <string name="select_lime3ds_user_folder">Sélectionnez le dossier utilisateur
  </string>
     <string name="select">Sélectionner</string>
     <string name="cannot_skip">Vous ne pouvez pas sauter cette étape</string>

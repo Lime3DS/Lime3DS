@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -32,9 +33,9 @@ DirectConnectWindow::DirectConnectWindow(Core::System& system_, QWidget* parent)
 
     ui->nickname->setValidator(validation.GetNickname());
     ui->nickname->setText(UISettings::values.nickname);
-    if (ui->nickname->text().isEmpty() && !NetSettings::values.citra_username.empty()) {
-        // Use Citra Web Service user name as nickname by default
-        ui->nickname->setText(QString::fromStdString(NetSettings::values.citra_username));
+    if (ui->nickname->text().isEmpty() && !NetSettings::values.lime3ds_username.empty()) {
+        // Use Lime3DS Web Service user name as nickname by default
+        ui->nickname->setText(QString::fromStdString(NetSettings::values.lime3ds_username));
     }
     ui->ip->setValidator(validation.GetIP());
     ui->ip->setText(UISettings::values.ip);

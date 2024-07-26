@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -60,7 +61,7 @@ class RendererBase;
 template <class T>
 class RasterizerCache {
     /// Address shift for caching surfaces into a hash table
-    static constexpr u64 CITRA_PAGEBITS = 18;
+    static constexpr u64 LIME3DS_PAGEBITS = 18;
 
     using Runtime = typename T::Runtime;
     using Sampler = typename T::Sampler;
@@ -141,8 +142,8 @@ private:
     template <typename Func>
     void ForEachPage(PAddr addr, std::size_t size, Func&& func) {
         static constexpr bool RETURNS_BOOL = std::is_same_v<std::invoke_result<Func, u64>, bool>;
-        const u64 page_end = (addr + size - 1) >> CITRA_PAGEBITS;
-        for (u64 page = addr >> CITRA_PAGEBITS; page <= page_end; ++page) {
+        const u64 page_end = (addr + size - 1) >> LIME3DS_PAGEBITS;
+        for (u64 page = addr >> LIME3DS_PAGEBITS; page <= page_end; ++page) {
             if constexpr (RETURNS_BOOL) {
                 if (func(page)) {
                     break;

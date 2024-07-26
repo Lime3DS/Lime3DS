@@ -1,4 +1,5 @@
-// Copyright 2014 Citra Emulator Project / PPSSPP Project
+// Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project / PPSSPP Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -396,7 +397,7 @@ private:
 
     /*
      * Flags non system module main threads to wait a bit before running. On real hardware,
-     * system modules have plenty of time to load before the game is loaded, but on citra they
+     * system modules have plenty of time to load before the game is loaded, but on lime3ds they
      * start at the same time as the game. The artificial wait gives system modules some time
      * to load and setup themselves before the game starts.
      */

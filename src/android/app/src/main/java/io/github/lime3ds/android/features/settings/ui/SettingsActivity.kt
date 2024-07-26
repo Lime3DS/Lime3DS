@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -212,11 +213,11 @@ class SettingsActivity : AppCompatActivity(), SettingsActivityView {
 
         // Set the root of the document tree before we create a new config file or the native code
         // will fail when creating the file.
-        if (DirectoryInitialization.setCitraUserDirectory()) {
+        if (DirectoryInitialization.setLime3DSUserDirectory()) {
             LimeApplication.documentsTree.setRoot(Uri.parse(DirectoryInitialization.userPath))
             NativeLibrary.createConfigFile()
         } else {
-            throw IllegalStateException("Citra directory unavailable when accessing config file!")
+            throw IllegalStateException("Lime3DS directory unavailable when accessing config file!")
         }
 
         // Set default values for system config file

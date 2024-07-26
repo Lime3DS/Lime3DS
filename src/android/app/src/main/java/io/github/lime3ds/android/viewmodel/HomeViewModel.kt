@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.R
-import io.github.lime3ds.android.fragments.CitraDirectoryDialogFragment
+import io.github.lime3ds.android.fragments.Lime3DSDirectoryDialogFragment
 import io.github.lime3ds.android.utils.GameHelper
 import io.github.lime3ds.android.utils.PermissionsHandler
 
@@ -32,7 +33,7 @@ class HomeViewModel : ViewModel() {
     private val _userDir = MutableStateFlow(
         Uri.parse(
             PreferenceManager.getDefaultSharedPreferences(LimeApplication.appContext)
-                .getString(PermissionsHandler.CITRA_DIRECTORY, "")
+                .getString(PermissionsHandler.LIME3DS_DIRECTORY, "")
         ).path ?: ""
     )
 
@@ -44,7 +45,7 @@ class HomeViewModel : ViewModel() {
         ).path ?: ""
     )
 
-    var directoryListener: CitraDirectoryDialogFragment.Listener? = null
+    var directoryListener: Lime3DSDirectoryDialogFragment.Listener? = null
 
     val dirProgress get() = _dirProgress.asStateFlow()
     private val _dirProgress = MutableStateFlow(0)

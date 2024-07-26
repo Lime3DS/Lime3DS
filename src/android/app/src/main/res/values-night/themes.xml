@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ThemeOverlay.Citra.Dark" parent="">
+    <style name="ThemeOverlay.Lime3DS.Dark" parent="">
         <item name="colorSurface">@android:color/black</item>
         <item name="android:colorBackground">@android:color/black</item>
     </style>

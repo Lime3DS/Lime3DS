@@ -1,4 +1,5 @@
 // Copyright 2020 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -51,7 +52,7 @@ QString MoviePlayDialog::GetGamePath() const {
 void MoviePlayDialog::OnToolButtonClicked() {
     const QString path =
         QFileDialog::getOpenFileName(this, tr("Play Movie"), UISettings::values.movie_playback_path,
-                                     tr("Citra TAS Movie (*.ctm)"));
+                                     tr("Lime3DS TAS Movie (*.ctm)"));
     if (path.isEmpty()) {
         return;
     }

@@ -1,4 +1,5 @@
 // Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -13,7 +14,7 @@ struct UserData {
     std::string username;
     std::string display_name;
     std::string avatar_url;
-    bool moderator = false; ///< Whether the user is a Citra Moderator.
+    bool moderator = false; ///< Whether the user is a Lime3DS Moderator.
 };
 
 /**

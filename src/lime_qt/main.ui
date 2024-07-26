@@ -85,7 +85,7 @@
     <addaction name="separator"/>
     <addaction name="menu_Amiibo"/>
     <addaction name="separator"/>
-    <addaction name="action_Open_Citra_Folder"/>
+    <addaction name="action_Open_Lime3DS_Folder"/>
     <addaction name="separator"/>
     <addaction name="action_Exit"/>
    </widget>
@@ -609,7 +609,7 @@
     <string>Remove</string>
    </property>
   </action>
-  <action name="action_Open_Citra_Folder">
+  <action name="action_Open_Lime3DS_Folder">
    <property name="text">
     <string>Open Lime3DS Folder</string>
    </property>

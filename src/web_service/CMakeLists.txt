@@ -21,6 +21,6 @@ if(WIN32)
     target_link_libraries(web_service PRIVATE crypt32)
 endif()
 
-if (CITRA_USE_PRECOMPILED_HEADERS)
+if (LIME3DS_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(web_service PRIVATE precompiled_headers.h)
 endif()

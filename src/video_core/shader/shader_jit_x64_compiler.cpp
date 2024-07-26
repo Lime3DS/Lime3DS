@@ -1,9 +1,10 @@
 // Copyright 2015 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 
 #include <nihstro/shader_bytecode.h>
 #include <smmintrin.h>
@@ -1260,4 +1261,4 @@ Xbyak::Label JitShader::CompilePrelude_Exp2() {
 
 } // namespace Pica::Shader
 
-#endif // CITRA_ARCH(x86_64)
+#endif // LIME3DS_ARCH(x86_64)

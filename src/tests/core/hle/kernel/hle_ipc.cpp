@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -143,7 +144,7 @@ TEST_CASE("HLERequestContext::PopulateFromIncomingCommandBuffer", "[core][kernel
     }
 
     SECTION("translates StaticBuffer descriptors") {
-        auto mem = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+        auto mem = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
         MemoryRef buffer{mem};
         std::fill(buffer.GetPtr(), buffer.GetPtr() + buffer.GetSize(), 0xAB);
 
@@ -167,7 +168,7 @@ TEST_CASE("HLERequestContext::PopulateFromIncomingCommandBuffer", "[core][kernel
     }
 
     SECTION("translates MappedBuffer descriptors") {
-        auto mem = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+        auto mem = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
         MemoryRef buffer{mem};
         std::fill(buffer.GetPtr(), buffer.GetPtr() + buffer.GetSize(), 0xCD);
 
@@ -194,11 +195,11 @@ TEST_CASE("HLERequestContext::PopulateFromIncomingCommandBuffer", "[core][kernel
     }
 
     SECTION("translates mixed params") {
-        auto mem_static = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+        auto mem_static = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
         MemoryRef buffer_static{mem_static};
         std::fill(buffer_static.GetPtr(), buffer_static.GetPtr() + buffer_static.GetSize(), 0xCE);
 
-        auto mem_mapped = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+        auto mem_mapped = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
         MemoryRef buffer_mapped{mem_mapped};
         std::fill(buffer_mapped.GetPtr(), buffer_mapped.GetPtr() + buffer_mapped.GetSize(), 0xDF);
 
@@ -332,12 +333,12 @@ TEST_CASE("HLERequestContext::WriteToOutgoingCommandBuffer", "[core][kernel]") {
     }
 
     SECTION("translates StaticBuffer descriptors") {
-        std::vector<u8> input_buffer(Memory::CITRA_PAGE_SIZE);
+        std::vector<u8> input_buffer(Memory::LIME3DS_PAGE_SIZE);
         std::fill(input_buffer.begin(), input_buffer.end(), 0xAB);
 
         context.AddStaticBuffer(0, input_buffer);
 
-        auto output_mem = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+        auto output_mem = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
         MemoryRef output_buffer{output_mem};
 
         VAddr target_address = 0x10000000;
@@ -366,10 +367,10 @@ TEST_CASE("HLERequestContext::WriteToOutgoingCommandBuffer", "[core][kernel]") {
     }
 
     SECTION("translates StaticBuffer descriptors") {
-        std::vector<u8> input_buffer(Memory::CITRA_PAGE_SIZE);
+        std::vector<u8> input_buffer(Memory::LIME3DS_PAGE_SIZE);
         std::fill(input_buffer.begin(), input_buffer.end(), 0xAB);
 
-        auto output_mem = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+        auto output_mem = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
         MemoryRef output_buffer{output_mem};
 
         VAddr target_address = 0x10000000;
