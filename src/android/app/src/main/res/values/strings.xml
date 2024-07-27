@@ -432,9 +432,12 @@
     <string name="fatal_error">Fatal Error</string>
     <string name="fatal_error_message">A fatal error occurred. Check the log for details.\nContinuing emulation may result in crashes and bugs.</string>
 
-    <!-- Disk shader cache -->
+    <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Preparing Shaders</string>
     <string name="building_shaders">Building Shaders</string>
+
+    <!-- About Game Dialog -->
+    <string name="play">Play</string>
 
     <!-- Cheats -->
     <string name="cheats">Cheats</string>
