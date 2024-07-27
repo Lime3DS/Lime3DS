@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -108,7 +109,7 @@ class InputBindingSetting(
     }
 
     /**
-     * Returns the Citra button code for the settings key.
+     * Returns the Lime3DS button code for the settings key.
      */
     private val buttonCode: Int
         get() =
@@ -259,7 +260,7 @@ class InputBindingSetting(
         private const val INPUT_MAPPING_PREFIX = "InputMapping"
 
         /**
-         * Returns the settings key for the specified Citra button code.
+         * Returns the settings key for the specified Lime3DS button code.
          */
         private fun getButtonKey(buttonCode: Int): String =
             when (buttonCode) {

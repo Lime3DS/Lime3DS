@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -15,7 +16,7 @@ namespace Common::Telemetry {
 /// Field type, used for grouping fields together in the final submitted telemetry log
 enum class FieldType : u8 {
     None = 0,     ///< No specified field group
-    App,          ///< Citra application fields (e.g. version, branch, etc.)
+    App,          ///< Lime3DS application fields (e.g. version, branch, etc.)
     Session,      ///< Emulated session fields (e.g. title ID, log, etc.)
     Performance,  ///< Emulated performance (e.g. fps, emulated CPU speed, etc.)
     UserFeedback, ///< User submitted feedback (e.g. star rating, user notes, etc.)

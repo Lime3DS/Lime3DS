@@ -1,4 +1,5 @@
 // Copyright 2016 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -1500,7 +1501,7 @@ u32 CROHelper::Fix(u32 fix_level) {
         }
     }
 
-    fix_end = Common::AlignUp(fix_end, Memory::CITRA_PAGE_SIZE);
+    fix_end = Common::AlignUp(fix_end, Memory::LIME3DS_PAGE_SIZE);
 
     u32 fixed_size = fix_end - module_address;
     SetField(FixedSize, fixed_size);
@@ -1523,8 +1524,8 @@ std::tuple<VAddr, u32> CROHelper::GetExecutablePages() const {
         SegmentEntry entry;
         GetEntry(system.Memory(), i, entry);
         if (entry.type == SegmentType::Code && entry.size != 0) {
-            VAddr begin = Common::AlignDown(entry.offset, Memory::CITRA_PAGE_SIZE);
-            VAddr end = Common::AlignUp(entry.offset + entry.size, Memory::CITRA_PAGE_SIZE);
+            VAddr begin = Common::AlignDown(entry.offset, Memory::LIME3DS_PAGE_SIZE);
+            VAddr end = Common::AlignUp(entry.offset + entry.size, Memory::LIME3DS_PAGE_SIZE);
             return std::make_tuple(begin, end - begin);
         }
     }

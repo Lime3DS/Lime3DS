@@ -1,4 +1,5 @@
 // Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -24,15 +25,15 @@
 #endif
 
 #ifdef _MSC_VER
-#define CITRA_NO_INLINE __declspec(noinline)
+#define LIME3DS_NO_INLINE __declspec(noinline)
 #else
-#define CITRA_NO_INLINE __attribute__((noinline))
+#define LIME3DS_NO_INLINE __attribute__((noinline))
 #endif
 
 #ifdef _MSC_VER
-#define CITRA_NO_RETURN __declspec(noreturn)
+#define LIME3DS_NO_RETURN __declspec(noreturn)
 #else
-#define CITRA_NO_RETURN __attribute__((noreturn))
+#define LIME3DS_NO_RETURN __attribute__((noreturn))
 #endif
 
 #ifdef _MSC_VER

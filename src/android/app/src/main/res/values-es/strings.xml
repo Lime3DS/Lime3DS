@@ -25,10 +25,10 @@
     <string name="select_games_folder">Seleccionar Directorio de Juego</string>
     <string name="select_games_folder_description">Permite que Lime3DS llene la lista de juegos</string>
     <string name="about">Acerca de</string>
-    <string name="citra_description">Un emulador de 3DS de código abierto</string>
+    <string name="lime3ds_description">Un emulador de 3DS de código abierto</string>
     <string name="about_description">Versión de compilación, créditos y más</string>
     <string name="games_dir_selected">Directorio de juegos seleccionado</string>
-    <string name="select_citra_user_folder_home_description">Cambia los archivos que Lime3DS usa para cargar juegos</string>
+    <string name="select_lime3ds_user_folder_home_description">Cambia los archivos que Lime3DS usa para cargar juegos</string>
     <string name="theme_and_color_description">Modifica el aspecto de la app</string>
     <string name="install_cia_title">Instalar CIA</string>
 
@@ -81,7 +81,7 @@
     <string name="warning_help">Ayuda</string>
     <string name="warning_skip">Saltar</string>
     <string name="warning_cancel">Cancelar</string>
-    <string name="select_citra_user_folder">Seleccionar Carpeta de Usuario</string>
+    <string name="select_lime3ds_user_folder">Seleccionar Carpeta de Usuario</string>
     <string name="select">Seleccionar</string>
     <string name="cannot_skip">No puedes saltarte este paso</string>
     <string name="cannot_skip_directory_description">Este paso es imprescindible para que así Lime3DS pueda funcionar. Por favor, seleccione un directorio y entonces podrás continuar.</string>

@@ -28,7 +28,7 @@ target_link_libraries(tests PRIVATE ${PLATFORM_LIBRARIES} catch2 nihstro-headers
 
 add_test(NAME tests COMMAND tests)
 
-if (CITRA_USE_PRECOMPILED_HEADERS)
+if (LIME3DS_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(tests PRIVATE precompiled_headers.h)
 endif()
 

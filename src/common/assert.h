@@ -1,4 +1,5 @@
 // Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -16,7 +17,7 @@
 #define ASSERT(_a_)                                                                                \
     do                                                                                             \
         if (!(_a_)) [[unlikely]] {                                                                 \
-            []() CITRA_NO_INLINE CITRA_NO_RETURN {                                                 \
+            []() LIME3DS_NO_INLINE LIME3DS_NO_RETURN {                                             \
                 LOG_CRITICAL(Debug, "Assertion Failed!");                                          \
                 Common::Log::Stop();                                                               \
                 Crash();                                                                           \
@@ -28,7 +29,7 @@
 #define ASSERT_MSG(_a_, ...)                                                                       \
     do                                                                                             \
         if (!(_a_)) [[unlikely]] {                                                                 \
-            [&]() CITRA_NO_INLINE CITRA_NO_RETURN {                                                \
+            [&]() LIME3DS_NO_INLINE LIME3DS_NO_RETURN {                                            \
                 LOG_CRITICAL(Debug, "Assertion Failed!\n" __VA_ARGS__);                            \
                 Common::Log::Stop();                                                               \
                 Crash();                                                                           \
@@ -38,7 +39,7 @@
     while (0)
 
 #define UNREACHABLE()                                                                              \
-    ([]() CITRA_NO_INLINE CITRA_NO_RETURN {                                                        \
+    ([]() LIME3DS_NO_INLINE LIME3DS_NO_RETURN {                                                    \
         LOG_CRITICAL(Debug, "Unreachable code!");                                                  \
         Common::Log::Stop();                                                                       \
         Crash();                                                                                   \
@@ -46,7 +47,7 @@
     }())
 
 #define UNREACHABLE_MSG(...)                                                                       \
-    ([&]() CITRA_NO_INLINE CITRA_NO_RETURN {                                                       \
+    ([&]() LIME3DS_NO_INLINE LIME3DS_NO_RETURN {                                                   \
         LOG_CRITICAL(Debug, "Unreachable code!\n" __VA_ARGS__);                                    \
         Common::Log::Stop();                                                                       \
         Crash();                                                                                   \

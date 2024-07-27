@@ -1,4 +1,5 @@
 // Copyright 2020 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -22,7 +23,7 @@ DumpingDialog::DumpingDialog(QWidget* parent, Core::System& system_)
     connect(ui->pathExplore, &QToolButton::clicked, this, &DumpingDialog::OnToolButtonClicked);
     connect(ui->buttonBox, &QDialogButtonBox::accepted, [this] {
         if (ui->pathLineEdit->text().isEmpty()) {
-            QMessageBox::critical(this, tr("Citra"), tr("Please specify the output path."));
+            QMessageBox::critical(this, tr("Lime3DS"), tr("Please specify the output path."));
             return;
         }
         ApplyConfiguration();
@@ -82,7 +83,7 @@ void DumpingDialog::Populate() {
     }
 
     if (!missing.isEmpty()) {
-        QMessageBox::critical(this, tr("Citra"),
+        QMessageBox::critical(this, tr("Lime3DS"),
                               tr("Could not find any available %1.\nPlease check your FFmpeg "
                                  "installation used for compilation.")
                                   .arg(missing));

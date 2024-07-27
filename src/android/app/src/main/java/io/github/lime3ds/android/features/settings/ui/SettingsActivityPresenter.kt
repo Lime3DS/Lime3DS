@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -45,7 +46,7 @@ class SettingsActivityPresenter(private val activityView: SettingsActivityView) 
     }
 
     private fun prepareDirectoriesIfNeeded() {
-        if (!DirectoryInitialization.areCitraDirectoriesReady()) {
+        if (!DirectoryInitialization.areLime3DSDirectoriesReady()) {
             DirectoryInitialization.start()
         }
         loadSettingsUI()

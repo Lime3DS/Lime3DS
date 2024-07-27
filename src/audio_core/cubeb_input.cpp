@@ -1,4 +1,5 @@
 // Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -50,7 +51,7 @@ void CubebInput::StartSampling(const InputParameters& params) {
     parameters = params;
     impl->sample_size_in_bytes = params.sample_size / 8;
 
-    auto init_result = cubeb_init(&impl->ctx, "Citra Input", nullptr);
+    auto init_result = cubeb_init(&impl->ctx, "Lime3DS Input", nullptr);
     if (init_result != CUBEB_OK) {
         LOG_CRITICAL(Audio, "cubeb_init failed: {}", init_result);
         return;
@@ -91,8 +92,8 @@ void CubebInput::StartSampling(const InputParameters& params) {
     }
 
     auto stream_init_result = cubeb_stream_init(
-        impl->ctx, &impl->stream, "Citra Microphone", input_device, &input_params, nullptr, nullptr,
-        latency_frames, Impl::DataCallback, Impl::StateCallback, impl.get());
+        impl->ctx, &impl->stream, "Lime3DS Microphone", input_device, &input_params, nullptr,
+        nullptr, latency_frames, Impl::DataCallback, Impl::StateCallback, impl.get());
     if (stream_init_result != CUBEB_OK) {
         LOG_CRITICAL(Audio, "cubeb_stream_init failed: {}", stream_init_result);
         StopSampling();
@@ -184,7 +185,7 @@ std::vector<std::string> ListCubebInputDevices() {
     std::vector<std::string> device_list;
     cubeb* ctx;
 
-    if (cubeb_init(&ctx, "Citra Input Device Enumerator", nullptr) != CUBEB_OK) {
+    if (cubeb_init(&ctx, "Lime3DS Input Device Enumerator", nullptr) != CUBEB_OK) {
         LOG_CRITICAL(Audio, "cubeb_init failed");
         return {};
     }

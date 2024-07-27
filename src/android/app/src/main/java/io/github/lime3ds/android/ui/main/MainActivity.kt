@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -46,7 +47,7 @@ import io.github.lime3ds.android.features.settings.ui.SettingsActivity
 import io.github.lime3ds.android.features.settings.utils.SettingsFile
 import io.github.lime3ds.android.fragments.SelectUserDirectoryDialogFragment
 import io.github.lime3ds.android.utils.CiaInstallWorker
-import io.github.lime3ds.android.utils.CitraDirectoryHelper
+import io.github.lime3ds.android.utils.Lime3DSDirectoryHelper
 import io.github.lime3ds.android.utils.DirectoryInitialization
 import io.github.lime3ds.android.utils.FileBrowserHelper
 import io.github.lime3ds.android.utils.InsetsHelper
@@ -67,12 +68,12 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition {
-            !DirectoryInitialization.areCitraDirectoriesReady() &&
+            !DirectoryInitialization.areLime3DSDirectoriesReady() &&
                     PermissionsHandler.hasWriteAccess(this)
         }
 
         if (PermissionsHandler.hasWriteAccess(applicationContext) &&
-            DirectoryInitialization.areCitraDirectoriesReady()) {
+            DirectoryInitialization.areLime3DSDirectoriesReady()) {
             settingsViewModel.settings.loadSettings()
         }
 
@@ -303,14 +304,14 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
             windowInsets
         }
 
-    val openCitraDirectory = registerForActivityResult<Uri, Uri>(
+    val openLime3DSDirectory = registerForActivityResult<Uri, Uri>(
         ActivityResultContracts.OpenDocumentTree()
     ) { result: Uri? ->
         if (result == null) {
             return@registerForActivityResult
         }
 
-        CitraDirectoryHelper(this@MainActivity).showCitraDirectoryDialog(result)
+        Lime3DSDirectoryHelper(this@MainActivity).showLime3DSDirectoryDialog(result)
     }
 
     val ciaFileInstaller = registerForActivityResult(

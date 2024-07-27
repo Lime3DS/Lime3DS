@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -190,7 +191,7 @@ void CustomTexManager::PrepareDumping(u64 title_id) {
     }
 
     nlohmann::ordered_json json;
-    json["author"] = "citra";
+    json["author"] = "lime3ds";
     json["version"] = "1.0.0";
     json["description"] = "A graphics pack";
 

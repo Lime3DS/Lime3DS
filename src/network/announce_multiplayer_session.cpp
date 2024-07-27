@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -23,8 +24,8 @@ static constexpr std::chrono::seconds announce_time_interval(15);
 AnnounceMultiplayerSession::AnnounceMultiplayerSession() {
 #ifdef ENABLE_WEB_SERVICE
     backend = std::make_unique<WebService::RoomJson>(NetSettings::values.web_api_url,
-                                                     NetSettings::values.citra_username,
-                                                     NetSettings::values.citra_token);
+                                                     NetSettings::values.lime3ds_username,
+                                                     NetSettings::values.lime3ds_token);
 #else
     backend = std::make_unique<AnnounceMultiplayerRoom::NullBackend>();
 #endif
@@ -156,8 +157,8 @@ void AnnounceMultiplayerSession::UpdateCredentials() {
 
 #ifdef ENABLE_WEB_SERVICE
     backend = std::make_unique<WebService::RoomJson>(NetSettings::values.web_api_url,
-                                                     NetSettings::values.citra_username,
-                                                     NetSettings::values.citra_token);
+                                                     NetSettings::values.lime3ds_username,
+                                                     NetSettings::values.lime3ds_token);
 #endif
 }
 

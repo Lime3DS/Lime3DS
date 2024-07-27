@@ -25,10 +25,10 @@
     <string name="select_games_folder">Выбор папки с играми</string>
     <string name="select_games_folder_description">Позволяет Lime3DS формировать список игр</string>
     <string name="about">О приложении</string>
-    <string name="citra_description">Эмулятор 3DS с открытым исходным кодом</string>
+    <string name="lime3ds_description">Эмулятор 3DS с открытым исходным кодом</string>
     <string name="about_description">Версия сборки, разработчики и другое</string>
     <string name="games_dir_selected">Папка с играми выбрана</string>
-    <string name="select_citra_user_folder_home_description">Изменение файлов, используемых Lime3DS для запуска игр</string>
+    <string name="select_lime3ds_user_folder_home_description">Изменение файлов, используемых Lime3DS для запуска игр</string>
     <string name="theme_and_color_description">Настройка внешнего вида приложения</string>
     <string name="install_cia_title">Установить CIA</string>
 
@@ -81,7 +81,7 @@
     <string name="warning_help">Помощь</string>
     <string name="warning_skip">Пропустить</string>
     <string name="warning_cancel">Отмена</string>
-    <string name="select_citra_user_folder">Выбор папки пользователя</string>
+    <string name="select_lime3ds_user_folder">Выбор папки пользователя</string>
     <string name="select">Выбрать</string>
     <string name="cannot_skip">Вы не можете пропустить данное действие</string>
     <string name="cannot_skip_directory_description">Данный шаг требуется для работы Lime3DS. Пожалуйста, укажите папку, чтобы продолжить.</string>

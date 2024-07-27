@@ -1,4 +1,5 @@
 // Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -100,7 +101,7 @@ ConfigureMotionTouch::ConfigureMotionTouch(QWidget* parent)
     ui->udp_learn_more->setOpenExternalLinks(true);
     ui->udp_learn_more->setText(
         tr("<a "
-           "href='https://citra-emu.org/wiki/"
+           "https://web.archive.org/web/20240301211230/https://citra-emu.org/wiki/"
            "using-a-controller-or-android-phone-for-motion-or-touch-input'><span "
            "style=\"text-decoration: underline; color:#039be5;\">Learn More</span></a>"));
 
@@ -340,7 +341,7 @@ void ConfigureMotionTouch::OnConfigureTouchFromButton() {
 
 bool ConfigureMotionTouch::CanCloseDialog() {
     if (udp_test_in_progress) {
-        QMessageBox::warning(this, tr("Citra"),
+        QMessageBox::warning(this, tr("Lime3DS"),
                              tr("UDP Test or calibration configuration is in progress.<br>Please "
                                 "wait for them to finish."));
         return false;

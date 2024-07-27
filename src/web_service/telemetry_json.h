@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -13,7 +14,7 @@ namespace WebService {
 
 /**
  * Implementation of VisitorInterface that serialized telemetry into JSON, and submits it to the
- * Citra web service
+ * Lime3DS web service
  */
 class TelemetryJson : public Common::Telemetry::VisitorInterface {
 public:

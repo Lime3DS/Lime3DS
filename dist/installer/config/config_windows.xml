@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
-    <Name>Citra</Name>
+    <Name>Lime3DS</Name>
     <Version>1.0.0</Version>
-    <Title>Citra Updater</Title>
-    <Publisher>Citra Team</Publisher>
-    <StartMenuDir>Citra</StartMenuDir>
-    <!-- e.g. C:\home\<user>\AppData\Local\Citra -->
-    <TargetDir>@HomeDir@/AppData/Local/Citra</TargetDir>
+    <Title>Lime3DS Updater</Title>
+    <Publisher>Lime3DS Team</Publisher>
+    <StartMenuDir>Lime3DS</StartMenuDir>
+    <!-- e.g. C:\home\<user>\AppData\Local\Lime3DS -->
+    <TargetDir>@HomeDir@/AppData/Local/Lime3DS</TargetDir>
     <InstallerApplicationIcon>icon</InstallerApplicationIcon>
     <InstallerWindowIcon>icon.png</InstallerWindowIcon>
     <RemoteRepositories>
         <Repository>
             <Url>https://repo.citra-emu.org</Url>
             <Enabled>1</Enabled>
-            <DisplayName>Official Citra Repository</DisplayName>
+            <DisplayName>Official Lime3DS Repository</DisplayName>
         </Repository>
     </RemoteRepositories>
 </Installer>

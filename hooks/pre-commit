@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Enforce citra's whitespace policy
+# Enforce Lime3DS's whitespace policy
 git config --local core.whitespace tab-in-indent,trailing-space
 
 paths_to_check="src/ CMakeLists.txt"

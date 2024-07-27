@@ -25,10 +25,10 @@
     <string name="select_games_folder">选择游戏文件夹</string>
     <string name="select_games_folder_description">允许 Lime3DS 填充游戏列表</string>
     <string name="about">关于</string>
-    <string name="citra_description">一款开源的任天堂 3DS 模拟器</string>
+    <string name="lime3ds_description">一款开源的任天堂 3DS 模拟器</string>
     <string name="about_description">构建版本、贡献者以及更多</string>
     <string name="games_dir_selected">已选择游戏文件夹</string>
-    <string name="select_citra_user_folder_home_description">更改 Lime3DS 用于加载游戏的相关文件</string>
+    <string name="select_lime3ds_user_folder_home_description">更改 Lime3DS 用于加载游戏的相关文件</string>
     <string name="theme_and_color_description">更改应用程序的外观</string>
     <string name="install_cia_title">安装 CIA</string>
 
@@ -81,7 +81,7 @@
     <string name="warning_help">帮助</string>
     <string name="warning_skip">跳过</string>
     <string name="warning_cancel">取消</string>
-    <string name="select_citra_user_folder">选择用户文件夹</string>
+    <string name="select_lime3ds_user_folder">选择用户文件夹</string>
     <string name="select">选择</string>
     <string name="cannot_skip">此步骤不可跳过</string>
     <string name="cannot_skip_directory_description">运行 Lime3DS 的必需步骤。请选择一个文件夹，然后才可继续。</string>

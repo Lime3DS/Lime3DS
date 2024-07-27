@@ -1,4 +1,5 @@
 // Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -137,7 +138,7 @@ void PrintMessageToLogcat([[maybe_unused]] const Entry& entry) {
     case Level::Count:
         UNREACHABLE();
     }
-    __android_log_print(android_log_priority, "CitraNative", "%s", str.c_str());
+    __android_log_print(android_log_priority, "Lime3DSNative", "%s", str.c_str());
 #endif
 }
 } // namespace Common::Log

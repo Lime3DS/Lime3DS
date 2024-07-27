@@ -50,7 +50,7 @@ if(UNIX AND NOT APPLE)
     install(TARGETS lime RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endif()
 
-if (CITRA_USE_PRECOMPILED_HEADERS)
+if (LIME3DS_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(lime PRIVATE precompiled_headers.h)
 endif()
 

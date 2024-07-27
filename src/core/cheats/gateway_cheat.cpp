@@ -1,4 +1,5 @@
 // Copyright 2018 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -455,7 +456,7 @@ std::string GatewayCheat::GetCode() const {
 }
 
 /// A special marker used to keep track of enabled cheats
-static constexpr char EnabledText[] = "*citra_enabled";
+static constexpr char EnabledText[] = "*lime3ds_enabled";
 
 std::string GatewayCheat::ToString() const {
     std::string result;

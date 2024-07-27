@@ -1,4 +1,5 @@
 // Copyright 2017 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -11,7 +12,7 @@
 #include "core/memory.h"
 
 TEST_CASE("Memory Basics", "[kernel][memory]") {
-    auto mem = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+    auto mem = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
     MemoryRef block{mem};
     Core::Timing timing(1, 100);
     Core::System system;

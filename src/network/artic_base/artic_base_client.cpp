@@ -1,4 +1,5 @@
 // Copyright 2024 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -274,7 +275,7 @@ bool Client::Connect() {
             closesocket(main_socket);
             LOG_ERROR(Network, "Incompatible server version: {}", version_value);
             SignalCommunicationError("\nIncompatible Artic Base Server version.\nCheck for updates "
-                                     "to Artic Base Server or Citra.");
+                                     "to Artic Base Server or Lime3DS.");
             return false;
         }
     } else {

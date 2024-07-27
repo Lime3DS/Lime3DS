@@ -1,4 +1,5 @@
 // Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -193,7 +194,7 @@ static_assert(sizeof(CaptureState) == 0x8, "CaptureState structure size is wrong
 
 void CSND_SND::Initialize(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
-    const u32 size = Common::AlignUp(rp.Pop<u32>(), Memory::CITRA_PAGE_SIZE);
+    const u32 size = Common::AlignUp(rp.Pop<u32>(), Memory::LIME3DS_PAGE_SIZE);
     master_state_offset = rp.Pop<u32>();
     channel_state_offset = rp.Pop<u32>();
     capture_state_offset = rp.Pop<u32>();

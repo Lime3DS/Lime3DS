@@ -1,11 +1,12 @@
 // Copyright 2016 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #pragma once
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 
 #include <bitset>
 #include <initializer_list>
@@ -232,4 +233,4 @@ inline void ABI_PopRegistersAndAdjustStack(Xbyak::CodeGenerator& code, std::bits
 
 } // namespace Common::X64
 
-#endif // CITRA_ARCH(x86_64)
+#endif // LIME3DS_ARCH(x86_64)

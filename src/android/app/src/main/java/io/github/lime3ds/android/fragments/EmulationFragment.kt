@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -438,10 +439,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             return
         }
 
-        if (DirectoryInitialization.areCitraDirectoriesReady()) {
+        if (DirectoryInitialization.areLime3DSDirectoriesReady()) {
             emulationState.run(emulationActivity.isActivityRecreated)
         } else {
-            setupCitraDirectoriesThenStartEmulation()
+            setupLime3DSDirectoriesThenStartEmulation()
         }
     }
 
@@ -458,10 +459,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         super.onDetach()
     }
 
-    private fun setupCitraDirectoriesThenStartEmulation() {
+    private fun setupLime3DSDirectoriesThenStartEmulation() {
         val directoryInitializationState = DirectoryInitialization.start()
         if (directoryInitializationState ===
-            DirectoryInitializationState.CITRA_DIRECTORIES_INITIALIZED
+            DirectoryInitializationState.LIME3DS_DIRECTORIES_INITIALIZED
         ) {
             emulationState.run(emulationActivity.isActivityRecreated)
         } else if (directoryInitializationState ===

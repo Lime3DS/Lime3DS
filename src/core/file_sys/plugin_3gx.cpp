@@ -1,4 +1,5 @@
 // Copyright 2022 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -91,7 +92,7 @@ Loader::ResultStatus FileSys::Plugin3GXLoader::Load(
     }
 
     if (header.infos.flags.compatibility == static_cast<u32>(_3gx_Infos::Compatibility::CONSOLE)) {
-        LOG_ERROR(Service_PLGLDR, "Failed to load 3GX plugin. Not compatible with Citra: {}",
+        LOG_ERROR(Service_PLGLDR, "Failed to load 3GX plugin. Not compatible with Lime3DS: {}",
                   plg_context.plugin_path);
         return Loader::ResultStatus::Error;
     }

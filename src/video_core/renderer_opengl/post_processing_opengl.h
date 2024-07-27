@@ -1,4 +1,5 @@
 // Copyright 2014 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -11,7 +12,7 @@
 namespace OpenGL {
 
 // Returns a vector of the names of the shaders available in the
-// "shaders" directory in citra's data directory
+// "shaders" directory in lime3ds's data directory
 std::vector<std::string> GetPostProcessingShaderList(bool anaglyph);
 
 // Returns the shader code for the shader named "shader_name"

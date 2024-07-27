@@ -62,6 +62,6 @@ if(ENABLE_OPENAL)
     add_definitions(-DAL_LIBTYPE_STATIC)
 endif()
 
-if (CITRA_USE_PRECOMPILED_HEADERS)
+if (LIME3DS_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(audio_core PRIVATE precompiled_headers.h)
 endif()

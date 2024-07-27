@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2024 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once

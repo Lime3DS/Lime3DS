@@ -1,4 +1,5 @@
 // Copyright 2023 Citra Emulator Project
+// Copyright 2024 Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -305,9 +306,9 @@ vk::UniqueInstance CreateInstance(const Common::DynamicLibrary& library,
     const auto extensions = GetInstanceExtensions(window_type, enable_validation);
 
     const vk::ApplicationInfo application_info = {
-        .pApplicationName = "Citra",
+        .pApplicationName = "Lime3DS",
         .applicationVersion = VK_MAKE_VERSION(1, 0, 0),
-        .pEngineName = "Citra Vulkan",
+        .pEngineName = "Lime3DS Vulkan",
         .engineVersion = VK_MAKE_VERSION(1, 0, 0),
         .apiVersion = TargetVulkanApiVersion,
     };
