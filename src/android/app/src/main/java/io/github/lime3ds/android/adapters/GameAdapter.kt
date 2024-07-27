@@ -203,6 +203,8 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
         bottomSheetDialog.setContentView(bottomSheetView)
 
         bottomSheetView.findViewById<TextView>(R.id.about_game_title).text = game.title
+        bottomSheetView.findViewById<TextView>(R.id.about_game_company).text = game.company
+        bottomSheetView.findViewById<TextView>(R.id.about_game_region).text = game.regions
         bottomSheetView.findViewById<TextView>(R.id.about_game_id).text = String.format("%016X", game.titleId)
         bottomSheetView.findViewById<TextView>(R.id.about_game_filename).text = game.filename
         GameIconUtils.loadGameIcon(activity, game, bottomSheetView.findViewById(R.id.game_icon))

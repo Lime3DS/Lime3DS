@@ -50,23 +50,40 @@
                 tools:text="Game Title" />
 
             <TextView
+                android:id="@+id/about_game_company"
+                style="?attr/textAppearanceBodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/about_game_filename"
+                app:layout_constraintTop_toBottomOf="@+id/about_game_title"
+                tools:text="Game Company" />
+
+            <TextView
+                android:id="@+id/about_game_region"
+                style="?attr/textAppearanceBodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/about_game_title"
+                app:layout_constraintTop_toBottomOf="@+id/about_game_company"
+                tools:text="Game Region" />
+
+            <TextView
                 android:id="@+id/about_game_id"
                 style="?attr/textAppearanceBodyMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/about_game_filename"
-                app:layout_constraintTop_toBottomOf="@id/about_game_filename"
+                app:layout_constraintTop_toBottomOf="@+id/about_game_region"
                 tools:text="Game ID" />
-                     
+
             <TextView
                 android:id="@+id/about_game_filename"
                 style="?attr/textAppearanceBodyMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/about_game_title"
-                app:layout_constraintTop_toBottomOf="@id/about_game_title"
-                tools:text="Game Filename" />       
-
+                app:layout_constraintTop_toBottomOf="@+id/about_game_id"
+                tools:text="Game Filename" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
