@@ -114,6 +114,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/game_shortcut"
+                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/shortcut"
+                app:icon="@drawable/ic_shortcut"
+                app:iconGravity="textStart" />      
+
         </LinearLayout>
 
         <LinearLayout

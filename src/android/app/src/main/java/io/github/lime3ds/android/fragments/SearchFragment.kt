@@ -78,7 +78,7 @@ class SearchFragment : Fragment() {
                 requireContext(),
                 resources.getInteger(R.integer.game_grid_columns)
             )
-            adapter = GameAdapter(requireActivity() as AppCompatActivity, inflater)
+            adapter = GameAdapter(requireActivity() as AppCompatActivity, inflater, viewLifecycleOwner.lifecycleScope)
         }
 
         binding.chipGroup.setOnCheckedStateChangeListener { _, _ -> filterAndSearch() }
