@@ -51,8 +51,6 @@ void EmuWindow_Android::OnTouchMoved(int x, int y) {
 }
 
 void EmuWindow_Android::OnFramebufferSizeChanged() {
-    //UpdateLandscapeScreenLayout();
-    //UpdatePortraitScreenLayout();
     const bool is_portrait_mode{IsPortraitMode()};
 
     const int bigger{window_width > window_height ? window_width : window_height};

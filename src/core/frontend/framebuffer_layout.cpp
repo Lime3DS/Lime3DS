@@ -629,9 +629,7 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
 
     return new_layout;
 }
-/*f
- * TODO: remove this?
- */
+
 std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout() {
     u32 min_width, min_height;
     min_width = Core::kScreenTopWidth;
