@@ -438,6 +438,7 @@
 
     <!-- About Game Dialog -->
     <string name="play">Play</string>
+    <string name="shortcut">Shortcut</string>
 
     <!-- Cheats -->
     <string name="cheats">Cheats</string>
