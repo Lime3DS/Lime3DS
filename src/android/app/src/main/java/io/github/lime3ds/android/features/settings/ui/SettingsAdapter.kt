@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import io.github.lime3ds.android.R
@@ -76,7 +78,8 @@ class SettingsAdapter(
     private var clickedPosition: Int
     private var dialog: AlertDialog? = null
     private var sliderProgress = 0
-    private var textSliderValue: EditText? = null
+    private var textSliderValue: TextInputEditText? = null
+    private var textInputLayout: TextInputLayout? = null
     private var textInputValue: String = ""
 
     private var defaultCancelListener =
@@ -259,10 +262,11 @@ class SettingsAdapter(
 
         val inflater = LayoutInflater.from(context)
         val sliderBinding = DialogSliderBinding.inflate(inflater)
-
+        textInputLayout = sliderBinding.textInput
         textSliderValue = sliderBinding.textValue
         textSliderValue!!.setText(sliderProgress.toString())
-        sliderBinding.textUnits.text = item.units
+        //sliderBinding.textUnits.text = item.units
+        textInputLayout!!.suffixText = item.units
 
         sliderBinding.slider.apply {
             valueFrom = item.min.toFloat()
@@ -272,9 +276,9 @@ class SettingsAdapter(
                     override fun afterTextChanged(s: Editable) {
                         val textValue = s.toString().toIntOrNull();
                         if (textValue == null || textValue < valueFrom || textValue > valueTo) {
-                            textSliderValue!!.setTextColor(Color.parseColor("#ff0000"));
+                            textInputLayout!!.error ="Inappropriate value"
                         } else {
-                            textSliderValue!!.setTextColor(Color.parseColor("#000000"));
+                            textInputLayout!!.error = null
                             value = textValue.toFloat();
                         }
                     }

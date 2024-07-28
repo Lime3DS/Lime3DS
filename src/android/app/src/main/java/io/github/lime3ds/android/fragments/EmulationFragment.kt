@@ -925,19 +925,32 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         sliderBinding.apply {
             slider.valueTo = 150f
+            slider.valueFrom = 0f
             slider.value = preferences.getInt(target, 50).toFloat()
-            textValue.setText(slider.value.toInt().toString());
-            addSliderTextWatcher(textValue,slider);
+            textValue.setText((slider.value + 50).toInt().toString());
+            textValue.addTextChangedListener( object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    val value = s.toString().toIntOrNull();
+                    if (value == null || value < 50 || value > 150) {
+                        textInput.error = "Inappropriate Value"
+                    } else {
+                        textInput.error = null
+                        slider.value = value.toFloat() - 50
+                    }
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
             slider.addOnChangeListener(
                 Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
-                    if (textValue.text.toString() != slider.value.toInt().toString()) {
-                        textValue.setText(slider.value.toInt().toString())
+                    if (textValue.text.toString() != (slider.value + 50).toInt().toString()) {
+                        textValue.setText((slider.value + 50).toInt().toString())
                         textValue.setSelection(textValue.length())
                         setControlScale(slider.value.toInt(), target)
                     }
 
                 })
-            textUnits.text = "%"
+            textInput.suffixText = "%"
         }
         val previousProgress = sliderBinding.slider.value.toInt()
 
@@ -955,21 +968,6 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             }
             .show()
     }
-    private fun addSliderTextWatcher(textValue: EditText,slider: Slider) {
-        textValue.addTextChangedListener( object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                val value = s.toString().toIntOrNull();
-                if (value == null || value < slider.valueFrom || value > slider.valueTo) {
-                    textValue.setTextColor(Color.parseColor("#ff0000"));
-                } else {
-                    textValue.setTextColor(Color.parseColor("#000000"));
-                    slider.value = value.toFloat();
-                }
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
-    }
 
     private fun showAdjustOpacityDialog() {
         val sliderBinding = DialogSliderBinding.inflate(layoutInflater)
@@ -978,8 +976,22 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             slider.valueFrom = 0f
             slider.valueTo = 100f
             slider.value = preferences.getInt("controlOpacity", 50).toFloat()
-            textValue.setText(slider.value.toInt().toString());
-            addSliderTextWatcher(textValue,slider);
+            textValue.setText(slider.value.toInt().toString())
+
+            textValue.addTextChangedListener( object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    val value = s.toString().toIntOrNull();
+                    if (value == null || value < slider.valueFrom || value > slider.valueTo) {
+                        textInput.error = "Inappropriate Value"
+                    } else {
+                        textInput.error = null
+                        slider.value = value.toFloat();
+                    }
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
+
 
             slider.addOnChangeListener { _: Slider, value: Float, _: Boolean ->
 
@@ -990,7 +1002,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                     }
                 }
 
-            textUnits.text = "%"
+            textInput.suffixText = "%"
         }
         val previousProgress = sliderBinding.slider.value.toInt()
 
@@ -1019,7 +1031,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     private fun resetScale(target: String) {
         preferences.edit().putInt(
             target,
-            50
+            100
         ).apply()
     }
 
