@@ -6,7 +6,7 @@ package io.github.lime3ds.android.display
 
 enum class ScreenLayout(val int: Int) {
     // These must match what is defined in src/common/settings.h
-    TOP_BOTTOM(0),
+    ABOVE_BELOW(0),
     SINGLE_SCREEN(1),
     LARGE_SCREEN(2),
     SIDE_SCREEN(3),

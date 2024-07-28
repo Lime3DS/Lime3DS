@@ -16,6 +16,7 @@
         <item>@string/emulation_screen_layout_single</item>
         <item>@string/emulation_screen_layout_sidebyside</item>
         <item>@string/emulation_screen_layout_hybrid</item>
+        <item>@string/emulation_screen_layout_above_below</item>
         <item>@string/emulation_screen_layout_custom</item>
     </string-array>
     <!-- start with 6 because that is the MobileLandscape layout in cpp files
@@ -27,6 +28,7 @@
         <item>1</item>
         <item>3</item>
         <item>4</item>
+        <item>0</item>
         <item>5</item>
     </integer-array>
 

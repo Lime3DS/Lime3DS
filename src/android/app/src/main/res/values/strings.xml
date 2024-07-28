@@ -365,6 +365,7 @@
     <string name="emulation_screen_layout_single">Single Screen</string>
     <string name="emulation_screen_layout_sidebyside">Side by Side Screens</string>
     <string name="emulation_screen_layout_hybrid">Hybrid Screens</string>
+    <string name="emulation_screen_layout_above_below">Above and Below</string>
     <string name="emulation_portrait_layout_top_full">Default</string>
     <string name="emulation_screen_layout_custom">Custom Layout</string>
     <string name="emulation_adjust_custom_layout">Adjust Custom Layout in Settings</string>
