@@ -933,7 +933,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_TOP_X,
-                    R.string.emulation_layout_top_x,
+                    R.string.emulation_custom_layout_x,
                     0,
                     0,
                     getHeight(),
@@ -945,7 +945,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_TOP_Y,
-                    R.string.emulation_layout_top_y,
+                    R.string.emulation_custom_layout_y,
                     0,
                     0,
                     getWidth(),
@@ -957,7 +957,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_TOP_WIDTH,
-                    R.string.emulation_layout_top_width,
+                    R.string.emulation_custom_layout_width,
                     0,
                     0,
                     getHeight(),
@@ -969,7 +969,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_TOP_HEIGHT,
-                    R.string.emulation_layout_top_height,
+                    R.string.emulation_custom_layout_height,
                     0,
                     0,
                     getWidth(),
@@ -981,7 +981,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_BOTTOM_X,
-                    R.string.emulation_layout_bottom_x,
+                    R.string.emulation_custom_layout_x,
                     0,
                     0,
                     getHeight(),
@@ -993,7 +993,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_BOTTOM_Y,
-                    R.string.emulation_layout_bottom_y,
+                    R.string.emulation_custom_layout_y,
                     0,
                     0,
                     getWidth(),
@@ -1005,7 +1005,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_BOTTOM_WIDTH,
-                    R.string.emulation_layout_bottom_width,
+                    R.string.emulation_custom_layout_width,
                     0,
                     0,
                     getHeight(),
@@ -1017,7 +1017,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_BOTTOM_HEIGHT,
-                    R.string.emulation_layout_bottom_height,
+                    R.string.emulation_custom_layout_height,
                     0,
                     0,
                     getWidth(),
@@ -1032,7 +1032,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_TOP_X,
-                    R.string.emulation_layout_top_x,
+                    R.string.emulation_custom_layout_x,
                     0,
                     0,
                     getWidth(),
@@ -1044,7 +1044,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_TOP_Y,
-                    R.string.emulation_layout_top_y,
+                    R.string.emulation_custom_layout_y,
                     0,
                     0,
                     getHeight(),
@@ -1056,7 +1056,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_TOP_WIDTH,
-                    R.string.emulation_layout_top_width,
+                    R.string.emulation_custom_layout_width,
                     0,
                     0,
                     getWidth(),
@@ -1068,7 +1068,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_TOP_HEIGHT,
-                    R.string.emulation_layout_top_height,
+                    R.string.emulation_custom_layout_height,
                     0,
                     0,
                     getHeight(),
@@ -1080,7 +1080,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_BOTTOM_X,
-                    R.string.emulation_layout_bottom_x,
+                    R.string.emulation_custom_layout_x,
                     0,
                     0,
                     getWidth(),
@@ -1092,7 +1092,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_BOTTOM_Y,
-                    R.string.emulation_layout_bottom_y,
+                    R.string.emulation_custom_layout_y,
                     0,
                     0,
                     getHeight(),
@@ -1104,7 +1104,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_BOTTOM_WIDTH,
-                    R.string.emulation_layout_bottom_width,
+                    R.string.emulation_custom_layout_width,
                     0,
                     0,
                     getWidth(),
@@ -1116,7 +1116,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_BOTTOM_HEIGHT,
-                    R.string.emulation_layout_bottom_height,
+                    R.string.emulation_custom_layout_height,
                     0,
                     0,
                     getHeight(),
