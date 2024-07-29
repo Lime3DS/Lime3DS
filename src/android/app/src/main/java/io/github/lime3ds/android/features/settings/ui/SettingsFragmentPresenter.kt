@@ -97,6 +97,8 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             Settings.SECTION_AUDIO -> addAudioSettings(sl)
             Settings.SECTION_DEBUG -> addDebugSettings(sl)
             Settings.SECTION_THEME -> addThemeSettings(sl)
+            Settings.SECTION_CUSTOM_LANDSCAPE -> addCustomLandscapeSettings(sl)
+            Settings.SECTION_CUSTOM_PORTRAIT -> addCustomPortraitSettings(sl)
             else -> {
                 fragmentView.showToastMessage("Unimplemented menu", false)
                 return
@@ -928,8 +930,30 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
-                HeaderSetting(R.string.emulation_landscape_custom_layout)
+                SubmenuSetting(
+                    R.string.emulation_landscape_custom_layout,
+                    0,
+                    R.drawable.ic_fit_screen,
+                    Settings.SECTION_CUSTOM_LANDSCAPE
+                )
             )
+            add(
+                SubmenuSetting(
+                    R.string.emulation_portrait_custom_layout,
+                    0,
+                    R.drawable.ic_portrait_fit_screen,
+                    Settings.SECTION_CUSTOM_PORTRAIT
+                )
+            )
+
+
+        }
+    }
+
+    private fun addCustomLandscapeSettings(sl: ArrayList<SettingsItem>) {
+        settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.emulation_landscape_custom_layout))
+        sl.apply {
+            add(HeaderSetting(R.string.emulation_top_screen))
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_TOP_X,
@@ -978,6 +1002,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.LANDSCAPE_TOP_HEIGHT.defaultValue.toFloat()
                 )
             )
+            add(HeaderSetting(R.string.emulation_bottom_screen))
             add(
                 SliderSetting(
                     IntSetting.LANDSCAPE_BOTTOM_X,
@@ -1026,9 +1051,14 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.LANDSCAPE_BOTTOM_HEIGHT.defaultValue.toFloat()
                 )
             )
-            add(
-                HeaderSetting(R.string.emulation_portrait_custom_layout)
-            )
+        }
+
+    }
+
+    private fun addCustomPortraitSettings(sl: ArrayList<SettingsItem>) {
+        settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.emulation_portrait_custom_layout))
+        sl.apply {
+            add(HeaderSetting(R.string.emulation_top_screen))
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_TOP_X,
@@ -1077,6 +1107,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.PORTRAIT_TOP_HEIGHT.defaultValue.toFloat()
                 )
             )
+            add(HeaderSetting(R.string.emulation_bottom_screen))
             add(
                 SliderSetting(
                     IntSetting.PORTRAIT_BOTTOM_X,
@@ -1126,6 +1157,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
         }
+
     }
 
     private fun addAudioSettings(sl: ArrayList<SettingsItem>) {

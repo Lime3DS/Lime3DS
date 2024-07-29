@@ -371,6 +371,8 @@
     <string name="emulation_adjust_custom_layout">Adjust Custom Layout in Settings</string>
     <string name="emulation_landscape_custom_layout">Landscape Custom Layout</string>
     <string name="emulation_portrait_custom_layout">Portrait Custom Layout</string>
+    <string name="emulation_top_screen">Top Screen</string>
+    <string name="emulation_bottom_screen">Bottom Screen</string>
     <string name="emulation_custom_layout_x">X-Position</string>
     <string name="emulation_custom_layout_y">Y-Position</string>
     <string name="emulation_custom_layout_width">Width</string>
