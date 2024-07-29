@@ -8,7 +8,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -23,7 +22,6 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -840,6 +838,11 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 }
 
                 R.id.menu_screen_layout_custom -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.emulation_adjust_custom_layout,
+                        Toast.LENGTH_LONG
+                    ).show()
                     screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.CUSTOM_LAYOUT.int)
                     true
                 }
@@ -881,6 +884,11 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 }
 
                 R.id.menu_portrait_layout_custom -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.emulation_adjust_custom_layout,
+                        Toast.LENGTH_LONG
+                    ).show()
                     screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int)
                     true
                 }
@@ -935,10 +943,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             slider.valueTo = 150f
             slider.valueFrom = 0f
             slider.value = preferences.getInt(target, 50).toFloat()
-            textValue.setText((slider.value + 50).toInt().toString());
+            textValue.setText((slider.value + 50).toInt().toString())
             textValue.addTextChangedListener( object : TextWatcher {
                 override fun afterTextChanged(s: Editable) {
-                    val value = s.toString().toIntOrNull();
+                    val value = s.toString().toIntOrNull()
                     if (value == null || value < 50 || value > 150) {
                         textInput.error = "Inappropriate Value"
                     } else {
@@ -988,12 +996,12 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
             textValue.addTextChangedListener( object : TextWatcher {
                 override fun afterTextChanged(s: Editable) {
-                    val value = s.toString().toIntOrNull();
+                    val value = s.toString().toIntOrNull()
                     if (value == null || value < slider.valueFrom || value > slider.valueTo) {
                         textInput.error = "Inappropriate Value"
                     } else {
                         textInput.error = null
-                        slider.value = value.toFloat();
+                        slider.value = value.toFloat()
                     }
                 }
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
