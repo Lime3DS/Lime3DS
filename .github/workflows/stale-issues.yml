@@ -13,8 +13,8 @@ jobs:
       - uses: actions/stale@v9.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          days-before-issue-stale: 70
-          days-before-issue-close: 20
+          days-before-issue-stale: 90
+          days-before-issue-close: 10
           stale-issue-message: "This issue has been marked as stale. If there is no activity within the next 20 days, this issue will be closed."
           close-issue-message: "This issue has been closed as stale."
           days-before-pr-stale: -1
