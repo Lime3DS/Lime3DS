@@ -20,4 +20,4 @@ jobs:
           days-before-pr-stale: -1
           days-before-pr-close: -1
           remove-issue-stale-when-updated: true
-          exempt-issue-labels: "priority - low,priority - medium,priority - high,priority - urgent,documentation"
+          exempt-issue-labels: "priority - low,priority - medium,priority - high,priority - urgent,documentation,enhancement"
