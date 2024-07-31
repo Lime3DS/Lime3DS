@@ -41,8 +41,8 @@ if (APPLE)
         set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
         set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
     else()
-        # Minimum macOS 11
-        set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")
+        # Minimum macOS 13
+        set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
     endif()
 endif()
 
