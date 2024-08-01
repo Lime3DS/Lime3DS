@@ -8,9 +8,14 @@ cmake_policy(SET CMP0069 NEW)
 # Honor visibility properties for all targets
 # Set the default so subdirectory cmake_minimum_required calls won't unset the policy.
 cmake_policy(SET CMP0063 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
+# Needed to compile sdl2 2.30.5+ on MSVC
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+# Allow use with targets in other directories
+cmake_policy(SET CMP0079 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0079 NEW)
 # Allow conditions to be used in cmake_dependent_option
 cmake_policy(SET CMP0127 NEW)
-set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/externals/cmake-modules")
