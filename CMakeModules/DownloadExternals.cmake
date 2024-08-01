@@ -95,7 +95,7 @@ function(download_qt_configuration prefix_out target host type arch arch_path ba
 
     if (NOT EXISTS "${prefix}")
         message(STATUS "Downloading Qt binaries for ${target}:${host}:${type}:${arch}:${arch_path}")
-        set(AQT_PREBUILD_BASE_URL "https://github.com/miurahr/aqtinstall/releases/download/v3.1.16")
+        set(AQT_PREBUILD_BASE_URL "https://github.com/miurahr/aqtinstall/releases/download/v3.1.17")
         if (WIN32)
             set(aqt_path "${base_path}/aqt.exe")
             if (NOT EXISTS "${aqt_path}")
