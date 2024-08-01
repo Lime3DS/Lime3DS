@@ -32,8 +32,8 @@ if (APPLE)
     set(CMAKE_C_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
     set(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
 
-    # Minimum macOS 11
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")
+    # Minimum macOS 13
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
 endif()
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
