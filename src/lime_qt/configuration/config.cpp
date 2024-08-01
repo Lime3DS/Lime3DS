@@ -520,8 +520,6 @@ void Config::ReadLayoutValues() {
 
     if (global) {
         ReadBasicSetting(Settings::values.mono_render_option);
-
-        ReadBasicSetting(Settings::values.custom_layout);
         ReadBasicSetting(Settings::values.custom_top_x);
         ReadBasicSetting(Settings::values.custom_top_y);
         ReadBasicSetting(Settings::values.custom_top_width);
@@ -1081,8 +1079,6 @@ void Config::SaveLayoutValues() {
 
     if (global) {
         WriteBasicSetting(Settings::values.mono_render_option);
-
-        WriteBasicSetting(Settings::values.custom_layout);
         WriteBasicSetting(Settings::values.custom_top_x);
         WriteBasicSetting(Settings::values.custom_top_y);
         WriteBasicSetting(Settings::values.custom_top_width);
