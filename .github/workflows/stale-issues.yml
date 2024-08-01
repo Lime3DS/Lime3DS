@@ -15,7 +15,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           days-before-issue-stale: 90
           days-before-issue-close: 10
-          stale-issue-message: "This issue has been marked as stale. If there is no activity within the next 20 days, this issue will be closed."
+          stale-issue-message: "This issue has been marked as stale. If there is no activity within the next 10 days, this issue will be closed."
           close-issue-message: "This issue has been closed as stale."
           days-before-pr-stale: -1
           days-before-pr-close: -1
