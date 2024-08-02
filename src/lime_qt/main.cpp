@@ -614,7 +614,6 @@ void GMainWindow::InitializeHotkeys() {
 
     const QString main_window = QStringLiteral("Main Window");
     const QString fullscreen = QStringLiteral("Fullscreen");
-    const QString toggle_screen_layout = QStringLiteral("Toggle Screen Layout");
     const QString swap_screens = QStringLiteral("Swap Screens");
     const QString rotate_screens = QStringLiteral("Rotate Screens Upright");
 
@@ -663,9 +662,7 @@ void GMainWindow::InitializeHotkeys() {
         connect(secondary_hotkey, &QShortcut::activated, this, function);
     };
 
-    connect(hotkey_registry.GetHotkey(main_window, toggle_screen_layout, render_window),
-            &QShortcut::activated, this, &GMainWindow::ToggleScreenLayout);
-
+    connect_shortcut(QStringLiteral("Toggle Screen Layout"), &GMainWindow::ToggleScreenLayout);
     connect_shortcut(QStringLiteral("Exit Fullscreen"), [&] {
         if (emulation_running) {
             ui->action_Fullscreen->setChecked(false);
