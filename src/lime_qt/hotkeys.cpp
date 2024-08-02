@@ -33,7 +33,7 @@ void HotkeyRegistry::LoadHotkeys() {
                 QKeySequence::fromString(shortcut.shortcut.keyseq, QKeySequence::NativeText);
             hk.context = static_cast<Qt::ShortcutContext>(shortcut.shortcut.context);
         }
-        for(auto const& [_, hotkey_shortcut] : hk.shortcuts) {
+        for (auto const& [_, hotkey_shortcut] : hk.shortcuts) {
             if (hotkey_shortcut) {
                 hotkey_shortcut->disconnect();
                 hotkey_shortcut->setKey(hk.keyseq);

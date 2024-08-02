@@ -656,7 +656,8 @@ void GMainWindow::InitializeHotkeys() {
     // QShortcut Hotkeys
     const auto connect_shortcut = [&](const QString& action_name, const auto& function) {
         const auto* hotkey = hotkey_registry.GetHotkey(main_window, action_name, this);
-        const auto* secondary_hotkey = hotkey_registry.GetHotkey(main_window, action_name, secondary_window);
+        const auto* secondary_hotkey =
+            hotkey_registry.GetHotkey(main_window, action_name, secondary_window);
         connect(hotkey, &QShortcut::activated, this, function);
         connect(secondary_hotkey, &QShortcut::activated, this, function);
     };
