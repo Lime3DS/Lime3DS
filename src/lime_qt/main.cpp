@@ -609,7 +609,7 @@ void GMainWindow::InitializeSaveStateMenuActions() {
     UpdateSaveStates();
 }
 
-void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
+void GMainWindow::InitializeHotkeys() {
     hotkey_registry.LoadHotkeys();
 
     const QString main_window = QStringLiteral("Main Window");
@@ -670,7 +670,9 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
 
     const auto connect_shortcut = [&](const QString& action_name, const auto& function) {
         const auto* hotkey = hotkey_registry.GetHotkey(main_window, action_name, this);
+        const auto* secondary_hotkey = hotkey_registry.GetHotkey(main_window, action_name, secondary_window);
         connect(hotkey, &QShortcut::activated, this, function);
+        connect(secondary_hotkey, &QShortcut::activated, this, function);
     };
 
     connect(hotkey_registry.GetHotkey(main_window, toggle_screen_layout, render_window),
