@@ -8,9 +8,14 @@ cmake_policy(SET CMP0069 NEW)
 # Honor visibility properties for all targets
 # Set the default so subdirectory cmake_minimum_required calls won't unset the policy.
 cmake_policy(SET CMP0063 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
+# Needed to compile sdl2 2.30.5+ on MSVC
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+# Allow use with targets in other directories
+cmake_policy(SET CMP0079 NEW)
+set(CMAKE_POLICY_DEFAULT_CMP0079 NEW)
 # Allow conditions to be used in cmake_dependent_option
 cmake_policy(SET CMP0127 NEW)
-set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/externals/cmake-modules")
@@ -32,18 +37,8 @@ if (APPLE)
     set(CMAKE_C_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
     set(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
 
-    if (IOS)
-        # Minimum iOS 14
-        set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0")
-
-        # Enable searching CMAKE_PREFIX_PATH for bundled dependencies.
-        set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
-        set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
-        set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE BOTH)
-    else()
-        # Minimum macOS 11
-        set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0")
-    endif()
+    # Minimum macOS 13
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
 endif()
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)
@@ -62,24 +57,24 @@ else()
 endif()
 
 option(ENABLE_SDL2 "Enable using SDL2" ON)
-CMAKE_DEPENDENT_OPTION(ENABLE_SDL2_FRONTEND "Enable the SDL2 frontend" ON "ENABLE_SDL2;NOT ANDROID AND NOT IOS" OFF)
+CMAKE_DEPENDENT_OPTION(ENABLE_SDL2_FRONTEND "Enable the SDL2 frontend" ON "ENABLE_SDL2;NOT ANDROID" OFF)
 option(USE_SYSTEM_SDL2 "Use the system SDL2 lib (instead of the bundled one)" OFF)
 
 # Set bundled qt as dependent options.
 option(ENABLE_QT "Enable the Qt frontend" ON)
 option(ENABLE_QT_TRANSLATION "Enable translations for the Qt frontend" OFF)
-CMAKE_DEPENDENT_OPTION(ENABLE_QT_UPDATER "Enable built-in updater for the Qt frontend" ON "NOT IOS" OFF)
+option(ENABLE_QT_UPDATER "Enable built-in updater for the Qt frontend" ON)
 
-CMAKE_DEPENDENT_OPTION(ENABLE_TESTS "Enable generating tests executable" ON "NOT IOS" OFF)
-CMAKE_DEPENDENT_OPTION(ENABLE_DEDICATED_ROOM "Enable generating dedicated room executable" ON "NOT ANDROID AND NOT IOS" OFF)
+option(ENABLE_TESTS "Enable generating tests executable" ON)
+CMAKE_DEPENDENT_OPTION(ENABLE_DEDICATED_ROOM "Enable generating dedicated room executable" ON "NOT ANDROID" OFF)
 
 option(ENABLE_WEB_SERVICE "Enable web services (telemetry, etc.)" ON)
 option(ENABLE_SCRIPTING "Enable RPC server for scripting" ON)
 
-CMAKE_DEPENDENT_OPTION(ENABLE_CUBEB "Enables the cubeb audio backend" ON "NOT IOS" OFF)
+option(ENABLE_CUBEB "Enables the cubeb audio backend" ON)
 option(ENABLE_OPENAL "Enables the OpenAL audio backend" ON)
 
-CMAKE_DEPENDENT_OPTION(ENABLE_LIBUSB "Enable libusb for GameCube Adapter support" ON "NOT IOS" OFF)
+option(ENABLE_LIBUSB "Enable libusb for GameCube Adapter support" ON)
 
 CMAKE_DEPENDENT_OPTION(ENABLE_SOFTWARE_RENDERER "Enables the software renderer" ON "NOT ANDROID" OFF)
 CMAKE_DEPENDENT_OPTION(ENABLE_OPENGL "Enables the OpenGL renderer" ON "NOT APPLE AND NOT (LINUX AND CMAKE_SYSTEM_PROCESSOR STREQUAL \"aarch64\")" OFF)
@@ -278,10 +273,8 @@ find_package(tsl-robin-map QUIET)
 # ======================================
 
 if (APPLE)
-    if (NOT IOS)
-        # Umbrella framework for everything GUI-related
-        find_library(COCOA_LIBRARY Cocoa REQUIRED)
-    endif()
+    # Umbrella framework for everything GUI-related
+    find_library(COCOA_LIBRARY Cocoa REQUIRED)
     find_library(AVFOUNDATION_LIBRARY AVFoundation REQUIRED)
     find_library(IOSURFACE_LIBRARY IOSurface REQUIRED)
     set(PLATFORM_LIBRARIES ${COCOA_LIBRARY} ${AVFOUNDATION_LIBRARY} ${IOSURFACE_LIBRARY} ${MOLTENVK_LIBRARY})
@@ -445,7 +438,7 @@ endif()
 
 # Create target for outputting distributable bundles.
 # Not supported for mobile platforms as distributables are built differently.
-if (NOT ANDROID AND NOT IOS)
+if (NOT ANDROID)
     include(BundleTarget)
     if (ENABLE_SDL2_FRONTEND)
         bundle_target(lime)

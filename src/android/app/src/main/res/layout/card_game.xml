@@ -64,7 +64,7 @@
                 tools:text="Nintendo" />
 
             <TextView
-                android:id="@+id/text_filename"
+                android:id="@+id/text_game_region"
                 style="@style/TextAppearance.Material3.BodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:ellipsize="none"
                 android:requiresFadingEdge="horizontal"
-                tools:text="Pilotwings_Resort.cxi" />
+                tools:text="Region" />
 
         </LinearLayout>
 

@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -392,7 +392,7 @@ static Frontend::WindowSystemType GetWindowSystemType() {
     else if (platform_name == QStringLiteral("wayland") ||
              platform_name == QStringLiteral("wayland-egl"))
         return Frontend::WindowSystemType::Wayland;
-    else if (platform_name == QStringLiteral("cocoa") || platform_name == QStringLiteral("ios"))
+    else if (platform_name == QStringLiteral("cocoa"))
         return Frontend::WindowSystemType::MacOS;
 
     LOG_CRITICAL(Frontend, "Unknown Qt platform!");

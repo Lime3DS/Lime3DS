@@ -47,7 +47,7 @@ We are also on Flathub:
 <a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='180' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 # Build Instructions
-Please refer to our website's [wiki](https://lime3ds.github.io/pages/wiki.html) in order to find building instructions for Windows, Linux, Android and MacOS
+Please refer to our website's [wiki](https://github.com/Lime3DS/Lime3DS/wiki/Building-From-Source) in order to find building instructions for Windows, Linux, Android and MacOS
 
 # Compatibility Reporting
 Reports for game compatibility can be made here: https://github.com/Lime3DS/compatibility-list
@@ -82,9 +82,10 @@ If there is an issue you want solved or a feature you want implemented, feel fre
 
 <sup>(Please don't repeatedly merge `master` into your PR's branch. A maintainer will update the branch for you if/ when it is appropriate to do so)</sup>
 
-Additionally, [we are accepting language translations on Transifex](https://app.transifex.com/lime3ds/lime3ds). If you know a non-english language listed on our Transifex page, please feel free to contribute.
+Additionally, we are accepting language translations on [Transifex](https://app.transifex.com/lime3ds/lime3ds). If you know a non-english language listed on our Transifex page, please feel free to contribute.
 
-Note: We are not currently accepting new languages for translation. Please do not request for new languages or language variants to be added.
+> [!NOTE]  
+> We are not currently accepting new languages for translation. Please do not request for new languages or language variants to be added.
 
 # Discord
 Join our Discord community to discuss the project or talk with the developers.

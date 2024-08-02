@@ -278,17 +278,6 @@ if (APPLE)
         MACOSX_BUNDLE_ICON_FILE "lime.icns"
         RESOURCE "${APPLE_RESOURCES}"
     )
-
-    if (IOS)
-        set_target_properties(lime-qt PROPERTIES
-            # Have Xcode copy and sign MoltenVK into app bundle.
-            XCODE_EMBED_FRAMEWORKS "${MOLTENVK_LIBRARY}"
-            XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
-            XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/Frameworks"
-            # Support iPhone and iPad.
-            XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
-        )
-    endif()
 elseif(WIN32)
     # compile as a win32 gui application instead of a console application
     target_link_libraries(lime-qt PRIVATE Qt6::EntryPointImplementation)
