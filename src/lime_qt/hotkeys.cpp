@@ -33,21 +33,24 @@ void HotkeyRegistry::LoadHotkeys() {
                 QKeySequence::fromString(shortcut.shortcut.keyseq, QKeySequence::NativeText);
             hk.context = static_cast<Qt::ShortcutContext>(shortcut.shortcut.context);
         }
-        if (hk.shortcut) {
-            hk.shortcut->disconnect();
-            hk.shortcut->setKey(hk.keyseq);
+        for(auto const& [_, hotkey_shortcut] : hk.shortcuts) {
+            if (hotkey_shortcut) {
+                hotkey_shortcut->disconnect();
+                hotkey_shortcut->setKey(hk.keyseq);
+            }
         }
     }
 }
 
 QShortcut* HotkeyRegistry::GetHotkey(const QString& group, const QString& action, QObject* widget) {
     Hotkey& hk = hotkey_groups[group][action];
+    QShortcut* shortcut = hk.shortcuts[widget->objectName()];
 
-    if (!hk.shortcut) {
-        hk.shortcut = new QShortcut(hk.keyseq, widget, nullptr, nullptr, hk.context);
+    if (!shortcut) {
+        shortcut = new QShortcut(hk.keyseq, widget, nullptr, nullptr, hk.context);
     }
 
-    return hk.shortcut;
+    return shortcut;
 }
 
 QKeySequence HotkeyRegistry::GetKeySequence(const QString& group, const QString& action) {

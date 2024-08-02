@@ -71,7 +71,7 @@ private:
     struct Hotkey {
         QKeySequence keyseq;
         QString controller_keyseq;
-        QShortcut* shortcut = nullptr;
+        std::map<QString, QShortcut*> shortcuts;
         Qt::ShortcutContext context = Qt::WindowShortcut;
     };
 
