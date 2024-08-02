@@ -618,6 +618,7 @@ void GMainWindow::InitializeHotkeys() {
     const QString swap_screens = QStringLiteral("Swap Screens");
     const QString rotate_screens = QStringLiteral("Rotate Screens Upright");
 
+    // QAction Hotkeys
     const auto link_action_shortcut = [&](QAction* action, const QString& action_name,
                                           const bool primary_only = false) {
         static const QString main_window = QStringLiteral("Main Window");
@@ -654,20 +655,7 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Show_Room, QStringLiteral("Multiplayer Show Current Room"));
     link_action_shortcut(ui->action_Leave_Room, QStringLiteral("Multiplayer Leave Room"));
 
-    const auto add_secondary_window_hotkey = [this](QAction* action, QKeySequence hotkey,
-                                                    const char* slot) {
-        // This action will fire specifically when secondary_window is in focus
-        action->setShortcut(hotkey);
-        disconnect(action, SIGNAL(triggered()), this, slot);
-        connect(action, SIGNAL(triggered()), this, slot);
-        secondary_window->addAction(action);
-    };
-
-    // Use the same fullscreen hotkey as the main window
-    const auto fullscreen_hotkey = hotkey_registry.GetKeySequence(main_window, fullscreen);
-    add_secondary_window_hotkey(action_secondary_fullscreen, fullscreen_hotkey,
-                                SLOT(ToggleSecondaryFullscreen()));
-
+    // QShortcut Hotkeys
     const auto connect_shortcut = [&](const QString& action_name, const auto& function) {
         const auto* hotkey = hotkey_registry.GetHotkey(main_window, action_name, this);
         const auto* secondary_hotkey = hotkey_registry.GetHotkey(main_window, action_name, secondary_window);
@@ -748,6 +736,21 @@ void GMainWindow::InitializeHotkeys() {
             UpdateStatusBar();
         }
     });
+
+    // Secondary Window QAction Hotkeys
+    const auto add_secondary_window_hotkey = [this](QAction* action, QKeySequence hotkey,
+                                                    const char* slot) {
+        // This action will fire specifically when secondary_window is in focus
+        action->setShortcut(hotkey);
+        disconnect(action, SIGNAL(triggered()), this, slot);
+        connect(action, SIGNAL(triggered()), this, slot);
+        secondary_window->addAction(action);
+    };
+
+    // Use the same fullscreen hotkey as the main window
+    const auto fullscreen_hotkey = hotkey_registry.GetKeySequence(main_window, fullscreen);
+    add_secondary_window_hotkey(action_secondary_fullscreen, fullscreen_hotkey,
+                                SLOT(ToggleSecondaryFullscreen()));
 }
 
 void GMainWindow::SetDefaultUIGeometry() {
