@@ -614,8 +614,6 @@ void GMainWindow::InitializeHotkeys() {
 
     const QString main_window = QStringLiteral("Main Window");
     const QString fullscreen = QStringLiteral("Fullscreen");
-    const QString swap_screens = QStringLiteral("Swap Screens");
-    const QString rotate_screens = QStringLiteral("Rotate Screens Upright");
 
     // QAction Hotkeys
     const auto link_action_shortcut = [&](QAction* action, const QString& action_name,
@@ -639,8 +637,9 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Show_Status_Bar, QStringLiteral("Toggle Status Bar"));
     link_action_shortcut(ui->action_Fullscreen, fullscreen, true);
     link_action_shortcut(ui->action_Capture_Screenshot, QStringLiteral("Capture Screenshot"));
-    link_action_shortcut(ui->action_Screen_Layout_Swap_Screens, swap_screens);
-    link_action_shortcut(ui->action_Screen_Layout_Upright_Screens, rotate_screens);
+    link_action_shortcut(ui->action_Screen_Layout_Swap_Screens, QStringLiteral("Swap Screens"));
+    link_action_shortcut(ui->action_Screen_Layout_Upright_Screens,
+                         QStringLiteral("Rotate Screens Upright"));
     link_action_shortcut(ui->action_Enable_Frame_Advancing,
                          QStringLiteral("Toggle Frame Advancing"));
     link_action_shortcut(ui->action_Advance_Frame, QStringLiteral("Advance Frame"));
