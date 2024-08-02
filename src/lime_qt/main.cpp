@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -618,12 +618,14 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
     const QString swap_screens = QStringLiteral("Swap Screens");
     const QString rotate_screens = QStringLiteral("Rotate Screens Upright");
 
-    const auto link_action_shortcut = [&](QAction* action, const QString& action_name) {
+    const auto link_action_shortcut = [&](QAction* action, const QString& action_name,
+                                          const bool primary_only = false) {
         static const QString main_window = QStringLiteral("Main Window");
         action->setShortcut(hotkey_registry.GetKeySequence(main_window, action_name));
-        action->setShortcutContext(hotkey_registry.GetShortcutContext(main_window, action_name));
         action->setAutoRepeat(false);
         this->addAction(action);
+        if (!primary_only)
+            secondary_window->addAction(action);
     };
 
     link_action_shortcut(ui->action_Load_File, QStringLiteral("Load File"));
@@ -635,7 +637,7 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
     link_action_shortcut(ui->action_Stop, QStringLiteral("Stop Emulation"));
     link_action_shortcut(ui->action_Show_Filter_Bar, QStringLiteral("Toggle Filter Bar"));
     link_action_shortcut(ui->action_Show_Status_Bar, QStringLiteral("Toggle Status Bar"));
-    link_action_shortcut(ui->action_Fullscreen, fullscreen);
+    link_action_shortcut(ui->action_Fullscreen, fullscreen, true);
     link_action_shortcut(ui->action_Capture_Screenshot, QStringLiteral("Capture Screenshot"));
     link_action_shortcut(ui->action_Screen_Layout_Swap_Screens, swap_screens);
     link_action_shortcut(ui->action_Screen_Layout_Upright_Screens, rotate_screens);
@@ -665,19 +667,6 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
     const auto fullscreen_hotkey = hotkey_registry.GetKeySequence(main_window, fullscreen);
     add_secondary_window_hotkey(action_secondary_fullscreen, fullscreen_hotkey,
                                 SLOT(ToggleSecondaryFullscreen()));
-
-    const auto toggle_screen_hotkey =
-        hotkey_registry.GetKeySequence(main_window, toggle_screen_layout);
-    add_secondary_window_hotkey(action_secondary_toggle_screen, toggle_screen_hotkey,
-                                SLOT(ToggleScreenLayout()));
-
-    const auto swap_screen_hotkey = hotkey_registry.GetKeySequence(main_window, swap_screens);
-    add_secondary_window_hotkey(action_secondary_swap_screen, swap_screen_hotkey,
-                                SLOT(TriggerSwapScreens()));
-
-    const auto rotate_screen_hotkey = hotkey_registry.GetKeySequence(main_window, rotate_screens);
-    add_secondary_window_hotkey(action_secondary_rotate_screen, rotate_screen_hotkey,
-                                SLOT(TriggerRotateScreens()));
 
     const auto connect_shortcut = [&](const QString& action_name, const auto& function) {
         const auto* hotkey = hotkey_registry.GetHotkey(main_window, action_name, this);
