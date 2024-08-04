@@ -121,7 +121,7 @@ FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool swapped
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}, false, true};
+    FramebufferLayout res{width, height, true, true, {}, {}, true, true};
     // Default layout gives equal screen sizes to the top and bottom screen
     Common::Rectangle<u32> screen_window_area{0, 0, width, height / 2};
     Common::Rectangle<u32> top_screen = MaxRectangle(screen_window_area, TOP_SCREEN_ASPECT_RATIO);
