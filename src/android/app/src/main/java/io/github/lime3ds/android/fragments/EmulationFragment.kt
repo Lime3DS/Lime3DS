@@ -806,14 +806,14 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             ScreenLayout.CUSTOM_LAYOUT.int ->
                 R.id.menu_screen_layout_custom
 
-            else -> R.id.menu_screen_layout_landscape
+            else -> R.id.menu_screen_layout_largescreen
         }
         popupMenu.menu.findItem(layoutOptionMenuItem).setChecked(true)
 
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.menu_screen_layout_landscape -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_LANDSCAPE.int)
+                R.id.menu_screen_layout_largescreen -> {
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.LARGE_SCREEN.int)
                     true
                 }
 

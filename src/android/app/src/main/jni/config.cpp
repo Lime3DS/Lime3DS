@@ -176,6 +176,8 @@ void Config::ReadValues() {
     // Layout
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(sdl2_config->GetInteger(
         "Layout", "layout_option", static_cast<int>(Settings::LayoutOption::LargeScreen)));
+    Settings::values.large_screen_proportion =
+        static_cast<float>(sdl2_config->GetReal("Layout", "large_screen_proportion", 2.25));
     ReadSetting("Layout", Settings::values.custom_top_x);
     ReadSetting("Layout", Settings::values.custom_top_y);
     ReadSetting("Layout", Settings::values.custom_top_width);

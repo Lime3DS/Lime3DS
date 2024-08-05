@@ -12,19 +12,16 @@
     </integer-array>
 
     <string-array name="landscapeLayouts">
-        <item>@string/emulation_screen_layout_landscape</item>
+        <item>@string/emulation_screen_layout_largescreen</item>
         <item>@string/emulation_screen_layout_single</item>
         <item>@string/emulation_screen_layout_sidebyside</item>
         <item>@string/emulation_screen_layout_hybrid</item>
         <item>@string/emulation_screen_layout_original</item>
         <item>@string/emulation_screen_layout_custom</item>
     </string-array>
-    <!-- start with 6 because that is the MobileLandscape layout in cpp files
-       - skip 0 because top/bottom rarely makes sense in landscape
-       - skip 2 because that is "Large Screen" which the default replaces in mobile
-       -->
+    <!-- start with 2 because that is the Large Screen layout in cpp files -->
     <integer-array name="landscapeLayoutValues">
-        <item>6</item>
+        <item>2</item>
         <item>1</item>
         <item>3</item>
         <item>4</item>

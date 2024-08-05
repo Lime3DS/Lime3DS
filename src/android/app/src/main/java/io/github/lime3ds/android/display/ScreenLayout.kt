@@ -11,13 +11,12 @@ enum class ScreenLayout(val int: Int) {
     LARGE_SCREEN(2),
     SIDE_SCREEN(3),
     HYBRID_SCREEN(4),
-    CUSTOM_LAYOUT(5),
-    MOBILE_LANDSCAPE(6);
+    CUSTOM_LAYOUT(5);
 
 
     companion object {
         fun from(int: Int): ScreenLayout {
-            return entries.firstOrNull { it.int == int } ?: MOBILE_LANDSCAPE
+            return entries.firstOrNull { it.int == int } ?: LARGE_SCREEN
         }
     }
 }
