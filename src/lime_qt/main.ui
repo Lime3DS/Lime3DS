@@ -182,15 +182,8 @@
      <addaction name="action_Movie_Read_Only_Mode"/>
      <addaction name="action_Save_Movie"/>
     </widget>
-    <widget class="QMenu" name="menu_Frame_Advance">
-     <property name="title">
-      <string>Frame Advance</string>
-     </property>
-     <addaction name="action_Enable_Frame_Advancing"/>
-     <addaction name="action_Advance_Frame"/>
-    </widget>
+    <addaction name="action_Advance_Frame"/>
     <addaction name="menu_Movie"/>
-    <addaction name="menu_Frame_Advance"/>
     <addaction name="separator"/>
     <addaction name="action_Capture_Screenshot"/>
     <addaction name="action_Dump_Video"/>
@@ -402,14 +395,6 @@
    </property>
    <property name="text">
     <string>Read-Only Mode</string>
-   </property>
-  </action>
-  <action name="action_Enable_Frame_Advancing">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Enable Frame Advancing</string>
    </property>
   </action>
   <action name="action_Advance_Frame">
