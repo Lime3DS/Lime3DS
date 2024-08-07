@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -34,6 +35,8 @@ import io.github.lime3ds.android.databinding.ActivityEmulationBinding
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.features.hotkeys.HotkeyUtility
 import io.github.lime3ds.android.features.settings.model.BooleanSetting
+import io.github.lime3ds.android.features.settings.model.IntSetting
+import io.github.lime3ds.android.features.settings.model.Settings
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
 import io.github.lime3ds.android.fragments.EmulationFragment
@@ -70,7 +73,11 @@ class EmulationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtil.setTheme(this)
 
-        settingsViewModel.settings.loadSettings()
+
+        isActivityRecreated = savedInstanceState != null
+        if (!isActivityRecreated) {
+            settingsViewModel.settings.loadSettings()
+        }
 
         super.onCreate(savedInstanceState)
 
@@ -86,7 +93,6 @@ class EmulationActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navController.setGraph(R.navigation.emulation_navigation, intent.extras)
 
-        isActivityRecreated = savedInstanceState != null
 
         // Set these options now so that the SurfaceView the game renders into is the right size.
         enableFullscreenImmersive()
@@ -198,6 +204,10 @@ class EmulationActivity : AppCompatActivity() {
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+
+        val orientation = settingsViewModel.settings.getSection(Settings.SECTION_RENDERER)
+            ?.getSetting(IntSetting.DEVICE_ORIENTATION.key) as IntSetting
+        this.requestedOrientation = orientation.int
     }
 
     // Gets button presses

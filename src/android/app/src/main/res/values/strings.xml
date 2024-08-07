@@ -211,6 +211,7 @@
     <string name="image_flip">Flip</string>
 
     <!-- Graphics settings strings -->
+    <string name="graphics_ui">UI</string>
     <string name="renderer">Renderer</string>
     <string name="graphics_api">Graphics API</string>
     <string name="spirv_shader_gen">Enable SPIR-V shader generation</string>
@@ -492,6 +493,13 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Black Backgrounds</string>
     <string name="use_black_backgrounds_description">When using the dark theme, apply black backgrounds.</string>
+
+    <!-- Device Orientation -->
+    <string name="device_orientation_title">Screen Orientation</string>
+    <string name="device_orientation_description">How should Lime3DS display your games?</string>
+    <string name="device_orientation_system">Follow System Setting</string>
+    <string name="device_orientation_landscape">Landscape</string>
+    <string name="device_orientation_portrait">Portrait</string>
 
     <!-- Clock types -->
     <string name="device_clock">Device Clock</string>

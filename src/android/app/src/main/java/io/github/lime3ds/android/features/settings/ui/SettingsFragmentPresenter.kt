@@ -6,6 +6,7 @@ package io.github.lime3ds.android.features.settings.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -676,6 +677,19 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
     private fun addGraphicsSettings(sl: ArrayList<SettingsItem>) {
         settingsActivity.setToolbarTitle(settingsActivity.getString(R.string.preferences_graphics))
         sl.apply {
+            add(HeaderSetting(R.string.graphics_ui))
+            add(
+                SingleChoiceSetting(
+                    IntSetting.DEVICE_ORIENTATION,
+                    R.string.device_orientation_title,
+                    R.string.device_orientation_description,
+                    R.array.deviceOrientationEntries,
+                    R.array.deviceOrientationValues,
+                    IntSetting.DEVICE_ORIENTATION.key,
+                    IntSetting.DEVICE_ORIENTATION.defaultValue,
+                )
+            )
+
             add(HeaderSetting(R.string.renderer))
             add(
                 SingleChoiceSetting(

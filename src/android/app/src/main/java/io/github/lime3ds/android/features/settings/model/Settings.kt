@@ -213,6 +213,7 @@ class Settings {
         const val PREF_THEME_MODE = "ThemeMode"
         const val PREF_BLACK_BACKGROUNDS = "BlackBackgrounds"
         const val PREF_SHOW_HOME_APPS = "ShowHomeApps"
+        const val PREF_DEFAULT_SCREEN_ORIENTATION = "default_device_orientation"
 
         private val configFileSectionsMap: MutableMap<String, List<String>> = HashMap()
 
