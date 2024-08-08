@@ -1904,10 +1904,10 @@ bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_vi
     out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
     ico_extension = "ico";
 #elif defined(__linux__) || defined(__FreeBSD__)
-    out_icon_path = FileUtil::GetUserDirectory("XDG_DATA_HOME") + "/icons/hicolor/256x256";
+    out_icon_path = FileUtil::GetUserDirectory("XDG_DATA_HOME") + "/icons/hicolor/256x256/";
 #endif
     // Create icons directory if it doesn't exist
-    if (!FileUtil::CreateDir(out_icon_path.string())) {
+    if (!FileUtil::CreateFullPath(out_icon_path.string())) {
         QMessageBox::critical(
             this, tr("Create Icon"),
             tr("Cannot create icon file. Path \"%1\" does not exist and cannot be created.")
