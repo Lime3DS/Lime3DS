@@ -7,8 +7,6 @@ package io.github.lime3ds.android.utils
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.preference.PreferenceManager
 import io.github.lime3ds.android.LimeApplication
-import io.github.lime3ds.android.display.PortraitScreenLayout
-import io.github.lime3ds.android.display.ScreenLayout
 
 object EmulationMenuSettings {
     private val preferences =
