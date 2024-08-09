@@ -109,6 +109,8 @@ class Settings {
         const val SECTION_AUDIO = "Audio"
         const val SECTION_DEBUG = "Debugging"
         const val SECTION_THEME = "Theme"
+        const val SECTION_CUSTOM_LANDSCAPE = "Custom Landscape Layout"
+        const val SECTION_CUSTOM_PORTRAIT = "Custom Portrait Layout"
 
         const val KEY_BUTTON_A = "button_a"
         const val KEY_BUTTON_B = "button_b"
@@ -131,7 +133,6 @@ class Settings {
         const val KEY_CSTICK_AXIS_HORIZONTAL = "cstick_axis_horizontal"
         const val KEY_DPAD_AXIS_VERTICAL = "dpad_axis_vertical"
         const val KEY_DPAD_AXIS_HORIZONTAL = "dpad_axis_horizontal"
-
         const val HOTKEY_SCREEN_SWAP = "hotkey_screen_swap"
         const val HOTKEY_CYCLE_LAYOUT = "hotkey_toggle_layout"
         const val HOTKEY_CLOSE_GAME = "hotkey_close_game"

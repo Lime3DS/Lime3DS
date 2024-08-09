@@ -179,16 +179,20 @@ anaglyph_shader_name =
 filter_mode =
 
 [Layout]
-# Layout for the screen inside the render window.
-# 0 (default): Default Top Bottom Screen, 1: Single Screen Only, 2: Large Screen Small Screen, 3: Side by Side
+# Layout for the screen inside the render window, landscape mode
+# 0: Top/Bottom *currently unsupported on android*
+# 1: Single Screen Only,
+# 2: *currently unsupported on android*
+# 3: Side by Side
+# 4: Hybrid
+# 5: Custom Layout
+# 6: (default) Large screen / small screen
 layout_option =
-
-# Toggle custom layout (using the settings below) on or off.
-# 0 (default): Off, 1: On
-custom_layout =
 
 # Screen placement when using Custom layout option
 # 0x, 0y is the top left corner of the render window.
+# suggested aspect ratio for top screen is 5:3
+# suggested aspect ratio for bottom screen is 4:3
 custom_top_x =
 custom_top_y =
 custom_top_width =
@@ -197,6 +201,22 @@ custom_bottom_x =
 custom_bottom_y =
 custom_bottom_width =
 custom_bottom_height =
+
+# Layout for the portrait mode
+# 0 (default): Top and bottom screens at top, full width
+# 1: Custom Layout
+portrait_layout_option =
+
+# Screen placement when using Portrait Custom layout option
+# 0x, 0y is the top left corner of the render window.
+custom_portrait_top_x =
+custom_portrait_top_y =
+custom_portrait_top_width =
+custom_portrait_top_height =
+custom_portrait_bottom_x =
+custom_portrait_bottom_y =
+custom_portrait_bottom_width =
+custom_portrait_bottom_height =
 
 # Swaps the prominent screen with the other screen.
 # For example, if Single Screen is chosen, setting this to 1 will display the bottom screen instead of the top screen.

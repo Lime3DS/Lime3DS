@@ -7,7 +7,6 @@ package io.github.lime3ds.android.utils
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.preference.PreferenceManager
 import io.github.lime3ds.android.LimeApplication
-import io.github.lime3ds.android.display.ScreenLayout
 
 object EmulationMenuSettings {
     private val preferences =
@@ -27,16 +26,7 @@ object EmulationMenuSettings {
                 .putBoolean("EmulationMenuSettings_DpadSlideEnable", value)
                 .apply()
         }
-    var landscapeScreenLayout: Int
-        get() = preferences.getInt(
-            "EmulationMenuSettings_LandscapeScreenLayout",
-            ScreenLayout.MOBILE_LANDSCAPE.int
-        )
-        set(value) {
-            preferences.edit()
-                .putInt("EmulationMenuSettings_LandscapeScreenLayout", value)
-                .apply()
-        }
+
     var showFps: Boolean
         get() = preferences.getBoolean("EmulationMenuSettings_ShowFps", false)
         set(value) {

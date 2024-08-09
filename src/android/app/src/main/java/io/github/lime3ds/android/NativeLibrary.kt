@@ -156,9 +156,9 @@ object NativeLibrary {
     external fun getPerfStats(): DoubleArray
 
     /**
-     * Notifies the core emulation that the orientation has changed.
+     * Notifies the core emulation that the layout should be updated
      */
-    external fun notifyOrientationChange(layoutOption: Int, rotation: Int)
+    external fun updateFramebuffer(isPortrait: Boolean)
 
     /**
      * Swaps the top and bottom screens.
@@ -261,10 +261,6 @@ object NativeLibrary {
     val isPortraitMode: Boolean
         get() = LimeApplication.appContext.resources.configuration.orientation ==
                 Configuration.ORIENTATION_PORTRAIT
-
-    @Keep
-    @JvmStatic
-    fun landscapeScreenLayout(): Int = EmulationMenuSettings.landscapeScreenLayout
 
     @Keep
     @JvmStatic

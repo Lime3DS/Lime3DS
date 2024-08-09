@@ -7,6 +7,7 @@ package io.github.lime3ds.android.features.settings.ui
 import android.os.Bundle
 import android.text.TextUtils
 import io.github.lime3ds.android.NativeLibrary
+import io.github.lime3ds.android.features.settings.model.IntSetting
 import io.github.lime3ds.android.features.settings.model.Settings
 import io.github.lime3ds.android.utils.SystemSaveGame
 import io.github.lime3ds.android.utils.DirectoryInitialization
@@ -56,6 +57,9 @@ class SettingsActivityPresenter(private val activityView: SettingsActivityView) 
             Log.debug("[SettingsActivity] Settings activity stopping. Saving settings to INI...")
             settings.saveSettings(activityView)
             SystemSaveGame.save()
+            //added to ensure that layout changes take effect as soon as settings window closes
+            NativeLibrary.reloadSettings()
+            NativeLibrary.updateFramebuffer(NativeLibrary.isPortraitMode)
         }
         NativeLibrary.reloadSettings()
     }

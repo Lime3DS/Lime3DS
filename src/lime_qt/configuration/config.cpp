@@ -520,8 +520,6 @@ void Config::ReadLayoutValues() {
 
     if (global) {
         ReadBasicSetting(Settings::values.mono_render_option);
-
-        ReadBasicSetting(Settings::values.custom_layout);
         ReadBasicSetting(Settings::values.custom_top_x);
         ReadBasicSetting(Settings::values.custom_top_y);
         ReadBasicSetting(Settings::values.custom_top_width);
@@ -538,6 +536,15 @@ void Config::ReadLayoutValues() {
         ReadBasicSetting(Settings::values.screen_bottom_stretch);
         ReadBasicSetting(Settings::values.screen_bottom_leftright_padding);
         ReadBasicSetting(Settings::values.screen_bottom_topbottom_padding);
+        ReadBasicSetting(Settings::values.portrait_layout_option);
+        ReadBasicSetting(Settings::values.custom_portrait_top_x);
+        ReadBasicSetting(Settings::values.custom_portrait_top_y);
+        ReadBasicSetting(Settings::values.custom_portrait_top_width);
+        ReadBasicSetting(Settings::values.custom_portrait_top_height);
+        ReadBasicSetting(Settings::values.custom_portrait_bottom_x);
+        ReadBasicSetting(Settings::values.custom_portrait_bottom_y);
+        ReadBasicSetting(Settings::values.custom_portrait_bottom_width);
+        ReadBasicSetting(Settings::values.custom_portrait_bottom_height);
     }
 
     qt_config->endGroup();
@@ -1072,8 +1079,6 @@ void Config::SaveLayoutValues() {
 
     if (global) {
         WriteBasicSetting(Settings::values.mono_render_option);
-
-        WriteBasicSetting(Settings::values.custom_layout);
         WriteBasicSetting(Settings::values.custom_top_x);
         WriteBasicSetting(Settings::values.custom_top_y);
         WriteBasicSetting(Settings::values.custom_top_width);
@@ -1090,6 +1095,14 @@ void Config::SaveLayoutValues() {
         WriteBasicSetting(Settings::values.screen_bottom_stretch);
         WriteBasicSetting(Settings::values.screen_bottom_leftright_padding);
         WriteBasicSetting(Settings::values.screen_bottom_topbottom_padding);
+        WriteBasicSetting(Settings::values.custom_portrait_top_x);
+        WriteBasicSetting(Settings::values.custom_portrait_top_y);
+        WriteBasicSetting(Settings::values.custom_portrait_top_width);
+        WriteBasicSetting(Settings::values.custom_portrait_top_height);
+        WriteBasicSetting(Settings::values.custom_portrait_bottom_x);
+        WriteBasicSetting(Settings::values.custom_portrait_bottom_y);
+        WriteBasicSetting(Settings::values.custom_portrait_bottom_width);
+        WriteBasicSetting(Settings::values.custom_portrait_bottom_height);
     }
 
     qt_config->endGroup();
