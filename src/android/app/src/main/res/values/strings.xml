@@ -488,6 +488,8 @@
     <string name="theme_mode_dark">Dark</string>
     <string name="material_you">Material You</string>
     <string name="material_you_description">Use system colors across the app</string>
+    <string name="static_theme_color">Change Theme Color</string>
+    <string name="static_theme_color_description">It allows you to change the main theme color of the app without the use of Material You</string>
 
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Black Backgrounds</string>

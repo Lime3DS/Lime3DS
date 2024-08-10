@@ -181,6 +181,17 @@
         <item>5</item>
     </integer-array>
 
+    <string-array name="staticThemeNames">
+        <item>Blue</item>
+        <item>Red</item>
+        <item>Green</item>
+    </string-array>
+    <integer-array name="staticThemeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
     <string-array name="themeModeEntries">
         <item>@string/theme_mode_follow_system</item>
         <item>@string/theme_mode_light</item>

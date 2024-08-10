@@ -25,12 +25,20 @@ object ThemeUtil {
     private val preferences: SharedPreferences get() =
         PreferenceManager.getDefaultSharedPreferences(LimeApplication.appContext)
 
+    private fun getSelectedStaticThemeColor(): Int {
+        return when (preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)) {
+            1 -> R.style.Theme_Citra_Red
+            2 -> R.style.Theme_Citra_Green
+            else -> R.style.Theme_Citra_Blue
+        }
+    }
+
     fun setTheme(activity: AppCompatActivity) {
         setThemeMode(activity)
         if (preferences.getBoolean(Settings.PREF_MATERIAL_YOU, false)) {
             activity.setTheme(R.style.Theme_Lime_Main_MaterialYou)
         } else {
-            activity.setTheme(R.style.Theme_Lime_Main)
+            activity.setTheme(getSelectedStaticThemeColor())
         }
 
         // Using a specific night mode check because this could apply incorrectly when using the
