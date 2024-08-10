@@ -791,8 +791,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.menuInflater.inflate(R.menu.menu_landscape_screen_layout, popupMenu.menu)
 
         val layoutOptionMenuItem = when (IntSetting.SCREEN_LAYOUT.int) {
-            ScreenLayout.ABOVE_BELOW.int ->
-                R.id.menu_screen_layout_above_below
+            ScreenLayout.ORIGINAL.int ->
+                R.id.menu_screen_layout_original
 
             ScreenLayout.SINGLE_SCREEN.int ->
                 R.id.menu_screen_layout_single
@@ -832,8 +832,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                     true
                 }
 
-                R.id.menu_screen_layout_above_below -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.ABOVE_BELOW.int)
+                R.id.menu_screen_layout_original -> {
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.ORIGINAL.int)
                     true
                 }
 
