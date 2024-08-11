@@ -158,8 +158,9 @@ object NativeLibrary {
     /**
      * Notifies the core emulation that the orientation has changed.
      */
-    external fun notifyOrientationChange(layoutOption: Int, rotation: Int)
+    external fun notifyOrientationChange(layoutOption: Int, rotation: Int, isPortrait: Boolean)
 
+    external fun notifyPortraitLayoutChange(layoutOption: Int, rotation: Int, isPortrait: Boolean)
     /**
      * Swaps the top and bottom screens.
      */
@@ -265,6 +266,10 @@ object NativeLibrary {
     @Keep
     @JvmStatic
     fun landscapeScreenLayout(): Int = EmulationMenuSettings.landscapeScreenLayout
+
+    @Keep
+    @JvmStatic
+    fun portraitScreenLayout(): Int = EmulationMenuSettings.portraitScreenLayout
 
     @Keep
     @JvmStatic

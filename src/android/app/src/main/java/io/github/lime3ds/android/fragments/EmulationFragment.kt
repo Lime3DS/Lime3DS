@@ -51,6 +51,7 @@ import io.github.lime3ds.android.activities.EmulationActivity
 import io.github.lime3ds.android.databinding.DialogCheckboxBinding
 import io.github.lime3ds.android.databinding.DialogSliderBinding
 import io.github.lime3ds.android.databinding.FragmentEmulationBinding
+import io.github.lime3ds.android.display.PortraitScreenLayout
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.display.ScreenLayout
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
@@ -142,7 +143,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         retainInstance = true
         emulationState = EmulationState(game.path)
         emulationActivity = requireActivity() as EmulationActivity
-        screenAdjustmentUtil = ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
+        screenAdjustmentUtil =
+            ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
         EmulationLifecycleUtil.addShutdownHook(hook = { emulationState.stop() })
         EmulationLifecycleUtil.addPauseResumeHook(hook = { togglePause() })
     }
@@ -207,16 +209,18 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             }
         })
         binding.inGameMenu.menu.findItem(R.id.menu_lock_drawer).apply {
-            val titleId = if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
-                R.string.unlock_drawer
-            } else {
-                R.string.lock_drawer
-            }
-            val iconId = if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_UNLOCKED) {
-                R.drawable.ic_unlocked
-            } else {
-                R.drawable.ic_lock
-            }
+            val titleId =
+                if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
+                    R.string.unlock_drawer
+                } else {
+                    R.string.lock_drawer
+                }
+            val iconId =
+                if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_UNLOCKED) {
+                    R.drawable.ic_unlocked
+                } else {
+                    R.drawable.ic_lock
+                }
 
             title = getString(titleId)
             icon = ResourcesCompat.getDrawable(
@@ -267,7 +271,12 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 }
 
                 R.id.menu_landscape_screen_layout -> {
-                    showScreenLayoutMenu()
+                    showLandscapeScreenLayoutMenu()
+                    true
+                }
+
+                R.id.menu_portrait_screen_layout -> {
+                    showPortraitScreenLayoutMenu()
                     true
                 }
 
@@ -423,7 +432,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     }
 
     private fun togglePause() {
-        if(emulationState.isPaused) {
+        if (emulationState.isPaused) {
             emulationState.unpause()
         } else {
             emulationState.pause()
@@ -769,7 +778,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.show()
     }
 
-    private fun showScreenLayoutMenu() {
+    private fun showLandscapeScreenLayoutMenu() {
         val popupMenu = PopupMenu(
             requireContext(),
             binding.inGameMenu.findViewById(R.id.menu_landscape_screen_layout)
@@ -784,11 +793,11 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             ScreenLayout.SIDE_SCREEN.int ->
                 R.id.menu_screen_layout_sidebyside
 
-            ScreenLayout.MOBILE_PORTRAIT.int ->
-                R.id.menu_screen_layout_portrait
-
             ScreenLayout.HYBRID_SCREEN.int ->
                 R.id.menu_screen_layout_hybrid
+
+            ScreenLayout.CUSTOM_LAYOUT.int ->
+                R.id.menu_screen_layout_custom
 
             else -> R.id.menu_screen_layout_landscape
         }
@@ -797,27 +806,68 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_screen_layout_landscape -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_LANDSCAPE)
-                    true
-                }
-
-                R.id.menu_screen_layout_portrait -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_PORTRAIT)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_LANDSCAPE.int)
                     true
                 }
 
                 R.id.menu_screen_layout_single -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SINGLE_SCREEN)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SINGLE_SCREEN.int)
                     true
                 }
 
                 R.id.menu_screen_layout_sidebyside -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SIDE_SCREEN)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SIDE_SCREEN.int)
                     true
                 }
 
                 R.id.menu_screen_layout_hybrid -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.HYBRID_SCREEN)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.HYBRID_SCREEN.int)
+                    true
+                }
+
+                R.id.menu_screen_layout_custom -> {
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.CUSTOM_LAYOUT.int)
+                    true
+                }
+
+                else -> true
+            }
+        }
+
+        popupMenu.show()
+    }
+
+    private fun showPortraitScreenLayoutMenu() {
+        val popupMenu = PopupMenu(
+            requireContext(),
+            binding.inGameMenu.findViewById(R.id.menu_portrait_screen_layout)
+        )
+
+        popupMenu.menuInflater.inflate(R.menu.menu_portrait_screen_layout, popupMenu.menu)
+
+        val layoutOptionMenuItem = when (EmulationMenuSettings.portraitScreenLayout) {
+            PortraitScreenLayout.TOP_FULL_WIDTH.int ->
+                R.id.menu_portrait_layout_top_full
+
+            PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int ->
+                R.id.menu_portrait_layout_custom
+
+            else ->
+                R.id.menu_portrait_layout_top_full
+
+        }
+
+        popupMenu.menu.findItem(layoutOptionMenuItem).setChecked(true)
+
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_portrait_layout_top_full -> {
+                    screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.TOP_FULL_WIDTH.int)
+                    true
+                }
+
+                R.id.menu_portrait_layout_custom -> {
+                    screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int)
                     true
                 }
 
@@ -959,7 +1009,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_SWAP)
         binding.surfaceInputOverlay.refreshControls()
     }
-    
+
     private fun setControlOpacity(opacity: Int) {
         preferences.edit()
             .putInt("controlOpacity", opacity)

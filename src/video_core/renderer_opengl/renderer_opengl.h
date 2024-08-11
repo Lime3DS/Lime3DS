@@ -65,8 +65,8 @@ private:
     void ConfigureFramebufferTexture(TextureInfo& texture,
                                      const Pica::FramebufferConfig& framebuffer);
     void DrawScreens(const Layout::FramebufferLayout& layout, bool flipped);
-    void ApplySecondLayerOpacity();
-    void ResetSecondLayerOpacity();
+    void ApplySecondLayerOpacity(bool isPortrait = false);
+    void ResetSecondLayerOpacity(bool isPortrait = false);
     void DrawBottomScreen(const Layout::FramebufferLayout& layout,
                           const Common::Rectangle<u32>& bottom_screen);
     void DrawTopScreen(const Layout::FramebufferLayout& layout,

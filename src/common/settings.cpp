@@ -108,6 +108,7 @@ void LogSettings() {
         log_setting("Renderer_AnaglyphShader", values.anaglyph_shader_name.GetValue());
     }
     log_setting("Layout_LayoutOption", values.layout_option.GetValue());
+    log_setting("Layout_PortraitLayoutOption", values.portrait_layout_option.GetValue());
     log_setting("Layout_SwapScreen", values.swap_screen.GetValue());
     log_setting("Layout_UprightScreen", values.upright_screen.GetValue());
     log_setting("Layout_LargeScreenProportion", values.large_screen_proportion.GetValue());
@@ -196,6 +197,7 @@ void RestoreGlobalState(bool is_powered_on) {
     values.texture_filter.SetGlobal(true);
     values.texture_sampling.SetGlobal(true);
     values.layout_option.SetGlobal(true);
+    values.portrait_layout_option.SetGlobal(true);
     values.swap_screen.SetGlobal(true);
     values.upright_screen.SetGlobal(true);
     values.large_screen_proportion.SetGlobal(true);

@@ -85,13 +85,14 @@ struct FramebufferLayout {
 FramebufferLayout DefaultFrameLayout(u32 width, u32 height, bool is_swapped, bool upright);
 
 /**
- * Factory method for constructing a mobile portrait FramebufferLayout
+ * Factory method for constructing the mobile Full Width Top layout
+ * Two screens at top, full width, no gap between them
  * @param width Window framebuffer width in pixels
  * @param height Window framebuffer height in pixels
  * @param is_swapped if true, the bottom screen will be displayed above the top screen
  * @return Newly created FramebufferLayout object with mobile portrait screen regions initialized
  */
-FramebufferLayout MobilePortraitFrameLayout(u32 width, u32 height, bool is_swapped);
+FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool is_swapped);
 
 /**
  * Factory method for constructing a FramebufferLayout with only the top or bottom screen
@@ -152,8 +153,10 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped,
  * Convenience method to get frame layout by resolution scale
  * Read from the current settings to determine which layout to use.
  * @param res_scale resolution scale factor
+ * @param is_portrait_mode defaults to false
  */
-FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondary = false);
+FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondary = false,
+                                                 bool is_portrait_mode = false);
 
 /**
  * Convenience method for transforming a frame layout when using Cardboard VR
@@ -164,5 +167,7 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout);
 
 std::pair<unsigned, unsigned> GetMinimumSizeFromLayout(Settings::LayoutOption layout,
                                                        bool upright_screen);
+
+std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout();
 
 } // namespace Layout
