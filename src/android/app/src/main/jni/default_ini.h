@@ -206,14 +206,14 @@ custom_portrait_layout =
 
 # Screen placement when using Custom layout option
 # 0x, 0y is the top left corner of the render window.
-custom_portrait_top_left =
-custom_portrait_top_top =
-custom_portrait_top_right =
-custom_portrait_top_bottom =
-custom_portrait_bottom_left =
-custom_portrait_bottom_top =
-custom_portrait_bottom_right =
-custom_portrait_bottom_bottom =
+custom_portrait_top_x =
+custom_portrait_top_y =
+custom_portrait_top_width =
+custom_portrait_top_height =
+custom_portrait_bottom_x =
+custom_portrait_bottom_y =
+custom_portrait_bottom_width =
+custom_portrait_bottom_height =
 
 # Swaps the prominent screen with the other screen.
 # For example, if Single Screen is chosen, setting this to 1 will display the bottom screen instead of the top screen.
