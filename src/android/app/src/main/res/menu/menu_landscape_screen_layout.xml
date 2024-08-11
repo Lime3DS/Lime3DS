@@ -20,8 +20,13 @@
             android:title="@string/emulation_screen_layout_hybrid" />
 
         <item
+            android:id="@+id/menu_screen_layout_original"
+            android:title="@string/emulation_screen_layout_original" />
+
+        <item
             android:id="@+id/menu_screen_layout_custom"
             android:title="@string/emulation_screen_layout_custom" />
+
     </group>
 
 </menu>

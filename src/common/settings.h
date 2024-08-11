@@ -490,9 +490,6 @@ struct Values {
     SwitchableSetting<bool> upright_screen{false, "upright_screen"};
     SwitchableSetting<float, true> large_screen_proportion{4.f, 1.f, 16.f,
                                                            "large_screen_proportion"};
-    // I think the custom_layout setting below is no longer needed
-    // since custom layout is now just part of the layout option above?
-    Setting<bool> custom_layout{false, "custom_layout"};
     Setting<u16> custom_top_x{0, "custom_top_x"};
     Setting<u16> custom_top_y{0, "custom_top_y"};
     Setting<u16> custom_top_width{800, "custom_top_width"};

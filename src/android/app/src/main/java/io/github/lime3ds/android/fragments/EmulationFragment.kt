@@ -13,6 +13,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Choreographer
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -54,6 +56,7 @@ import io.github.lime3ds.android.databinding.FragmentEmulationBinding
 import io.github.lime3ds.android.display.PortraitScreenLayout
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.display.ScreenLayout
+import io.github.lime3ds.android.features.settings.model.IntSetting
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
 import io.github.lime3ds.android.features.settings.ui.SettingsActivity
 import io.github.lime3ds.android.features.settings.utils.SettingsFile
@@ -324,6 +327,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                         SettingsFile.FILE_NAME_CONFIG,
                         ""
                     )
+
                     true
                 }
 
@@ -786,7 +790,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         popupMenu.menuInflater.inflate(R.menu.menu_landscape_screen_layout, popupMenu.menu)
 
-        val layoutOptionMenuItem = when (EmulationMenuSettings.landscapeScreenLayout) {
+        val layoutOptionMenuItem = when (IntSetting.SCREEN_LAYOUT.int) {
+            ScreenLayout.ORIGINAL.int ->
+                R.id.menu_screen_layout_original
+
             ScreenLayout.SINGLE_SCREEN.int ->
                 R.id.menu_screen_layout_single
 
@@ -825,7 +832,17 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                     true
                 }
 
+                R.id.menu_screen_layout_original -> {
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.ORIGINAL.int)
+                    true
+                }
+
                 R.id.menu_screen_layout_custom -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.emulation_adjust_custom_layout,
+                        Toast.LENGTH_LONG
+                    ).show()
                     screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.CUSTOM_LAYOUT.int)
                     true
                 }
@@ -845,7 +862,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         popupMenu.menuInflater.inflate(R.menu.menu_portrait_screen_layout, popupMenu.menu)
 
-        val layoutOptionMenuItem = when (EmulationMenuSettings.portraitScreenLayout) {
+        val layoutOptionMenuItem = when (IntSetting.PORTRAIT_SCREEN_LAYOUT.int) {
             PortraitScreenLayout.TOP_FULL_WIDTH.int ->
                 R.id.menu_portrait_layout_top_full
 
@@ -867,6 +884,11 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 }
 
                 R.id.menu_portrait_layout_custom -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.emulation_adjust_custom_layout,
+                        Toast.LENGTH_LONG
+                    ).show()
                     screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int)
                     true
                 }
@@ -919,14 +941,32 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         sliderBinding.apply {
             slider.valueTo = 150f
+            slider.valueFrom = 0f
             slider.value = preferences.getInt(target, 50).toFloat()
+            textValue.setText((slider.value + 50).toInt().toString())
+            textValue.addTextChangedListener( object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    val value = s.toString().toIntOrNull()
+                    if (value == null || value < 50 || value > 150) {
+                        textInput.error = "Inappropriate Value"
+                    } else {
+                        textInput.error = null
+                        slider.value = value.toFloat() - 50
+                    }
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
             slider.addOnChangeListener(
                 Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
-                    textValue.text = (progress.toInt() + 50).toString()
-                    setControlScale(slider.value.toInt(), target)
+                    if (textValue.text.toString() != (slider.value + 50).toInt().toString()) {
+                        textValue.setText((slider.value + 50).toInt().toString())
+                        textValue.setSelection(textValue.length())
+                        setControlScale(slider.value.toInt(), target)
+                    }
+
                 })
-            textValue.text = (sliderBinding.slider.value.toInt() + 50).toString()
-            textUnits.text = "%"
+            textInput.suffixText = "%"
         }
         val previousProgress = sliderBinding.slider.value.toInt()
 
@@ -949,15 +989,36 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         val sliderBinding = DialogSliderBinding.inflate(layoutInflater)
 
         sliderBinding.apply {
+            slider.valueFrom = 0f
             slider.valueTo = 100f
             slider.value = preferences.getInt("controlOpacity", 50).toFloat()
-            slider.addOnChangeListener(
-                Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
-                    textValue.text = (progress.toInt()).toString()
-                    setControlOpacity(slider.value.toInt())
-                })
-            textValue.text = (sliderBinding.slider.value.toInt()).toString()
-            textUnits.text = "%"
+            textValue.setText(slider.value.toInt().toString())
+
+            textValue.addTextChangedListener( object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    val value = s.toString().toIntOrNull()
+                    if (value == null || value < slider.valueFrom || value > slider.valueTo) {
+                        textInput.error = "Inappropriate Value"
+                    } else {
+                        textInput.error = null
+                        slider.value = value.toFloat()
+                    }
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
+
+
+            slider.addOnChangeListener { _: Slider, value: Float, _: Boolean ->
+
+                if (textValue.text.toString() != slider.value.toInt().toString()) {
+                        textValue.setText(slider.value.toInt().toString())
+                        textValue.setSelection(textValue.length())
+                        setControlOpacity(slider.value.toInt())
+                    }
+                }
+
+            textInput.suffixText = "%"
         }
         val previousProgress = sliderBinding.slider.value.toInt()
 
@@ -986,7 +1047,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     private fun resetScale(target: String) {
         preferences.edit().putInt(
             target,
-            50
+            100
         ).apply()
     }
 

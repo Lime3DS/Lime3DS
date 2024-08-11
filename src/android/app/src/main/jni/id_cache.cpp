@@ -177,10 +177,6 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved) {
         s_native_library_class, "onCoreError",
         "(Lio/github/lime3ds/android/NativeLibrary$CoreError;Ljava/lang/String;)Z");
     s_is_portrait_mode = env->GetStaticMethodID(s_native_library_class, "isPortraitMode", "()Z");
-    s_landscape_screen_layout =
-        env->GetStaticMethodID(s_native_library_class, "landscapeScreenLayout", "()I");
-    s_portrait_screen_layout =
-        env->GetStaticMethodID(s_native_library_class, "portraitScreenLayout", "()I");
     s_exit_emulation_activity =
         env->GetStaticMethodID(s_native_library_class, "exitEmulationActivity", "(I)V");
     s_request_camera_permission =

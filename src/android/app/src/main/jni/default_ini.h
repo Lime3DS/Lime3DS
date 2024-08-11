@@ -180,16 +180,19 @@ filter_mode =
 
 [Layout]
 # Layout for the screen inside the render window, landscape mode
-# 0 (default): Default Top Bottom Screen,
+# 0: Top/Bottom *currently unsupported on android*
 # 1: Single Screen Only,
-# 2: Large Screen Small Screen
+# 2: *currently unsupported on android*
 # 3: Side by Side
 # 4: Hybrid
 # 5: Custom Layout
+# 6: (default) Large screen / small screen
 layout_option =
 
 # Screen placement when using Custom layout option
 # 0x, 0y is the top left corner of the render window.
+# suggested aspect ratio for top screen is 5:3
+# suggested aspect ratio for bottom screen is 4:3
 custom_top_x =
 custom_top_y =
 custom_top_width =
