@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.preference.PreferenceManager
 import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.R
@@ -27,9 +30,13 @@ object ThemeUtil {
 
     private fun getSelectedStaticThemeColor(): Int {
         return when (preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)) {
+            0 -> R.style.Theme_Citra_Blue
             1 -> R.style.Theme_Citra_Red
             2 -> R.style.Theme_Citra_Green
-            else -> R.style.Theme_Citra_Blue
+            else -> {
+                // Show an error popup if an unexpected value is found
+                throw IllegalArgumentException("Unexpected theme color value")
+            }
         }
     }
 
@@ -49,6 +56,20 @@ object ThemeUtil {
         ) {
             activity.setTheme(R.style.ThemeOverlay_Citra_Dark)
         }
+
+        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == Settings.PREF_STATIC_THEME_COLOR) {
+                activity.runOnUiThread {
+                    activity.recreate()
+                }
+            }
+        }
+        preferences.registerOnSharedPreferenceChangeListener(listener)
+        activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                preferences.unregisterOnSharedPreferenceChangeListener(listener)
+            }
+        })
     }
 
     fun setThemeMode(activity: AppCompatActivity) {
