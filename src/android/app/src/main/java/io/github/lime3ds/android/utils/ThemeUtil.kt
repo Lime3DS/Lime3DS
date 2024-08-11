@@ -58,7 +58,7 @@ object ThemeUtil {
         }
 
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            if (key == Settings.PREF_STATIC_THEME_COLOR) {
+            if (key == Settings.PREF_STATIC_THEME_COLOR || key == Settings.PREF_MATERIAL_YOU) {
                 activity.runOnUiThread {
                     activity.recreate()
                 }
