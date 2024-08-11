@@ -507,14 +507,14 @@ struct Values {
     Setting<u16> screen_bottom_topbottom_padding{0, "screen_bottom_topbottom_padding"};
 
     Setting<bool> custom_portrait_layout{false, "custom_portrait_layout"};
-    Setting<u16> custom_portrait_top_left{0, "custom_portrait_top_left"};
-    Setting<u16> custom_portrait_top_top{0, "custom_portrait_top_top"};
-    Setting<u16> custom_portrait_top_right{400, "custom_portrait_top_right"};
-    Setting<u16> custom_portrait_top_bottom{240, "custom_portrait_top_bottom"};
-    Setting<u16> custom_portrait_bottom_left{40, "custom_portrait_bottom_left"};
-    Setting<u16> custom_portrait_bottom_top{240, "custom_portrait_bottom_top"};
-    Setting<u16> custom_portrait_bottom_right{360, "custom_portrait_bottom_right"};
-    Setting<u16> custom_portrait_bottom_bottom{480, "custom_portrait_bottom_bottom"};
+    Setting<u16> custom_portrait_top_x{0, "custom_portrait_top_x"};
+    Setting<u16> custom_portrait_top_y{0, "custom_portrait_top_y"};
+    Setting<u16> custom_portrait_top_width{400, "custom_portrait_top_width"};
+    Setting<u16> custom_portrait_top_height{240, "custom_portrait_top_height"};
+    Setting<u16> custom_portrait_bottom_x{40, "custom_portrait_bottom_x"};
+    Setting<u16> custom_portrait_bottom_y{240, "custom_portrait_bottom_y"};
+    Setting<u16> custom_portrait_bottom_width{360, "custom_portrait_bottom_width"};
+    Setting<u16> custom_portrait_bottom_height{480, "custom_portrait_bottom_height"};
 
     SwitchableSetting<float> bg_red{0.f, "bg_red"};
     SwitchableSetting<float> bg_green{0.f, "bg_green"};
