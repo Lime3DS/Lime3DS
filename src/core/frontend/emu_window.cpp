@@ -183,8 +183,10 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
     const auto min_size =
         Layout::GetMinimumSizeFromLayout(layout_option, Settings::values.upright_screen.GetValue());
 
-    if (Settings::values.custom_layout.GetValue() == true) {
-        layout = Layout::CustomFrameLayout(width, height, Settings::values.swap_screen.GetValue());
+    if ((Settings::values.custom_layout.GetValue() == true && !is_portrait_mode) ||
+        (Settings::values.custom_portrait_layout.GetValue() == true && is_portrait_mode)) {
+        layout = Layout::CustomFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
+                                           is_portrait_mode);
     } else {
         width = std::max(width, min_size.first);
         height = std::max(height, min_size.second);

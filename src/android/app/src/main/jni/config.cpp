@@ -188,6 +188,18 @@ void Config::ReadValues() {
     ReadSetting("Layout", Settings::values.cardboard_x_shift);
     ReadSetting("Layout", Settings::values.cardboard_y_shift);
 
+#ifdef ANDROID
+    ReadSetting("Layout", Settings::values.custom_portrait_layout);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_left);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_top);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_right);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_bottom);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_left);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_top);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_right);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_bottom);
+#endif
+
     // Utility
     ReadSetting("Utility", Settings::values.dump_textures);
     ReadSetting("Utility", Settings::values.custom_textures);
