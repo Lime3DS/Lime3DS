@@ -3,7 +3,6 @@
 // Refer to the license.txt file included.
 
 package io.github.lime3ds.android.display
-
 import android.view.WindowManager
 import io.github.lime3ds.android.NativeLibrary
 import io.github.lime3ds.android.features.settings.model.BooleanSetting
@@ -26,40 +25,35 @@ class ScreenAdjustmentUtil(
         BooleanSetting.SWAP_SCREEN.boolean = isEnabled
         settings.saveSetting(BooleanSetting.SWAP_SCREEN, SettingsFile.FILE_NAME_CONFIG)
     }
-
-    // TODO: Consider how cycling should handle custom layout
-    // right now it simply skips it
     fun cycleLayouts() {
-        val nextLayout = if (NativeLibrary.isPortraitMode) {
-            (EmulationMenuSettings.portraitScreenLayout + 1) % (PortraitScreenLayout.entries.size - 1)
+        // TODO: figure out how to pull these from R.array
+        val landscape_values = intArrayOf(6,1,3,4,0,5);
+        val portrait_values = intArrayOf(0,1);
+        if (NativeLibrary.isPortraitMode) {
+            val current_layout = IntSetting.PORTRAIT_SCREEN_LAYOUT.int
+            val pos = portrait_values.indexOf(current_layout)
+            val layout_option = portrait_values[(pos + 1) % portrait_values.size]
+            changePortraitOrientation(layout_option)
         } else {
-            (EmulationMenuSettings.landscapeScreenLayout + 1) % (ScreenLayout.entries.size - 1)
+            val current_layout = IntSetting.SCREEN_LAYOUT.int
+            val pos = landscape_values.indexOf(current_layout)
+            val layout_option = landscape_values[(pos + 1) % landscape_values.size]
+            changeScreenOrientation(layout_option)
         }
-        settings.loadSettings()
 
-        changeScreenOrientation(nextLayout)
     }
 
     fun changePortraitOrientation(layoutOption: Int) {
-        EmulationMenuSettings.portraitScreenLayout = layoutOption
-        NativeLibrary.notifyPortraitLayoutChange(
-            EmulationMenuSettings.portraitScreenLayout,
-            windowManager.defaultDisplay.rotation,
-            NativeLibrary::isPortraitMode.get()
-        )
         IntSetting.PORTRAIT_SCREEN_LAYOUT.int = layoutOption
         settings.saveSetting(IntSetting.PORTRAIT_SCREEN_LAYOUT, SettingsFile.FILE_NAME_CONFIG)
+        NativeLibrary.reloadSettings()
+        NativeLibrary.updateFramebuffer(NativeLibrary.isPortraitMode)
     }
 
     fun changeScreenOrientation(layoutOption: Int) {
-        EmulationMenuSettings.landscapeScreenLayout = layoutOption
-        NativeLibrary.notifyOrientationChange(
-            EmulationMenuSettings.landscapeScreenLayout,
-            windowManager.defaultDisplay.rotation,
-            NativeLibrary::isPortraitMode.get()
-        )
         IntSetting.SCREEN_LAYOUT.int = layoutOption
         settings.saveSetting(IntSetting.SCREEN_LAYOUT, SettingsFile.FILE_NAME_CONFIG)
-
+        NativeLibrary.reloadSettings()
+        NativeLibrary.updateFramebuffer(NativeLibrary.isPortraitMode)
     }
 }

@@ -61,7 +61,7 @@ struct FramebufferLayout {
     Common::Rectangle<u32> top_screen;
     Common::Rectangle<u32> bottom_screen;
     bool is_rotated = true;
-
+    bool is_portrait = false;
     bool additional_screen_enabled;
     Common::Rectangle<u32> additional_screen;
 

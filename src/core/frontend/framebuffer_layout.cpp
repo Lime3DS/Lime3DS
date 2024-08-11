@@ -121,7 +121,7 @@ FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool swapped
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}};
+    FramebufferLayout res{width, height, true, true, {}, {}, true, true};
     // Default layout gives equal screen sizes to the top and bottom screen
     Common::Rectangle<u32> screen_window_area{0, 0, width, height / 2};
     Common::Rectangle<u32> top_screen = MaxRectangle(screen_window_area, TOP_SCREEN_ASPECT_RATIO);
@@ -305,7 +305,7 @@ FramebufferLayout HybridScreenLayout(u32 width, u32 height, bool swapped, bool u
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}, !upright, true, {}};
+    FramebufferLayout res{width, height, true, true, {}, {}, !upright, false, true, {}};
 
     // Split the window into two parts. Give 2.25x width to the main screen,
     // and make a bar on the right side with 1x width top screen and 1.25x width bottom screen
@@ -386,7 +386,8 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped, bool
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}, !Settings::values.upright_screen};
+    FramebufferLayout res{
+        width, height, true, true, {}, {}, !Settings::values.upright_screen, is_portrait_mode};
     u16 top_x = is_portrait_mode ? Settings::values.custom_portrait_top_x.GetValue()
                                  : Settings::values.custom_top_x.GetValue();
     u16 top_width = is_portrait_mode ? Settings::values.custom_portrait_top_width.GetValue()
@@ -629,9 +630,7 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
 
     return new_layout;
 }
-/*f
- * TODO: remove this?
- */
+
 std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout() {
     u32 min_width, min_height;
     min_width = Core::kScreenTopWidth;
