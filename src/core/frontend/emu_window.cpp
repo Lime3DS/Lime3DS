@@ -176,22 +176,33 @@ void EmuWindow::TouchMoved(unsigned framebuffer_x, unsigned framebuffer_y) {
 void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_portrait_mode) {
     Layout::FramebufferLayout layout;
 
-    // If in portrait mode, only the MobilePortrait option really makes sense
-    const Settings::LayoutOption layout_option = is_portrait_mode
-                                                     ? Settings::LayoutOption::MobilePortrait
-                                                     : Settings::values.layout_option.GetValue();
-    const auto min_size =
-        Layout::GetMinimumSizeFromLayout(layout_option, Settings::values.upright_screen.GetValue());
+    const Settings::LayoutOption layout_option = Settings::values.layout_option.GetValue();
+    const Settings::PortraitLayoutOption portrait_layout_option =
+        Settings::values.portrait_layout_option.GetValue();
+    const auto min_size = is_portrait_mode
+                              ? Layout::GetMinimumSizeFromPortraitLayout()
+                              : Layout::GetMinimumSizeFromLayout(
+                                    layout_option, Settings::values.upright_screen.GetValue());
 
-    if ((Settings::values.custom_layout.GetValue() == true && !is_portrait_mode) ||
-        (Settings::values.custom_portrait_layout.GetValue() == true && is_portrait_mode)) {
-        layout = Layout::CustomFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
-                                           is_portrait_mode);
+    width = std::max(width, min_size.first);
+    height = std::max(height, min_size.second);
+    if (is_portrait_mode) {
+        switch (portrait_layout_option) {
+        case Settings::PortraitLayoutOption::PortraitTopFullWidth:
+            layout = Layout::PortraitTopFullFrameLayout(width, height,
+                                                        Settings::values.swap_screen.GetValue());
+            break;
+        case Settings::PortraitLayoutOption::PortraitCustomLayout:
+            layout = Layout::CustomFrameLayout(
+                width, height, Settings::values.swap_screen.GetValue(), is_portrait_mode);
+            break;
+        }
     } else {
-        width = std::max(width, min_size.first);
-        height = std::max(height, min_size.second);
-
         switch (layout_option) {
+        case Settings::LayoutOption::CustomLayout:
+            layout = Layout::CustomFrameLayout(
+                width, height, Settings::values.swap_screen.GetValue(), is_portrait_mode);
+            break;
         case Settings::LayoutOption::SingleScreen:
             layout =
                 Layout::SingleFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
@@ -221,21 +232,12 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
                                                    Settings::values.upright_screen.GetValue());
             break;
 #endif
-        case Settings::LayoutOption::MobilePortrait:
-            layout = Layout::MobilePortraitFrameLayout(width, height,
-                                                       Settings::values.swap_screen.GetValue());
-            break;
         case Settings::LayoutOption::MobileLandscape:
             layout =
                 Layout::LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                          false, 2.25f, Layout::VerticalAlignment::Top);
             break;
-#ifndef ANDROID // TODO: Implement custom layouts on Android
-        case Settings::LayoutOption::CustomLayout:
-            layout =
-                Layout::CustomFrameLayout(width, height, Settings::values.swap_screen.GetValue());
-            break;
-#endif
+
         case Settings::LayoutOption::Default:
         default:
             layout =
@@ -243,8 +245,9 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
                                            Settings::values.upright_screen.GetValue());
             break;
         }
-        UpdateMinimumWindowSize(min_size);
     }
+    UpdateMinimumWindowSize(min_size);
+
     if (Settings::values.render_3d.GetValue() == Settings::StereoRenderOption::CardboardVR) {
         layout = Layout::GetCardboardSettings(layout);
     }

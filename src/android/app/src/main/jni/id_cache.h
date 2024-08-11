@@ -27,6 +27,7 @@ jmethodID GetDisplayAlertPrompt();
 jmethodID GetAlertPromptButton();
 jmethodID GetIsPortraitMode();
 jmethodID GetLandscapeScreenLayout();
+jmethodID GetPortraitScreenLayout();
 jmethodID GetExitEmulationActivity();
 jmethodID GetRequestCameraPermission();
 jmethodID GetRequestMicPermission();

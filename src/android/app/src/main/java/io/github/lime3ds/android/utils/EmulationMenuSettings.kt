@@ -7,6 +7,7 @@ package io.github.lime3ds.android.utils
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.preference.PreferenceManager
 import io.github.lime3ds.android.LimeApplication
+import io.github.lime3ds.android.display.PortraitScreenLayout
 import io.github.lime3ds.android.display.ScreenLayout
 
 object EmulationMenuSettings {
@@ -30,11 +31,21 @@ object EmulationMenuSettings {
     var landscapeScreenLayout: Int
         get() = preferences.getInt(
             "EmulationMenuSettings_LandscapeScreenLayout",
-            ScreenLayout.MOBILE_LANDSCAPE.int
+            ScreenLayout.LARGE_SCREEN.int
         )
         set(value) {
             preferences.edit()
                 .putInt("EmulationMenuSettings_LandscapeScreenLayout", value)
+                .apply()
+        }
+    var portraitScreenLayout: Int
+        get() = preferences.getInt(
+            "EmulationMenuSettings_PortraitScreenLayout",
+            PortraitScreenLayout.TOP_FULL_WIDTH.int
+        )
+        set(value) {
+            preferences.edit()
+                .putInt("EmulationMenuSettings_PortraitScreenLayout", value)
                 .apply()
         }
     var showFps: Boolean

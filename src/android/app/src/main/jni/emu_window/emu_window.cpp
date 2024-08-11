@@ -27,6 +27,12 @@ static void UpdateLandscapeScreenLayout() {
             IDCache::GetNativeLibraryClass(), IDCache::GetLandscapeScreenLayout()));
 }
 
+static void UpdatePortraitScreenLayout() {
+    Settings::values.portrait_layout_option =
+        static_cast<Settings::PortraitLayoutOption>(IDCache::GetEnvForThread()->CallStaticIntMethod(
+            IDCache::GetNativeLibraryClass(), IDCache::GetPortraitScreenLayout()));
+}
+
 bool EmuWindow_Android::OnSurfaceChanged(ANativeWindow* surface) {
     if (render_window == surface) {
         return false;
@@ -58,6 +64,7 @@ void EmuWindow_Android::OnTouchMoved(int x, int y) {
 
 void EmuWindow_Android::OnFramebufferSizeChanged() {
     UpdateLandscapeScreenLayout();
+    UpdatePortraitScreenLayout();
     const bool is_portrait_mode{IsPortraitMode()};
 
     const int bigger{window_width > window_height ? window_width : window_height};

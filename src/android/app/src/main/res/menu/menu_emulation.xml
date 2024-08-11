@@ -69,7 +69,7 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/menu_screen_layout_landscape"
+                    android:id="@+id/menu_portrait_layout_top_full"
                     android:title="@string/emulation_screen_layout_landscape" />
 
                 <item
