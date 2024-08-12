@@ -1896,7 +1896,7 @@ bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
 
 bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
                                       std::filesystem::path& out_icon_path) {
-    // Get path to Citra icons directory & icon extension
+    // Get path to Lime3DS icons directory & icon extension
     std::string ico_extension = "png";
 #if defined(_WIN32)
     out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
@@ -1916,19 +1916,19 @@ bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_vi
     }
 
     // Create icon file path
-    out_icon_path /= (program_id == 0 ? fmt::format("citra-{}.{}", game_file_name, ico_extension)
-                                      : fmt::format("citra-{:016X}.{}", program_id, ico_extension));
+    out_icon_path /= (program_id == 0 ? fmt::format("lime-{}.{}", game_file_name, ico_extension)
+                                      : fmt::format("lime-{:016X}.{}", program_id, ico_extension));
     return true;
 }
 
 void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
                                            GameListShortcutTarget target) {
-    // Get path to citra executable
+    // Get path to Lime3DS executable
     const QStringList args = QApplication::arguments();
-    std::filesystem::path citra_command = args[0].toStdString();
+    std::filesystem::path lime_command = args[0].toStdString();
     // If relative path, make it an absolute path
-    if (citra_command.c_str()[0] == '.') {
-        citra_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + citra_command.string();
+    if (lime_command.c_str()[0] == '.') {
+        lime_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + lime_command.string();
     }
 
     // Shortcut path
@@ -1984,7 +1984,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     // Warn once if we are making a shortcut to a volatile AppImage
     const std::string appimage_ending =
         std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
-    if (citra_command.string().ends_with(appimage_ending) &&
+    if (lime_command.string().ends_with(appimage_ending) &&
         !UISettings::values.shortcut_already_warned) {
         if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
                                       qt_game_title)) {
@@ -1998,11 +1998,11 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT, qt_game_title)) {
         arguments = "-f " + arguments;
     }
-    const std::string comment = fmt::format("Start {:s} with the Citra Emulator", game_title);
+    const std::string comment = fmt::format("Start {:s} with the Lime3DS Emulator", game_title);
     const std::string categories = "Game;Emulator;Qt;";
     const std::string keywords = "3ds;Nintendo;";
 
-    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, citra_command, arguments,
+    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, lime_command, arguments,
                            categories, keywords, game_title)) {
         CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_SUCCESS, qt_game_title);
         return;
