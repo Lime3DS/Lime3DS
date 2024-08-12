@@ -277,6 +277,16 @@ class SetupFragment : Fragment() {
                     R.string.setup_set_theme,
                     {
                         showThemeSettingsDialog()
+                    },
+                    false,
+                    false,
+                    {
+                        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                        if (preferences.getBoolean("ThemeSetupCompleted", false)) {
+                            StepState.STEP_COMPLETE
+                        } else {
+                            StepState.STEP_INCOMPLETE
+                        }
                     }
                 )
             )
@@ -393,27 +403,46 @@ class SetupFragment : Fragment() {
     private lateinit var cameraCallback: SetupCallback
 
     private fun showThemeSettingsDialog() {
+        showStaticThemeSelectionDialog {
+            showMaterialYouAndBlackThemeDialog()
+        }
+    }
+
+    private fun showStaticThemeSelectionDialog(onComplete: () -> Unit) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        // Create a container for the switches and descriptions so we can tweak padding easily
+        val themeColors = resources.getStringArray(R.array.staticThemeNames)
+        val currentThemeColor = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.set_up_theme_settings)
+            .setSingleChoiceItems(themeColors, currentThemeColor) { _, which ->
+                preferences.edit().putInt(Settings.PREF_STATIC_THEME_COLOR, which).apply()
+            }
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                onComplete()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
+    private fun showMaterialYouAndBlackThemeDialog() {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        // Container for the switches and descriptions
         val switchContainer = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(64, 16, 64, 32)
         }
 
+        val materialYouSwitch = MaterialSwitch(requireContext()).apply {
+            text = getString(R.string.material_you)
+            isChecked = preferences.getBoolean(Settings.PREF_MATERIAL_YOU, false)
+        }
+        val materialYouDescription = TextView(requireContext()).apply {
+            text = getString(R.string.material_you_description)
+        }
+
+        // Only add the Material You switch and description if Android 12 and < is detected
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val materialYouSwitch = MaterialSwitch(requireContext()).apply {
-                text = getString(R.string.material_you)
-                isChecked = preferences.getBoolean(Settings.PREF_MATERIAL_YOU, false)
-                setOnCheckedChangeListener { _, isChecked ->
-                    preferences.edit().putBoolean(Settings.PREF_MATERIAL_YOU, isChecked).apply()
-                    ThemeUtil.setTheme(requireActivity() as AppCompatActivity)
-                    requireActivity().recreate()
-                }
-            }
-            val materialYouDescription = TextView(requireContext()).apply {
-                text = getString(R.string.material_you_description)
-            }
-            // Add Material You option only if Android 12 or higher is detected
             switchContainer.addView(materialYouSwitch)
             switchContainer.addView(materialYouDescription)
         }
@@ -421,30 +450,33 @@ class SetupFragment : Fragment() {
         val blackThemeSwitch = MaterialSwitch(requireContext()).apply {
             text = getString(R.string.use_black_backgrounds)
             isChecked = preferences.getBoolean(Settings.PREF_BLACK_BACKGROUNDS, false)
-            setOnCheckedChangeListener { _, isChecked ->
-                preferences.edit().putBoolean(Settings.PREF_BLACK_BACKGROUNDS, isChecked).apply()
-                ThemeUtil.setTheme(requireActivity() as AppCompatActivity)
-                requireActivity().recreate()
-            }
         }
         val blackThemeDescription = TextView(requireContext()).apply {
             text = getString(R.string.use_black_backgrounds_description)
         }
-
         switchContainer.addView(blackThemeSwitch)
         switchContainer.addView(blackThemeDescription)
-
-        val themeColors = resources.getStringArray(R.array.staticThemeNames)
-        val currentThemeColor = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.set_up_theme_settings)
             .setView(switchContainer)
-            .setSingleChoiceItems(themeColors, currentThemeColor) { dialog, which ->
-                preferences.edit().putInt(Settings.PREF_STATIC_THEME_COLOR, which).apply()
-                ThemeUtil.setTheme(requireActivity() as AppCompatActivity)
-                requireActivity().recreate()
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                ThemeUtil.unregisterThemeChangeListener()  // Unregister listener before making changes
+
+                preferences.edit().apply {
+                    putBoolean(Settings.PREF_BLACK_BACKGROUNDS, blackThemeSwitch.isChecked)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        putBoolean(Settings.PREF_MATERIAL_YOU, materialYouSwitch.isChecked)
+                    }
+                    apply()
+                }
+
+                val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+                preferences.edit().putBoolean("ThemeSetupCompleted", true).apply()
+                ThemeUtil.registerThemeChangeListener(requireActivity() as AppCompatActivity)  // Register listener again after changes
+                requireActivity().recreate()  // Explicitly recreate activity if needed
             }
+            .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 

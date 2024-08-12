@@ -62,20 +62,6 @@ object ThemeUtil {
         ) {
             activity.setTheme(R.style.ThemeOverlay_Citra_Dark)
         }
-
-        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            if (key == Settings.PREF_STATIC_THEME_COLOR || key == Settings.PREF_MATERIAL_YOU) {
-                activity.runOnUiThread {
-                    activity.recreate()
-                }
-            }
-        }
-        preferences.registerOnSharedPreferenceChangeListener(listener)
-        activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onDestroy(owner: LifecycleOwner) {
-                preferences.unregisterOnSharedPreferenceChangeListener(listener)
-            }
-        })
     }
 
     fun setThemeMode(activity: AppCompatActivity) {
@@ -130,5 +116,28 @@ object ThemeUtil {
             Color.green(color),
             Color.blue(color)
         )
+    }
+
+    private var listener: SharedPreferences.OnSharedPreferenceChangeListener? = null
+
+    // Listener that detects if the theme is being changed from the initial setup or from normal settings
+    // Without this the dual popup on the setup was getting cut off becuase the activity was being recreated
+    fun registerThemeChangeListener(activity: AppCompatActivity) {
+        if (listener == null) {
+            listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+                if (key == Settings.PREF_STATIC_THEME_COLOR || key == Settings.PREF_MATERIAL_YOU) {
+                    activity.runOnUiThread {
+                        activity.recreate()
+                    }
+                }
+            }
+            preferences.registerOnSharedPreferenceChangeListener(listener)
+        }
+    }
+
+    fun unregisterThemeChangeListener() {
+        if (listener != null) {
+            preferences.unregisterOnSharedPreferenceChangeListener(listener)
+        }
     }
 }
