@@ -1764,9 +1764,9 @@ void GMainWindow::OnGameListRemovePlayTimeData(u64 program_id) {
 bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
                                      const std::string& comment,
                                      const std::filesystem::path& icon_path,
-                                     const std::filesystem::path& command,
-                                     const std::string& arguments, const std::string& categories,
-                                     const std::string& keywords, const std::string& name) try {
+                                     const std::string& command, const std::string& arguments,
+                                     const std::string& categories, const std::string& keywords,
+                                     const std::string& name, const bool& skip_tryexec) try {
 #if defined(__linux__) || defined(__FreeBSD__) // Linux and FreeBSD
     std::filesystem::path shortcut_path_full = shortcut_path / (name + ".desktop");
     std::ofstream shortcut_stream(shortcut_path_full, std::ios::binary | std::ios::trunc);
@@ -1785,8 +1785,10 @@ bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
     if (std::filesystem::is_regular_file(icon_path)) {
         fmt::print(shortcut_stream, "Icon={}\n", icon_path.string());
     }
-    fmt::print(shortcut_stream, "TryExec={}\n", command.string());
-    fmt::print(shortcut_stream, "Exec={} {}\n", command.string(), arguments);
+    if (!skip_tryexec) {
+        fmt::print(shortcut_stream, "TryExec={}\n", command);
+    }
+    fmt::print(shortcut_stream, "Exec={} {}\n", command, arguments);
     if (!categories.empty()) {
         fmt::print(shortcut_stream, "Categories={}\n", categories);
     }
@@ -1923,12 +1925,20 @@ bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_vi
 
 void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
                                            GameListShortcutTarget target) {
-    // Get path to Lime3DS executable
-    const QStringList args = QApplication::arguments();
-    std::filesystem::path lime_command = args[0].toStdString();
-    // If relative path, make it an absolute path
-    if (lime_command.c_str()[0] == '.') {
-        lime_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + lime_command.string();
+    std::string lime_command{};
+    bool skip_tryexec = false;
+    const char* env_flatpak_id = getenv("FLATPAK_ID");
+    if (env_flatpak_id) {
+        lime_command = fmt::format("flatpak run {}", env_flatpak_id);
+        skip_tryexec = true;
+    } else {
+        // Get path to Lime3DS executable
+        const QStringList args = QApplication::arguments();
+        lime_command = args[0].toStdString();
+        // If relative path, make it an absolute path
+        if (lime_command.c_str()[0] == '.') {
+            lime_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + lime_command;
+        }
     }
 
     // Shortcut path
@@ -1984,8 +1994,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     // Warn once if we are making a shortcut to a volatile AppImage
     const std::string appimage_ending =
         std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
-    if (lime_command.string().ends_with(appimage_ending) &&
-        !UISettings::values.shortcut_already_warned) {
+    if (lime_command.ends_with(appimage_ending) && !UISettings::values.shortcut_already_warned) {
         if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
                                       qt_game_title)) {
             return;
@@ -2003,7 +2012,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     const std::string keywords = "3ds;Nintendo;";
 
     if (CreateShortcutLink(shortcut_path, comment, out_icon_path, lime_command, arguments,
-                           categories, keywords, game_title)) {
+                           categories, keywords, game_title, skip_tryexec)) {
         CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_SUCCESS, qt_game_title);
         return;
     }
