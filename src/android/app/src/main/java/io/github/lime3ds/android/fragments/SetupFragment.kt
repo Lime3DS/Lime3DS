@@ -14,8 +14,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.Switch
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -28,6 +33,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import io.github.lime3ds.android.LimeApplication
@@ -42,9 +48,12 @@ import io.github.lime3ds.android.ui.main.MainActivity
 import io.github.lime3ds.android.utils.CitraDirectoryHelper
 import io.github.lime3ds.android.utils.GameHelper
 import io.github.lime3ds.android.utils.PermissionsHandler
+import io.github.lime3ds.android.utils.ThemeUtil
 import io.github.lime3ds.android.utils.ViewUtils
 import io.github.lime3ds.android.viewmodel.GamesViewModel
 import io.github.lime3ds.android.viewmodel.HomeViewModel
+import com.google.android.material.materialswitch.MaterialSwitch
+
 
 class SetupFragment : Fragment() {
     private var _binding: FragmentSetupBinding? = null
@@ -260,6 +269,19 @@ class SetupFragment : Fragment() {
             )
             add(
                 SetupPage(
+                    R.drawable.ic_palette,
+                    R.string.set_up_theme_settings,
+                    R.string.setup_theme_settings_description,
+                    0,
+                    true,
+                    R.string.setup_set_theme,
+                    {
+                        showThemeSettingsDialog()
+                    }
+                )
+            )
+            add(
+                SetupPage(
                     R.drawable.ic_check,
                     R.string.done,
                     R.string.done_description,
@@ -369,6 +391,62 @@ class SetupFragment : Fragment() {
     private lateinit var notificationCallback: SetupCallback
     private lateinit var microphoneCallback: SetupCallback
     private lateinit var cameraCallback: SetupCallback
+
+    private fun showThemeSettingsDialog() {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        // Create a container for the switches and descriptions so we can tweak padding easily
+        val switchContainer = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(64, 16, 64, 32)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val materialYouSwitch = MaterialSwitch(requireContext()).apply {
+                text = getString(R.string.material_you)
+                isChecked = preferences.getBoolean(Settings.PREF_MATERIAL_YOU, false)
+                setOnCheckedChangeListener { _, isChecked ->
+                    preferences.edit().putBoolean(Settings.PREF_MATERIAL_YOU, isChecked).apply()
+                    ThemeUtil.setTheme(requireActivity() as AppCompatActivity)
+                    requireActivity().recreate()
+                }
+            }
+            val materialYouDescription = TextView(requireContext()).apply {
+                text = getString(R.string.material_you_description)
+            }
+            // Add Material You option only if Android 12 or higher is detected
+            switchContainer.addView(materialYouSwitch)
+            switchContainer.addView(materialYouDescription)
+        }
+
+        val blackThemeSwitch = MaterialSwitch(requireContext()).apply {
+            text = getString(R.string.use_black_backgrounds)
+            isChecked = preferences.getBoolean(Settings.PREF_BLACK_BACKGROUNDS, false)
+            setOnCheckedChangeListener { _, isChecked ->
+                preferences.edit().putBoolean(Settings.PREF_BLACK_BACKGROUNDS, isChecked).apply()
+                ThemeUtil.setTheme(requireActivity() as AppCompatActivity)
+                requireActivity().recreate()
+            }
+        }
+        val blackThemeDescription = TextView(requireContext()).apply {
+            text = getString(R.string.use_black_backgrounds_description)
+        }
+
+        switchContainer.addView(blackThemeSwitch)
+        switchContainer.addView(blackThemeDescription)
+
+        val themeColors = resources.getStringArray(R.array.staticThemeNames)
+        val currentThemeColor = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.set_up_theme_settings)
+            .setView(switchContainer)
+            .setSingleChoiceItems(themeColors, currentThemeColor) { dialog, which ->
+                preferences.edit().putInt(Settings.PREF_STATIC_THEME_COLOR, which).apply()
+                ThemeUtil.setTheme(requireActivity() as AppCompatActivity)
+                requireActivity().recreate()
+            }
+            .show()
+    }
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->

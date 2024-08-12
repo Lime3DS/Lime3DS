@@ -93,6 +93,9 @@
     <string name="cannot_skip">You can\'t skip this step</string>
     <string name="cannot_skip_directory_description">This step is required to allow Lime3DS to work. Please select a directory and then you can continue.</string>
     <string name="cannot_skip_directory_help">https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
+    <string name="set_up_theme_settings">Theme Settings</string>
+    <string name="setup_theme_settings_description">Configure your theme preferences for Lime3DS.</string>
+    <string name="setup_set_theme">Set Theme</string>
 
     <!-- Search Strings -->
     <string name="search_and_filter_games">Search and Filter Games</string>
@@ -481,15 +484,19 @@
     <string name="memory_petabyte">PB</string>
     <string name="memory_exabyte">EB</string>
 
-    <!-- Theme Modes -->
+    <!-- System theme -->
     <string name="change_theme_mode">Change Theme Mode</string>
     <string name="theme_mode_follow_system">Follow System</string>
     <string name="theme_mode_light">Light</string>
     <string name="theme_mode_dark">Dark</string>
+
+    <!-- Material You theme -->
     <string name="material_you">Material You</string>
-    <string name="material_you_description">Use system colors across the app</string>
+    <string name="material_you_description">Use system colors across the app (Will override (static) theme color option)</string>
+
+    <!-- Static theme color -->
     <string name="static_theme_color">Change Theme Color</string>
-    <string name="static_theme_color_description">It allows you to change the main theme color of the app without the use of Material You</string>
+    <string name="static_theme_color_description">Change the main theme color of the app without the use of Material You (Requires Material You to be disabled)</string>
 
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Black Backgrounds</string>
@@ -722,5 +729,4 @@
     <string name="miscellaneous">Miscellaneous</string>
     <string name="use_artic_base_controller">Use Artic Controller when connected to Artic Base Server</string>
     <string name="use_artic_base_controller_desc">Use the controls provided by Artic Base Server when connected to it instead of the configured input device.</string>
-
 </resources>
