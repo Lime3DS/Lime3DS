@@ -302,7 +302,7 @@
   </action>
   <action name="action_About">
    <property name="text">
-    <string>About Lime</string>
+    <string>About Lime3DS</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
