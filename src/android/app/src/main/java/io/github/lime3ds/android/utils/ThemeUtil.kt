@@ -29,15 +29,21 @@ object ThemeUtil {
         PreferenceManager.getDefaultSharedPreferences(LimeApplication.appContext)
 
     private fun getSelectedStaticThemeColor(): Int {
-        return when (preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)) {
-            0 -> R.style.Theme_Citra_Blue
-            1 -> R.style.Theme_Citra_Red
-            2 -> R.style.Theme_Citra_Green
-            else -> {
-                // Show an error popup if an unexpected value is found
-                throw IllegalArgumentException("Unexpected theme color value")
-            }
-        }
+        val themeIndex = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
+        val themes = arrayOf(
+            R.style.Theme_Citra_Blue,
+            R.style.Theme_Citra_Cyan,
+            R.style.Theme_Citra_Red,
+            R.style.Theme_Citra_Green,
+            R.style.Theme_Citra_LimeGreen,
+            R.style.Theme_Citra_Yellow,
+            R.style.Theme_Citra_Orange,
+            R.style.Theme_Citra_Indigo,
+            R.style.Theme_Citra_Violet,
+            R.style.Theme_Citra_Pink,
+            R.style.Theme_Citra_Gray
+        )
+        return themes[themeIndex]
     }
 
     fun setTheme(activity: AppCompatActivity) {

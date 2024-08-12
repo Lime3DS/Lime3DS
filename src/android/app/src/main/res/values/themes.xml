@@ -97,7 +97,211 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_green</item>
     </style>
 
-    <!-- Trick for API >= 29 specific changes -->
-    <style name="Theme.Lime.Main" parent="Theme.Citra" />
+    <style name="Theme.Citra.Orange" parent="Theme.Citra">
+        <!-- Orange theme colors -->
+        <item name="colorPrimary">@color/citra_primary_orange</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_orange</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_orange</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_orange</item>
+        <item name="colorSecondary">@color/citra_secondary_orange</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_orange</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_orange</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_orange</item>
+        <item name="colorTertiary">@color/citra_tertiary_orange</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_orange</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_orange</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_orange</item>
+        <item name="android:colorBackground">@color/citra_background_orange</item>
+        <item name="colorOnBackground">@color/citra_onBackground_orange</item>
+        <item name="colorSurface">@color/citra_surface_orange</item>
+        <item name="colorOnSurface">@color/citra_onSurface_orange</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_orange</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_orange</item>
+        <item name="colorOutline">@color/citra_outline_orange</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_orange</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_orange</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_orange</item>
+    </style>
 
+    <style name="Theme.Citra.Yellow" parent="Theme.Citra">
+        <!-- Yellow theme colors -->
+        <item name="colorPrimary">@color/citra_primary_yellow</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_yellow</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_yellow</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_yellow</item>
+        <item name="colorSecondary">@color/citra_secondary_yellow</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_yellow</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_yellow</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_yellow</item>
+        <item name="colorTertiary">@color/citra_tertiary_yellow</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_yellow</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_yellow</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_yellow</item>
+        <item name="android:colorBackground">@color/citra_background_yellow</item>
+        <item name="colorOnBackground">@color/citra_onBackground_yellow</item>
+        <item name="colorSurface">@color/citra_surface_yellow</item>
+        <item name="colorOnSurface">@color/citra_onSurface_yellow</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_yellow</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_yellow</item>
+        <item name="colorOutline">@color/citra_outline_yellow</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_yellow</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_yellow</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_yellow</item>
+    </style>
+
+    <style name="Theme.Citra.Indigo" parent="Theme.Citra">
+        <!-- Indigo theme colors -->
+        <item name="colorPrimary">@color/citra_primary_indigo</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_indigo</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_indigo</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_indigo</item>
+        <item name="colorSecondary">@color/citra_secondary_indigo</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_indigo</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_indigo</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_indigo</item>
+        <item name="colorTertiary">@color/citra_tertiary_indigo</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_indigo</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_indigo</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_indigo</item>
+        <item name="android:colorBackground">@color/citra_background_indigo</item>
+        <item name="colorOnBackground">@color/citra_onBackground_indigo</item>
+        <item name="colorSurface">@color/citra_surface_indigo</item>
+        <item name="colorOnSurface">@color/citra_onSurface_indigo</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_indigo</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_indigo</item>
+        <item name="colorOutline">@color/citra_outline_indigo</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_indigo</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_indigo</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_indigo</item>
+    </style>
+
+    <style name="Theme.Citra.Violet" parent="Theme.Citra">
+        <!-- Violet theme colors -->
+        <item name="colorPrimary">@color/citra_primary_violet</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_violet</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_violet</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_violet</item>
+        <item name="colorSecondary">@color/citra_secondary_violet</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_violet</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_violet</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_violet</item>
+        <item name="colorTertiary">@color/citra_tertiary_violet</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_violet</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_violet</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_violet</item>
+        <item name="android:colorBackground">@color/citra_background_violet</item>
+        <item name="colorOnBackground">@color/citra_onBackground_violet</item>
+        <item name="colorSurface">@color/citra_surface_violet</item>
+        <item name="colorOnSurface">@color/citra_onSurface_violet</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_violet</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_violet</item>
+        <item name="colorOutline">@color/citra_outline_violet</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_violet</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_violet</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_violet</item>
+    </style>
+
+    <style name="Theme.Citra.Cyan" parent="Theme.Citra">
+        <!-- Cyan theme colors -->
+        <item name="colorPrimary">@color/citra_primary_cyan</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_cyan</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_cyan</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_cyan</item>
+        <item name="colorSecondary">@color/citra_secondary_cyan</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_cyan</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_cyan</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_cyan</item>
+        <item name="colorTertiary">@color/citra_tertiary_cyan</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_cyan</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_cyan</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_cyan</item>
+        <item name="android:colorBackground">@color/citra_background_cyan</item>
+        <item name="colorOnBackground">@color/citra_onBackground_cyan</item>
+        <item name="colorSurface">@color/citra_surface_cyan</item>
+        <item name="colorOnSurface">@color/citra_onSurface_cyan</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_cyan</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_cyan</item>
+        <item name="colorOutline">@color/citra_outline_cyan</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_cyan</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_cyan</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_cyan</item>
+    </style>
+
+    <style name="Theme.Citra.LimeGreen" parent="Theme.Citra">
+    <!-- Lime Green Theme Colors -->
+        <item name="colorPrimary">@color/citra_primary_lime_green</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_lime_green</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_lime_green</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_lime_green</item>
+        <item name="colorSecondary">@color/citra_secondary_lime_green</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_lime_green</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_lime_green</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_lime_green</item>
+        <item name="colorTertiary">@color/citra_tertiary_lime_green</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_lime_green</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_lime_green</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_lime_green</item>
+        <item name="android:colorBackground">@color/citra_background_lime_green</item>
+        <item name="colorOnBackground">@color/citra_onBackground_lime_green</item>
+        <item name="colorSurface">@color/citra_surface_lime_green</item>
+        <item name="colorOnSurface">@color/citra_onSurface_lime_green</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_lime_green</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_lime_green</item>
+        <item name="colorOutline">@color/citra_outline_lime_green</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_lime_green</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_lime_green</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_lime_green</item>
+    </style>
+
+    <style name="Theme.Citra.Gray" parent="Theme.Citra">
+    <!-- Gray Theme Colors -->
+        <item name="colorPrimary">@color/citra_primary_gray</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_gray</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_gray</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_gray</item>
+        <item name="colorSecondary">@color/citra_secondary_gray</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_gray</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_gray</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_gray</item>
+        <item name="colorTertiary">@color/citra_tertiary_gray</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_gray</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_gray</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_gray</item>
+        <item name="android:colorBackground">@color/citra_background_gray</item>
+        <item name="colorOnBackground">@color/citra_onBackground_gray</item>
+        <item name="colorSurface">@color/citra_surface_gray</item>
+        <item name="colorOnSurface">@color/citra_onSurface_gray</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_gray</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_gray</item>
+        <item name="colorOutline">@color/citra_outline_gray</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_gray</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_gray</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_gray</item>
+    </style>
+
+    <style name="Theme.Citra.Pink" parent="Theme.Citra">
+    <!-- Pink Theme Colors -->
+        <item name="colorPrimary">@color/citra_primary_pink</item>
+        <item name="colorOnPrimary">@color/citra_onPrimary_pink</item>
+        <item name="colorPrimaryContainer">@color/citra_primaryContainer_pink</item>
+        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_pink</item>
+        <item name="colorSecondary">@color/citra_secondary_pink</item>
+        <item name="colorOnSecondary">@color/citra_onSecondary_pink</item>
+        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_pink</item>
+        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_pink</item>
+        <item name="colorTertiary">@color/citra_tertiary_pink</item>
+        <item name="colorOnTertiary">@color/citra_onTertiary_pink</item>
+        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_pink</item>
+        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_pink</item>
+        <item name="android:colorBackground">@color/citra_background_pink</item>
+        <item name="colorOnBackground">@color/citra_onBackground_pink</item>
+        <item name="colorSurface">@color/citra_surface_pink</item>
+        <item name="colorOnSurface">@color/citra_onSurface_pink</item>
+        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_pink</item>
+        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_pink</item>
+        <item name="colorOutline">@color/citra_outline_pink</item>
+        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_pink</item>
+        <item name="colorSurfaceInverse">@color/citra_inverseSurface_pink</item>
+        <item name="colorPrimaryInverse">@color/citra_inversePrimary_pink</item>
+    </style>
 </resources>
