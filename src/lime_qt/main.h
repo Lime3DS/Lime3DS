@@ -217,10 +217,10 @@ private:
     bool MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
                              std::filesystem::path& out_icon_path);
     bool CreateShortcutLink(const std::filesystem::path& shortcut_path, const std::string& comment,
-                            const std::filesystem::path& icon_path,
-                            const std::filesystem::path& command, const std::string& arguments,
-                            const std::string& categories, const std::string& keywords,
-                            const std::string& name);
+                            const std::filesystem::path& icon_path, const std::string& command,
+                            const std::string& arguments, const std::string& categories,
+                            const std::string& keywords, const std::string& name,
+                            const bool& skip_tryexec);
 
 private slots:
     void OnStartGame();
