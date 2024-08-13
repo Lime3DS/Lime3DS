@@ -265,7 +265,6 @@ class SettingsAdapter(
         textInputLayout = sliderBinding.textInput
         textSliderValue = sliderBinding.textValue
         textSliderValue!!.setText(sliderProgress.toString())
-        //sliderBinding.textUnits.text = item.units
         textInputLayout!!.suffixText = item.units
 
         sliderBinding.slider.apply {
