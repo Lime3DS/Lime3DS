@@ -189,7 +189,6 @@
         <item>Lime Green</item>
         <item>Yellow</item>
         <item>Orange</item>
-        <item>Indigo</item>
         <item>Violet</item>
         <item>Pink</item>
         <item>Gray</item>
@@ -205,7 +204,6 @@
         <item>7</item>
         <item>8</item>
         <item>9</item>
-        <item>10</item>
     </integer-array>
 
     <string-array name="themeModeEntries">

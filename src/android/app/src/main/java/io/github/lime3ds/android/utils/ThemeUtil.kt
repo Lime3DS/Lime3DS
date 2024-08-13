@@ -38,7 +38,6 @@ object ThemeUtil {
             R.style.Theme_Citra_LimeGreen,
             R.style.Theme_Citra_Yellow,
             R.style.Theme_Citra_Orange,
-            R.style.Theme_Citra_Indigo,
             R.style.Theme_Citra_Violet,
             R.style.Theme_Citra_Pink,
             R.style.Theme_Citra_Gray

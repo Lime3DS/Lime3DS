@@ -149,32 +149,6 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_yellow</item>
     </style>
 
-    <style name="Theme.Citra.Indigo" parent="Theme.Citra">
-        <!-- Indigo theme colors -->
-        <item name="colorPrimary">@color/citra_primary_indigo</item>
-        <item name="colorOnPrimary">@color/citra_onPrimary_indigo</item>
-        <item name="colorPrimaryContainer">@color/citra_primaryContainer_indigo</item>
-        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer_indigo</item>
-        <item name="colorSecondary">@color/citra_secondary_indigo</item>
-        <item name="colorOnSecondary">@color/citra_onSecondary_indigo</item>
-        <item name="colorSecondaryContainer">@color/citra_secondaryContainer_indigo</item>
-        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer_indigo</item>
-        <item name="colorTertiary">@color/citra_tertiary_indigo</item>
-        <item name="colorOnTertiary">@color/citra_onTertiary_indigo</item>
-        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer_indigo</item>
-        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer_indigo</item>
-        <item name="android:colorBackground">@color/citra_background_indigo</item>
-        <item name="colorOnBackground">@color/citra_onBackground_indigo</item>
-        <item name="colorSurface">@color/citra_surface_indigo</item>
-        <item name="colorOnSurface">@color/citra_onSurface_indigo</item>
-        <item name="colorSurfaceVariant">@color/citra_surfaceVariant_indigo</item>
-        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant_indigo</item>
-        <item name="colorOutline">@color/citra_outline_indigo</item>
-        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface_indigo</item>
-        <item name="colorSurfaceInverse">@color/citra_inverseSurface_indigo</item>
-        <item name="colorPrimaryInverse">@color/citra_inversePrimary_indigo</item>
-    </style>
-
     <style name="Theme.Citra.Violet" parent="Theme.Citra">
         <!-- Violet theme colors -->
         <item name="colorPrimary">@color/citra_primary_violet</item>
