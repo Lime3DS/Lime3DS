@@ -1947,8 +1947,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
         shortcut_path =
             QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).toStdString();
     } else if (target == GameListShortcutTarget::Applications) {
-        shortcut_path =
-            QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation).toStdString();
+        shortcut_path = GetApplicationsDirectory();
     }
 
     // Icon path and title
