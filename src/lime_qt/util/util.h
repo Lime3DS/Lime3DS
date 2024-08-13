@@ -1,4 +1,4 @@
-// Copyright 2015 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -36,3 +36,8 @@ QPixmap GetQPixmapFromSMDH(const std::vector<u8>& smdh_data);
  * @return bool If the operation succeeded
  */
 [[nodiscard]] bool SaveIconToFile(const std::filesystem::path& icon_path, const QImage& image);
+
+/**
+ * @return The user’s applications directory
+ */
+[[nodiscard]] const std::string GetApplicationsDirectory();

@@ -1,6 +1,9 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright Dolphin Emulator Project
+// Licensed under GPLv2 or any later version
 
 #pragma once
 
@@ -207,6 +210,7 @@ void UpdateUserPath(UserPath path, const std::string& filename);
 [[nodiscard]] const std::string& GetExeDirectory();
 [[nodiscard]] std::string AppDataRoamingDirectory();
 #else
+[[nodiscard]] const std::string GetHomeDirectory();
 [[nodiscard]] const std::string GetUserDirectory(const std::string& envvar);
 #endif
 
