@@ -46,7 +46,6 @@
 #include "lime_qt/bootmanager.h"
 #include "lime_qt/camera/qt_multimedia_camera.h"
 #include "lime_qt/camera/still_image_camera.h"
-#include "lime_qt/compatdb.h"
 #include "lime_qt/compatibility_list.h"
 #include "lime_qt/configuration/config.h"
 #include "lime_qt/configuration/configure_dialog.h"
@@ -97,7 +96,6 @@
 #include "core/savestate.h"
 #include "core/system_titles.h"
 #include "input_common/main.h"
-#include "network/network_settings.h"
 #include "ui_main.h"
 #include "video_core/gpu.h"
 #include "video_core/renderer_base.h"
@@ -339,9 +337,6 @@ GMainWindow::~GMainWindow() {
 }
 
 void GMainWindow::InitializeWidgets() {
-#ifdef CITRA_ENABLE_COMPATIBILITY_REPORTING
-    ui->action_Report_Compatibility->setVisible(true);
-#endif
     render_window = new GRenderWindow(this, emu_thread.get(), system, false);
     secondary_window = new GRenderWindow(this, emu_thread.get(), system, true);
     render_window->hide();
@@ -904,7 +899,10 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_Pause, &GMainWindow::OnPauseContinueGame);
     connect_menu(ui->action_Stop, &GMainWindow::OnStopGame);
     connect_menu(ui->action_Restart, [this] { BootGame(QString(game_path)); });
-    connect_menu(ui->action_Report_Compatibility, &GMainWindow::OnMenuReportCompatibility);
+    connect_menu(ui->action_Report_Compatibility, []() {
+        QDesktopServices::openUrl(QUrl(QStringLiteral(
+            "https://github.com/Lime3DS/compatibility-list/blob/master/CONTRIBUTING.md")));
+    });
     connect_menu(ui->action_Configure, &GMainWindow::OnConfigure);
     connect_menu(ui->action_Configure_Current_Game, &GMainWindow::OnConfigurePerGame);
 
@@ -2356,17 +2354,6 @@ void GMainWindow::OnStopGame() {
 void GMainWindow::OnLoadComplete() {
     loading_screen->OnLoadComplete();
     UpdateSecondaryWindowVisibility();
-}
-
-void GMainWindow::OnMenuReportCompatibility() {
-    if (!NetSettings::values.citra_token.empty() && !NetSettings::values.citra_username.empty()) {
-        CompatDB compatdb{this};
-        compatdb.exec();
-    } else {
-        QMessageBox::critical(this, tr("Missing Citra Account"),
-                              tr("You must link your Citra account to submit test cases."
-                                 "<br/>Go to Emulation &gt; Configure... &gt; Web to do so."));
-    }
 }
 
 void GMainWindow::ToggleFullscreen() {
