@@ -28,9 +28,6 @@ add_executable(lime-qt
     camera/qt_multimedia_camera.cpp
     camera/qt_multimedia_camera.h
     lime-qt.rc
-    compatdb.cpp
-    compatdb.h
-    compatdb.ui
     configuration/config.cpp
     configuration/config.h
     configuration/configure.ui
@@ -333,10 +330,6 @@ target_compile_definitions(lime-qt PRIVATE
     -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_TO_ASCII
 )
-
-if (CITRA_ENABLE_COMPATIBILITY_REPORTING)
-    target_compile_definitions(lime-qt PRIVATE -DCITRA_ENABLE_COMPATIBILITY_REPORTING)
-endif()
 
 if (USE_DISCORD_PRESENCE)
     target_sources(lime-qt PUBLIC

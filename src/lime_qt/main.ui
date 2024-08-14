@@ -560,14 +560,8 @@
    </property>
   </action>
   <action name="action_Report_Compatibility">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Report Compatibility</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
    </property>
   </action>
   <action name="action_Restart">
