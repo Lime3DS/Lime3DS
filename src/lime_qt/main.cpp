@@ -1819,7 +1819,7 @@ bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
         LOG_ERROR(Frontend, "Failed to create IShellLinkW instance");
         return false;
     }
-    hres = ps1->SetPath(command.c_str());
+    hres = ps1->SetPath(Common::UTF8ToUTF16W(command).data());
     if (FAILED(hres)) {
         LOG_ERROR(Frontend, "Failed to set path");
         return false;
