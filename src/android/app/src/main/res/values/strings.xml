@@ -330,7 +330,7 @@
     <string name="preferences_audio">Audio</string>
     <string name="preferences_debug">Debug</string>
     <string name="preferences_theme">Theme and Color</string>
-
+    <string name="preferences_layout">Layout</string>
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Your ROM is Encrypted</string>
     <string name="loader_error_invalid_format">Invalid ROM format</string>
@@ -359,12 +359,25 @@
     <string name="emulation_open_settings">Open Settings</string>
     <string name="emulation_open_cheats">Open Cheats</string>
     <string name="emulation_switch_screen_layout">Landscape Screen Layout</string>
+    <string name="emulation_switch_portrait_layout">Portrait Screen Layout</string>
     <string name="emulation_screen_layout_landscape">Default</string>
     <string name="emulation_screen_layout_portrait">Portrait</string>
     <string name="emulation_screen_layout_single">Single Screen</string>
     <string name="emulation_screen_layout_sidebyside">Side by Side Screens</string>
     <string name="emulation_screen_layout_hybrid">Hybrid Screens</string>
-    <string name="emulation_cycle_landscape_layouts">Cycle Landscape Layouts</string>
+    <string name="emulation_screen_layout_original">Original</string>
+    <string name="emulation_portrait_layout_top_full">Default</string>
+    <string name="emulation_screen_layout_custom">Custom Layout</string>
+    <string name="emulation_adjust_custom_layout">Adjust Custom Layout in Settings</string>
+    <string name="emulation_landscape_custom_layout">Landscape Custom Layout</string>
+    <string name="emulation_portrait_custom_layout">Portrait Custom Layout</string>
+    <string name="emulation_top_screen">Top Screen</string>
+    <string name="emulation_bottom_screen">Bottom Screen</string>
+    <string name="emulation_custom_layout_x">X-Position</string>
+    <string name="emulation_custom_layout_y">Y-Position</string>
+    <string name="emulation_custom_layout_width">Width</string>
+    <string name="emulation_custom_layout_height">Height</string>
+    <string name="emulation_cycle_landscape_layouts">Cycle Layouts</string>
     <string name="emulation_swap_screens">Swap Screens</string>
     <string name="emulation_touch_overlay_reset">Reset Overlay</string>
     <string name="emulation_show_overlay">Show Overlay</string>

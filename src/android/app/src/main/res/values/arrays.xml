@@ -11,6 +11,37 @@
         <item>1</item>
     </integer-array>
 
+    <string-array name="landscapeLayouts">
+        <item>@string/emulation_screen_layout_landscape</item>
+        <item>@string/emulation_screen_layout_single</item>
+        <item>@string/emulation_screen_layout_sidebyside</item>
+        <item>@string/emulation_screen_layout_hybrid</item>
+        <item>@string/emulation_screen_layout_original</item>
+        <item>@string/emulation_screen_layout_custom</item>
+    </string-array>
+    <!-- start with 6 because that is the MobileLandscape layout in cpp files
+       - skip 0 because top/bottom rarely makes sense in landscape
+       - skip 2 because that is "Large Screen" which the default replaces in mobile
+       -->
+    <integer-array name="landscapeLayoutValues">
+        <item>6</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>0</item>
+        <item>5</item>
+    </integer-array>
+
+    <string-array name="portraitLayouts">
+        <item>@string/emulation_portrait_layout_top_full</item>
+        <item>@string/emulation_screen_layout_custom</item>
+    </string-array>
+
+    <integer-array name="portraitLayoutValues">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+
     <string-array name="regionNames">
         <item>@string/auto_select</item>
         <item>@string/system_region_jpn</item>

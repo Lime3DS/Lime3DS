@@ -46,7 +46,6 @@
 #include "lime_qt/bootmanager.h"
 #include "lime_qt/camera/qt_multimedia_camera.h"
 #include "lime_qt/camera/still_image_camera.h"
-#include "lime_qt/compatdb.h"
 #include "lime_qt/compatibility_list.h"
 #include "lime_qt/configuration/config.h"
 #include "lime_qt/configuration/configure_dialog.h"
@@ -97,7 +96,6 @@
 #include "core/savestate.h"
 #include "core/system_titles.h"
 #include "input_common/main.h"
-#include "network/network_settings.h"
 #include "ui_main.h"
 #include "video_core/gpu.h"
 #include "video_core/renderer_base.h"
@@ -339,9 +337,6 @@ GMainWindow::~GMainWindow() {
 }
 
 void GMainWindow::InitializeWidgets() {
-#ifdef CITRA_ENABLE_COMPATIBILITY_REPORTING
-    ui->action_Report_Compatibility->setVisible(true);
-#endif
     render_window = new GRenderWindow(this, emu_thread.get(), system, false);
     secondary_window = new GRenderWindow(this, emu_thread.get(), system, true);
     render_window->hide();
@@ -640,8 +635,6 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Screen_Layout_Swap_Screens, QStringLiteral("Swap Screens"));
     link_action_shortcut(ui->action_Screen_Layout_Upright_Screens,
                          QStringLiteral("Rotate Screens Upright"));
-    link_action_shortcut(ui->action_Enable_Frame_Advancing,
-                         QStringLiteral("Toggle Frame Advancing"));
     link_action_shortcut(ui->action_Advance_Frame, QStringLiteral("Advance Frame"));
     link_action_shortcut(ui->action_Load_from_Newest_Slot, QStringLiteral("Load from Newest Slot"));
     link_action_shortcut(ui->action_Save_to_Oldest_Slot, QStringLiteral("Save to Oldest Slot"));
@@ -897,7 +890,10 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_Pause, &GMainWindow::OnPauseContinueGame);
     connect_menu(ui->action_Stop, &GMainWindow::OnStopGame);
     connect_menu(ui->action_Restart, [this] { BootGame(QString(game_path)); });
-    connect_menu(ui->action_Report_Compatibility, &GMainWindow::OnMenuReportCompatibility);
+    connect_menu(ui->action_Report_Compatibility, []() {
+        QDesktopServices::openUrl(QUrl(QStringLiteral(
+            "https://github.com/Lime3DS/compatibility-list/blob/master/CONTRIBUTING.md")));
+    });
     connect_menu(ui->action_Configure, &GMainWindow::OnConfigure);
     connect_menu(ui->action_Configure_Current_Game, &GMainWindow::OnConfigurePerGame);
 
@@ -937,16 +933,8 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_Save_Movie, &GMainWindow::OnSaveMovie);
     connect_menu(ui->action_Movie_Read_Only_Mode,
                  [this](bool checked) { movie.SetReadOnly(checked); });
-    connect_menu(ui->action_Enable_Frame_Advancing, [this] {
-        if (emulation_running) {
-            system.frame_limiter.SetFrameAdvancing(ui->action_Enable_Frame_Advancing->isChecked());
-            ui->action_Advance_Frame->setEnabled(ui->action_Enable_Frame_Advancing->isChecked());
-        }
-    });
     connect_menu(ui->action_Advance_Frame, [this] {
         if (emulation_running && system.frame_limiter.IsFrameAdvancing()) {
-            ui->action_Enable_Frame_Advancing->setChecked(true);
-            ui->action_Advance_Frame->setEnabled(true);
             system.frame_limiter.AdvanceFrame();
         }
     });
@@ -971,7 +959,8 @@ void GMainWindow::ConnectMenuEvents() {
 }
 
 void GMainWindow::UpdateMenuState() {
-    const bool is_paused = !emu_thread || !emu_thread->IsRunning();
+    const bool is_paused =
+        !emu_thread || !emu_thread->IsRunning() || system.frame_limiter.IsFrameAdvancing();
 
     const std::array running_actions{
         ui->action_Stop,
@@ -989,6 +978,7 @@ void GMainWindow::UpdateMenuState() {
     }
 
     ui->action_Capture_Screenshot->setEnabled(emulation_running && !is_paused);
+    ui->action_Advance_Frame->setEnabled(emulation_running && is_paused);
 
     if (emulation_running && is_paused) {
         ui->action_Pause->setText(tr("&Continue"));
@@ -1408,12 +1398,7 @@ void GMainWindow::BootGame(const QString& filename) {
         movie_playback_path.clear();
     }
 
-    if (ui->action_Enable_Frame_Advancing->isChecked()) {
-        ui->action_Advance_Frame->setEnabled(true);
-        system.frame_limiter.SetFrameAdvancing(true);
-    } else {
-        ui->action_Advance_Frame->setEnabled(false);
-    }
+    ui->action_Advance_Frame->setEnabled(false);
 
     if (video_dumping_on_start) {
         StartVideoDumping(video_dumping_path);
@@ -1770,9 +1755,9 @@ void GMainWindow::OnGameListRemovePlayTimeData(u64 program_id) {
 bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
                                      const std::string& comment,
                                      const std::filesystem::path& icon_path,
-                                     const std::filesystem::path& command,
-                                     const std::string& arguments, const std::string& categories,
-                                     const std::string& keywords, const std::string& name) try {
+                                     const std::string& command, const std::string& arguments,
+                                     const std::string& categories, const std::string& keywords,
+                                     const std::string& name, const bool& skip_tryexec) try {
 #if defined(__linux__) || defined(__FreeBSD__) // Linux and FreeBSD
     std::filesystem::path shortcut_path_full = shortcut_path / (name + ".desktop");
     std::ofstream shortcut_stream(shortcut_path_full, std::ios::binary | std::ios::trunc);
@@ -1791,8 +1776,10 @@ bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
     if (std::filesystem::is_regular_file(icon_path)) {
         fmt::print(shortcut_stream, "Icon={}\n", icon_path.string());
     }
-    fmt::print(shortcut_stream, "TryExec={}\n", command.string());
-    fmt::print(shortcut_stream, "Exec={} {}\n", command.string(), arguments);
+    if (!skip_tryexec) {
+        fmt::print(shortcut_stream, "TryExec={}\n", command);
+    }
+    fmt::print(shortcut_stream, "Exec={} {}\n", command, arguments);
     if (!categories.empty()) {
         fmt::print(shortcut_stream, "Categories={}\n", categories);
     }
@@ -1823,7 +1810,7 @@ bool GMainWindow::CreateShortcutLink(const std::filesystem::path& shortcut_path,
         LOG_ERROR(Frontend, "Failed to create IShellLinkW instance");
         return false;
     }
-    hres = ps1->SetPath(command.c_str());
+    hres = ps1->SetPath(Common::UTF8ToUTF16W(command).data());
     if (FAILED(hres)) {
         LOG_ERROR(Frontend, "Failed to set path");
         return false;
@@ -1902,16 +1889,16 @@ bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
 
 bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
                                       std::filesystem::path& out_icon_path) {
-    // Get path to Citra icons directory & icon extension
+    // Get path to Lime3DS icons directory & icon extension
     std::string ico_extension = "png";
 #if defined(_WIN32)
     out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
     ico_extension = "ico";
 #elif defined(__linux__) || defined(__FreeBSD__)
-    out_icon_path = FileUtil::GetUserDirectory("XDG_DATA_HOME") + "/icons/hicolor/256x256";
+    out_icon_path = FileUtil::GetUserDirectory("XDG_DATA_HOME") + "/icons/hicolor/256x256/";
 #endif
     // Create icons directory if it doesn't exist
-    if (!FileUtil::CreateDir(out_icon_path.string())) {
+    if (!FileUtil::CreateFullPath(out_icon_path.string())) {
         QMessageBox::critical(
             this, tr("Create Icon"),
             tr("Cannot create icon file. Path \"%1\" does not exist and cannot be created.")
@@ -1922,19 +1909,27 @@ bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_vi
     }
 
     // Create icon file path
-    out_icon_path /= (program_id == 0 ? fmt::format("citra-{}.{}", game_file_name, ico_extension)
-                                      : fmt::format("citra-{:016X}.{}", program_id, ico_extension));
+    out_icon_path /= (program_id == 0 ? fmt::format("lime-{}.{}", game_file_name, ico_extension)
+                                      : fmt::format("lime-{:016X}.{}", program_id, ico_extension));
     return true;
 }
 
 void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
                                            GameListShortcutTarget target) {
-    // Get path to citra executable
-    const QStringList args = QApplication::arguments();
-    std::filesystem::path citra_command = args[0].toStdString();
-    // If relative path, make it an absolute path
-    if (citra_command.c_str()[0] == '.') {
-        citra_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + citra_command.string();
+    std::string lime_command{};
+    bool skip_tryexec = false;
+    const char* env_flatpak_id = getenv("FLATPAK_ID");
+    if (env_flatpak_id) {
+        lime_command = fmt::format("flatpak run {}", env_flatpak_id);
+        skip_tryexec = true;
+    } else {
+        // Get path to Lime3DS executable
+        const QStringList args = QApplication::arguments();
+        lime_command = args[0].toStdString();
+        // If relative path, make it an absolute path
+        if (lime_command.c_str()[0] == '.') {
+            lime_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + lime_command;
+        }
     }
 
     // Shortcut path
@@ -1943,8 +1938,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
         shortcut_path =
             QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).toStdString();
     } else if (target == GameListShortcutTarget::Applications) {
-        shortcut_path =
-            QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation).toStdString();
+        shortcut_path = GetApplicationsDirectory();
     }
 
     // Icon path and title
@@ -1990,8 +1984,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     // Warn once if we are making a shortcut to a volatile AppImage
     const std::string appimage_ending =
         std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
-    if (citra_command.string().ends_with(appimage_ending) &&
-        !UISettings::values.shortcut_already_warned) {
+    if (lime_command.ends_with(appimage_ending) && !UISettings::values.shortcut_already_warned) {
         if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
                                       qt_game_title)) {
             return;
@@ -2004,12 +1997,12 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT, qt_game_title)) {
         arguments = "-f " + arguments;
     }
-    const std::string comment = fmt::format("Start {:s} with the Citra Emulator", game_title);
+    const std::string comment = fmt::format("Start {:s} with the Lime3DS Emulator", game_title);
     const std::string categories = "Game;Emulator;Qt;";
     const std::string keywords = "3ds;Nintendo;";
 
-    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, citra_command, arguments,
-                           categories, keywords, game_title)) {
+    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, lime_command, arguments,
+                           categories, keywords, game_title, skip_tryexec)) {
         CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_SUCCESS, qt_game_title);
         return;
     }
@@ -2200,7 +2193,7 @@ void GMainWindow::OnCIAInstallReport(Service::AM::InstallStatus status, QString 
     case Service::AM::InstallStatus::ErrorEncrypted:
         QMessageBox::critical(this, tr("Encrypted File"),
                               tr("%1 must be decrypted "
-                                 "before being used with Lime. A real 3DS is required.")
+                                 "before being used with Lime3DS. A real 3DS is required.")
                                   .arg(filename));
         break;
     case Service::AM::InstallStatus::ErrorFileNotFound:
@@ -2293,6 +2286,7 @@ void GMainWindow::OnStartGame() {
     PreventOSSleep();
 
     emu_thread->SetRunning(true);
+    system.frame_limiter.SetFrameAdvancing(false);
     graphics_api_button->setEnabled(false);
     qRegisterMetaType<Core::System::ResultStatus>("Core::System::ResultStatus");
     qRegisterMetaType<std::string>("std::string");
@@ -2322,7 +2316,7 @@ void GMainWindow::OnRestartGame() {
 }
 
 void GMainWindow::OnPauseGame() {
-    emu_thread->SetRunning(false);
+    system.frame_limiter.SetFrameAdvancing(true);
     qt_cameras->PauseCameras();
 
     play_time_manager->Stop();
@@ -2337,7 +2331,7 @@ void GMainWindow::OnPauseGame() {
 
 void GMainWindow::OnPauseContinueGame() {
     if (emulation_running) {
-        if (emu_thread->IsRunning()) {
+        if (emu_thread->IsRunning() && !system.frame_limiter.IsFrameAdvancing()) {
             OnPauseGame();
         } else {
             OnStartGame();
@@ -2359,17 +2353,6 @@ void GMainWindow::OnStopGame() {
 void GMainWindow::OnLoadComplete() {
     loading_screen->OnLoadComplete();
     UpdateSecondaryWindowVisibility();
-}
-
-void GMainWindow::OnMenuReportCompatibility() {
-    if (!NetSettings::values.citra_token.empty() && !NetSettings::values.citra_username.empty()) {
-        CompatDB compatdb{this};
-        compatdb.exec();
-    } else {
-        QMessageBox::critical(this, tr("Missing Citra Account"),
-                              tr("You must link your Citra account to submit test cases."
-                                 "<br/>Go to Emulation &gt; Configure... &gt; Web to do so."));
-    }
 }
 
 void GMainWindow::ToggleFullscreen() {

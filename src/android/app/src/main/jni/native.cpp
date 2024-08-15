@@ -1,4 +1,4 @@
-// Copyright 2019 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -346,15 +346,13 @@ void JNICALL Java_io_github_lime3ds_android_NativeLibrary_enableAdrenoTurboMode(
     EnableAdrenoTurboMode(enable);
 }
 
-void Java_io_github_lime3ds_android_NativeLibrary_notifyOrientationChange(
-    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jint layout_option, jint rotation) {
-    Settings::values.layout_option = static_cast<Settings::LayoutOption>(layout_option);
+void Java_io_github_lime3ds_android_NativeLibrary_updateFramebuffer([[maybe_unused]] JNIEnv* env,
+                                                                    [[maybe_unused]] jobject obj,
+                                                                    jboolean is_portrait_mode) {
     auto& system = Core::System::GetInstance();
     if (system.IsPoweredOn()) {
-        system.GPU().Renderer().UpdateCurrentFramebufferLayout(!(rotation % 2));
+        system.GPU().Renderer().UpdateCurrentFramebufferLayout(is_portrait_mode);
     }
-    InputManager::screen_rotation = rotation;
-    Camera::NDK::g_rotation = rotation;
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_swapScreens([[maybe_unused]] JNIEnv* env,
