@@ -3413,8 +3413,9 @@ void GMainWindow::LoadTranslation() {
     bool loaded;
 
     if (UISettings::values.language.isEmpty()) {
-        // If the selected language is empty, use system locale
-        loaded = translator.load(QLocale(), {}, {}, QStringLiteral(":/languages/"));
+        //  Use the system's default locale
+        QLocale defaultLocale = QLocale::system();
+        loaded = translator.load(defaultLocale, {}, {}, QStringLiteral(":/languages/"));
     } else {
         // Otherwise load from the specified file
         loaded = translator.load(UISettings::values.language, QStringLiteral(":/languages/"));
