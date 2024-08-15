@@ -288,7 +288,6 @@
     <string name="preferences_audio">声音</string>
     <string name="preferences_debug">调试</string>
     <string name="preferences_theme">主题和色彩</string>
-
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">您的 ROM 是加密的</string>
     <string name="loader_error_invalid_format">无效的 ROM 格式</string>
@@ -318,7 +317,6 @@
     <string name="emulation_screen_layout_single">单个屏幕</string>
     <string name="emulation_screen_layout_sidebyside">并排屏幕</string>
     <string name="emulation_screen_layout_hybrid">混合式屏幕</string>
-    <string name="emulation_cycle_landscape_layouts">环形布局</string>
     <string name="emulation_swap_screens">交换上下屏</string>
     <string name="emulation_touch_overlay_reset">重置虚拟按键</string>
     <string name="emulation_show_overlay">显示虚拟按键</string>
@@ -386,7 +384,7 @@
     <string name="fatal_error">致命错误</string>
     <string name="fatal_error_message">发生致命错误。请查阅日志获取相关信息。\n继续模拟可能会导致错误和崩溃。</string>
 
-    <!-- Disk shader cache -->
+    <!-- Disk Shader Cache -->
     <string name="preparing_shaders">正在准备着色器</string>
     <string name="building_shaders">正在构建着色器</string>
 

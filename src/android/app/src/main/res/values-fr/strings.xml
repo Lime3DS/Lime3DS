@@ -289,7 +289,6 @@
     <string name="preferences_audio">Son</string>
     <string name="preferences_debug">Débogguer</string>
     <string name="preferences_theme">Thème et couleur</string>
-
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Votre ROM est chiffrée</string>
     <string name="loader_error_invalid_format">Format de ROM non valide</string>
@@ -319,7 +318,6 @@
     <string name="emulation_screen_layout_single">Un seul écran</string>
     <string name="emulation_screen_layout_sidebyside">Écrans côte à côte</string>
     <string name="emulation_screen_layout_hybrid">Écrans hybrides</string>
-    <string name="emulation_cycle_landscape_layouts">Cycle des mises en page en mode paysage</string>
     <string name="emulation_swap_screens">Permuter les écrans</string>
     <string name="emulation_touch_overlay_reset">Réinitialiser l\'overlay</string>
     <string name="emulation_show_overlay">Afficher l\'overlay</string>
@@ -387,7 +385,7 @@
     <string name="fatal_error">Erreur fatale</string>
     <string name="fatal_error_message">Une erreur fatale s\'est produite. Veuillez consulter le journal pour plus de détails.\nPoursuivre l\'émulation peut entraîner des plantages et des bugs.</string>
 
-    <!-- Disk shader cache -->
+    <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Préparation des shaders</string>
     <string name="building_shaders">Construction des shaders</string>
 

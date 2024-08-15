@@ -215,7 +215,6 @@
     <string name="preferences_audio">Audio</string>
     <string name="preferences_debug">Debug</string>
     <string name="preferences_theme">Theme und Farbe</string>
-
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Das ROM ist verschlüsselt</string>
     <string name="loader_error_invalid_format">Ungültiges ROM-Format</string>
