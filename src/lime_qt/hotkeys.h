@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -71,7 +71,7 @@ private:
     struct Hotkey {
         QKeySequence keyseq;
         QString controller_keyseq;
-        QShortcut* shortcut = nullptr;
+        std::map<QString, QShortcut*> shortcuts;
         Qt::ShortcutContext context = Qt::WindowShortcut;
     };
 

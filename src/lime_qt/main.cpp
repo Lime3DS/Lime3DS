@@ -604,21 +604,21 @@ void GMainWindow::InitializeSaveStateMenuActions() {
     UpdateSaveStates();
 }
 
-void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
+void GMainWindow::InitializeHotkeys() {
     hotkey_registry.LoadHotkeys();
 
     const QString main_window = QStringLiteral("Main Window");
     const QString fullscreen = QStringLiteral("Fullscreen");
-    const QString toggle_screen_layout = QStringLiteral("Toggle Screen Layout");
-    const QString swap_screens = QStringLiteral("Swap Screens");
-    const QString rotate_screens = QStringLiteral("Rotate Screens Upright");
 
-    const auto link_action_shortcut = [&](QAction* action, const QString& action_name) {
+    // QAction Hotkeys
+    const auto link_action_shortcut = [&](QAction* action, const QString& action_name,
+                                          const bool primary_only = false) {
         static const QString main_window = QStringLiteral("Main Window");
         action->setShortcut(hotkey_registry.GetKeySequence(main_window, action_name));
-        action->setShortcutContext(hotkey_registry.GetShortcutContext(main_window, action_name));
         action->setAutoRepeat(false);
         this->addAction(action);
+        if (!primary_only)
+            secondary_window->addAction(action);
     };
 
     link_action_shortcut(ui->action_Load_File, QStringLiteral("Load File"));
@@ -630,10 +630,11 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
     link_action_shortcut(ui->action_Stop, QStringLiteral("Stop Emulation"));
     link_action_shortcut(ui->action_Show_Filter_Bar, QStringLiteral("Toggle Filter Bar"));
     link_action_shortcut(ui->action_Show_Status_Bar, QStringLiteral("Toggle Status Bar"));
-    link_action_shortcut(ui->action_Fullscreen, fullscreen);
+    link_action_shortcut(ui->action_Fullscreen, fullscreen, true);
     link_action_shortcut(ui->action_Capture_Screenshot, QStringLiteral("Capture Screenshot"));
-    link_action_shortcut(ui->action_Screen_Layout_Swap_Screens, swap_screens);
-    link_action_shortcut(ui->action_Screen_Layout_Upright_Screens, rotate_screens);
+    link_action_shortcut(ui->action_Screen_Layout_Swap_Screens, QStringLiteral("Swap Screens"));
+    link_action_shortcut(ui->action_Screen_Layout_Upright_Screens,
+                         QStringLiteral("Rotate Screens Upright"));
     link_action_shortcut(ui->action_Advance_Frame, QStringLiteral("Advance Frame"));
     link_action_shortcut(ui->action_Load_from_Newest_Slot, QStringLiteral("Load from Newest Slot"));
     link_action_shortcut(ui->action_Save_to_Oldest_Slot, QStringLiteral("Save to Oldest Slot"));
@@ -645,41 +646,16 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
     link_action_shortcut(ui->action_Show_Room, QStringLiteral("Multiplayer Show Current Room"));
     link_action_shortcut(ui->action_Leave_Room, QStringLiteral("Multiplayer Leave Room"));
 
-    const auto add_secondary_window_hotkey = [this](QAction* action, QKeySequence hotkey,
-                                                    const char* slot) {
-        // This action will fire specifically when secondary_window is in focus
-        action->setShortcut(hotkey);
-        disconnect(action, SIGNAL(triggered()), this, slot);
-        connect(action, SIGNAL(triggered()), this, slot);
-        secondary_window->addAction(action);
-    };
-
-    // Use the same fullscreen hotkey as the main window
-    const auto fullscreen_hotkey = hotkey_registry.GetKeySequence(main_window, fullscreen);
-    add_secondary_window_hotkey(action_secondary_fullscreen, fullscreen_hotkey,
-                                SLOT(ToggleSecondaryFullscreen()));
-
-    const auto toggle_screen_hotkey =
-        hotkey_registry.GetKeySequence(main_window, toggle_screen_layout);
-    add_secondary_window_hotkey(action_secondary_toggle_screen, toggle_screen_hotkey,
-                                SLOT(ToggleScreenLayout()));
-
-    const auto swap_screen_hotkey = hotkey_registry.GetKeySequence(main_window, swap_screens);
-    add_secondary_window_hotkey(action_secondary_swap_screen, swap_screen_hotkey,
-                                SLOT(TriggerSwapScreens()));
-
-    const auto rotate_screen_hotkey = hotkey_registry.GetKeySequence(main_window, rotate_screens);
-    add_secondary_window_hotkey(action_secondary_rotate_screen, rotate_screen_hotkey,
-                                SLOT(TriggerRotateScreens()));
-
+    // QShortcut Hotkeys
     const auto connect_shortcut = [&](const QString& action_name, const auto& function) {
         const auto* hotkey = hotkey_registry.GetHotkey(main_window, action_name, this);
+        const auto* secondary_hotkey =
+            hotkey_registry.GetHotkey(main_window, action_name, secondary_window);
         connect(hotkey, &QShortcut::activated, this, function);
+        connect(secondary_hotkey, &QShortcut::activated, this, function);
     };
 
-    connect(hotkey_registry.GetHotkey(main_window, toggle_screen_layout, render_window),
-            &QShortcut::activated, this, &GMainWindow::ToggleScreenLayout);
-
+    connect_shortcut(QStringLiteral("Toggle Screen Layout"), &GMainWindow::ToggleScreenLayout);
     connect_shortcut(QStringLiteral("Exit Fullscreen"), [&] {
         if (emulation_running) {
             ui->action_Fullscreen->setChecked(false);
@@ -750,6 +726,21 @@ void GMainWindow::InitializeHotkeys() { // TODO: This code kind of sucks
             UpdateStatusBar();
         }
     });
+
+    // Secondary Window QAction Hotkeys
+    const auto add_secondary_window_hotkey = [this](QAction* action, QKeySequence hotkey,
+                                                    const char* slot) {
+        // This action will fire specifically when secondary_window is in focus
+        action->setShortcut(hotkey);
+        disconnect(action, SIGNAL(triggered()), this, slot);
+        connect(action, SIGNAL(triggered()), this, slot);
+        secondary_window->addAction(action);
+    };
+
+    // Use the same fullscreen hotkey as the main window
+    const auto fullscreen_hotkey = hotkey_registry.GetKeySequence(main_window, fullscreen);
+    add_secondary_window_hotkey(action_secondary_fullscreen, fullscreen_hotkey,
+                                SLOT(ToggleSecondaryFullscreen()));
 }
 
 void GMainWindow::SetDefaultUIGeometry() {
