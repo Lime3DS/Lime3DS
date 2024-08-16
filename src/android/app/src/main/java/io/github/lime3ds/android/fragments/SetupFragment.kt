@@ -276,6 +276,7 @@ class SetupFragment : Fragment() {
                     true,
                     R.string.setup_set_theme,
                     {
+                        ThemeUtil.isDuringSetup = true
                         showThemeSettingsDialog()
                     },
                     false,
@@ -427,24 +428,9 @@ class SetupFragment : Fragment() {
 
     private fun showMaterialYouAndBlackThemeDialog() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        // Container for the switches and descriptions
         val switchContainer = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(64, 16, 64, 32)
-        }
-
-        val materialYouSwitch = MaterialSwitch(requireContext()).apply {
-            text = getString(R.string.material_you)
-            isChecked = preferences.getBoolean(Settings.PREF_MATERIAL_YOU, false)
-        }
-        val materialYouDescription = TextView(requireContext()).apply {
-            text = getString(R.string.material_you_description)
-        }
-
-        // Only add the Material You switch and description if Android 12 and < is detected
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            switchContainer.addView(materialYouSwitch)
-            switchContainer.addView(materialYouDescription)
         }
 
         val blackThemeSwitch = MaterialSwitch(requireContext()).apply {
@@ -457,12 +443,23 @@ class SetupFragment : Fragment() {
         switchContainer.addView(blackThemeSwitch)
         switchContainer.addView(blackThemeDescription)
 
+        val materialYouSwitch = MaterialSwitch(requireContext()).apply {
+            text = getString(R.string.material_you)
+            isChecked = preferences.getBoolean(Settings.PREF_MATERIAL_YOU, false)
+        }
+        val materialYouDescription = TextView(requireContext()).apply {
+            text = getString(R.string.material_you_description)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            switchContainer.addView(materialYouSwitch)
+            switchContainer.addView(materialYouDescription)
+        }
+
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.set_up_theme_settings)
             .setView(switchContainer)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                ThemeUtil.unregisterThemeChangeListener()  // Unregister listener before making changes
-
                 preferences.edit().apply {
                     putBoolean(Settings.PREF_BLACK_BACKGROUNDS, blackThemeSwitch.isChecked)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -470,11 +467,8 @@ class SetupFragment : Fragment() {
                     }
                     apply()
                 }
-
-                val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
                 preferences.edit().putBoolean("ThemeSetupCompleted", true).apply()
-                ThemeUtil.registerThemeChangeListener(requireActivity() as AppCompatActivity)  // Register listener again after changes
-                requireActivity().recreate()  // Explicitly recreate activity if needed
+                requireActivity().recreate()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -544,6 +538,7 @@ class SetupFragment : Fragment() {
         preferences.edit()
             .putBoolean(Settings.PREF_FIRST_APP_LAUNCH, false)
             .apply()
+        ThemeUtil.isDuringSetup = false
         mainActivity.finishSetup(binding.root.findNavController())
     }
 
