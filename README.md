@@ -24,7 +24,7 @@ There is no emulation specific difference between the MSVC and MSYS2 versions of
 * MSVC generates a smaller file
 * Microsoft developed [MSVC](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist) and is closed source while [MSYS2](https://www.msys2.org/) is open-source
 * MSVC requires the installation of [Microsoft Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist), if not already installed, which can require a restart to finish the install. If you have issues with the Microsoft Visual C++ runtimes, you should try the MSYS2 install
-* There have been times where MSVC has been known not to work sometimes while MSYS2 does
+* There have been reports where MSVC has not worked while MSYS2 does
 
 ---
 ### Android
