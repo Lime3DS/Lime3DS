@@ -19,6 +19,9 @@
 
 Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
 
+#### Windows Version Differences
+There is no functional difference between the msvc and msys2 versions of of Limed3DS, they are just two different compilers used to create a Lime3DS executable. MSVC typically generates a smaller file and is generally suggested to try first, and if it doesn't work, try the msys2 download.
+
 ---
 ### Android
 The recommended method of downloading Lime3DS on Android is via Obtainium:
