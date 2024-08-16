@@ -277,7 +277,7 @@ class SetupFragment : Fragment() {
                     R.string.setup_set_theme,
                     {
                         ThemeUtil.isDuringSetup = true
-                        showThemeSettingsDialog()
+                        showStaticThemeSelectionDialog()
                     },
                     false,
                     false,
@@ -403,13 +403,7 @@ class SetupFragment : Fragment() {
     private lateinit var microphoneCallback: SetupCallback
     private lateinit var cameraCallback: SetupCallback
 
-    private fun showThemeSettingsDialog() {
-        showStaticThemeSelectionDialog {
-            showMaterialYouAndBlackThemeDialog()
-        }
-    }
-
-    private fun showStaticThemeSelectionDialog(onComplete: () -> Unit) {
+    private fun showStaticThemeSelectionDialog() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val themeColors = resources.getStringArray(R.array.staticThemeNames)
         val currentThemeColor = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
@@ -420,7 +414,7 @@ class SetupFragment : Fragment() {
                 preferences.edit().putInt(Settings.PREF_STATIC_THEME_COLOR, which).apply()
             }
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                onComplete()
+                showMaterialYouAndBlackThemeDialog()
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
