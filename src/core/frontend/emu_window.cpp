@@ -224,7 +224,7 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
                 Layout::LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                          Settings::values.upright_screen.GetValue(),
                                          Settings::values.large_screen_proportion.GetValue(),
-                                         Layout::VerticalAlignment::Bottom);
+                                         Layout::SmallScreenPosition::BottomRight);
             break;
         case Settings::LayoutOption::HybridScreen:
             layout =
@@ -235,7 +235,7 @@ void EmuWindow::UpdateCurrentFramebufferLayout(u32 width, u32 height, bool is_po
             layout =
                 Layout::LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                          Settings::values.upright_screen.GetValue(), 1.0f,
-                                         Layout::VerticalAlignment::Bottom);
+                                         Layout::SmallScreenPosition::BottomRight);
             break;
 #ifndef ANDROID
         case Settings::LayoutOption::SeparateWindows:
