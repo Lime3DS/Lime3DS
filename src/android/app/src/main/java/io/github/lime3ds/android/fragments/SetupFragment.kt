@@ -54,7 +54,6 @@ import io.github.lime3ds.android.viewmodel.GamesViewModel
 import io.github.lime3ds.android.viewmodel.HomeViewModel
 import com.google.android.material.materialswitch.MaterialSwitch
 
-
 class SetupFragment : Fragment() {
     private var _binding: FragmentSetupBinding? = null
     private val binding get() = _binding!!

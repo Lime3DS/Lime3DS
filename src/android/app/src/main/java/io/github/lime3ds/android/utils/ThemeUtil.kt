@@ -117,8 +117,6 @@ object ThemeUtil {
         )
     }
 
-
-
     // Track setup status in order to enable / disable listener
     var isDuringSetup = false
 
