@@ -9,6 +9,7 @@
 #include <boost/serialization/shared_ptr.hpp>
 #include "common/archives.h"
 #include "common/bit_field.h"
+#include "common/settings.h"
 #include "core/core.h"
 #include "core/hle/ipc_helpers.h"
 #include "core/hle/kernel/shared_memory.h"
@@ -412,7 +413,9 @@ void GSP_GPU::TriggerCmdReqQueue(Kernel::HLERequestContext& ctx) {
     auto* command_buffer = GetCommandBuffer(active_thread_id);
     auto& gpu = system.GPU();
     for (u32 i = 0; i < command_buffer->number_commands; i++) {
-        gpu.Debugger().GXCommandProcessed(command_buffer->commands[i]);
+        if (Settings::values.renderer_debug) {
+            gpu.Debugger().GXCommandProcessed(command_buffer->commands[i]);
+        }
 
         // Decode and execute command
         gpu.Execute(command_buffer->commands[i]);
