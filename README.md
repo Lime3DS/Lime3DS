@@ -19,6 +19,13 @@
 
 Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
 
+#### Windows Version Differences
+There is no emulation specific difference between the MSVC and MSYS2 versions of Lime3DS, they are just two different compilers used to create a Lime3DS executable. However, there are a few functional differences:
+* MSVC generates a smaller file
+* Microsoft developed [MSVC](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist) and is closed source while [MSYS2](https://www.msys2.org/) is open-source
+* MSVC requires the installation of [Microsoft Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist), if not already installed, which can require a restart to finish the install. If you have issues with the Microsoft Visual C++ runtimes, you should try the MSYS2 install
+* There have been reports where MSVC has not worked while MSYS2 does
+
 ---
 ### Android
 The recommended method of downloading Lime3DS on Android is via Obtainium:
