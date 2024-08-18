@@ -19,7 +19,6 @@ cmake .. -G Ninja \
     -DCMAKE_C_COMPILER=clang-18 \
     "${EXTRA_CMAKE_FLAGS[@]}" \
     -DENABLE_QT_TRANSLATION=ON \
-    -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=ON \
     -DUSE_DISCORD_PRESENCE=ON
 ninja
 strip -s bin/Release/*
