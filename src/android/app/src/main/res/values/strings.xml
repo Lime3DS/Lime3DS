@@ -492,7 +492,7 @@
 
     <!-- Material You theme -->
     <string name="material_you">Material You</string>
-    <string name="material_you_description">Use the operating system\'s color theme across the app (Overrides the "Change Theme Color" setting when enabled)</string>
+    <string name="material_you_description">Use the operating system\'s color theme across the app (Overrides the "Theme Color" setting when enabled)</string>
 
     <!-- Static theme color -->
     <string name="static_theme_color">Theme Color</string>
