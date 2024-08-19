@@ -112,6 +112,7 @@ void LogSettings() {
     log_setting("Layout_SwapScreen", values.swap_screen.GetValue());
     log_setting("Layout_UprightScreen", values.upright_screen.GetValue());
     log_setting("Layout_LargeScreenProportion", values.large_screen_proportion.GetValue());
+    log_setting("Layout_SmallScreenPosition", values.small_screen_position.GetValue());
     log_setting("Utility_DumpTextures", values.dump_textures.GetValue());
     log_setting("Utility_CustomTextures", values.custom_textures.GetValue());
     log_setting("Utility_PreloadTextures", values.preload_textures.GetValue());
@@ -201,6 +202,7 @@ void RestoreGlobalState(bool is_powered_on) {
     values.swap_screen.SetGlobal(true);
     values.upright_screen.SetGlobal(true);
     values.large_screen_proportion.SetGlobal(true);
+    values.small_screen_position.SetGlobal(true);
     values.bg_red.SetGlobal(true);
     values.bg_green.SetGlobal(true);
     values.bg_blue.SetGlobal(true);

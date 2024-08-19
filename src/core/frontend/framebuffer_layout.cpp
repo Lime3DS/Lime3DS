@@ -201,15 +201,13 @@ FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool swapped, bool up
 }
 
 FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upright,
-                                   float scale_factor, SmallScreenPosition small_screen_position) {
+                                   float scale_factor,
+                                   Settings::SmallScreenPosition small_screen_position) {
     ASSERT(width > 0);
     ASSERT(height > 0);
-#ifdef ANDROID
-    small_screen_position = SmallScreenPosition::TopRight;
-#endif
-    small_screen_position = SmallScreenPosition::Below;
-    bool vertical = (small_screen_position == SmallScreenPosition::Above ||
-                     small_screen_position == SmallScreenPosition::Below);
+
+    bool vertical = (small_screen_position == Settings::SmallScreenPosition::Above ||
+                     small_screen_position == Settings::SmallScreenPosition::Below);
     FramebufferLayout res{width, height, true, true, {}, {}, !upright};
     // Split the window into two parts. Give proportional width to the smaller screen
     // To do that, find the total emulation box and maximize that based on window size
@@ -272,48 +270,48 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
     if (upright) {
 
         switch (small_screen_position) {
-        case SmallScreenPosition::TopRight:
+        case Settings::SmallScreenPosition::TopRight:
             large_screen = large_screen.TranslateY(small_screen.GetHeight());
             small_screen = small_screen.TranslateY(large_screen.top - small_screen.GetHeight());
             // Shift the small screen to the top right corner
             small_screen = small_screen.TranslateX(large_screen.left);
             break;
-        case SmallScreenPosition::MiddleRight:
+        case Settings::SmallScreenPosition::MiddleRight:
             large_screen = large_screen.TranslateY(small_screen.GetHeight());
             small_screen = small_screen.TranslateY(large_screen.top - small_screen.GetHeight());
             // Shift the small screen to the center right
             small_screen = small_screen.TranslateX(
                 ((large_screen.GetWidth() - small_screen.GetWidth()) / 2) + large_screen.left);
             break;
-        case SmallScreenPosition::BottomRight:
+        case Settings::SmallScreenPosition::BottomRight:
             large_screen = large_screen.TranslateY(small_screen.GetHeight());
             small_screen = small_screen.TranslateY(large_screen.top - small_screen.GetHeight());
             // Shift the small screen to the bottom right corner
             small_screen = small_screen.TranslateX(large_screen.right - small_screen.GetWidth());
             break;
-        case SmallScreenPosition::TopLeft:
+        case Settings::SmallScreenPosition::TopLeft:
             // shift the small screen all the way down then to match the top screen on left
             small_screen = small_screen.TranslateY(large_screen.bottom);
             small_screen = small_screen.TranslateX(large_screen.left);
             break;
-        case SmallScreenPosition::MiddleLeft:
+        case Settings::SmallScreenPosition::MiddleLeft:
             // shift the small screen down, then to the middle
             small_screen = small_screen.TranslateY(large_screen.bottom);
             small_screen = small_screen.TranslateX(
                 ((large_screen.GetWidth() - small_screen.GetWidth()) / 2) + large_screen.left);
             break;
-        case SmallScreenPosition::BottomLeft:
+        case Settings::SmallScreenPosition::BottomLeft:
             // Shift the small screen to the bottom left corner
             small_screen = small_screen.TranslateY(large_screen.bottom);
             small_screen = small_screen.TranslateX(large_screen.right - small_screen.GetWidth());
             break;
-        case SmallScreenPosition::Above:
+        case Settings::SmallScreenPosition::Above:
             small_screen = small_screen.TranslateX(large_screen.left);
             large_screen = large_screen.TranslateX(small_screen.GetWidth());
             small_screen = small_screen.TranslateY(
                 ((large_screen.GetHeight() - small_screen.GetHeight()) / 2) + large_screen.top);
             break;
-        case SmallScreenPosition::Below:
+        case Settings::SmallScreenPosition::Below:
             small_screen = small_screen.TranslateX(large_screen.left + large_screen.GetWidth());
             small_screen = small_screen.TranslateY(
                 ((large_screen.GetHeight() - small_screen.GetHeight()) / 2) + large_screen.top);
@@ -326,49 +324,49 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
     } else {
         // not upright
         switch (small_screen_position) {
-        case SmallScreenPosition::TopRight:
+        case Settings::SmallScreenPosition::TopRight:
             // Shift the small screen to the top right corner
             small_screen = small_screen.TranslateX(large_screen.right);
             small_screen = small_screen.TranslateY(large_screen.top);
             break;
-        case SmallScreenPosition::MiddleRight:
+        case Settings::SmallScreenPosition::MiddleRight:
             // Shift the small screen to the center right
             small_screen = small_screen.TranslateX(large_screen.right);
             small_screen = small_screen.TranslateY(
                 ((large_screen.GetHeight() - small_screen.GetHeight()) / 2) + large_screen.top);
             break;
-        case SmallScreenPosition::BottomRight:
+        case Settings::SmallScreenPosition::BottomRight:
             // Shift the small screen to the bottom right corner
             small_screen = small_screen.TranslateX(large_screen.right);
             small_screen = small_screen.TranslateY(large_screen.bottom - small_screen.GetHeight());
             break;
-        case SmallScreenPosition::TopLeft:
+        case Settings::SmallScreenPosition::TopLeft:
             // shift the small screen to the upper left then shift the large screen to its right
             small_screen = small_screen.TranslateX(large_screen.left);
             large_screen = large_screen.TranslateX(small_screen.GetWidth());
             small_screen = small_screen.TranslateY(large_screen.top);
             break;
-        case SmallScreenPosition::MiddleLeft:
+        case Settings::SmallScreenPosition::MiddleLeft:
             // shift the small screen to the middle left and shift the large screen to its right
             small_screen = small_screen.TranslateX(large_screen.left);
             large_screen = large_screen.TranslateX(small_screen.GetWidth());
             small_screen = small_screen.TranslateY(
                 ((large_screen.GetHeight() - small_screen.GetHeight()) / 2) + large_screen.top);
             break;
-        case SmallScreenPosition::BottomLeft:
+        case Settings::SmallScreenPosition::BottomLeft:
             // shift the small screen to the bottom left and shift the large screen to its right
             small_screen = small_screen.TranslateX(large_screen.left);
             large_screen = large_screen.TranslateX(small_screen.GetWidth());
             small_screen = small_screen.TranslateY(large_screen.bottom - small_screen.GetHeight());
             break;
-        case SmallScreenPosition::Above:
+        case Settings::SmallScreenPosition::Above:
             // shift the large screen down and the bottom screen above it
             small_screen = small_screen.TranslateY(large_screen.top);
             large_screen = large_screen.TranslateY(small_screen.GetHeight());
             small_screen = small_screen.TranslateX(large_screen.left + large_screen.GetWidth() / 2 -
                                                    small_screen.GetWidth() / 2);
             break;
-        case SmallScreenPosition::Below:
+        case Settings::SmallScreenPosition::Below:
             // shift the bottom_screen down and then over to the center
             small_screen = small_screen.TranslateY(large_screen.bottom);
             small_screen = small_screen.TranslateX(large_screen.left + large_screen.GetWidth() / 2 -
@@ -560,30 +558,37 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
                                      Settings::values.upright_screen.GetValue());
         }
 
-        case Settings::LayoutOption::LargeScreen:
-            if (Settings::values.swap_screen.GetValue()) {
-                width =
-                    (Core::kScreenBottomWidth +
-                     Core::kScreenTopWidth /
-                         static_cast<int>(Settings::values.large_screen_proportion.GetValue())) *
-                    res_scale;
-                height = Core::kScreenBottomHeight * res_scale;
+        case Settings::LayoutOption::LargeScreen: {
+            bool swapped = Settings::values.swap_screen.GetValue();
+            int largeWidth = swapped ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
+            int largeHeight = swapped ? Core::kScreenBottomHeight : Core::kScreenTopHeight;
+            int smallWidth = swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth;
+            int smallHeight = swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight;
+            smallWidth =
+                static_cast<int>(smallWidth / Settings::values.large_screen_proportion.GetValue());
+            smallWidth =
+                static_cast<int>(smallHeight / Settings::values.large_screen_proportion.GetValue());
+
+            if (Settings::values.small_screen_position.GetValue() ==
+                    Settings::SmallScreenPosition::Above ||
+                Settings::values.small_screen_position.GetValue() ==
+                    Settings::SmallScreenPosition::Below) {
+                // vertical, so height is sum of heights, width is larger of widths
+                width = std::max(largeWidth, smallWidth) * res_scale;
+                height = (largeHeight + smallHeight) * res_scale;
             } else {
-                width =
-                    (Core::kScreenTopWidth +
-                     Core::kScreenBottomWidth /
-                         static_cast<int>(Settings::values.large_screen_proportion.GetValue())) *
-                    res_scale;
-                height = Core::kScreenTopHeight * res_scale;
+                width = (largeWidth + smallWidth) * res_scale;
+                height = std::max(largeWidth, smallWidth) * res_scale;
             }
+
             if (Settings::values.upright_screen.GetValue()) {
                 std::swap(width, height);
             }
             return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                     Settings::values.upright_screen.GetValue(),
                                     Settings::values.large_screen_proportion.GetValue(),
-                                    SmallScreenPosition::BottomRight);
-
+                                    Settings::values.small_screen_position.GetValue());
+        }
         case Settings::LayoutOption::SideScreen:
             width = (Core::kScreenTopWidth + Core::kScreenBottomWidth) * res_scale;
             height = Core::kScreenTopHeight * res_scale;
@@ -593,7 +598,7 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
             }
             return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
                                     Settings::values.upright_screen.GetValue(), 1,
-                                    SmallScreenPosition::MiddleRight);
+                                    Settings::SmallScreenPosition::MiddleRight);
 
         case Settings::LayoutOption::Default:
         default:
@@ -713,15 +718,30 @@ std::pair<unsigned, unsigned> GetMinimumSizeFromLayout(Settings::LayoutOption la
         min_width = Settings::values.swap_screen ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
         min_height = Core::kScreenBottomHeight;
         break;
-    case Settings::LayoutOption::LargeScreen:
-        min_width = static_cast<u32>(
-            Settings::values.swap_screen
-                ? Core::kScreenTopWidth / Settings::values.large_screen_proportion.GetValue() +
-                      Core::kScreenBottomWidth
-                : Core::kScreenTopWidth + Core::kScreenBottomWidth /
-                                              Settings::values.large_screen_proportion.GetValue());
-        min_height = Core::kScreenBottomHeight;
+    case Settings::LayoutOption::LargeScreen: {
+        bool swapped = Settings::values.swap_screen.GetValue();
+        int largeWidth = swapped ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
+        int largeHeight = swapped ? Core::kScreenBottomHeight : Core::kScreenTopHeight;
+        int smallWidth = swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth;
+        int smallHeight = swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight;
+        smallWidth =
+            static_cast<int>(smallWidth / Settings::values.large_screen_proportion.GetValue());
+        smallHeight =
+            static_cast<int>(smallHeight / Settings::values.large_screen_proportion.GetValue());
+        min_width = static_cast<u32>(Settings::values.small_screen_position.GetValue() ==
+                                                 Settings::SmallScreenPosition::Above ||
+                                             Settings::values.small_screen_position.GetValue() ==
+                                                 Settings::SmallScreenPosition::Below
+                                         ? std::max(largeWidth, smallWidth)
+                                         : largeWidth + smallWidth);
+        min_height = static_cast<u32>(Settings::values.small_screen_position.GetValue() ==
+                                                  Settings::SmallScreenPosition::Above ||
+                                              Settings::values.small_screen_position.GetValue() ==
+                                                  Settings::SmallScreenPosition::Below
+                                          ? largeHeight + smallHeight
+                                          : std::max(largeHeight, smallHeight));
         break;
+    }
     case Settings::LayoutOption::SideScreen:
         min_width = Core::kScreenTopWidth + Core::kScreenBottomWidth;
         min_height = Core::kScreenBottomHeight;

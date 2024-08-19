@@ -53,6 +53,20 @@ enum class PortraitLayoutOption : u32 {
     PortraitCustomLayout,
 };
 
+/** Defines where the small screen will appear relative to the large screen
+ * when in Large Screen mode
+ */
+enum class SmallScreenPosition : u32 {
+    TopRight,
+    MiddleRight,
+    BottomRight,
+    TopLeft,
+    MiddleLeft,
+    BottomLeft,
+    Above,
+    Below
+};
+
 enum class StereoRenderOption : u32 {
     Off = 0,
     SideBySide = 1,
@@ -487,6 +501,8 @@ struct Values {
     SwitchableSetting<bool> upright_screen{false, "upright_screen"};
     SwitchableSetting<float, true> large_screen_proportion{4.f, 1.f, 16.f,
                                                            "large_screen_proportion"};
+    SwitchableSetting<SmallScreenPosition> small_screen_position{SmallScreenPosition::BottomRight,
+                                                                 "small_screen_position"};
     Setting<u16> custom_top_x{0, "custom_top_x"};
     Setting<u16> custom_top_y{0, "custom_top_y"};
     Setting<u16> custom_top_width{800, "custom_top_width"};

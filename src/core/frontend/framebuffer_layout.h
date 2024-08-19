@@ -5,10 +5,7 @@
 #pragma once
 
 #include "common/math_util.h"
-
-namespace Settings {
-enum class LayoutOption : u32;
-}
+#include "common/settings.h"
 
 namespace Layout {
 
@@ -18,36 +15,6 @@ enum class DisplayOrientation {
     Portrait,         // 3DS rotated 90 degrees counter-clockwise
     LandscapeFlipped, // 3DS rotated 180 degrees counter-clockwise
     PortraitFlipped,  // 3DS rotated 270 degrees counter-clockwise
-};
-
-/// Describes the vertical alignment of the top and bottom screens in LargeFrameLayout
-/// Top
-/// +-------------+-----+
-/// |             |     |
-/// |             +-----+
-/// |             |
-/// +-------------+
-/// Middle
-/// +-------------+
-/// |             +-----+
-/// |             |     |
-/// |             +-----+
-/// +-------------+
-/// Bottom
-/// +-------------+
-/// |             |
-/// |             +-----+
-/// |             |     |
-/// +-------------+-----+
-enum class SmallScreenPosition {
-    TopRight,
-    MiddleRight,
-    BottomRight,
-    TopLeft,
-    MiddleLeft,
-    BottomLeft,
-    Above,
-    Below
 };
 
 /// Describes the horizontal coordinates for the right eye screen when using Cardboard VR
@@ -123,7 +90,8 @@ FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool is_swapped, bool
  * @return Newly created FramebufferLayout object with default screen regions initialized
  */
 FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool is_swapped, bool upright,
-                                   float scale_factor, SmallScreenPosition small_screen_position);
+                                   float scale_factor,
+                                   Settings::SmallScreenPosition small_screen_position);
 /**
  * Factory method for constructing a frame with 2.5 times bigger top screen on the right,
  * and 1x top and bottom screen on the left
