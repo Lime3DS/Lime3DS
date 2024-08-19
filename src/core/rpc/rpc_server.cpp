@@ -7,6 +7,8 @@
 #include "core/memory.h"
 #include "core/rpc/packet.h"
 #include "core/rpc/rpc_server.h"
+#include "input_common/keyboard.h"
+#include "input_common/main.h"
 
 namespace Core::RPC {
 
@@ -45,12 +47,40 @@ void RPCServer::HandleWriteMemory(Packet& packet, u32 address, std::span<const u
     packet.SendReply();
 }
 
+void RPCServer::HandleSendKey(Packet& packet, u32 key_code, u8 state) {
+    if (state == 0) {
+        InputCommon::GetKeyboard()->ReleaseKey(key_code);
+    } else if(state == 1) {
+        InputCommon::GetKeyboard()->PressKey(key_code);
+    }
+    packet.SetPacketDataSize(0);
+    packet.SendReply();
+}
+
+
+void RPCServer::HandleSendSignal(Packet& packet, u32 signal_code, u32 signal_parameter) {
+    system.SendSignal(static_cast<Core::System::Signal>(signal_code), signal_parameter);
+
+    packet.SetPacketDataSize(0);
+    packet.SendReply();
+}
+
 bool RPCServer::ValidatePacket(const PacketHeader& packet_header) {
     if (packet_header.version <= CURRENT_VERSION) {
         switch (packet_header.packet_type) {
         case PacketType::ReadMemory:
         case PacketType::WriteMemory:
             if (packet_header.packet_size >= (sizeof(u32) * 2)) {
+                return true;
+            }
+            break;
+        case PacketType::SendKey:
+            if (packet_header.packet_size >= (sizeof(u32) + sizeof(u8))) {
+                return true;
+            }
+            break;
+        case PacketType::SendSignal:
+            if (packet_header.packet_size >= sizeof(u32)) {
                 return true;
             }
             break;
@@ -66,25 +96,39 @@ void RPCServer::HandleSingleRequest(std::unique_ptr<Packet> request_packet) {
     const auto packet_data = request_packet->GetPacketData();
 
     if (ValidatePacket(request_packet->GetHeader())) {
-        // Currently, all request types use the address/data_size wire format
         u32 address = 0;
         u32 data_size = 0;
-        std::memcpy(&address, packet_data.data(), sizeof(address));
-        std::memcpy(&data_size, packet_data.data() + sizeof(address), sizeof(data_size));
-
+        u32 key_code = 0;
+        u8 key_state = 0;
+        u32 signal_code = 0;
+        u32 signal_parameter = 0;
         switch (request_packet->GetPacketType()) {
         case PacketType::ReadMemory:
+            std::memcpy(&address, packet_data.data(), sizeof(address));
+            std::memcpy(&data_size, packet_data.data() + sizeof(address), sizeof(data_size));
             if (data_size > 0 && data_size <= MAX_READ_SIZE) {
                 HandleReadMemory(*request_packet, address, data_size);
                 success = true;
             }
-            break;
         case PacketType::WriteMemory:
+            std::memcpy(&address, packet_data.data(), sizeof(address));
+            std::memcpy(&data_size, packet_data.data() + sizeof(address), sizeof(data_size));
             if (data_size > 0 && data_size <= MAX_PACKET_DATA_SIZE - (sizeof(u32) * 2)) {
                 const auto data = packet_data.subspan(sizeof(u32) * 2, data_size);
                 HandleWriteMemory(*request_packet, address, data);
                 success = true;
             }
+            break;
+        case PacketType::SendKey:
+            std::memcpy(&key_code, packet_data.data(), sizeof(key_code));
+            std::memcpy(&key_state, packet_data.data() + sizeof(key_code), sizeof(key_state));
+            HandleSendKey(*request_packet, key_code, key_state);
+            success = true;
+            break;
+        case PacketType::SendSignal:
+            std::memcpy(&signal_code, packet_data.data(), sizeof(signal_code));
+            std::memcpy(&signal_parameter, packet_data.data() + sizeof(signal_code), sizeof(signal_parameter));
+            HandleSendSignal(*request_packet, signal_code, signal_parameter);
             break;
         default:
             break;
