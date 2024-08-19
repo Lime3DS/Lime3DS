@@ -117,8 +117,7 @@ object ThemeUtil {
         )
     }
 
-    // Listener that detects if the theme is being changed from the initial setup or from normal settings
-    // Without this the dual popup on the setup was getting cut off becuase the activity was being recreated
+    // Listener that detects if the theme keys are being changed from the setting menu and recreates the activity
     private var listener: SharedPreferences.OnSharedPreferenceChangeListener? = null
 
     fun ThemeChangeListener(activity: AppCompatActivity) {
