@@ -566,7 +566,7 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
             int smallHeight = swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight;
             smallWidth =
                 static_cast<int>(smallWidth / Settings::values.large_screen_proportion.GetValue());
-            smallWidth =
+            smallHeight =
                 static_cast<int>(smallHeight / Settings::values.large_screen_proportion.GetValue());
 
             if (Settings::values.small_screen_position.GetValue() ==
@@ -578,7 +578,7 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
                 height = (largeHeight + smallHeight) * res_scale;
             } else {
                 width = (largeWidth + smallWidth) * res_scale;
-                height = std::max(largeWidth, smallWidth) * res_scale;
+                height = std::max(largeHeight, smallHeight) * res_scale;
             }
 
             if (Settings::values.upright_screen.GetValue()) {
