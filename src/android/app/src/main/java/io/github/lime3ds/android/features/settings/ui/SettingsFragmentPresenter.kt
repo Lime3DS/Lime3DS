@@ -1043,6 +1043,33 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             }
 
+            val staticThemeColor: AbstractIntSetting = object : AbstractIntSetting {
+                override var int: Int
+                    get() = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
+                    set(value) {
+                        preferences.edit()
+                            .putInt(Settings.PREF_STATIC_THEME_COLOR, value)
+                            .apply()
+                        settingsActivity.recreate()
+                    }
+                override val key: String? = null
+                override val section: String? = null
+                override val isRuntimeEditable: Boolean = false
+                override val valueAsString: String
+                    get() = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0).toString()
+                override val defaultValue: Any = 0
+            }
+
+            add(
+                SingleChoiceSetting(
+                    staticThemeColor,
+                    R.string.static_theme_color,
+                    R.string.static_theme_color_description,
+                    R.array.staticThemeNames,
+                    R.array.staticThemeValues
+                )
+            )
+
             val themeMode: AbstractIntSetting = object : AbstractIntSetting {
                 override var int: Int
                     get() = preferences.getInt(Settings.PREF_THEME_MODE, -1)
@@ -1094,33 +1121,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     blackBackgrounds,
                     R.string.use_black_backgrounds,
                     R.string.use_black_backgrounds_description
-                )
-            )
-
-            val staticThemeColor: AbstractIntSetting = object : AbstractIntSetting {
-                override var int: Int
-                    get() = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0)
-                    set(value) {
-                        preferences.edit()
-                            .putInt(Settings.PREF_STATIC_THEME_COLOR, value)
-                            .apply()
-                        settingsActivity.recreate()
-                    }
-                override val key: String? = null
-                override val section: String? = null
-                override val isRuntimeEditable: Boolean = false
-                override val valueAsString: String
-                    get() = preferences.getInt(Settings.PREF_STATIC_THEME_COLOR, 0).toString()
-                override val defaultValue: Any = 0
-            }
-
-            add(
-                SingleChoiceSetting(
-                    staticThemeColor,
-                    R.string.static_theme_color,
-                    R.string.static_theme_color_description,
-                    R.array.staticThemeNames,
-                    R.array.staticThemeValues
                 )
             )
         }

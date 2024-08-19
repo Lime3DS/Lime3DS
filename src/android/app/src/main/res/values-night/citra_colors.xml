@@ -100,30 +100,30 @@
     <color name="citra_inversePrimary_green">#15E218</color>
     <color name="citra_surfaceTint_green">#B7FFC7</color>
 
-    <!-- Lime Green Theme Colors -->
-    <color name="citra_primary_lime_green">#D0FFB7</color>
-    <color name="citra_onPrimary_lime_green">#368100</color>
-    <color name="citra_primaryContainer_lime_green">#1BB500</color>
-    <color name="citra_onPrimaryContainer_lime_green">#E5FFDC</color>
-    <color name="citra_secondary_lime_green">#CDDDC2</color>
-    <color name="citra_onSecondary_lime_green">#32422B</color>
-    <color name="citra_secondaryContainer_lime_green">#4B5942</color>
-    <color name="citra_onSecondaryContainer_lime_green">#E9F9DE</color>
-    <color name="citra_tertiary_lime_green">#CAE4BA</color>
-    <color name="citra_onTertiary_lime_green">#2F4327</color>
-    <color name="citra_tertiaryContainer_lime_green">#455C3D</color>
-    <color name="citra_onTertiaryContainer_lime_green">#E8FFD7</color>
-    <color name="citra_background_lime_green">#1C1F1B</color>
-    <color name="citra_onBackground_lime_green">#E2E6E1</color>
-    <color name="citra_surface_lime_green">#1C1F1B</color>
-    <color name="citra_onSurface_lime_green">#E2E6E1</color>
-    <color name="citra_surfaceVariant_lime_green">#494F45</color>
-    <color name="citra_onSurfaceVariant_lime_green">#C9D0C5</color>
-    <color name="citra_outline_lime_green">#959A90</color>
-    <color name="citra_inverseOnSurface_lime_green">#1D1F1B</color>
-    <color name="citra_inverseSurface_lime_green">#E2E6E1</color>
-    <color name="citra_inversePrimary_lime_green">#82E215</color>
-    <color name="citra_surfaceTint_lime_green">#CDFFB7</color>
+    <!-- Lime Theme Colors -->
+    <color name="citra_primary_lime">#D0FFB7</color>
+    <color name="citra_onPrimary_lime">#368100</color>
+    <color name="citra_primaryContainer_lime">#1BB500</color>
+    <color name="citra_onPrimaryContainer_lime">#E5FFDC</color>
+    <color name="citra_secondary_lime">#CDDDC2</color>
+    <color name="citra_onSecondary_lime">#32422B</color>
+    <color name="citra_secondaryContainer_lime">#4B5942</color>
+    <color name="citra_onSecondaryContainer_lime">#E9F9DE</color>
+    <color name="citra_tertiary_lime">#CAE4BA</color>
+    <color name="citra_onTertiary_lime">#2F4327</color>
+    <color name="citra_tertiaryContainer_lime">#455C3D</color>
+    <color name="citra_onTertiaryContainer_lime">#E8FFD7</color>
+    <color name="citra_background_lime">#1C1F1B</color>
+    <color name="citra_onBackground_lime">#E2E6E1</color>
+    <color name="citra_surface_lime">#1C1F1B</color>
+    <color name="citra_onSurface_lime">#E2E6E1</color>
+    <color name="citra_surfaceVariant_lime">#494F45</color>
+    <color name="citra_onSurfaceVariant_lime">#C9D0C5</color>
+    <color name="citra_outline_lime">#959A90</color>
+    <color name="citra_inverseOnSurface_lime">#1D1F1B</color>
+    <color name="citra_inverseSurface_lime">#E2E6E1</color>
+    <color name="citra_inversePrimary_lime">#82E215</color>
+    <color name="citra_surfaceTint_lime">#CDFFB7</color>
 
     <!-- Yellow Theme Colors -->
     <color name="citra_primary_yellow">#FFEDB7</color>

@@ -485,18 +485,18 @@
     <string name="memory_exabyte">EB</string>
 
     <!-- System theme -->
-    <string name="change_theme_mode">Change Theme Mode</string>
+    <string name="change_theme_mode">Theme Mode</string>
     <string name="theme_mode_follow_system">Follow System</string>
     <string name="theme_mode_light">Light</string>
     <string name="theme_mode_dark">Dark</string>
 
     <!-- Material You theme -->
     <string name="material_you">Material You</string>
-    <string name="material_you_description">Use system colors across the app (Will override (static) theme color option)</string>
+    <string name="material_you_description">Use the operating system\'s color theme across the app (Overrides the "Change Theme Color" setting when enabled)</string>
 
     <!-- Static theme color -->
-    <string name="static_theme_color">Change Theme Color</string>
-    <string name="static_theme_color_description">Change the main theme color of the app without the use of Material You (Requires Material You to be disabled)</string>
+    <string name="static_theme_color">Theme Color</string>
+    <string name="static_theme_color_description">Change the color theme of the app\'s menus</string>
 
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Black Backgrounds</string>
