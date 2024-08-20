@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
-        splashScreen.setKeepOnScreenCondition {
+        splashScreen.setKeepOnScreenCondition  {
             !DirectoryInitialization.areCitraDirectoriesReady() &&
                     PermissionsHandler.hasWriteAccess(this)
         }
