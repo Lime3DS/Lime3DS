@@ -647,10 +647,11 @@ typename T::Surface& RasterizerCache<T>::GetTextureCube(const TextureCubeConfig&
 
     Surface& cube_surface = slot_surfaces[cube.surface_id];
     for (u32 i = 0; i < addresses.size(); i++) {
-        if (!addresses[i]) {
+        const SurfaceId& face_id = cube.face_ids[i];
+        if (!addresses[i] || !face_id) {
             continue;
         }
-        Surface& surface = slot_surfaces[cube.face_ids[i]];
+        Surface& surface = slot_surfaces[face_id];
         if (cube.ticks[i] == surface.modification_tick) {
             continue;
         }

@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -13,6 +13,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Choreographer
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -51,8 +53,10 @@ import io.github.lime3ds.android.activities.EmulationActivity
 import io.github.lime3ds.android.databinding.DialogCheckboxBinding
 import io.github.lime3ds.android.databinding.DialogSliderBinding
 import io.github.lime3ds.android.databinding.FragmentEmulationBinding
+import io.github.lime3ds.android.display.PortraitScreenLayout
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.display.ScreenLayout
+import io.github.lime3ds.android.features.settings.model.IntSetting
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
 import io.github.lime3ds.android.features.settings.ui.SettingsActivity
 import io.github.lime3ds.android.features.settings.utils.SettingsFile
@@ -142,7 +146,8 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         retainInstance = true
         emulationState = EmulationState(game.path)
         emulationActivity = requireActivity() as EmulationActivity
-        screenAdjustmentUtil = ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
+        screenAdjustmentUtil =
+            ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
         EmulationLifecycleUtil.addShutdownHook(hook = { emulationState.stop() })
         EmulationLifecycleUtil.addPauseResumeHook(hook = { togglePause() })
     }
@@ -207,16 +212,18 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             }
         })
         binding.inGameMenu.menu.findItem(R.id.menu_lock_drawer).apply {
-            val titleId = if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
-                R.string.unlock_drawer
-            } else {
-                R.string.lock_drawer
-            }
-            val iconId = if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_UNLOCKED) {
-                R.drawable.ic_unlocked
-            } else {
-                R.drawable.ic_lock
-            }
+            val titleId =
+                if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_LOCKED_CLOSED) {
+                    R.string.unlock_drawer
+                } else {
+                    R.string.lock_drawer
+                }
+            val iconId =
+                if (EmulationMenuSettings.drawerLockMode == DrawerLayout.LOCK_MODE_UNLOCKED) {
+                    R.drawable.ic_unlocked
+                } else {
+                    R.drawable.ic_lock
+                }
 
             title = getString(titleId)
             icon = ResourcesCompat.getDrawable(
@@ -267,7 +274,12 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 }
 
                 R.id.menu_landscape_screen_layout -> {
-                    showScreenLayoutMenu()
+                    showLandscapeScreenLayoutMenu()
+                    true
+                }
+
+                R.id.menu_portrait_screen_layout -> {
+                    showPortraitScreenLayoutMenu()
                     true
                 }
 
@@ -315,6 +327,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                         SettingsFile.FILE_NAME_CONFIG,
                         ""
                     )
+
                     true
                 }
 
@@ -423,7 +436,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
     }
 
     private fun togglePause() {
-        if(emulationState.isPaused) {
+        if (emulationState.isPaused) {
             emulationState.unpause()
         } else {
             emulationState.pause()
@@ -769,7 +782,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.show()
     }
 
-    private fun showScreenLayoutMenu() {
+    private fun showLandscapeScreenLayoutMenu() {
         val popupMenu = PopupMenu(
             requireContext(),
             binding.inGameMenu.findViewById(R.id.menu_landscape_screen_layout)
@@ -777,18 +790,21 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         popupMenu.menuInflater.inflate(R.menu.menu_landscape_screen_layout, popupMenu.menu)
 
-        val layoutOptionMenuItem = when (EmulationMenuSettings.landscapeScreenLayout) {
+        val layoutOptionMenuItem = when (IntSetting.SCREEN_LAYOUT.int) {
+            ScreenLayout.ORIGINAL.int ->
+                R.id.menu_screen_layout_original
+
             ScreenLayout.SINGLE_SCREEN.int ->
                 R.id.menu_screen_layout_single
 
             ScreenLayout.SIDE_SCREEN.int ->
                 R.id.menu_screen_layout_sidebyside
 
-            ScreenLayout.MOBILE_PORTRAIT.int ->
-                R.id.menu_screen_layout_portrait
-
             ScreenLayout.HYBRID_SCREEN.int ->
                 R.id.menu_screen_layout_hybrid
+
+            ScreenLayout.CUSTOM_LAYOUT.int ->
+                R.id.menu_screen_layout_custom
 
             else -> R.id.menu_screen_layout_landscape
         }
@@ -797,27 +813,83 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_screen_layout_landscape -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_LANDSCAPE)
-                    true
-                }
-
-                R.id.menu_screen_layout_portrait -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_PORTRAIT)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.MOBILE_LANDSCAPE.int)
                     true
                 }
 
                 R.id.menu_screen_layout_single -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SINGLE_SCREEN)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SINGLE_SCREEN.int)
                     true
                 }
 
                 R.id.menu_screen_layout_sidebyside -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SIDE_SCREEN)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.SIDE_SCREEN.int)
                     true
                 }
 
                 R.id.menu_screen_layout_hybrid -> {
-                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.HYBRID_SCREEN)
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.HYBRID_SCREEN.int)
+                    true
+                }
+
+                R.id.menu_screen_layout_original -> {
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.ORIGINAL.int)
+                    true
+                }
+
+                R.id.menu_screen_layout_custom -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.emulation_adjust_custom_layout,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    screenAdjustmentUtil.changeScreenOrientation(ScreenLayout.CUSTOM_LAYOUT.int)
+                    true
+                }
+
+                else -> true
+            }
+        }
+
+        popupMenu.show()
+    }
+
+    private fun showPortraitScreenLayoutMenu() {
+        val popupMenu = PopupMenu(
+            requireContext(),
+            binding.inGameMenu.findViewById(R.id.menu_portrait_screen_layout)
+        )
+
+        popupMenu.menuInflater.inflate(R.menu.menu_portrait_screen_layout, popupMenu.menu)
+
+        val layoutOptionMenuItem = when (IntSetting.PORTRAIT_SCREEN_LAYOUT.int) {
+            PortraitScreenLayout.TOP_FULL_WIDTH.int ->
+                R.id.menu_portrait_layout_top_full
+
+            PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int ->
+                R.id.menu_portrait_layout_custom
+
+            else ->
+                R.id.menu_portrait_layout_top_full
+
+        }
+
+        popupMenu.menu.findItem(layoutOptionMenuItem).setChecked(true)
+
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_portrait_layout_top_full -> {
+                    screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.TOP_FULL_WIDTH.int)
+                    true
+                }
+
+                R.id.menu_portrait_layout_custom -> {
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.emulation_adjust_custom_layout,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    screenAdjustmentUtil.changePortraitOrientation(PortraitScreenLayout.CUSTOM_PORTRAIT_LAYOUT.int)
                     true
                 }
 
@@ -869,14 +941,32 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
 
         sliderBinding.apply {
             slider.valueTo = 150f
+            slider.valueFrom = 0f
             slider.value = preferences.getInt(target, 50).toFloat()
+            textValue.setText((slider.value + 50).toInt().toString())
+            textValue.addTextChangedListener( object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    val value = s.toString().toIntOrNull()
+                    if (value == null || value < 50 || value > 150) {
+                        textInput.error = "Inappropriate Value"
+                    } else {
+                        textInput.error = null
+                        slider.value = value.toFloat() - 50
+                    }
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
             slider.addOnChangeListener(
                 Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
-                    textValue.text = (progress.toInt() + 50).toString()
-                    setControlScale(slider.value.toInt(), target)
+                    if (textValue.text.toString() != (slider.value + 50).toInt().toString()) {
+                        textValue.setText((slider.value + 50).toInt().toString())
+                        textValue.setSelection(textValue.length())
+                        setControlScale(slider.value.toInt(), target)
+                    }
+
                 })
-            textValue.text = (sliderBinding.slider.value.toInt() + 50).toString()
-            textUnits.text = "%"
+            textInput.suffixText = "%"
         }
         val previousProgress = sliderBinding.slider.value.toInt()
 
@@ -899,15 +989,36 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         val sliderBinding = DialogSliderBinding.inflate(layoutInflater)
 
         sliderBinding.apply {
+            slider.valueFrom = 0f
             slider.valueTo = 100f
             slider.value = preferences.getInt("controlOpacity", 50).toFloat()
-            slider.addOnChangeListener(
-                Slider.OnChangeListener { slider: Slider, progress: Float, _: Boolean ->
-                    textValue.text = (progress.toInt()).toString()
-                    setControlOpacity(slider.value.toInt())
-                })
-            textValue.text = (sliderBinding.slider.value.toInt()).toString()
-            textUnits.text = "%"
+            textValue.setText(slider.value.toInt().toString())
+
+            textValue.addTextChangedListener( object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+                    val value = s.toString().toIntOrNull()
+                    if (value == null || value < slider.valueFrom || value > slider.valueTo) {
+                        textInput.error = "Inappropriate Value"
+                    } else {
+                        textInput.error = null
+                        slider.value = value.toFloat()
+                    }
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
+
+
+            slider.addOnChangeListener { _: Slider, value: Float, _: Boolean ->
+
+                if (textValue.text.toString() != slider.value.toInt().toString()) {
+                        textValue.setText(slider.value.toInt().toString())
+                        textValue.setSelection(textValue.length())
+                        setControlOpacity(slider.value.toInt())
+                    }
+                }
+
+            textInput.suffixText = "%"
         }
         val previousProgress = sliderBinding.slider.value.toInt()
 
@@ -959,7 +1070,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         resetScale("controlScale-" + NativeLibrary.ButtonType.BUTTON_SWAP)
         binding.surfaceInputOverlay.refreshControls()
     }
-    
+
     private fun setControlOpacity(opacity: Int) {
         preferences.edit()
             .putInt("controlOpacity", opacity)

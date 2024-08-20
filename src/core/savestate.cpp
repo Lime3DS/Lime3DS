@@ -1,11 +1,11 @@
-// Copyright 2020 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #include <chrono>
 #include <sstream>
 #include <cryptopp/hex.h>
-#include <fmt/format.h>
+#include <fmt/ranges.h>
 #include "common/archives.h"
 #include "common/file_util.h"
 #include "common/logging/log.h"

@@ -1,4 +1,4 @@
-// Copyright 2016 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -117,11 +117,11 @@ FramebufferLayout DefaultFrameLayout(u32 width, u32 height, bool swapped, bool u
     return res;
 }
 
-FramebufferLayout MobilePortraitFrameLayout(u32 width, u32 height, bool swapped) {
+FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool swapped) {
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}};
+    FramebufferLayout res{width, height, true, true, {}, {}, true, true};
     // Default layout gives equal screen sizes to the top and bottom screen
     Common::Rectangle<u32> screen_window_area{0, 0, width, height / 2};
     Common::Rectangle<u32> top_screen = MaxRectangle(screen_window_area, TOP_SCREEN_ASPECT_RATIO);
@@ -305,7 +305,7 @@ FramebufferLayout HybridScreenLayout(u32 width, u32 height, bool swapped, bool u
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}, !upright, true, {}};
+    FramebufferLayout res{width, height, true, true, {}, {}, !upright, false, true, {}};
 
     // Split the window into two parts. Give 2.25x width to the main screen,
     // and make a bar on the right side with 1x width top screen and 1.25x width bottom screen
@@ -382,24 +382,33 @@ FramebufferLayout SeparateWindowsLayout(u32 width, u32 height, bool is_secondary
     return SingleFrameLayout(width, height, is_secondary, upright);
 }
 
-FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped) {
+FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped, bool is_portrait_mode) {
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    FramebufferLayout res{width, height, true, true, {}, {}, !Settings::values.upright_screen};
+    FramebufferLayout res{
+        width, height, true, true, {}, {}, !Settings::values.upright_screen, is_portrait_mode};
+    u16 top_x = is_portrait_mode ? Settings::values.custom_portrait_top_x.GetValue()
+                                 : Settings::values.custom_top_x.GetValue();
+    u16 top_width = is_portrait_mode ? Settings::values.custom_portrait_top_width.GetValue()
+                                     : Settings::values.custom_top_width.GetValue();
+    u16 top_y = is_portrait_mode ? Settings::values.custom_portrait_top_y.GetValue()
+                                 : Settings::values.custom_top_y.GetValue();
+    u16 top_height = is_portrait_mode ? Settings::values.custom_portrait_top_height.GetValue()
+                                      : Settings::values.custom_top_height.GetValue();
+    u16 bottom_x = is_portrait_mode ? Settings::values.custom_portrait_bottom_x.GetValue()
+                                    : Settings::values.custom_bottom_x.GetValue();
+    u16 bottom_width = is_portrait_mode ? Settings::values.custom_portrait_bottom_width.GetValue()
+                                        : Settings::values.custom_bottom_width.GetValue();
+    u16 bottom_y = is_portrait_mode ? Settings::values.custom_portrait_bottom_y.GetValue()
+                                    : Settings::values.custom_bottom_y.GetValue();
+    u16 bottom_height = is_portrait_mode ? Settings::values.custom_portrait_bottom_height.GetValue()
+                                         : Settings::values.custom_bottom_height.GetValue();
 
-    Common::Rectangle<u32> top_screen{Settings::values.custom_top_x.GetValue(),
-                                      Settings::values.custom_top_y.GetValue(),
-                                      (u32)(Settings::values.custom_top_x.GetValue() +
-                                            Settings::values.custom_top_width.GetValue()),
-                                      (u32)(Settings::values.custom_top_y.GetValue() +
-                                            Settings::values.custom_top_height.GetValue())};
-    Common::Rectangle<u32> bot_screen{Settings::values.custom_bottom_x.GetValue(),
-                                      Settings::values.custom_bottom_y.GetValue(),
-                                      (u32)(Settings::values.custom_bottom_x.GetValue() +
-                                            Settings::values.custom_bottom_width.GetValue()),
-                                      (u32)(Settings::values.custom_bottom_y.GetValue() +
-                                            Settings::values.custom_bottom_height.GetValue())};
+    Common::Rectangle<u32> top_screen{top_x, top_y, (u32)(top_x + top_width),
+                                      (u32)(top_y + top_height)};
+    Common::Rectangle<u32> bot_screen{bottom_x, bottom_y, (u32)(bottom_x + bottom_width),
+                                      (u32)(bottom_y + bottom_height)};
 
     if (is_swapped) {
         res.top_screen = bot_screen;
@@ -411,102 +420,126 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped) {
     return res;
 }
 
-FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondary) {
-    if (Settings::values.custom_layout.GetValue() == true) {
-        return CustomFrameLayout(std::max(Settings::values.custom_top_width.GetValue(),
-                                          Settings::values.custom_bottom_width.GetValue()),
-                                 std::max(Settings::values.custom_top_height.GetValue(),
-                                          Settings::values.custom_bottom_height.GetValue()),
-                                 Settings::values.swap_screen.GetValue());
-    }
-
+FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondary,
+                                                 bool is_portrait) {
     int width, height;
-    switch (Settings::values.layout_option.GetValue()) {
-    case Settings::LayoutOption::SingleScreen:
-#ifndef ANDROID
-    case Settings::LayoutOption::SeparateWindows:
-#endif
-    {
-        const bool swap_screens = is_secondary || Settings::values.swap_screen.GetValue();
-        if (swap_screens) {
-            width = Core::kScreenBottomWidth * res_scale;
-            height = Core::kScreenBottomHeight * res_scale;
-        } else {
+    if (is_portrait) {
+        auto layout_option = Settings::values.portrait_layout_option.GetValue();
+        switch (layout_option) {
+        case Settings::PortraitLayoutOption::PortraitCustomLayout:
+            return CustomFrameLayout(
+                std::max(Settings::values.custom_portrait_top_x.GetValue() +
+                             Settings::values.custom_portrait_top_width.GetValue(),
+                         Settings::values.custom_portrait_bottom_x.GetValue() +
+                             Settings::values.custom_portrait_bottom_width.GetValue()),
+                std::max(Settings::values.custom_portrait_top_y.GetValue() +
+                             Settings::values.custom_portrait_top_height.GetValue(),
+                         Settings::values.custom_portrait_bottom_y.GetValue() +
+                             Settings::values.custom_portrait_bottom_height.GetValue()),
+                Settings::values.swap_screen.GetValue(), is_portrait);
+        case Settings::PortraitLayoutOption::PortraitTopFullWidth:
             width = Core::kScreenTopWidth * res_scale;
-            height = Core::kScreenTopHeight * res_scale;
+            height = (Core::kScreenTopHeight + Core::kScreenBottomHeight) * res_scale;
+            return PortraitTopFullFrameLayout(width, height,
+                                              Settings::values.swap_screen.GetValue());
         }
-        if (Settings::values.upright_screen.GetValue()) {
-            std::swap(width, height);
-        }
-        return SingleFrameLayout(width, height, swap_screens,
-                                 Settings::values.upright_screen.GetValue());
-    }
+    } else {
+        auto layout_option = Settings::values.layout_option.GetValue();
+        switch (layout_option) {
+        case Settings::LayoutOption::CustomLayout:
+            return CustomFrameLayout(std::max(Settings::values.custom_top_x.GetValue() +
+                                                  Settings::values.custom_top_width.GetValue(),
+                                              Settings::values.custom_bottom_x.GetValue() +
+                                                  Settings::values.custom_bottom_width.GetValue()),
+                                     std::max(Settings::values.custom_top_y.GetValue() +
+                                                  Settings::values.custom_top_height.GetValue(),
+                                              Settings::values.custom_bottom_y.GetValue() +
+                                                  Settings::values.custom_bottom_height.GetValue()),
+                                     Settings::values.swap_screen.GetValue(), is_portrait);
 
-    case Settings::LayoutOption::LargeScreen:
-        if (Settings::values.swap_screen.GetValue()) {
-            width = (Core::kScreenBottomWidth +
+        case Settings::LayoutOption::SingleScreen:
+#ifndef ANDROID
+        case Settings::LayoutOption::SeparateWindows:
+#endif
+        {
+            const bool swap_screens = is_secondary || Settings::values.swap_screen.GetValue();
+            if (swap_screens) {
+                width = Core::kScreenBottomWidth * res_scale;
+                height = Core::kScreenBottomHeight * res_scale;
+            } else {
+                width = Core::kScreenTopWidth * res_scale;
+                height = Core::kScreenTopHeight * res_scale;
+            }
+            if (Settings::values.upright_screen.GetValue()) {
+                std::swap(width, height);
+            }
+            return SingleFrameLayout(width, height, swap_screens,
+                                     Settings::values.upright_screen.GetValue());
+        }
+
+        case Settings::LayoutOption::LargeScreen:
+            if (Settings::values.swap_screen.GetValue()) {
+                width =
+                    (Core::kScreenBottomWidth +
                      Core::kScreenTopWidth /
                          static_cast<int>(Settings::values.large_screen_proportion.GetValue())) *
                     res_scale;
-            height = Core::kScreenBottomHeight * res_scale;
-        } else {
-            width = (Core::kScreenTopWidth +
+                height = Core::kScreenBottomHeight * res_scale;
+            } else {
+                width =
+                    (Core::kScreenTopWidth +
                      Core::kScreenBottomWidth /
                          static_cast<int>(Settings::values.large_screen_proportion.GetValue())) *
                     res_scale;
+                height = Core::kScreenTopHeight * res_scale;
+            }
+            if (Settings::values.upright_screen.GetValue()) {
+                std::swap(width, height);
+            }
+            return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
+                                    Settings::values.upright_screen.GetValue(),
+                                    Settings::values.large_screen_proportion.GetValue(),
+                                    VerticalAlignment::Bottom);
+
+        case Settings::LayoutOption::SideScreen:
+            width = (Core::kScreenTopWidth + Core::kScreenBottomWidth) * res_scale;
             height = Core::kScreenTopHeight * res_scale;
+
+            if (Settings::values.upright_screen.GetValue()) {
+                std::swap(width, height);
+            }
+            return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
+                                    Settings::values.upright_screen.GetValue(), 1,
+                                    VerticalAlignment::Middle);
+
+        case Settings::LayoutOption::MobileLandscape: {
+            constexpr float large_screen_proportion = 2.25f;
+            if (Settings::values.swap_screen.GetValue()) {
+                width = (Core::kScreenBottomWidth +
+                         static_cast<int>(Core::kScreenTopWidth / large_screen_proportion)) *
+                        res_scale;
+                height = Core::kScreenBottomHeight * res_scale;
+            } else {
+                width = (Core::kScreenTopWidth +
+                         static_cast<int>(Core::kScreenBottomWidth / large_screen_proportion)) *
+                        res_scale;
+                height = Core::kScreenTopHeight * res_scale;
+            }
+            return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(), false,
+                                    large_screen_proportion, VerticalAlignment::Top);
         }
-        if (Settings::values.upright_screen.GetValue()) {
-            std::swap(width, height);
+
+        case Settings::LayoutOption::Default:
+        default:
+            width = Core::kScreenTopWidth * res_scale;
+            height = (Core::kScreenTopHeight + Core::kScreenBottomHeight) * res_scale;
+
+            if (Settings::values.upright_screen.GetValue()) {
+                std::swap(width, height);
+            }
+            return DefaultFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
+                                      Settings::values.upright_screen.GetValue());
         }
-        return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
-                                Settings::values.upright_screen.GetValue(),
-                                Settings::values.large_screen_proportion.GetValue(),
-                                VerticalAlignment::Bottom);
-
-    case Settings::LayoutOption::SideScreen:
-        width = (Core::kScreenTopWidth + Core::kScreenBottomWidth) * res_scale;
-        height = Core::kScreenTopHeight * res_scale;
-
-        if (Settings::values.upright_screen.GetValue()) {
-            std::swap(width, height);
-        }
-        return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
-                                Settings::values.upright_screen.GetValue(), 1,
-                                VerticalAlignment::Middle);
-
-    case Settings::LayoutOption::MobilePortrait:
-        width = Core::kScreenTopWidth * res_scale;
-        height = (Core::kScreenTopHeight + Core::kScreenBottomHeight) * res_scale;
-        return MobilePortraitFrameLayout(width, height, Settings::values.swap_screen.GetValue());
-
-    case Settings::LayoutOption::MobileLandscape: {
-        constexpr float large_screen_proportion = 2.25f;
-        if (Settings::values.swap_screen.GetValue()) {
-            width = (Core::kScreenBottomWidth +
-                     static_cast<int>(Core::kScreenTopWidth / large_screen_proportion)) *
-                    res_scale;
-            height = Core::kScreenBottomHeight * res_scale;
-        } else {
-            width = (Core::kScreenTopWidth +
-                     static_cast<int>(Core::kScreenBottomWidth / large_screen_proportion)) *
-                    res_scale;
-            height = Core::kScreenTopHeight * res_scale;
-        }
-        return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(), false,
-                                large_screen_proportion, VerticalAlignment::Top);
-    }
-
-    case Settings::LayoutOption::Default:
-    default:
-        width = Core::kScreenTopWidth * res_scale;
-        height = (Core::kScreenTopHeight + Core::kScreenBottomHeight) * res_scale;
-
-        if (Settings::values.upright_screen.GetValue()) {
-            std::swap(width, height);
-        }
-        return DefaultFrameLayout(width, height, Settings::values.swap_screen.GetValue(),
-                                  Settings::values.upright_screen.GetValue());
     }
     UNREACHABLE();
 }
@@ -529,11 +562,27 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
 
     u32 cardboard_screen_width;
     u32 cardboard_screen_height;
-    switch (Settings::values.layout_option.GetValue()) {
-    case Settings::LayoutOption::MobileLandscape:
-    case Settings::LayoutOption::SideScreen:
-        // If orientation is portrait, only use MobilePortrait
-        if (!is_portrait) {
+    if (is_portrait) {
+        switch (Settings::values.portrait_layout_option.GetValue()) {
+        case Settings::PortraitLayoutOption::PortraitTopFullWidth:
+            cardboard_screen_width = top_screen_width;
+            cardboard_screen_height = top_screen_height + bottom_screen_height;
+            bottom_screen_left += (top_screen_width - bottom_screen_width) / 2;
+            if (is_swapped)
+                top_screen_top += bottom_screen_height;
+            else
+                bottom_screen_top += top_screen_height;
+            break;
+        default:
+            cardboard_screen_width = is_swapped ? bottom_screen_width : top_screen_width;
+            cardboard_screen_height = is_swapped ? bottom_screen_height : top_screen_height;
+        }
+    } else {
+        switch (Settings::values.layout_option.GetValue()) {
+        case Settings::LayoutOption::MobileLandscape:
+        case Settings::LayoutOption::SideScreen:
+            // If orientation is portrait, only use MobilePortrait
+
             cardboard_screen_width = top_screen_width + bottom_screen_width;
             cardboard_screen_height = is_swapped ? bottom_screen_height : top_screen_height;
             if (is_swapped)
@@ -541,28 +590,14 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
             else
                 bottom_screen_left += top_screen_width;
             break;
-        } else {
-            [[fallthrough]];
-        }
-    case Settings::LayoutOption::SingleScreen:
-    default:
-        if (!is_portrait) {
-            // Default values when using LayoutOption::SingleScreen
+
+        case Settings::LayoutOption::SingleScreen:
+        default:
+
             cardboard_screen_width = is_swapped ? bottom_screen_width : top_screen_width;
             cardboard_screen_height = is_swapped ? bottom_screen_height : top_screen_height;
             break;
-        } else {
-            [[fallthrough]];
         }
-    case Settings::LayoutOption::MobilePortrait:
-        cardboard_screen_width = top_screen_width;
-        cardboard_screen_height = top_screen_height + bottom_screen_height;
-        bottom_screen_left += (top_screen_width - bottom_screen_width) / 2;
-        if (is_swapped)
-            top_screen_top += bottom_screen_height;
-        else
-            bottom_screen_top += top_screen_height;
-        break;
     }
     s32 cardboard_max_x_shift = (layout.width / 2 - cardboard_screen_width) / 2;
     s32 cardboard_user_x_shift =
@@ -594,6 +629,13 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
     new_layout.bottom_screen.bottom = new_layout.bottom_screen.top + bottom_screen_height;
 
     return new_layout;
+}
+
+std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout() {
+    u32 min_width, min_height;
+    min_width = Core::kScreenTopWidth;
+    min_height = Core::kScreenTopHeight + Core::kScreenBottomHeight;
+    return std::make_pair(min_width, min_height);
 }
 
 std::pair<unsigned, unsigned> GetMinimumSizeFromLayout(Settings::LayoutOption layout,

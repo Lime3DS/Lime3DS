@@ -1,6 +1,9 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright Dolphin Emulator Project
+// Licensed under GPLv2 or any later version
 
 #include <array>
 #include <fstream>
@@ -707,8 +710,8 @@ std::string AppDataRoamingDirectory() {
 /**
  * @return The user’s home directory on POSIX systems
  */
-static const std::string& GetHomeDirectory() {
-    static std::string home_path;
+const std::string GetHomeDirectory() {
+    std::string home_path;
     if (home_path.empty()) {
         const char* envvar = getenv("HOME");
         if (envvar) {

@@ -1,4 +1,4 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -22,13 +22,8 @@
 #define LEGACY_EMU_DATA_DIR "Citra"
 #elif defined(__APPLE__)
 #include <TargetConditionals.h>
-#if TARGET_OS_IPHONE // TODO: Kill iOS
-#define APPLE_EMU_DATA_DIR "Documents" DIR_SEP "Lime3DS"
-#define LEGACY_APPLE_EMU_DATA_DIR "Documents" DIR_SEP "Citra"
-#else
 #define APPLE_EMU_DATA_DIR "Library" DIR_SEP "Application Support" DIR_SEP "Lime3DS"
 #define LEGACY_APPLE_EMU_DATA_DIR "Library" DIR_SEP "Application Support" DIR_SEP "Citra"
-#endif
 // For compatibility with XDG paths.
 #define EMU_DATA_DIR "lime3ds-emu"
 #define LEGACY_EMU_DATA_DIR "citra-emu"

@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -2236,18 +2236,15 @@ std::optional<SOC_U::InterfaceInfo> SOC_U::GetDefaultInterfaceInfo() {
     }
 
     InterfaceInfo ret;
-#ifdef _WIN32
-    SOCKET sock_fd = -1;
-#else
-    int sock_fd = -1;
-#endif
+
+    SocketHolder::SOCKET sock_fd = -1;
     bool interface_found = false;
     struct sockaddr_in s_in = {.sin_family = AF_INET, .sin_port = htons(53), .sin_addr = {}};
     s_in.sin_addr.s_addr = inet_addr("8.8.8.8");
     socklen_t s_info_len = sizeof(struct sockaddr_in);
     sockaddr_in s_info;
 
-    if (static_cast<int>(sock_fd = ::socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+    if ((sock_fd = ::socket(AF_INET, SOCK_STREAM, 0)) == static_cast<SocketHolder::SOCKET>(-1)) {
         return std::nullopt;
     }
 
@@ -2265,7 +2262,7 @@ std::optional<SOC_U::InterfaceInfo> SOC_U::GetDefaultInterfaceInfo() {
 
 #ifdef _WIN32
     sock_fd = WSASocket(AF_INET, SOCK_DGRAM, 0, 0, 0, 0);
-    if (static_cast<int>(sock_fd) == SOCKET_ERROR) {
+    if (sock_fd == static_cast<SocketHolder::SOCKET>(SOCKET_ERROR)) {
         return std::nullopt;
     }
 

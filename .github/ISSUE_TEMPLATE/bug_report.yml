@@ -4,7 +4,7 @@ labels: ["bug"]
 body:
   - type: markdown
     attributes:
-      value: Tech support does not belong here. You should only file an issue here if you think you have experienced an actual bug with Lime.
+      value: Tech support does not belong here. You should only file an issue here if you think you have experienced an actual bug with Lime3DS.
   - type: checkboxes
     attributes:
       label: Is there an existing issue for this?

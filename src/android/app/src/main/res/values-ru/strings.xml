@@ -287,7 +287,6 @@
     <string name="preferences_audio">Аудио</string>
     <string name="preferences_debug">Отладка</string>
     <string name="preferences_theme">Тема и цвет</string>
-
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Образ зашифрован</string>
     <string name="loader_error_invalid_format">Неправильный формат образа</string>
@@ -317,7 +316,6 @@
     <string name="emulation_screen_layout_single">Один экран</string>
     <string name="emulation_screen_layout_sidebyside">Бок о бок</string>
     <string name="emulation_screen_layout_hybrid">Совмещённый экран</string>
-    <string name="emulation_cycle_landscape_layouts">Сменить ландшафтный макет</string>
     <string name="emulation_swap_screens">Поменять экраны</string>
     <string name="emulation_touch_overlay_reset">Сбросить оверлей</string>
     <string name="emulation_show_overlay">Показывать оверлей</string>
@@ -385,7 +383,7 @@
     <string name="fatal_error">Критическая ошибка</string>
     <string name="fatal_error_message">Возникла критическая ошибка. Откройте лог для получения информации.\nВозобновление эмуляции может привести к сбоям и вылетам.</string>
 
-    <!-- Disk shader cache -->
+    <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Подготовка шейдеров</string>
     <string name="building_shaders">Построение шейдеров</string>
 

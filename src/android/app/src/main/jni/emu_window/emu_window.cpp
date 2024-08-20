@@ -1,4 +1,4 @@
-// Copyright 2019 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -19,12 +19,6 @@
 static bool IsPortraitMode() {
     return JNI_FALSE != IDCache::GetEnvForThread()->CallStaticBooleanMethod(
                             IDCache::GetNativeLibraryClass(), IDCache::GetIsPortraitMode());
-}
-
-static void UpdateLandscapeScreenLayout() {
-    Settings::values.layout_option =
-        static_cast<Settings::LayoutOption>(IDCache::GetEnvForThread()->CallStaticIntMethod(
-            IDCache::GetNativeLibraryClass(), IDCache::GetLandscapeScreenLayout()));
 }
 
 bool EmuWindow_Android::OnSurfaceChanged(ANativeWindow* surface) {
@@ -57,7 +51,6 @@ void EmuWindow_Android::OnTouchMoved(int x, int y) {
 }
 
 void EmuWindow_Android::OnFramebufferSizeChanged() {
-    UpdateLandscapeScreenLayout();
     const bool is_portrait_mode{IsPortraitMode()};
 
     const int bigger{window_width > window_height ? window_width : window_height};

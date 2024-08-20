@@ -28,9 +28,6 @@ add_executable(lime-qt
     camera/qt_multimedia_camera.cpp
     camera/qt_multimedia_camera.h
     lime-qt.rc
-    compatdb.cpp
-    compatdb.h
-    compatdb.ui
     configuration/config.cpp
     configuration/config.h
     configuration/configure.ui
@@ -278,17 +275,6 @@ if (APPLE)
         MACOSX_BUNDLE_ICON_FILE "lime.icns"
         RESOURCE "${APPLE_RESOURCES}"
     )
-
-    if (IOS)
-        set_target_properties(lime-qt PROPERTIES
-            # Have Xcode copy and sign MoltenVK into app bundle.
-            XCODE_EMBED_FRAMEWORKS "${MOLTENVK_LIBRARY}"
-            XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
-            XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/Frameworks"
-            # Support iPhone and iPad.
-            XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
-        )
-    endif()
 elseif(WIN32)
     # compile as a win32 gui application instead of a console application
     target_link_libraries(lime-qt PRIVATE Qt6::EntryPointImplementation)
@@ -344,10 +330,6 @@ target_compile_definitions(lime-qt PRIVATE
     -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_TO_ASCII
 )
-
-if (LIME3DS_ENABLE_COMPATIBILITY_REPORTING)
-    target_compile_definitions(lime-qt PRIVATE -DLIME3DS_ENABLE_COMPATIBILITY_REPORTING)
-endif()
 
 if (USE_DISCORD_PRESENCE)
     target_sources(lime-qt PUBLIC
