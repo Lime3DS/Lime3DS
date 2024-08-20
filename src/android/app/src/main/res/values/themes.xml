@@ -201,32 +201,6 @@
         <item name="colorPrimaryInverse">@color/lime_inversePrimary_cyan</item>
     </style>
 
-    <style name="Theme.Lime.Lime" parent="Theme.Lime">
-    <!-- Lime Theme Colors -->
-        <item name="colorPrimary">@color/lime_primary_lime</item>
-        <item name="colorOnPrimary">@color/lime_onPrimary_lime</item>
-        <item name="colorPrimaryContainer">@color/lime_primaryContainer_lime</item>
-        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_lime</item>
-        <item name="colorSecondary">@color/lime_secondary_lime</item>
-        <item name="colorOnSecondary">@color/lime_onSecondary_lime</item>
-        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_lime</item>
-        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_lime</item>
-        <item name="colorTertiary">@color/lime_tertiary_lime</item>
-        <item name="colorOnTertiary">@color/lime_onTertiary_lime</item>
-        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_lime</item>
-        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_lime</item>
-        <item name="android:colorBackground">@color/lime_background_lime</item>
-        <item name="colorOnBackground">@color/lime_onBackground_lime</item>
-        <item name="colorSurface">@color/lime_surface_lime</item>
-        <item name="colorOnSurface">@color/lime_onSurface_lime</item>
-        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_lime</item>
-        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_lime</item>
-        <item name="colorOutline">@color/lime_outline_lime</item>
-        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_lime</item>
-        <item name="colorSurfaceInverse">@color/lime_inverseSurface_lime</item>
-        <item name="colorPrimaryInverse">@color/lime_inversePrimary_lime</item>
-    </style>
-
     <style name="Theme.Lime.Gray" parent="Theme.Lime">
     <!-- Gray Theme Colors -->
         <item name="colorPrimary">@color/lime_primary_gray</item>
