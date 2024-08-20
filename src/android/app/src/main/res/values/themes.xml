@@ -15,7 +15,7 @@
         <item name="colorOnErrorContainer">@color/lime_onErrorContainer</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="sliderStyle">@style/CitraSlider</item>
+        <item name="sliderStyle">@style/LimeSlider</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
