@@ -10,6 +10,9 @@
 [submodule "catch2"]
     path = externals/catch2
     url = https://github.com/catchorg/Catch2
+[submodule "dynarmic"]
+    path = externals/dynarmic
+    url = https://github.com/rtiangha/dynarmic.git
 [submodule "xbyak"]
     path = externals/xbyak
     url = https://github.com/herumi/xbyak.git
