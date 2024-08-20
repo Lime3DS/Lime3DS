@@ -212,6 +212,31 @@
         <item>5</item>
     </integer-array>
 
+    <string-array name="staticThemeNames">
+        <item>Blue (Default)</item>
+        <item>Cyan</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Lime</item>
+        <item>Yellow</item>
+        <item>Orange</item>
+        <item>Violet</item>
+        <item>Pink</item>
+        <item>Gray</item>
+    </string-array>
+    <integer-array name="staticThemeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </integer-array>
+
     <string-array name="themeModeEntries">
         <item>@string/theme_mode_follow_system</item>
         <item>@string/theme_mode_light</item>
