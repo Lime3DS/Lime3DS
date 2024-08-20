@@ -29,7 +29,7 @@ constexpr u32 EncryptedDataSizeCutoff = 0xFA;
 
 /**
  * NWM Beacon data encryption key, taken from the NWM module code.
- * We stub this with an all-zeros key as that is enough for Citra's purpose.
+ * We stub this with an all-zeros key as that is enough for Lime3DS's purpose.
  * The real key can be used here to generate beacons that will be accepted by
  * a real 3ds.
  */

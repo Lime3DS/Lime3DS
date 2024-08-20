@@ -79,7 +79,7 @@
 #include "lime_qt/util/clickable_label.h"
 #include "lime_qt/util/graphics_device_info.h"
 #include "lime_qt/util/util.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 #include "common/x64/cpu_detect.h"
 #endif
 #include "common/settings.h"
@@ -224,7 +224,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     LOG_INFO(Frontend, "Lime3DS Version: {} | {}-{}", Common::g_build_fullname,
              Common::g_scm_branch, Common::g_scm_desc);
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
     const auto& caps = Common::GetCPUCaps();
     std::string cpu_string = caps.cpu_string;
     if (caps.avx || caps.avx2 || caps.avx512) {
@@ -261,7 +261,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 #if defined(_WIN32)
     if (gl_renderer.startsWith(QStringLiteral("D3D12"))) {
         // OpenGLOn12 supports but does not yet advertise OpenGL 4.0+
-        // We can override the version here to allow Citra to work.
+        // We can override the version here to allow Lime3DS to work.
         // TODO: Remove this when OpenGL 4.0+ is advertised.
         qputenv("MESA_GL_VERSION_OVERRIDE", "4.6");
     }
@@ -339,7 +339,7 @@ GMainWindow::~GMainWindow() {
 }
 
 void GMainWindow::InitializeWidgets() {
-#ifdef CITRA_ENABLE_COMPATIBILITY_REPORTING
+#ifdef LIME3DS_ENABLE_COMPATIBILITY_REPORTING
     ui->action_Report_Compatibility->setVisible(true);
 #endif
     render_window = new GRenderWindow(this, emu_thread.get(), system, false);
@@ -963,7 +963,7 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_Dump_Video, &GMainWindow::OnDumpVideo);
 
     // Help
-    connect_menu(ui->action_Open_Citra_Folder, &GMainWindow::OnOpenCitraFolder);
+    connect_menu(ui->action_Open_Lime3DS_Folder, &GMainWindow::OnOpenLime3DSFolder);
     connect_menu(ui->action_Open_Log_Folder, []() {
         QString path = QString::fromStdString(FileUtil::GetUserPath(FileUtil::UserPath::LogDir));
         QDesktopServices::openUrl(QUrl::fromLocalFile(path));
@@ -971,7 +971,7 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_FAQ, []() {
         QDesktopServices::openUrl(QUrl(QStringLiteral("https://discord.com/invite/4ZjMpAp3M6")));
     });
-    connect_menu(ui->action_About, &GMainWindow::OnMenuAboutCitra);
+    connect_menu(ui->action_About, &GMainWindow::OnMenuAboutLime3DS);
 
 #if ENABLE_QT_UPDATER
     connect_menu(ui->action_Check_For_Updates, &GMainWindow::OnCheckForUpdates);
@@ -1166,10 +1166,10 @@ static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
         return {};
     }
     QVariantMap options = {};
-    //: TRANSLATORS: This string is shown to the user to explain why Citra needs to prevent the
+    //: TRANSLATORS: This string is shown to the user to explain why Lime3DS needs to prevent the
     //: computer from sleeping
     options.insert(QString::fromLatin1("reason"),
-                   QCoreApplication::translate("GMainWindow", "Citra is running a game"));
+                   QCoreApplication::translate("GMainWindow", "Lime3DS is running a game"));
     // 0x4: Suspend lock; 0x8: Idle lock
     QDBusReply<QDBusObjectPath> reply =
         xdp.call(QString::fromLatin1("Inhibit"),
@@ -1298,7 +1298,7 @@ bool GMainWindow::LoadROM(const QString& filename) {
 
         case Core::System::ResultStatus::ErrorLoader_ErrorGbaTitle:
             QMessageBox::critical(this, tr("Unsupported ROM"),
-                                  tr("GBA Virtual Console ROMs are not supported by Citra."));
+                                  tr("GBA Virtual Console ROMs are not supported by Lime3DS."));
             break;
 
         case Core::System::ResultStatus::ErrorArticDisconnected:
@@ -1911,7 +1911,7 @@ bool GMainWindow::CreateShortcutMessagesGUI(QWidget* parent, int message,
 
 bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
                                       std::filesystem::path& out_icon_path) {
-    // Get path to Citra icons directory & icon extension
+    // Get path to Lime3DS icons directory & icon extension
     std::string ico_extension = "png";
 #if defined(_WIN32)
     out_icon_path = FileUtil::GetUserPath(FileUtil::UserPath::IconsDir);
@@ -1931,19 +1931,21 @@ bool GMainWindow::MakeShortcutIcoPath(const u64 program_id, const std::string_vi
     }
 
     // Create icon file path
-    out_icon_path /= (program_id == 0 ? fmt::format("citra-{}.{}", game_file_name, ico_extension)
-                                      : fmt::format("citra-{:016X}.{}", program_id, ico_extension));
+    out_icon_path /=
+        (program_id == 0 ? fmt::format("lime3ds-{}.{}", game_file_name, ico_extension)
+                         : fmt::format("lime3ds-{:016X}.{}", program_id, ico_extension));
     return true;
 }
 
 void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
                                            GameListShortcutTarget target) {
-    // Get path to citra executable
+    // Get path to lime3ds executable
     const QStringList args = QApplication::arguments();
-    std::filesystem::path citra_command = args[0].toStdString();
+    std::filesystem::path lime3ds_command = args[0].toStdString();
     // If relative path, make it an absolute path
-    if (citra_command.c_str()[0] == '.') {
-        citra_command = FileUtil::GetCurrentDir().value_or("") + DIR_SEP + citra_command.string();
+    if (lime3ds_command.c_str()[0] == '.') {
+        lime3ds_command =
+            FileUtil::GetCurrentDir().value_or("") + DIR_SEP + lime3ds_command.string();
     }
 
     // Shortcut path
@@ -1999,7 +2001,7 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     // Warn once if we are making a shortcut to a volatile AppImage
     const std::string appimage_ending =
         std::string(Common::g_scm_rev).substr(0, 9).append(".AppImage");
-    if (citra_command.string().ends_with(appimage_ending) &&
+    if (lime3ds_command.string().ends_with(appimage_ending) &&
         !UISettings::values.shortcut_already_warned) {
         if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_APPIMAGE_VOLATILE_WARNING,
                                       qt_game_title)) {
@@ -2013,11 +2015,11 @@ void GMainWindow::OnGameListCreateShortcut(u64 program_id, const std::string& ga
     if (CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_FULLSCREEN_PROMPT, qt_game_title)) {
         arguments = "-f " + arguments;
     }
-    const std::string comment = fmt::format("Start {:s} with the Citra Emulator", game_title);
+    const std::string comment = fmt::format("Start {:s} with the Lime3DS Emulator", game_title);
     const std::string categories = "Game;Emulator;Qt;";
     const std::string keywords = "3ds;Nintendo;";
 
-    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, citra_command, arguments,
+    if (CreateShortcutLink(shortcut_path, comment, out_icon_path, lime3ds_command, arguments,
                            categories, keywords, game_title)) {
         CreateShortcutMessagesGUI(this, CREATE_SHORTCUT_MSGBOX_SUCCESS, qt_game_title);
         return;
@@ -2371,12 +2373,13 @@ void GMainWindow::OnLoadComplete() {
 }
 
 void GMainWindow::OnMenuReportCompatibility() {
-    if (!NetSettings::values.citra_token.empty() && !NetSettings::values.citra_username.empty()) {
+    if (!NetSettings::values.lime3ds_token.empty() &&
+        !NetSettings::values.lime3ds_username.empty()) {
         CompatDB compatdb{this};
         compatdb.exec();
     } else {
-        QMessageBox::critical(this, tr("Missing Citra Account"),
-                              tr("You must link your Citra account to submit test cases."
+        QMessageBox::critical(this, tr("Missing Lime3DS Account"),
+                              tr("You must link your Lime3DS account to submit test cases."
                                  "<br/>Go to Emulation &gt; Configure... &gt; Web to do so."));
     }
 }
@@ -2679,7 +2682,7 @@ void GMainWindow::OnRemoveAmiibo() {
     ui->action_Remove_Amiibo->setEnabled(false);
 }
 
-void GMainWindow::OnOpenCitraFolder() {
+void GMainWindow::OnOpenLime3DSFolder() {
     QDesktopServices::openUrl(QUrl::fromLocalFile(
         QString::fromStdString(FileUtil::GetUserPath(FileUtil::UserPath::UserDir))));
 }
@@ -2833,8 +2836,9 @@ void GMainWindow::OnDumpVideo() {
         );
         auto result = message_box.exec();
         if (result == QMessageBox::Help) {
-            QDesktopServices::openUrl(QUrl(QStringLiteral(
-                "https://citra-emu.org/wiki/installing-ffmpeg-for-the-video-dumper/")));
+            QDesktopServices::openUrl(
+                QUrl(QStringLiteral("https://web.archive.org/web/20240301121456/https://"
+                                    "citra-emu.org/wiki/installing-ffmpeg-for-the-video-dumper/")));
 #ifdef _WIN32
         } else if (result == QMessageBox::Open) {
             OnOpenFFmpeg();
@@ -3204,7 +3208,7 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
     if (result == Core::System::ResultStatus::ErrorSystemFiles) {
         const QString common_message =
             tr("%1 is missing. Please <a "
-               "href='https://citra-emu.org/wiki/"
+               "https://web.archive.org/web/20240301100916/https://citra-emu.org/wiki/"
                "dumping-system-archives-and-the-shared-fonts-from-a-3ds-console/'>dump your "
                "system archives</a>.<br/>Continuing emulation may result in crashes and bugs.");
 
@@ -3230,11 +3234,12 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
         can_continue = false;
     } else {
         title = tr("Fatal Error");
-        message =
-            tr("A fatal error occurred. "
-               "<a href='https://community.citra-emu.org/t/how-to-upload-the-log-file/296'>Check "
-               "the log</a> for details."
-               "<br/>Continuing emulation may result in crashes and bugs.");
+        message = tr("A fatal error occurred. "
+                     "<a "
+                     "href='https://https://web.archive.org/web/20240105231121/https://"
+                     "community.citra-emu.org/t/how-to-upload-the-log-file/296'>Check "
+                     "the log</a> for details."
+                     "<br/>Continuing emulation may result in crashes and bugs.");
         status_message = tr("Fatal Error encountered");
         error_severity_icon = QMessageBox::Icon::Critical;
     }
@@ -3273,7 +3278,7 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
     }
 }
 
-void GMainWindow::OnMenuAboutCitra() {
+void GMainWindow::OnMenuAboutLime3DS() {
     AboutDialog about{this};
     about.exec();
 }

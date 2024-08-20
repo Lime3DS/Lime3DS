@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * A service that spawns its own thread in order to copy several binary and shader files
- * from the Citra APK to the external file system.
+ * from the Lime3DS APK to the external file system.
  */
 object DirectoryInitialization {
     private const val SYS_DIR_VERSION = "sysDirectoryVersion"
@@ -30,25 +30,25 @@ object DirectoryInitialization {
     var userPath: String? = null
     val internalUserPath
         get() = LimeApplication.appContext.getExternalFilesDir(null)!!.canonicalPath
-    private val isCitraDirectoryInitializationRunning = AtomicBoolean(false)
+    private val isLime3DSDirectoryInitializationRunning = AtomicBoolean(false)
 
     val context: Context get() = LimeApplication.appContext
 
     @JvmStatic
     fun start(): DirectoryInitializationState? {
-        if (!isCitraDirectoryInitializationRunning.compareAndSet(false, true)) {
+        if (!isLime3DSDirectoryInitializationRunning.compareAndSet(false, true)) {
             return null
         }
 
-        if (directoryState != DirectoryInitializationState.CITRA_DIRECTORIES_INITIALIZED) {
+        if (directoryState != DirectoryInitializationState.LIME3DS_DIRECTORIES_INITIALIZED) {
             directoryState = if (hasWriteAccess(context)) {
-                if (setCitraUserDirectory()) {
+                if (setLime3DSUserDirectory()) {
                     LimeApplication.documentsTree.setRoot(Uri.parse(userPath))
                     NativeLibrary.createLogFile()
                     NativeLibrary.logUserDirectory(userPath.toString())
                     NativeLibrary.createConfigFile()
                     GpuDriverHelper.initializeDriverParameters()
-                    DirectoryInitializationState.CITRA_DIRECTORIES_INITIALIZED
+                    DirectoryInitializationState.LIME3DS_DIRECTORIES_INITIALIZED
                 } else {
                     DirectoryInitializationState.CANT_FIND_EXTERNAL_STORAGE
                 }
@@ -56,7 +56,7 @@ object DirectoryInitialization {
                 DirectoryInitializationState.EXTERNAL_STORAGE_PERMISSION_NEEDED
             }
         }
-        isCitraDirectoryInitializationRunning.set(false)
+        isLime3DSDirectoryInitializationRunning.set(false)
         return directoryState
     }
 
@@ -70,13 +70,13 @@ object DirectoryInitialization {
     }
 
     @JvmStatic
-    fun areCitraDirectoriesReady(): Boolean {
-        return directoryState == DirectoryInitializationState.CITRA_DIRECTORIES_INITIALIZED
+    fun areLime3DSDirectoriesReady(): Boolean {
+        return directoryState == DirectoryInitializationState.LIME3DS_DIRECTORIES_INITIALIZED
     }
 
-    fun resetCitraDirectoryState() {
+    fun resetLime3DSDirectoryState() {
         directoryState = null
-        isCitraDirectoryInitializationRunning.compareAndSet(true, false)
+        isLime3DSDirectoryInitializationRunning.compareAndSet(true, false)
     }
 
     val userDirectory: String?
@@ -84,17 +84,17 @@ object DirectoryInitialization {
             checkNotNull(directoryState) {
                 "DirectoryInitialization has to run at least once!"
             }
-            check(!isCitraDirectoryInitializationRunning.get()) {
+            check(!isLime3DSDirectoryInitializationRunning.get()) {
                 "DirectoryInitialization has to finish running first!"
             }
             return userPath
         }
 
-    fun setCitraUserDirectory(): Boolean {
-        val dataPath = PermissionsHandler.citraDirectory
+    fun setLime3DSUserDirectory(): Boolean {
+        val dataPath = PermissionsHandler.lime3dsDirectory
         if (dataPath.toString().isNotEmpty()) {
             userPath = dataPath.toString()
-            android.util.Log.d("[Citra Frontend]", "[DirectoryInitialization] User Dir: $userPath")
+            android.util.Log.d("[Lime3DS Frontend]", "[DirectoryInitialization] User Dir: $userPath")
             return true
         }
         return false
@@ -156,7 +156,7 @@ object DirectoryInitialization {
     }
 
     enum class DirectoryInitializationState {
-        CITRA_DIRECTORIES_INITIALIZED,
+        LIME3DS_DIRECTORIES_INITIALIZED,
         EXTERNAL_STORAGE_PERMISSION_NEEDED,
         CANT_FIND_EXTERNAL_STORAGE
     }

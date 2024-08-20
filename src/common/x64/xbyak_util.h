@@ -5,7 +5,7 @@
 #pragma once
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 
 #include <type_traits>
 #include <xbyak/xbyak.h>
@@ -49,4 +49,4 @@ inline void CallFarFunction(Xbyak::CodeGenerator& code, const T f) {
 
 } // namespace Common::X64
 
-#endif // CITRA_ARCH(x86_64)
+#endif // LIME3DS_ARCH(x86_64)

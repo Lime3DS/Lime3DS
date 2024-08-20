@@ -862,10 +862,10 @@ void Config::ReadWebServiceValues() {
         ReadSetting(QStringLiteral("web_api_url"), QStringLiteral("https://api.citra-emu.org"))
             .toString()
             .toStdString();
-    NetSettings::values.citra_username =
-        ReadSetting(QStringLiteral("citra_username")).toString().toStdString();
-    NetSettings::values.citra_token =
-        ReadSetting(QStringLiteral("citra_token")).toString().toStdString();
+    NetSettings::values.lime3ds_username =
+        ReadSetting(QStringLiteral("lime3ds_username")).toString().toStdString();
+    NetSettings::values.lime3ds_token =
+        ReadSetting(QStringLiteral("lime3ds_token")).toString().toStdString();
 
     qt_config->endGroup();
 }
@@ -1362,10 +1362,10 @@ void Config::SaveWebServiceValues() {
     WriteSetting(QStringLiteral("web_api_url"),
                  QString::fromStdString(NetSettings::values.web_api_url),
                  QStringLiteral("https://api.citra-emu.org"));
-    WriteSetting(QStringLiteral("citra_username"),
-                 QString::fromStdString(NetSettings::values.citra_username));
-    WriteSetting(QStringLiteral("citra_token"),
-                 QString::fromStdString(NetSettings::values.citra_token));
+    WriteSetting(QStringLiteral("lime3ds_username"),
+                 QString::fromStdString(NetSettings::values.lime3ds_username));
+    WriteSetting(QStringLiteral("lime3ds_token"),
+                 QString::fromStdString(NetSettings::values.lime3ds_token));
 
     qt_config->endGroup();
 }

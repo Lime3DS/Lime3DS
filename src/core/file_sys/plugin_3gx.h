@@ -54,8 +54,8 @@ public:
         u32_le exe_size; // Include sizeof(PluginHeader) + .text + .rodata + .data + .bss (0x1000
                          // aligned too)
         u32_le is_default_plugin;
-        u32_le plgldr_event; ///< Used for synchronization, unused in citra
-        u32_le plgldr_reply; ///< Used for synchronization, unused in citra
+        u32_le plgldr_event; ///< Used for synchronization, unused in lime3ds
+        u32_le plgldr_reply; ///< Used for synchronization, unused in lime3ds
         u32_le reserved[24];
         u32_le config[32];
     };
@@ -79,7 +79,7 @@ private:
                               bool no_flash);
 
     struct _3gx_Infos {
-        enum class Compatibility { CONSOLE = 0, CITRA = 1, CONSOLE_CITRA = 2 };
+        enum class Compatibility { CONSOLE = 0, LIME3DS = 1, CONSOLE_LIME3DS = 2 };
         u32_le author_len;
         u32_le author_msg_offset;
         u32_le title_len;

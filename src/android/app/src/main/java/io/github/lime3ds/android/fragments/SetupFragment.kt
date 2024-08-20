@@ -39,7 +39,7 @@ import io.github.lime3ds.android.model.SetupCallback
 import io.github.lime3ds.android.model.SetupPage
 import io.github.lime3ds.android.model.StepState
 import io.github.lime3ds.android.ui.main.MainActivity
-import io.github.lime3ds.android.utils.CitraDirectoryHelper
+import io.github.lime3ds.android.utils.Lime3DSDirectoryHelper
 import io.github.lime3ds.android.utils.GameHelper
 import io.github.lime3ds.android.utils.PermissionsHandler
 import io.github.lime3ds.android.utils.ViewUtils
@@ -207,14 +207,14 @@ class SetupFragment : Fragment() {
             add(
                 SetupPage(
                     R.drawable.ic_home,
-                    R.string.select_citra_user_folder,
-                    R.string.select_citra_user_folder_description,
+                    R.string.select_lime3ds_user_folder,
+                    R.string.select_lime3ds_user_folder_description,
                     0,
                     true,
                     R.string.select,
                     {
                         userDirCallback = it
-                        openCitraDirectory.launch(null)
+                        openLime3DSDirectory.launch(null)
                     },
                     true,
                     true,
@@ -396,14 +396,14 @@ class SetupFragment : Fragment() {
 
     private lateinit var userDirCallback: SetupCallback
 
-    private val openCitraDirectory = registerForActivityResult<Uri, Uri>(
+    private val openLime3DSDirectory = registerForActivityResult<Uri, Uri>(
         ActivityResultContracts.OpenDocumentTree()
     ) { result: Uri? ->
         if (result == null) {
             return@registerForActivityResult
         }
 
-        CitraDirectoryHelper(requireActivity()).showCitraDirectoryDialog(result, userDirCallback)
+        Lime3DSDirectoryHelper(requireActivity()).showLime3DSDirectoryDialog(result, userDirCallback)
     }
 
     private lateinit var gamesDirCallback: SetupCallback

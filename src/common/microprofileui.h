@@ -6,7 +6,7 @@
 
 #include "common/microprofile.h"
 
-// Customized Citra settings.
+// Customized Lime3DS settings.
 // This file wraps the MicroProfile header so that these are consistent everywhere.
 #define MICROPROFILE_TEXT_WIDTH 6
 #define MICROPROFILE_TEXT_HEIGHT 12

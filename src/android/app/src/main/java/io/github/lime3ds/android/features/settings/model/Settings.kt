@@ -42,14 +42,14 @@ class Settings {
 
     fun loadSettings(view: SettingsActivityView? = null) {
         sections = SettingsSectionMap()
-        loadCitraSettings(view)
+        loadLime3DSSettings(view)
         if (!TextUtils.isEmpty(gameId)) {
             loadCustomGameSettings(gameId!!, view)
         }
         isLoaded = true
     }
 
-    private fun loadCitraSettings(view: SettingsActivityView?) {
+    private fun loadLime3DSSettings(view: SettingsActivityView?) {
         for ((fileName) in configFileSectionsMap) {
             sections.putAll(SettingsFile.readFile(fileName, view))
         }

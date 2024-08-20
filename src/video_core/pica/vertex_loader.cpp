@@ -72,7 +72,7 @@ void VertexLoader::LoadVertex(PAddr base_address, u32 index, u32 vertex, Attribu
 
         // TODO(yuriks): In this case, no data gets loaded and the vertex
         // remains with the last value it had. This isn't currently maintained
-        // as global state, however, and so won't work in Citra yet.
+        // as global state, however, and so won't work in Lime3DS yet.
         if (vertex_attribute_elements[i] == 0) {
             LOG_ERROR(HW_GPU, "Vertex retension unimplemented");
             continue;

@@ -32,7 +32,7 @@ struct RoomInformation {
     std::string preferred_game; ///< Game to advertise that you want to play
     u64 preferred_game_id;      ///< Title ID for the advertised game
     std::string host_username;  ///< Forum username of the host
-    bool enable_citra_mods;     ///< Allow Citra Moderators to moderate on this room
+    bool enable_lime3ds_mods;   ///< Allow Lime3DS Moderators to moderate on this room
 };
 
 struct GameInfo {
@@ -148,7 +148,7 @@ public:
                 const std::string& host_username = "", const std::string& preferred_game = "",
                 u64 preferred_game_id = 0,
                 std::unique_ptr<VerifyUser::Backend> verify_backend = nullptr,
-                const BanList& ban_list = {}, bool enable_citra_mods = false);
+                const BanList& ban_list = {}, bool enable_lime3ds_mods = false);
 
     /**
      * Sets the verification GUID of the room.

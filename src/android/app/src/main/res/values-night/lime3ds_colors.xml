@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="lime3ds_primary">#B7C4FF</color>
+    <color name="lime3ds_onPrimary">#002681</color>
+    <color name="lime3ds_primaryContainer">#0039B5</color>
+    <color name="lime3ds_onPrimaryContainer">#DCE1FF</color>
+    <color name="lime3ds_secondary">#C2C5DD</color>
+    <color name="lime3ds_onSecondary">#2B3042</color>
+    <color name="lime3ds_secondaryContainer">#424659</color>
+    <color name="lime3ds_onSecondaryContainer">#DEE1F9</color>
+    <color name="lime3ds_tertiary">#E4BADA</color>
+    <color name="lime3ds_onTertiary">#43273F</color>
+    <color name="lime3ds_tertiaryContainer">#5C3D56</color>
+    <color name="lime3ds_onTertiaryContainer">#FFD7F5</color>
+    <color name="lime3ds_error">#FFB4AB</color>
+    <color name="lime3ds_errorContainer">#93000A</color>
+    <color name="lime3ds_onError">#690005</color>
+    <color name="lime3ds_onErrorContainer">#FFDAD6</color>
+    <color name="lime3ds_background">#1B1B1F</color>
+    <color name="lime3ds_onBackground">#E4E1E6</color>
+    <color name="lime3ds_surface">#1B1B1F</color>
+    <color name="lime3ds_onSurface">#E4E1E6</color>
+    <color name="lime3ds_surfaceVariant">#45464F</color>
+    <color name="lime3ds_onSurfaceVariant">#C6C5D0</color>
+    <color name="lime3ds_outline">#90909A</color>
+    <color name="lime3ds_inverseOnSurface">#1B1B1F</color>
+    <color name="lime3ds_inverseSurface">#E4E1E6</color>
+    <color name="lime3ds_inversePrimary">#154FE2</color>
+    <color name="lime3ds_shadow">#000000</color>
+    <color name="lime3ds_surfaceTint">#B7C4FF</color>
+    <color name="lime3ds_outlineVariant">#45464F</color>
+    <color name="lime3ds_scrim">#000000</color>
+
+</resources>

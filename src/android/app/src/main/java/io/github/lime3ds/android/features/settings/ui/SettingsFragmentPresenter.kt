@@ -860,7 +860,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
 
             // Disabled until custom texture implementation gets rewrite, current one overloads RAM
-            // and crashes Citra.
+            // and crashes Lime3DS.
             // add(
             //     SwitchSetting(
             //         BooleanSetting.PRELOAD_TEXTURES,

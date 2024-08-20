@@ -11,10 +11,10 @@ class RequestType(enum.IntEnum):
     ReadMemory = 1,
     WriteMemory = 2
 
-CITRA_PORT = 45987
+LIME3DS_PORT = 45987
 
-class Citra:
-    def __init__(self, address="127.0.0.1", port=CITRA_PORT):
+class Lime3DS:
+    def __init__(self, address="127.0.0.1", port=LIME3DS_PORT):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.address = address
 
@@ -45,7 +45,7 @@ class Citra:
             request_data = struct.pack("II", read_address, temp_read_size)
             request, request_id = self._generate_header(RequestType.ReadMemory, len(request_data))
             request += request_data
-            self.socket.sendto(request, (self.address, CITRA_PORT))
+            self.socket.sendto(request, (self.address, LIME3DS_PORT))
 
             raw_reply = self.socket.recv(MAX_PACKET_SIZE)
             reply_data = self._read_and_validate_header(raw_reply, request_id, RequestType.ReadMemory)
@@ -77,7 +77,7 @@ class Citra:
             request_data += write_contents[:temp_write_size]
             request, request_id = self._generate_header(RequestType.WriteMemory, len(request_data))
             request += request_data
-            self.socket.sendto(request, (self.address, CITRA_PORT))
+            self.socket.sendto(request, (self.address, LIME3DS_PORT))
 
             raw_reply = self.socket.recv(MAX_PACKET_SIZE)
             reply_data = self._read_and_validate_header(raw_reply, request_id, RequestType.WriteMemory)
@@ -92,4 +92,4 @@ class Citra:
 
 if "__main__" == __name__:
     import doctest
-    doctest.testmod(extraglobs={'c': Citra()})
+    doctest.testmod(extraglobs={'c': Lime3DS()})

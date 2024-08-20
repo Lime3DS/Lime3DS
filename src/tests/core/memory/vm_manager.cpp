@@ -11,7 +11,7 @@
 #include "core/memory.h"
 
 TEST_CASE("Memory Basics", "[kernel][memory]") {
-    auto mem = std::make_shared<BufferMem>(Memory::CITRA_PAGE_SIZE);
+    auto mem = std::make_shared<BufferMem>(Memory::LIME3DS_PAGE_SIZE);
     MemoryRef block{mem};
     Core::Timing timing(1, 100);
     Core::System system;

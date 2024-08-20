@@ -45,7 +45,7 @@ class SettingsActivityPresenter(private val activityView: SettingsActivityView) 
     }
 
     private fun prepareDirectoriesIfNeeded() {
-        if (!DirectoryInitialization.areCitraDirectoriesReady()) {
+        if (!DirectoryInitialization.areLime3DSDirectoriesReady()) {
             DirectoryInitialization.start()
         }
         loadSettingsUI()

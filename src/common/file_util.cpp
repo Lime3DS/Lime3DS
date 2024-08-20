@@ -865,8 +865,8 @@ bool StringReplace(std::string& haystack, const std::string& a, const std::strin
 
 std::string SerializePath(const std::string& input, bool is_saving) {
     auto result = input;
-    StringReplace(result, "%CITRA_ROM_FILE%", g_currentRomPath, is_saving);
-    StringReplace(result, "%CITRA_USER_DIR%", GetUserPath(UserPath::UserDir), is_saving);
+    StringReplace(result, "%LIME3DS_ROM_FILE%", g_currentRomPath, is_saving);
+    StringReplace(result, "%LIME3DS_USER_DIR%", GetUserPath(UserPath::UserDir), is_saving);
     return result;
 }
 

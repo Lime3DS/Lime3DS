@@ -11,7 +11,7 @@
 namespace OpenGL {
 
 // Returns a vector of the names of the shaders available in the
-// "shaders" directory in citra's data directory
+// "shaders" directory in lime3ds's data directory
 std::vector<std::string> GetPostProcessingShaderList(bool anaglyph);
 
 // Returns the shader code for the shader named "shader_name"

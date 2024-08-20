@@ -91,7 +91,7 @@ class EmulationActivity : AppCompatActivity() {
         // Set these options now so that the SurfaceView the game renders into is the right size.
         enableFullscreenImmersive()
 
-        // Override Citra core INI with the one set by our in game menu
+        // Override Lime3DS core INI with the one set by our in game menu
         NativeLibrary.swapScreens(
             EmulationMenuSettings.swapScreens,
             windowManager.defaultDisplay.rotation

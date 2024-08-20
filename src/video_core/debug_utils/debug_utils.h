@@ -67,7 +67,7 @@ public:
                 context->breakpoint_observers.remove(this);
 
                 // If we are the last observer to be destroyed, tell the debugger context that
-                // it is free to continue. In particular, this is required for a proper Citra
+                // it is free to continue. In particular, this is required for a proper Lime3DS
                 // shutdown, when the emulation thread is waiting at a breakpoint.
                 if (context->breakpoint_observers.empty())
                     context->Resume();

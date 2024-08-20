@@ -47,7 +47,7 @@ QString MovieRecordDialog::GetAuthor() const {
 void MovieRecordDialog::OnToolButtonClicked() {
     const QString path =
         QFileDialog::getSaveFileName(this, tr("Record Movie"), UISettings::values.movie_record_path,
-                                     tr("Citra TAS Movie (*.ctm)"));
+                                     tr("Lime3DS TAS Movie (*.ctm)"));
     if (path.isEmpty()) {
         return;
     }

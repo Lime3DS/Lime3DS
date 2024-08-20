@@ -4,7 +4,7 @@ if [ "$TARGET" = "appimage" ]; then
     export EXTRA_CMAKE_FLAGS=(-DCMAKE_LINKER=/etc/bin/ld.lld)
 else
     # For the linux-fresh verification target, verify compilation without PCH as well.
-    export EXTRA_CMAKE_FLAGS=(-DCITRA_USE_PRECOMPILED_HEADERS=OFF)
+    export EXTRA_CMAKE_FLAGS=(-DLIME3DS_USE_PRECOMPILED_HEADERS=OFF)
 fi
 
 mkdir build && cd build
@@ -16,7 +16,7 @@ cmake .. -G Ninja \
     -DCMAKE_C_COMPILER=clang-18 \
     "${EXTRA_CMAKE_FLAGS[@]}" \
     -DENABLE_QT_TRANSLATION=ON \
-    -DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON \
+    -DLIME3DS_ENABLE_COMPATIBILITY_REPORTING=ON \
     -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=ON \
     -DUSE_DISCORD_PRESENCE=ON
 ninja

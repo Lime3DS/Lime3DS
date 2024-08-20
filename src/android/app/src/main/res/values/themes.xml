@@ -2,49 +2,49 @@
 <resources>
 
     <style name="Theme.Lime.Splash.Main" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/citra_surface</item>
+        <item name="windowSplashScreenBackground">@color/lime3ds_surface</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_lime</item>
         <item name="postSplashScreenTheme">@style/Theme.Lime.Main</item>
     </style>
 
-    <style name="Theme.Citra" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Lime3DS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Main theme colors -->
-        <item name="colorPrimary">@color/citra_primary</item>
-        <item name="colorOnPrimary">@color/citra_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/citra_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer</item>
-        <item name="colorSecondary">@color/citra_secondary</item>
-        <item name="colorOnSecondary">@color/citra_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/citra_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer</item>
-        <item name="colorTertiary">@color/citra_tertiary</item>
-        <item name="colorOnTertiary">@color/citra_onTertiary</item>
-        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer</item>
-        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer</item>
-        <item name="colorError">@color/citra_error</item>
-        <item name="colorErrorContainer">@color/citra_errorContainer</item>
-        <item name="colorOnError">@color/citra_onError</item>
-        <item name="colorOnErrorContainer">@color/citra_onErrorContainer</item>
-        <item name="android:colorBackground">@color/citra_background</item>
-        <item name="colorOnBackground">@color/citra_onBackground</item>
-        <item name="colorSurface">@color/citra_surface</item>
-        <item name="colorOnSurface">@color/citra_onSurface</item>
-        <item name="colorSurfaceVariant">@color/citra_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant</item>
-        <item name="colorOutline">@color/citra_outline</item>
-        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface</item>
-        <item name="colorSurfaceInverse">@color/citra_inverseSurface</item>
-        <item name="colorPrimaryInverse">@color/citra_inversePrimary</item>
+        <item name="colorPrimary">@color/lime3ds_primary</item>
+        <item name="colorOnPrimary">@color/lime3ds_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/lime3ds_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/lime3ds_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/lime3ds_secondary</item>
+        <item name="colorOnSecondary">@color/lime3ds_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/lime3ds_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/lime3ds_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/lime3ds_tertiary</item>
+        <item name="colorOnTertiary">@color/lime3ds_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/lime3ds_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/lime3ds_onTertiaryContainer</item>
+        <item name="colorError">@color/lime3ds_error</item>
+        <item name="colorErrorContainer">@color/lime3ds_errorContainer</item>
+        <item name="colorOnError">@color/lime3ds_onError</item>
+        <item name="colorOnErrorContainer">@color/lime3ds_onErrorContainer</item>
+        <item name="android:colorBackground">@color/lime3ds_background</item>
+        <item name="colorOnBackground">@color/lime3ds_onBackground</item>
+        <item name="colorSurface">@color/lime3ds_surface</item>
+        <item name="colorOnSurface">@color/lime3ds_onSurface</item>
+        <item name="colorSurfaceVariant">@color/lime3ds_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/lime3ds_onSurfaceVariant</item>
+        <item name="colorOutline">@color/lime3ds_outline</item>
+        <item name="colorOnSurfaceInverse">@color/lime3ds_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/lime3ds_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/lime3ds_inversePrimary</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
 
-        <item name="sliderStyle">@style/CitraSlider</item>
+        <item name="sliderStyle">@style/Lime3DSSlider</item>
 
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
     <!-- Trick for API >= 29 specific changes -->
-    <style name="Theme.Lime.Main" parent="Theme.Citra" />
+    <style name="Theme.Lime.Main" parent="Theme.Lime3DS" />
 
 </resources>
