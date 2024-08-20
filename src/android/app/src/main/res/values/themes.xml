@@ -4,10 +4,10 @@
     <style name="Theme.Lime.Splash.Main" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/citra_surface_blue</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_lime</item>
-        <item name="postSplashScreenTheme">@style/Theme.Citra.Blue</item>
+        <item name="postSplashScreenTheme">@style/Theme.Lime.Blue</item>
     </style>
 
-    <style name="Theme.Citra" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Lime" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Common theme colors -->
         <item name="colorError">@color/citra_error</item>
         <item name="colorErrorContainer">@color/citra_errorContainer</item>
@@ -19,7 +19,7 @@
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
-    <style name="Theme.Citra.Blue" parent="Theme.Citra">
+    <style name="Theme.Lime.Blue" parent="Theme.Lime">
         <!-- Blue theme colors -->
         <item name="colorPrimary">@color/citra_primary_blue</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_blue</item>
@@ -45,7 +45,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_blue</item>
     </style>
 
-    <style name="Theme.Citra.Red" parent="Theme.Citra">
+    <style name="Theme.Lime.Red" parent="Theme.Lime">
         <!-- Red theme colors -->
         <item name="colorPrimary">@color/citra_primary_red</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_red</item>
@@ -71,7 +71,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_red</item>
     </style>
 
-    <style name="Theme.Citra.Green" parent="Theme.Citra">
+    <style name="Theme.Lime.Green" parent="Theme.Lime">
         <!-- Green theme colors -->
         <item name="colorPrimary">@color/citra_primary_green</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_green</item>
@@ -97,7 +97,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_green</item>
     </style>
 
-    <style name="Theme.Citra.Orange" parent="Theme.Citra">
+    <style name="Theme.Lime.Orange" parent="Theme.Lime">
         <!-- Orange theme colors -->
         <item name="colorPrimary">@color/citra_primary_orange</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_orange</item>
@@ -123,7 +123,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_orange</item>
     </style>
 
-    <style name="Theme.Citra.Yellow" parent="Theme.Citra">
+    <style name="Theme.Lime.Yellow" parent="Theme.Lime">
         <!-- Yellow theme colors -->
         <item name="colorPrimary">@color/citra_primary_yellow</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_yellow</item>
@@ -149,7 +149,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_yellow</item>
     </style>
 
-    <style name="Theme.Citra.Violet" parent="Theme.Citra">
+    <style name="Theme.Lime.Violet" parent="Theme.Lime">
         <!-- Violet theme colors -->
         <item name="colorPrimary">@color/citra_primary_violet</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_violet</item>
@@ -175,7 +175,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_violet</item>
     </style>
 
-    <style name="Theme.Citra.Cyan" parent="Theme.Citra">
+    <style name="Theme.Lime.Cyan" parent="Theme.Lime">
         <!-- Cyan theme colors -->
         <item name="colorPrimary">@color/citra_primary_cyan</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_cyan</item>
@@ -201,7 +201,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_cyan</item>
     </style>
 
-    <style name="Theme.Citra.Lime" parent="Theme.Citra">
+    <style name="Theme.Lime.Lime" parent="Theme.Lime">
     <!-- Lime Theme Colors -->
         <item name="colorPrimary">@color/citra_primary_lime</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_lime</item>
@@ -227,7 +227,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_lime</item>
     </style>
 
-    <style name="Theme.Citra.Gray" parent="Theme.Citra">
+    <style name="Theme.Lime.Gray" parent="Theme.Lime">
     <!-- Gray Theme Colors -->
         <item name="colorPrimary">@color/citra_primary_gray</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_gray</item>
@@ -253,7 +253,7 @@
         <item name="colorPrimaryInverse">@color/citra_inversePrimary_gray</item>
     </style>
 
-    <style name="Theme.Citra.Pink" parent="Theme.Citra">
+    <style name="Theme.Lime.Pink" parent="Theme.Lime">
     <!-- Pink Theme Colors -->
         <item name="colorPrimary">@color/citra_primary_pink</item>
         <item name="colorOnPrimary">@color/citra_onPrimary_pink</item>
