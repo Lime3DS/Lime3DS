@@ -1,6 +1,9 @@
-// Copyright 2019 yuzu Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright 2019 Yuzu Emulator Project
+// Licensed under GPLv2 or any later version
 
 #include <algorithm>
 #include <limits>
@@ -47,19 +50,42 @@ vk::MemoryPropertyFlags MakePropertyFlags(BufferType type) {
 /// Get the preferred host visible memory type.
 u32 GetMemoryType(const vk::PhysicalDeviceMemoryProperties& properties, BufferType type) {
     vk::MemoryPropertyFlags flags = MakePropertyFlags(type);
-    std::optional preferred_type = FindMemoryType(properties, flags);
+    std::optional<u32> preferred_type;
 
+    // Try to find a memory type with all the requested flags
+    preferred_type = FindMemoryType(properties, flags);
+    if (preferred_type) {
+        return *preferred_type;
+    }
+
+    // If not found, try removing flags one by one
     constexpr std::array remove_flags = {
+        vk::MemoryPropertyFlagBits::eDeviceLocal,
         vk::MemoryPropertyFlagBits::eHostCached,
         vk::MemoryPropertyFlagBits::eHostCoherent,
     };
 
-    for (u32 i = 0; i < remove_flags.size() && !preferred_type; i++) {
-        flags &= ~remove_flags[i];
+    for (auto remove_flag : remove_flags) {
+        if ((flags & remove_flag) == vk::MemoryPropertyFlags{}) {
+            continue;
+        }
+        flags &= ~remove_flag;
         preferred_type = FindMemoryType(properties, flags);
+        if (preferred_type) {
+            return *preferred_type;
+        }
     }
-    ASSERT_MSG(preferred_type, "No suitable memory type found");
-    return preferred_type.value();
+
+    // If still not found, try with only eHostVisible flag
+    preferred_type = FindMemoryType(properties, vk::MemoryPropertyFlagBits::eHostVisible);
+    if (preferred_type) {
+        return *preferred_type;
+    }
+
+    // If we reach here, we couldn't find any suitable memory type
+    LOG_CRITICAL(Render_Vulkan, "Failed to find a suitable memory type for buffer type {}",
+                 BufferTypeName(type));
+    return 0; // Return 0 as a fallback, though this will likely cause issues
 }
 
 constexpr u64 WATCHES_INITIAL_RESERVE = 0x4000;
