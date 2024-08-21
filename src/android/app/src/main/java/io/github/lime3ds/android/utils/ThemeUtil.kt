@@ -58,7 +58,7 @@ object ThemeUtil {
         if (preferences.getBoolean(Settings.PREF_BLACK_BACKGROUNDS, false) &&
             isNightMode(activity)
         ) {
-            activity.setTheme(R.style.ThemeOverlay_Citra_Dark)
+            activity.setTheme(R.style.ThemeOverlay_Lime3DS_Dark)
         }
     }
 

@@ -274,7 +274,7 @@ bool Client::Connect() {
             closesocket(main_socket);
             LOG_ERROR(Network, "Incompatible server version: {}", version_value);
             SignalCommunicationError("\nIncompatible Artic Base Server version.\nCheck for updates "
-                                     "to Artic Base Server or Citra.");
+                                     "to Artic Base Server or Lime3DS.");
             return false;
         }
     } else {

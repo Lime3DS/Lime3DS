@@ -29,7 +29,7 @@ import java.util.Date
 
 /**
  * Class which contains methods that interact
- * with the native side of the Citra code.
+ * with the native side of the Lime3DS code.
  */
 object NativeLibrary {
     /**

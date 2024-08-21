@@ -23,10 +23,10 @@ class SelectUserDirectoryDialogFragment : DialogFragment() {
 
         isCancelable = false
         return MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.select_citra_user_folder)
+            .setTitle(R.string.select_lime3ds_user_folder)
             .setMessage(R.string.cannot_skip_directory_description)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface, _: Int ->
-                mainActivity.openCitraDirectory.launch(null)
+                mainActivity.openLime3DSDirectory.launch(null)
             }
             .show()
     }

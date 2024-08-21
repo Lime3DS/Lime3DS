@@ -15,13 +15,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.lime3ds.android.R
-import io.github.lime3ds.android.databinding.DialogCitraDirectoryBinding
+import io.github.lime3ds.android.databinding.DialogLime3dsDirectoryBinding
 import io.github.lime3ds.android.ui.main.MainActivity
 import io.github.lime3ds.android.utils.PermissionsHandler
 import io.github.lime3ds.android.viewmodel.HomeViewModel
 
-class CitraDirectoryDialogFragment : DialogFragment() {
-    private lateinit var binding: DialogCitraDirectoryBinding
+class Lime3DSDirectoryDialogFragment : DialogFragment() {
+    private lateinit var binding: DialogLime3dsDirectoryBinding
 
     private val homeViewModel: HomeViewModel by activityViewModels()
 
@@ -30,12 +30,12 @@ class CitraDirectoryDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogCitraDirectoryBinding.inflate(layoutInflater)
+        binding = DialogLime3dsDirectoryBinding.inflate(layoutInflater)
 
         val path = Uri.parse(requireArguments().getString(PATH))
 
         binding.checkBox.isChecked = savedInstanceState?.getBoolean(MOVE_DATE_ENABLE) ?: false
-        val oldPath = PermissionsHandler.citraDirectory
+        val oldPath = PermissionsHandler.lime3dsDirectory
         if (!PermissionsHandler.hasWriteAccess(requireActivity()) ||
             oldPath.toString() == path.toString()
         ) {
@@ -47,7 +47,7 @@ class CitraDirectoryDialogFragment : DialogFragment() {
         isCancelable = false
         return MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
-            .setTitle(R.string.select_citra_user_folder)
+            .setTitle(R.string.select_lime3ds_user_folder)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 homeViewModel.directoryListener?.onPressPositiveButton(
                     if (binding.checkBox.visibility != View.GONE) {
@@ -60,7 +60,7 @@ class CitraDirectoryDialogFragment : DialogFragment() {
             }
             .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int ->
                 if (!PermissionsHandler.hasWriteAccess(requireContext())) {
-                    (requireActivity() as MainActivity).openCitraDirectory.launch(null)
+                    (requireActivity() as MainActivity).openLime3DSDirectory.launch(null)
                 }
             }
             .show()
@@ -72,7 +72,7 @@ class CitraDirectoryDialogFragment : DialogFragment() {
     }
 
     companion object {
-        const val TAG = "citra_directory_dialog_fragment"
+        const val TAG = "lime3ds_directory_dialog_fragment"
         private const val MOVE_DATE_ENABLE = "IS_MODE_DATA_ENABLE"
         private const val PATH = "path"
 
@@ -80,8 +80,8 @@ class CitraDirectoryDialogFragment : DialogFragment() {
             activity: FragmentActivity,
             path: String,
             listener: Listener
-        ): CitraDirectoryDialogFragment {
-            val dialog = CitraDirectoryDialogFragment()
+        ): Lime3DSDirectoryDialogFragment {
+            val dialog = Lime3DSDirectoryDialogFragment()
             ViewModelProvider(activity)[HomeViewModel::class.java].directoryListener = listener
             val args = Bundle()
             args.putString(PATH, path)

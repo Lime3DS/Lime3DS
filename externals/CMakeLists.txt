@@ -116,7 +116,7 @@ if ("x86_64" IN_LIST ARCHITECTURE OR "arm64" IN_LIST ARCHITECTURE)
     else()
         set(DYNARMIC_TESTS OFF CACHE BOOL "")
         set(DYNARMIC_FRONTENDS "A32" CACHE STRING "")
-        set(DYNARMIC_USE_PRECOMPILED_HEADERS ${CITRA_USE_PRECOMPILED_HEADERS} CACHE BOOL "")
+        set(DYNARMIC_USE_PRECOMPILED_HEADERS ${LIME3DS_USE_PRECOMPILED_HEADERS} CACHE BOOL "")
         add_subdirectory(dynarmic EXCLUDE_FROM_ALL)
     endif()
 endif()
@@ -267,7 +267,7 @@ if (USE_SYSTEM_JSON)
     target_link_libraries(json-headers INTERFACE nlohmann_json::nlohmann_json)
     get_target_property(NLOHMANN_PREFIX nlohmann_json::nlohmann_json INTERFACE_INCLUDE_DIRECTORIES)
     # The nlohmann-json3 package expects "#include <nlohmann/json.hpp>"
-    # Citra uses "#include <json.hpp>" so we have to add this manually
+    # Lime3DS uses "#include <json.hpp>" so we have to add this manually
     target_include_directories(json-headers SYSTEM INTERFACE "${NLOHMANN_PREFIX}/nlohmann")
 else()
     target_include_directories(json-headers SYSTEM INTERFACE ./json)
@@ -298,7 +298,7 @@ add_library(httplib INTERFACE)
 if(USE_SYSTEM_CPP_HTTPLIB)
     find_package(CppHttp 0.14.1)
     # Detect if system cpphttplib is a shared library
-    # this breaks building as Citra relies on functions that are moved
+    # this breaks building as Lime3DS relies on functions that are moved
     # into the shared object.
     get_target_property(HTTP_LIBS httplib::httplib INTERFACE_LINK_LIBRARIES)
     if(HTTP_LIBS)

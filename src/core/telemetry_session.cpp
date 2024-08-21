@@ -89,8 +89,8 @@ TelemetrySession::~TelemetrySession() {
 
 #ifdef ENABLE_WEB_SERVICE
     auto backend = std::make_unique<WebService::TelemetryJson>(NetSettings::values.web_api_url,
-                                                               NetSettings::values.citra_username,
-                                                               NetSettings::values.citra_token);
+                                                               NetSettings::values.lime3ds_username,
+                                                               NetSettings::values.lime3ds_token);
 #else
     auto backend = std::make_unique<Telemetry::NullVisitor>();
 #endif
@@ -161,8 +161,8 @@ void TelemetrySession::AddInitialInfo(Loader::AppLoader& app_loader) {
 bool TelemetrySession::SubmitTestcase() {
 #ifdef ENABLE_WEB_SERVICE
     auto backend = std::make_unique<WebService::TelemetryJson>(NetSettings::values.web_api_url,
-                                                               NetSettings::values.citra_username,
-                                                               NetSettings::values.citra_token);
+                                                               NetSettings::values.lime3ds_username,
+                                                               NetSettings::values.lime3ds_token);
     field_collection.Accept(*backend);
     return backend->SubmitTestcase();
 #else

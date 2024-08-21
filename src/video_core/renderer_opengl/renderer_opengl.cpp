@@ -272,7 +272,7 @@ void RendererOpenGL::LoadFBToScreenInfo(const Pica::FramebufferConfig& framebuff
         // Update existing texture
         // TODO: Test what happens on hardware when you change the framebuffer dimensions so that
         //       they differ from the LCD resolution.
-        // TODO: Applications could theoretically crash Citra here by specifying too large
+        // TODO: Applications could theoretically crash Lime3DS here by specifying too large
         //       framebuffer sizes. We should make sure that this cannot happen.
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, framebuffer.width, framebuffer.height,
                         screen_info.texture.gl_format, screen_info.texture.gl_type,

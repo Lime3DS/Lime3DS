@@ -451,10 +451,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
             return
         }
 
-        if (DirectoryInitialization.areCitraDirectoriesReady()) {
+        if (DirectoryInitialization.areLime3DSDirectoriesReady()) {
             emulationState.run(emulationActivity.isActivityRecreated)
         } else {
-            setupCitraDirectoriesThenStartEmulation()
+            setupLime3DSDirectoriesThenStartEmulation()
         }
     }
 
@@ -471,10 +471,10 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         super.onDetach()
     }
 
-    private fun setupCitraDirectoriesThenStartEmulation() {
+    private fun setupLime3DSDirectoriesThenStartEmulation() {
         val directoryInitializationState = DirectoryInitialization.start()
         if (directoryInitializationState ===
-            DirectoryInitializationState.CITRA_DIRECTORIES_INITIALIZED
+            DirectoryInitializationState.LIME3DS_DIRECTORIES_INITIALIZED
         ) {
             emulationState.run(emulationActivity.isActivityRecreated)
         } else if (directoryInitializationState ===

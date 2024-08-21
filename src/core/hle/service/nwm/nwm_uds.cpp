@@ -97,7 +97,7 @@ u16 NWM_UDS::GetNextAvailableNodeId() {
 
 void NWM_UDS::BroadcastNodeMap() {
     // Note: This is not how UDS on a 3ds does it but it shouldn't be
-    // necessary for citra
+    // necessary for lime3ds
     Network::WifiPacket packet;
     packet.channel = network_channel;
     packet.type = Network::WifiPacket::PacketType::NodeMap;

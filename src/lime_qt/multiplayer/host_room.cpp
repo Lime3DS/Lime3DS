@@ -52,9 +52,9 @@ HostRoomWindow::HostRoomWindow(Core::System& system_, QWidget* parent, QStandard
 
     // Restore the settings:
     ui->username->setText(UISettings::values.room_nickname);
-    if (ui->username->text().isEmpty() && !NetSettings::values.citra_username.empty()) {
-        // Use Citra Web Service user name as nickname by default
-        ui->username->setText(QString::fromStdString(NetSettings::values.citra_username));
+    if (ui->username->text().isEmpty() && !NetSettings::values.lime3ds_username.empty()) {
+        // Use Lime3DS Web Service user name as nickname by default
+        ui->username->setText(QString::fromStdString(NetSettings::values.lime3ds_username));
     }
     ui->room_name->setText(UISettings::values.room_name);
     ui->port->setText(UISettings::values.room_port);
@@ -141,11 +141,11 @@ void HostRoomWindow::Host() {
             ban_list = UISettings::values.ban_list;
         }
         if (auto room = Network::GetRoom().lock()) {
-            bool created = room->Create(ui->room_name->text().toStdString(),
-                                        ui->room_description->toPlainText().toStdString(), "", port,
-                                        password, ui->max_player->value(),
-                                        NetSettings::values.citra_username, game_name.toStdString(),
-                                        game_id, CreateVerifyBackend(is_public), ban_list);
+            bool created = room->Create(
+                ui->room_name->text().toStdString(),
+                ui->room_description->toPlainText().toStdString(), "", port, password,
+                ui->max_player->value(), NetSettings::values.lime3ds_username,
+                game_name.toStdString(), game_id, CreateVerifyBackend(is_public), ban_list);
             if (!created) {
                 NetworkMessage::ErrorManager::ShowError(
                     NetworkMessage::ErrorManager::COULD_NOT_CREATE_ROOM);
@@ -163,7 +163,7 @@ void HostRoomWindow::Host() {
                     QMessageBox::warning(
                         this, tr("Error"),
                         tr("Failed to announce the room to the public lobby. In order to host a "
-                           "room publicly, you must have a valid Citra account configured in "
+                           "room publicly, you must have a valid Lime3DS account configured in "
                            "Emulation -> Configure -> Web. If you do not want to publish a room in "
                            "the public lobby, then select Unlisted instead.\nDebug Message: ") +
                             QString::fromStdString(result.result_string),
@@ -183,8 +183,8 @@ void HostRoomWindow::Host() {
 #ifdef ENABLE_WEB_SERVICE
         if (is_public) {
             WebService::Client client(NetSettings::values.web_api_url,
-                                      NetSettings::values.citra_username,
-                                      NetSettings::values.citra_token);
+                                      NetSettings::values.lime3ds_username,
+                                      NetSettings::values.lime3ds_token);
             if (auto room = Network::GetRoom().lock()) {
                 token = client.GetExternalJWT(room->GetVerifyUID()).returned_data;
             }

@@ -128,13 +128,13 @@ ResultStatus Apploader_Artic::LoadExec(std::shared_ptr<Kernel::Process>& process
         codeset->CodeSegment().offset = 0;
         codeset->CodeSegment().addr = program_exheader.codeset_info.text.address;
         codeset->CodeSegment().size =
-            program_exheader.codeset_info.text.num_max_pages * Memory::CITRA_PAGE_SIZE;
+            program_exheader.codeset_info.text.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
         codeset->RODataSegment().offset =
             codeset->CodeSegment().offset + codeset->CodeSegment().size;
         codeset->RODataSegment().addr = program_exheader.codeset_info.ro.address;
         codeset->RODataSegment().size =
-            program_exheader.codeset_info.ro.num_max_pages * Memory::CITRA_PAGE_SIZE;
+            program_exheader.codeset_info.ro.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
         // TODO(yuriks): Not sure if the bss size is added to the page-aligned .data size or just
         //               to the regular size. Playing it safe for now.
@@ -145,7 +145,7 @@ ResultStatus Apploader_Artic::LoadExec(std::shared_ptr<Kernel::Process>& process
             codeset->RODataSegment().offset + codeset->RODataSegment().size;
         codeset->DataSegment().addr = program_exheader.codeset_info.data.address;
         codeset->DataSegment().size =
-            program_exheader.codeset_info.data.num_max_pages * Memory::CITRA_PAGE_SIZE +
+            program_exheader.codeset_info.data.num_max_pages * Memory::LIME3DS_PAGE_SIZE +
             bss_page_size;
 
         // Apply patches now that the entire codeset (including .bss) has been allocated
@@ -387,9 +387,9 @@ ResultStatus Apploader_Artic::ReadCode(std::vector<u8>& buffer) {
     if (!client_connected)
         return ResultStatus::ErrorArtic;
 
-    size_t code_size = program_exheader.codeset_info.text.num_max_pages * Memory::CITRA_PAGE_SIZE;
-    code_size += program_exheader.codeset_info.ro.num_max_pages * Memory::CITRA_PAGE_SIZE;
-    code_size += program_exheader.codeset_info.data.num_max_pages * Memory::CITRA_PAGE_SIZE;
+    size_t code_size = program_exheader.codeset_info.text.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
+    code_size += program_exheader.codeset_info.ro.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
+    code_size += program_exheader.codeset_info.data.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
     size_t read_amount = 0;
     buffer.clear();

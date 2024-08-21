@@ -33,7 +33,7 @@ public:
      */
     explicit Recorder(const InitialState& initial_state);
 
-    /// Finish recording of this Citrace and save it using the given filename.
+    /// Finish recording of this Lime3DSce and save it using the given filename.
     void Finish(const std::string& filename);
 
     /// Mark end of a frame

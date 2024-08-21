@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Este software irá executar jogos feitos para o console portátil Nintendo 3DS. Nenhum jogo está incluído.\n\nAntes de começar a emulação, selecione uma pasta para armazenar os dados do usuário do Lime3DS.\n\nO que é isto:\n<a href='https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Dados e armazenamento do usuário do Lime3DS Android</a></string>
     <string name="app_notification_channel_description">Notificações do emulador Lime3DS</string>
     <string name="app_notification_running">Lime3DS está rodando</string>
     <string name="app_game_install_description">Em seguida, você precisará selecionar uma pasta de jogo. O Lime3DS exibirá todas as ROMs 3DS dentro da pasta selecionada no aplicativo.\n\nROMs, atualizações e DLC no formato CIA precisarão ser instalados separadamente clicando no ícone da pasta e selecionando Instalar CIA.</string>
@@ -26,10 +25,10 @@
     <string name="select_games_folder">Selecione a pasta de jogos</string>
     <string name="select_games_folder_description">Permitir que o Lime3DS preencha a lista de jogos</string>
     <string name="about">Sobre</string>
-    <string name="citra_description">Um emulador de 3DS de código aberto</string>
+    <string name="lime3ds_description">Um emulador de 3DS de código aberto</string>
     <string name="about_description">Versão de compilação, créditos e mais</string>
     <string name="games_dir_selected">Diretório de jogos selecionado</string>
-    <string name="select_citra_user_folder_home_description">Altere os arquivos que o Lime3DS usa para carregar jogos</string>
+    <string name="select_lime3ds_user_folder_home_description">Altere os arquivos que o Lime3DS usa para carregar jogos</string>
     <string name="theme_and_color_description">Modificar a aparência do aplicativo</string>
     <string name="install_cia_title">Instale a CIA</string>
 
@@ -79,17 +78,13 @@
     <string name="permission_denied">Permissão negada</string>
     <string name="add_games_warning">Pular seleção da pasta de jogos?</string>
     <string name="add_games_warning_description">Os jogos não serão exibidos na lista de jogos se uma pasta não for selecionada.</string>
-    <string name="add_games_warning_help">https://citra-emulator.com/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">Ajuda</string>
     <string name="warning_skip">Pular</string>
     <string name="warning_cancel">Cancelar</string>
-    <string name="select_citra_user_folder">Selecione a pasta do usuário</string>
-    <string name="select_citra_user_folder_description"><![CDATA[Selecione o<a href=\"https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">diretório de dados de usuário</a> com o botão abaixo.]]></string>
+    <string name="select_lime3ds_user_folder">Selecione a pasta do usuário</string>
     <string name="select">Selecionar</string>
     <string name="cannot_skip">Você não pode pular esta etapa</string>
     <string name="cannot_skip_directory_description">Este passo é necessário para permitir que o Lime3DS funcione. Por favor, selecione um diretório para continuar.</string>
-    <string name="cannot_skip_directory_help">https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
-
     <!-- Search Strings -->
     <string name="search_and_filter_games">Pesquisar e Filtrar Jogos</string>
     <string name="home_search_games">Pesquisar Jogos</string>
@@ -132,7 +127,6 @@
     <string name="download">Baixar</string>
     <string name="start">Iniciar</string>
     <string name="keys_missing">Lime3DS está sem as keys necessárias para realizar o download do arquivo de sistemas.</string>
-    <string name="how_to_get_keys"><![CDATA[<a href=\"https://web.archive.org/web/20240304203412/https://citra-emu.org/wiki/aes-keys/\">Como obter as chaves?</a>]]></string>
     <string name="show_home_apps">Mostrar aplicativos do MENU INICIAL na lista de jogos</string>
     <string name="run_system_setup">Execute as configurações de sistema quando o Menu Principal for iniciado.</string>
     <string name="system_type_minimal">Mínimo</string>
@@ -249,8 +243,6 @@
     <string name="use_shader_jit">Sombreador JIT</string>
     <string name="use_disk_shader_cache">Cache de Sombreadores em Disco</string>
     <string name="use_disk_shader_cache_description">Reduz as interrupções armazenando e carregando os sombreadores gerados no disco. Não pode ser usado sem ativar o Sombreador de Hardware.</string>
-    <string name="adreno_gpu_boost">Adreno GPU Boost (Experimental)</string>
-    <string name="adreno_gpu_boost_description">Aumenta o rendimento gráfico em dispositivos suportados, melhorando o desempenho. O uso desta configuração pode aumentar o uso de energia e a temperatura. Pode causar problemas de estabilidade em determinados dispositivos.</string>
     <string name="utility">Utilitário</string>
     <string name="dump_textures">Extrair Texturas</string>
     <string name="dump_textures_description">As texturas são extraídas em dump/textures/[Title ID]/.</string>
@@ -282,7 +274,6 @@
     <string name="learn_more">Saber mais</string>
     <string name="close">Fechar</string>
     <string name="reset_to_default">Redefinir para o Padrão</string>
-    <string name="redump_games"><![CDATA[Por favor, siga os tutoriais para recarregar seus <a href=\"https://web.archive.org/web/20240304210021/https://citra-emu.org/wiki/dumping-game-cartridges/\">cartuchos de jogos</a> ou <a href=\"https://web.archive.org/web/20240304210011/https://citra-emu.org/wiki/dumping-installed-titles/\">títulos instalados</a>.]]></string>
     <string name="option_default">Padrão</string>
     <string name="none">Nenhum</string>
     <string name="auto">Automático</string>
@@ -316,6 +307,7 @@
     <string name="preferences_audio">Áudio</string>
     <string name="preferences_debug">Depuração</string>
     <string name="preferences_theme">Tema e Cor</string>
+
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Sua ROM está Criptografada</string>
     <string name="loader_error_invalid_format">Formato inválido de ROM</string>
@@ -349,6 +341,7 @@
     <string name="emulation_screen_layout_single">Tela única</string>
     <string name="emulation_screen_layout_sidebyside">Telas lado a lado</string>
     <string name="emulation_screen_layout_hybrid">Telas Híbridas</string>
+    <string name="emulation_cycle_landscape_layouts">Ciclo de Layouts de Paisagem</string>
     <string name="emulation_swap_screens">Trocar telas</string>
     <string name="emulation_touch_overlay_reset">Redefinir sobreposição</string>
     <string name="emulation_show_overlay">Mostrar sobreposição</string>
@@ -416,12 +409,9 @@
     <string name="fatal_error">Erro Fatal</string>
     <string name="fatal_error_message">Ocorreu um erro fatal. Verifique o registro para obter detalhes.\nContinuar a emulação pode resultar em falhas e bugs.</string>
 
-    <!-- Disk Shader Cache -->
+    <!-- Disk shader cache -->
     <string name="preparing_shaders">Preparando Shaders</string>
     <string name="building_shaders">Construindo Shaders</string>
-
-    <!-- About Game Dialog -->
-    <string name="play">Jogar</string>
 
     <!-- Cheats -->
     <string name="cheats">Truques</string>
@@ -694,8 +684,5 @@
     <string name="artic_base_connect_description">Conecte-se a um console real que esteja executando um servidor Artic Base</string>
     <string name="artic_base_connect">Conectar-se ao Artic Base</string>
     <string name="artic_base_enter_address">Digite o endereço do servidor Artic Base</string>
-    <string name="miscellaneous">Diversos</string>
-    <string name="use_artic_base_controller">Use o Controle Artic quando conectado ao Servidor Artic Base</string>
-    <string name="use_artic_base_controller_desc">Use os controles fornecidos pelo Servidor Artic Base quando conectado a ele, em vez do dispositivo de entrada configurado.</string>
 
 </resources>

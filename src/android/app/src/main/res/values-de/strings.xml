@@ -20,7 +20,7 @@
     <string name="share_log_not_found">Keine Log-Datei gefunden</string>
     <string name="select_games_folder">Spieleordner auswählen</string>
     <string name="about">Über</string>
-    <string name="citra_description">Ein open-source 3DS-Emulator</string>
+    <string name="lime3ds_description">Ein open-source 3DS-Emulator</string>
     <string name="theme_and_color_description">Das Aussehen der App verändern</string>
     <string name="install_cia_title">CIA Installieren</string>
 

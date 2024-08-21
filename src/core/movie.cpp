@@ -468,8 +468,8 @@ Movie::ValidationResult Movie::ValidateHeader(const CTMHeader& header) const {
 
     std::string revision = fmt::format("{:02x}", fmt::join(header.revision, ""));
     if (revision != Common::g_scm_rev) {
-        LOG_WARNING(Movie,
-                    "This movie was created on a different version of Citra, playback may desync");
+        LOG_WARNING(
+            Movie, "This movie was created on a different version of Lime3DS, playback may desync");
         return ValidationResult::RevisionDismatch;
     }
 

@@ -78,7 +78,7 @@
 #include "lime_qt/util/clickable_label.h"
 #include "lime_qt/util/graphics_device_info.h"
 #include "lime_qt/util/util.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 #include "common/x64/cpu_detect.h"
 #endif
 #include "common/settings.h"
@@ -222,7 +222,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     LOG_INFO(Frontend, "Lime3DS Version: {} | {}-{}", Common::g_build_fullname,
              Common::g_scm_branch, Common::g_scm_desc);
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
     const auto& caps = Common::GetCPUCaps();
     std::string cpu_string = caps.cpu_string;
     if (caps.avx || caps.avx2 || caps.avx512) {
@@ -259,7 +259,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 #if defined(_WIN32)
     if (gl_renderer.startsWith(QStringLiteral("D3D12"))) {
         // OpenGLOn12 supports but does not yet advertise OpenGL 4.0+
-        // We can override the version here to allow Citra to work.
+        // We can override the version here to allow Lime3DS to work.
         // TODO: Remove this when OpenGL 4.0+ is advertised.
         qputenv("MESA_GL_VERSION_OVERRIDE", "4.6");
     }
@@ -942,7 +942,7 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_Dump_Video, &GMainWindow::OnDumpVideo);
 
     // Help
-    connect_menu(ui->action_Open_Citra_Folder, &GMainWindow::OnOpenCitraFolder);
+    connect_menu(ui->action_Open_Lime3DS_Folder, &GMainWindow::OnOpenLime3DSFolder);
     connect_menu(ui->action_Open_Log_Folder, []() {
         QString path = QString::fromStdString(FileUtil::GetUserPath(FileUtil::UserPath::LogDir));
         QDesktopServices::openUrl(QUrl::fromLocalFile(path));
@@ -950,7 +950,7 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_FAQ, []() {
         QDesktopServices::openUrl(QUrl(QStringLiteral("https://discord.com/invite/4ZjMpAp3M6")));
     });
-    connect_menu(ui->action_About, &GMainWindow::OnMenuAboutCitra);
+    connect_menu(ui->action_About, &GMainWindow::OnMenuAboutLime3DS);
 
 #if ENABLE_QT_UPDATER
     connect_menu(ui->action_Check_For_Updates, &GMainWindow::OnCheckForUpdates);
@@ -1147,10 +1147,10 @@ static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
         return {};
     }
     QVariantMap options = {};
-    //: TRANSLATORS: This string is shown to the user to explain why Citra needs to prevent the
+    //: TRANSLATORS: This string is shown to the user to explain why Lime3DS needs to prevent the
     //: computer from sleeping
     options.insert(QString::fromLatin1("reason"),
-                   QCoreApplication::translate("GMainWindow", "Citra is running a game"));
+                   QCoreApplication::translate("GMainWindow", "Lime3DS is running a game"));
     // 0x4: Suspend lock; 0x8: Idle lock
     QDBusReply<QDBusObjectPath> reply =
         xdp.call(QString::fromLatin1("Inhibit"),
@@ -1279,7 +1279,7 @@ bool GMainWindow::LoadROM(const QString& filename) {
 
         case Core::System::ResultStatus::ErrorLoader_ErrorGbaTitle:
             QMessageBox::critical(this, tr("Unsupported ROM"),
-                                  tr("GBA Virtual Console ROMs are not supported by Citra."));
+                                  tr("GBA Virtual Console ROMs are not supported by Lime3DS."));
             break;
 
         case Core::System::ResultStatus::ErrorArticDisconnected:
@@ -2653,7 +2653,7 @@ void GMainWindow::OnRemoveAmiibo() {
     ui->action_Remove_Amiibo->setEnabled(false);
 }
 
-void GMainWindow::OnOpenCitraFolder() {
+void GMainWindow::OnOpenLime3DSFolder() {
     QDesktopServices::openUrl(QUrl::fromLocalFile(
         QString::fromStdString(FileUtil::GetUserPath(FileUtil::UserPath::UserDir))));
 }
@@ -2807,8 +2807,9 @@ void GMainWindow::OnDumpVideo() {
         );
         auto result = message_box.exec();
         if (result == QMessageBox::Help) {
-            QDesktopServices::openUrl(QUrl(QStringLiteral(
-                "https://citra-emu.org/wiki/installing-ffmpeg-for-the-video-dumper/")));
+            QDesktopServices::openUrl(
+                QUrl(QStringLiteral("https://web.archive.org/web/20240301121456/https://"
+                                    "citra-emu.org/wiki/installing-ffmpeg-for-the-video-dumper/")));
 #ifdef _WIN32
         } else if (result == QMessageBox::Open) {
             OnOpenFFmpeg();
@@ -3178,7 +3179,7 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
     if (result == Core::System::ResultStatus::ErrorSystemFiles) {
         const QString common_message =
             tr("%1 is missing. Please <a "
-               "href='https://citra-emu.org/wiki/"
+               "https://web.archive.org/web/20240301100916/https://citra-emu.org/wiki/"
                "dumping-system-archives-and-the-shared-fonts-from-a-3ds-console/'>dump your "
                "system archives</a>.<br/>Continuing emulation may result in crashes and bugs.");
 
@@ -3204,11 +3205,12 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
         can_continue = false;
     } else {
         title = tr("Fatal Error");
-        message =
-            tr("A fatal error occurred. "
-               "<a href='https://community.citra-emu.org/t/how-to-upload-the-log-file/296'>Check "
-               "the log</a> for details."
-               "<br/>Continuing emulation may result in crashes and bugs.");
+        message = tr("A fatal error occurred. "
+                     "<a "
+                     "href='https://https://web.archive.org/web/20240105231121/https://"
+                     "community.citra-emu.org/t/how-to-upload-the-log-file/296'>Check "
+                     "the log</a> for details."
+                     "<br/>Continuing emulation may result in crashes and bugs.");
         status_message = tr("Fatal Error encountered");
         error_severity_icon = QMessageBox::Icon::Critical;
     }
@@ -3247,7 +3249,7 @@ void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string det
     }
 }
 
-void GMainWindow::OnMenuAboutCitra() {
+void GMainWindow::OnMenuAboutLime3DS() {
     AboutDialog about{this};
     about.exec();
 }

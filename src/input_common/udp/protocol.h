@@ -57,7 +57,7 @@ namespace Request {
 struct Version {};
 /**
  * Requests the server to send information about what controllers are plugged into the ports
- * In citra's case, we only have one controller, so for simplicity's sake, we can just send a
+ * In lime3ds's case, we only have one controller, so for simplicity's sake, we can just send a
  * request explicitly for the first controller port and leave it at that. In the future it would be
  * nice to make this configurable
  */

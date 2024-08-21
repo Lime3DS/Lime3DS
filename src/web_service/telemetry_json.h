@@ -13,7 +13,7 @@ namespace WebService {
 
 /**
  * Implementation of VisitorInterface that serialized telemetry into JSON, and submits it to the
- * Citra web service
+ * Lime3DS web service
  */
 class TelemetryJson : public Common::Telemetry::VisitorInterface {
 public:

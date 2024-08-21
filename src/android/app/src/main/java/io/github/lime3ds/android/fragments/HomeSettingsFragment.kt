@@ -156,10 +156,10 @@ class HomeSettingsFragment : Fragment() {
                 driverViewModel.selectedDriverMetadata
             ),
             HomeSetting(
-                R.string.select_citra_user_folder,
-                R.string.select_citra_user_folder_home_description,
+                R.string.select_lime3ds_user_folder,
+                R.string.select_lime3ds_user_folder_home_description,
                 R.drawable.ic_home,
-                { mainActivity.openCitraDirectory.launch(null) },
+                { mainActivity.openLime3DSDirectory.launch(null) },
                 details = homeViewModel.userDir
             ),
             HomeSetting(
@@ -243,7 +243,7 @@ class HomeSettingsFragment : Fragment() {
     private fun shareLog() {
         val logDirectory = DocumentFile.fromTreeUri(
             requireContext(),
-            PermissionsHandler.citraDirectory
+            PermissionsHandler.lime3dsDirectory
         )?.findFile("log")
         val currentLog = logDirectory?.findFile("lime3ds_log.txt")
         val oldLog = logDirectory?.findFile("lime3ds_log.old.txt")
