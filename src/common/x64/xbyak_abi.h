@@ -5,7 +5,7 @@
 #pragma once
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 
 #include <bitset>
 #include <initializer_list>
@@ -232,4 +232,4 @@ inline void ABI_PopRegistersAndAdjustStack(Xbyak::CodeGenerator& code, std::bits
 
 } // namespace Common::X64
 
-#endif // CITRA_ARCH(x86_64)
+#endif // LIME3DS_ARCH(x86_64)

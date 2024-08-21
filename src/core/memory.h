@@ -29,10 +29,10 @@ namespace Memory {
  * Page size used by the ARM architecture. This is the smallest granularity with which memory can
  * be mapped.
  */
-constexpr u32 CITRA_PAGE_SIZE = 0x1000;
-constexpr u32 CITRA_PAGE_MASK = CITRA_PAGE_SIZE - 1;
-constexpr int CITRA_PAGE_BITS = 12;
-constexpr std::size_t PAGE_TABLE_NUM_ENTRIES = 1 << (32 - CITRA_PAGE_BITS);
+constexpr u32 LIME3DS_PAGE_SIZE = 0x1000;
+constexpr u32 LIME3DS_PAGE_MASK = LIME3DS_PAGE_SIZE - 1;
+constexpr int LIME3DS_PAGE_BITS = 12;
+constexpr std::size_t PAGE_TABLE_NUM_ENTRIES = 1 << (32 - LIME3DS_PAGE_BITS);
 
 enum class PageType {
     /// Page is unmapped and should cause an access error.

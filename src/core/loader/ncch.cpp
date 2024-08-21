@@ -120,13 +120,14 @@ ResultStatus AppLoader_NCCH::LoadExec(std::shared_ptr<Kernel::Process>& process)
         codeset->CodeSegment().offset = 0;
         codeset->CodeSegment().addr = overlay_ncch->exheader_header.codeset_info.text.address;
         codeset->CodeSegment().size =
-            overlay_ncch->exheader_header.codeset_info.text.num_max_pages * Memory::CITRA_PAGE_SIZE;
+            overlay_ncch->exheader_header.codeset_info.text.num_max_pages *
+            Memory::LIME3DS_PAGE_SIZE;
 
         codeset->RODataSegment().offset =
             codeset->CodeSegment().offset + codeset->CodeSegment().size;
         codeset->RODataSegment().addr = overlay_ncch->exheader_header.codeset_info.ro.address;
         codeset->RODataSegment().size =
-            overlay_ncch->exheader_header.codeset_info.ro.num_max_pages * Memory::CITRA_PAGE_SIZE;
+            overlay_ncch->exheader_header.codeset_info.ro.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
         // TODO(yuriks): Not sure if the bss size is added to the page-aligned .data size or just
         //               to the regular size. Playing it safe for now.
@@ -138,7 +139,7 @@ ResultStatus AppLoader_NCCH::LoadExec(std::shared_ptr<Kernel::Process>& process)
         codeset->DataSegment().addr = overlay_ncch->exheader_header.codeset_info.data.address;
         codeset->DataSegment().size =
             overlay_ncch->exheader_header.codeset_info.data.num_max_pages *
-                Memory::CITRA_PAGE_SIZE +
+                Memory::LIME3DS_PAGE_SIZE +
             bss_page_size;
 
         // Apply patches now that the entire codeset (including .bss) has been allocated

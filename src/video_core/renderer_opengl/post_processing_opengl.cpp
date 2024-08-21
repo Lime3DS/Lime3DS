@@ -19,7 +19,7 @@ namespace OpenGL {
 // The Dolphin shader header is added here for drop-in compatibility with most
 // of Dolphin's "glsl" shaders, which use hlsl types, hence the #define's below
 // It's fairly complete, but the features it's missing are:
-// The font texture for the ascii shader (Citra doesn't have an overlay font)
+// The font texture for the ascii shader (Lime3DS doesn't have an overlay font)
 // GetTime (not used in any shader provided by Dolphin)
 // GetOption* (used in only one shader provided by Dolphin; would require more
 // configuration/frontend work)

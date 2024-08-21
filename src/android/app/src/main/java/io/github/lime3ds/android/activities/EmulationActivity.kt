@@ -43,7 +43,6 @@ import io.github.lime3ds.android.fragments.EmulationFragment
 import io.github.lime3ds.android.fragments.MessageDialogFragment
 import io.github.lime3ds.android.utils.ControllerMappingHelper
 import io.github.lime3ds.android.utils.FileBrowserHelper
-import io.github.lime3ds.android.utils.ForegroundService
 import io.github.lime3ds.android.utils.EmulationLifecycleUtil
 import io.github.lime3ds.android.utils.EmulationMenuSettings
 import io.github.lime3ds.android.utils.ThemeUtil
@@ -52,7 +51,6 @@ import io.github.lime3ds.android.viewmodel.EmulationViewModel
 class EmulationActivity : AppCompatActivity() {
     private val preferences: SharedPreferences
         get() = PreferenceManager.getDefaultSharedPreferences(LimeApplication.appContext)
-    private var foregroundService: Intent? = null
     var isActivityRecreated = false
     private val emulationViewModel: EmulationViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
@@ -97,7 +95,7 @@ class EmulationActivity : AppCompatActivity() {
         // Set these options now so that the SurfaceView the game renders into is the right size.
         enableFullscreenImmersive()
 
-        // Override Citra core INI with the one set by our in game menu
+        // Override Lime3DS core INI with the one set by our in game menu
         NativeLibrary.swapScreens(
             EmulationMenuSettings.swapScreens,
             windowManager.defaultDisplay.rotation
@@ -494,12 +492,6 @@ class EmulationActivity : AppCompatActivity() {
 
         fun isRunning(): Boolean {
             return instance?.isEmulationRunning ?: false
-        }
-
-        fun stopForegroundService(activity: Activity) {
-            val startIntent = Intent(activity, ForegroundService::class.java)
-            startIntent.action = ForegroundService.ACTION_STOP
-            activity.startForegroundService(startIntent)
         }
     }
 }

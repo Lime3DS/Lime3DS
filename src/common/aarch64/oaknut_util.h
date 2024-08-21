@@ -5,7 +5,7 @@
 #pragma once
 
 #include "common/arch.h"
-#if CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(arm64)
 
 #include <type_traits>
 #include <oaknut/oaknut.hpp>
@@ -40,4 +40,4 @@ inline void CallFarFunction(oaknut::CodeGenerator& code, const T f) {
 
 } // namespace Common::A64
 
-#endif // CITRA_ARCH(arm64)
+#endif // LIME3DS_ARCH(arm64)

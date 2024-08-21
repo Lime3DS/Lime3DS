@@ -415,7 +415,7 @@ int main(int argc, char** argv) {
         return -1;
     case Core::System::ResultStatus::ErrorLoader_ErrorEncrypted:
         LOG_CRITICAL(Frontend, "The game that you are trying to load must be decrypted before "
-                               "being used with Lime. \n\n For more information on dumping and "
+                               "being used with Lime3DS. \n\n For more information on dumping and "
                                "decrypting games, please refer to: "
                                "https://web.archive.org/web/20240304210021/https://citra-emu.org/"
                                "wiki/dumping-game-cartridges/");

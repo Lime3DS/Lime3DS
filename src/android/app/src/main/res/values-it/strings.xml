@@ -211,7 +211,7 @@
     <string name="fatal_error">Errore Fatale</string>
     <string name="fatal_error_message">Consulta il log per i dettagli.\nContinuare con l\'emulazione potrebbe causare un crash.</string>
 
-    <!-- Disk shader cache -->
+    <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Preparando le Shaders</string>
     <string name="building_shaders">Costruisco le Shaders</string>
 

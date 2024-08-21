@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -74,7 +74,7 @@ touch_device=
 
 # Most desktop operating systems do not expose a way to poll the motion state of the controllers
 # so as a way around it, cemuhook created a udp client/server protocol to broadcast the data directly
-# from a controller device to the client program. Citra has a client that can connect and read
+# from a controller device to the client program. Lime3DS has a client that can connect and read
 # from any cemuhook compatible motion program.
 
 # IPv4 address of the udp input server (Default "127.0.0.1")
@@ -182,7 +182,7 @@ filter_mode =
 
 [Layout]
 # Layout for the screen inside the render window.
-# 0 (default): Default Top Bottom Screen
+# 0 (default): Default Above/Below Screen
 # 1: Single Screen Only
 # 2: Large Screen Small Screen
 # 3: Side by Side
@@ -190,10 +190,6 @@ filter_mode =
 # 5: Hybrid Screen
 # 6: Custom Layout
 layout_option =
-
-# Toggle custom layout (using the settings below) on or off.
-# 0 (default): Off, 1: On
-custom_layout =
 
 # Screen placement when using Custom layout option
 # 0x, 0y is the top left corner of the render window.
@@ -295,7 +291,7 @@ sdmc_directory =
 nand_directory =
 
 [System]
-# The system model that Citra will try to emulate
+# The system model that Lime3DS will try to emulate
 # 0: Old 3DS, 1: New 3DS (default)
 is_new_3ds =
 
@@ -303,11 +299,11 @@ is_new_3ds =
 # 0 (default): No, 1: Yes
 lle_applets =
 
-# The system region that Citra will use during emulation
+# The system region that Lime3DS will use during emulation
 # -1: Auto-select (default), 0: Japan, 1: USA, 2: Europe, 3: Australia, 4: China, 5: Korea, 6: Taiwan
 region_value =
 
-# The clock to use when citra starts
+# The clock to use when lime3ds starts
 # 0: System clock (default), 1: fixed time
 init_clock =
 
@@ -316,7 +312,7 @@ init_clock =
 # Note: 3DS can only handle times later then Jan 1 2000
 init_time =
 
-# The system ticks count to use when citra starts
+# The system ticks count to use when lime3ds starts
 # 0: Random (default), 1: Fixed
 init_ticks_type =
 
@@ -368,10 +364,10 @@ renderer_debug =
 [WebService]
 # URL for Web API
 web_api_url = https://api.citra-emu.org
-# Username and token for Citra Web Service
+# Username and token for Lime3DS Web Service
 # See https://profile.citra-emu.org/ for more info
-citra_username =
-citra_token =
+lime3ds_username =
+lime3ds_token =
 
 [Video Dumping]
 # Format of the video to output, default: webm

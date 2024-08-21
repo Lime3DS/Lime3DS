@@ -8,21 +8,21 @@ import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
-import io.github.lime3ds.android.fragments.CitraDirectoryDialogFragment
+import io.github.lime3ds.android.fragments.Lime3DSDirectoryDialogFragment
 import io.github.lime3ds.android.fragments.CopyDirProgressDialog
 import io.github.lime3ds.android.model.SetupCallback
 import io.github.lime3ds.android.viewmodel.HomeViewModel
 
 /**
- * Citra directory initialization ui flow controller.
+ * Lime3DS directory initialization ui flow controller.
  */
-class CitraDirectoryHelper(private val fragmentActivity: FragmentActivity) {
-    fun showCitraDirectoryDialog(result: Uri, callback: SetupCallback? = null) {
-        val citraDirectoryDialog = CitraDirectoryDialogFragment.newInstance(
+class Lime3DSDirectoryHelper(private val fragmentActivity: FragmentActivity) {
+    fun showLime3DSDirectoryDialog(result: Uri, callback: SetupCallback? = null) {
+        val lime3dsDirectoryDialog = Lime3DSDirectoryDialogFragment.newInstance(
             fragmentActivity,
             result.toString(),
-            CitraDirectoryDialogFragment.Listener { moveData: Boolean, path: Uri ->
-                val previous = PermissionsHandler.citraDirectory
+            Lime3DSDirectoryDialogFragment.Listener { moveData: Boolean, path: Uri ->
+                val previous = PermissionsHandler.lime3dsDirectory
                 // Do noting if user select the previous path.
                 if (path == previous) {
                     return@Listener
@@ -35,7 +35,7 @@ class CitraDirectoryHelper(private val fragmentActivity: FragmentActivity) {
                     takeFlags
                 )
                 if (!moveData || previous.toString().isEmpty()) {
-                    initializeCitraDirectory(path)
+                    initializeLime3DSDirectory(path)
                     callback?.onStepCompleted()
                     val viewModel = ViewModelProvider(fragmentActivity)[HomeViewModel::class.java]
                     viewModel.setUserDir(fragmentActivity, path.path!!)
@@ -47,16 +47,16 @@ class CitraDirectoryHelper(private val fragmentActivity: FragmentActivity) {
                 CopyDirProgressDialog.newInstance(fragmentActivity, previous, path, callback)
                     ?.show(fragmentActivity.supportFragmentManager, CopyDirProgressDialog.TAG)
             })
-        citraDirectoryDialog.show(
+        lime3dsDirectoryDialog.show(
             fragmentActivity.supportFragmentManager,
-            CitraDirectoryDialogFragment.TAG
+            Lime3DSDirectoryDialogFragment.TAG
         )
     }
 
     companion object {
-        fun initializeCitraDirectory(path: Uri) {
-            PermissionsHandler.setCitraDirectory(path.toString())
-            DirectoryInitialization.resetCitraDirectoryState()
+        fun initializeLime3DSDirectory(path: Uri) {
+            PermissionsHandler.setLime3DSDirectory(path.toString())
+            DirectoryInitialization.resetLime3DSDirectoryState()
             DirectoryInitialization.start()
         }
     }

@@ -13,17 +13,17 @@ import androidx.documentfile.provider.DocumentFile
 import io.github.lime3ds.android.LimeApplication
 
 object PermissionsHandler {
-    const val CITRA_DIRECTORY = "CITRA_DIRECTORY"
+    const val LIME3DS_DIRECTORY = "LIME3DS_DIRECTORY"
     val preferences: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(LimeApplication.appContext)
 
     fun hasWriteAccess(context: Context): Boolean {
         try {
-            if (citraDirectory.toString().isEmpty()) {
+            if (lime3dsDirectory.toString().isEmpty()) {
                 return false
             }
 
-            val uri = citraDirectory
+            val uri = lime3dsDirectory
             val takeFlags =
                 Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             context.contentResolver.takePersistableUriPermission(uri, takeFlags)
@@ -34,17 +34,17 @@ object PermissionsHandler {
 
             context.contentResolver.releasePersistableUriPermission(uri, takeFlags)
         } catch (e: Exception) {
-            Log.error("[PermissionsHandler]: Cannot check citra data directory permission, error: " + e.message)
+            Log.error("[PermissionsHandler]: Cannot check lime3ds data directory permission, error: " + e.message)
         }
         return false
     }
 
-    val citraDirectory: Uri
+    val lime3dsDirectory: Uri
         get() {
-            val directoryString = preferences.getString(CITRA_DIRECTORY, "")
+            val directoryString = preferences.getString(LIME3DS_DIRECTORY, "")
             return Uri.parse(directoryString)
         }
 
-    fun setCitraDirectory(uriString: String?) =
-        preferences.edit().putString(CITRA_DIRECTORY, uriString).apply()
+    fun setLime3DSDirectory(uriString: String?) =
+        preferences.edit().putString(LIME3DS_DIRECTORY, uriString).apply()
 }

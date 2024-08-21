@@ -19,6 +19,13 @@
 
 Download the latest release from [Releases](https://github.com/Lime3DS/Lime3DS/releases).
 
+#### Windows Version Differences
+There is no emulation specific difference between the MSVC and MSYS2 versions of Lime3DS, they are just two different compilers used to create a Lime3DS executable. However, there are a few functional differences:
+* MSVC generates a smaller file
+* Microsoft developed [MSVC](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist) and is closed source while [MSYS2](https://www.msys2.org/) is open-source
+* MSVC requires the installation of [Microsoft Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist), if not already installed, which can require a restart to finish the install. If you have issues with the Microsoft Visual C++ runtimes, you should try the MSYS2 install
+* There have been reports where MSVC has not worked while MSYS2 does
+
 ---
 ### Android
 The recommended method of downloading Lime3DS on Android is via Obtainium:
@@ -47,7 +54,7 @@ We are also on Flathub:
 <a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='180' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 # Build Instructions
-Please refer to our website's [wiki](https://lime3ds.github.io/pages/wiki.html) in order to find building instructions for Windows, Linux, Android and MacOS
+Please refer to our website's [wiki](https://github.com/Lime3DS/Lime3DS/wiki/Building-From-Source) in order to find building instructions for Windows, Linux, Android and MacOS
 
 # Compatibility Reporting
 Reports for game compatibility can be made here: https://github.com/Lime3DS/compatibility-list
@@ -82,9 +89,10 @@ If there is an issue you want solved or a feature you want implemented, feel fre
 
 <sup>(Please don't repeatedly merge `master` into your PR's branch. A maintainer will update the branch for you if/ when it is appropriate to do so)</sup>
 
-Additionally, [we are accepting language translations on Transifex](https://app.transifex.com/lime3ds/lime3ds). If you know a non-english language listed on our Transifex page, please feel free to contribute.
+Additionally, we are accepting language translations on [Transifex](https://app.transifex.com/lime3ds/lime3ds). If you know a non-english language listed on our Transifex page, please feel free to contribute.
 
-Note: We are not currently accepting new languages for translation. Please do not request for new languages or language variants to be added.
+> [!NOTE]  
+> We are not currently accepting new languages for translation. Please do not request for new languages or language variants to be added.
 
 # Discord
 Join our Discord community to discuss the project or talk with the developers.

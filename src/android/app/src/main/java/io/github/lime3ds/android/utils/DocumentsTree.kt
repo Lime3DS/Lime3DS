@@ -14,7 +14,7 @@ import java.util.StringTokenizer
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * A cached document tree for Citra user directory.
+ * A cached document tree for Lime3DS user directory.
  * For every filepath which is not startsWith "content://" will need to use this class to traverse.
  * For example:
  * C++ Lime3DS log file directory will be /log/lime3ds_log.txt.

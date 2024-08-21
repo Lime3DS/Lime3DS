@@ -2,49 +2,254 @@
 <resources>
 
     <style name="Theme.Lime.Splash.Main" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/citra_surface</item>
+        <item name="windowSplashScreenBackground">@color/lime_surface_blue</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_lime</item>
-        <item name="postSplashScreenTheme">@style/Theme.Lime.Main</item>
+        <item name="postSplashScreenTheme">@style/Theme.Lime.Blue</item>
     </style>
 
-    <style name="Theme.Citra" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Main theme colors -->
-        <item name="colorPrimary">@color/citra_primary</item>
-        <item name="colorOnPrimary">@color/citra_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/citra_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/citra_onPrimaryContainer</item>
-        <item name="colorSecondary">@color/citra_secondary</item>
-        <item name="colorOnSecondary">@color/citra_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/citra_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/citra_onSecondaryContainer</item>
-        <item name="colorTertiary">@color/citra_tertiary</item>
-        <item name="colorOnTertiary">@color/citra_onTertiary</item>
-        <item name="colorTertiaryContainer">@color/citra_tertiaryContainer</item>
-        <item name="colorOnTertiaryContainer">@color/citra_onTertiaryContainer</item>
-        <item name="colorError">@color/citra_error</item>
-        <item name="colorErrorContainer">@color/citra_errorContainer</item>
-        <item name="colorOnError">@color/citra_onError</item>
-        <item name="colorOnErrorContainer">@color/citra_onErrorContainer</item>
-        <item name="android:colorBackground">@color/citra_background</item>
-        <item name="colorOnBackground">@color/citra_onBackground</item>
-        <item name="colorSurface">@color/citra_surface</item>
-        <item name="colorOnSurface">@color/citra_onSurface</item>
-        <item name="colorSurfaceVariant">@color/citra_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/citra_onSurfaceVariant</item>
-        <item name="colorOutline">@color/citra_outline</item>
-        <item name="colorOnSurfaceInverse">@color/citra_inverseOnSurface</item>
-        <item name="colorSurfaceInverse">@color/citra_inverseSurface</item>
-        <item name="colorPrimaryInverse">@color/citra_inversePrimary</item>
-
+    <style name="Theme.Lime" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Common theme colors -->
+        <item name="colorError">@color/lime_error</item>
+        <item name="colorErrorContainer">@color/lime_errorContainer</item>
+        <item name="colorOnError">@color/lime_onError</item>
+        <item name="colorOnErrorContainer">@color/lime_onErrorContainer</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-
-        <item name="sliderStyle">@style/CitraSlider</item>
-
+        <item name="sliderStyle">@style/LimeSlider</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
-    <!-- Trick for API >= 29 specific changes -->
-    <style name="Theme.Lime.Main" parent="Theme.Citra" />
+    <style name="Theme.Lime.Blue" parent="Theme.Lime">
+        <!-- Blue theme colors -->
+        <item name="colorPrimary">@color/lime_primary_blue</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_blue</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_blue</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_blue</item>
+        <item name="colorSecondary">@color/lime_secondary_blue</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_blue</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_blue</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_blue</item>
+        <item name="colorTertiary">@color/lime_tertiary_blue</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_blue</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_blue</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_blue</item>
+        <item name="android:colorBackground">@color/lime_background_blue</item>
+        <item name="colorOnBackground">@color/lime_onBackground_blue</item>
+        <item name="colorSurface">@color/lime_surface_blue</item>
+        <item name="colorOnSurface">@color/lime_onSurface_blue</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_blue</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_blue</item>
+        <item name="colorOutline">@color/lime_outline_blue</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_blue</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_blue</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_blue</item>
+    </style>
 
+    <style name="Theme.Lime.Red" parent="Theme.Lime">
+        <!-- Red theme colors -->
+        <item name="colorPrimary">@color/lime_primary_red</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_red</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_red</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_red</item>
+        <item name="colorSecondary">@color/lime_secondary_red</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_red</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_red</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_red</item>
+        <item name="colorTertiary">@color/lime_tertiary_red</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_red</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_red</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_red</item>
+        <item name="android:colorBackground">@color/lime_background_red</item>
+        <item name="colorOnBackground">@color/lime_onBackground_red</item>
+        <item name="colorSurface">@color/lime_surface_red</item>
+        <item name="colorOnSurface">@color/lime_onSurface_red</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_red</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_red</item>
+        <item name="colorOutline">@color/lime_outline_red</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_red</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_red</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_red</item>
+    </style>
+
+    <style name="Theme.Lime.Green" parent="Theme.Lime">
+        <!-- Green theme colors -->
+        <item name="colorPrimary">@color/lime_primary_green</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_green</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_green</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_green</item>
+        <item name="colorSecondary">@color/lime_secondary_green</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_green</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_green</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_green</item>
+        <item name="colorTertiary">@color/lime_tertiary_green</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_green</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_green</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_green</item>
+        <item name="android:colorBackground">@color/lime_background_green</item>
+        <item name="colorOnBackground">@color/lime_onBackground_green</item>
+        <item name="colorSurface">@color/lime_surface_green</item>
+        <item name="colorOnSurface">@color/lime_onSurface_green</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_green</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_green</item>
+        <item name="colorOutline">@color/lime_outline_green</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_green</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_green</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_green</item>
+    </style>
+
+    <style name="Theme.Lime.Orange" parent="Theme.Lime">
+        <!-- Orange theme colors -->
+        <item name="colorPrimary">@color/lime_primary_orange</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_orange</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_orange</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_orange</item>
+        <item name="colorSecondary">@color/lime_secondary_orange</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_orange</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_orange</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_orange</item>
+        <item name="colorTertiary">@color/lime_tertiary_orange</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_orange</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_orange</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_orange</item>
+        <item name="android:colorBackground">@color/lime_background_orange</item>
+        <item name="colorOnBackground">@color/lime_onBackground_orange</item>
+        <item name="colorSurface">@color/lime_surface_orange</item>
+        <item name="colorOnSurface">@color/lime_onSurface_orange</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_orange</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_orange</item>
+        <item name="colorOutline">@color/lime_outline_orange</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_orange</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_orange</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_orange</item>
+    </style>
+
+    <style name="Theme.Lime.Yellow" parent="Theme.Lime">
+        <!-- Yellow theme colors -->
+        <item name="colorPrimary">@color/lime_primary_yellow</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_yellow</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_yellow</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_yellow</item>
+        <item name="colorSecondary">@color/lime_secondary_yellow</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_yellow</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_yellow</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_yellow</item>
+        <item name="colorTertiary">@color/lime_tertiary_yellow</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_yellow</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_yellow</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_yellow</item>
+        <item name="android:colorBackground">@color/lime_background_yellow</item>
+        <item name="colorOnBackground">@color/lime_onBackground_yellow</item>
+        <item name="colorSurface">@color/lime_surface_yellow</item>
+        <item name="colorOnSurface">@color/lime_onSurface_yellow</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_yellow</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_yellow</item>
+        <item name="colorOutline">@color/lime_outline_yellow</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_yellow</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_yellow</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_yellow</item>
+    </style>
+
+    <style name="Theme.Lime.Violet" parent="Theme.Lime">
+        <!-- Violet theme colors -->
+        <item name="colorPrimary">@color/lime_primary_violet</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_violet</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_violet</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_violet</item>
+        <item name="colorSecondary">@color/lime_secondary_violet</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_violet</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_violet</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_violet</item>
+        <item name="colorTertiary">@color/lime_tertiary_violet</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_violet</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_violet</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_violet</item>
+        <item name="android:colorBackground">@color/lime_background_violet</item>
+        <item name="colorOnBackground">@color/lime_onBackground_violet</item>
+        <item name="colorSurface">@color/lime_surface_violet</item>
+        <item name="colorOnSurface">@color/lime_onSurface_violet</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_violet</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_violet</item>
+        <item name="colorOutline">@color/lime_outline_violet</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_violet</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_violet</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_violet</item>
+    </style>
+
+    <style name="Theme.Lime.Cyan" parent="Theme.Lime">
+        <!-- Cyan theme colors -->
+        <item name="colorPrimary">@color/lime_primary_cyan</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_cyan</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_cyan</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_cyan</item>
+        <item name="colorSecondary">@color/lime_secondary_cyan</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_cyan</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_cyan</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_cyan</item>
+        <item name="colorTertiary">@color/lime_tertiary_cyan</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_cyan</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_cyan</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_cyan</item>
+        <item name="android:colorBackground">@color/lime_background_cyan</item>
+        <item name="colorOnBackground">@color/lime_onBackground_cyan</item>
+        <item name="colorSurface">@color/lime_surface_cyan</item>
+        <item name="colorOnSurface">@color/lime_onSurface_cyan</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_cyan</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_cyan</item>
+        <item name="colorOutline">@color/lime_outline_cyan</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_cyan</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_cyan</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_cyan</item>
+    </style>
+
+    <style name="Theme.Lime.Gray" parent="Theme.Lime">
+    <!-- Gray Theme Colors -->
+        <item name="colorPrimary">@color/lime_primary_gray</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_gray</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_gray</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_gray</item>
+        <item name="colorSecondary">@color/lime_secondary_gray</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_gray</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_gray</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_gray</item>
+        <item name="colorTertiary">@color/lime_tertiary_gray</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_gray</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_gray</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_gray</item>
+        <item name="android:colorBackground">@color/lime_background_gray</item>
+        <item name="colorOnBackground">@color/lime_onBackground_gray</item>
+        <item name="colorSurface">@color/lime_surface_gray</item>
+        <item name="colorOnSurface">@color/lime_onSurface_gray</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_gray</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_gray</item>
+        <item name="colorOutline">@color/lime_outline_gray</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_gray</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_gray</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_gray</item>
+    </style>
+
+    <style name="Theme.Lime.Pink" parent="Theme.Lime">
+    <!-- Pink Theme Colors -->
+        <item name="colorPrimary">@color/lime_primary_pink</item>
+        <item name="colorOnPrimary">@color/lime_onPrimary_pink</item>
+        <item name="colorPrimaryContainer">@color/lime_primaryContainer_pink</item>
+        <item name="colorOnPrimaryContainer">@color/lime_onPrimaryContainer_pink</item>
+        <item name="colorSecondary">@color/lime_secondary_pink</item>
+        <item name="colorOnSecondary">@color/lime_onSecondary_pink</item>
+        <item name="colorSecondaryContainer">@color/lime_secondaryContainer_pink</item>
+        <item name="colorOnSecondaryContainer">@color/lime_onSecondaryContainer_pink</item>
+        <item name="colorTertiary">@color/lime_tertiary_pink</item>
+        <item name="colorOnTertiary">@color/lime_onTertiary_pink</item>
+        <item name="colorTertiaryContainer">@color/lime_tertiaryContainer_pink</item>
+        <item name="colorOnTertiaryContainer">@color/lime_onTertiaryContainer_pink</item>
+        <item name="android:colorBackground">@color/lime_background_pink</item>
+        <item name="colorOnBackground">@color/lime_onBackground_pink</item>
+        <item name="colorSurface">@color/lime_surface_pink</item>
+        <item name="colorOnSurface">@color/lime_onSurface_pink</item>
+        <item name="colorSurfaceVariant">@color/lime_surfaceVariant_pink</item>
+        <item name="colorOnSurfaceVariant">@color/lime_onSurfaceVariant_pink</item>
+        <item name="colorOutline">@color/lime_outline_pink</item>
+        <item name="colorOnSurfaceInverse">@color/lime_inverseOnSurface_pink</item>
+        <item name="colorSurfaceInverse">@color/lime_inverseSurface_pink</item>
+        <item name="colorPrimaryInverse">@color/lime_inversePrimary_pink</item>
+    </style>
 </resources>
