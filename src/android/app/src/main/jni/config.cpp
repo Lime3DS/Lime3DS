@@ -174,8 +174,8 @@ void Config::ReadValues() {
     ReadSetting("Renderer", Settings::values.bg_blue);
 
     // Layout
-    // somewhat inelegant solution to ensure layout value is between 0 and 5 on read
-    // since older config files my have other values
+    // Somewhat inelegant solution to ensure layout value is between 0 and 5 on read
+    // since older config files may have other values
     int layoutInt = (int)sdl2_config->GetInteger(
         "Layout", "layout_option", static_cast<int>(Settings::LayoutOption::LargeScreen));
     if (layoutInt < 0 || layoutInt > 5) {
