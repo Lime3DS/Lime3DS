@@ -1,6 +1,9 @@
-// Copyright 2019 yuzu Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright 2019 Yuzu Emulator Project
+// Licensed under GPLv2 or any later version
 
 #include <algorithm>
 #include <limits>
@@ -33,9 +36,11 @@ vk::MemoryPropertyFlags MakePropertyFlags(BufferType type) {
     case BufferType::Upload:
         return vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;
     case BufferType::Download:
-        return vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent | vk::MemoryPropertyFlagBits::eHostCached;
+        return vk::MemoryPropertyFlagBits::eHostVisible |
+               vk::MemoryPropertyFlagBits::eHostCoherent | vk::MemoryPropertyFlagBits::eHostCached;
     case BufferType::Stream:
-        return vk::MemoryPropertyFlagBits::eDeviceLocal | vk::MemoryPropertyFlagBits::eHostVisible | vk::MemoryPropertyFlagBits::eHostCoherent;
+        return vk::MemoryPropertyFlagBits::eDeviceLocal | vk::MemoryPropertyFlagBits::eHostVisible |
+               vk::MemoryPropertyFlagBits::eHostCoherent;
     default:
         UNREACHABLE_MSG("Unknown buffer type {}", type);
         return vk::MemoryPropertyFlagBits::eHostVisible;
