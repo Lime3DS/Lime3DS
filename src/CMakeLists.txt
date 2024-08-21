@@ -85,14 +85,14 @@ if (MSVC)
         /wd4324 # 'struct_name': structure was padded due to __declspec(align())
     )
 
-    if (CITRA_WARNINGS_AS_ERRORS)
+    if (LIME3DS_WARNINGS_AS_ERRORS)
         add_compile_options(/WX)
     endif()
 
     # Since MSVC's debugging information is not very deterministic, so we have to disable it
     # when using ccache or other caching tools
     if (CMAKE_C_COMPILER_LAUNCHER STREQUAL "ccache" OR CMAKE_CXX_COMPILER_LAUNCHER STREQUAL "ccache"
-            OR CITRA_USE_PRECOMPILED_HEADERS)
+            OR LIME3DS_USE_PRECOMPILED_HEADERS)
         # Precompiled headers are deleted if not using /Z7. See https://github.com/nanoant/CMakePCHCompiler/issues/21
         add_compile_options(/Z7)
     else()
@@ -120,7 +120,7 @@ else()
         add_compile_options(-D_FORTIFY_SOURCE=2)
     endif()
 
-    if (CITRA_WARNINGS_AS_ERRORS)
+    if (LIME3DS_WARNINGS_AS_ERRORS)
         add_compile_options(-Werror)
     endif()
 

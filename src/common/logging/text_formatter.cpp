@@ -137,7 +137,7 @@ void PrintMessageToLogcat([[maybe_unused]] const Entry& entry) {
     case Level::Count:
         UNREACHABLE();
     }
-    __android_log_print(android_log_priority, "CitraNative", "%s", str.c_str());
+    __android_log_print(android_log_priority, "Lime3DSNative", "%s", str.c_str());
 #endif
 }
 } // namespace Common::Log

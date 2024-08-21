@@ -25,7 +25,7 @@ struct CubebSink::Impl {
 };
 
 CubebSink::CubebSink(std::string_view target_device_name) : impl(std::make_unique<Impl>()) {
-    if (cubeb_init(&impl->ctx, "Citra Output", nullptr) != CUBEB_OK) {
+    if (cubeb_init(&impl->ctx, "Lime3DS Output", nullptr) != CUBEB_OK) {
         LOG_CRITICAL(Audio_Sink, "cubeb_init failed");
         return;
     }
@@ -68,7 +68,7 @@ CubebSink::CubebSink(std::string_view target_device_name) : impl(std::make_uniqu
         }
     }
 
-    auto stream_err = cubeb_stream_init(impl->ctx, &impl->stream, "CitraAudio", nullptr, nullptr,
+    auto stream_err = cubeb_stream_init(impl->ctx, &impl->stream, "Lime3DSAudio", nullptr, nullptr,
                                         output_device, &params, std::max(512u, minimum_latency),
                                         &Impl::DataCallback, &Impl::StateCallback, impl.get());
     if (stream_err != CUBEB_OK) {
@@ -164,7 +164,7 @@ std::vector<std::string> ListCubebSinkDevices() {
     std::vector<std::string> device_list;
     cubeb* ctx;
 
-    if (cubeb_init(&ctx, "Citra Output Device Enumerator", nullptr) != CUBEB_OK) {
+    if (cubeb_init(&ctx, "Lime3DS Output Device Enumerator", nullptr) != CUBEB_OK) {
         LOG_CRITICAL(Audio_Sink, "cubeb_init failed");
         return {};
     }

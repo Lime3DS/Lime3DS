@@ -141,10 +141,10 @@ Result TranslateCommandBuffer(Kernel::KernelSystem& kernel, Memory::MemorySystem
             u32 size = static_cast<u32>(descInfo.size);
             IPC::MappedBufferPermissions permissions = descInfo.perms;
 
-            VAddr page_start = Common::AlignDown(source_address, Memory::CITRA_PAGE_SIZE);
+            VAddr page_start = Common::AlignDown(source_address, Memory::LIME3DS_PAGE_SIZE);
             u32 page_offset = source_address - page_start;
-            u32 num_pages = Common::AlignUp(page_offset + size, Memory::CITRA_PAGE_SIZE) >>
-                            Memory::CITRA_PAGE_BITS;
+            u32 num_pages = Common::AlignUp(page_offset + size, Memory::LIME3DS_PAGE_SIZE) >>
+                            Memory::LIME3DS_PAGE_BITS;
 
             // Skip when the size is zero and num_pages == 0
             if (size == 0) {
@@ -174,8 +174,8 @@ Result TranslateCommandBuffer(Kernel::KernelSystem& kernel, Memory::MemorySystem
                                      found->target_address, size);
                 }
 
-                VAddr prev_reserve = page_start - Memory::CITRA_PAGE_SIZE;
-                VAddr next_reserve = page_start + num_pages * Memory::CITRA_PAGE_SIZE;
+                VAddr prev_reserve = page_start - Memory::LIME3DS_PAGE_SIZE;
+                VAddr next_reserve = page_start + num_pages * Memory::LIME3DS_PAGE_SIZE;
 
                 auto& prev_vma = src_process->vm_manager.FindVMA(prev_reserve)->second;
                 auto& next_vma = src_process->vm_manager.FindVMA(next_reserve)->second;
@@ -184,8 +184,8 @@ Result TranslateCommandBuffer(Kernel::KernelSystem& kernel, Memory::MemorySystem
 
                 // Unmap the buffer and guard pages from the source process
                 Result result =
-                    src_process->vm_manager.UnmapRange(page_start - Memory::CITRA_PAGE_SIZE,
-                                                       (num_pages + 2) * Memory::CITRA_PAGE_SIZE);
+                    src_process->vm_manager.UnmapRange(page_start - Memory::LIME3DS_PAGE_SIZE,
+                                                       (num_pages + 2) * Memory::LIME3DS_PAGE_SIZE);
                 ASSERT(result == ResultSuccess);
 
                 mapped_buffer_context.erase(found);
@@ -200,9 +200,9 @@ Result TranslateCommandBuffer(Kernel::KernelSystem& kernel, Memory::MemorySystem
 
             // Create a buffer which contains the mapped buffer and two additional guard pages.
             std::shared_ptr<BackingMem> buffer =
-                std::make_shared<BufferMem>((num_pages + 2) * Memory::CITRA_PAGE_SIZE);
+                std::make_shared<BufferMem>((num_pages + 2) * Memory::LIME3DS_PAGE_SIZE);
             memory.ReadBlock(*src_process, source_address,
-                             buffer->GetPtr() + Memory::CITRA_PAGE_SIZE + page_offset, size);
+                             buffer->GetPtr() + Memory::LIME3DS_PAGE_SIZE + page_offset, size);
 
             // Map the guard pages and mapped pages at once.
             target_address =
@@ -214,19 +214,20 @@ Result TranslateCommandBuffer(Kernel::KernelSystem& kernel, Memory::MemorySystem
 
             // Change the permissions and state of the guard pages.
             const VAddr low_guard_address = target_address;
-            const VAddr high_guard_address =
-                low_guard_address + static_cast<VAddr>(buffer->GetSize()) - Memory::CITRA_PAGE_SIZE;
+            const VAddr high_guard_address = low_guard_address +
+                                             static_cast<VAddr>(buffer->GetSize()) -
+                                             Memory::LIME3DS_PAGE_SIZE;
             ASSERT(dst_process->vm_manager.ChangeMemoryState(
-                       low_guard_address, Memory::CITRA_PAGE_SIZE, Kernel::MemoryState::Shared,
+                       low_guard_address, Memory::LIME3DS_PAGE_SIZE, Kernel::MemoryState::Shared,
                        Kernel::VMAPermission::ReadWrite, Kernel::MemoryState::Reserved,
                        Kernel::VMAPermission::None) == ResultSuccess);
             ASSERT(dst_process->vm_manager.ChangeMemoryState(
-                       high_guard_address, Memory::CITRA_PAGE_SIZE, Kernel::MemoryState::Shared,
+                       high_guard_address, Memory::LIME3DS_PAGE_SIZE, Kernel::MemoryState::Shared,
                        Kernel::VMAPermission::ReadWrite, Kernel::MemoryState::Reserved,
                        Kernel::VMAPermission::None) == ResultSuccess);
 
             // Get proper mapped buffer address and store it in the cmd buffer.
-            target_address += Memory::CITRA_PAGE_SIZE;
+            target_address += Memory::LIME3DS_PAGE_SIZE;
             cmd_buf[i++] = target_address + page_offset;
 
             mapped_buffer_context.push_back({permissions, size, source_address,

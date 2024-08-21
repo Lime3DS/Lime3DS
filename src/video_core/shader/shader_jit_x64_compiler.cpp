@@ -3,7 +3,7 @@
 // Refer to the license.txt file included.
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64)
+#if LIME3DS_ARCH(x86_64)
 
 #include <nihstro/shader_bytecode.h>
 #include <smmintrin.h>
@@ -1260,4 +1260,4 @@ Xbyak::Label JitShader::CompilePrelude_Exp2() {
 
 } // namespace Pica::Shader
 
-#endif // CITRA_ARCH(x86_64)
+#endif // LIME3DS_ARCH(x86_64)

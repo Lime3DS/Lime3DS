@@ -1,4 +1,4 @@
-// Copyright 2019 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -16,9 +16,9 @@
 #include <core/hle/service/cfg/cfg.h>
 #include "audio_core/dsp_interface.h"
 #include "common/arch.h"
-#if CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(arm64)
 #include "common/aarch64/cpu_detect.h"
-#elif CITRA_ARCH(x86_64)
+#elif LIME3DS_ARCH(x86_64)
 #include "common/x64/cpu_detect.h"
 #endif
 #include "common/common_paths.h"
@@ -58,7 +58,7 @@
 #include "video_core/gpu.h"
 #include "video_core/renderer_base.h"
 
-#if defined(ENABLE_VULKAN) && CITRA_ARCH(arm64)
+#if defined(ENABLE_VULKAN) && LIME3DS_ARCH(arm64)
 #include <adrenotools/driver.h>
 #endif
 
@@ -130,7 +130,7 @@ static bool CheckMicPermission() {
                                                                IDCache::GetRequestMicPermission());
 }
 
-static Core::System::ResultStatus RunCitra(const std::string& filepath) {
+static Core::System::ResultStatus RunLime3DS(const std::string& filepath) {
     // Lime3DS core only supports a single running instance
     std::scoped_lock lock(running_mutex);
 
@@ -258,7 +258,7 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
 }
 
 void EnableAdrenoTurboMode(bool enable) {
-#if defined(ENABLE_VULKAN) && CITRA_ARCH(arm64)
+#if defined(ENABLE_VULKAN) && LIME3DS_ARCH(arm64)
     adrenotools_set_turbo(enable);
 #endif
 }
@@ -266,7 +266,7 @@ void EnableAdrenoTurboMode(bool enable) {
 void InitializeGpuDriver(const std::string& hook_lib_dir, const std::string& custom_driver_dir,
                          const std::string& custom_driver_name,
                          const std::string& file_redirect_dir) {
-#if defined(ENABLE_VULKAN) && CITRA_ARCH(arm64)
+#if defined(ENABLE_VULKAN) && LIME3DS_ARCH(arm64)
     void* handle{};
     const char* file_redirect_dir_{};
     int featureFlags{};
@@ -316,10 +316,12 @@ void Java_io_github_lime3ds_android_NativeLibrary_surfaceChanged(JNIEnv* env,
 
 void Java_io_github_lime3ds_android_NativeLibrary_surfaceDestroyed([[maybe_unused]] JNIEnv* env,
                                                                    [[maybe_unused]] jobject obj) {
-    ANativeWindow_release(s_surf);
-    s_surf = nullptr;
-    if (window) {
-        window->OnSurfaceChanged(s_surf);
+    if (s_surf != nullptr) {
+        ANativeWindow_release(s_surf);
+        s_surf = nullptr;
+        if (window) {
+            window->OnSurfaceChanged(s_surf);
+        }
     }
 }
 
@@ -346,15 +348,13 @@ void JNICALL Java_io_github_lime3ds_android_NativeLibrary_enableAdrenoTurboMode(
     EnableAdrenoTurboMode(enable);
 }
 
-void Java_io_github_lime3ds_android_NativeLibrary_notifyOrientationChange(
-    [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, jint layout_option, jint rotation) {
-    Settings::values.layout_option = static_cast<Settings::LayoutOption>(layout_option);
+void Java_io_github_lime3ds_android_NativeLibrary_updateFramebuffer([[maybe_unused]] JNIEnv* env,
+                                                                    [[maybe_unused]] jobject obj,
+                                                                    jboolean is_portrait_mode) {
     auto& system = Core::System::GetInstance();
     if (system.IsPoweredOn()) {
-        system.GPU().Renderer().UpdateCurrentFramebufferLayout(!(rotation % 2));
+        system.GPU().Renderer().UpdateCurrentFramebufferLayout(is_portrait_mode);
     }
-    InputManager::screen_rotation = rotation;
-    Camera::NDK::g_rotation = rotation;
 }
 
 void Java_io_github_lime3ds_android_NativeLibrary_swapScreens([[maybe_unused]] JNIEnv* env,
@@ -463,7 +463,7 @@ jobject Java_io_github_lime3ds_android_NativeLibrary_downloadTitleFromNus(
 
 jboolean JNICALL Java_io_github_lime3ds_android_utils_GpuDriverHelper_supportsCustomDriverLoading(
     JNIEnv* env, jobject instance) {
-#ifdef CITRA_ARCH_arm64
+#ifdef LIME3DS_ARCH_arm64
     // If the KGSL device exists custom drivers can be loaded using adrenotools
     return SupportsCustomDriver();
 #else
@@ -522,7 +522,7 @@ jboolean Java_io_github_lime3ds_android_NativeLibrary_onGamePadMoveEvent(
     [[maybe_unused]] JNIEnv* env, [[maybe_unused]] jobject obj, [[maybe_unused]] jstring j_device,
     jint axis, jfloat x, jfloat y) {
     // Clamp joystick movement to supported minimum and maximum
-    // Citra uses an inverted y axis sent by the frontend
+    // Lime3DS uses an inverted y axis sent by the frontend
     x = std::clamp(x, -1.f, 1.f);
     y = std::clamp(-y, -1.f, 1.f);
 
@@ -649,7 +649,7 @@ void Java_io_github_lime3ds_android_NativeLibrary_run__Ljava_lang_String_2(
         running_cv.notify_all();
     }
 
-    const Core::System::ResultStatus result{RunCitra(path)};
+    const Core::System::ResultStatus result{RunLime3DS(path)};
     if (result != Core::System::ResultStatus::Success) {
         env->CallStaticVoidMethod(IDCache::GetNativeLibraryClass(),
                                   IDCache::GetExitEmulationActivity(), static_cast<int>(result));
