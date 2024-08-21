@@ -178,7 +178,7 @@ void Config::ReadValues() {
     // since older config files my have other values
     int layoutInt = (int)sdl2_config->GetInteger(
         "Layout", "layout_option", static_cast<int>(Settings::LayoutOption::LargeScreen));
-    if (layoutInt > 5 || layoutInt < 0) {
+    if (layoutInt < 0 || layoutInt > 5) {
         layoutInt = static_cast<int>(Settings::LayoutOption::LargeScreen);
     }
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(layoutInt);
