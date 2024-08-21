@@ -1,4 +1,4 @@
-// Copyright 2019 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -50,13 +50,12 @@ void RPCServer::HandleWriteMemory(Packet& packet, u32 address, std::span<const u
 void RPCServer::HandleSendKey(Packet& packet, u32 key_code, u8 state) {
     if (state == 0) {
         InputCommon::GetKeyboard()->ReleaseKey(key_code);
-    } else if(state == 1) {
+    } else if (state == 1) {
         InputCommon::GetKeyboard()->PressKey(key_code);
     }
     packet.SetPacketDataSize(0);
     packet.SendReply();
 }
-
 
 void RPCServer::HandleSendSignal(Packet& packet, u32 signal_code, u32 signal_parameter) {
     system.SendSignal(static_cast<Core::System::Signal>(signal_code), signal_parameter);
@@ -127,7 +126,8 @@ void RPCServer::HandleSingleRequest(std::unique_ptr<Packet> request_packet) {
             break;
         case PacketType::SendSignal:
             std::memcpy(&signal_code, packet_data.data(), sizeof(signal_code));
-            std::memcpy(&signal_parameter, packet_data.data() + sizeof(signal_code), sizeof(signal_parameter));
+            std::memcpy(&signal_parameter, packet_data.data() + sizeof(signal_code),
+                        sizeof(signal_parameter));
             HandleSendSignal(*request_packet, signal_code, signal_parameter);
             break;
         default:
