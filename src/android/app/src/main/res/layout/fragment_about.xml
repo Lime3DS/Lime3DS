@@ -72,7 +72,7 @@
                     android:layout_marginHorizontal="24dp"
                     android:layout_marginTop="6dp"
                     android:textAlignment="viewStart"
-                    android:text="@string/citra_description" />
+                    android:text="@string/lime3ds_description" />
 
             </LinearLayout>
 

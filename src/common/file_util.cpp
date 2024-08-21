@@ -1,6 +1,9 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright Dolphin Emulator Project
+// Licensed under GPLv2 or any later version
 
 #include <array>
 #include <fstream>
@@ -707,8 +710,8 @@ std::string AppDataRoamingDirectory() {
 /**
  * @return The user’s home directory on POSIX systems
  */
-static const std::string& GetHomeDirectory() {
-    static std::string home_path;
+const std::string GetHomeDirectory() {
+    std::string home_path;
     if (home_path.empty()) {
         const char* envvar = getenv("HOME");
         if (envvar) {
@@ -865,8 +868,8 @@ bool StringReplace(std::string& haystack, const std::string& a, const std::strin
 
 std::string SerializePath(const std::string& input, bool is_saving) {
     auto result = input;
-    StringReplace(result, "%CITRA_ROM_FILE%", g_currentRomPath, is_saving);
-    StringReplace(result, "%CITRA_USER_DIR%", GetUserPath(UserPath::UserDir), is_saving);
+    StringReplace(result, "%LIME3DS_ROM_FILE%", g_currentRomPath, is_saving);
+    StringReplace(result, "%LIME3DS_USER_DIR%", GetUserPath(UserPath::UserDir), is_saving);
     return result;
 }
 

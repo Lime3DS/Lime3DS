@@ -647,10 +647,11 @@ typename T::Surface& RasterizerCache<T>::GetTextureCube(const TextureCubeConfig&
 
     Surface& cube_surface = slot_surfaces[cube.surface_id];
     for (u32 i = 0; i < addresses.size(); i++) {
-        if (!addresses[i]) {
+        const SurfaceId& face_id = cube.face_ids[i];
+        if (!addresses[i] || !face_id) {
             continue;
         }
-        Surface& surface = slot_surfaces[cube.face_ids[i]];
+        Surface& surface = slot_surfaces[face_id];
         if (cube.ticks[i] == surface.modification_tick) {
             continue;
         }
@@ -1214,8 +1215,9 @@ void RasterizerCache<T>::ClearAll(bool flush) {
     for (auto& pair : RangeFromInterval(cached_pages, flush_interval)) {
         const auto interval = pair.first & flush_interval;
 
-        const PAddr interval_start_addr = boost::icl::first(interval) << Memory::CITRA_PAGE_BITS;
-        const PAddr interval_end_addr = boost::icl::last_next(interval) << Memory::CITRA_PAGE_BITS;
+        const PAddr interval_start_addr = boost::icl::first(interval) << Memory::LIME3DS_PAGE_BITS;
+        const PAddr interval_end_addr = boost::icl::last_next(interval)
+                                        << Memory::LIME3DS_PAGE_BITS;
         const u32 interval_size = interval_end_addr - interval_start_addr;
 
         memory.RasterizerMarkRegionCached(interval_start_addr, interval_size, false);
@@ -1370,14 +1372,14 @@ void RasterizerCache<T>::UnregisterSurface(SurfaceId surface_id) {
     ForEachPage(surface.addr, surface.size, [this, surface_id](u64 page) {
         const auto page_it = page_table.find(page);
         if (page_it == page_table.end()) {
-            ASSERT_MSG(false, "Unregistering unregistered page=0x{:x}", page << CITRA_PAGEBITS);
+            ASSERT_MSG(false, "Unregistering unregistered page=0x{:x}", page << LIME3DS_PAGEBITS);
             return;
         }
         std::vector<SurfaceId>& surfaces = page_it.value();
         const auto vector_it = std::find(surfaces.begin(), surfaces.end(), surface_id);
         if (vector_it == surfaces.end()) {
             ASSERT_MSG(false, "Unregistering unregistered surface in page=0x{:x}",
-                       page << CITRA_PAGEBITS);
+                       page << LIME3DS_PAGEBITS);
             return;
         }
         surfaces.erase(vector_it);
@@ -1408,8 +1410,8 @@ void RasterizerCache<T>::UnregisterAll() {
 template <class T>
 void RasterizerCache<T>::UpdatePagesCachedCount(PAddr addr, u32 size, int delta) {
     const u32 num_pages =
-        ((addr + size - 1) >> Memory::CITRA_PAGE_BITS) - (addr >> Memory::CITRA_PAGE_BITS) + 1;
-    const u32 page_start = addr >> Memory::CITRA_PAGE_BITS;
+        ((addr + size - 1) >> Memory::LIME3DS_PAGE_BITS) - (addr >> Memory::LIME3DS_PAGE_BITS) + 1;
+    const u32 page_start = addr >> Memory::LIME3DS_PAGE_BITS;
     const u32 page_end = page_start + num_pages;
 
     // Interval maps will erase segments if count reaches 0, so if delta is negative we have to
@@ -1423,8 +1425,9 @@ void RasterizerCache<T>::UpdatePagesCachedCount(PAddr addr, u32 size, int delta)
         const auto interval = pair.first & pages_interval;
         const int count = pair.second;
 
-        const PAddr interval_start_addr = boost::icl::first(interval) << Memory::CITRA_PAGE_BITS;
-        const PAddr interval_end_addr = boost::icl::last_next(interval) << Memory::CITRA_PAGE_BITS;
+        const PAddr interval_start_addr = boost::icl::first(interval) << Memory::LIME3DS_PAGE_BITS;
+        const PAddr interval_end_addr = boost::icl::last_next(interval)
+                                        << Memory::LIME3DS_PAGE_BITS;
         const u32 interval_size = interval_end_addr - interval_start_addr;
 
         if (delta > 0 && count == delta) {

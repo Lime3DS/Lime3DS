@@ -1891,7 +1891,7 @@ void Module::Interface::BeginImportProgram(Kernel::HLERequestContext& ctx) {
     }
 
     // Create our CIAFile handle for the app to write to, and while the app writes
-    // Citra will store contents out to sdmc/nand
+    // Lime3DS will store contents out to sdmc/nand
     const FileSys::Path cia_path = {};
     auto file = std::make_shared<Service::FS::File>(
         am->system.Kernel(), std::make_unique<CIAFile>(am->system, media_type), cia_path);
@@ -1917,8 +1917,8 @@ void Module::Interface::BeginImportProgramTemporarily(Kernel::HLERequestContext&
 
     // Note: This function should register the title in the temp_i.db database, but we can get away
     // with not doing that because we traverse the file system to detect installed titles.
-    // Create our CIAFile handle for the app to write to, and while the app writes Citra will store
-    // contents out to sdmc/nand
+    // Create our CIAFile handle for the app to write to, and while the app writes Lime3DS will
+    // store contents out to sdmc/nand
     const FileSys::Path cia_path = {};
     auto file = std::make_shared<Service::FS::File>(
         am->system.Kernel(), std::make_unique<CIAFile>(am->system, FS::MediaType::NAND), cia_path);
@@ -2069,7 +2069,7 @@ void Module::Interface::GetProgramInfoFromCia(Kernel::HLERequestContext& ctx) {
 
     // TODO(shinyquagsire23): Sizes allegedly depend on the mediatype, and will double
     // on some mediatypes. Since this is more of a required install size we'll report
-    // what Citra needs, but it would be good to be more accurate here.
+    // what Lime3DS needs, but it would be good to be more accurate here.
     title_info.tid = tmd.GetTitleID();
     title_info.size = tmd.GetContentSizeByIndex(FileSys::TMDContentIndex::Main);
     title_info.version = tmd.GetTitleVersion();
@@ -2221,7 +2221,7 @@ void Module::Interface::GetRequiredSizeFromCia(Kernel::HLERequestContext& ctx) {
 
     // TODO(shinyquagsire23): Sizes allegedly depend on the mediatype, and will double
     // on some mediatypes. Since this is more of a required install size we'll report
-    // what Citra needs, but it would be good to be more accurate here.
+    // what Lime3DS needs, but it would be good to be more accurate here.
     IPC::RequestBuilder rb = rp.MakeBuilder(3, 0);
     rb.Push(ResultSuccess);
     rb.Push(container.GetTitleMetadata().GetContentSizeByIndex(FileSys::TMDContentIndex::Main));

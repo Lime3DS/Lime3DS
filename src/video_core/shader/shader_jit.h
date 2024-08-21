@@ -5,7 +5,7 @@
 #pragma once
 
 #include "common/arch.h"
-#if CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(x86_64) || LIME3DS_ARCH(arm64)
 
 #include <memory>
 #include <unordered_map>
@@ -30,4 +30,4 @@ private:
 
 } // namespace Pica::Shader
 
-#endif // CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+#endif // LIME3DS_ARCH(x86_64) || LIME3DS_ARCH(arm64)

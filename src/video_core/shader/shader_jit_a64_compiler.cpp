@@ -3,7 +3,7 @@
 // Refer to the license.txt file included.
 
 #include "common/arch.h"
-#if CITRA_ARCH(arm64)
+#if LIME3DS_ARCH(arm64)
 
 #include <algorithm>
 #include <cmath>
@@ -1190,4 +1190,4 @@ Label JitShader::CompilePrelude_Exp2() {
 
 } // namespace Pica::Shader
 
-#endif // CITRA_ARCH(arm64)
+#endif // LIME3DS_ARCH(arm64)

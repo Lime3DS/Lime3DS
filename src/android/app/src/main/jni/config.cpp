@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -150,7 +150,8 @@ void Config::ReadValues() {
     ReadSetting("Renderer", Settings::values.texture_filter);
     ReadSetting("Renderer", Settings::values.texture_sampling);
 
-    // Work around to map Android setting for enabling the frame limiter to the format Citra expects
+    // Work around to map Android setting for enabling the frame limiter to the format Lime3DS
+    // expects
     if (sdl2_config->GetBoolean("Renderer", "use_frame_limit", true)) {
         ReadSetting("Renderer", Settings::values.frame_limit);
     } else {
@@ -174,8 +175,7 @@ void Config::ReadValues() {
 
     // Layout
     Settings::values.layout_option = static_cast<Settings::LayoutOption>(sdl2_config->GetInteger(
-        "Layout", "layout_option", static_cast<int>(Settings::LayoutOption::MobileLandscape)));
-    ReadSetting("Layout", Settings::values.custom_layout);
+        "Layout", "layout_option", static_cast<int>(Settings::LayoutOption::LargeScreen)));
     ReadSetting("Layout", Settings::values.custom_top_x);
     ReadSetting("Layout", Settings::values.custom_top_y);
     ReadSetting("Layout", Settings::values.custom_top_width);
@@ -187,6 +187,19 @@ void Config::ReadValues() {
     ReadSetting("Layout", Settings::values.cardboard_screen_size);
     ReadSetting("Layout", Settings::values.cardboard_x_shift);
     ReadSetting("Layout", Settings::values.cardboard_y_shift);
+
+    Settings::values.portrait_layout_option =
+        static_cast<Settings::PortraitLayoutOption>(sdl2_config->GetInteger(
+            "Layout", "portrait_layout_option",
+            static_cast<int>(Settings::PortraitLayoutOption::PortraitTopFullWidth)));
+    ReadSetting("Layout", Settings::values.custom_portrait_top_x);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_y);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_width);
+    ReadSetting("Layout", Settings::values.custom_portrait_top_height);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_x);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_y);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_width);
+    ReadSetting("Layout", Settings::values.custom_portrait_bottom_height);
 
     // Utility
     ReadSetting("Utility", Settings::values.dump_textures);
@@ -269,8 +282,9 @@ void Config::ReadValues() {
     // Web Service
     NetSettings::values.web_api_url =
         sdl2_config->GetString("WebService", "web_api_url", "https://api.citra-emu.org");
-    NetSettings::values.citra_username = sdl2_config->GetString("WebService", "citra_username", "");
-    NetSettings::values.citra_token = sdl2_config->GetString("WebService", "citra_token", "");
+    NetSettings::values.lime3ds_username =
+        sdl2_config->GetString("WebService", "lime3ds_username", "");
+    NetSettings::values.lime3ds_token = sdl2_config->GetString("WebService", "lime3ds_token", "");
 }
 
 void Config::Reload() {

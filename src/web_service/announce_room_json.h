@@ -13,7 +13,7 @@ namespace WebService {
 
 /**
  * Implementation of AnnounceMultiplayerRoom::Backend that (de)serializes room information into/from
- * JSON, and submits/gets it to/from the Citra web service
+ * JSON, and submits/gets it to/from the Lime3DS web service
  */
 class RoomJson : public AnnounceMultiplayerRoom::Backend {
 public:

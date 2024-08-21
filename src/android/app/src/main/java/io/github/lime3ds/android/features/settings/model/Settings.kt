@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -42,14 +42,14 @@ class Settings {
 
     fun loadSettings(view: SettingsActivityView? = null) {
         sections = SettingsSectionMap()
-        loadCitraSettings(view)
+        loadLime3DSSettings(view)
         if (!TextUtils.isEmpty(gameId)) {
             loadCustomGameSettings(gameId!!, view)
         }
         isLoaded = true
     }
 
-    private fun loadCitraSettings(view: SettingsActivityView?) {
+    private fun loadLime3DSSettings(view: SettingsActivityView?) {
         for ((fileName) in configFileSectionsMap) {
             sections.putAll(SettingsFile.readFile(fileName, view))
         }
@@ -109,6 +109,8 @@ class Settings {
         const val SECTION_AUDIO = "Audio"
         const val SECTION_DEBUG = "Debugging"
         const val SECTION_THEME = "Theme"
+        const val SECTION_CUSTOM_LANDSCAPE = "Custom Landscape Layout"
+        const val SECTION_CUSTOM_PORTRAIT = "Custom Portrait Layout"
 
         const val KEY_BUTTON_A = "button_a"
         const val KEY_BUTTON_B = "button_b"
@@ -131,7 +133,6 @@ class Settings {
         const val KEY_CSTICK_AXIS_HORIZONTAL = "cstick_axis_horizontal"
         const val KEY_DPAD_AXIS_VERTICAL = "dpad_axis_vertical"
         const val KEY_DPAD_AXIS_HORIZONTAL = "dpad_axis_horizontal"
-
         const val HOTKEY_SCREEN_SWAP = "hotkey_screen_swap"
         const val HOTKEY_CYCLE_LAYOUT = "hotkey_toggle_layout"
         const val HOTKEY_CLOSE_GAME = "hotkey_close_game"
@@ -213,6 +214,7 @@ class Settings {
         const val PREF_THEME_MODE = "ThemeMode"
         const val PREF_BLACK_BACKGROUNDS = "BlackBackgrounds"
         const val PREF_SHOW_HOME_APPS = "ShowHomeApps"
+        const val PREF_STATIC_THEME_COLOR = "StaticThemeColor"
 
         private val configFileSectionsMap: MutableMap<String, List<String>> = HashMap()
 

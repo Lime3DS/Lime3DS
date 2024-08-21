@@ -1,0 +1,23 @@
+name: lime-stale-issues
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  stale-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/stale@v9.0.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-issue-stale: 90
+          days-before-issue-close: 10
+          stale-issue-message: "This issue has been marked as stale. If there is no activity within the next 10 days, this issue will be closed."
+          close-issue-message: "This issue has been closed as stale."
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          remove-issue-stale-when-updated: true
+          exempt-issue-labels: "priority - low,priority - medium,priority - high,priority - urgent,documentation,enhancement"

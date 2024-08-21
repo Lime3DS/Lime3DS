@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -29,7 +29,7 @@ import java.util.Date
 
 /**
  * Class which contains methods that interact
- * with the native side of the Citra code.
+ * with the native side of the Lime3DS code.
  */
 object NativeLibrary {
     /**
@@ -156,9 +156,9 @@ object NativeLibrary {
     external fun getPerfStats(): DoubleArray
 
     /**
-     * Notifies the core emulation that the orientation has changed.
+     * Notifies the core emulation that the layout should be updated
      */
-    external fun notifyOrientationChange(layoutOption: Int, rotation: Int)
+    external fun updateFramebuffer(isPortrait: Boolean)
 
     /**
      * Swaps the top and bottom screens.
@@ -261,10 +261,6 @@ object NativeLibrary {
     val isPortraitMode: Boolean
         get() = LimeApplication.appContext.resources.configuration.orientation ==
                 Configuration.ORIENTATION_PORTRAIT
-
-    @Keep
-    @JvmStatic
-    fun landscapeScreenLayout(): Int = EmulationMenuSettings.landscapeScreenLayout
 
     @Keep
     @JvmStatic

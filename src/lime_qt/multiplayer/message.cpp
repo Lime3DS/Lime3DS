@@ -30,12 +30,12 @@ const ConnectionError ErrorManager::UNABLE_TO_CONNECT(
 const ConnectionError ErrorManager::ROOM_IS_FULL(
     QT_TR_NOOP("Unable to connect to the room because it is already full."));
 const ConnectionError ErrorManager::COULD_NOT_CREATE_ROOM(
-    QT_TR_NOOP("Creating a room failed. Please retry. Restarting Citra might be necessary."));
+    QT_TR_NOOP("Creating a room failed. Please retry. Restarting Lime3DS might be necessary."));
 const ConnectionError ErrorManager::HOST_BANNED(
     QT_TR_NOOP("The host of the room has banned you. Speak with the host to unban you "
                "or try a different room."));
 const ConnectionError ErrorManager::WRONG_VERSION(
-    QT_TR_NOOP("Version mismatch! Please update to the latest version of Citra. If the problem "
+    QT_TR_NOOP("Version mismatch! Please update to the latest version of Lime3DS. If the problem "
                "persists, contact the room host and ask them to update the server."));
 const ConnectionError ErrorManager::WRONG_PASSWORD(QT_TR_NOOP("Incorrect password."));
 const ConnectionError ErrorManager::GENERIC_ERROR(QT_TR_NOOP(

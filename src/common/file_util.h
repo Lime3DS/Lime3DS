@@ -1,6 +1,9 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright Dolphin Emulator Project
+// Licensed under GPLv2 or any later version
 
 #pragma once
 
@@ -188,11 +191,11 @@ void SetUserPath(const std::string& path = "");
 
 void SetCurrentRomPath(const std::string& path);
 
-// Returns a pointer to a string with a Citra data dir in the user's home
+// Returns a pointer to a string with a Lime3DS data dir in the user's home
 // directory. To be used in "multi-user" mode (that is, installed).
 [[nodiscard]] const std::string& GetUserPath(UserPath path);
 
-// Returns a pointer to a string with the default Citra data dir in the user's home
+// Returns a pointer to a string with the default Lime3DS data dir in the user's home
 // directory.
 [[nodiscard]] const std::string& GetDefaultUserPath(UserPath path);
 
@@ -207,6 +210,7 @@ void UpdateUserPath(UserPath path, const std::string& filename);
 [[nodiscard]] const std::string& GetExeDirectory();
 [[nodiscard]] std::string AppDataRoamingDirectory();
 #else
+[[nodiscard]] const std::string GetHomeDirectory();
 [[nodiscard]] const std::string GetUserDirectory(const std::string& envvar);
 #endif
 
@@ -274,8 +278,8 @@ public:
     IOFile();
 
     // flags is used for windows specific file open mode flags, which
-    // allows citra to open the logs in shared write mode, so that the file
-    // isn't considered "locked" while citra is open and people can open the log file and view it
+    // allows lime3ds to open the logs in shared write mode, so that the file
+    // isn't considered "locked" while lime3ds is open and people can open the log file and view it
     IOFile(const std::string& filename, const char openmode[], int flags = 0);
 
     ~IOFile();

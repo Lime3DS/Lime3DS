@@ -85,7 +85,7 @@
     <addaction name="separator"/>
     <addaction name="menu_Amiibo"/>
     <addaction name="separator"/>
-    <addaction name="action_Open_Citra_Folder"/>
+    <addaction name="action_Open_Lime3DS_Folder"/>
     <addaction name="separator"/>
     <addaction name="action_Exit"/>
    </widget>
@@ -182,15 +182,8 @@
      <addaction name="action_Movie_Read_Only_Mode"/>
      <addaction name="action_Save_Movie"/>
     </widget>
-    <widget class="QMenu" name="menu_Frame_Advance">
-     <property name="title">
-      <string>Frame Advance</string>
-     </property>
-     <addaction name="action_Enable_Frame_Advancing"/>
-     <addaction name="action_Advance_Frame"/>
-    </widget>
+    <addaction name="action_Advance_Frame"/>
     <addaction name="menu_Movie"/>
-    <addaction name="menu_Frame_Advance"/>
     <addaction name="separator"/>
     <addaction name="action_Capture_Screenshot"/>
     <addaction name="action_Dump_Video"/>
@@ -309,7 +302,7 @@
   </action>
   <action name="action_About">
    <property name="text">
-    <string>About Lime</string>
+    <string>About Lime3DS</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
@@ -402,14 +395,6 @@
    </property>
    <property name="text">
     <string>Read-Only Mode</string>
-   </property>
-  </action>
-  <action name="action_Enable_Frame_Advancing">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Enable Frame Advancing</string>
    </property>
   </action>
   <action name="action_Advance_Frame">
@@ -575,14 +560,8 @@
    </property>
   </action>
   <action name="action_Report_Compatibility">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Report Compatibility</string>
-   </property>
-   <property name="visible">
-    <bool>false</bool>
    </property>
   </action>
   <action name="action_Restart">
@@ -609,7 +588,7 @@
     <string>Remove</string>
    </property>
   </action>
-  <action name="action_Open_Citra_Folder">
+  <action name="action_Open_Lime3DS_Folder">
    <property name="text">
     <string>Open Lime3DS Folder</string>
    </property>
