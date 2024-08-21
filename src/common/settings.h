@@ -44,10 +44,6 @@ enum class LayoutOption : u32 {
 #endif
     HybridScreen,
     CustomLayout,
-
-    // Similiar to LargeScreen, but better for mobile devices in landscape mode. The screens are
-    // clamped to the top of the frame, and the bottom screen is a bit bigger.
-    MobileLandscape,
 };
 
 /** Defines the layout option for mobile portrait */

@@ -204,7 +204,9 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
                                    float scale_factor, VerticalAlignment vertical_alignment) {
     ASSERT(width > 0);
     ASSERT(height > 0);
-
+#ifdef ANDROID
+    vertical_alignment = VerticalAlignment::Top;
+#endif
     FramebufferLayout res{width, height, true, true, {}, {}, !upright};
     // Split the window into two parts. Give 4x width to the main screen and 1x width to the small
     // To do that, find the total emulation box and maximize that based on window size
@@ -512,23 +514,6 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
                                     Settings::values.upright_screen.GetValue(), 1,
                                     VerticalAlignment::Middle);
 
-        case Settings::LayoutOption::MobileLandscape: {
-            constexpr float large_screen_proportion = 2.25f;
-            if (Settings::values.swap_screen.GetValue()) {
-                width = (Core::kScreenBottomWidth +
-                         static_cast<int>(Core::kScreenTopWidth / large_screen_proportion)) *
-                        res_scale;
-                height = Core::kScreenBottomHeight * res_scale;
-            } else {
-                width = (Core::kScreenTopWidth +
-                         static_cast<int>(Core::kScreenBottomWidth / large_screen_proportion)) *
-                        res_scale;
-                height = Core::kScreenTopHeight * res_scale;
-            }
-            return LargeFrameLayout(width, height, Settings::values.swap_screen.GetValue(), false,
-                                    large_screen_proportion, VerticalAlignment::Top);
-        }
-
         case Settings::LayoutOption::Default:
         default:
             width = Core::kScreenTopWidth * res_scale;
@@ -579,10 +564,7 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
         }
     } else {
         switch (Settings::values.layout_option.GetValue()) {
-        case Settings::LayoutOption::MobileLandscape:
         case Settings::LayoutOption::SideScreen:
-            // If orientation is portrait, only use MobilePortrait
-
             cardboard_screen_width = top_screen_width + bottom_screen_width;
             cardboard_screen_height = is_swapped ? bottom_screen_height : top_screen_height;
             if (is_swapped)

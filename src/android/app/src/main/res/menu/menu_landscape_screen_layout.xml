@@ -4,8 +4,8 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/menu_screen_layout_landscape"
-            android:title="@string/emulation_screen_layout_landscape" />
+            android:id="@+id/menu_screen_layout_largescreen"
+            android:title="@string/emulation_screen_layout_largescreen" />
 
         <item
             android:id="@+id/menu_screen_layout_single"
