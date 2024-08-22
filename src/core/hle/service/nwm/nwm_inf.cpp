@@ -12,13 +12,14 @@ namespace Service::NWM {
 
 NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
-    NWM_UDS::RecvBeaconBroadcastData(ctx);
+    auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
+    nwm_uds->HandleSyncRequest(ctx);
 }
 
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
     static const FunctionInfo functions[] = {
         // clang-format off
-        {0x0006, nullptr, "RecvBeaconBroadcastData"},
+        {0x0006, NWM_INF::RecvBeaconBroadcastData, "RecvBeaconBroadcastData"},
         {0x0007, nullptr, "ConnectToEncryptedAP"},
         {0x0008, nullptr, "ConnectToAP"},
         // clang-format on
