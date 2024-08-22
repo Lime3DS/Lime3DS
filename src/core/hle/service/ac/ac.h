@@ -125,9 +125,13 @@ public:
         /**
          * AC::ScanAPs service function
          *  Inputs:
-         *      ?
+         *      1 : Size
+         *      2-3 : ProcessID
+         *      64: (Size << 14) | 2
+         *      65: Pointer to output structure
          *  Outputs:
-         *      ?
+         *      1 : Result of function, 0 on success, otherwise error code
+         *      2 : ?
          */
         void ScanAPs(Kernel::HLERequestContext& ctx);
 
