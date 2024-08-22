@@ -10,7 +10,7 @@ SERIALIZE_EXPORT_IMPL(Service::NWM::NWM_INF)
 
 namespace Service::NWM {
 
-NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
+void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
     nwm_uds->HandleSyncRequest(ctx);
