@@ -180,7 +180,6 @@ void Module::Interface::GetStatus(Kernel::HLERequestContext& ctx) {
     LOG_WARNING(Service_AC, "(STUBBED) called");
 }
 
-
 void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
     const u32 arg1 = rp.Pop();
