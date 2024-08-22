@@ -19,7 +19,7 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
     static const FunctionInfo functions[] = {
         // clang-format off
-        {0x0006, NWM_INF::RecvBeaconBroadcastData, "RecvBeaconBroadcastData"},
+        {0x0006, RecvBeaconBroadcastData, "RecvBeaconBroadcastData"},
         {0x0007, nullptr, "ConnectToEncryptedAP"},
         {0x0008, nullptr, "ConnectToAP"},
         // clang-format on
