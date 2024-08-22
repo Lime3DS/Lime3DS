@@ -182,15 +182,15 @@ void Module::Interface::GetStatus(Kernel::HLERequestContext& ctx) {
 
 void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
-    const u32 arg1 = rp.Pop();
+    const u32 arg1 = rp.Pop<u32>();
     LOG_WARNING(Service_AC, "val1: {}", arg1);
-    const u32 arg2 = rp.Pop();
+    const u32 arg2 = rp.Pop<u32>();
     LOG_WARNING(Service_AC, "val2: {}", arg2);
-    const u32 arg3 = rp.Pop();
+    const u32 arg3 = rp.Pop<u32>();
     LOG_WARNING(Service_AC, "val3: {}", arg3);
-    const u32 arg4 = rp.Pop();
+    const u32 arg4 = rp.Pop<u32>();
     LOG_WARNING(Service_AC, "val4: {}", arg4);
-    const u32 arg5 = rp.Pop();
+    const u32 arg5 = rp.Pop<u32>();
     LOG_WARNING(Service_AC, "val5: {}", arg5);
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
