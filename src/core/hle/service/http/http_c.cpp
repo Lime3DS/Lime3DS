@@ -560,7 +560,7 @@ void HTTP_C::BeginRequest(Kernel::HLERequestContext& ctx) {
 
     Context& http_context = GetContext(context_handle);
 
-    // This should never happen in real hardware, but can happen on citra.
+    // This should never happen in real hardware, but can happen on lime3ds.
     if (http_context.uses_default_client_cert && !http_context.clcert_data->init) {
         LOG_ERROR(Service_HTTP, "Failed to begin HTTP request: client cert not found.");
         IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
@@ -598,7 +598,7 @@ void HTTP_C::BeginRequestAsync(Kernel::HLERequestContext& ctx) {
 
     Context& http_context = GetContext(context_handle);
 
-    // This should never happen in real hardware, but can happen on citra.
+    // This should never happen in real hardware, but can happen on lime3ds.
     if (http_context.uses_default_client_cert && !http_context.clcert_data->init) {
         LOG_ERROR(Service_HTTP, "Failed to begin HTTP request: client cert not found.");
         IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);

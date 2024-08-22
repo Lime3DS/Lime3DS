@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.V29.Citra" parent="Theme.Citra">
+    <style name="Theme.V29.Lime" parent="Theme.Lime">
         <item name="android:enforceStatusBarContrast">false</item>
         <item name="android:enforceNavigationBarContrast">false</item>
     </style>
 
-    <style name="Theme.Lime.Main" parent="Theme.V29.Citra" />
+    <style name="Theme.Lime.Main" parent="Theme.V29.Lime" />
 </resources>

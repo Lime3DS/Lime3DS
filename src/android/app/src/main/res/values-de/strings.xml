@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_disclaimer">Auf dieser Software laufen Spiele für die Nintendo 3DS Handheld-Spielekonsole. Keine Spiele sind enthalten.\n\nBevor Sie mit der Emulation beginnen können, wählen Sie bitte einen Ordner aus, in dem Lime3DS\'s Benutzerdaten gespeichert werden sollen.\n\nWas ist das:\n<a href='https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Lime3DS Android user data and storage</a></string>
     <string name="app_notification_channel_description">Lime3DS Emulator Benachrichtigungen</string>
     <string name="app_notification_running">Lime3DS läuft</string>
     <string name="app_game_install_description">Als nächstes müssen Sie einen Spielordner auswählen. Lime3DS zeigt alle 3DS-ROMs im ausgewählten Ordner in der App an. \n\nCIA-ROMs, Updates und DLC müssen separat installiert werden, indem Sie auf das Ordnersymbol klicken und CIA installieren auswählen.</string>
@@ -21,7 +20,7 @@
     <string name="share_log_not_found">Keine Log-Datei gefunden</string>
     <string name="select_games_folder">Spieleordner auswählen</string>
     <string name="about">Über</string>
-    <string name="citra_description">Ein open-source 3DS-Emulator</string>
+    <string name="lime3ds_description">Ein open-source 3DS-Emulator</string>
     <string name="theme_and_color_description">Das Aussehen der App verändern</string>
     <string name="install_cia_title">CIA Installieren</string>
 
@@ -57,13 +56,10 @@
     <string name="camera_permission">Kamera</string>
     <string name="microphone_permission">Mikrofon</string>
     <string name="permission_denied">Zugriff verboten </string>
-    <string name="add_games_warning_help">https://citra-emu.org/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">Hilfe</string>
     <string name="warning_skip">Überspringen</string>
     <string name="warning_cancel">Abbrechen</string>
     <string name="select">Auswählen</string>
-    <string name="cannot_skip_directory_help">https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
-
     <!-- Search Strings -->
     <string name="search_and_filter_games">Spiele suchen und filtern</string>
     <string name="home_search_games">Spiele suchen</string>
@@ -219,7 +215,6 @@
     <string name="preferences_audio">Audio</string>
     <string name="preferences_debug">Debug</string>
     <string name="preferences_theme">Theme und Farbe</string>
-
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Das ROM ist verschlüsselt</string>
     <string name="loader_error_invalid_format">Ungültiges ROM-Format</string>

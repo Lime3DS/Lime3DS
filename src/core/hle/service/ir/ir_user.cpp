@@ -1,4 +1,4 @@
-// Copyright 2015 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -8,7 +8,7 @@
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/unique_ptr.hpp>
-#include <fmt/format.h>
+#include <fmt/ranges.h>
 #include "common/archives.h"
 #include "common/swap.h"
 #include "core/core.h"
@@ -478,6 +478,12 @@ IR_USER::~IR_USER() {
 
 void IR_USER::ReloadInputDevices() {
     extra_hid->RequestInputDevicesReload();
+}
+
+void IR_USER::UseArticController(const std::shared_ptr<Service::HID::ArticBaseController>& ac) {
+    if (extra_hid.get()) {
+        extra_hid->UseArticController(ac);
+    }
 }
 
 IRDevice::IRDevice(SendFunc send_func_) : send_func(send_func_) {}

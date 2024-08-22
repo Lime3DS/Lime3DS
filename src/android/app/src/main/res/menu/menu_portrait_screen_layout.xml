@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_portrait_layout_top_full"
+            android:title="@string/emulation_portrait_layout_top_full" />
+
+        <item
+            android:id="@+id/menu_portrait_layout_custom"
+            android:title="@string/emulation_screen_layout_custom" />
+
+    </group>
+
+</menu>

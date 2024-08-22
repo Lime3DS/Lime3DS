@@ -27,7 +27,7 @@ import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.R
 import io.github.lime3ds.android.databinding.DialogCopyDirBinding
 import io.github.lime3ds.android.model.SetupCallback
-import io.github.lime3ds.android.utils.CitraDirectoryHelper
+import io.github.lime3ds.android.utils.Lime3DSDirectoryHelper
 import io.github.lime3ds.android.utils.FileUtil
 import io.github.lime3ds.android.utils.PermissionsHandler
 import io.github.lime3ds.android.viewmodel.HomeViewModel
@@ -79,7 +79,7 @@ class CopyDirProgressDialog : DialogFragment() {
                         if (it) {
                             homeViewModel.setUserDir(
                                 requireActivity(),
-                                PermissionsHandler.citraDirectory.path!!
+                                PermissionsHandler.lime3dsDirectory.path!!
                             )
                             homeViewModel.copyInProgress = false
                             homeViewModel.setPickingUserDir(false)
@@ -140,7 +140,7 @@ class CopyDirProgressDialog : DialogFragment() {
                             }
 
                             override fun onComplete() {
-                                CitraDirectoryHelper.initializeCitraDirectory(path)
+                                Lime3DSDirectoryHelper.initializeLime3DSDirectory(path)
                                 callback?.onStepCompleted()
                                 viewModel.setCopyComplete(true)
                             }

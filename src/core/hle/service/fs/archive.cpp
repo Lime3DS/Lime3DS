@@ -298,18 +298,22 @@ Result ArchiveManager::DeleteSystemSaveData(u32 high, u32 low) {
     return ResultSuccess;
 }
 
-Result ArchiveManager::CreateSystemSaveData(u32 high, u32 low) {
-    // Construct the binary path to the archive first
-    const FileSys::Path path = FileSys::ConstructSystemSaveDataBinaryPath(high, low);
+Result ArchiveManager::CreateSystemSaveData(u32 high, u32 low, u32 total_size, u32 block_size,
+                                            u32 number_directories, u32 number_files,
+                                            u32 number_directory_buckets, u32 number_file_buckets,
+                                            u8 duplicate_data) {
 
-    const std::string& nand_directory = FileUtil::GetUserPath(FileUtil::UserPath::NANDDir);
-    const std::string base_path = FileSys::GetSystemSaveDataContainerPath(nand_directory);
-    const std::string systemsavedata_path = FileSys::GetSystemSaveDataPath(base_path, path);
-    if (!FileUtil::CreateFullPath(systemsavedata_path)) {
-        return ResultUnknown; // TODO(Subv): Find the right error code
+    auto archive = id_code_map.find(ArchiveIdCode::SystemSaveData);
+
+    if (archive == id_code_map.end()) {
+        return UnimplementedFunction(ErrorModule::FS); // TODO(Subv): Find the right error
     }
 
-    return ResultSuccess;
+    auto sys_savedata = static_cast<FileSys::ArchiveFactory_SystemSaveData*>(archive->second.get());
+
+    return sys_savedata->FormatAsSysData(high, low, total_size, block_size, number_directories,
+                                         number_files, number_directory_buckets,
+                                         number_file_buckets, duplicate_data);
 }
 
 ResultVal<ArchiveResource> ArchiveManager::GetArchiveResource(MediaType media_type) const {
@@ -452,6 +456,16 @@ void ArchiveManager::RegisterArticNCCH(std::shared_ptr<Network::ArticBase::Clien
         return;
     }
     reinterpret_cast<FileSys::ArchiveFactory_NCCH*>(itr->second.get())->RegisterArtic(client);
+}
+
+void ArchiveManager::RegisterArticSystemSaveData(
+    std::shared_ptr<Network::ArticBase::Client>& client) {
+    auto itr = id_code_map.find(ArchiveIdCode::SystemSaveData);
+    if (itr == id_code_map.end() || itr->second.get() == nullptr) {
+        return;
+    }
+    reinterpret_cast<FileSys::ArchiveFactory_SystemSaveData*>(itr->second.get())
+        ->RegisterArtic(client);
 }
 
 ArchiveManager::ArchiveManager(Core::System& system) : system(system) {

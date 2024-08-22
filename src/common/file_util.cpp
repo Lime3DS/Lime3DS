@@ -1,6 +1,9 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
+
+// Copyright Dolphin Emulator Project
+// Licensed under GPLv2 or any later version
 
 #include <array>
 #include <fstream>
@@ -707,8 +710,8 @@ std::string AppDataRoamingDirectory() {
 /**
  * @return The user’s home directory on POSIX systems
  */
-static const std::string& GetHomeDirectory() {
-    static std::string home_path;
+const std::string GetHomeDirectory() {
+    std::string home_path;
     if (home_path.empty()) {
         const char* envvar = getenv("HOME");
         if (envvar) {
@@ -771,8 +774,11 @@ void SetUserPath(const std::string& path) {
     } else {
 #ifdef _WIN32
         user_path = GetExeDirectory() + DIR_SEP USERDATA_DIR DIR_SEP;
+        std::string& legacy_user_path = g_paths[UserPath::LegacyUserDir];
+
         if (!FileUtil::IsDirectory(user_path)) {
             user_path = AppDataRoamingDirectory() + DIR_SEP EMU_DATA_DIR DIR_SEP;
+            legacy_user_path = AppDataRoamingDirectory() + DIR_SEP LEGACY_EMU_DATA_DIR DIR_SEP;
         } else {
             LOG_INFO(Common_Filesystem, "Using the local user directory");
         }
@@ -784,6 +790,7 @@ void SetUserPath(const std::string& path) {
         g_paths.emplace(UserPath::ConfigDir, user_path + CONFIG_DIR DIR_SEP);
         g_paths.emplace(UserPath::CacheDir, user_path + CACHE_DIR DIR_SEP);
 #else
+        std::string& legacy_user_path = g_paths[UserPath::LegacyUserDir];
         auto current_dir = FileUtil::GetCurrentDir();
         if (current_dir.has_value() &&
             FileUtil::Exists(current_dir.value() + USERDATA_DIR DIR_SEP)) {
@@ -792,10 +799,16 @@ void SetUserPath(const std::string& path) {
             g_paths.emplace(UserPath::CacheDir, user_path + CACHE_DIR DIR_SEP);
         } else {
             std::string data_dir = GetUserDirectory("XDG_DATA_HOME") + DIR_SEP EMU_DATA_DIR DIR_SEP;
+            std::string legacy_data_dir =
+                GetUserDirectory("XDG_DATA_HOME") + DIR_SEP LEGACY_EMU_DATA_DIR DIR_SEP;
             std::string config_dir =
                 GetUserDirectory("XDG_CONFIG_HOME") + DIR_SEP EMU_DATA_DIR DIR_SEP;
             std::string cache_dir =
                 GetUserDirectory("XDG_CACHE_HOME") + DIR_SEP EMU_DATA_DIR DIR_SEP;
+            g_paths.emplace(UserPath::LegacyConfigDir, GetUserDirectory("XDG_CONFIG_HOME") +
+                                                           DIR_SEP LEGACY_EMU_DATA_DIR DIR_SEP);
+            g_paths.emplace(UserPath::LegacyCacheDir, GetUserDirectory("XDG_CACHE_HOME") +
+                                                          DIR_SEP LEGACY_EMU_DATA_DIR DIR_SEP);
 
 #if defined(__APPLE__)
             // If XDG directories don't already exist from a previous setup, use standard macOS
@@ -803,12 +816,14 @@ void SetUserPath(const std::string& path) {
             if (!FileUtil::Exists(data_dir) && !FileUtil::Exists(config_dir) &&
                 !FileUtil::Exists(cache_dir)) {
                 data_dir = GetHomeDirectory() + DIR_SEP APPLE_EMU_DATA_DIR DIR_SEP;
+                legacy_data_dir = GetHomeDirectory() + DIR_SEP LEGACY_APPLE_EMU_DATA_DIR DIR_SEP;
                 config_dir = data_dir + CONFIG_DIR DIR_SEP;
                 cache_dir = data_dir + CACHE_DIR DIR_SEP;
             }
 #endif
 
             user_path = data_dir;
+            legacy_user_path = legacy_data_dir;
             g_paths.emplace(UserPath::ConfigDir, config_dir);
             g_paths.emplace(UserPath::CacheDir, cache_dir);
         }
@@ -853,8 +868,8 @@ bool StringReplace(std::string& haystack, const std::string& a, const std::strin
 
 std::string SerializePath(const std::string& input, bool is_saving) {
     auto result = input;
-    StringReplace(result, "%CITRA_ROM_FILE%", g_currentRomPath, is_saving);
-    StringReplace(result, "%CITRA_USER_DIR%", GetUserPath(UserPath::UserDir), is_saving);
+    StringReplace(result, "%LIME3DS_ROM_FILE%", g_currentRomPath, is_saving);
+    StringReplace(result, "%LIME3DS_USER_DIR%", GetUserPath(UserPath::UserDir), is_saving);
     return result;
 }
 

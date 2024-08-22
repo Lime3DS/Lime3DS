@@ -28,9 +28,6 @@ add_executable(lime-qt
     camera/qt_multimedia_camera.cpp
     camera/qt_multimedia_camera.h
     lime-qt.rc
-    compatdb.cpp
-    compatdb.h
-    compatdb.ui
     configuration/config.cpp
     configuration/config.h
     configuration/configure.ui
@@ -212,14 +209,14 @@ if (ENABLE_QT_UPDATER)
 endif()
 
 if (ENABLE_QT_TRANSLATION)
-    set(CITRA_QT_LANGUAGES "${PROJECT_SOURCE_DIR}/dist/languages" CACHE PATH "Path to the translation bundle for the Qt frontend")
+    set(LIME3DS_QT_LANGUAGES "${PROJECT_SOURCE_DIR}/dist/languages" CACHE PATH "Path to the translation bundle for the Qt frontend")
     option(GENERATE_QT_TRANSLATION "Generate en.ts as the translation source file" OFF)
 
     # Update source TS file if enabled
     if (GENERATE_QT_TRANSLATION)
         get_target_property(QT_SRCS lime-qt SOURCES)
         get_target_property(QT_INCLUDES lime-qt INCLUDE_DIRECTORIES)
-        qt_add_lupdate(lime-qt TS_FILES ${CITRA_QT_LANGUAGES}/en.ts
+        qt_add_lupdate(lime-qt TS_FILES ${LIME3DS_QT_LANGUAGES}/en.ts
             SOURCES ${QT_SRCS} ${UIS}
             INCLUDE_DIRECTORIES ${QT_INCLUDES}
             NO_GLOBAL_TARGET)
@@ -227,8 +224,8 @@ if (ENABLE_QT_TRANSLATION)
     endif()
 
     # Find all TS files except en.ts
-    file(GLOB_RECURSE LANGUAGES_TS ${CITRA_QT_LANGUAGES}/*.ts)
-    list(REMOVE_ITEM LANGUAGES_TS ${CITRA_QT_LANGUAGES}/en.ts)
+    file(GLOB_RECURSE LANGUAGES_TS ${LIME3DS_QT_LANGUAGES}/*.ts)
+    list(REMOVE_ITEM LANGUAGES_TS ${LIME3DS_QT_LANGUAGES}/en.ts)
 
     # Compile TS files to QM files
     qt_add_lrelease(lime-qt TS_FILES ${LANGUAGES_TS} NO_GLOBAL_TARGET QM_FILES_OUTPUT_VARIABLE LANGUAGES_QM)
@@ -278,17 +275,6 @@ if (APPLE)
         MACOSX_BUNDLE_ICON_FILE "lime.icns"
         RESOURCE "${APPLE_RESOURCES}"
     )
-
-    if (IOS)
-        set_target_properties(lime-qt PROPERTIES
-            # Have Xcode copy and sign MoltenVK into app bundle.
-            XCODE_EMBED_FRAMEWORKS "${MOLTENVK_LIBRARY}"
-            XCODE_EMBED_FRAMEWORKS_CODE_SIGN_ON_COPY YES
-            XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "@executable_path/Frameworks"
-            # Support iPhone and iPad.
-            XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
-        )
-    endif()
 elseif(WIN32)
     # compile as a win32 gui application instead of a console application
     target_link_libraries(lime-qt PRIVATE Qt6::EntryPointImplementation)
@@ -345,10 +331,6 @@ target_compile_definitions(lime-qt PRIVATE
     -DQT_NO_CAST_TO_ASCII
 )
 
-if (CITRA_ENABLE_COMPATIBILITY_REPORTING)
-    target_compile_definitions(lime-qt PRIVATE -DCITRA_ENABLE_COMPATIBILITY_REPORTING)
-endif()
-
 if (USE_DISCORD_PRESENCE)
     target_sources(lime-qt PUBLIC
         discord_impl.cpp
@@ -366,7 +348,7 @@ if(UNIX AND NOT APPLE)
     install(TARGETS lime-qt RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 endif()
 
-if (CITRA_USE_PRECOMPILED_HEADERS)
+if (LIME3DS_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(lime-qt PRIVATE precompiled_headers.h)
 endif()
 

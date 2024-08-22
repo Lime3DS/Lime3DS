@@ -601,7 +601,6 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     QAction* uninstall_dlc = uninstall_menu->addAction(tr("DLC"));
 
     QAction* remove_play_time_data = context_menu.addAction(tr("Remove Play Time Data"));
-    QAction* navigate_to_gamedb_entry = context_menu.addAction(tr("Navigate to GameDB entry"));
 
 #if !defined(__APPLE__)
     QMenu* shortcut_menu = context_menu.addMenu(tr("Create Shortcut"));
@@ -672,9 +671,6 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     uninstall_update->setEnabled(has_update);
     uninstall_dlc->setEnabled(has_dlc);
 
-    auto it = FindMatchingCompatibilityEntry(compatibility_list, program_id);
-    navigate_to_gamedb_entry->setVisible(it != compatibility_list.end());
-
     connect(favorite, &QAction::triggered, [this, program_id]() { ToggleFavorite(program_id); });
     connect(open_save_location, &QAction::triggered, this, [this, program_id] {
         emit OpenFolderRequested(program_id, GameListOpenTarget::SAVE_DATA);
@@ -724,9 +720,6 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
             [this, path, program_id] { emit DumpRomFSRequested(path, program_id); });
     connect(remove_play_time_data, &QAction::triggered,
             [this, program_id]() { emit RemovePlayTimeRequested(program_id); });
-    connect(navigate_to_gamedb_entry, &QAction::triggered, this, [this, program_id]() {
-        emit NavigateToGamedbEntryRequested(program_id, compatibility_list);
-    });
     connect(properties, &QAction::triggered, this,
             [this, path]() { emit OpenPerGameGeneralRequested(path); });
     connect(open_shader_cache_location, &QAction::triggered, this, [this, program_id] {
@@ -741,7 +734,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
 #endif
     connect(uninstall_all, &QAction::triggered, this, [=, this] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Citra"),
+            this, tr("Lime3DS"),
             tr("Are you sure you want to completely uninstall '%1'?\n\nThis will "
                "delete the game if installed, as well as any installed updates or DLC.")
                 .arg(name),
@@ -764,7 +757,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     });
     connect(uninstall_game, &QAction::triggered, this, [this, name, media_type, program_id] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Citra"), tr("Are you sure you want to uninstall '%1'?").arg(name),
+            this, tr("Lime3DS"), tr("Are you sure you want to uninstall '%1'?").arg(name),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (answer == QMessageBox::Yes) {
             std::vector<std::tuple<Service::FS::MediaType, u64, QString>> titles;
@@ -774,7 +767,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     });
     connect(uninstall_update, &QAction::triggered, this, [this, name, update_program_id] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Citra"),
+            this, tr("Lime3DS"),
             tr("Are you sure you want to uninstall the update for '%1'?").arg(name),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (answer == QMessageBox::Yes) {
@@ -786,7 +779,8 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     });
     connect(uninstall_dlc, &QAction::triggered, this, [this, name, dlc_program_id] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Citra"), tr("Are you sure you want to uninstall all DLC for '%1'?").arg(name),
+            this, tr("Lime3DS"),
+            tr("Are you sure you want to uninstall all DLC for '%1'?").arg(name),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (answer == QMessageBox::Yes) {
             std::vector<std::tuple<Service::FS::MediaType, u64, QString>> titles;

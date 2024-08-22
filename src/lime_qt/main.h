@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -171,6 +171,9 @@ private:
     void CheckForUpdates();
 #endif
 
+    void CheckForMigration();
+    void MigrateUserData();
+
     /**
      * Stores the filename in the recently loaded files list.
      * The new filename is stored at the beginning of the recently loaded files list.
@@ -214,10 +217,10 @@ private:
     bool MakeShortcutIcoPath(const u64 program_id, const std::string_view game_file_name,
                              std::filesystem::path& out_icon_path);
     bool CreateShortcutLink(const std::filesystem::path& shortcut_path, const std::string& comment,
-                            const std::filesystem::path& icon_path,
-                            const std::filesystem::path& command, const std::string& arguments,
-                            const std::string& categories, const std::string& keywords,
-                            const std::string& name);
+                            const std::filesystem::path& icon_path, const std::string& command,
+                            const std::string& arguments, const std::string& categories,
+                            const std::string& keywords, const std::string& name,
+                            const bool& skip_tryexec);
 
 private slots:
     void OnStartGame();
@@ -227,13 +230,10 @@ private slots:
     void OnStopGame();
     void OnSaveState();
     void OnLoadState();
-    void OnMenuReportCompatibility();
     /// Called whenever a user selects a game in the game list widget.
     void OnGameListLoadFile(QString game_path);
     void OnGameListOpenFolder(u64 program_id, GameListOpenTarget target);
     void OnGameListRemovePlayTimeData(u64 program_id);
-    void OnGameListNavigateToGamedbEntry(u64 program_id,
-                                         const CompatibilityList& compatibility_list);
     void OnGameListCreateShortcut(u64 program_id, const std::string& game_path,
                                   GameListShortcutTarget target);
     void OnGameListDumpRomFS(QString game_path, u64 program_id);
@@ -253,7 +253,7 @@ private slots:
     void OnConfigure();
     void OnLoadAmiibo();
     void OnRemoveAmiibo();
-    void OnOpenCitraFolder();
+    void OnOpenLime3DSFolder();
     void OnToggleFilterBar();
     void OnDisplayTitleBars(bool);
     void InitializeHotkeys();
@@ -283,8 +283,8 @@ private slots:
     void StartVideoDumping(const QString& path);
     void OnStopVideoDumping();
     void OnCoreError(Core::System::ResultStatus, std::string);
-    /// Called whenever a user selects Help->About Citra
-    void OnMenuAboutCitra();
+    /// Called whenever a user selects Help->About Lime3DS
+    void OnMenuAboutLime3DS();
 
 #if ENABLE_QT_UPDATER
     void OnUpdateFound(bool found, bool error);
@@ -347,7 +347,7 @@ private:
     MultiplayerState* multiplayer_state = nullptr;
     std::unique_ptr<Config> config;
 
-    // Whether emulation is currently running in Citra.
+    // Whether emulation is currently running in Lime3DS.
     bool emulation_running = false;
     std::unique_ptr<EmuThread> emu_thread;
     // The title of the game currently running
@@ -408,6 +408,12 @@ private:
     u64 oldest_slot_time;
     u32 newest_slot;
     u64 newest_slot_time;
+
+    // Secondary window actions
+    QAction* action_secondary_fullscreen;
+    QAction* action_secondary_toggle_screen;
+    QAction* action_secondary_swap_screen;
+    QAction* action_secondary_rotate_screen;
 
     QTranslator translator;
 

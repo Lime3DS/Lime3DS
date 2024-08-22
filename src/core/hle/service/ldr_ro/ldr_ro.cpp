@@ -87,19 +87,19 @@ void RO::Initialize(Kernel::HLERequestContext& ctx) {
         return;
     }
 
-    if (crs_buffer_ptr & Memory::CITRA_PAGE_MASK) {
+    if (crs_buffer_ptr & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRS original address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         return;
     }
 
-    if (crs_address & Memory::CITRA_PAGE_MASK) {
+    if (crs_address & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRS mapping address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         return;
     }
 
-    if (crs_size & Memory::CITRA_PAGE_MASK) {
+    if (crs_size & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRS size is not aligned");
         rb.Push(ERROR_MISALIGNED_SIZE);
         return;
@@ -207,21 +207,21 @@ void RO::LoadCRO(Kernel::HLERequestContext& ctx, bool link_on_load_bug_fix) {
         return;
     }
 
-    if (cro_buffer_ptr & Memory::CITRA_PAGE_MASK) {
+    if (cro_buffer_ptr & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRO original address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         rb.Push<u32>(0);
         return;
     }
 
-    if (cro_address & Memory::CITRA_PAGE_MASK) {
+    if (cro_address & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRO mapping address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         rb.Push<u32>(0);
         return;
     }
 
-    if (cro_size & Memory::CITRA_PAGE_MASK) {
+    if (cro_size & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRO size is not aligned");
         rb.Push(ERROR_MISALIGNED_SIZE);
         rb.Push<u32>(0);
@@ -354,7 +354,7 @@ void RO::UnloadCRO(Kernel::HLERequestContext& ctx) {
         return;
     }
 
-    if (cro_address & Memory::CITRA_PAGE_MASK) {
+    if (cro_address & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRO address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         return;
@@ -421,7 +421,7 @@ void RO::LinkCRO(Kernel::HLERequestContext& ctx) {
         return;
     }
 
-    if (cro_address & Memory::CITRA_PAGE_MASK) {
+    if (cro_address & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRO address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         return;
@@ -461,7 +461,7 @@ void RO::UnlinkCRO(Kernel::HLERequestContext& ctx) {
         return;
     }
 
-    if (cro_address & Memory::CITRA_PAGE_MASK) {
+    if (cro_address & Memory::LIME3DS_PAGE_MASK) {
         LOG_ERROR(Service_LDR, "CRO address is not aligned");
         rb.Push(ERROR_MISALIGNED_ADDRESS);
         return;

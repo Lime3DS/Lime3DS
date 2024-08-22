@@ -20,6 +20,8 @@
 #include "core/hle/service/hid/hid.h"
 #include "core/hle/service/hid/hid_spvr.h"
 #include "core/hle/service/hid/hid_user.h"
+#include "core/hle/service/ir/ir_rst.h"
+#include "core/hle/service/ir/ir_user.h"
 #include "core/hle/service/service.h"
 #include "core/movie.h"
 
@@ -52,6 +54,32 @@ void Module::serialize(Archive& ar, const unsigned int file_version) {
     // Devices are set from the implementation (and are stateless afaik)
 }
 SERIALIZE_IMPL(Module)
+
+ArticBaseController::ArticBaseController(
+    const std::shared_ptr<Network::ArticBase::Client>& client) {
+
+    udp_stream =
+        client->NewUDPStream("ArticController", sizeof(ArticBaseController::ControllerData),
+                             std::chrono::milliseconds(2));
+    if (udp_stream.get()) {
+        udp_stream->Start();
+    }
+}
+
+ArticBaseController::ControllerData ArticBaseController::GetControllerData() {
+
+    if (udp_stream.get() && udp_stream->IsReady()) {
+        auto data = udp_stream->GetLastPacket();
+        if (data.size() == sizeof(ControllerData)) {
+            u32 id = *reinterpret_cast<u32*>(data.data());
+            if ((id - last_packet_id) < (std::numeric_limits<u32>::max() / 2)) {
+                last_packet_id = id;
+                memcpy(&last_controller_data, data.data(), data.size());
+            }
+        }
+    }
+    return last_controller_data;
+}
 
 constexpr float accelerometer_coef = 512.0f; // measured from hw test result
 constexpr float gyroscope_coef = 14.375f; // got from hwtest GetGyroscopeLowRawToDpsCoefficient call
@@ -111,95 +139,150 @@ void Module::UpdatePadCallback(std::uintptr_t user_data, s64 cycles_late) {
         LoadInputDevices();
 
     using namespace Settings::NativeButton;
-    state.a.Assign(buttons[A - BUTTON_HID_BEGIN]->GetStatus());
-    state.b.Assign(buttons[B - BUTTON_HID_BEGIN]->GetStatus());
-    state.x.Assign(buttons[X - BUTTON_HID_BEGIN]->GetStatus());
-    state.y.Assign(buttons[Y - BUTTON_HID_BEGIN]->GetStatus());
-    state.right.Assign(buttons[Right - BUTTON_HID_BEGIN]->GetStatus());
-    state.left.Assign(buttons[Left - BUTTON_HID_BEGIN]->GetStatus());
-    state.up.Assign(buttons[Up - BUTTON_HID_BEGIN]->GetStatus());
-    state.down.Assign(buttons[Down - BUTTON_HID_BEGIN]->GetStatus());
-    state.l.Assign(buttons[L - BUTTON_HID_BEGIN]->GetStatus());
-    state.r.Assign(buttons[R - BUTTON_HID_BEGIN]->GetStatus());
-    state.start.Assign(buttons[Start - BUTTON_HID_BEGIN]->GetStatus());
-    state.select.Assign(buttons[Select - BUTTON_HID_BEGIN]->GetStatus());
-    state.debug.Assign(buttons[Debug - BUTTON_HID_BEGIN]->GetStatus());
-    state.gpio14.Assign(buttons[Gpio14 - BUTTON_HID_BEGIN]->GetStatus());
 
-    // Get current circle pad position and update circle pad direction
-    float circle_pad_x_f, circle_pad_y_f;
-    std::tie(circle_pad_x_f, circle_pad_y_f) = circle_pad->GetStatus();
+    if (artic_controller.get() && artic_controller->IsReady()) {
+        constexpr u32 HID_VALID_KEYS = 0xF0003FFF;
+        constexpr u32 LIBCTRU_TOUCH_KEY = (1 << 20);
 
-    // xperia64: 0x9A seems to be the calibrated limit of the circle pad
-    // Verified by using Input Redirector with very large-value digital inputs
-    // on the circle pad and calibrating using the system settings application
-    constexpr int MAX_CIRCLEPAD_POS = 0x9A; // Max value for a circle pad position
+        ArticBaseController::ControllerData data = artic_controller->GetControllerData();
 
-    // These are rounded rather than truncated on actual hardware
-    s16 circle_pad_new_x = static_cast<s16>(std::roundf(circle_pad_x_f * MAX_CIRCLEPAD_POS));
-    s16 circle_pad_new_y = static_cast<s16>(std::roundf(circle_pad_y_f * MAX_CIRCLEPAD_POS));
-    s16 circle_pad_x =
-        (circle_pad_new_x + std::accumulate(circle_pad_old_x.begin(), circle_pad_old_x.end(), 0)) /
-        CIRCLE_PAD_AVERAGING;
-    s16 circle_pad_y =
-        (circle_pad_new_y + std::accumulate(circle_pad_old_y.begin(), circle_pad_old_y.end(), 0)) /
-        CIRCLE_PAD_AVERAGING;
-    circle_pad_old_x.erase(circle_pad_old_x.begin());
-    circle_pad_old_x.push_back(circle_pad_new_x);
-    circle_pad_old_y.erase(circle_pad_old_y.begin());
-    circle_pad_old_y.push_back(circle_pad_new_y);
+        state.hex = data.pad & HID_VALID_KEYS;
 
-    system.Movie().HandlePadAndCircleStatus(state, circle_pad_x, circle_pad_y);
+        s16 circle_pad_x = data.c_pad_x;
+        s16 circle_pad_y = data.c_pad_y;
 
-    const DirectionState direction = GetStickDirectionState(circle_pad_x, circle_pad_y);
-    state.circle_up.Assign(direction.up);
-    state.circle_down.Assign(direction.down);
-    state.circle_left.Assign(direction.left);
-    state.circle_right.Assign(direction.right);
+        system.Movie().HandlePadAndCircleStatus(state, circle_pad_x, circle_pad_y);
 
-    mem->pad.current_state.hex = state.hex;
-    mem->pad.index = next_pad_index;
-    next_pad_index = (next_pad_index + 1) % mem->pad.entries.size();
+        mem->pad.current_state.hex = state.hex;
+        mem->pad.index = next_pad_index;
+        next_pad_index = (next_pad_index + 1) % mem->pad.entries.size();
 
-    // Get the previous Pad state
-    u32 last_entry_index = (mem->pad.index - 1) % mem->pad.entries.size();
-    PadState old_state = mem->pad.entries[last_entry_index].current_state;
+        // Get the previous Pad state
+        u32 last_entry_index = (mem->pad.index - 1) % mem->pad.entries.size();
+        PadState old_state = mem->pad.entries[last_entry_index].current_state;
 
-    // Compute bitmask with 1s for bits different from the old state
-    PadState changed = {{(state.hex ^ old_state.hex)}};
+        // Compute bitmask with 1s for bits different from the old state
+        PadState changed = {{(state.hex ^ old_state.hex)}};
 
-    // Get the current Pad entry
-    PadDataEntry& pad_entry = mem->pad.entries[mem->pad.index];
+        // Get the current Pad entry
+        PadDataEntry& pad_entry = mem->pad.entries[mem->pad.index];
 
-    // Update entry properties
-    pad_entry.current_state.hex = state.hex;
-    pad_entry.delta_additions.hex = changed.hex & state.hex;
-    pad_entry.delta_removals.hex = changed.hex & old_state.hex;
-    pad_entry.circle_pad_x = circle_pad_x;
-    pad_entry.circle_pad_y = circle_pad_y;
+        // Update entry properties
+        pad_entry.current_state.hex = state.hex;
+        pad_entry.delta_additions.hex = changed.hex & state.hex;
+        pad_entry.delta_removals.hex = changed.hex & old_state.hex;
+        pad_entry.circle_pad_x = circle_pad_x;
+        pad_entry.circle_pad_y = circle_pad_y;
 
-    // If we just updated index 0, provide a new timestamp
-    if (mem->pad.index == 0) {
-        mem->pad.index_reset_ticks_previous = mem->pad.index_reset_ticks;
-        mem->pad.index_reset_ticks = (s64)system.CoreTiming().GetTicks();
+        // If we just updated index 0, provide a new timestamp
+        if (mem->pad.index == 0) {
+            mem->pad.index_reset_ticks_previous = mem->pad.index_reset_ticks;
+            mem->pad.index_reset_ticks = (s64)system.CoreTiming().GetTicks();
+        }
+
+        mem->touch.index = next_touch_index;
+        next_touch_index = (next_touch_index + 1) % mem->touch.entries.size();
+
+        // Get the current touch entry
+        TouchDataEntry& touch_entry = mem->touch.entries[mem->touch.index];
+        bool pressed = (data.pad & LIBCTRU_TOUCH_KEY) != 0;
+
+        touch_entry.x = static_cast<u16>(data.touch_x);
+        touch_entry.y = static_cast<u16>(data.touch_y);
+        touch_entry.valid.Assign(pressed ? 1 : 0);
+
+        system.Movie().HandleTouchStatus(touch_entry);
+    } else {
+        state.a.Assign(buttons[A - BUTTON_HID_BEGIN]->GetStatus());
+        state.b.Assign(buttons[B - BUTTON_HID_BEGIN]->GetStatus());
+        state.x.Assign(buttons[X - BUTTON_HID_BEGIN]->GetStatus());
+        state.y.Assign(buttons[Y - BUTTON_HID_BEGIN]->GetStatus());
+        state.right.Assign(buttons[Right - BUTTON_HID_BEGIN]->GetStatus());
+        state.left.Assign(buttons[Left - BUTTON_HID_BEGIN]->GetStatus());
+        state.up.Assign(buttons[Up - BUTTON_HID_BEGIN]->GetStatus());
+        state.down.Assign(buttons[Down - BUTTON_HID_BEGIN]->GetStatus());
+        state.l.Assign(buttons[L - BUTTON_HID_BEGIN]->GetStatus());
+        state.r.Assign(buttons[R - BUTTON_HID_BEGIN]->GetStatus());
+        state.start.Assign(buttons[Start - BUTTON_HID_BEGIN]->GetStatus());
+        state.select.Assign(buttons[Select - BUTTON_HID_BEGIN]->GetStatus());
+        state.debug.Assign(buttons[Debug - BUTTON_HID_BEGIN]->GetStatus());
+        state.gpio14.Assign(buttons[Gpio14 - BUTTON_HID_BEGIN]->GetStatus());
+
+        // Get current circle pad position and update circle pad direction
+        float circle_pad_x_f, circle_pad_y_f;
+        std::tie(circle_pad_x_f, circle_pad_y_f) = circle_pad->GetStatus();
+
+        // xperia64: 0x9A seems to be the calibrated limit of the circle pad
+        // Verified by using Input Redirector with very large-value digital inputs
+        // on the circle pad and calibrating using the system settings application
+        constexpr int MAX_CIRCLEPAD_POS = 0x9A; // Max value for a circle pad position
+
+        // These are rounded rather than truncated on actual hardware
+        s16 circle_pad_new_x = static_cast<s16>(std::roundf(circle_pad_x_f * MAX_CIRCLEPAD_POS));
+        s16 circle_pad_new_y = static_cast<s16>(std::roundf(circle_pad_y_f * MAX_CIRCLEPAD_POS));
+        s16 circle_pad_x = (circle_pad_new_x +
+                            std::accumulate(circle_pad_old_x.begin(), circle_pad_old_x.end(), 0)) /
+                           CIRCLE_PAD_AVERAGING;
+        s16 circle_pad_y = (circle_pad_new_y +
+                            std::accumulate(circle_pad_old_y.begin(), circle_pad_old_y.end(), 0)) /
+                           CIRCLE_PAD_AVERAGING;
+        circle_pad_old_x.erase(circle_pad_old_x.begin());
+        circle_pad_old_x.push_back(circle_pad_new_x);
+        circle_pad_old_y.erase(circle_pad_old_y.begin());
+        circle_pad_old_y.push_back(circle_pad_new_y);
+
+        system.Movie().HandlePadAndCircleStatus(state, circle_pad_x, circle_pad_y);
+
+        const DirectionState direction = GetStickDirectionState(circle_pad_x, circle_pad_y);
+        state.circle_up.Assign(direction.up);
+        state.circle_down.Assign(direction.down);
+        state.circle_left.Assign(direction.left);
+        state.circle_right.Assign(direction.right);
+
+        mem->pad.current_state.hex = state.hex;
+        mem->pad.index = next_pad_index;
+        next_pad_index = (next_pad_index + 1) % mem->pad.entries.size();
+
+        // Get the previous Pad state
+        u32 last_entry_index = (mem->pad.index - 1) % mem->pad.entries.size();
+        PadState old_state = mem->pad.entries[last_entry_index].current_state;
+
+        // Compute bitmask with 1s for bits different from the old state
+        PadState changed = {{(state.hex ^ old_state.hex)}};
+
+        // Get the current Pad entry
+        PadDataEntry& pad_entry = mem->pad.entries[mem->pad.index];
+
+        // Update entry properties
+        pad_entry.current_state.hex = state.hex;
+        pad_entry.delta_additions.hex = changed.hex & state.hex;
+        pad_entry.delta_removals.hex = changed.hex & old_state.hex;
+        pad_entry.circle_pad_x = circle_pad_x;
+        pad_entry.circle_pad_y = circle_pad_y;
+
+        // If we just updated index 0, provide a new timestamp
+        if (mem->pad.index == 0) {
+            mem->pad.index_reset_ticks_previous = mem->pad.index_reset_ticks;
+            mem->pad.index_reset_ticks = (s64)system.CoreTiming().GetTicks();
+        }
+
+        mem->touch.index = next_touch_index;
+        next_touch_index = (next_touch_index + 1) % mem->touch.entries.size();
+
+        // Get the current touch entry
+        TouchDataEntry& touch_entry = mem->touch.entries[mem->touch.index];
+        bool pressed = false;
+        float x, y;
+        std::tie(x, y, pressed) = touch_device->GetStatus();
+        if (!pressed && touch_btn_device) {
+            std::tie(x, y, pressed) = touch_btn_device->GetStatus();
+        }
+        touch_entry.x = static_cast<u16>(x * Core::kScreenBottomWidth);
+        touch_entry.y = static_cast<u16>(y * Core::kScreenBottomHeight);
+        touch_entry.valid.Assign(pressed ? 1 : 0);
+
+        system.Movie().HandleTouchStatus(touch_entry);
     }
-
-    mem->touch.index = next_touch_index;
-    next_touch_index = (next_touch_index + 1) % mem->touch.entries.size();
-
-    // Get the current touch entry
-    TouchDataEntry& touch_entry = mem->touch.entries[mem->touch.index];
-    bool pressed = false;
-    float x, y;
-    std::tie(x, y, pressed) = touch_device->GetStatus();
-    if (!pressed && touch_btn_device) {
-        std::tie(x, y, pressed) = touch_btn_device->GetStatus();
-    }
-    touch_entry.x = static_cast<u16>(x * Core::kScreenBottomWidth);
-    touch_entry.y = static_cast<u16>(y * Core::kScreenBottomHeight);
-    touch_entry.valid.Assign(pressed ? 1 : 0);
-
-    system.Movie().HandleTouchStatus(touch_entry);
 
     // TODO(bunnei): We're not doing anything with offset 0xA8 + 0x18 of HID SharedMemory, which
     // supposedly is "Touch-screen entry, which contains the raw coordinate data prior to being
@@ -231,19 +314,27 @@ void Module::UpdateAccelerometerCallback(std::uintptr_t user_data, s64 cycles_la
     mem->accelerometer.index = next_accelerometer_index;
     next_accelerometer_index = (next_accelerometer_index + 1) % mem->accelerometer.entries.size();
 
-    Common::Vec3<float> accel;
-    std::tie(accel, std::ignore) = motion_device->GetStatus();
-    accel *= accelerometer_coef;
-    // TODO(wwylele): do a time stretch like the one in UpdateGyroscopeCallback
-    // The time stretch formula should be like
-    // stretched_vector = (raw_vector - gravity) * stretch_ratio + gravity
-
     AccelerometerDataEntry& accelerometer_entry =
         mem->accelerometer.entries[mem->accelerometer.index];
 
-    accelerometer_entry.x = static_cast<s16>(accel.x);
-    accelerometer_entry.y = static_cast<s16>(accel.y);
-    accelerometer_entry.z = static_cast<s16>(accel.z);
+    if (artic_controller.get() && artic_controller->IsReady()) {
+        ArticBaseController::ControllerData data = artic_controller->GetControllerData();
+
+        accelerometer_entry.x = data.accel_x;
+        accelerometer_entry.y = data.accel_y;
+        accelerometer_entry.z = data.accel_z;
+    } else {
+        Common::Vec3<float> accel;
+        std::tie(accel, std::ignore) = motion_device->GetStatus();
+        accel *= accelerometer_coef;
+        // TODO(wwylele): do a time stretch like the one in UpdateGyroscopeCallback
+        // The time stretch formula should be like
+        // stretched_vector = (raw_vector - gravity) * stretch_ratio + gravity
+
+        accelerometer_entry.x = static_cast<s16>(accel.x);
+        accelerometer_entry.y = static_cast<s16>(accel.y);
+        accelerometer_entry.z = static_cast<s16>(accel.z);
+    }
 
     system.Movie().HandleAccelerometerStatus(accelerometer_entry);
 
@@ -278,13 +369,21 @@ void Module::UpdateGyroscopeCallback(std::uintptr_t user_data, s64 cycles_late) 
 
     GyroscopeDataEntry& gyroscope_entry = mem->gyroscope.entries[mem->gyroscope.index];
 
-    Common::Vec3<float> gyro;
-    std::tie(std::ignore, gyro) = motion_device->GetStatus();
-    double stretch = system.perf_stats->GetLastFrameTimeScale();
-    gyro *= gyroscope_coef * static_cast<float>(stretch);
-    gyroscope_entry.x = static_cast<s16>(gyro.x);
-    gyroscope_entry.y = static_cast<s16>(gyro.y);
-    gyroscope_entry.z = static_cast<s16>(gyro.z);
+    if (artic_controller.get() && artic_controller->IsReady()) {
+        ArticBaseController::ControllerData data = artic_controller->GetControllerData();
+
+        gyroscope_entry.x = data.gyro_x;
+        gyroscope_entry.y = data.gyro_y;
+        gyroscope_entry.z = data.gyro_z;
+    } else {
+        Common::Vec3<float> gyro;
+        std::tie(std::ignore, gyro) = motion_device->GetStatus();
+        double stretch = system.perf_stats->GetLastFrameTimeScale();
+        gyro *= gyroscope_coef * static_cast<float>(stretch);
+        gyroscope_entry.x = static_cast<s16>(gyro.x);
+        gyroscope_entry.y = static_cast<s16>(gyro.y);
+        gyroscope_entry.z = static_cast<s16>(gyro.z);
+    }
 
     system.Movie().HandleGyroscopeStatus(gyroscope_entry);
 
@@ -316,6 +415,23 @@ void Module::Interface::GetIPCHandles(Kernel::HLERequestContext& ctx) {
 void Module::Interface::EnableAccelerometer(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
 
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+
+    auto& artic_client = GetModule()->artic_client;
+    if (artic_client.get()) {
+        auto req = artic_client->NewRequest("HIDUSER_EnableAccelerometer");
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value()) {
+            rb.Push(ResultUnknown);
+        } else {
+            rb.Push(Result{static_cast<u32>(resp->GetMethodResult())});
+        }
+    } else {
+        rb.Push(ResultSuccess);
+    }
+
     ++hid->enable_accelerometer_count;
 
     // Schedules the accelerometer update event if the accelerometer was just enabled
@@ -324,14 +440,28 @@ void Module::Interface::EnableAccelerometer(Kernel::HLERequestContext& ctx) {
                                                hid->accelerometer_update_event);
     }
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultSuccess);
-
     LOG_DEBUG(Service_HID, "called");
 }
 
 void Module::Interface::DisableAccelerometer(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+
+    auto& artic_client = GetModule()->artic_client;
+    if (artic_client.get()) {
+        auto req = artic_client->NewRequest("HIDUSER_DisableAccelerometer");
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value()) {
+            rb.Push(ResultUnknown);
+        } else {
+            rb.Push(Result{static_cast<u32>(resp->GetMethodResult())});
+        }
+    } else {
+        rb.Push(ResultSuccess);
+    }
 
     --hid->enable_accelerometer_count;
 
@@ -340,14 +470,28 @@ void Module::Interface::DisableAccelerometer(Kernel::HLERequestContext& ctx) {
         hid->system.CoreTiming().UnscheduleEvent(hid->accelerometer_update_event, 0);
     }
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultSuccess);
-
     LOG_DEBUG(Service_HID, "called");
 }
 
 void Module::Interface::EnableGyroscopeLow(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+
+    auto& artic_client = GetModule()->artic_client;
+    if (artic_client.get()) {
+        auto req = artic_client->NewRequest("HIDUSER_EnableGyroscope");
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value()) {
+            rb.Push(ResultUnknown);
+        } else {
+            rb.Push(Result{static_cast<u32>(resp->GetMethodResult())});
+        }
+    } else {
+        rb.Push(ResultSuccess);
+    }
 
     ++hid->enable_gyroscope_count;
 
@@ -356,14 +500,28 @@ void Module::Interface::EnableGyroscopeLow(Kernel::HLERequestContext& ctx) {
         hid->system.CoreTiming().ScheduleEvent(gyroscope_update_ticks, hid->gyroscope_update_event);
     }
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultSuccess);
-
     LOG_DEBUG(Service_HID, "called");
 }
 
 void Module::Interface::DisableGyroscopeLow(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
+
+    auto& artic_client = GetModule()->artic_client;
+    if (artic_client.get()) {
+        auto req = artic_client->NewRequest("HIDUSER_DisableGyroscope");
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value()) {
+            rb.Push(ResultUnknown);
+        } else {
+            rb.Push(Result{static_cast<u32>(resp->GetMethodResult())});
+        }
+    } else {
+        rb.Push(ResultSuccess);
+    }
 
     --hid->enable_gyroscope_count;
 
@@ -372,9 +530,6 @@ void Module::Interface::DisableGyroscopeLow(Kernel::HLERequestContext& ctx) {
         hid->system.CoreTiming().UnscheduleEvent(hid->gyroscope_update_event, 0);
     }
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultSuccess);
-
     LOG_DEBUG(Service_HID, "called");
 }
 
@@ -382,25 +537,90 @@ void Module::Interface::GetGyroscopeLowRawToDpsCoefficient(Kernel::HLERequestCon
     IPC::RequestParser rp(ctx);
 
     IPC::RequestBuilder rb = rp.MakeBuilder(2, 0);
-    rb.Push(ResultSuccess);
-    rb.Push(gyroscope_coef);
+
+    auto& artic_client = GetModule()->artic_client;
+    if (artic_client.get()) {
+        auto req = artic_client->NewRequest("HIDUSER_GetGyroRawToDpsCoef");
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value()) {
+            rb.Push(ResultUnknown);
+            rb.Push(0.f);
+            return;
+        }
+
+        Result res = Result{static_cast<u32>(resp->GetMethodResult())};
+        if (res.IsError()) {
+            rb.Push(res);
+            rb.Push(0.f);
+            return;
+        }
+
+        auto coef = resp->GetResponseFloat(0);
+        if (!coef.has_value()) {
+            rb.Push(ResultUnknown);
+            rb.Push(0.f);
+            return;
+        }
+
+        rb.Push(res);
+        rb.Push(*coef);
+    } else {
+        rb.Push(ResultSuccess);
+        rb.Push(gyroscope_coef);
+    }
 }
 
 void Module::Interface::GetGyroscopeLowCalibrateParam(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
 
     IPC::RequestBuilder rb = rp.MakeBuilder(6, 0);
-    rb.Push(ResultSuccess);
 
-    const s16 param_unit = 6700; // an approximate value taken from hw
-    GyroscopeCalibrateParam param = {
-        {0, param_unit, -param_unit},
-        {0, param_unit, -param_unit},
-        {0, param_unit, -param_unit},
-    };
-    rb.PushRaw(param);
+    auto& artic_client = GetModule()->artic_client;
+    if (artic_client.get()) {
+        GyroscopeCalibrateParam param;
 
-    LOG_WARNING(Service_HID, "(STUBBED) called");
+        auto req = artic_client->NewRequest("HIDUSER_GetGyroCalibrateParam");
+
+        auto resp = artic_client->Send(req);
+
+        if (!resp.has_value()) {
+            rb.Push(ResultUnknown);
+            rb.PushRaw(param);
+            return;
+        }
+
+        Result res = Result{static_cast<u32>(resp->GetMethodResult())};
+        if (res.IsError()) {
+            rb.Push(res);
+            rb.PushRaw(param);
+            return;
+        }
+
+        auto param_buf = resp->GetResponseBuffer(0);
+        if (!param_buf.has_value() || param_buf->second != sizeof(param)) {
+            rb.Push(ResultUnknown);
+            rb.PushRaw(param);
+            return;
+        }
+        memcpy(&param, param_buf->first, sizeof(param));
+
+        rb.Push(res);
+        rb.PushRaw(param);
+    } else {
+        rb.Push(ResultSuccess);
+
+        const s16 param_unit = 6700; // an approximate value taken from hw
+        GyroscopeCalibrateParam param = {
+            {0, param_unit, -param_unit},
+            {0, param_unit, -param_unit},
+            {0, param_unit, -param_unit},
+        };
+        rb.PushRaw(param);
+
+        LOG_WARNING(Service_HID, "(STUBBED) called");
+    }
 }
 
 void Module::Interface::GetSoundVolume(Kernel::HLERequestContext& ctx) {
@@ -452,6 +672,24 @@ Module::Module(Core::System& system) : system(system) {
         });
 
     timing.ScheduleEvent(pad_update_ticks, pad_update_event);
+}
+
+void Module::UseArticClient(const std::shared_ptr<Network::ArticBase::Client>& client) {
+    artic_client = client;
+    artic_controller = std::make_shared<ArticBaseController>(client);
+    if (!artic_controller->IsCreated()) {
+        artic_controller.reset();
+    } else {
+        auto ir_user = system.ServiceManager().GetService<Service::IR::IR_USER>("ir:USER");
+        if (ir_user.get()) {
+            ir_user->UseArticController(artic_controller);
+        }
+
+        auto ir_rst = system.ServiceManager().GetService<Service::IR::IR_RST>("ir:rst");
+        if (ir_rst.get()) {
+            ir_rst->UseArticController(artic_controller);
+        }
+    }
 }
 
 void Module::ReloadInputDevices() {

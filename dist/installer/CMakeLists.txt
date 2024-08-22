@@ -11,7 +11,7 @@ endif()
 
 set(BUILD_DIR "${CMAKE_BINARY_DIR}/installer")
 set(DIST_DIR "${BUILD_DIR}/dist")
-set(TARGET_FILE "${DIST_DIR}/citra-setup-${PLATFORM}")
+set(TARGET_FILE "${DIST_DIR}/lime3ds-setup-${PLATFORM}")
 
 file(MAKE_DIRECTORY "${BUILD_DIR}" "${DIST_DIR}")
 

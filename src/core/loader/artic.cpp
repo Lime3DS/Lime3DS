@@ -21,9 +21,13 @@
 #include "core/hle/kernel/process.h"
 #include "core/hle/kernel/resource_limit.h"
 #include "core/hle/service/am/am.h"
+#include "core/hle/service/am/am_app.h"
+#include "core/hle/service/am/am_net.h"
 #include "core/hle/service/cfg/cfg.h"
+#include "core/hle/service/cfg/cfg_u.h"
 #include "core/hle/service/fs/archive.h"
 #include "core/hle/service/fs/fs_user.h"
+#include "core/hle/service/hid/hid_user.h"
 #include "core/loader/artic.h"
 #include "core/loader/smdh.h"
 #include "core/memory.h"
@@ -124,13 +128,13 @@ ResultStatus Apploader_Artic::LoadExec(std::shared_ptr<Kernel::Process>& process
         codeset->CodeSegment().offset = 0;
         codeset->CodeSegment().addr = program_exheader.codeset_info.text.address;
         codeset->CodeSegment().size =
-            program_exheader.codeset_info.text.num_max_pages * Memory::CITRA_PAGE_SIZE;
+            program_exheader.codeset_info.text.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
         codeset->RODataSegment().offset =
             codeset->CodeSegment().offset + codeset->CodeSegment().size;
         codeset->RODataSegment().addr = program_exheader.codeset_info.ro.address;
         codeset->RODataSegment().size =
-            program_exheader.codeset_info.ro.num_max_pages * Memory::CITRA_PAGE_SIZE;
+            program_exheader.codeset_info.ro.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
         // TODO(yuriks): Not sure if the bss size is added to the page-aligned .data size or just
         //               to the regular size. Playing it safe for now.
@@ -141,7 +145,7 @@ ResultStatus Apploader_Artic::LoadExec(std::shared_ptr<Kernel::Process>& process
             codeset->RODataSegment().offset + codeset->RODataSegment().size;
         codeset->DataSegment().addr = program_exheader.codeset_info.data.address;
         codeset->DataSegment().size =
-            program_exheader.codeset_info.data.num_max_pages * Memory::CITRA_PAGE_SIZE +
+            program_exheader.codeset_info.data.num_max_pages * Memory::LIME3DS_PAGE_SIZE +
             bss_page_size;
 
         // Apply patches now that the entire codeset (including .bss) has been allocated
@@ -335,9 +339,35 @@ ResultStatus Apploader_Artic::Load(std::shared_ptr<Kernel::Process>& process) {
     system.ArchiveManager().RegisterArticSaveDataSource(client);
     system.ArchiveManager().RegisterArticExtData(client);
     system.ArchiveManager().RegisterArticNCCH(client);
+    system.ArchiveManager().RegisterArticSystemSaveData(client);
 
     auto fs_user = system.ServiceManager().GetService<Service::FS::FS_USER>("fs:USER");
-    fs_user->RegisterSecureValueBackend(std::make_shared<FileSys::ArticSecureValueBackend>(client));
+    if (fs_user.get()) {
+        fs_user->RegisterSecureValueBackend(
+            std::make_shared<FileSys::ArticSecureValueBackend>(client));
+    }
+
+    auto cfg = system.ServiceManager().GetService<Service::CFG::CFG_U>("cfg:u");
+    if (cfg.get()) {
+        cfg->UseArticClient(client);
+    }
+
+    auto amnet = system.ServiceManager().GetService<Service::AM::AM_NET>("am:net");
+    if (amnet.get()) {
+        amnet->UseArticClient(client);
+    }
+
+    auto amapp = system.ServiceManager().GetService<Service::AM::AM_APP>("am:app");
+    if (amapp.get()) {
+        amapp->UseArticClient(client);
+    }
+
+    if (Settings::values.use_artic_base_controller.GetValue()) {
+        auto hid_user = system.ServiceManager().GetService<Service::HID::User>("hid:USER");
+        if (hid_user.get()) {
+            hid_user->GetModule()->UseArticClient(client);
+        }
+    }
 
     ParseRegionLockoutInfo(ncch_program_id);
 
@@ -357,9 +387,9 @@ ResultStatus Apploader_Artic::ReadCode(std::vector<u8>& buffer) {
     if (!client_connected)
         return ResultStatus::ErrorArtic;
 
-    size_t code_size = program_exheader.codeset_info.text.num_max_pages * Memory::CITRA_PAGE_SIZE;
-    code_size += program_exheader.codeset_info.ro.num_max_pages * Memory::CITRA_PAGE_SIZE;
-    code_size += program_exheader.codeset_info.data.num_max_pages * Memory::CITRA_PAGE_SIZE;
+    size_t code_size = program_exheader.codeset_info.text.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
+    code_size += program_exheader.codeset_info.ro.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
+    code_size += program_exheader.codeset_info.data.num_max_pages * Memory::LIME3DS_PAGE_SIZE;
 
     size_t read_amount = 0;
     buffer.clear();

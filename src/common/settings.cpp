@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -83,6 +83,7 @@ void LogSettings() {
     LOG_INFO(Config, "Lime3DS Configuration:");
     log_setting("Core_UseCpuJit", values.use_cpu_jit.GetValue());
     log_setting("Core_CPUClockPercentage", values.cpu_clock_percentage.GetValue());
+    log_setting("Controller_UseArticController", values.use_artic_base_controller.GetValue());
     log_setting("Renderer_UseGLES", values.use_gles.GetValue());
     log_setting("Renderer_GraphicsAPI", GetGraphicsAPIName(values.graphics_api.GetValue()));
     log_setting("Renderer_AsyncShaders", values.async_shader_compilation.GetValue());
@@ -107,6 +108,7 @@ void LogSettings() {
         log_setting("Renderer_AnaglyphShader", values.anaglyph_shader_name.GetValue());
     }
     log_setting("Layout_LayoutOption", values.layout_option.GetValue());
+    log_setting("Layout_PortraitLayoutOption", values.portrait_layout_option.GetValue());
     log_setting("Layout_SwapScreen", values.swap_screen.GetValue());
     log_setting("Layout_UprightScreen", values.upright_screen.GetValue());
     log_setting("Layout_LargeScreenProportion", values.large_screen_proportion.GetValue());
@@ -195,6 +197,7 @@ void RestoreGlobalState(bool is_powered_on) {
     values.texture_filter.SetGlobal(true);
     values.texture_sampling.SetGlobal(true);
     values.layout_option.SetGlobal(true);
+    values.portrait_layout_option.SetGlobal(true);
     values.swap_screen.SetGlobal(true);
     values.upright_screen.SetGlobal(true);
     values.large_screen_proportion.SetGlobal(true);

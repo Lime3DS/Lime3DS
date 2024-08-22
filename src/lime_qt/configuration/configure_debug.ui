@@ -224,7 +224,7 @@
         <property name="title">
           <string>Miscellaneus</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_2">
+        <layout class="QGridLayout" name="gridLayout_3">
           <item row="1" column="0">
             <widget class="QCheckBox" name="delay_start_for_lle_modules">
               <property name="toolTip">

@@ -895,7 +895,7 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
          *
          *
          * This has a few benefits over the conventional way of storing the values
-         * (ie. within the Citra ini file).
+         * (ie. within the Lime3DS ini file).
          *
          *  * No native calls
          *  * Keeps Android-only values inside the Android environment

@@ -117,10 +117,10 @@ enum class SystemInfoType {
      */
     NEW_3DS_INFO = 0x10001,
     /**
-     * Gets citra related information. This parameter is not available on real systems,
+     * Gets lime3ds related information. This parameter is not available on real systems,
      * but can be used by homebrew applications to get some emulator info.
      */
-    CITRA_INFORMATION = 0x20000,
+    LIME3DS_INFORMATION = 0x20000,
 };
 
 enum class ProcessInfoType {
@@ -263,11 +263,11 @@ enum class SystemInfoMemUsageRegion {
 };
 
 /**
- * Accepted by svcGetSystemInfo param with CITRA_INFORMATION type. Selects which information
- * to fetch from Citra. Some string params don't fit in 7 bytes, so they are split.
+ * Accepted by svcGetSystemInfo param with LIME3DS_INFORMATION type. Selects which information
+ * to fetch from Lime3DS. Some string params don't fit in 7 bytes, so they are split.
  */
-enum class SystemInfoCitraInformation {
-    IS_CITRA = 0,          // Always set the output to 1, signaling the app is running on Citra.
+enum class SystemInfoLime3DSInformation {
+    IS_LIME3DS = 0,        // Always set the output to 1, signaling the app is running on Lime3DS.
     BUILD_NAME = 10,       // (ie: Nightly, Canary).
     BUILD_VERSION = 11,    // Build version.
     BUILD_DATE_PART1 = 20, // Build date first 7 characters.
@@ -459,9 +459,9 @@ Result SVC::ControlMemory(u32* out_addr, u32 addr0, u32 addr1, u32 size, u32 ope
               "size=0x{:X}, permissions=0x{:08X}",
               operation, addr0, addr1, size, permissions);
 
-    R_UNLESS((addr0 & Memory::CITRA_PAGE_MASK) == 0, ResultMisalignedAddress);
-    R_UNLESS((addr1 & Memory::CITRA_PAGE_MASK) == 0, ResultMisalignedAddress);
-    R_UNLESS((size & Memory::CITRA_PAGE_MASK) == 0, ResultMisalignedSize);
+    R_UNLESS((addr0 & Memory::LIME3DS_PAGE_MASK) == 0, ResultMisalignedAddress);
+    R_UNLESS((addr1 & Memory::LIME3DS_PAGE_MASK) == 0, ResultMisalignedAddress);
+    R_UNLESS((size & Memory::LIME3DS_PAGE_MASK) == 0, ResultMisalignedSize);
 
     const u32 region = operation & MEMOP_REGION_MASK;
     operation &= ~MEMOP_REGION_MASK;
@@ -1582,7 +1582,7 @@ Result SVC::GetHandleInfo(s64* out, Handle handle, u32 type) {
 /// Creates a memory block at the specified address with the specified permissions and size
 Result SVC::CreateMemoryBlock(Handle* out_handle, u32 addr, u32 size, u32 my_permission,
                               u32 other_permission) {
-    R_UNLESS(size % Memory::CITRA_PAGE_SIZE == 0, ResultMisalignedSize);
+    R_UNLESS(size % Memory::LIME3DS_PAGE_SIZE == 0, ResultMisalignedSize);
 
     std::shared_ptr<SharedMemory> shared_memory = nullptr;
 
@@ -1735,51 +1735,51 @@ Result SVC::GetSystemInfo(s64* out, u32 type, s32 param) {
         LOG_ERROR(Kernel_SVC, "unimplemented GetSystemInfo type=65537 param={}", param);
         *out = 0;
         return (system.GetNumCores() == 4) ? ResultSuccess : ResultInvalidEnumValue;
-    case SystemInfoType::CITRA_INFORMATION:
-        switch ((SystemInfoCitraInformation)param) {
-        case SystemInfoCitraInformation::IS_CITRA:
+    case SystemInfoType::LIME3DS_INFORMATION:
+        switch ((SystemInfoLime3DSInformation)param) {
+        case SystemInfoLime3DSInformation::IS_LIME3DS:
             *out = 1;
             break;
-        case SystemInfoCitraInformation::BUILD_NAME:
+        case SystemInfoLime3DSInformation::BUILD_NAME:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_name, 0, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_VERSION:
+        case SystemInfoLime3DSInformation::BUILD_VERSION:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_version, 0, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_DATE_PART1:
+        case SystemInfoLime3DSInformation::BUILD_DATE_PART1:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_date,
                            (sizeof(s64) - 1) * 0, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_DATE_PART2:
+        case SystemInfoLime3DSInformation::BUILD_DATE_PART2:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_date,
                            (sizeof(s64) - 1) * 1, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_DATE_PART3:
+        case SystemInfoLime3DSInformation::BUILD_DATE_PART3:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_date,
                            (sizeof(s64) - 1) * 2, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_DATE_PART4:
+        case SystemInfoLime3DSInformation::BUILD_DATE_PART4:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_build_date,
                            (sizeof(s64) - 1) * 3, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_GIT_BRANCH_PART1:
+        case SystemInfoLime3DSInformation::BUILD_GIT_BRANCH_PART1:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_scm_branch,
                            (sizeof(s64) - 1) * 0, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_GIT_BRANCH_PART2:
+        case SystemInfoLime3DSInformation::BUILD_GIT_BRANCH_PART2:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_scm_branch,
                            (sizeof(s64) - 1) * 1, sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_GIT_DESCRIPTION_PART1:
+        case SystemInfoLime3DSInformation::BUILD_GIT_DESCRIPTION_PART1:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_scm_desc, (sizeof(s64) - 1) * 0,
                            sizeof(s64));
             break;
-        case SystemInfoCitraInformation::BUILD_GIT_DESCRIPTION_PART2:
+        case SystemInfoLime3DSInformation::BUILD_GIT_DESCRIPTION_PART2:
             CopyStringPart(reinterpret_cast<char*>(out), Common::g_scm_desc, (sizeof(s64) - 1) * 1,
                            sizeof(s64));
             break;
         default:
-            LOG_ERROR(Kernel_SVC, "unknown GetSystemInfo citra info param={}", param);
+            LOG_ERROR(Kernel_SVC, "unknown GetSystemInfo lime3ds info param={}", param);
             *out = 0;
             break;
         }
@@ -1807,7 +1807,7 @@ Result SVC::GetProcessInfo(s64* out, Handle process_handle, u32 type) {
         // TODO(yuriks): Type 0 returns a slightly higher number than type 2, but I'm not sure
         // what's the difference between them.
         *out = process->memory_used;
-        if (*out % Memory::CITRA_PAGE_SIZE != 0) {
+        if (*out % Memory::LIME3DS_PAGE_SIZE != 0) {
             LOG_ERROR(Kernel_SVC, "called, memory size not page-aligned");
             return ResultMisalignedSize;
         }
@@ -1935,7 +1935,7 @@ Result SVC::MapProcessMemoryEx(Handle dst_process_handle, u32 dst_address,
     R_UNLESS(dst_process && src_process, ResultInvalidHandle);
 
     if (size & 0xFFF) {
-        size = (size & ~0xFFF) + Memory::CITRA_PAGE_SIZE;
+        size = (size & ~0xFFF) + Memory::LIME3DS_PAGE_SIZE;
     }
 
     // Only linear memory supported
@@ -1968,7 +1968,7 @@ Result SVC::UnmapProcessMemoryEx(Handle process, u32 dst_address, u32 size) {
     R_UNLESS(dst_process, ResultInvalidHandle);
 
     if (size & 0xFFF) {
-        size = (size & ~0xFFF) + Memory::CITRA_PAGE_SIZE;
+        size = (size & ~0xFFF) + Memory::LIME3DS_PAGE_SIZE;
     }
 
     // Only linear memory supported

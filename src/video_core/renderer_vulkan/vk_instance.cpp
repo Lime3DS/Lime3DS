@@ -1,10 +1,10 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #include <span>
 #include <boost/container/static_vector.hpp>
-#include <fmt/format.h>
+#include <fmt/ranges.h>
 
 #include "common/assert.h"
 #include "common/settings.h"
