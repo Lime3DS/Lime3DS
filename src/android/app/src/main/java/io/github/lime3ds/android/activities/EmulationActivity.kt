@@ -95,7 +95,13 @@ class EmulationActivity : AppCompatActivity() {
             windowManager.defaultDisplay.rotation
         )
 
-        EmulationLifecycleUtil.addShutdownHook(hook = { this.finish() })
+        EmulationLifecycleUtil.addShutdownHook(hook = {
+            if (intent.getBooleanExtra("launched_from_shortcut", false)) {
+                finishAffinity()
+            } else {
+                this.finish()
+            }
+        })
 
         isEmulationRunning = true
         instance = this

@@ -237,12 +237,14 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
                     val shortcut = ShortcutInfo.Builder(context, game.title)
                         .setShortLabel(game.title)
                         .setIcon(icon)
-                        .setIntent(game.launchIntent)
+                        .setIntent(game.launchIntent.apply {
+                            putExtra("launched_from_shortcut", true)
+                        })
                         .build()
                     shortcutManager.requestPinShortcut(shortcut, null)
                 }
             }
-        }   
+        }
 
         bottomSheetView.findViewById<MaterialButton>(R.id.cheats).setOnClickListener {
             val action = CheatsFragmentDirections.actionGlobalCheatsFragment(holder.game.titleId)
