@@ -123,6 +123,15 @@ public:
         void GetConnectingInfraPriority(Kernel::HLERequestContext& ctx);
 
         /**
+         * AC::ScanAPs service function
+         *  Inputs:
+         *      ?
+         *  Outputs:
+         *      ?
+         */
+        void ScanAPs(Kernel::HLERequestContext& ctx);
+        
+        /**
          * AC::GetInfraPriority service function
          *  Inputs:
          *      1 : ACConfig size << 14 | 2
