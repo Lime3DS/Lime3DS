@@ -209,8 +209,10 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     VAddr buffer_vaddr = cmd_addr + 0x100;
     u8* buffer_info = memory.GetPointer(buffer_vaddr);
     const u32 descr = buffer_info[0];
+    LOG_WARNING(Service_AC, "Buffer descriptor: 0x{:08X}, expected: 0x{:08X}", descr, (size << 14) | 2);
     ASSERT(descr == ((size << 14) | 2));    // preliminary check
     const VAddr output_buffer = buffer_info[4]; // address to output buffer
+    LOG_WARNING(Service_AC, "Buffer VAddr: 0x{:08X}", output_buffer);
 
     Network::MacAddress mac = Network::BroadcastMac;
     u32 mac1 = (mac[0] << 8) | (mac[1]);
