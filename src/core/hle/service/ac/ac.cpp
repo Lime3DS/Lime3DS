@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include <vector>
+#include <boost/serialization/shared_ptr.hpp>
 #include "common/archives.h"
 #include "common/common_types.h"
 #include "common/logging/log.h"
