@@ -228,10 +228,13 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
                     ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
-    auto nwm_inf = 
-            Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");
-    nwm_inf->HandleSyncRequest(*context);
+    LOG_WARNING(Service_AC, "Finished setting up context");
 
+    auto nwm_inf = 
+            Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");    
+    LOG_WARNING(Service_AC, "Calling NWM_INF::RecvBeaconBroadcastData");
+    nwm_inf->HandleSyncRequest(*context);
+    LOG_WARNING(Service_AC, "Returned to AC::ScanAPs");
     // Response should be
     // 0: Header Code (ignored)
     // 1: Result Code (Success/Unknown/etc.)
@@ -242,7 +245,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     Kernel::MappedBuffer mapped_buffer = rp2.PopMappedBuffer();
     mapped_buffer.Read(buffer.data(), 0, buffer.size());
     rb.PushStaticBuffer(buffer, 0);
-    LOG_WARNING(Service_AC, "(STUBBED) called");
+    LOG_WARNING(Service_AC, "(STUBBED) called, pid={}, unknown={}", pid, unknown);
 }
 
 void Module::Interface::GetInfraPriority(Kernel::HLERequestContext& ctx) {

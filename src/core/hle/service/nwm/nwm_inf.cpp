@@ -4,6 +4,7 @@
 
 #include <boost/serialization/shared_ptr.hpp>
 #include "common/archives.h"
+#include "common/logging/log.h"
 #include "core/core.h"
 #include "core/hle/ipc.h"
 #include "core/hle/ipc_helpers.h"
@@ -17,6 +18,8 @@ namespace Service::NWM {
 void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
     // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
+
+    LOG_WARNING(Service_NWM, "Started NWM_INF::RecvBeaconBroadcastData");
 
     // adding in extra context value for transition from INF to UDS
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
@@ -37,9 +40,13 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
             std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
                     ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
+    LOG_WARNING(Service_NWM, "Finished converting context");
 
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
+    
+    LOG_WARNING(Service_NWM, "Calling NWM_UDS::RecvBeaconBroadcastData");
     nwm_uds->HandleSyncRequest(*context);
+    LOG_WARNING(Service_NWM, "Returned to NWM_INF::RecvBeaconBroadcastData");
 
     IPC::RequestParser rp2(*context);
 
@@ -47,6 +54,7 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     rb.Push(rp2.Pop<u32>());
     rb.PushMappedBuffer(rp2.PopMappedBuffer());
 
+    LOG_WARNING(Service_NWM, "Finished NWM_INF::RecvBeaconBroadcastData");
 }
 
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
