@@ -12,19 +12,20 @@ SERIALIZE_EXPORT_IMPL(Service::NWM::NWM_INF)
 namespace Service::NWM {
 
 void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
     // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
 
     // adding in extra context value for transition from INF to UDS
-    u32* ctx_data = ctx.CommandBuffer();
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
     int i;
     for (i = 0; i < 15; i++) {
-        cmd_buf[i] = ctx_data[i];
+        cmd_buf[i] = rp.Pop<u32>();
     }
+    rp.Pop<u32>();
     cmd_buf[15] = 0;    // dummy wlan_comm_id
     cmd_buf[16] = 0;    // dummy id
     for (i = 17; i <= 20; i++) {
-        cmd_buf[i] = ctx_data[i - 1];
+        cmd_buf[i] = rp.Pop<u32>();
     }
 
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
@@ -36,6 +37,13 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
     nwm_uds->HandleSyncRequest(context);
+
+    IPC::RequestParser rp2(context);
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
+    rb.Push(rp2.Pop<u32>());
+    rb.PushMappedBuffer(rp2.PopMappedBuffer());
+
 }
 
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
