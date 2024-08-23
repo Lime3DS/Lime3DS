@@ -18,7 +18,9 @@
 #include "core/hle/service/ac/ac.h"
 #include "core/hle/service/ac/ac_i.h"
 #include "core/hle/service/ac/ac_u.h"
+#include "core/hle/service/nwm/nwm_inf.h"
 #include "core/hle/service/soc/soc_u.h"
+#include "network/network.h"
 #include "core/memory.h"
 
 SERIALIZE_EXPORT_IMPL(Service::AC::Module)
@@ -182,19 +184,50 @@ void Module::Interface::GetStatus(Kernel::HLERequestContext& ctx) {
 
 void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
-    const u32 arg1 = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val1: {}", arg1);
-    const u32 arg2 = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val2: {}", arg2);
-    const u32 arg3 = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val3: {}", arg3);
-    const u32 arg4 = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val4: {}", arg4);
-    const u32 arg5 = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val5: {}", arg5);
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultUnknown);
+    // I used 3dbrew.org for the information on the individual request inputs
+
+    // Arg 0 is Header code, which is ignored
+    // Arg 1 is Size
+    const u32 size = rp.Pop<u32>();
+    LOG_WARNING(Service_AC, "Size: {}", size);
+    // Arg 2 is CallingPID value (PID Header)
+    // Arg 3 is PID
+    const u32 pid = rp.PopPID();
+    LOG_WARNING(Service_AC, "PID: {}", pid);
+    // Likely time transpired between consecutive calls of this method.
+    // First call has value 0 or 1. Second call has value 0xFFFF0000.
+    const u32 unknown = rp.Pop<u32>();
+    LOG_WARNING(Service_AC, "val4: {}", unknown);
+
+    std::vector<u8> buffer(size); 
+
+    u64 mac = static_cast<u64>(Network::BroadcastMac);
+    std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
+    cmd_buf[0] = 0x0006;
+    cmd_buf[1] = size;
+    cmd_buf[2] = 0; // dummy data
+    cmd_buf[3] = 0; // dummy data
+    cmd_buf[4] = mac;
+    cmd_buf[16] = 0;
+    cmd_buf[17] = ...;
+    cmd_buf[18] = (size << 4) | 12;
+    cmd_buf[19] = &buffer;
+    auto context =
+            std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
+    context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
+
+    auto nwm_inf = 
+            Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");
+    Result res = nwm_inf->HandleSyncRequest(context);
+
+    // Response should be
+    // 0: Header Code (ignored)
+    // 1: Result Code (Success/Unknown/etc.)
+    // 2: ¿Parsed? beacon data
+    IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
+    rb.Push(res);
+    rb.PushStaticBuffer(buffer, 0);
     LOG_WARNING(Service_AC, "(STUBBED) called");
 }
 
