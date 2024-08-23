@@ -195,24 +195,29 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // Arg 3 is PID
     const u32 pid = rp.PopPID();
     LOG_WARNING(Service_AC, "PID: {}", pid);
-    // Likely time transpired between consecutive calls of this method.
-    // First call has value 0 or 1. Second call has value 0xFFFF0000.
-    const u32 unknown = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val4: {}", unknown);
+    // // Likely time transpired between consecutive calls of this method.
+    // // First call has value 0 or 1. Second call has value 0xFFFF0000.
+    // const u32 unknown = rp.Pop<u32>();
+    // LOG_WARNING(Service_AC, "val4: {}", unknown);
+    auto buffer = rp.PopMappedBuffer();
+    u32 buffer_id = rp.GetID();
 
-    std::vector<u8> buffer(size); 
 
-    u64 mac = static_cast<u64>(Network::BroadcastMac);
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
     cmd_buf[0] = 0x0006;
     cmd_buf[1] = size;
     cmd_buf[2] = 0; // dummy data
     cmd_buf[3] = 0; // dummy data
-    cmd_buf[4] = mac;
+    cmd_buf[4] = Network::BroadcastMac;
     cmd_buf[16] = 0;
-    cmd_buf[17] = nullptr;
+    cmd_buf[17] = 0x0006;   // dummy value
     cmd_buf[18] = (size << 4) | 12;
-    cmd_buf[19] = static_cast<u32>(&buffer);
+    cmd_buf[19] = buffer_id;
+
+    Kernel::KernelSystem kernel = ctx.kernel;
+    std::shared_ptr<Thread> thread = ctx.ClientThread();
+    auto current_process = thread->owner_process.lock();
+
     auto context =
             std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
@@ -227,7 +232,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // 2: ¿Parsed? beacon data
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
     rb.Push(res);
-    rb.PushStaticBuffer(buffer, 0);
+    // rb.PushStaticBuffer(buffer, 0);
     LOG_WARNING(Service_AC, "(STUBBED) called");
 }
 
