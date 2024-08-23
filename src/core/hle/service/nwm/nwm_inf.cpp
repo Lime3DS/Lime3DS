@@ -27,11 +27,11 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
         cmd_buf[i] = ctx_data[i - 1];
     }
 
-    Kernel::KernelSystem kernel = Core::System::GetInstance().Kernel();
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
     auto context =
-            std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
+            std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
+                    SharedFrom(this), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");

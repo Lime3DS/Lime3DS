@@ -219,12 +219,12 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[18] = (size << 4) | 12;
     cmd_buf[19] = buffer_id;
 
-    Kernel::KernelSystem kernel = Core::System::GetInstance().Kernel();
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
 
     auto context =
-            std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
+            std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
+                    SharedFrom(this), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
     auto nwm_inf = 
