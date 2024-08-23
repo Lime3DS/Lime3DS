@@ -199,7 +199,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     LOG_WARNING(Service_AC, "PID: {}", pid);
     
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
-    auto current_process = Core::System::GetInstance().GetCurrentProcess();
+    auto current_process = Core::System::GetInstance().Kernel().GetCurrentProcess();
     Memory::MemorySystem& memory = Core::System::GetInstance().Memory();
     LOG_WARNING(Service_AC, "Retrieved thread, process and memory");
 
