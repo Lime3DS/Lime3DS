@@ -197,12 +197,12 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // Arg 3 is PID
     const u32 pid = rp.PopPID();
     LOG_WARNING(Service_AC, "PID: {}", pid);
-    // // Likely time transpired between consecutive calls of this method.
-    // // First call has value 0 or 1. Second call has value 0xFFFF0000.
-    // const u32 unknown = rp.Pop<u32>();
-    // LOG_WARNING(Service_AC, "val4: {}", unknown);
-    auto buffer = rp.PopMappedBuffer();
-    u32 buffer_id = buffer.GetId();
+    // Likely time transpired between consecutive calls of this method.
+    // First call has value 0 or 1. Second call has value 0xFFFF0000.
+    const u32 unknown = rp.Pop<u32>();
+    LOG_WARNING(Service_AC, "val4: {}", unknown);
+
+    // std::vector<u8> buffer(size);
 
     Network::MacAddress mac = Network::BroadcastMac;
     u32 mac1 = (mac[0] << 8) | (mac[1]);
@@ -217,8 +217,8 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[5] = mac2;
     cmd_buf[16] = 0;
     cmd_buf[17] = 0x0006;   // dummy value
-    cmd_buf[18] = (size << 4) | 12;
-    cmd_buf[19] = buffer_id;
+    cmd_buf[18] = (size << 4) | 12; // should be considered correct for mapped buffer
+    cmd_buf[19] = 0;    // if i interpreted the code correctly, this value won't matter
 
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
@@ -239,7 +239,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
     IPC::RequestParser rp2(*context);
     rb.Push(rp2.Pop<u32>());
-    rb.PushMappedBuffer(rp2.PopMappedBuffer());
+    rb.PushStaticBuffer(rp2.PopMappedBuffer(), 0);
     LOG_WARNING(Service_AC, "(STUBBED) called");
 }
 
