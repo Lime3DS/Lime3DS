@@ -199,8 +199,8 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     LOG_WARNING(Service_AC, "PID: {}", pid);
     
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
-    auto current_process = thread->owner_process.lock();
-    Memory::MemorySystem& memory = ctx->kernel.memory;
+    auto current_process = Core::System::GetInstance().GetCurrentProcess();
+    Memory::MemorySystem& memory = Core::System::GetInstance().Memory();
     LOG_WARNING(Service_AC, "Retrieved thread, process and memory");
 
     // According to 3dbrew, the output structure pointer is located 0x100 bytes after the beginning
