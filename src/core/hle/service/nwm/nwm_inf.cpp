@@ -13,8 +13,25 @@ namespace Service::NWM {
 
 void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
+
+    // adding in extra context value for transition from INF to UDS
+    u32* ctx_data = ctx.CommandBuffer();
+    std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
+    int i;
+    for (i = 0; i < 15; i++) {
+        cmd_buf[i] = ctx_data[i];
+    }
+    cmd_buf[15] = 0;    // dummy wlan_comm_id
+    cmd_buf[16] = 0;    // dummy id
+    for (i = 17; i <= 20; i++) {
+        cmd_buf[i] = ctx_data[i - 1];
+    }
+    auto context =
+            std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
+    context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
+
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
-    nwm_uds->HandleSyncRequest(ctx);
+    nwm_uds->HandleSyncRequest(context);
 }
 
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
