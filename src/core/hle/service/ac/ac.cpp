@@ -229,15 +229,16 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
 
     auto nwm_inf = 
             Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");
-    Result res = nwm_inf->HandleSyncRequest(context);
+    nwm_inf->HandleSyncRequest(context);
 
     // Response should be
     // 0: Header Code (ignored)
     // 1: Result Code (Success/Unknown/etc.)
     // 2: ¿Parsed? beacon data
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
-    rb.Push(res);
-    // rb.PushStaticBuffer(buffer, 0);
+    IPC::RequestParser rp2(context);
+    rb.Push(rp2.Pop<u32>());
+    rb.PushMappedBuffer(rp2.PopMappedBuffer());
     LOG_WARNING(Service_AC, "(STUBBED) called");
 }
 
