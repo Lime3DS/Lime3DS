@@ -36,9 +36,9 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
-    nwm_uds->HandleSyncRequest(context);
+    nwm_uds->HandleSyncRequest(*context);
 
-    IPC::RequestParser rp2(context);
+    IPC::RequestParser rp2(*context);
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
     rb.Push(rp2.Pop<u32>());
