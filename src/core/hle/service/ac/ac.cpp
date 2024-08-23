@@ -210,9 +210,9 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[3] = 0; // dummy data
     cmd_buf[4] = mac;
     cmd_buf[16] = 0;
-    cmd_buf[17] = ...;
+    cmd_buf[17] = nullptr;
     cmd_buf[18] = (size << 4) | 12;
-    cmd_buf[19] = &buffer;
+    cmd_buf[19] = static_cast<u32>(&buffer);
     auto context =
             std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
