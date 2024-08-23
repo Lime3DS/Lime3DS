@@ -3,8 +3,8 @@
 // Refer to the license.txt file included.
 
 #include "common/archives.h"
+#include "core/core.h"
 #include "core/hle/service/nwm/nwm_inf.h"
-#include "core/hle/service/nwm/nwm_uds.h"
 
 SERIALIZE_EXPORT_IMPL(Service::NWM::NWM_INF)
 
