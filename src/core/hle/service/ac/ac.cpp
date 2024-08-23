@@ -209,14 +209,14 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     u32 mac2 = (mac[2] << 24) | (mac[3] << 16) | (mac[4] << 8) | (mac[5]);
 
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
-    cmd_buf[0] = 0x0006'03C4;
+    cmd_buf[0] = 0x000603C4;
     cmd_buf[1] = size;
     cmd_buf[2] = 0; // dummy data
     cmd_buf[3] = 0; // dummy data
     cmd_buf[4] = mac1;
     cmd_buf[5] = mac2;
     cmd_buf[16] = 0;
-    cmd_buf[17] = 0x0006;   // dummy value
+    cmd_buf[17] = 0;   // set to 0 to ignore it
     cmd_buf[18] = (size << 4) | 12; // should be considered correct for mapped buffer
     cmd_buf[19] = 0;    // if i interpreted the code correctly, this value won't matter
 
