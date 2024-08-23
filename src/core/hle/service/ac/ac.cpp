@@ -220,12 +220,15 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[18] = (size << 4) | 12; // should be considered correct for mapped buffer
     cmd_buf[19] = 0;    // if i interpreted the code correctly, this value won't matter
 
+    LOG_WARNING(Service_AC, "Finished setting up command buffer");
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
+    LOG_WARNING(Service_AC, "Retrieved thread and process");
 
     auto context =
             std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
                     ctx.Session(), thread);
+    LOG_WARNING(Service_AC, "Created context");
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
     LOG_WARNING(Service_AC, "Finished setting up context");
