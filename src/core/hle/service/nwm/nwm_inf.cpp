@@ -10,6 +10,9 @@
 #include "core/hle/ipc_helpers.h"
 #include "core/hle/service/nwm/nwm_inf.h"
 #include "core/hle/service/nwm/nwm_uds.h"
+#include "core/hle/service/nwm/uds_beacon.h"
+#include "core/hle/service/nwm/uds_connection.h"
+#include "core/hle/service/nwm/uds_data.h"
 
 SERIALIZE_EXPORT_IMPL(Service::NWM::NWM_INF)
 
