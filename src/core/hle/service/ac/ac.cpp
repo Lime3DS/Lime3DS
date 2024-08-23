@@ -200,7 +200,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // const u32 unknown = rp.Pop<u32>();
     // LOG_WARNING(Service_AC, "val4: {}", unknown);
     auto buffer = rp.PopMappedBuffer();
-    u32 buffer_id = buffer.GetID();
+    u32 buffer_id = buffer.GetId();
 
     MacAddress mac = Network::BroadcastMac;
     u32 mac1 = (mac[0] << 8) | (mac[1]);
