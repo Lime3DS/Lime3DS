@@ -219,7 +219,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[19] = buffer_id;
 
     Kernel::KernelSystem kernel = ctx.kernel;
-    std::shared_ptr<Thread> thread = ctx.ClientThread();
+    std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
 
     auto context =

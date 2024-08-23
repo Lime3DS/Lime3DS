@@ -28,7 +28,7 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     }
 
     Kernel::KernelSystem kernel = ctx.kernel;
-    std::shared_ptr<Thread> thread = ctx.ClientThread();
+    std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
     auto context =
             std::make_shared<Kernel::HLERequestContext>(kernel, SharedFrom(this), thread);
