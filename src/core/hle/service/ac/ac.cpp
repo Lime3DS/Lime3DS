@@ -202,7 +202,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     const u32 unknown = rp.Pop<u32>();
     LOG_WARNING(Service_AC, "val4: {}", unknown);
 
-    // std::vector<u8> buffer(size);
+    std::vector<u8> buffer(size);
 
     Network::MacAddress mac = Network::BroadcastMac;
     u32 mac1 = (mac[0] << 8) | (mac[1]);
@@ -239,7 +239,9 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
     IPC::RequestParser rp2(*context);
     rb.Push(rp2.Pop<u32>());
-    rb.PushStaticBuffer(rp2.PopMappedBuffer(), 0);
+    Kernel::MappedBuffer mapped_buffer = rp2.PopMappedBuffer();
+    mapped_buffer.Read(buffer.data(), 0, buffer.size());
+    rb.PushStaticBuffer(buffer, 0);
     LOG_WARNING(Service_AC, "(STUBBED) called");
 }
 
