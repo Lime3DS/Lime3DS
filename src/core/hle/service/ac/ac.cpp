@@ -207,7 +207,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // of cmd_buff
     VAddr cmd_addr = thread->GetCommandBufferAddress();
     VAddr buffer_vaddr = cmd_addr + 0x100;
-    u32* buffer_info = static_cast<u32*>(memory.GetPointer());
+    u32* buffer_info = static_cast<u32*>(memory.GetPointer(buffer_vaddr));
     const u32 descr = buffer_info[0];
     ASSERT(descr == ((size << 14) | 2));    // preliminary check
     const VAddr output_buffer = buffer_info[1]; // address to output buffer
