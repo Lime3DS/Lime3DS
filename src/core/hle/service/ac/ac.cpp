@@ -21,6 +21,7 @@
 #include "core/hle/service/nwm/nwm_inf.h"
 #include "core/hle/service/soc/soc_u.h"
 #include "network/network.h"
+#include "network/room.h"
 #include "core/memory.h"
 
 SERIALIZE_EXPORT_IMPL(Service::AC::Module)
