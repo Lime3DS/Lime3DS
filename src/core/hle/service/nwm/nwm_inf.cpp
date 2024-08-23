@@ -17,45 +17,66 @@ namespace Service::NWM {
 
 void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
-    // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
 
-    LOG_WARNING(Service_NWM, "Started NWM_INF::RecvBeaconBroadcastData");
+    u32 out_buffer_size = rp.Pop<u32>();
+    u32 unk1 = rp.Pop<u32>();
+    u32 unk2 = rp.Pop<u32>();
 
-    // adding in extra context value for transition from INF to UDS
-    std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
-    cmd_buf[0] = 0x000F0404;
-    int i;
-    for (i = 1; i < 15; i++) {
-        cmd_buf[i] = rp.Pop<u32>();
+    MacAddress mac_address;
+    rp.PopRaw(mac_address);
+
+    rp.Skip(9, false);
+
+    u32 unk3 = rp.Pop<u32>();
+    // From 3dbrew:
+    // 'Official user processes create a new event handle which is then passed to this command.
+    // However, those user processes don't save that handle anywhere afterwards.'
+    // So we don't save/use that event too.
+    std::shared_ptr<Kernel::Event> input_event = rp.PopObject<Kernel::Event>();
+
+    Kernel::MappedBuffer out_buffer = rp.PopMappedBuffer();
+    ASSERT(out_buffer.GetSize() == out_buffer_size);
+
+    std::size_t cur_buffer_size = sizeof(BeaconDataReplyHeader);
+
+    // Retrieve all beacon frames that were received from the desired mac address.
+    auto beacons = GetReceivedBeacons(mac_address);
+
+    BeaconDataReplyHeader data_reply_header{};
+    data_reply_header.total_entries = static_cast<u32>(beacons.size());
+    data_reply_header.max_output_size = out_buffer_size;
+
+    // Write each of the received beacons into the buffer
+    for (const auto& beacon : beacons) {
+        BeaconEntryHeader entry{};
+        // TODO(Subv): Figure out what this size is used for.
+        entry.unk_size = static_cast<u32>(sizeof(BeaconEntryHeader) + beacon.data.size());
+        entry.total_size = static_cast<u32>(sizeof(BeaconEntryHeader) + beacon.data.size());
+        entry.wifi_channel = beacon.channel;
+        entry.header_size = sizeof(BeaconEntryHeader);
+        entry.mac_address = beacon.transmitter_address;
+
+        ASSERT(cur_buffer_size < out_buffer_size);
+
+        out_buffer.Write(&entry, cur_buffer_size, sizeof(BeaconEntryHeader));
+        cur_buffer_size += sizeof(BeaconEntryHeader);
+        const unsigned char* beacon_data = beacon.data.data();
+        out_buffer.Write(beacon_data, cur_buffer_size, beacon.data.size());
+        cur_buffer_size += beacon.data.size();
     }
-    rp.Pop<u32>();
-    cmd_buf[15] = 0;    // dummy wlan_comm_id
-    cmd_buf[16] = 0;    // dummy id
-    for (i = 17; i <= 20; i++) {
-        cmd_buf[i] = rp.Pop<u32>();
-    }
 
-    std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
-    auto current_process = thread->owner_process.lock();
-    auto context =
-            std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
-                    ctx.Session(), thread);
-    context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
-    LOG_WARNING(Service_NWM, "Finished converting context");
-
-    auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
-    
-    LOG_WARNING(Service_NWM, "Calling NWM_UDS::RecvBeaconBroadcastData");
-    nwm_uds->HandleSyncRequest(*context);
-    LOG_WARNING(Service_NWM, "Returned to NWM_INF::RecvBeaconBroadcastData");
-
-    IPC::RequestParser rp2(*context);
+    // Update the total size in the structure and write it to the buffer again.
+    data_reply_header.total_size = static_cast<u32>(cur_buffer_size);
+    out_buffer.Write(&data_reply_header, 0, sizeof(BeaconDataReplyHeader));
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
-    rb.Push(rp2.Pop<u32>());
-    rb.PushMappedBuffer(rp2.PopMappedBuffer());
+    rb.Push(ResultSuccess);
+    rb.PushMappedBuffer(out_buffer);
 
-    LOG_WARNING(Service_NWM, "Finished NWM_INF::RecvBeaconBroadcastData");
+    LOG_DEBUG(Service_NWM,
+              "called out_buffer_size=0x{:08X}, wlan_comm_id=0x{:08X}, id=0x{:08X},"
+              "unk1=0x{:08X}, unk2=0x{:08X}, unk3=0x{:08X} offset={}",
+              out_buffer_size, wlan_comm_id, id, unk1, unk2, unk3, cur_buffer_size);
 }
 
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
