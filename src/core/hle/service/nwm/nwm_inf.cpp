@@ -23,8 +23,9 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     // adding in extra context value for transition from INF to UDS
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
+    cmd_buf[0] = 0x000F0404;
     int i;
-    for (i = 0; i < 15; i++) {
+    for (i = 1; i < 15; i++) {
         cmd_buf[i] = rp.Pop<u32>();
     }
     rp.Pop<u32>();
