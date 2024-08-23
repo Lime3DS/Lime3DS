@@ -225,7 +225,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
 
     auto context =
             std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
-                    SharedFrom(this), thread);
+                    ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
     auto nwm_inf = 
