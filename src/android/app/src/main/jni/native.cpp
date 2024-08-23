@@ -360,11 +360,12 @@ void Java_io_github_lime3ds_android_NativeLibrary_updateFramebuffer([[maybe_unus
 void Java_io_github_lime3ds_android_NativeLibrary_swapScreens([[maybe_unused]] JNIEnv* env,
                                                               [[maybe_unused]] jobject obj,
                                                               jboolean swap_screens,
-                                                              jint rotation) {
+                                                              jint rotation,
+                                                              jboolean is_portrait) {
     Settings::values.swap_screen = swap_screens;
     auto& system = Core::System::GetInstance();
     if (system.IsPoweredOn()) {
-        system.GPU().Renderer().UpdateCurrentFramebufferLayout(!(rotation % 2));
+        system.GPU().Renderer().UpdateCurrentFramebufferLayout(is_portrait);
     }
     InputManager::screen_rotation = rotation;
     Camera::NDK::g_rotation = rotation;

@@ -81,7 +81,8 @@ class InputOverlay(context: Context?, attrs: AttributeSet?) : SurfaceView(contex
         EmulationMenuSettings.swapScreens = isEnabled
         NativeLibrary.swapScreens(
             isEnabled,
-            (context as Activity).windowManager.defaultDisplay.rotation
+            (context as Activity).windowManager.defaultDisplay.rotation,
+            NativeLibrary.isPortraitMode
         )
     }
 

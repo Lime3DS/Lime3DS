@@ -20,7 +20,8 @@ class ScreenAdjustmentUtil(
         EmulationMenuSettings.swapScreens = isEnabled
         NativeLibrary.swapScreens(
             isEnabled,
-            windowManager.defaultDisplay.rotation
+            windowManager.defaultDisplay.rotation,
+            NativeLibrary.isPortraitMode
         )
         BooleanSetting.SWAP_SCREEN.boolean = isEnabled
         settings.saveSetting(BooleanSetting.SWAP_SCREEN, SettingsFile.FILE_NAME_CONFIG)

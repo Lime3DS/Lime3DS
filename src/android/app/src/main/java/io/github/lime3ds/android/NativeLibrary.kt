@@ -163,7 +163,7 @@ object NativeLibrary {
     /**
      * Swaps the top and bottom screens.
      */
-    external fun swapScreens(swapScreens: Boolean, rotation: Int)
+    external fun swapScreens(swapScreens: Boolean, rotation: Int, isPortrait: Boolean)
 
     external fun initializeGpuDriver(
         hookLibDir: String?,

@@ -92,7 +92,8 @@ class EmulationActivity : AppCompatActivity() {
         // Override Lime3DS core INI with the one set by our in game menu
         NativeLibrary.swapScreens(
             EmulationMenuSettings.swapScreens,
-            windowManager.defaultDisplay.rotation
+            windowManager.defaultDisplay.rotation,
+            NativeLibrary.isPortraitMode
         )
 
         EmulationLifecycleUtil.addShutdownHook(hook = { this.finish() })
