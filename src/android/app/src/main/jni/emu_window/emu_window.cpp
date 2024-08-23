@@ -13,13 +13,9 @@
 #include "jni/emu_window/emu_window.h"
 #include "jni/id_cache.h"
 #include "jni/input_manager.h"
+#include "jni/util.h"
 #include "network/network.h"
 #include "video_core/renderer_base.h"
-
-static bool IsPortraitMode() {
-    return JNI_FALSE != IDCache::GetEnvForThread()->CallStaticBooleanMethod(
-                            IDCache::GetNativeLibraryClass(), IDCache::GetIsPortraitMode());
-}
 
 bool EmuWindow_Android::OnSurfaceChanged(ANativeWindow* surface) {
     if (render_window == surface) {

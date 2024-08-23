@@ -29,6 +29,8 @@ add_library(lime-android SHARED
     ndk_motion.h
     system_save_game.cpp
     native_log.cpp
+    util.cpp
+    util.h
 )
 
 target_link_libraries(lime-android PRIVATE audio_core lime_common lime_core input_common network)
