@@ -5,6 +5,8 @@
 #include <boost/serialization/shared_ptr.hpp>
 #include "common/archives.h"
 #include "core/core.h"
+#include "core/hle/ipc.h"
+#include "core/hle/ipc_helpers.h"
 #include "core/hle/service/nwm/nwm_inf.h"
 #include "core/hle/service/nwm/nwm_uds.h"
 
