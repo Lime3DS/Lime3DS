@@ -203,7 +203,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     auto buffer = rp.PopMappedBuffer();
     u32 buffer_id = buffer.GetId();
 
-    MacAddress mac = Network::BroadcastMac;
+    Network::MacAddress mac = Network::BroadcastMac;
     u32 mac1 = (mac[0] << 8) | (mac[1]);
     u32 mac2 = (mac[2] << 24) | (mac[3] << 16) | (mac[4] << 8) | (mac[5]);
 
