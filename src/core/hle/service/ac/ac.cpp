@@ -200,15 +200,19 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // const u32 unknown = rp.Pop<u32>();
     // LOG_WARNING(Service_AC, "val4: {}", unknown);
     auto buffer = rp.PopMappedBuffer();
-    u32 buffer_id = rp.GetID();
+    u32 buffer_id = buffer.GetID();
 
+    MacAddress mac = Network::BroadcastMac;
+    u32 mac1 = (mac[0] << 8) | (mac[1]);
+    u32 mac2 = (mac[2] << 24) | (mac[3] << 16) | (mac[4] << 8) | (mac[5]);
 
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
     cmd_buf[0] = 0x0006;
     cmd_buf[1] = size;
     cmd_buf[2] = 0; // dummy data
     cmd_buf[3] = 0; // dummy data
-    cmd_buf[4] = Network::BroadcastMac;
+    cmd_buf[4] = mac1;
+    cmd_buf[5] = mac2;
     cmd_buf[16] = 0;
     cmd_buf[17] = 0x0006;   // dummy value
     cmd_buf[18] = (size << 4) | 12;
