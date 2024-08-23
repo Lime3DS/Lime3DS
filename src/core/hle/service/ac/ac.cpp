@@ -252,7 +252,7 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     rb.Push(rp2.Pop<u32>());
     Kernel::MappedBuffer mapped_buffer = rp2.PopMappedBuffer();
     rb.PushMappedBuffer(mapped_buffer);
-    LOG_WARNING(Service_AC, "(STUBBED) called, pid={}, unknown={}", pid, unknown);
+    LOG_WARNING(Service_AC, "(STUBBED) called, pid={}", pid);
 }
 
 void Module::Interface::GetInfraPriority(Kernel::HLERequestContext& ctx) {
