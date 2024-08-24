@@ -207,11 +207,10 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // of cmd_buff
     VAddr cmd_addr = thread->GetCommandBufferAddress();
     VAddr buffer_vaddr = cmd_addr + 0x100;
-    u8* buffer_info = memory.GetPointer(buffer_vaddr);
-    const u32 descr = buffer_info[0];
+    const u32 descr = memory.Read32(buffer_vaddr);
     LOG_WARNING(Service_AC, "Buffer descriptor: 0x{:08X}, expected: 0x{:08X}", descr, (size << 14) | 2);
     ASSERT(descr == ((size << 14) | 2));    // preliminary check
-    const VAddr output_buffer = buffer_info[4]; // address to output buffer
+    const VAddr output_buffer = memory.Read32(buffer_vaddr + 0x4); // address to output buffer
     LOG_WARNING(Service_AC, "Buffer VAddr: 0x{:08X}", output_buffer);
 
     Network::MacAddress mac = Network::BroadcastMac;
