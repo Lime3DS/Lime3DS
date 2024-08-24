@@ -629,9 +629,11 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
         ASSERT(cur_buffer_size < out_buffer_size);
 
+        LOG_WARNING(Service_NWM, "Writing entry header to buffer");
         out_buffer.Write(&entry, cur_buffer_size, sizeof(BeaconEntryHeader));
         cur_buffer_size += sizeof(BeaconEntryHeader);
         const unsigned char* beacon_data = beacon.data.data();
+        LOG_WARNING(Service_NWM, "Writing entry data to buffer");
         out_buffer.Write(beacon_data, cur_buffer_size, beacon.data.size());
         cur_buffer_size += beacon.data.size();
     }
