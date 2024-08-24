@@ -197,12 +197,21 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // Arg 3 is PID
     const u32 pid = rp.PopPID();
     LOG_WARNING(Service_AC, "PID: {}", pid);
-    // Likely time transpired between consecutive calls of this method.
-    // First call has value 0 or 1. Second call has value 0xFFFF0000.
-    const u32 unknown = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "val4: {}", unknown);
+    
+    std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
+    auto current_process = Core::System::GetInstance().Kernel().GetCurrentProcess();
+    Memory::MemorySystem& memory = Core::System::GetInstance().Memory();
+    LOG_WARNING(Service_AC, "Retrieved thread, process and memory");
 
-    std::vector<u8> buffer(size);
+    // According to 3dbrew, the output structure pointer is located 0x100 bytes after the beginning
+    // of cmd_buff
+    VAddr cmd_addr = thread->GetCommandBufferAddress();
+    VAddr buffer_vaddr = cmd_addr + 0x100;
+    const u32 descr = memory.Read32(buffer_vaddr);
+    LOG_WARNING(Service_AC, "Buffer descriptor: 0x{:08X}, expected: 0x{:08X}", descr, (size << 14) | 2);
+    ASSERT(descr == ((size << 14) | 2));    // preliminary check
+    const VAddr output_buffer = memory.Read32(buffer_vaddr + 0x4); // address to output buffer
+    LOG_WARNING(Service_AC, "Buffer VAddr: 0x{:08X}", output_buffer);
 
     Network::MacAddress mac = Network::BroadcastMac;
     u32 mac1 = (mac[0] << 8) | (mac[1]);
@@ -218,12 +227,9 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[16] = 0;
     cmd_buf[17] = 0;   // set to 0 to ignore it
     cmd_buf[18] = (size << 4) | 12; // should be considered correct for mapped buffer
-    cmd_buf[19] = 0;    // if i interpreted the code correctly, this value won't matter
+    cmd_buf[19] = output_buffer;
 
     LOG_WARNING(Service_AC, "Finished setting up command buffer");
-    std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
-    auto current_process = thread->owner_process.lock();
-    LOG_WARNING(Service_AC, "Retrieved thread and process");
 
     auto context =
             std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
@@ -246,9 +252,8 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp2(*context);
     rb.Push(rp2.Pop<u32>());
     Kernel::MappedBuffer mapped_buffer = rp2.PopMappedBuffer();
-    mapped_buffer.Read(buffer.data(), 0, buffer.size());
-    rb.PushStaticBuffer(buffer, 0);
-    LOG_WARNING(Service_AC, "(STUBBED) called, pid={}, unknown={}", pid, unknown);
+    rb.PushMappedBuffer(mapped_buffer);
+    LOG_WARNING(Service_AC, "(STUBBED) called, pid={}", pid);
 }
 
 void Module::Interface::GetInfraPriority(Kernel::HLERequestContext& ctx) {

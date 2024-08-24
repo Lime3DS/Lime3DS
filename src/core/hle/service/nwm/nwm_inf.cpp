@@ -10,6 +10,9 @@
 #include "core/hle/ipc_helpers.h"
 #include "core/hle/service/nwm/nwm_inf.h"
 #include "core/hle/service/nwm/nwm_uds.h"
+#include "core/hle/service/nwm/uds_beacon.h"
+#include "core/hle/service/nwm/uds_connection.h"
+#include "core/hle/service/nwm/uds_data.h"
 
 SERIALIZE_EXPORT_IMPL(Service::NWM::NWM_INF)
 
@@ -17,7 +20,6 @@ namespace Service::NWM {
 
 void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
-    // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
 
     LOG_WARNING(Service_NWM, "Started NWM_INF::RecvBeaconBroadcastData");
 
