@@ -3,16 +3,24 @@
 // Refer to the license.txt file included.
 
 #include "common/archives.h"
+#include "core/core.h"
 #include "core/hle/service/nwm/nwm_inf.h"
+#include "core/hle/service/nwm/nwm_uds.h"
 
 SERIALIZE_EXPORT_IMPL(Service::NWM::NWM_INF)
 
 namespace Service::NWM {
 
+void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
+    // TODO(PTR) Update implementation to cover differences between NWM_INF and NWM_UDS
+    auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
+    nwm_uds->HandleSyncRequest(ctx);
+}
+
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
     static const FunctionInfo functions[] = {
         // clang-format off
-        {0x0006, nullptr, "RecvBeaconBroadcastData"},
+        {0x0006, &NWM_INF::RecvBeaconBroadcastData, "RecvBeaconBroadcastData"},
         {0x0007, nullptr, "ConnectToEncryptedAP"},
         {0x0008, nullptr, "ConnectToAP"},
         // clang-format on
