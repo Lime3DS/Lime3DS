@@ -236,6 +236,11 @@
           </item>
           <item>
            <property name="text">
+            <string>Reverse Side by Side</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
             <string>Anaglyph</string>
            </property>
           </item>
