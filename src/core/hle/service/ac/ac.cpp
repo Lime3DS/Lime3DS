@@ -215,16 +215,13 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // Since I do not know the proper way, I copied various pieces of code that seemed to work
     // MAC address gets split, but I am not sure this is the proper way to do so
     Network::MacAddress mac = Network::BroadcastMac;
-    u32 mac1 = (mac[0] << 8) | (mac[1]);
-    u32 mac2 = (mac[2] << 24) | (mac[3] << 16) | (mac[4] << 8) | (mac[5]);
 
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
     cmd_buf[0] = 0x000603C4;    // Command header
     cmd_buf[1] = size;  // size of buffer
     cmd_buf[2] = 0; // dummy data
     cmd_buf[3] = 0; // dummy data
-    cmd_buf[4] = mac1;
-    cmd_buf[5] = mac2;
+    std::memcpy(cmd_buf.data() + 4, mac.data(), sizeof(Network::MacAddress));
     cmd_buf[16] = 0;    // 0x0 handle header
     cmd_buf[17] = 0;    // set to 0 to ignore it
     cmd_buf[18] = (size << 4) | 12; // should be considered correct for mapped buffer
