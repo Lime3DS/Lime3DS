@@ -21,9 +21,12 @@ namespace Service::NWM {
 void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
 
-    LOG_WARNING(Service_NWM, "Started NWM_INF::RecvBeaconBroadcastData");
+    // Using a standalone implementation requires copying private methods as well
+    // I am not sure if that should be done
 
-    // adding in extra context value for transition from INF to UDS
+    // Replacing header,
+    // adding in extra context value
+    // and replacing dummy value with 2 dummy id's
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
     cmd_buf[0] = 0x000F0404;
     int i;
@@ -37,27 +40,24 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
         cmd_buf[i] = rp.Pop<u32>();
     }
 
+    // Prepare for call to NWM_UDS
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
     auto context =
             std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
                     ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
-    LOG_WARNING(Service_NWM, "Finished converting context");
 
     auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
-    
     LOG_WARNING(Service_NWM, "Calling NWM_UDS::RecvBeaconBroadcastData");
     nwm_uds->HandleSyncRequest(*context);
     LOG_WARNING(Service_NWM, "Returned to NWM_INF::RecvBeaconBroadcastData");
 
+    // Push results of delegated call to caller
     IPC::RequestParser rp2(*context);
-
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
     rb.Push(rp2.Pop<u32>());
     rb.PushMappedBuffer(rp2.PopMappedBuffer());
-
-    LOG_WARNING(Service_NWM, "Finished NWM_INF::RecvBeaconBroadcastData");
 }
 
 NWM_INF::NWM_INF() : ServiceFramework("nwm::INF") {
