@@ -594,7 +594,7 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     MacAddress mac_address;
     rp.PopRaw(mac_address);
-    LOG_WARNING(Service_NWM, "MAC: {}", std::string str(std::begin(mac_address), std::end(mac_address)));
+    LOG_WARNING(Service_NWM, "MAC: {}", mac_address);
 
     rp.Skip(9, false);
 
