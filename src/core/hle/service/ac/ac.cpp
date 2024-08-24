@@ -24,6 +24,8 @@
 #include "network/network.h"
 #include "network/room.h"
 #include "core/memory.h"
+#include "network/network.h"
+#include "network/room.h"
 
 SERIALIZE_EXPORT_IMPL(Service::AC::Module)
 SERVICE_CONSTRUCT_IMPL(Service::AC::Module)
@@ -192,65 +194,62 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     // Arg 0 is Header code, which is ignored
     // Arg 1 is Size
     const u32 size = rp.Pop<u32>();
-    LOG_WARNING(Service_AC, "Size: {}", size);
     // Arg 2 is CallingPID value (PID Header)
     // Arg 3 is PID
     const u32 pid = rp.PopPID();
-    LOG_WARNING(Service_AC, "PID: {}", pid);
-    
+
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = Core::System::GetInstance().Kernel().GetCurrentProcess();
     Memory::MemorySystem& memory = Core::System::GetInstance().Memory();
-    LOG_WARNING(Service_AC, "Retrieved thread, process and memory");
 
     // According to 3dbrew, the output structure pointer is located 0x100 bytes after the beginning
     // of cmd_buff
     VAddr cmd_addr = thread->GetCommandBufferAddress();
     VAddr buffer_vaddr = cmd_addr + 0x100;
     const u32 descr = memory.Read32(buffer_vaddr);
-    LOG_WARNING(Service_AC, "Buffer descriptor: 0x{:08X}, expected: 0x{:08X}", descr, (size << 14) | 2);
-    ASSERT(descr == ((size << 14) | 2));    // preliminary check
+    ASSERT(descr == ((size << 14) | 2));                           // preliminary check
     const VAddr output_buffer = memory.Read32(buffer_vaddr + 0x4); // address to output buffer
-    LOG_WARNING(Service_AC, "Buffer VAddr: 0x{:08X}", output_buffer);
 
+    // At this point, we have all the input given to us
+    // 3dbrew stated that AC:ScanAPs relies on NWM_INF:RecvBeaconBroadcastData to obtain
+    // info on all nearby APs
+    // Thus this method prepares to call that service
+    // Since I do not know the proper way, I copied various pieces of code that seemed to work
+    // MAC address gets split, but I am not sure this is the proper way to do so
     Network::MacAddress mac = Network::BroadcastMac;
-    u32 mac1 = (mac[0] << 8) | (mac[1]);
-    u32 mac2 = (mac[2] << 24) | (mac[3] << 16) | (mac[4] << 8) | (mac[5]);
 
     std::array<u32, IPC::COMMAND_BUFFER_LENGTH + 2 * IPC::MAX_STATIC_BUFFERS> cmd_buf;
-    cmd_buf[0] = 0x000603C4;
-    cmd_buf[1] = size;
-    cmd_buf[2] = 0; // dummy data
-    cmd_buf[3] = 0; // dummy data
-    cmd_buf[4] = mac1;
-    cmd_buf[5] = mac2;
-    cmd_buf[16] = 0;
-    cmd_buf[17] = 0;   // set to 0 to ignore it
+    cmd_buf[0] = 0x000603C4; // Command header
+    cmd_buf[1] = size;       // size of buffer
+    cmd_buf[2] = 0;          // dummy data
+    cmd_buf[3] = 0;          // dummy data
+    std::memcpy(cmd_buf.data() + 4, mac.data(), sizeof(Network::MacAddress));
+    cmd_buf[16] = 0;                // 0x0 handle header
+    cmd_buf[17] = 0;                // set to 0 to ignore it
     cmd_buf[18] = (size << 4) | 12; // should be considered correct for mapped buffer
-    cmd_buf[19] = output_buffer;
+    cmd_buf[19] = output_buffer;    // address of output buffer
 
-    LOG_WARNING(Service_AC, "Finished setting up command buffer");
-
-    auto context =
-            std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
-                    ctx.Session(), thread);
-    LOG_WARNING(Service_AC, "Created context");
+    // Create context for call to NWM_INF::RecvBeaconBroadcastData
+    auto context = std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(),
+                                                               ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
-    LOG_WARNING(Service_AC, "Finished setting up context");
-
-    auto nwm_inf = 
-            Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");    
-    LOG_WARNING(Service_AC, "Calling NWM_INF::RecvBeaconBroadcastData");
+    // Retrieve service from service manager
+    auto nwm_inf =
+        Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");
+    // Perform delegated task
     nwm_inf->HandleSyncRequest(*context);
-    LOG_WARNING(Service_AC, "Returned to AC::ScanAPs");
+
     // Response should be
     // 0: Header Code (ignored)
     // 1: Result Code (Success/Unknown/etc.)
     // 2: ¿Parsed? beacon data
+
+    // Since the way to parse is yet unknown, it is currently only passing on raw
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
     IPC::RequestParser rp2(*context);
     rb.Push(rp2.Pop<u32>());
+    // Mapped buffer at virtual address output_buffer
     Kernel::MappedBuffer mapped_buffer = rp2.PopMappedBuffer();
     rb.PushMappedBuffer(mapped_buffer);
     LOG_WARNING(Service_AC, "(STUBBED) called, pid={}", pid);
