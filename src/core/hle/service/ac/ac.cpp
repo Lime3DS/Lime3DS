@@ -228,12 +228,12 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
     cmd_buf[19] = output_buffer;    // address of output buffer
 
     // Create context for call to NWM_INF::RecvBeaconBroadcastData
-    auto context = std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
+    auto context = std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(),
                                                                ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
     // Retrieve service from service manager
-    auto nwm_inf = 
+    auto nwm_inf =
         Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");
     // Perform delegated task
     nwm_inf->HandleSyncRequest(*context);
