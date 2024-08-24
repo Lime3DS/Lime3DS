@@ -34,8 +34,8 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
         cmd_buf[i] = rp.Pop<u32>();
     }
     rp.Pop<u32>();
-    cmd_buf[15] = 0;    // dummy wlan_comm_id
-    cmd_buf[16] = 0;    // dummy id
+    cmd_buf[15] = 0; // dummy wlan_comm_id
+    cmd_buf[16] = 0; // dummy id
     for (i = 17; i <= 20; i++) {
         cmd_buf[i] = rp.Pop<u32>();
     }
@@ -43,12 +43,12 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
     // Prepare for call to NWM_UDS
     std::shared_ptr<Kernel::Thread> thread = ctx.ClientThread();
     auto current_process = thread->owner_process.lock();
-    auto context =
-            std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
-                    ctx.Session(), thread);
+    auto context = std::make_shared<Kernel::HLERequestContext>(Core::System::GetInstance().Kernel(), 
+                                                               ctx.Session(), thread);
     context->PopulateFromIncomingCommandBuffer(cmd_buf.data(), current_process);
 
-    auto nwm_uds = Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
+    auto nwm_uds = 
+        Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
     LOG_WARNING(Service_NWM, "Calling NWM_UDS::RecvBeaconBroadcastData");
     nwm_uds->HandleSyncRequest(*context);
     LOG_WARNING(Service_NWM, "Returned to NWM_INF::RecvBeaconBroadcastData");
