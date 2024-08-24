@@ -594,7 +594,7 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     MacAddress mac_address;
     rp.PopRaw(mac_address);
-    LOG_WARNING(Service_NWM, "MAC: {02X}.{02X}.{02X}.{02X}.{02X}.{02X}", 
+    LOG_WARNING(Service_NWM, "MAC: {:02X}.{:02X}.{:02X}.{:02X}.{:02X}.{:02X}", 
             mac_address[0], mac_address[1], mac_address[2], 
             mac_address[3], mac_address[4], mac_address[5]);
 
