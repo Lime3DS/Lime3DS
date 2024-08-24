@@ -49,9 +49,7 @@ void NWM_INF::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     auto nwm_uds = 
         Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_UDS>("nwm::UDS");
-    LOG_WARNING(Service_NWM, "Calling NWM_UDS::RecvBeaconBroadcastData");
     nwm_uds->HandleSyncRequest(*context);
-    LOG_WARNING(Service_NWM, "Returned to NWM_INF::RecvBeaconBroadcastData");
 
     // Push results of delegated call to caller
     IPC::RequestParser rp2(*context);

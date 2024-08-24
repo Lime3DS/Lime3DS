@@ -234,11 +234,9 @@ void Module::Interface::ScanAPs(Kernel::HLERequestContext& ctx) {
 
     // Retrieve service from service manager
     auto nwm_inf = 
-        Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");    
-    LOG_WARNING(Service_AC, "Calling NWM_INF::RecvBeaconBroadcastData");
+        Core::System::GetInstance().ServiceManager().GetService<Service::NWM::NWM_INF>("nwm::INF");
     // Perform delegated task
     nwm_inf->HandleSyncRequest(*context);
-    LOG_WARNING(Service_AC, "Returned to AC::ScanAPs");
 
     // Response should be
     // 0: Header Code (ignored)

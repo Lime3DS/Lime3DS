@@ -594,9 +594,6 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     MacAddress mac_address;
     rp.PopRaw(mac_address);
-    LOG_WARNING(Service_NWM, "MAC: {:02X}.{:02X}.{:02X}.{:02X}.{:02X}.{:02X}", 
-            mac_address[0], mac_address[1], mac_address[2], 
-            mac_address[3], mac_address[4], mac_address[5]);
 
     rp.Skip(9, false);
 
@@ -632,18 +629,15 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
         ASSERT(cur_buffer_size < out_buffer_size);
 
-        LOG_WARNING(Service_NWM, "Writing entry header to buffer");
         out_buffer.Write(&entry, cur_buffer_size, sizeof(BeaconEntryHeader));
         cur_buffer_size += sizeof(BeaconEntryHeader);
         const unsigned char* beacon_data = beacon.data.data();
-        LOG_WARNING(Service_NWM, "Writing entry data to buffer");
         out_buffer.Write(beacon_data, cur_buffer_size, beacon.data.size());
         cur_buffer_size += beacon.data.size();
     }
 
     // Update the total size in the structure and write it to the buffer again.
     data_reply_header.total_size = static_cast<u32>(cur_buffer_size);
-    LOG_WARNING(Service_NWM, "Writing beacon reply header to buffer");
     out_buffer.Write(&data_reply_header, 0, sizeof(BeaconDataReplyHeader));
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
