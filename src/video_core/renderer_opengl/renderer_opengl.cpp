@@ -750,6 +750,15 @@ void RendererOpenGL::DrawTopScreen(const Layout::FramebufferLayout& layout,
                          top_screen_top, top_screen_width / 2, top_screen_height, orientation);
         break;
     }
+    case Settings::StereoRenderOption::ReverseSideBySide: {
+        DrawSingleScreen(screen_infos[1], top_screen_left / 2, top_screen_top, top_screen_width / 2,
+                         top_screen_height, orientation);
+        glUniform1i(uniform_layer, 1);
+        DrawSingleScreen(screen_infos[0],
+                         static_cast<float>((top_screen_left / 2) + (layout.width / 2)),
+                         top_screen_top, top_screen_width / 2, top_screen_height, orientation);
+        break;
+    }
     case Settings::StereoRenderOption::CardboardVR: {
         DrawSingleScreen(screen_infos[0], top_screen_left, top_screen_top, top_screen_width,
                          top_screen_height, orientation);
@@ -790,7 +799,8 @@ void RendererOpenGL::DrawBottomScreen(const Layout::FramebufferLayout& layout,
                          bottom_screen_width, bottom_screen_height, orientation);
         break;
     }
-    case Settings::StereoRenderOption::SideBySide: {
+    case Settings::StereoRenderOption::SideBySide: // Bottom screen is identical on both sides
+    case Settings::StereoRenderOption::ReverseSideBySide: {
         DrawSingleScreen(screen_infos[2], bottom_screen_left / 2, bottom_screen_top,
                          bottom_screen_width / 2, bottom_screen_height, orientation);
         glUniform1i(uniform_layer, 1);
