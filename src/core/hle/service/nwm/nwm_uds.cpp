@@ -625,6 +625,7 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
         entry.total_size = static_cast<u32>(sizeof(BeaconEntryHeader) + beacon.data.size());
         entry.wifi_channel = beacon.channel;
         entry.header_size = sizeof(BeaconEntryHeader);
+        ASSERT(entry.header_size == 0x1C);  // Sanity check
         entry.mac_address = beacon.transmitter_address;
 
         ASSERT(cur_buffer_size < out_buffer_size);
