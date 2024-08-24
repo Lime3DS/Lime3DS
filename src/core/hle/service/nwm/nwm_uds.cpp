@@ -641,6 +641,7 @@ void NWM_UDS::RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx) {
 
     // Update the total size in the structure and write it to the buffer again.
     data_reply_header.total_size = static_cast<u32>(cur_buffer_size);
+    LOG_WARNING(Service_NWM, "Writing beacon reply header to buffer");
     out_buffer.Write(&data_reply_header, 0, sizeof(BeaconDataReplyHeader));
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 2);
