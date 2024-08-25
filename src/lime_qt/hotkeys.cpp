@@ -44,13 +44,13 @@ void HotkeyRegistry::LoadHotkeys() {
 
 QShortcut* HotkeyRegistry::GetHotkey(const QString& group, const QString& action, QObject* widget) {
     Hotkey& hk = hotkey_groups[group][action];
-    QShortcut* shortcut = hk.shortcuts[widget->objectName()];
+    const auto widget_name = widget->objectName();
 
-    if (!shortcut) {
-        shortcut = new QShortcut(hk.keyseq, widget, nullptr, nullptr, hk.context);
+    if (!hk.shortcuts[widget_name]) {
+        hk.shortcuts[widget_name] = new QShortcut(hk.keyseq, widget, nullptr, nullptr, hk.context);
     }
 
-    return shortcut;
+    return hk.shortcuts[widget_name];
 }
 
 QKeySequence HotkeyRegistry::GetKeySequence(const QString& group, const QString& action) {
