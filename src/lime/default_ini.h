@@ -163,6 +163,10 @@ render_3d =
 # 0 - 100: Intensity. 0 (default)
 factor_3d =
 
+# Swap Eyes in 3D
+# true or false (default)
+swap_eyes_3d =
+
 # Change Default Eye to Render When in Monoscopic Mode
 # 0 (default): Left, 1: Right
 mono_render_option =

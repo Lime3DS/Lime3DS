@@ -103,6 +103,7 @@ void LogSettings() {
                 GetTextureSamplingName(values.texture_sampling.GetValue()));
     log_setting("Stereoscopy_Render3d", values.render_3d.GetValue());
     log_setting("Stereoscopy_Factor3d", values.factor_3d.GetValue());
+    log_setting("Stereoscopy_Swap_Eyes",values.swap_eyes_3d.GetValue());
     log_setting("Stereoscopy_MonoRenderOption", values.mono_render_option.GetValue());
     if (values.render_3d.GetValue() == StereoRenderOption::Anaglyph) {
         log_setting("Renderer_AnaglyphShader", values.anaglyph_shader_name.GetValue());
@@ -205,6 +206,7 @@ void RestoreGlobalState(bool is_powered_on) {
     values.bg_green.SetGlobal(true);
     values.bg_blue.SetGlobal(true);
     values.render_3d.SetGlobal(true);
+    values.swap_eyes_3d.SetGlobal(true);
     values.factor_3d.SetGlobal(true);
     values.filter_mode.SetGlobal(true);
     values.pp_shader_name.SetGlobal(true);

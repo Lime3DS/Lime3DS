@@ -521,7 +521,7 @@ struct Values {
 
     SwitchableSetting<StereoRenderOption> render_3d{StereoRenderOption::Off, "render_3d"};
     SwitchableSetting<u32> factor_3d{0, "factor_3d"};
-    SwitchableSetting<bool> swap_eyes_3d{false, "swap_eyes"};
+    SwitchableSetting<bool> swap_eyes_3d{false, "swap_eyes_3d"};
     SwitchableSetting<MonoRenderOption> mono_render_option{MonoRenderOption::LeftEye,
                                                            "mono_render_option"};
 

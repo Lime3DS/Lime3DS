@@ -148,6 +148,8 @@ void TelemetrySession::AddInitialInfo(Loader::AppLoader& app_loader) {
              static_cast<int>(Settings::values.render_3d.GetValue()));
     AddField(Telemetry::FieldType::UserConfig, "Renderer_Factor3d",
              Settings::values.factor_3d.GetValue());
+    AddField(Telemetry::FieldType::UserConfig,"Renderer_SwapEyes3d",
+            Settings::values.swap_eyes_3d.GetValue());
     AddField(Telemetry::FieldType::UserConfig, "Renderer_MonoRenderOption",
              static_cast<int>(Settings::values.mono_render_option.GetValue()));
     AddField(Telemetry::FieldType::UserConfig, "System_IsNew3ds",
