@@ -672,8 +672,8 @@ void RendererVulkan::DrawTopScreen(const Layout::FramebufferLayout& layout,
         return;
     }
     int leftside, rightside;
-    leftside = Settings::values.swap_eyes_3d.GetValue() ? 0 : 1;
-    rightside = Settings::values.swap_eyes_3d.GetValue() ? 1 : 0;
+    leftside = Settings::values.swap_eyes_3d.GetValue() ? 1 : 0;
+    rightside = Settings::values.swap_eyes_3d.GetValue() ? 0 : 1;
     const float top_screen_left = static_cast<float>(top_screen.left);
     const float top_screen_top = static_cast<float>(top_screen.top);
     const float top_screen_width = static_cast<float>(top_screen.GetWidth());
