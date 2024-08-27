@@ -56,11 +56,11 @@ enum class PortraitLayoutOption : u32 {
 enum class StereoRenderOption : u32 {
     Off = 0,
     SideBySide = 1,
-    ReverseSideBySide = 2,
-    Anaglyph = 3,
-    Interlaced = 4,
-    ReverseInterlaced = 5,
-    CardboardVR = 6
+    SideBySideFull = 2,
+    Anaglyph = 4,
+    Interlaced = 5,
+    ReverseInterlaced = 6,
+    CardboardVR = 7
 };
 
 // Which eye to render when 3d is off. 800px wide mode could be added here in the future, when
@@ -521,6 +521,7 @@ struct Values {
 
     SwitchableSetting<StereoRenderOption> render_3d{StereoRenderOption::Off, "render_3d"};
     SwitchableSetting<u32> factor_3d{0, "factor_3d"};
+    SwitchableSetting<bool> swap_eyes_3d{false, "swap_eyes"};
     SwitchableSetting<MonoRenderOption> mono_render_option{MonoRenderOption::LeftEye,
                                                            "mono_render_option"};
 
