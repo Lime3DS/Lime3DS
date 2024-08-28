@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>440</width>
-    <height>950</height>
+    <height>891</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -236,7 +236,7 @@
           </item>
           <item>
            <property name="text">
-            <string>Reverse Side by Side</string>
+            <string>Side by Side Full Width</string>
            </property>
           </item>
           <item>
@@ -309,6 +309,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="swap_eyes_3d">
+        <property name="text">
+         <string>Swap Eyes</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
