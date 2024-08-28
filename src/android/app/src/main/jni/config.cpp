@@ -172,7 +172,7 @@ void Config::ReadValues() {
     ReadSetting("Renderer", Settings::values.bg_red);
     ReadSetting("Renderer", Settings::values.bg_green);
     ReadSetting("Renderer", Settings::values.bg_blue);
-
+    ReadSetting("Renderer",Settings::values.swap_eyes_3d);
     // Layout
     // Somewhat inelegant solution to ensure layout value is between 0 and 5 on read
     // since older config files may have other values
