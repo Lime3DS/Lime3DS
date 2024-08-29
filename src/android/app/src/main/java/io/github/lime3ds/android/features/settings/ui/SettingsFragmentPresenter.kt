@@ -27,6 +27,7 @@ import io.github.lime3ds.android.features.settings.model.ScaledFloatSetting
 import io.github.lime3ds.android.features.settings.model.Settings
 import io.github.lime3ds.android.features.settings.model.StringSetting
 import io.github.lime3ds.android.features.settings.model.AbstractShortSetting
+import io.github.lime3ds.android.features.settings.model.FloatSetting
 import io.github.lime3ds.android.features.settings.model.view.DateTimeSetting
 import io.github.lime3ds.android.features.settings.model.view.HeaderSetting
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
@@ -951,6 +952,21 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.SMALL_SCREEN_POSITION.defaultValue
                 )
             )
+
+            add(
+                SliderSetting(
+                    FloatSetting.LARGE_SCREEN_PROPORTION,
+                    R.string.large_screen_proportion,
+                    R.string.large_screen_proportion_description,
+                    1,
+                    5,
+                    "",
+                    FloatSetting.LARGE_SCREEN_PROPORTION.key,
+                    FloatSetting.LARGE_SCREEN_PROPORTION.defaultValue
+                )
+            )
+
+
             add(
                 SubmenuSetting(
                     R.string.emulation_landscape_custom_layout,

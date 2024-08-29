@@ -68,6 +68,7 @@ import io.github.lime3ds.android.utils.SystemSaveGame
 import java.lang.IllegalStateException
 import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
+import kotlin.math.roundToInt
 
 class SettingsAdapter(
     private val fragmentView: SettingsFragmentView,
@@ -77,7 +78,7 @@ class SettingsAdapter(
     private var clickedItem: SettingsItem? = null
     private var clickedPosition: Int
     private var dialog: AlertDialog? = null
-    private var sliderProgress = 0
+    private var sliderProgress = 0f
     private var textSliderValue: TextInputEditText? = null
     private var textInputLayout: TextInputLayout? = null
     private var textInputValue: String = ""
@@ -258,27 +259,34 @@ class SettingsAdapter(
     fun onSliderClick(item: SliderSetting, position: Int) {
         clickedItem = item
         clickedPosition = position
-        sliderProgress = item.selectedValue
+        sliderProgress = (item.selectedFloat * 100f).roundToInt() / 100f
+
 
         val inflater = LayoutInflater.from(context)
         val sliderBinding = DialogSliderBinding.inflate(inflater)
         textInputLayout = sliderBinding.textInput
         textSliderValue = sliderBinding.textValue
-        textSliderValue!!.setText(sliderProgress.toString())
+        if (item.setting is FloatSetting)
+            textSliderValue!!.setText(sliderProgress.toString())
+        else
+            textSliderValue!!.setText(sliderProgress.roundToInt().toString())
         textInputLayout!!.suffixText = item.units
 
         sliderBinding.slider.apply {
             valueFrom = item.min.toFloat()
             valueTo = item.max.toFloat()
-            value = sliderProgress.toFloat()
+            value = sliderProgress
             textSliderValue!!.addTextChangedListener( object : TextWatcher {
                     override fun afterTextChanged(s: Editable) {
-                        val textValue = s.toString().toIntOrNull();
+                        var textValue = s.toString().toFloatOrNull();
+                        if (item.setting !is FloatSetting) {
+                            textValue = textValue!!.roundToInt().toFloat();
+                        }
                         if (textValue == null || textValue < valueFrom || textValue > valueTo) {
                             textInputLayout!!.error ="Inappropriate value"
                         } else {
                             textInputLayout!!.error = null
-                            value = textValue.toFloat();
+                            value = textValue
                         }
                     }
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -286,9 +294,13 @@ class SettingsAdapter(
                 })
 
             addOnChangeListener { _: Slider, value: Float, _: Boolean ->
-                sliderProgress = value.toInt()
-                if (textSliderValue!!.text.toString() != value.toInt().toString()) {
-                    textSliderValue!!.setText(value.toInt().toString())
+                sliderProgress = (value * 100).roundToInt().toFloat() / 100f
+                var sliderString = sliderProgress.toString()
+                if (item.setting !is FloatSetting) {
+                    sliderString = sliderProgress.roundToInt().toString()
+                }
+                if (textSliderValue!!.text.toString() != sliderString) {
+                    textSliderValue!!.setText(sliderString)
                     textSliderValue!!.setSelection(textSliderValue!!.length())
                 }
             }
@@ -406,17 +418,16 @@ class SettingsAdapter(
 
             is SliderSetting -> {
                 val sliderSetting = clickedItem as SliderSetting
-                if (sliderSetting.selectedValue != sliderProgress) {
+                val sliderval = (sliderSetting.selectedFloat*100).roundToInt().toFloat() / 100;
+                if (sliderval != sliderProgress) {
                     fragmentView.onSettingChanged()
                 }
                 when (sliderSetting.setting) {
-                    is FloatSetting,
-                    is ScaledFloatSetting -> {
-                        val value = sliderProgress.toFloat()
+                    is AbstractIntSetting -> {
+                        val value = sliderProgress.roundToInt()
                         val setting = sliderSetting.setSelectedValue(value)
                         fragmentView.putSetting(setting)
                     }
-
                     else -> {
                         val setting = sliderSetting.setSelectedValue(sliderProgress)
                         fragmentView.putSetting(setting)
@@ -436,7 +447,7 @@ class SettingsAdapter(
             }
         }
         clickedItem = null
-        sliderProgress = -1
+        sliderProgress = -1f
         textInputValue = ""
     }
 

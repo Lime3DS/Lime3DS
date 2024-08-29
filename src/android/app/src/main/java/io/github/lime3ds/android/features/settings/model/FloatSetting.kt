@@ -9,7 +9,7 @@ enum class FloatSetting(
     override val section: String,
     override val defaultValue: Float
 ) : AbstractFloatSetting {
-    // There are no float settings currently
+    LARGE_SCREEN_PROPORTION("large_screen_proportion",Settings.SECTION_LAYOUT,2.25f),
     EMPTY_SETTING("", "", 0.0f);
 
     override var float: Float = defaultValue
