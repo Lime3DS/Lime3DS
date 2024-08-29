@@ -63,8 +63,8 @@ enum class SmallScreenPosition : u32 {
     TopLeft,
     MiddleLeft,
     BottomLeft,
-    Above,
-    Below
+    AboveLarge,
+    BelowLarge
 };
 
 enum class StereoRenderOption : u32 {

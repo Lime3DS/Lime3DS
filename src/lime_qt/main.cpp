@@ -2606,9 +2606,9 @@ void GMainWindow::ChangeSmallScreenPosition() {
     } else if (ui->action_Small_Screen_BottomLeft->isChecked()) {
         new_position = Settings::SmallScreenPosition::BottomLeft;
     } else if (ui->action_Small_Screen_Above->isChecked()) {
-        new_position = Settings::SmallScreenPosition::Above;
+        new_position = Settings::SmallScreenPosition::AboveLarge;
     } else if (ui->action_Small_Screen_Below->isChecked()) {
-        new_position = Settings::SmallScreenPosition::Below;
+        new_position = Settings::SmallScreenPosition::BelowLarge;
     }
 
     Settings::values.small_screen_position = new_position;
@@ -3709,9 +3709,9 @@ void GMainWindow::SyncMenuUISettings() {
         Settings::values.small_screen_position.GetValue() ==
         Settings::SmallScreenPosition::BottomLeft);
     ui->action_Small_Screen_Above->setChecked(Settings::values.small_screen_position.GetValue() ==
-                                              Settings::SmallScreenPosition::Above);
+                                              Settings::SmallScreenPosition::AboveLarge);
     ui->action_Small_Screen_Below->setChecked(Settings::values.small_screen_position.GetValue() ==
-                                              Settings::SmallScreenPosition::Below);
+                                              Settings::SmallScreenPosition::BelowLarge);
 }
 
 void GMainWindow::RetranslateStatusBar() {
