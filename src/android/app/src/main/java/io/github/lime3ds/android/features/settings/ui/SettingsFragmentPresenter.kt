@@ -15,6 +15,8 @@ import android.text.TextUtils
 import androidx.preference.PreferenceManager
 import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.R
+import io.github.lime3ds.android.display.PortraitScreenLayout
+import io.github.lime3ds.android.display.ScreenLayout
 import io.github.lime3ds.android.features.settings.model.AbstractBooleanSetting
 import io.github.lime3ds.android.features.settings.model.AbstractIntSetting
 import io.github.lime3ds.android.features.settings.model.AbstractSetting
@@ -939,6 +941,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
+                SingleChoiceSetting(
+                    IntSetting.SMALL_SCREEN_POSITION,
+                    R.string.emulation_small_screen_position,
+                    R.string.small_screen_position_description,
+                    R.array.smallScreenPositions,
+                    R.array.smallScreenPositionValues,
+                    IntSetting.SMALL_SCREEN_POSITION.key,
+                    IntSetting.SMALL_SCREEN_POSITION.defaultValue
+                )
+            )
+            add(
                 SubmenuSetting(
                     R.string.emulation_landscape_custom_layout,
                     0,
@@ -946,6 +959,7 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     Settings.SECTION_CUSTOM_LANDSCAPE
                 )
             )
+
             add(
                 SubmenuSetting(
                     R.string.emulation_portrait_custom_layout,
@@ -954,7 +968,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     Settings.SECTION_CUSTOM_PORTRAIT
                 )
             )
-
 
         }
     }
