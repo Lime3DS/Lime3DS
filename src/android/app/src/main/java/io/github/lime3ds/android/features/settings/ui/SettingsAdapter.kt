@@ -12,6 +12,7 @@ import android.icu.util.Calendar
 import android.icu.util.TimeZone
 import android.text.Editable
 import android.text.InputFilter
+import android.text.InputType
 import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -266,8 +267,10 @@ class SettingsAdapter(
         val sliderBinding = DialogSliderBinding.inflate(inflater)
         textInputLayout = sliderBinding.textInput
         textSliderValue = sliderBinding.textValue
-        if (item.setting is FloatSetting)
+        if (item.setting is FloatSetting) {
+            textSliderValue!!.setInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL);
             textSliderValue!!.setText(sliderProgress.toString())
+        }
         else
             textSliderValue!!.setText(sliderProgress.roundToInt().toString())
         textInputLayout!!.suffixText = item.units
@@ -276,32 +279,42 @@ class SettingsAdapter(
             valueFrom = item.min.toFloat()
             valueTo = item.max.toFloat()
             value = sliderProgress
-            textSliderValue!!.addTextChangedListener( object : TextWatcher {
-                    override fun afterTextChanged(s: Editable) {
-                        var textValue = s.toString().toFloatOrNull();
-                        if (item.setting !is FloatSetting) {
-                            textValue = textValue!!.roundToInt().toFloat();
-                        }
-                        if (textValue == null || textValue < valueFrom || textValue > valueTo) {
-                            textInputLayout!!.error ="Inappropriate value"
-                        } else {
-                            textInputLayout!!.error = null
-                            value = textValue
-                        }
+            textSliderValue!!.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable) {
+
+                    var textValue = s.toString().toFloatOrNull();
+                    if (item.setting !is FloatSetting) {
+                        textValue = textValue!!.roundToInt().toFloat();
                     }
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                })
+                    if (textValue == null || textValue < valueFrom || textValue > valueTo) {
+                        textInputLayout!!.error = "Inappropriate value"
+                    } else {
+                        textInputLayout!!.error = null
+                        value = textValue
+                    }
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            })
 
             addOnChangeListener { _: Slider, value: Float, _: Boolean ->
                 sliderProgress = (value * 100).roundToInt().toFloat() / 100f
+
                 var sliderString = sliderProgress.toString()
                 if (item.setting !is FloatSetting) {
                     sliderString = sliderProgress.roundToInt().toString()
-                }
-                if (textSliderValue!!.text.toString() != sliderString) {
-                    textSliderValue!!.setText(sliderString)
-                    textSliderValue!!.setSelection(textSliderValue!!.length())
+                    if (textSliderValue!!.text.toString() != sliderString) {
+                        textSliderValue!!.setText(sliderString)
+                        textSliderValue!!.setSelection(textSliderValue!!.length())
+                    }
+                } else {
+                    val currentText = textSliderValue!!.text.toString()
+                    val currentTextValue = currentText.toFloat()
+                    if (currentTextValue != sliderProgress) {
+                        textSliderValue!!.setText(sliderString)
+                        textSliderValue!!.setSelection(textSliderValue!!.length())
+                    }
                 }
             }
         }
@@ -418,7 +431,7 @@ class SettingsAdapter(
 
             is SliderSetting -> {
                 val sliderSetting = clickedItem as SliderSetting
-                val sliderval = (sliderSetting.selectedFloat*100).roundToInt().toFloat() / 100;
+                val sliderval = (sliderSetting.selectedFloat * 100).roundToInt().toFloat() / 100;
                 if (sliderval != sliderProgress) {
                     fragmentView.onSettingChanged()
                 }
@@ -428,6 +441,7 @@ class SettingsAdapter(
                         val setting = sliderSetting.setSelectedValue(value)
                         fragmentView.putSetting(setting)
                     }
+
                     else -> {
                         val setting = sliderSetting.setSelectedValue(sliderProgress)
                         fragmentView.putSetting(setting)
@@ -484,7 +498,7 @@ class SettingsAdapter(
             R.string.setting_not_editable_description
         ).show((fragmentView as SettingsFragment).childFragmentManager, MessageDialogFragment.TAG)
     }
-    
+
     fun onClickRegenerateConsoleId() {
         MaterialAlertDialogBuilder(context)
             .setTitle(R.string.regenerate_console_id)
