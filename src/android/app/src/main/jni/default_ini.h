@@ -165,6 +165,10 @@ render_3d =
 # 0 - 100: Intensity. 0 (default)
 factor_3d =
 
+# Swap Eyes in 3d
+# true or false (default)
+swap_eyes_3d =
+
 # The name of the post processing shader to apply.
 # Loaded from shaders if render_3d is off or side by side.
 pp_shader_name =

@@ -57,6 +57,7 @@ void ConfigureEnhancements::SetConfiguration() {
 
     ui->render_3d_combobox->setCurrentIndex(
         static_cast<int>(Settings::values.render_3d.GetValue()));
+    ui->swap_eyes_3d->setChecked(Settings::values.swap_eyes_3d.GetValue());
     ui->factor_3d->setValue(Settings::values.factor_3d.GetValue());
     ui->mono_rendering_eye->setCurrentIndex(
         static_cast<int>(Settings::values.mono_render_option.GetValue()));
@@ -110,6 +111,7 @@ void ConfigureEnhancements::ApplyConfiguration() {
                                              ui->resolution_factor_combobox);
     Settings::values.render_3d =
         static_cast<Settings::StereoRenderOption>(ui->render_3d_combobox->currentIndex());
+    Settings::values.swap_eyes_3d = ui->swap_eyes_3d->isChecked();
     Settings::values.factor_3d = ui->factor_3d->value();
     Settings::values.mono_render_option =
         static_cast<Settings::MonoRenderOption>(ui->mono_rendering_eye->currentIndex());
