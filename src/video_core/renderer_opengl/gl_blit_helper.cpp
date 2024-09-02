@@ -159,7 +159,7 @@ bool BlitHelper::Filter(Surface& surface, const VideoCore::TextureBlit& blit) {
     const auto filter = Settings::values.texture_filter.GetValue();
     const bool is_depth =
         surface.type == SurfaceType::Depth || surface.type == SurfaceType::DepthStencil;
-    if (filter == Settings::TextureFilter::None || is_depth) {
+    if (filter == Settings::TextureFilter::NoFilter || is_depth) {
         return false;
     }
     if (blit.src_level != 0) {

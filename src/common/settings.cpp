@@ -40,7 +40,7 @@ std::string_view GetGraphicsAPIName(GraphicsAPI api) {
 
 std::string_view GetTextureFilterName(TextureFilter filter) {
     switch (filter) {
-    case TextureFilter::None:
+    case TextureFilter::NoFilter:
         return "None";
     case TextureFilter::Anime4K:
         return "Anime4K";

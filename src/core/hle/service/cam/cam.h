@@ -656,8 +656,8 @@ private:
     Result SetPackageParameter(const PackageParameterType& package);
 
     struct ContextConfig {
-        Flip flip{Flip::None};
-        Effect effect{Effect::None};
+        Flip flip{Flip::NoFlip};
+        Effect effect{Effect::NoEffect};
         OutputFormat format{OutputFormat::YUV422};
         Resolution resolution = {0, 0, 0, 0, 0, 0};
 

@@ -91,7 +91,7 @@ enum class AudioEmulation : u32 {
 };
 
 enum class TextureFilter : u32 {
-    None = 0,
+    NoFilter = 0,
     Anime4K = 1,
     Bicubic = 2,
     ScaleForce = 3,
@@ -493,7 +493,7 @@ struct Values {
     Setting<bool> use_shader_jit{true, "use_shader_jit"};
     SwitchableSetting<u32, true> resolution_factor{1, 0, 10, "resolution_factor"};
     SwitchableSetting<double, true> frame_limit{100, 0, 1000, "frame_limit"};
-    SwitchableSetting<TextureFilter> texture_filter{TextureFilter::None, "texture_filter"};
+    SwitchableSetting<TextureFilter> texture_filter{TextureFilter::NoFilter, "texture_filter"};
     SwitchableSetting<TextureSampling> texture_sampling{TextureSampling::GameControlled,
                                                         "texture_sampling"};
     SwitchableSetting<LayoutOption> layout_option{LayoutOption::Default, "layout_option"};

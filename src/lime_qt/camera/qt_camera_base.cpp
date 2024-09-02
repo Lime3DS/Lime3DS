@@ -32,7 +32,7 @@ void QtCameraInterface::SetFlip(Service::CAM::Flip flip) {
 }
 
 void QtCameraInterface::SetEffect(Service::CAM::Effect effect) {
-    if (effect != Service::CAM::Effect::None) {
+    if (effect != Service::CAM::Effect::NoEffect) {
         LOG_ERROR(Service_CAM, "Unimplemented effect {}", static_cast<int>(effect));
     }
 }
