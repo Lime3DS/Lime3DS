@@ -8,9 +8,6 @@
 #include <vector>
 #include "audio_core/null_sink.h"
 #include "audio_core/sink_details.h"
-#ifdef HAVE_SDL2
-#include "audio_core/sdl2_sink.h"
-#endif
 #ifdef HAVE_CUBEB
 #include "audio_core/cubeb_sink.h"
 #endif
@@ -36,13 +33,6 @@ constexpr std::array sink_details = {
                     return std::make_unique<OpenALSink>(std::string(device_id));
                 },
                 &ListOpenALSinkDevices},
-#endif
-#ifdef HAVE_SDL2
-    SinkDetails{SinkType::SDL2, "SDL2",
-                [](std::string_view device_id) -> std::unique_ptr<Sink> {
-                    return std::make_unique<SDL2Sink>(std::string(device_id));
-                },
-                &ListSDL2SinkDevices},
 #endif
     SinkDetails{SinkType::Null, "None",
                 [](std::string_view device_id) -> std::unique_ptr<Sink> {
