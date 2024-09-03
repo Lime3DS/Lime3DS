@@ -119,6 +119,10 @@ __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 }
 #endif
 
+#ifdef HAVE_SDL2
+#include <SDL.h>
+#endif
+
 constexpr int default_mouse_timeout = 2500;
 
 /**
@@ -1129,9 +1133,58 @@ void GMainWindow::MigrateUserData() {
         QMessageBox::Ok);
 }
 
+#if defined(HAVE_SDL2) && defined(__unix__) && !defined(__APPLE__)
+static std::optional<QDBusObjectPath> HoldWakeLockLinux(u32 window_id = 0) {
+    if (!QDBusConnection::sessionBus().isConnected()) {
+        return {};
+    }
+    // reference: https://flatpak.github.io/xdg-desktop-portal/#gdbus-org.freedesktop.portal.Inhibit
+    QDBusInterface xdp(QStringLiteral("org.freedesktop.portal.Desktop"),
+                       QStringLiteral("/org/freedesktop/portal/desktop"),
+                       QStringLiteral("org.freedesktop.portal.Inhibit"));
+    if (!xdp.isValid()) {
+        LOG_WARNING(Frontend, "Couldn't connect to XDP D-Bus endpoint");
+        return {};
+    }
+    QVariantMap options = {};
+    //: TRANSLATORS: This string is shown to the user to explain why Lime3DS needs to prevent the
+    //: computer from sleeping
+    options.insert(QString::fromLatin1("reason"),
+                   QCoreApplication::translate("GMainWindow", "Lime3DS is running a game"));
+    // 0x4: Suspend lock; 0x8: Idle lock
+    QDBusReply<QDBusObjectPath> reply =
+        xdp.call(QString::fromLatin1("Inhibit"),
+                 QString::fromLatin1("x11:") + QString::number(window_id, 16), 12U, options);
+
+    if (reply.isValid()) {
+        return reply.value();
+    }
+    LOG_WARNING(Frontend, "Couldn't read Inhibit reply from XDP: {}",
+                reply.error().message().toStdString());
+    return {};
+}
+
+static void ReleaseWakeLockLinux(const QDBusObjectPath& lock) {
+    if (!QDBusConnection::sessionBus().isConnected()) {
+        return;
+    }
+    QDBusInterface unlocker(QString::fromLatin1("org.freedesktop.portal.Desktop"), lock.path(),
+                            QString::fromLatin1("org.freedesktop.portal.Request"));
+    unlocker.call(QString::fromLatin1("Close"));
+}
+#endif // __unix__
+
 void GMainWindow::PreventOSSleep() {
 #ifdef _WIN32
     SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_DISPLAY_REQUIRED);
+#elif defined(HAVE_SDL2)
+    SDL_DisableScreenSaver();
+#if defined(__unix__) && !defined(__APPLE__)
+    auto reply = HoldWakeLockLinux(winId());
+    if (reply) {
+        wake_lock = std::move(reply.value());
+    }
+#endif // defined(__unix__) && !defined(__APPLE__)
 #endif // _WIN32
 }
 

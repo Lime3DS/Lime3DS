@@ -13,6 +13,7 @@
 #include "common/math_util.h"
 #include "common/param_package.h"
 #include "input_common/main.h"
+#include "input_common/sdl/sdl.h"
 #include "jni/input_manager.h"
 #include "jni/ndk_motion.h"
 

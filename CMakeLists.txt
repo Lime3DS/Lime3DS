@@ -56,6 +56,9 @@ else()
     set(DEFAULT_ENABLE_LTO OFF)
 endif()
 
+option(ENABLE_SDL2 "Enable using SDL2" ON)
+option(USE_SYSTEM_SDL2 "Use the system SDL2 lib (instead of the bundled one)" OFF)
+
 # Set bundled qt as dependent options.
 option(ENABLE_QT "Enable the Qt frontend" ON)
 option(ENABLE_QT_TRANSLATION "Enable translations for the Qt frontend" OFF)
@@ -391,6 +394,15 @@ if (NOT USE_SYSTEM_BOOST)
     add_library(Boost::boost ALIAS boost)
     add_library(Boost::serialization ALIAS boost_serialization)
     add_library(Boost::iostreams ALIAS boost_iostreams)
+endif()
+
+# SDL2
+if (ENABLE_SDL2 AND USE_SYSTEM_SDL2)
+    find_package(SDL2 REQUIRED)
+    add_library(SDL2 INTERFACE)
+    target_link_libraries(SDL2 INTERFACE "${SDL2_LIBRARY}")
+    target_include_directories(SDL2 INTERFACE "${SDL2_INCLUDE_DIR}")
+    add_library(SDL2::SDL2 ALIAS SDL2)
 endif()
 
 if (ENABLE_LIBUSB AND USE_SYSTEM_LIBUSB)
