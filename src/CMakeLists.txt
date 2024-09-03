@@ -180,10 +180,6 @@ if (ENABLE_TESTS)
     add_subdirectory(tests)
 endif()
 
-if (ENABLE_SDL2 AND ENABLE_SDL2_FRONTEND)
-    add_subdirectory(lime)
-endif()
-
 if (ENABLE_QT)
     add_subdirectory(lime_qt)
 endif()
