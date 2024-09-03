@@ -191,7 +191,7 @@ add_executable(lime-qt
     util/util.h
 )
 
-set_target_properties(lime-qt PROPERTIES OUTPUT_NAME "lime3ds-gui")
+set_target_properties(lime-qt PROPERTIES OUTPUT_NAME "lime3ds")
 
 file(GLOB COMPAT_LIST
      ${PROJECT_BINARY_DIR}/dist/compatibility_list/compatibility_list.qrc
