@@ -2,8 +2,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/CMakeModules)
 
 add_executable(lime-room
     precompiled_headers.h
-    lime-room.cpp
-    lime-room.rc
+    lime_room.cpp
+    lime_room.rc
 )
 
 set_target_properties(lime-room PROPERTIES OUTPUT_NAME "lime3ds-room")
