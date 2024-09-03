@@ -183,6 +183,14 @@ endif()
 # Teakra
 add_subdirectory(teakra EXCLUDE_FROM_ALL)
 
+# SDL2
+if (ENABLE_SDL2 AND NOT USE_SYSTEM_SDL2)
+    if (MSVC)
+        set (SDL_LIBC ON)
+    endif()
+    add_subdirectory(sdl2)
+endif()
+
 # libusb
 if (ENABLE_LIBUSB AND NOT USE_SYSTEM_LIBUSB)
     add_subdirectory(libusb)

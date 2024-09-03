@@ -10,6 +10,8 @@ add_library(input_common STATIC
     precompiled_headers.h
     touch_from_button.cpp
     touch_from_button.h
+    sdl/sdl.cpp
+    sdl/sdl.h
     udp/client.cpp
     udp/client.h
     udp/protocol.cpp
@@ -17,6 +19,15 @@ add_library(input_common STATIC
     udp/udp.cpp
     udp/udp.h
 )
+
+if(ENABLE_SDL2)
+    target_sources(input_common PRIVATE
+        sdl/sdl_impl.cpp
+        sdl/sdl_impl.h
+    )
+    target_link_libraries(input_common PRIVATE SDL2::SDL2)
+    target_compile_definitions(input_common PRIVATE HAVE_SDL2)
+endif()
 
 if(ENABLE_LIBUSB)
     target_sources(input_common PRIVATE
