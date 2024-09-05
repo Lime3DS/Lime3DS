@@ -530,4 +530,17 @@
         <item>12</item>
     </integer-array>
 
+    <integer-array name="landscape_values">
+        <item>2</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>0</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="portrait_values">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+
 </resources>

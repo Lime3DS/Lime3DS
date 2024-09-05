@@ -4,14 +4,17 @@
 
 package io.github.lime3ds.android.display
 import android.view.WindowManager
+import android.content.Context
 import io.github.lime3ds.android.NativeLibrary
 import io.github.lime3ds.android.features.settings.model.BooleanSetting
 import io.github.lime3ds.android.features.settings.model.IntSetting
 import io.github.lime3ds.android.features.settings.model.Settings
 import io.github.lime3ds.android.features.settings.utils.SettingsFile
 import io.github.lime3ds.android.utils.EmulationMenuSettings
+import io.github.lime3ds.android.R
 
 class ScreenAdjustmentUtil(
+    private val context: Context,
     private val windowManager: WindowManager,
     private val settings: Settings
 ) {
@@ -26,19 +29,19 @@ class ScreenAdjustmentUtil(
         settings.saveSetting(BooleanSetting.SWAP_SCREEN, SettingsFile.FILE_NAME_CONFIG)
     }
     fun cycleLayouts() {
-        // TODO: figure out how to pull these from R.array
-        val landscape_values = intArrayOf(2,1,3,4,0,5);
-        val portrait_values = intArrayOf(0,1);
+        val landscapeValues = context.resources.getIntArray(R.array.landscape_values)
+        val portraitValues = context.resources.getIntArray(R.array.portrait_values)
+
         if (NativeLibrary.isPortraitMode) {
-            val current_layout = IntSetting.PORTRAIT_SCREEN_LAYOUT.int
-            val pos = portrait_values.indexOf(current_layout)
-            val layout_option = portrait_values[(pos + 1) % portrait_values.size]
-            changePortraitOrientation(layout_option)
+            val currentLayout = IntSetting.PORTRAIT_SCREEN_LAYOUT.int
+            val pos = portraitValues.indexOf(currentLayout)
+            val layoutOption = portraitValues[(pos + 1) % portraitValues.size]
+            changePortraitOrientation(layoutOption)
         } else {
-            val current_layout = IntSetting.SCREEN_LAYOUT.int
-            val pos = landscape_values.indexOf(current_layout)
-            val layout_option = landscape_values[(pos + 1) % landscape_values.size]
-            changeScreenOrientation(layout_option)
+            val currentLayout = IntSetting.SCREEN_LAYOUT.int
+            val pos = landscapeValues.indexOf(currentLayout)
+            val layoutOption = landscapeValues[(pos + 1) % landscapeValues.size]
+            changeScreenOrientation(layoutOption)
         }
 
     }
