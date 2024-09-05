@@ -419,7 +419,6 @@ if (USE_SYSTEM_SOUNDTOUCH)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(dist/installer)
 
 
 # Set lime-qt project or lime project as default StartUp Project in Visual Studio depending on whether QT is enabled or not
