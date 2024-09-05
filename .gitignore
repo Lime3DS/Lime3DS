@@ -3,6 +3,9 @@
 doc-build/
 build-*/
 
+# NSIS built executables
+src/installer/*.exe
+
 # Generated source files
 src/common/scm_rev.cpp
 .travis.descriptor.json

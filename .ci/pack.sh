@@ -6,7 +6,7 @@ GITREV="`git show -s --format='%h'`"
 REV_NAME="lime3ds-$OS-$TARGET-$GITDATE-$GITREV"
 
 # Determine the name of the release being built.
-if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+if [ "$GITHUB_REF_TYPE" = "tag" ]; then
     RELEASE_NAME=lime3ds-$GITHUB_REF_NAME
     REV_NAME="lime3ds-$GITHUB_REF_NAME-$OS-$TARGET"
 else
@@ -50,7 +50,10 @@ function pack_artifacts() {
     rm -rf "$REV_NAME"
 }
 
-if [ -n "$UNPACKED" ]; then
+if [ "$OS" = "windows" ] && [ "$GITHUB_REF_TYPE" = "tag" ]; then
+    # Move the installer to the artifacts directory
+    mv src/installer/bin/*.exe artifacts/
+elif [ -n "$UNPACKED" ]; then
     # Copy the artifacts to be uploaded unpacked.
     for ARTIFACT in build/bundle/*; do
         FILENAME=$(basename "$ARTIFACT")

@@ -174,10 +174,23 @@ jobs:
           pacboy: >-
             toolchain:p ccache:p cmake:p ninja:p spirv-tools:p
             qt6-base:p qt6-multimedia:p qt6-multimedia-wmf:p qt6-tools:p qt6-translations:p
+      - name: Install NSIS
+        run: |
+          Invoke-WebRequest https://deac-riga.dl.sourceforge.net/project/nsis/NSIS%203/3.10/nsis-3.10-setup.exe?viasf=1 -OutFile C:\WINDOWS\Temp\nsis-3.10-setup.exe
+          Invoke-Expression "& C:\WINDOWS\Temp\nsis-3.10-setup.exe \S"
+        shell: pwsh
       - name: Disable line ending translation
         run: git config --global core.autocrlf input
       - name: Build
         run: ./.ci/windows.sh
+      - name: Generate installer
+        if: ${{ github.ref_type == 'tag' }}
+        run: |
+          cd src\installer
+          "C:\Program Files (x86)\NSIS\makensis.exe" /DPRODUCT_VARIANT=${{ matrix.target }} /DPRODUCT_VERSION=${{ github.ref_name }} lime3ds.nsi
+          mkdir bin
+          move /y *.exe bin\
+        shell: cmd
       - name: Pack
         run: ./.ci/pack.sh
       - name: Upload
@@ -256,4 +269,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.zip","./**/*.apk","./**/*.aab"]'
+          asset_paths: '["./**/*.tar.*","./**/*.AppImage","./**/*.zip","./**/*.apk","./**/*.aab","./**/*.exe"]'
