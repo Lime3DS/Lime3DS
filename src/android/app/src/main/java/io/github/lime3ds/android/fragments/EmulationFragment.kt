@@ -146,8 +146,7 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
         retainInstance = true
         emulationState = EmulationState(game.path)
         emulationActivity = requireActivity() as EmulationActivity
-        screenAdjustmentUtil =
-            ScreenAdjustmentUtil(emulationActivity.windowManager, settingsViewModel.settings)
+        screenAdjustmentUtil = ScreenAdjustmentUtil(requireContext(), requireActivity().windowManager, settingsViewModel.settings)
         EmulationLifecycleUtil.addShutdownHook(hook = { emulationState.stop() })
         EmulationLifecycleUtil.addPauseResumeHook(hook = { togglePause() })
     }
