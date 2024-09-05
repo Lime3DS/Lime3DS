@@ -11,7 +11,7 @@
 ![Flathub Downloads](https://img.shields.io/flathub/downloads/io.github.lime3ds.Lime3DS?logo=Flathub&label=Flathub%20Downloads)
 ![](https://github.com/Lime3DS/Lime3DS/actions/workflows/build.yml/badge.svg)
 
-<b>Lime3DS</b> is a project which aims to revive and continue work on Citra, a popular open-source Nintendo 3DS emulator which ceased development.
+<b>Lime3DS</b> is a project which aims to revive and continue work on Citra, a popular open-source 3DS emulator which ceased development.
 
 # Installation
 
