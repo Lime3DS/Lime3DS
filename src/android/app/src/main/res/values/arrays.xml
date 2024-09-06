@@ -543,4 +543,19 @@
         <item>1</item>
     </integer-array>
 
+    <string-array name="orientationOptions">
+        <item>Auto (Sensor)</item>
+        <item>Landscape</item>
+        <item>Landscape (Flipped)</item>
+        <item>Portrait</item>
+        <item>Portrait (Flipped)</item>
+    </string-array>
+    <integer-array name="orientationValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
 </resources>
