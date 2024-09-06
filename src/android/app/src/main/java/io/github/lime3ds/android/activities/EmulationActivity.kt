@@ -34,6 +34,7 @@ import io.github.lime3ds.android.databinding.ActivityEmulationBinding
 import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 import io.github.lime3ds.android.features.hotkeys.HotkeyUtility
 import io.github.lime3ds.android.features.settings.model.BooleanSetting
+import io.github.lime3ds.android.features.settings.model.IntSetting
 import io.github.lime3ds.android.features.settings.model.SettingsViewModel
 import io.github.lime3ds.android.features.settings.model.view.InputBindingSetting
 import io.github.lime3ds.android.fragments.EmulationFragment
@@ -105,6 +106,8 @@ class EmulationActivity : AppCompatActivity() {
 
         isEmulationRunning = true
         instance = this
+
+        applyOrientationSettings() // Check for orientation settings at startup
     }
 
     // On some devices, the system bars will not disappear on first boot or after some
@@ -113,6 +116,7 @@ class EmulationActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         enableFullscreenImmersive()
+        applyOrientationSettings() // Check for orientation settings changes on runtime
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -202,6 +206,11 @@ class EmulationActivity : AppCompatActivity() {
             controller.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+    }
+
+    private fun applyOrientationSettings() {
+        val orientationOption = IntSetting.ORIENTATION_OPTION.int
+        screenAdjustmentUtil.changeActivityOrientation(orientationOption)
     }
 
     // Gets button presses

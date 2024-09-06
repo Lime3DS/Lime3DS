@@ -363,6 +363,7 @@
     <string name="emulation_control_dpad_slide_enable">D-Pad Sliding</string>
     <string name="emulation_open_settings">Open Settings</string>
     <string name="emulation_open_cheats">Open Cheats</string>
+    <string name="emulation_screen_orientation_option">Screen Orientation Option</string>
     <string name="emulation_switch_screen_layout">Landscape Screen Layout</string>
     <string name="emulation_switch_portrait_layout">Portrait Screen Layout</string>
     <string name="emulation_screen_layout_largescreen">Large Screen</string>
