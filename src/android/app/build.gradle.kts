@@ -29,7 +29,7 @@ android {
     namespace = "io.github.lime3ds.android"
 
     compileSdkVersion = "android-34"
-    ndkVersion = "26.3.11579264"
+    ndkVersion = "27.1.12297006"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
