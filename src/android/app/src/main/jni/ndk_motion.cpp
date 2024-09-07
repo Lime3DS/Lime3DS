@@ -82,7 +82,7 @@ class NDKMotion final : public Input::MotionDevice {
     }
 
     void Update() const {
-        ALooper_pollAll(0, nullptr, nullptr, nullptr);
+        ALooper_pollOnce(0, nullptr, nullptr, nullptr);
         ASensorEvent event{};
         std::optional<Vec3<float>> new_accel{}, new_rot{};
         while (ASensorEventQueue_getEvents(event_queue, &event, 1) > 0) {
