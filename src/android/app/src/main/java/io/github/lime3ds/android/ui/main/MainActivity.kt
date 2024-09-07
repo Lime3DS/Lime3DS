@@ -300,7 +300,7 @@ class MainActivity : AppCompatActivity(), ThemeProvider {
             windowInsets
         }
 
-    val openLime3DSDirectory = registerForActivityResult<Uri, Uri>(
+    val openLime3DSDirectory = registerForActivityResult(
         ActivityResultContracts.OpenDocumentTree()
     ) { result: Uri? ->
         if (result == null) {

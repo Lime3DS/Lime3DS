@@ -26,7 +26,7 @@ class SelectUserDirectoryDialogFragment : DialogFragment() {
             .setTitle(R.string.select_lime3ds_user_folder)
             .setMessage(R.string.cannot_skip_directory_description)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface, _: Int ->
-                mainActivity.openLime3DSDirectory.launch(null)
+                mainActivity?.openLime3DSDirectory?.launch(null)
             }
             .show()
     }
