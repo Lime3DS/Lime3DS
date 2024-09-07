@@ -28,7 +28,7 @@ val downloadedJniLibsPath = "${buildDir}/downloadedJniLibs"
 android {
     namespace = "io.github.lime3ds.android"
 
-    compileSdkVersion = "android-34"
+    compileSdkVersion = "android-35"
     ndkVersion = "27.1.12297006"
 
     compileOptions {
@@ -63,7 +63,7 @@ android {
         // TODO If this is ever modified, change application_id in strings.xml
         applicationId = "io.github.lime3ds.android"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = autoVersion
         versionName = getGitVersion()
 
