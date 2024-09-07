@@ -159,7 +159,7 @@ class HomeSettingsFragment : Fragment() {
                 R.string.select_lime3ds_user_folder,
                 R.string.select_lime3ds_user_folder_home_description,
                 R.drawable.ic_home,
-                { mainActivity.openLime3DSDirectory.launch(null) },
+                { mainActivity?.openLime3DSDirectory?.launch(null) },
                 details = homeViewModel.userDir
             ),
             HomeSetting(
