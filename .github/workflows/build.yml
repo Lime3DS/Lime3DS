@@ -232,7 +232,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install ccache apksigner -y
       - name: Build
-        run: JAVA_HOME=$JAVA_HOME_17_X64 ./.ci/android.sh
+        run: JAVA_HOME=$JAVA_HOME_21_X64 ./.ci/android.sh
         env:
           ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
