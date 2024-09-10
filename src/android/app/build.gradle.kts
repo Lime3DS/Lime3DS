@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -77,7 +77,8 @@ android {
                 arguments(
                     "-DENABLE_QT=0", // Don't use QT
                     "-DENABLE_SDL2=0", // Don't use SDL
-                    "-DANDROID_ARM_NEON=true" // cryptopp requires Neon to work
+                    "-DANDROID_ARM_NEON=true", // cryptopp requires Neon to work
+                    "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON" // Support Android 15 16KiB page sizes
                 )
             }
         }
