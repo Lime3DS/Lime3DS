@@ -32,20 +32,28 @@ const std::array<int, Settings::NativeButton::NumButtons> Config::default_button
     Qt::Key_O, Qt::Key_P, Qt::Key_1, Qt::Key_2, Qt::Key_B, Qt::Key_V,
 };
 
-const std::array<std::array<int, 5>, Settings::NativeAnalog::NumAnalogs> Config::default_analogs{{
+const std::array<std::array<int, 9>, Settings::NativeAnalog::NumAnalogs> Config::default_analogs{{
     {
-        Qt::Key_Up,
-        Qt::Key_Down,
-        Qt::Key_Left,
-        Qt::Key_Right,
-        Qt::Key_D,
+        Qt::Key_Up,         // Up
+        Qt::Key_Down,       // Down
+        Qt::Key_Left,       // Left
+        Qt::Key_Right,      // Right
+        Qt::Key_W,          // Up-Right
+        Qt::Key_Q,          // Up-Left
+        Qt::Key_E,          // Down-Right
+        Qt::Key_A,          // Down-Left
+        Qt::Key_D           // Modifier
     },
     {
-        Qt::Key_I,
-        Qt::Key_K,
-        Qt::Key_J,
-        Qt::Key_L,
-        Qt::Key_D,
+        Qt::Key_I,          // Up
+        Qt::Key_K,          // Down
+        Qt::Key_J,          // Left
+        Qt::Key_L,          // Right
+        Qt::Key_U,          // Up-Right
+        Qt::Key_H,          // Up-Left
+        Qt::Key_O,          // Down-Right
+        Qt::Key_B,          // Down-Left
+        Qt::Key_D           // Modifier
     },
 }};
 
@@ -382,10 +390,11 @@ void Config::ReadControlValues() {
             std::string default_param = InputCommon::GenerateAnalogParamFromKeys(
                 default_analogs[i][0], default_analogs[i][1], default_analogs[i][2],
                 default_analogs[i][3], default_analogs[i][4], 0.5f);
-            profile.analogs[i] = ReadSetting(QString::fromUtf8(Settings::NativeAnalog::mapping[i]),
-                                             QString::fromStdString(default_param))
-                                     .toString()
-                                     .toStdString();
+            profile.analogs[i] =
+                ReadSetting(QString::fromStdString(Settings::NativeAnalog::mapping[i]),
+                            QString::fromStdString(default_param))
+                    .toString()
+                    .toStdString();
             if (profile.analogs[i].empty())
                 profile.analogs[i] = default_param;
         }

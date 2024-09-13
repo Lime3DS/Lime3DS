@@ -25,6 +25,10 @@ const std::array<std::string, ConfigureInput::ANALOG_SUB_BUTTONS_NUM>
         "down",
         "left",
         "right",
+        "up_left",
+        "up_right",
+        "down_left",
+        "down_right",
         "modifier",
     }};
 
@@ -33,6 +37,10 @@ enum class AnalogSubButtons {
     down,
     left,
     right,
+    up_left,
+    up_right,
+    down_left,
+    down_right,
     modifier,
 };
 
@@ -172,6 +180,10 @@ ConfigureInput::ConfigureInput(Core::System& _system, QWidget* parent)
             ui->buttonCircleDown,
             ui->buttonCircleLeft,
             ui->buttonCircleRight,
+            ui->buttonCircleUpLeft,
+            ui->buttonCircleUpRight,
+            ui->buttonCircleDownLeft,
+            ui->buttonCircleDownRight,
             nullptr,
         },
         {
@@ -179,6 +191,10 @@ ConfigureInput::ConfigureInput(Core::System& _system, QWidget* parent)
             ui->buttonCStickDown,
             ui->buttonCStickLeft,
             ui->buttonCStickRight,
+            ui->buttonCStickUpLeft,
+            ui->buttonCStickUpRight,
+            ui->buttonCStickDownLeft,
+            ui->buttonCStickDownRight,
             nullptr,
         },
     }};
@@ -468,12 +484,10 @@ void ConfigureInput::RestoreDefaults() {
     }
 
     for (int analog_id = 0; analog_id < Settings::NativeAnalog::NumAnalogs; analog_id++) {
-        for (int sub_button_id = 0; sub_button_id < ANALOG_SUB_BUTTONS_NUM; sub_button_id++) {
-            Common::ParamPackage params{InputCommon::GenerateKeyboardParam(
-                Config::default_analogs[analog_id][sub_button_id])};
-            SetAnalogButton(params, analogs_param[analog_id], analog_sub_buttons[sub_button_id]);
-        }
-        analogs_param[analog_id].Set("modifier_scale", 0.5f);
+        analogs_param[analog_id] = Common::ParamPackage{InputCommon::GenerateAnalogParamFromKeys(
+            Config::default_analogs[analog_id][0], Config::default_analogs[analog_id][1],
+            Config::default_analogs[analog_id][2], Config::default_analogs[analog_id][3],
+            Config::default_analogs[analog_id][4], 0.5f)};
     }
     UpdateButtonLabels();
 
