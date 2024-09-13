@@ -34,26 +34,26 @@ const std::array<int, Settings::NativeButton::NumButtons> Config::default_button
 
 const std::array<std::array<int, 9>, Settings::NativeAnalog::NumAnalogs> Config::default_analogs{{
     {
-        Qt::Key_Up,         // Up
-        Qt::Key_Down,       // Down
-        Qt::Key_Left,       // Left
-        Qt::Key_Right,      // Right
-        Qt::Key_W,          // Up-Right
-        Qt::Key_Q,          // Up-Left
-        Qt::Key_E,          // Down-Right
-        Qt::Key_A,          // Down-Left
-        Qt::Key_D           // Modifier
+        Qt::Key_Up,    // Up
+        Qt::Key_Down,  // Down
+        Qt::Key_Left,  // Left
+        Qt::Key_Right, // Right
+        Qt::Key_W,     // Up-Right
+        Qt::Key_Q,     // Up-Left
+        Qt::Key_E,     // Down-Right
+        Qt::Key_A,     // Down-Left
+        Qt::Key_D      // Modifier
     },
     {
-        Qt::Key_I,          // Up
-        Qt::Key_K,          // Down
-        Qt::Key_J,          // Left
-        Qt::Key_L,          // Right
-        Qt::Key_U,          // Up-Right
-        Qt::Key_H,          // Up-Left
-        Qt::Key_O,          // Down-Right
-        Qt::Key_B,          // Down-Left
-        Qt::Key_D           // Modifier
+        Qt::Key_I, // Up
+        Qt::Key_K, // Down
+        Qt::Key_J, // Left
+        Qt::Key_L, // Right
+        Qt::Key_U, // Up-Right
+        Qt::Key_H, // Up-Left
+        Qt::Key_O, // Down-Right
+        Qt::Key_B, // Down-Left
+        Qt::Key_D  // Modifier
     },
 }};
 
