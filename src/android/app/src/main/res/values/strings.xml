@@ -51,7 +51,7 @@
     <!-- About screen strings -->
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="contributors">Contributors</string>
-    <string name="contributors_description">Made with \u2764 from the Lime3DS team</string>
+    <string name="contributors_description">Thanks to the original Citra team, their contributors, and the Lime3DS contributors as well for continuing the work on Citra.</string>
     <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
     <string name="licenses_description">Projects that make Lime3DS for Android possible</string>
     <string name="build">Build</string>
