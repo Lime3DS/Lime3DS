@@ -1,4 +1,4 @@
-// Copyright 2019 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -48,24 +48,20 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
             });
 
     ui->screen_top_leftright_padding->setEnabled(Settings::values.screen_top_stretch.GetValue());
-    connect(ui->screen_top_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
-            this,
+    connect(ui->screen_top_stretch, &QCheckBox::checkStateChanged, this,
             [this](bool checkState) { ui->screen_top_leftright_padding->setEnabled(checkState); });
     ui->screen_top_topbottom_padding->setEnabled(Settings::values.screen_top_stretch.GetValue());
-    connect(ui->screen_top_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
-            this,
+    connect(ui->screen_top_stretch, &QCheckBox::checkStateChanged, this,
             [this](bool checkState) { ui->screen_top_topbottom_padding->setEnabled(checkState); });
     ui->screen_bottom_leftright_padding->setEnabled(
         Settings::values.screen_bottom_topbottom_padding.GetValue());
     connect(
-        ui->screen_bottom_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
-        this,
+        ui->screen_bottom_stretch, &QCheckBox::checkStateChanged, this,
         [this](bool checkState) { ui->screen_bottom_leftright_padding->setEnabled(checkState); });
     ui->screen_bottom_topbottom_padding->setEnabled(
         Settings::values.screen_bottom_topbottom_padding.GetValue());
     connect(
-        ui->screen_bottom_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
-        this,
+        ui->screen_bottom_stretch, &QCheckBox::checkStateChanged, this,
         [this](bool checkState) { ui->screen_bottom_topbottom_padding->setEnabled(checkState); });
 
     connect(ui->bg_button, &QPushButton::clicked, this, [this] {
