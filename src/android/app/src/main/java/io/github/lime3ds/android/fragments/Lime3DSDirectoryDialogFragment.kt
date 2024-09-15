@@ -60,7 +60,7 @@ class Lime3DSDirectoryDialogFragment : DialogFragment() {
             }
             .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int ->
                 if (!PermissionsHandler.hasWriteAccess(requireContext())) {
-                    (requireActivity() as MainActivity)?.openLime3DSDirectory?.launch(null)
+                    (requireActivity() as MainActivity)?.openLime3DSDirectory?.launch(Uri.parse(null))
                 }
             }
             .show()
