@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include <QColorDialog>
+#include <QtGlobal>
 #include "common/settings.h"
 #include "lime_qt/configuration/configuration_shared.h"
 #include "lime_qt/configuration/configure_layout.h"
@@ -48,22 +49,47 @@ ConfigureLayout::ConfigureLayout(QWidget* parent)
             });
 
     ui->screen_top_leftright_padding->setEnabled(Settings::values.screen_top_stretch.GetValue());
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    connect(ui->screen_top_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+            this,
+            [this](bool checkState) { ui->screen_top_leftright_padding->setEnabled(checkState); });
+#else
     connect(ui->screen_top_stretch, &QCheckBox::checkStateChanged, this,
             [this](bool checkState) { ui->screen_top_leftright_padding->setEnabled(checkState); });
+#endif
     ui->screen_top_topbottom_padding->setEnabled(Settings::values.screen_top_stretch.GetValue());
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    connect(ui->screen_top_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+            this,
+            [this](bool checkState) { ui->screen_top_topbottom_padding->setEnabled(checkState); });
+#else
     connect(ui->screen_top_stretch, &QCheckBox::checkStateChanged, this,
             [this](bool checkState) { ui->screen_top_topbottom_padding->setEnabled(checkState); });
+#endif
     ui->screen_bottom_leftright_padding->setEnabled(
         Settings::values.screen_bottom_topbottom_padding.GetValue());
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    connect(
+        ui->screen_bottom_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+        this,
+        [this](bool checkState) { ui->screen_bottom_leftright_padding->setEnabled(checkState); });
+#else
     connect(
         ui->screen_bottom_stretch, &QCheckBox::checkStateChanged, this,
         [this](bool checkState) { ui->screen_bottom_leftright_padding->setEnabled(checkState); });
+#endif
     ui->screen_bottom_topbottom_padding->setEnabled(
         Settings::values.screen_bottom_topbottom_padding.GetValue());
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    connect(
+        ui->screen_bottom_stretch, static_cast<void (QCheckBox::*)(int)>(&QCheckBox::stateChanged),
+        this,
+        [this](bool checkState) { ui->screen_bottom_topbottom_padding->setEnabled(checkState); });
+#else
     connect(
         ui->screen_bottom_stretch, &QCheckBox::checkStateChanged, this,
         [this](bool checkState) { ui->screen_bottom_topbottom_padding->setEnabled(checkState); });
-
+#endif
     connect(ui->bg_button, &QPushButton::clicked, this, [this] {
         const QColor new_bg_color = QColorDialog::getColor(bg_color);
         if (!new_bg_color.isValid()) {
