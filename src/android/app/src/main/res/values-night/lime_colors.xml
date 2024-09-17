@@ -2,124 +2,116 @@
 <resources>
 
     <!-- Blue Theme Colors -->
-    <color name="lime_primary_blue">#B7C4FF</color>
-    <color name="lime_onPrimary_blue">#002681</color>
-    <color name="lime_primaryContainer_blue">#0039B5</color>
-    <color name="lime_onPrimaryContainer_blue">#DCE1FF</color>
-    <color name="lime_onSecondary_blue">#2B3042</color>
-    <color name="lime_secondaryContainer_blue">#424659</color>
-    <color name="lime_onSecondaryContainer_blue">#DEE1F9</color>
-    <color name="lime_background_blue">#1B1B1F</color>
-    <color name="lime_surface_blue">#1B1B1F</color>
-    <color name="lime_onSurface_blue">#E4E1E6</color>
-    <color name="lime_surfaceVariant_blue">#45464F</color>
-    <color name="lime_onSurfaceVariant_blue">#C6C5D0</color>
-    <color name="lime_outline_blue">#90909A</color>
+    <color name="lime_primary_blue">#95A6FD</color>
+    <color name="lime_onPrimary_blue">#262942</color>
+    <color name="lime_primaryContainer_blue">#3F446F</color>
+    <color name="lime_onPrimaryContainer_blue">#B2BAFF</color>
+    <color name="lime_secondaryContainer_blue">#3D3F66</color>
+    <color name="lime_onSecondaryContainer_blue">#BEC1FF</color>
+    <color name="lime_background_blue">#3E4156</color>
+    <color name="lime_surface_blue">#1B1C26</color>
+    <color name="lime_onSurface_blue">#CAC7F6</color>
+    <color name="lime_surfaceVariant_blue">#3F3E56</color>
+    <color name="lime_onSurfaceVariant_blue">#F1EEFF</color>
+    <color name="lime_outline_blue">#838199</color>
 
     <!-- Cyan Theme Colors -->
-    <color name="lime_primary_cyan">#B7FFF7</color>
-    <color name="lime_onPrimary_cyan">#007D81</color>
-    <color name="lime_primaryContainer_cyan">#00A0B5</color>
-    <color name="lime_onPrimaryContainer_cyan">#DCFFFB</color>
-    <color name="lime_onSecondary_cyan">#2B3F42</color>
-    <color name="lime_secondaryContainer_cyan">#425659</color>
-    <color name="lime_onSecondaryContainer_cyan">#DEF9F7</color>
-    <color name="lime_background_cyan">#1B1F1E</color>
-    <color name="lime_surface_cyan">#1B1F1F</color>
-    <color name="lime_onSurface_cyan">#E1E6E5</color>
-    <color name="lime_surfaceVariant_cyan">#454F4D</color>
-    <color name="lime_onSurfaceVariant_cyan">#C5D0CF</color>
-    <color name="lime_outline_cyan">#909A98</color>
-
-    <!-- Red Theme Colors -->
-    <color name="lime_primary_red">#FFB7B7</color>
-    <color name="lime_onPrimary_red">#810000</color>
-    <color name="lime_primaryContainer_red">#B50000</color>
-    <color name="lime_onPrimaryContainer_red">#FFDCDC</color>
-    <color name="lime_onSecondary_red">#422B2B</color>
-    <color name="lime_secondaryContainer_red">#594242</color>
-    <color name="lime_onSecondaryContainer_red">#F9DEDE</color>
-    <color name="lime_background_red">#1F1B1B</color>
-    <color name="lime_surface_red">#1F1B1B</color>
-    <color name="lime_onSurface_red">#E6E1E1</color>
-    <color name="lime_surfaceVariant_red">#4F4545</color>
-    <color name="lime_onSurfaceVariant_red">#D0C5C5</color>
-    <color name="lime_outline_red">#9A9090</color>
+    <color name="lime_primary_cyan">#95FDFD</color>
+    <color name="lime_onPrimary_cyan">#264142</color>
+    <color name="lime_primaryContainer_cyan">#3F6F69</color>
+    <color name="lime_onPrimaryContainer_cyan">#B3FFF6</color>
+    <color name="lime_secondaryContainer_cyan">#3D6166</color>
+    <color name="lime_onSecondaryContainer_cyan">#BEF7FF</color>
+    <color name="lime_background_cyan">#3E5556</color>
+    <color name="lime_surface_cyan">#1B2626</color>
+    <color name="lime_onSurface_cyan">#D8F2EE</color>
+    <color name="lime_surfaceVariant_cyan">#3E5456</color>
+    <color name="lime_onSurfaceVariant_cyan">#DAFFFF</color>
+    <color name="lime_outline_cyan">#819599</color>
 
     <!-- Green Theme Colors -->
-    <color name="lime_primary_green">#D0FFB7</color>
-    <color name="lime_onPrimary_green">#368100</color>
-    <color name="lime_primaryContainer_green">#1BB500</color>
-    <color name="lime_onPrimaryContainer_green">#E5FFDC</color>
-    <color name="lime_onSecondary_green">#32422B</color>
-    <color name="lime_secondaryContainer_green">#4B5942</color>
-    <color name="lime_onSecondaryContainer_green">#E9F9DE</color>
-    <color name="lime_background_green">#1C1F1B</color>
-    <color name="lime_surface_green">#1C1F1B</color>
-    <color name="lime_onSurface_green">#E2E6E1</color>
-    <color name="lime_surfaceVariant_green">#494F45</color>
-    <color name="lime_onSurfaceVariant_green">#C9D0C5</color>
-    <color name="lime_outline_green">#959A90</color>
+    <color name="lime_primary_green">#95FD97</color>
+    <color name="lime_onPrimary_green">#284226</color>
+    <color name="lime_primaryContainer_green">#426F3F</color>
+    <color name="lime_onPrimaryContainer_green">#C8FFC4</color>
+    <color name="lime_secondaryContainer_green">#3D663E</color>
+    <color name="lime_onSecondaryContainer_green">#BEFFBF</color>
+    <color name="lime_background_green">#3F563E</color>
+    <color name="lime_surface_green">#1D261B</color>
+    <color name="lime_onSurface_green">#D8F0D8</color>
+    <color name="lime_surfaceVariant_green">#3F563E</color>
+    <color name="lime_onSurfaceVariant_green">#E2FFDF</color>
+    <color name="lime_outline_green">#829981</color>
+
+    <!-- Red Theme Colors -->
+    <color name="lime_primary_red">#FD9595</color>
+    <color name="lime_onPrimary_red">#422626</color>
+    <color name="lime_primaryContainer_red">#6F3F3F</color>
+    <color name="lime_onPrimaryContainer_red">#FFCACA</color>
+    <color name="lime_secondaryContainer_red">#663D3D</color>
+    <color name="lime_onSecondaryContainer_red">#FFBEBE</color>
+    <color name="lime_background_red">#563E3E</color>
+    <color name="lime_surface_red">#261B1B</color>
+    <color name="lime_onSurface_red">#F8DFDF</color>
+    <color name="lime_surfaceVariant_red">#563E3E</color>
+    <color name="lime_onSurfaceVariant_red">#FFD8D8</color>
+    <color name="lime_outline_red">#998181</color>
 
     <!-- Yellow Theme Colors -->
-    <color name="lime_primary_yellow">#FFEDB7</color>
-    <color name="lime_onPrimary_yellow">#817F00</color>
-    <color name="lime_primaryContainer_yellow">#B5A300</color>
-    <color name="lime_onPrimaryContainer_yellow">#FFFDDC</color>
-    <color name="lime_onSecondary_yellow">#42422B</color>
-    <color name="lime_secondaryContainer_yellow">#595942</color>
-    <color name="lime_onSecondaryContainer_yellow">#F7F9DE</color>
-    <color name="lime_background_yellow">#1F1F1B</color>
-    <color name="lime_surface_yellow">#1F1F1B</color>
-    <color name="lime_onSurface_yellow">#E6E5E1</color>
-    <color name="lime_surfaceVariant_yellow">#4F4E45</color>
-    <color name="lime_onSurfaceVariant_yellow">#D0D0C5</color>
-    <color name="lime_outline_yellow">#9A9990</color>
+    <color name="lime_primary_yellow">#E4C321</color>
+    <color name="lime_onPrimary_yellow">#423E26</color>
+    <color name="lime_primaryContainer_yellow">#6F6A3F</color>
+    <color name="lime_onPrimaryContainer_yellow">#FFFACF</color>
+    <color name="lime_secondaryContainer_yellow">#66613D</color>
+    <color name="lime_onSecondaryContainer_yellow">#FFF4BE</color>
+    <color name="lime_background_yellow">#56523E</color>
+    <color name="lime_surface_yellow">#26241B</color>
+    <color name="lime_onSurface_yellow">#FBF8E0</color>
+    <color name="lime_surfaceVariant_yellow">#56533E</color>
+    <color name="lime_onSurfaceVariant_yellow">#FBF4D7</color>
+    <color name="lime_outline_yellow">#999681</color>
 
     <!-- Orange Theme Colors -->
-    <color name="lime_primary_orange">#FFCBB7</color>
-    <color name="lime_onPrimary_orange">#812500</color>
-    <color name="lime_primaryContainer_orange">#B55400</color>
-    <color name="lime_onPrimaryContainer_orange">#FFEBDC</color>
-    <color name="lime_onSecondary_orange">#42342B</color>
-    <color name="lime_secondaryContainer_orange">#594A42</color>
-    <color name="lime_onSecondaryContainer_orange">#F9E6DE</color>
-    <color name="lime_background_orange">#1F1D1B</color>
-    <color name="lime_surface_orange">#1F1D1B</color>
-    <color name="lime_onSurface_orange">#E6E3E1</color>
-    <color name="lime_surfaceVariant_orange">#4F4A45</color>
-    <color name="lime_onSurfaceVariant_orange">#D0CAC5</color>
-    <color name="lime_outline_orange">#9A9490</color>
+    <color name="lime_primary_orange">#FF973C</color>
+    <color name="lime_onPrimary_orange">#423226</color>
+    <color name="lime_primaryContainer_orange">#6F583F</color>
+    <color name="lime_onPrimaryContainer_orange">#FFEAD4</color>
+    <color name="lime_secondaryContainer_orange">#66503D</color>
+    <color name="lime_onSecondaryContainer_orange">#FFD8BE</color>
+    <color name="lime_background_orange">#564A3E</color>
+    <color name="lime_surface_orange">#2F281E</color>
+    <color name="lime_onSurface_orange">#FBEDDD</color>
+    <color name="lime_surfaceVariant_orange">#564A3E</color>
+    <color name="lime_onSurfaceVariant_orange">#FFEDDD</color>
+    <color name="lime_outline_orange">#998E81</color>
 
     <!-- Violet Theme Colors -->
-    <color name="lime_primary_violet">#DAB7FF</color>
-    <color name="lime_onPrimary_violet">#350068</color>
-    <color name="lime_primaryContainer_violet">#5A00B5</color>
-    <color name="lime_onPrimaryContainer_violet">#F4DCFF</color>
-    <color name="lime_onSecondary_violet">#342B42</color>
-    <color name="lime_secondaryContainer_violet">#594265</color>
-    <color name="lime_onSecondaryContainer_violet">#E9DEF9</color>
-    <color name="lime_background_violet">#1F1B1F</color>
-    <color name="lime_surface_violet">#1F1B1F</color>
-    <color name="lime_onSurface_violet">#E6E4E6</color>
-    <color name="lime_surfaceVariant_violet">#4F454F</color>
-    <color name="lime_onSurfaceVariant_violet">#D0C6D0</color>
-    <color name="lime_outline_violet">#9A909A</color>
+    <color name="lime_primary_violet">#BD95FD</color>
+    <color name="lime_onPrimary_violet">#372642</color>
+    <color name="lime_primaryContainer_violet">#553F6F</color>
+    <color name="lime_onPrimaryContainer_violet">#E8D5FF</color>
+    <color name="lime_secondaryContainer_violet">#4D3D66</color>
+    <color name="lime_onSecondaryContainer_violet">#DCBEFF</color>
+    <color name="lime_background_violet">#483E56</color>
+    <color name="lime_surface_violet">#201B26</color>
+    <color name="lime_onSurface_violet">#EAE2FD</color>
+    <color name="lime_surfaceVariant_violet">#453E56</color>
+    <color name="lime_onSurfaceVariant_violet">#E8DBFF</color>
+    <color name="lime_outline_violet">#898199</color>
 
     <!-- Pink Theme Colors -->
-    <color name="lime_primary_pink">#FFB7C5</color>
-    <color name="lime_onPrimary_pink">#81001E</color>
-    <color name="lime_primaryContainer_pink">#B50033</color>
-    <color name="lime_onPrimaryContainer_pink">#FFDCE6</color>
-    <color name="lime_onSecondary_pink">#422B34</color>
-    <color name="lime_secondaryContainer_pink">#594249</color>
-    <color name="lime_onSecondaryContainer_pink">#FCF9DEE6</color>
-    <color name="lime_background_pink">#1F1B1C</color>
-    <color name="lime_surface_pink">#1F1B1C</color>
-    <color name="lime_onSurface_pink">#E6E1E2</color>
-    <color name="lime_surfaceVariant_pink">#4F4547</color>
-    <color name="lime_onSurfaceVariant_pink">#D0C5C8</color>
-    <color name="lime_outline_pink">#9A9093</color>
+    <color name="lime_primary_pink">#FD95CE</color>
+    <color name="lime_onPrimary_pink">#422634</color>
+    <color name="lime_primaryContainer_pink">#6F3F58</color>
+    <color name="lime_onPrimaryContainer_pink">#FFC9E6</color>
+    <color name="lime_secondaryContainer_pink">#663D52</color>
+    <color name="lime_onSecondaryContainer_pink">#FFBEDC</color>
+    <color name="lime_background_pink">#563E4A</color>
+    <color name="lime_surface_pink">#261B20</color>
+    <color name="lime_onSurface_pink">#FDE5F3</color>
+    <color name="lime_surfaceVariant_pink">#563E4D</color>
+    <color name="lime_onSurfaceVariant_pink">#FFE1F8</color>
+    <color name="lime_outline_pink">#99818F</color>
 
     <!-- Gray Theme Colors -->
     <color name="lime_primary_gray">#B7B7B7</color>
@@ -137,7 +129,7 @@
     <color name="lime_outline_gray">#909090</color>
 
     <!-- Common Colors Across All Themes -->
-    <color name="lime_inversePrimary">#D900FF</color>   <!-- Unused color but Search crashes without this -->
+    <color name="lime_inversePrimary">#FFFFFF</color>   <!-- Unused color but Search crashes without this -->
     <color name="lime_outlineVariant">#C6C5D0</color>
     <color name="lime_error">#FFB4AB</color>
     <color name="lime_errorContainer">#93000A</color>
