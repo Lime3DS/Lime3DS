@@ -138,27 +138,23 @@ class SettingsAdapter(
     }
 
     override fun onBindViewHolder(holder: SettingViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
-    private fun getItem(position: Int): SettingsItem {
-        return settings!![position]
+    private fun getItem(position: Int): SettingsItem? {
+        return settings?.get(position)
     }
 
     override fun getItemCount(): Int {
-        return if (settings != null) {
-            settings!!.size
-        } else {
-            0
-        }
+        return settings?.size ?: 0
     }
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position).type
+        return getItem(position)?.type ?: -1
     }
 
     fun setSettingsList(settings: ArrayList<SettingsItem>?) {
-        this.settings = settings
+        this.settings = settings ?: arrayListOf()
         notifyDataSetChanged()
     }
 
@@ -184,10 +180,12 @@ class SettingsAdapter(
 
     private fun onStringSingleChoiceClick(item: StringSingleChoiceSetting) {
         clickedItem = item
-        dialog = MaterialAlertDialogBuilder(context)
-            .setTitle(item.nameId)
-            .setSingleChoiceItems(item.choices, item.selectValueIndex, this)
-            .show()
+        dialog = context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(item.nameId)
+                .setSingleChoiceItems(item.choices, item.selectValueIndex, this)
+                .show()
+        }
     }
 
     fun onStringSingleChoiceClick(item: StringSingleChoiceSetting, position: Int) {
@@ -233,10 +231,10 @@ class SettingsAdapter(
             .build()
 
         datePicker.addOnPositiveButtonClickListener {
-            timePicker.show(
-                (fragmentView.activityView as AppCompatActivity).supportFragmentManager,
-                "TimePicker"
-            )
+            val activity = fragmentView.activityView as? AppCompatActivity
+            activity?.supportFragmentManager?.let { fragmentManager ->
+                timePicker.show(fragmentManager, "TimePicker")
+            }
         }
         timePicker.addOnPositiveButtonClickListener {
             var epochTime: Long = datePicker.selection!! / 1000
@@ -268,28 +266,31 @@ class SettingsAdapter(
         textInputLayout = sliderBinding.textInput
         textSliderValue = sliderBinding.textValue
         if (item.setting is FloatSetting) {
-            textSliderValue!!.setInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL);
-            textSliderValue!!.setText(sliderProgress.toString())
+            textSliderValue?.let {
+                it.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+                it.setText(sliderProgress.toString())
+            }
+        } else {
+            textSliderValue?.setText(sliderProgress.roundToInt().toString())
         }
-        else
-            textSliderValue!!.setText(sliderProgress.roundToInt().toString())
-        textInputLayout!!.suffixText = item.units
+
+        textInputLayout?.suffixText = item.units
 
         sliderBinding.slider.apply {
             valueFrom = item.min.toFloat()
             valueTo = item.max.toFloat()
             value = sliderProgress
-            textSliderValue!!.addTextChangedListener(object : TextWatcher {
+            textSliderValue?.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable) {
 
                     var textValue = s.toString().toFloatOrNull();
                     if (item.setting !is FloatSetting) {
-                        textValue = textValue!!.roundToInt().toFloat();
+                        textValue = textValue?.roundToInt()?.toFloat();
                     }
                     if (textValue == null || textValue < valueFrom || textValue > valueTo) {
-                        textInputLayout!!.error = "Inappropriate value"
+                        textInputLayout?.error = "Inappropriate value"
                     } else {
-                        textInputLayout!!.error = null
+                        textInputLayout?.error = null
                         value = textValue
                     }
                 }
@@ -304,16 +305,16 @@ class SettingsAdapter(
                 var sliderString = sliderProgress.toString()
                 if (item.setting !is FloatSetting) {
                     sliderString = sliderProgress.roundToInt().toString()
-                    if (textSliderValue!!.text.toString() != sliderString) {
-                        textSliderValue!!.setText(sliderString)
-                        textSliderValue!!.setSelection(textSliderValue!!.length())
+                    if (textSliderValue?.text.toString() != sliderString) {
+                        textSliderValue?.setText(sliderString)
+                        textSliderValue?.setSelection(textSliderValue?.length() ?: 0 )
                     }
                 } else {
-                    val currentText = textSliderValue!!.text.toString()
+                    val currentText = textSliderValue?.text.toString()
                     val currentTextValue = currentText.toFloat()
                     if (currentTextValue != sliderProgress) {
-                        textSliderValue!!.setText(sliderString)
-                        textSliderValue!!.setSelection(textSliderValue!!.length())
+                        textSliderValue?.setText(sliderString)
+                        textSliderValue?.setSelection(textSliderValue?.length() ?: 0 )
                     }
                 }
             }
@@ -325,14 +326,14 @@ class SettingsAdapter(
             .setPositiveButton(android.R.string.ok, this)
             .setNegativeButton(android.R.string.cancel, defaultCancelListener)
             .setNeutralButton(R.string.slider_default) { dialog: DialogInterface, which: Int ->
-                sliderBinding.slider.value = when (item.setting) {
+                sliderBinding.slider?.value = when (item.setting) {
                     is ScaledFloatSetting -> {
                         val scaledSetting = item.setting as ScaledFloatSetting
                         scaledSetting.defaultValue * scaledSetting.scale
                     }
 
                     is FloatSetting -> (item.setting as FloatSetting).defaultValue
-                    else -> item.defaultValue!!
+                    else -> item.defaultValue ?: 0f
                 }
                 onClick(dialog, which)
             }
@@ -383,81 +384,85 @@ class SettingsAdapter(
     override fun onClick(dialog: DialogInterface, which: Int) {
         when (clickedItem) {
             is SingleChoiceSetting -> {
-                val scSetting = clickedItem as SingleChoiceSetting
-                val setting = when (scSetting.setting) {
-                    is AbstractIntSetting -> {
-                        val value = getValueForSingleChoiceSelection(scSetting, which)
-                        if (scSetting.selectedValue != value) {
-                            fragmentView.onSettingChanged()
+                val scSetting = clickedItem as? SingleChoiceSetting
+                scSetting?.let {
+                        val setting = when (it.setting) {
+                        is AbstractIntSetting -> {
+                        val value = getValueForSingleChoiceSelection(it, which)
+                        if (it.selectedValue != value) {
+                            fragmentView?.onSettingChanged()
                         }
-                        scSetting.setSelectedValue(value)
-                    }
-
-                    is AbstractShortSetting -> {
-                        val value = getValueForSingleChoiceSelection(scSetting, which).toShort()
-                        if (scSetting.selectedValue.toShort() != value) {
-                            fragmentView.onSettingChanged()
+                            it.setSelectedValue(value)
                         }
-                        scSetting.setSelectedValue(value)
+                        is AbstractShortSetting -> {
+                            val value = getValueForSingleChoiceSelection(it, which).toShort()
+                            if (it.selectedValue.toShort() != value) {
+                                fragmentView?.onSettingChanged()
+                            }
+                            it.setSelectedValue(value)
+                        }
+                        else -> throw IllegalStateException("Unrecognized type used for SingleChoiceSetting!")
                     }
-
-                    else -> throw IllegalStateException("Unrecognized type used for SingleChoiceSetting!")
+                    fragmentView?.putSetting(setting)
+                    closeDialog()
                 }
-
-                fragmentView.putSetting(setting)
-                closeDialog()
             }
 
             is StringSingleChoiceSetting -> {
-                val scSetting = clickedItem as StringSingleChoiceSetting
-                val setting = when (scSetting.setting) {
-                    is AbstractStringSetting -> {
-                        val value = scSetting.getValueAt(which)
-                        if (scSetting.selectedValue != value) fragmentView.onSettingChanged()
-                        scSetting.setSelectedValue(value!!)
+                val scSetting = clickedItem as? StringSingleChoiceSetting
+                scSetting?.let {
+                    val setting = when (it.setting) {
+                        is AbstractStringSetting -> {
+                            val value = it.getValueAt(which)
+                            if (it.selectedValue != value) fragmentView?.onSettingChanged()
+                            it.setSelectedValue(value ?: "")
+                        }
+
+                        is AbstractShortSetting -> {
+                            if (it.selectValueIndex != which) fragmentView?.onSettingChanged()
+                            it.setSelectedValue(it.getValueAt(which)?.toShort() ?: 1)
+                        }
+
+                        else -> throw IllegalStateException("Unrecognized type used for StringSingleChoiceSetting!")
                     }
 
-                    is AbstractShortSetting -> {
-                        if (scSetting.selectValueIndex != which) fragmentView.onSettingChanged()
-                        scSetting.setSelectedValue(scSetting.getValueAt(which)?.toShort() ?: 1)
-                    }
-
-                    else -> throw IllegalStateException("Unrecognized type used for StringSingleChoiceSetting!")
+                    fragmentView?.putSetting(setting)
+                    closeDialog()
                 }
-
-                fragmentView.putSetting(setting)
-                closeDialog()
             }
 
             is SliderSetting -> {
-                val sliderSetting = clickedItem as SliderSetting
-                val sliderval = (sliderSetting.selectedFloat * 100).roundToInt().toFloat() / 100;
-                if (sliderval != sliderProgress) {
-                    fragmentView.onSettingChanged()
-                }
-                when (sliderSetting.setting) {
-                    is AbstractIntSetting -> {
-                        val value = sliderProgress.roundToInt()
-                        val setting = sliderSetting.setSelectedValue(value)
-                        fragmentView.putSetting(setting)
+                val sliderSetting = clickedItem as? SliderSetting
+                sliderSetting?.let {
+                    val sliderval = (it.selectedFloat * 100).roundToInt().toFloat() / 100
+                    if (sliderval != sliderProgress) {
+                        fragmentView?.onSettingChanged()
                     }
-
-                    else -> {
-                        val setting = sliderSetting.setSelectedValue(sliderProgress)
-                        fragmentView.putSetting(setting)
-                    }
+                    when (it.setting) {
+                        is AbstractIntSetting -> {
+                            val value = sliderProgress.roundToInt()
+                            val setting = it.setSelectedValue(value)
+                            fragmentView?.putSetting(setting)
+                        }
+                        else -> {
+                            val setting = it.setSelectedValue(sliderProgress)
+                            fragmentView?.putSetting(setting)
+                        }
+                   }
+                    closeDialog()
                 }
-                closeDialog()
             }
 
             is StringInputSetting -> {
-                val inputSetting = clickedItem as StringInputSetting
-                if (inputSetting.selectedValue != textInputValue) {
-                    fragmentView.onSettingChanged()
-                }
-                val setting = inputSetting.setSelectedValue(textInputValue)
-                fragmentView.putSetting(setting)
-                closeDialog()
+                val inputSetting = clickedItem as? StringInputSetting
+                inputSetting?.let {
+                    if (it.selectedValue != textInputValue) {
+                        fragmentView?.onSettingChanged()
+                    }
+                    val setting = it.setSelectedValue(textInputValue ?: "")
+                    fragmentView?.putSetting(setting)
+                    closeDialog()
+               }
             }
         }
         clickedItem = null
