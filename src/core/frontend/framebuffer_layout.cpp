@@ -216,10 +216,12 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
 
     float large_height =
         swapped ? Core::kScreenBottomHeight * scale_factor : Core::kScreenTopHeight * scale_factor;
-    float small_height = static_cast<float>(swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight);
+    float small_height =
+        static_cast<float>(swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight);
     float large_width =
         swapped ? Core::kScreenBottomWidth * scale_factor : Core::kScreenTopWidth * scale_factor;
-    float small_width = static_cast<float>(swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth);
+    float small_width =
+        static_cast<float>(swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth);
 
     float emulation_width, emulation_height;
     if (vertical) {
