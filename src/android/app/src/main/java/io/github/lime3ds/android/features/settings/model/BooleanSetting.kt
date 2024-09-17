@@ -36,7 +36,8 @@ enum class BooleanSetting(
         private val NOT_RUNTIME_EDITABLE = listOf(
             PLUGIN_LOADER,
             ALLOW_PLUGIN_LOADER,
-            ADRENO_GPU_BOOST
+            ADRENO_GPU_BOOST,
+            ASYNC_SHADERS
         )
 
         fun from(key: String): BooleanSetting? =
