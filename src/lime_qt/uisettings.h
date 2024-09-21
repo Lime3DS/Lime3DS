@@ -76,7 +76,7 @@ struct Values {
     Settings::Setting<bool> show_filter_bar{true, "showFilterBar"};
     Settings::Setting<bool> show_status_bar{true, "showStatusBar"};
 
-    Settings::Setting<int> turbo_speed_slider{69, "turboSpeedSlider"};
+    Settings::Setting<int> turbo_speed_slider{100, "turboSpeedSlider"};
     Settings::Setting<bool> confirm_before_closing{true, "confirmClose"};
     Settings::Setting<bool> save_state_warning{true, "saveStateWarning"};
     Settings::Setting<bool> first_start{true, "firstStart"};
