@@ -176,7 +176,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Anime4K</string>
+             <string>Anime4K Ultrafast</string>
             </property>
            </item>
            <item>
@@ -186,17 +186,17 @@
            </item>
            <item>
             <property name="text">
-             <string>Nearest Neighbor</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>ScaleForce</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>xBRZ</string>
+             <string>xBRZ Freescale</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MMPX</string>
             </property>
            </item>
           </widget>
