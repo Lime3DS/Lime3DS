@@ -136,7 +136,7 @@ Function desktopShortcutPageCreate
 
   ${NSD_CreateCheckbox} 0u 0u 100% 12u "Create a desktop shortcut"
   Pop $desktopShortcutCheckbox
-  ${NSD_Check} $desktopShortcutCheckbox
+  ${NSD_SetState} $desktopShortcutCheckbox $desktopShortcut
 
   nsDialogs::Show
 FunctionEnd
