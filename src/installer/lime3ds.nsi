@@ -7,11 +7,6 @@
 ;   probably also want vscode extension: https://marketplace.visualstudio.com/items?itemName=idleberg.nsis
 ;   makensis /DPRODUCT_VERSION=<release-name> /DPRODUCT_VARIANT=<msvc/msys2> <this-script>
 
-; Require /DPRODUCT_VERSION=<release-name> to makensis.
-!ifndef PRODUCT_VERSION
-  !error "PRODUCT_VERSION must be defined"
-!endif
-
 ; Require /DPRODUCT_VARIANT=<release-name> to makensis.
 !ifndef PRODUCT_VARIANT
   !error "PRODUCT_VARIANT must be defined"
@@ -42,6 +37,8 @@ ShowUnInstDetails show
 !include "MultiUser.nsh"
 
 !include "MUI2.nsh"
+; Custom page plugin
+!include "nsDialogs.nsh"
 
 ; MUI Settings
 !define MUI_ICON "../../dist/lime.ico"
@@ -51,6 +48,8 @@ ShowUnInstDetails show
 !insertmacro MUI_PAGE_LICENSE "..\..\license.txt"
 ; All/Current user selection page
 !insertmacro MULTIUSER_PAGE_INSTALLMODE
+; Desktop Shortcut page
+Page custom DesktopShortcutPageCreate DesktopShortcutPageLeave
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -110,6 +109,10 @@ Function un.onInit
 FunctionEnd
 
 Var DisplayName
+Var DesktopShortcutPageDialog
+Var DesktopShortcutCheckbox
+Var DesktopShortcut
+
 !macro UPDATE_DISPLAYNAME
   ${If} $MultiUser.InstallMode == "CurrentUser"
     StrCpy $DisplayName "$(^Name) (User)"
@@ -117,6 +120,25 @@ Var DisplayName
     StrCpy $DisplayName "$(^Name)"
   ${EndIf}
 !macroend
+
+Function DesktopShortcutPageCreate
+  !insertmacro MUI_HEADER_TEXT "Create Desktop Shortcut" "Would you like to create a desktop shortcut?"
+  nsDialogs::Create 1018
+  Pop $DesktopShortcutPageDialog
+  ${If} $DesktopShortcutPageDialog == error
+    Abort
+  ${EndIf}
+
+  ${NSD_CreateCheckbox} 0u 0u 100% 12u "Create a desktop shortcut"
+  Pop $DesktopShortcutCheckbox
+  ${NSD_Check} $DesktopShortcutCheckbox
+
+  nsDialogs::Show
+FunctionEnd
+
+Function DesktopShortcutPageLeave
+  ${NSD_GetState} $DesktopShortcutCheckbox $DesktopShortcut
+FunctionEnd
 
 Section "Base"
   ExecWait '"$INSTDIR\uninst.exe" /S _?=$INSTDIR'
@@ -134,7 +156,9 @@ Section "Base"
   ; This needs to be done after Dolphin.exe is copied
   CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
-  CreateShortCut "$DESKTOP\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
+  ${If} $DesktopShortcut == 1
+    CreateShortCut "$DESKTOP\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
+  ${EndIf}
 
   ; ??
   SetOutPath "$TEMP"
