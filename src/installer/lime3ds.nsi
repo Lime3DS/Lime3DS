@@ -65,6 +65,12 @@ Page custom desktopShortcutPageCreate desktopShortcutPageLeave
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_INSTFILES
 
+; Variables
+Var DisplayName
+Var DesktopShortcutPageDialog
+Var DesktopShortcutCheckbox
+Var DesktopShortcut
+
 ; Language files
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "SimpChinese"
@@ -96,6 +102,7 @@ Page custom desktopShortcutPageCreate desktopShortcutPageLeave
 ManifestSupportedOS {8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}
 
 Function .onInit
+  StrCpy $DesktopShortcut 1
   !insertmacro MULTIUSER_INIT
 
   ; Keep in sync with build_info.txt
@@ -113,11 +120,6 @@ Function un.onInit
   !insertmacro MULTIUSER_UNINIT
 FunctionEnd
 
-Var DisplayName
-Var desktopShortcutPageDialog
-Var desktopShortcutCheckbox
-Var desktopShortcut
-
 !macro UPDATE_DISPLAYNAME
   ${If} $MultiUser.InstallMode == "CurrentUser"
     StrCpy $DisplayName "$(^Name) (User)"
@@ -129,20 +131,20 @@ Var desktopShortcut
 Function desktopShortcutPageCreate
   !insertmacro MUI_HEADER_TEXT "Create Desktop Shortcut" "Would you like to create a desktop shortcut?"
   nsDialogs::Create 1018
-  Pop $desktopShortcutPageDialog
-  ${If} $desktopShortcutPageDialog == error
+  Pop $DesktopShortcutPageDialog
+  ${If} $DesktopShortcutPageDialog == error
     Abort
   ${EndIf}
 
   ${NSD_CreateCheckbox} 0u 0u 100% 12u "Create a desktop shortcut"
-  Pop $desktopShortcutCheckbox
-  ${NSD_SetState} $desktopShortcutCheckbox $desktopShortcut
+  Pop $DesktopShortcutCheckbox
+  ${NSD_SetState} $DesktopShortcutCheckbox $DesktopShortcut
 
   nsDialogs::Show
 FunctionEnd
 
 Function desktopShortcutPageLeave
-  ${NSD_GetState} $desktopShortcutCheckbox $desktopShortcut
+  ${NSD_GetState} $DesktopShortcutCheckbox $DesktopShortcut
 FunctionEnd
 
 Section "Base"
@@ -161,7 +163,7 @@ Section "Base"
   ; This needs to be done after Dolphin.exe is copied
   CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
-  ${If} $desktopShortcut == 1
+  ${If} $DesktopShortcut == 1
     CreateShortCut "$DESKTOP\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
   ${EndIf}
 
