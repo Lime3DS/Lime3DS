@@ -17,7 +17,7 @@ puts 'done'
 print 'Checking files...'
 issue_files = []
 branch_changed_files.each do |file_name|
-   if file_name.end_with?('.cpp', '.h', '.kt') and File.file?(file_name)
+   if file_name.end_with?('.cpp', '.h', '.kt', '.kts') and File.file?(file_name)
       file_content = File.read(file_name)
       if not file_content.start_with?(license_header)
          issue_files.push(file_name)
