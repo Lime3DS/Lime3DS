@@ -80,6 +80,35 @@ struct TicketInfo {
 
 static_assert(sizeof(TicketInfo) == 0x18, "Ticket info structure size is wrong");
 
+bool CTCert::IsValid() const {
+    constexpr std::string_view expected_issuer_prod = "Nintendo CA - G3_NintendoCTR2prod";
+    constexpr std::string_view expected_issuer_dev = "Nintendo CA - G3_NintendoCTR2dev";
+    constexpr u32 expected_signature_type = 0x010005;
+
+    return signature_type == expected_signature_type &&
+           (std::string(issuer.data()) == expected_issuer_prod ||
+            std::string(issuer.data()) == expected_issuer_dev);
+
+    return false;
+}
+
+u32 CTCert::GetDeviceID() const {
+    constexpr std::string_view key_id_prefix = "CT";
+
+    const std::string key_id_str(key_id.data());
+    if (key_id_str.starts_with(key_id_prefix)) {
+        const std::string device_id =
+            key_id_str.substr(key_id_prefix.size(), key_id_str.find('-') - key_id_prefix.size());
+        char* end_ptr;
+        const u32 device_id_value = std::strtoul(device_id.c_str(), &end_ptr, 16);
+        if (*end_ptr == '\0') {
+            return device_id_value;
+        }
+    }
+    // Error
+    return 0;
+}
+
 class CIAFile::DecryptionState {
 public:
     std::vector<CryptoPP::CBC_Mode<CryptoPP::AES>::Decryption> content;
@@ -1775,6 +1804,21 @@ void Module::Interface::GetTicketList(Kernel::HLERequestContext& ctx) {
                 ticket_list_count, ticket_index);
 }
 
+void Module::Interface::GetDeviceID(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+
+    const u32 deviceID = am->ct_cert.IsValid() ? am->ct_cert.GetDeviceID() : 0;
+
+    if (deviceID == 0) {
+        LOG_ERROR(Service_AM, "Invalid or missing CTCert");
+    }
+
+    IPC::RequestBuilder rb = rp.MakeBuilder(3, 0);
+    rb.Push(ResultSuccess);
+    rb.Push(0);
+    rb.Push(deviceID);
+}
+
 void Module::Interface::NeedsCleanup(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
     const auto media_type = rp.Pop<u8>();
@@ -2364,12 +2408,65 @@ void Module::serialize(Archive& ar, const unsigned int) {
 }
 SERIALIZE_IMPL(Module)
 
-Module::Module(Core::System& system) : system(system) {
+void Module::Interface::GetDeviceCert(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp(ctx);
+    [[maybe_unused]] u32 size = rp.Pop<u32>();
+    auto buffer = rp.PopMappedBuffer();
+
+    if (!am->ct_cert.IsValid()) {
+        LOG_ERROR(Service_AM, "Invalid or missing CTCert");
+    }
+
+    buffer.Write(&am->ct_cert, 0, std::min(sizeof(CTCert), buffer.GetSize()));
+    IPC::RequestBuilder rb = rp.MakeBuilder(2, 2);
+    rb.Push(ResultSuccess);
+    rb.Push(0);
+    rb.PushMappedBuffer(buffer);
+}
+
+std::string Module::GetCTCertPath() {
+    return FileUtil::GetUserPath(FileUtil::UserPath::SysDataDir) + "CTCert.bin";
+}
+
+CTCertLoadStatus Module::LoadCTCertFile(CTCert& output) {
+    if (output.IsValid()) {
+        return CTCertLoadStatus::Loaded;
+    }
+    std::string file_path = GetCTCertPath();
+    if (!FileUtil::Exists(file_path)) {
+        return CTCertLoadStatus::NotFound;
+    }
+    FileUtil::IOFile file(file_path, "rb");
+    if (!file.IsOpen()) {
+        return CTCertLoadStatus::IOError;
+    }
+    if (file.GetSize() != sizeof(CTCert)) {
+        return CTCertLoadStatus::Invalid;
+    }
+    if (file.ReadBytes(&output, sizeof(CTCert)) != sizeof(CTCert)) {
+        return CTCertLoadStatus::IOError;
+    }
+    if (!output.IsValid()) {
+        output = CTCert();
+        return CTCertLoadStatus::Invalid;
+    }
+    return CTCertLoadStatus::Loaded;
+}
+
+Module::Module(Core::System& _system) : system(_system) {
     ScanForAllTitles();
+    LoadCTCertFile(ct_cert);
     system_updater_mutex = system.Kernel().CreateMutex(false, "AM::SystemUpdaterMutex");
 }
 
 Module::~Module() = default;
+
+std::shared_ptr<Module> GetModule(Core::System& system) {
+    auto am = system.ServiceManager().GetService<Service::AM::Module::Interface>("am:u");
+    if (!am)
+        return nullptr;
+    return am->GetModule();
+}
 
 void InstallInterfaces(Core::System& system) {
     auto& service_manager = system.ServiceManager();

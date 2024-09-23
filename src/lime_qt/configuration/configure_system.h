@@ -21,6 +21,12 @@ class System;
 }
 
 namespace Service {
+namespace AM {
+class Module;
+} // namespace AM
+} // namespace Service
+
+namespace Service {
 namespace CFG {
 class Module;
 } // namespace CFG
@@ -45,6 +51,10 @@ private:
     void UpdateInitTime(int init_clock);
     void UpdateInitTicks(int init_ticks_type);
     void RefreshConsoleID();
+
+    void InstallSecureData(const std::string& from_path, const std::string& to_path);
+    void InstallCTCert(const std::string& from_path);
+    void RefreshSecureDataStatus();
 
     void SetupPerGameUI();
 

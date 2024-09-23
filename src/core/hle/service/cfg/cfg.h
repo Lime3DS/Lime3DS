@@ -177,6 +177,28 @@ enum class AccessFlag : u16 {
 };
 DECLARE_ENUM_FLAG_OPERATORS(AccessFlag);
 
+struct SecureInfoA {
+    std::array<u8, 0x100> signature;
+    u8 region;
+    u8 unknown;
+    std::array<u8, 0xF> serial_number;
+};
+static_assert(sizeof(SecureInfoA) == 0x111);
+
+struct LocalFriendCodeSeedB {
+    std::array<u8, 0x100> signature;
+    u64 unknown;
+    u64 friend_code_seed;
+};
+static_assert(sizeof(LocalFriendCodeSeedB) == 0x110);
+
+enum class SecureDataLoadStatus {
+    Loaded,
+    NotFound,
+    Invalid,
+    IOError,
+};
+
 class Module final {
 public:
     Module(Core::System& system_);
@@ -234,6 +256,18 @@ public:
          *      2 : Value loaded from SecureInfo offset 0x101
          */
         void SecureInfoGetByte101(Kernel::HLERequestContext& ctx);
+
+        /**
+         * CFG::SecureInfoGetSerialNo service function
+         *  Inputs:
+         *      1 : Buffer Size
+         *      2-3: Output mapped buffer
+         *  Outputs:
+         *      0 : Result Header code
+         *      1 : Result of function, 0 on success, otherwise error code
+         *      2-3 : Output mapped buffer
+         */
+        void SecureInfoGetSerialNo(Kernel::HLERequestContext& ctx);
 
         /**
          * CFG::SetUUIDClockSequence service function
@@ -349,6 +383,27 @@ public:
          *      1 : Result of function, 0 on success, otherwise error code
          */
         void UpdateConfigNANDSavegame(Kernel::HLERequestContext& ctx);
+
+        /**
+         * CFG::GetLocalFriendCodeSeedData service function
+         *  Inputs:
+         *      1 : Buffer Size
+         *      2-3: Output mapped buffer
+         *  Outputs:
+         *      0 : Result Header code
+         *      1 : Result of function, 0 on success, otherwise error code
+         */
+        void GetLocalFriendCodeSeedData(Kernel::HLERequestContext& ctx);
+
+        /**
+         * CFG::GetLocalFriendCodeSeed service function
+         *  Inputs:
+         *  Outputs:
+         *      0 : Result Header code
+         *      1 : Result of function, 0 on success, otherwise error code
+         *      2-3 : Friend code seed
+         */
+        void GetLocalFriendCodeSeed(Kernel::HLERequestContext& ctx);
 
         /**
          * CFG::FormatConfig service function
@@ -581,6 +636,34 @@ public:
     Result UpdateConfigNANDSavegame();
 
     /**
+     * Invalidates the loaded secure data so that it is loaded again.
+     */
+    void InvalidateSecureData();
+    /**
+     * Loads the LocalFriendCodeSeed_B file from NAND.
+     * @returns LocalFriendCodeSeedBLoadStatus indicating the file load status.
+     */
+    SecureDataLoadStatus LoadSecureInfoAFile();
+
+    /**
+     * Loads the LocalFriendCodeSeed_B file from NAND.
+     * @returns LocalFriendCodeSeedBLoadStatus indicating the file load status.
+     */
+    SecureDataLoadStatus LoadLocalFriendCodeSeedBFile();
+
+    /**
+     * Gets the SecureInfo_A path in the host filesystem
+     * @returns std::string SecureInfo_A path in the host filesystem
+     */
+    std::string GetSecureInfoAPath();
+
+    /**
+     * Gets the LocalFriendCodeSeed_B path in the host filesystem
+     * @returns std::string LocalFriendCodeSeed_B path in the host filesystem
+     */
+    std::string GetLocalFriendCodeSeedBPath();
+
+    /**
      * Saves MCU specific data
      */
     void SaveMCUConfig();
@@ -595,6 +678,10 @@ private:
     std::array<u8, CONFIG_SAVEFILE_SIZE> cfg_config_file_buffer;
     std::unique_ptr<FileSys::ArchiveBackend> cfg_system_save_data_archive;
     u32 preferred_region_code = 0;
+    bool secure_info_a_loaded = false;
+    SecureInfoA secure_info_a;
+    bool local_friend_code_seed_b_loaded = false;
+    LocalFriendCodeSeedB local_friend_code_seed_b;
     bool preferred_region_chosen = false;
     MCUData mcu_data{};
 

@@ -19,7 +19,7 @@ AM_U::AM_U(std::shared_ptr<Module> am) : Module::Interface(std::move(am), "am:u"
         {0x0007, &AM_U::DeleteTicket, "DeleteTicket"},
         {0x0008, &AM_U::GetNumTickets, "GetNumTickets"},
         {0x0009, &AM_U::GetTicketList, "GetTicketList"},
-        {0x000A, nullptr, "GetDeviceID"},
+        {0x000A, &AM_U::GetDeviceID, "GetDeviceID"},
         {0x000B, nullptr, "GetNumImportTitleContexts"},
         {0x000C, nullptr, "GetImportTitleContextList"},
         {0x000D, nullptr, "GetImportTitleContexts"},

@@ -506,6 +506,123 @@
        </layout>
       </widget>
      </item>
+      <item>
+        <widget class="QGroupBox" name="group_real_console_unique_data">
+          <property name="title">
+            <string>Real Console Unique Data</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout1">
+            <item row="1" column="0">
+              <widget class="QLabel" name="label_secure_info">
+                <property name="text">
+                  <string>SecureInfo_A/B</string>
+                </property>
+              </widget>
+            </item>
+            <item row="1" column="1">
+              <widget class="QWidget" name="secure_info">
+                <layout class="QHBoxLayout" name="horizontalLayout_secure_info">
+                  <item>
+                    <widget class="QLabel" name="label_secure_info_status">
+                      <property name="text">
+                        <string></string>
+                      </property>
+                    </widget>
+                  </item>
+                  <item>
+                    <widget class="QPushButton" name="button_secure_info">
+                      <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                        </sizepolicy>
+                      </property>
+                      <property name="layoutDirection">
+                        <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                        <string>Choose</string>
+                      </property>
+                    </widget>
+                  </item>
+                </layout>
+              </widget>
+            </item>
+            <item row="2" column="0">
+              <widget class="QLabel" name="label_friend_code_seed">
+                <property name="text">
+                  <string>LocalFriendCodeSeed_A/B</string>
+                </property>
+              </widget>
+            </item>
+            <item row="2" column="1">
+              <widget class="QWidget" name="friend_code_seed">
+                <layout class="QHBoxLayout" name="horizontalLayout_friend_code_seed">
+                  <item>
+                    <widget class="QLabel" name="label_friend_code_seed_status">
+                      <property name="text">
+                        <string></string>
+                      </property>
+                    </widget>
+                  </item>
+                  <item>
+                    <widget class="QPushButton" name="button_friend_code_seed">
+                      <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                        </sizepolicy>
+                      </property>
+                      <property name="layoutDirection">
+                        <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                        <string>Choose</string>
+                      </property>
+                    </widget>
+                  </item>
+                </layout>
+              </widget>
+            </item>
+            <item row="3" column="0">
+              <widget class="QLabel" name="label_ct_cert">
+                <property name="text">
+                  <string>CTCert</string>
+                </property>
+              </widget>
+            </item>
+            <item row="3" column="1">
+              <widget class="QWidget" name="ct_cert">
+                <layout class="QHBoxLayout" name="horizontalLayout_ct_cert">
+                  <item>
+                    <widget class="QLabel" name="label_ct_cert_status">
+                      <property name="text">
+                        <string></string>
+                      </property>
+                    </widget>
+                  </item>
+                  <item>
+                    <widget class="QPushButton" name="button_ct_cert">
+                      <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                        </sizepolicy>
+                      </property>
+                      <property name="layoutDirection">
+                        <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                        <string>Choose</string>
+                      </property>
+                    </widget>
+                  </item>
+                </layout>
+              </widget>
+            </item>
+          </layout>
+        </widget>
+      </item>
      <item>
       <widget class="QLabel" name="label_disable_info">
        <property name="text">
