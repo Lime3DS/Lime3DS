@@ -80,14 +80,14 @@ struct CTCert {
     u32_be signature_type{};
     std::array<u8, 0x1E> signature_r{};
     std::array<u8, 0x1E> signature_s{};
-    INSERT_PADDING_BYTES(0x40){};
+    INSERT_PADDING_BYTES(0x40) {};
     std::array<char, 0x40> issuer{};
     u32_be key_type{};
     std::array<char, 0x40> key_id{};
     u32_be expiration_time{};
     std::array<u8, 0x1E> public_key_x{};
     std::array<u8, 0x1E> public_key_y{};
-    INSERT_PADDING_BYTES(0x3C){};
+    INSERT_PADDING_BYTES(0x3C) {};
 
     bool IsValid() const;
     u32 GetDeviceID() const;
