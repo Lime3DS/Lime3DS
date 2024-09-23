@@ -3,10 +3,12 @@
 // Refer to the license.txt file included.
 
 #include <cstring>
+#include <QFileDialog>
 #include <QFutureWatcher>
 #include <QMessageBox>
 #include <QProgressDialog>
 #include <QtConcurrent/QtConcurrentMap>
+#include "common/file_util.h"
 #include "common/settings.h"
 #include "core/core.h"
 #include "core/hle/service/am/am.h"
@@ -236,6 +238,32 @@ ConfigureSystem::ConfigureSystem(Core::System& system_, QWidget* parent)
             &ConfigureSystem::RefreshConsoleID);
     connect(ui->button_start_download, &QPushButton::clicked, this,
             &ConfigureSystem::DownloadFromNUS);
+
+    connect(ui->button_secure_info, &QPushButton::clicked, this, [this] {
+        ui->button_secure_info->setEnabled(false);
+        const QString file_path_qtstr = QFileDialog::getOpenFileName(
+            this, tr("Select SecureInfo_A/B"), QString(),
+            tr("SecureInfo_A/B (SecureInfo_A SecureInfo_B);;All Files (*.*)"));
+        ui->button_secure_info->setEnabled(true);
+        InstallSecureData(file_path_qtstr.toStdString(), cfg->GetSecureInfoAPath());
+    });
+    connect(ui->button_friend_code_seed, &QPushButton::clicked, this, [this] {
+        ui->button_friend_code_seed->setEnabled(false);
+        const QString file_path_qtstr =
+            QFileDialog::getOpenFileName(this, tr("Select LocalFriendCodeSeed_A/B"), QString(),
+                                         tr("LocalFriendCodeSeed_A/B (LocalFriendCodeSeed_A "
+                                            "LocalFriendCodeSeed_B);;All Files (*.*)"));
+        ui->button_friend_code_seed->setEnabled(true);
+        InstallSecureData(file_path_qtstr.toStdString(), cfg->GetLocalFriendCodeSeedBPath());
+    });
+    connect(ui->button_ct_cert, &QPushButton::clicked, this, [this] {
+        ui->button_ct_cert->setEnabled(false);
+        const QString file_path_qtstr = QFileDialog::getOpenFileName(
+            this, tr("Select CTCert"), QString(), tr("CTCert.bin (*.bin);;All Files (*.*)"));
+        ui->button_ct_cert->setEnabled(true);
+        InstallCTCert(file_path_qtstr.toStdString());
+    });
+
     for (u8 i = 0; i < country_names.size(); i++) {
         if (std::strcmp(country_names.at(i), "") != 0) {
             ui->combo_country->addItem(tr(country_names.at(i)), i);
@@ -305,6 +333,7 @@ void ConfigureSystem::SetConfiguration() {
     ReadSystemSettings();
 
     ui->group_system_settings->setEnabled(enabled);
+    ui->group_real_console_unique_data->setEnabled(enabled);
     if (enabled) {
         ui->label_disable_info->hide();
     }
@@ -355,6 +384,9 @@ void ConfigureSystem::ReadSystemSettings() {
 
     // set firmware download region
     ui->combo_download_region->setCurrentIndex(static_cast<int>(cfg->GetRegionValue()));
+
+    // Refresh secure data status
+    RefreshSecureDataStatus();
 }
 
 void ConfigureSystem::ApplyConfiguration() {
@@ -521,6 +553,59 @@ void ConfigureSystem::RefreshConsoleID() {
     cfg->UpdateConfigNANDSavegame();
     ui->label_console_id->setText(
         tr("Console ID: 0x%1").arg(QString::number(console_id, 16).toUpper()));
+}
+
+void ConfigureSystem::InstallSecureData(const std::string& from_path, const std::string& to_path) {
+    std::string from =
+        FileUtil::SanitizePath(from_path, FileUtil::DirectorySeparator::PlatformDefault);
+    std::string to = FileUtil::SanitizePath(to_path, FileUtil::DirectorySeparator::PlatformDefault);
+    if (from.empty() || from == to) {
+        return;
+    }
+    FileUtil::CreateFullPath(to_path);
+    FileUtil::Copy(from, to);
+    cfg->InvalidateSecureData();
+    RefreshSecureDataStatus();
+}
+
+void ConfigureSystem::InstallCTCert(const std::string& from_path) {
+    std::string from =
+        FileUtil::SanitizePath(from_path, FileUtil::DirectorySeparator::PlatformDefault);
+    std::string to = FileUtil::SanitizePath(Service::AM::Module::GetCTCertPath(),
+                                            FileUtil::DirectorySeparator::PlatformDefault);
+    if (from.empty() || from == to) {
+        return;
+    }
+    FileUtil::Copy(from, to);
+    RefreshSecureDataStatus();
+}
+
+void ConfigureSystem::RefreshSecureDataStatus() {
+    auto status_to_str = [](Service::CFG::SecureDataLoadStatus status) {
+        switch (status) {
+        case Service::CFG::SecureDataLoadStatus::Loaded:
+            return "Loaded";
+        case Service::CFG::SecureDataLoadStatus::NotFound:
+            return "Not Found";
+        case Service::CFG::SecureDataLoadStatus::Invalid:
+            return "Invalid";
+        case Service::CFG::SecureDataLoadStatus::IOError:
+            return "IO Error";
+        default:
+            return "";
+        }
+    };
+
+    Service::AM::CTCert ct_cert;
+
+    ui->label_secure_info_status->setText(
+        tr((std::string("Status: ") + status_to_str(cfg->LoadSecureInfoAFile())).c_str()));
+    ui->label_friend_code_seed_status->setText(
+        tr((std::string("Status: ") + status_to_str(cfg->LoadLocalFriendCodeSeedBFile())).c_str()));
+    ui->label_ct_cert_status->setText(
+        tr((std::string("Status: ") + status_to_str(static_cast<Service::CFG::SecureDataLoadStatus>(
+                                          Service::AM::Module::LoadCTCertFile(ct_cert))))
+               .c_str()));
 }
 
 void ConfigureSystem::RetranslateUI() {
