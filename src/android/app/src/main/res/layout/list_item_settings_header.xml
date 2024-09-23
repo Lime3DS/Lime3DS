@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:focusable="false"
+    android:clickable="false"
+    android:paddingVertical="16dp"
+        >
+
+<com.google.android.material.textview.MaterialTextView
+
     android:id="@+id/text_header_name"
     style="@style/TextAppearance.Material3.TitleSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="start|center_vertical"
-    android:paddingHorizontal="@dimen/spacing_large"
-    android:paddingVertical="16dp"
-    android:focusable="false"
-    android:clickable="false"
     android:textAlignment="viewStart"
     android:textColor="?attr/colorPrimary"
     android:textStyle="bold"
     tools:text="CPU Settings" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_header_description"
+        style="@style/TextAppearance.Material3.BodySmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textAlignment="viewStart"
+        tools:text="@string/app_disclaimer" />
+</LinearLayout>
