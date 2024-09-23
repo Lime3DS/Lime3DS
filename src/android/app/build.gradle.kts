@@ -29,6 +29,7 @@ android {
     namespace = "io.github.lime3ds.android"
 
     compileSdkVersion = "android-35"
+    buildToolsVersion = "35.0.0"
     ndkVersion = "27.1.12297006"
 
     compileOptions {
@@ -160,7 +161,6 @@ android {
             jniLibs.srcDir(downloadedJniLibsPath)
         }
     }
-    buildToolsVersion = "35.0.0"
 }
 
 dependencies {
