@@ -42,6 +42,8 @@ ShowUnInstDetails show
 !include "MultiUser.nsh"
 
 !include "MUI2.nsh"
+; Custom page plugin
+!include "nsDialogs.nsh"
 
 ; MUI Settings
 !define MUI_ICON "../../dist/lime.ico"
@@ -51,6 +53,8 @@ ShowUnInstDetails show
 !insertmacro MUI_PAGE_LICENSE "..\..\license.txt"
 ; All/Current user selection page
 !insertmacro MULTIUSER_PAGE_INSTALLMODE
+; Desktop Shortcut page
+Page custom desktopShortcutPageCreate desktopShortcutPageLeave
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -60,6 +64,12 @@ ShowUnInstDetails show
 
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_INSTFILES
+
+; Variables
+Var DisplayName
+Var DesktopShortcutPageDialog
+Var DesktopShortcutCheckbox
+Var DesktopShortcut
 
 ; Language files
 !insertmacro MUI_LANGUAGE "English"
@@ -92,6 +102,7 @@ ShowUnInstDetails show
 ManifestSupportedOS {8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}
 
 Function .onInit
+  StrCpy $DesktopShortcut 1
   !insertmacro MULTIUSER_INIT
 
   ; Keep in sync with build_info.txt
@@ -109,7 +120,6 @@ Function un.onInit
   !insertmacro MULTIUSER_UNINIT
 FunctionEnd
 
-Var DisplayName
 !macro UPDATE_DISPLAYNAME
   ${If} $MultiUser.InstallMode == "CurrentUser"
     StrCpy $DisplayName "$(^Name) (User)"
@@ -117,6 +127,25 @@ Var DisplayName
     StrCpy $DisplayName "$(^Name)"
   ${EndIf}
 !macroend
+
+Function desktopShortcutPageCreate
+  !insertmacro MUI_HEADER_TEXT "Create Desktop Shortcut" "Would you like to create a desktop shortcut?"
+  nsDialogs::Create 1018
+  Pop $DesktopShortcutPageDialog
+  ${If} $DesktopShortcutPageDialog == error
+    Abort
+  ${EndIf}
+
+  ${NSD_CreateCheckbox} 0u 0u 100% 12u "Create a desktop shortcut"
+  Pop $DesktopShortcutCheckbox
+  ${NSD_SetState} $DesktopShortcutCheckbox $DesktopShortcut
+
+  nsDialogs::Show
+FunctionEnd
+
+Function desktopShortcutPageLeave
+  ${NSD_GetState} $DesktopShortcutCheckbox $DesktopShortcut
+FunctionEnd
 
 Section "Base"
   ExecWait '"$INSTDIR\uninst.exe" /S _?=$INSTDIR'
@@ -134,7 +163,9 @@ Section "Base"
   ; This needs to be done after Dolphin.exe is copied
   CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
-  CreateShortCut "$DESKTOP\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
+  ${If} $DesktopShortcut == 1
+    CreateShortCut "$DESKTOP\$DisplayName.lnk" "$INSTDIR\lime3ds.exe"
+  ${EndIf}
 
   ; ??
   SetOutPath "$TEMP"
