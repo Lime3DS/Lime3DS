@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:focusable="false"
     android:clickable="false"
-    android:paddingVertical="16dp"
+    android:padding="16dp"
         >
 
 <com.google.android.material.textview.MaterialTextView
