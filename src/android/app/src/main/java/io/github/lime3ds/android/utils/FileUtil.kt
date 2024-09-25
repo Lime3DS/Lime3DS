@@ -1,4 +1,4 @@
-// Copyright Citra Emulator Project / Lime3DS Emulator Project
+// Copyright 2023 Citra Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -16,7 +16,6 @@ import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.model.CheapDocument
 import java.io.BufferedInputStream
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -101,21 +100,18 @@ object FileUtil {
     @JvmStatic
     fun openContentUri(path: String, openMode: String): Int {
         try {
-            val uri = Uri.parse(path)
-            context.contentResolver.openFileDescriptor(uri, openMode)?.use { parcelFileDescriptor ->
-                return parcelFileDescriptor.detachFd()
-            } ?: run {
-                Log.error("[FileUtil]: Cannot get the file descriptor from uri: $path")
-                return -1
-            }
-        } catch (e: FileNotFoundException) {
-            Log.error("[FileUtil]: File not found for uri: $path. ${e.message}")
-            return -1
-        } catch (e: SecurityException) {
-            Log.error("[FileUtil]: Security exception while accessing uri: $path, ${e.message}")
-            return -1
+            context
+                .contentResolver
+                .openFileDescriptor(Uri.parse(path), openMode)
+                .use { parcelFileDescriptor ->
+                    if (parcelFileDescriptor == null) {
+                        Log.error("[FileUtil]: Cannot get the file descriptor from uri: $path")
+                        return -1
+                    }
+                    return parcelFileDescriptor.detachFd()
+                }
         } catch (e: Exception) {
-            Log.error("[FileUtil]: Unexpected error while opening content uri: $path. ${e.message}")
+            Log.error("[FileUtil]: Cannot open content uri, error: " + e.message)
             return -1
         }
     }
@@ -134,9 +130,8 @@ object FileUtil {
             DocumentsContract.Document.COLUMN_DISPLAY_NAME,
             DocumentsContract.Document.COLUMN_MIME_TYPE
         )
-        var cursor: Cursor? = null
-        val results = mutableListOf<CheapDocument>()
-
+        var c: Cursor? = null
+        val results: MutableList<CheapDocument> = ArrayList()
         try {
             val docId = if (isRootTreeUri(uri)) {
                 DocumentsContract.getTreeDocumentId(uri)
@@ -145,24 +140,21 @@ object FileUtil {
             }
 
             val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(uri, docId)
-            cursor = context.contentResolver.query(childrenUri, columns, null, null, null)
-
-            cursor?.use { c ->
-                while (c.moveToNext()) {
-                    val documentId = c.getString(c.getColumnIndexOrThrow(DocumentsContract.Document.COLUMN_DOCUMENT_ID))
-                    val documentName = c.getString(c.getColumnIndexOrThrow(DocumentsContract.Document.COLUMN_DISPLAY_NAME))
-                    val documentMimeType = c.getString(c.getColumnIndexOrThrow(DocumentsContract.Document.COLUMN_MIME_TYPE))
-                    val documentUri = DocumentsContract.buildDocumentUriUsingTree(uri, documentId)
-                    val document = CheapDocument(documentName, documentMimeType, documentUri)
-                    results.add(document)
-                }
-            } ?: run {
-                Log.error("[FileUtil]: Cursor is null")
+            c = context.contentResolver.query(childrenUri, columns, null, null, null)
+            while (c!!.moveToNext()) {
+                val documentId = c.getString(0)
+                val documentName = c.getString(1)
+                val documentMimeType = c.getString(2)
+                val documentUri = DocumentsContract.buildDocumentUriUsingTree(uri, documentId)
+                val document = CheapDocument(documentName, documentMimeType, documentUri)
+                results.add(document)
             }
         } catch (e: Exception) {
-           Log.error("[FileUtil]: Cannot list files: ${e.message}")
+            Log.error("[FileUtil]: Cannot list file error: " + e.message)
+        } finally {
+            closeQuietly(c)
         }
-        return results.toTypedArray()
+        return results.toTypedArray<CheapDocument>()
     }
 
     /**
