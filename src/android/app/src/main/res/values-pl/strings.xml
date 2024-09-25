@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_disclaimer">To oprogramowanie umożliwia uruchamianie gier na konsolę przenośną Nintendo 3DS. Nie zawiera tytułów gier.\n\nPrzed rozpoczęciem emulacji należy wybrać folder do przechowywania danych użytkownika Lime3DS.\n\nCo to jest:\n<a href='https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage'>Wiki - Dane użytkownika i przechowywanie Lime3DS dla systemu Android</a></string>
+    <string name="app_notification_channel_description">Powiadomienia o emulatorze Lime3DS</string>
+    <string name="app_notification_running">Lime3DS jest uruchomiony</string>
+    <string name="app_game_install_description">Następnie należy wybrać folder z grą. Lime3DS wyświetli wszystkie ROM-y 3DS w wybranym folderze w aplikacji.\n\nROMy CIA, aktualizacje i DLC będą musiały zostać zainstalowane oddzielnie, klikając ikonę folderu i wybierając opcję Zainstaluj CIA.</string>
+
+    <!-- Home Strings -->
+    <string name="grid_menu_core_settings">Ustawienia</string>
+    <string name="home_options">Opcje</string>
+    <string name="home_search">Wyszukaj</string>
+    <string name="home_games">Gry</string>
+    <string name="settings_description">Konfiguruj ustawienia emulatora</string>
+    <string name="install_game_content">Instaluj plik CIA</string>
+    <string name="install_game_content_description">Instalowanie gier, aktualizacji lub dodatków DLC</string>
+    <string name="share_log">Dziennik zdarzeń</string>
+    <string name="share_log_description">Udostępnij plik dziennika Lime3DS w celu debugowania błędów</string>
+    <string name="gpu_driver_manager">Menedżer sterowników GPU</string>
+    <string name="install_gpu_driver">Zainstaluj sterownik GPU</string>
+    <string name="install_gpu_driver_description">Zainstaluj alternatywne sterowniki dla potencjalnie lepszej wydajności lub dokładności.</string>
+    <string name="driver_already_installed">Sterownik jest już zainstalowany</string>
+    <string name="custom_driver_not_supported">Niestandardowe sterowniki nie są obsługiwane</string>
+    <string name="custom_driver_not_supported_description">Ładowanie niestandardowych sterowników nie jest obecnie obsługiwane dla tego urządzenia.\nSprawdź tę opcję ponownie w przyszłości, aby zobaczyć, czy obsługa została dodana!</string>
+    <string name="share_log_not_found">Nie znaleziono pliku dziennika</string>
+    <string name="select_games_folder">Wybierz folder gier</string>
+    <string name="select_games_folder_description">Pozwala Lime3DS wypełnić listę gier.</string>
+    <string name="about">O</string>
+    <string name="about_description">Wersja kompilacji, kredyty i nie tylko</string>
+    <string name="games_dir_selected">Wybrano katalog z grami</string>
+    <string name="select_lime3ds_user_folder_home_description">Zmienia pliki używane przez Lime3DS do ładowania gier</string>
+    <string name="theme_and_color_description">Zmodyfikuj wygląd aplikacji</string>
+    <string name="install_cia_title">Instaluj CIA</string>
+
+    <!-- GPU driver installation -->
+    <string name="select_gpu_driver">Wybierz sterownik GPU</string>
+    <string name="select_gpu_driver_title">Czy chcesz wymienić swój obecny sterownik GPU?</string>
+    <string name="select_gpu_driver_install">Instaluj</string>
+    <string name="select_gpu_driver_default">Domyślny</string>
+    <string name="select_gpu_driver_install_success">Zainstalowano %s</string>
+    <string name="select_gpu_driver_use_default">Korzystanie z domyślnego sterownika GPU</string>
+    <string name="select_gpu_driver_error">Wybrano nieprawidłowy sterownik, używany jest domyślny sterownik systemowy!</string>
+    <string name="system_gpu_driver">Sterownik GPU systemu</string>
+    <string name="installing_driver">Instalowanie sterownika...</string>
+
+    <!-- About screen strings -->
+    <string name="copied_to_clipboard">Skopiowano do schowka</string>
+    <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
+    <string name="build">Kompilacja</string>
+    <string name="licenses">Licencje</string>
+    <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
+    <string name="website_link">https://lime3ds.github.io/</string>
+    <string name="github_link">https://github.com/Lime3DS</string>
+
+    <!-- Setup strings -->
+    <string name="welcome">Witamy!</string>
+    <string name="welcome_description">Dowiedz się, jak skonfigurować &lt;b>Lime3DS&lt;/b> i rozpocząć emulację.</string>
+    <string name="get_started">Rozpocznij</string>
+    <string name="step_complete">Gotowe!</string>
+    <string name="games">Gry</string>
+    <string name="games_description">Wybierz folder &lt;b>Games&lt;/b> korzystając z przycisku poniżej.</string>
+    <string name="done">Gotowe</string>
+    <string name="done_description">Wszystko jest już gotowe.\nŻyczymy miłej gry!</string>
+    <string name="text_continue">Kontynuuj</string>
+    <string name="add_games">Dodaj Gry</string>
+    <string name="notifications">Powiadomienia</string>
+    <string name="notifications_description">Zezwól na powiadomienia naciskając przycisk poniżej.</string>
+    <string name="give_permission">Udzielenie zgody</string>
+    <string name="notification_warning">Pominąć udzielanie zgody na powiadomienie?</string>
+    <string name="notification_warning_description">Lime3DS nie będzie w stanie powiadomić cię o ważnych informacjach.</string>
+    <string name="camera_permission">Kamera</string>
+    <string name="camera_permission_description">Udziel poniższych uprawnień kamery, aby emulować kamerę 3DS.</string>
+    <string name="microphone_permission">Mikrofon</string>
+    <string name="microphone_permission_description">Udziel poniższych uprawnień mikrofonu, aby emulować mikrofon 3DS.</string>
+    <string name="permission_denied">Odmowa zezwolenia</string>
+    <string name="add_games_warning">Pominąć wybór folderu z grami?</string>
+    <string name="add_games_warning_description">Gry nie będą wyświetlane na liście gier, jeśli nie wybrano folderu.</string>
+    <string name="add_games_warning_help">https://web.archive.org/web/20240304210021/https://citra-emu.org/wiki/dumping-game-cartridges/</string>
+    <string name="warning_help">Pomoc</string>
+    <string name="warning_skip">Pomiń</string>
+    <string name="warning_cancel">Anuluj</string>
+    <string name="select_lime3ds_user_folder">Wybierz folder użytkownika</string>
+    <string name="select_lime3ds_user_folder_description"><![CDATA[Wybierz katalog <a href=\"https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage\">danych użytkownika</a> korzystając z przycisku poniżej.]]></string>
+    <string name="select">Wybierz</string>
+    <string name="cannot_skip">Nie możesz pominąć tego kroku</string>
+    <string name="cannot_skip_directory_description">Ten krok jest wymagany, aby umożliwić działanie Lime3DS. Wybierz katalog, a następnie możesz kontynuować.</string>
+    <string name="cannot_skip_directory_help">https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
+    <string name="set_up_theme_settings">Ustawienia motywu</string>
+    <string name="setup_theme_settings_description">Skonfiguruj ustawienia motywu dla Lime3DS.</string>
+    <string name="setup_set_theme">Ustaw motyw</string>
+
+    <!-- Search Strings -->
+    <string name="search_and_filter_games">Wyszukaj i filtruj gry</string>
+    <string name="home_search_games">Wyszukaj gry</string>
+    <string name="search_recently_played">Ostatnio grane</string>
+    <string name="search_recently_added">Ostatnio dodane</string>
+    <string name="search_installed">Zainstalowane</string>
+
+    <!-- Input related strings -->
+    <string name="controller_circlepad">Analog</string>
+    <string name="controller_c">C-Stick</string>
+    <string name="controller_hotkeys">Skróty klawiszowe</string>
+    <string name="controller_triggers">Spusty</string>
+    <string name="controller_trigger">Spust</string>
+    <string name="controller_dpad">Krzyżak</string>
+    <string name="controller_dpad_axis">Krzyżak (oś)</string>
+    <string name="controller_dpad_button">Krzyżak (Przycisk)</string>
+    <string name="controller_axis_vertical">Oś góra/dół</string>
+    <string name="controller_axis_horizontal">Oś lewa/prawa</string>
+    <string name="direction_up">Góra</string>
+    <string name="direction_down">Dół</string>
+    <string name="direction_left">Lewo</string>
+    <string name="direction_right">Prawa</string>
+    <string name="input_dialog_title">Powiąż %1$s%2$s</string>
+    <string name="input_dialog_description">Naciśnij lub przenieś wejście.</string>
+    <string name="input_binding">Powiązanie wejścia</string>
+    <string name="input_binding_description">Naciśnij lub przesuń wejście, aby powiązać je z %1$s.</string>
+    <string name="input_binding_description_vertical_axis">Przesuń analog w górę lub w dół.</string>
+    <string name="input_binding_description_horizontal_axis">Przesuń analog w lewo lub w prawo.</string>
+    <string name="button_home">HOME</string>
+    <string name="button_swap">Zamień ekrany</string>
+    <string name="input_message_analog_only">Ten kontroler musi być powiązany z drążkiem analogowym gamepada lub z krzyżakiem!</string>
+    <string name="input_message_button_only">Ten kontroler musi być powiązany z przyciskiem gamepada!</string>
+
+    <!-- System files strings -->
+    <string name="system_files">Pliki systemowe</string>
+    <string name="system_files_description">Pobierz pliki systemowe, aby pobrać pliki Mii, uruchom HOME menu i nie tylko</string>
+    <string name="download_system_files">Pobierz pliki systemowe</string>
+    <string name="boot_home_menu">Uruchom HOME Menu</string>
+    <string name="system_type">Typ systemu</string>
+    <string name="download">Pobierz</string>
+    <string name="start">Rozpocznij</string>
+    <string name="keys_missing">W Lime3DS brakuje kluczy do pobierania plików systemowych.</string>
+    <string name="how_to_get_keys"><![CDATA[<a href=\"https://web.archive.org/web/20240304203412/https://citra-emu.org/wiki/aes-keys/\">Jak zdobyć klucze?</a>]]></string>
+    <string name="show_home_apps">Pokaż aplikacje z HOME menu na liście gier</string>
+    <string name="run_system_setup">Uruchom konfigurację systemu po uruchomieniu HOME menu</string>
+    <string name="system_type_minimal">Minimalne</string>
+    <string name="system_type_old_3ds">Old 3DS</string>
+    <string name="system_type_new_3ds">New 3DS</string>
+    <string name="downloading_files">Pobieranie Plików...</string>
+    <string name="downloading_files_description">Nie zamykaj aplikacji.</string>
+    <string name="download_failed">Pobieranie nie powiodło się</string>
+    <string name="download_failed_description">Upewnij się, że jesteś połączony z Internetem i spróbuj ponownie.</string>
+    <string name="download_success">Pobieranie ukończone!</string>
+    <string name="download_cancelled">Pobieranie anulowane</string>
+    <string name="download_cancelled_description">Uruchom ponowne pobieranie, aby uniknąć problemów z niekompletnymi plikami systemowymi.</string>
+    <string name="cancelling">Anulowanie...</string>
+    <string name="home_menu">HOME Menu</string>
+    <string name="home_menu_warning">Ostrzeżenie dotyczące plików systemowych</string>
+    <string name="home_menu_warning_description">Ze względu na powolny dostęp do pamięci masowej systemu Android w celu uzyskania dostępu do plików Lime3DS, pobieranie wielu wersji plików systemowych może znacznie spowolnić ładowanie gier, stanów zapisu i listy gier. Pobieraj tylko te pliki, których potrzebujesz, aby uniknąć problemów z szybkością ładowania.</string>
+
+    <!-- Generic buttons (Shared with lots of stuff) -->
+    <string name="generic_buttons">Przyciski</string>
+    <string name="button">Przycisk</string>
+
+    <!-- Core settings strings -->
+    <string name="cpu_jit">CPU JIT</string>
+    <string name="cpu_jit_description">Używa wbudowanego kompilatora JIT (Just-in-Time) do emulacji procesora. Po włączeniu tej funkcji wydajność gry zostanie znacznie poprawiona.</string>
+    <string name="init_clock">Zegar</string>
+    <string name="init_clock_description">Ustaw emulowany zegar 3DS tak, aby odzwierciedlał zegar urządzenia lub rozpoczynał się od symulowanej daty i godziny.</string>
+    <string name="cpu_clock_speed">Prędkość taktowania procesora</string>
+
+    <!-- System settings strings -->
+    <string name="username">Nazwa użytkownika</string>
+    <string name="new_3ds">Tryb New 3DS</string>
+    <string name="lle_applets">Użyj apletów LLE (jeśli są zainstalowane)</string>
+    <string name="clock">Zegar</string>
+    <string name="init_time">Czas przesunięcia</string>
+    <string name="init_time_description">Jeśli zegar jest ustawiony na „Symulowany zegar”, zmienia to ustaloną datę i godzinę rozpoczęcia.</string>
+    <string name="emulated_region">Region</string>
+    <string name="emulated_language">Język</string>
+    <string name="birthday">Urodziny</string>
+    <string name="birthday_month">Miesiąc</string>
+    <string name="birthday_day">Dzień</string>
+    <string name="country">Kraj</string>
+    <string name="play_coins">Monety Gry</string>
+    <string name="console_id">ID Konsoli</string>
+    <string name="regenerate_console_id">Wygeneruj ID konsoli</string>
+    <string name="regenerate_console_id_description">Spowoduje to zastąpienie bieżącego wirtualnego 3DS nowym. Obecnego wirtualnego 3DS-a nie będzie można odzyskać. Może to mieć nieoczekiwane skutki w grach. Może się to nie powieść, jeśli używana jest nieaktualna konfiguracja gry. Kontynuować?</string>
+    <string name="plugin_loader">Wtyczka 3GX Loader</string>
+    <string name="plugin_loader_description">Ładuje wtyczki 3GX z emulowanej karty SD, jeśli są dostępne.</string>
+    <string name="allow_plugin_loader">Zezwalaj grom na zmianę stanu ładowania wtyczki</string>
+    <string name="allow_plugin_loader_description">Umożliwia aplikacjom homebrew włączenie programu ładującego wtyczki, nawet jeśli jest on wyłączony.</string>
+
+    <!-- Camera settings strings -->
+    <string name="inner_camera">Kamera wewnętrzna</string>
+    <string name="outer_left_camera">Lewa zewnętrzna kamera</string>
+    <string name="outer_right_camera">Prawa zewnętrzna kamera</string>
+    <string name="image_source">Źródło obrazu kamery</string>
+    <string name="image_source_description">Ustawia źródło obrazu wirtualnej kamery. Można użyć pliku obrazu lub kamery urządzenia, jeśli jest obsługiwana.</string>
+    <string name="camera_device">Kamera</string>
+    <string name="camera_device_description">Jeśli w ustawieniu „Źródło obrazu” wybrano opcję „Kamera urządzenia”, zostanie użyta kamera fizyczna.</string>
+    <string name="camera_facing_front">Przód</string>
+    <string name="camera_facing_back">Tył</string>
+    <string name="camera_facing_external">Zewnętrzne</string>
+    <string name="image_flip">Klapka</string>
+
+    <!-- Graphics settings strings -->
+    <string name="renderer">Render</string>
+    <string name="graphics_api">API grafik</string>
+    <string name="spirv_shader_gen">Włącz generowanie shaderów SPIR-V</string>
+    <string name="spirv_shader_gen_description">Emituje fragment shaderów używany do emulacji PICA przy użyciu SPIR-V zamiast GLSL.</string>
+    <string name="async_shaders">Włącz asynchroniczną kompilację shaderów</string>
+    <string name="async_shaders_description">Kompiluje shadery w tle, aby zmniejszyć zacinanie się podczas rozgrywki. Po włączeniu należy spodziewać się tymczasowych błędów graficznych</string>
+    <string name="renderer_debug">Render debugowania</string>
+    <string name="renderer_debug_description">Rejestruje dodatkowe informacje debugowania związane z grafiką. Po włączeniu, wydajność gry zostanie znacznie zmniejszona.</string>
+    <string name="vsync">Włącz V-Sync</string>
+    <string name="vsync_description">Synchronizuje liczbę klatek na sekundę gry z częstotliwością odświeżania urządzenia.</string>
+    <string name="linear_filtering">Filtrowanie Linear</string>
+    <string name="linear_filtering_description">Włącza filtrowanie liniowe, które sprawia, że grafika w grach jest płynniejsza.</string>
+    <string name="texture_filter_name">Filtr tekstur</string>
+    <string name="texture_filter_description">Ulepsza oprawę wizualną gier poprzez zastosowanie filtra do tekstur. Obsługiwane filtry to Anime4K Ultrafast, Bicubic, ScaleForce i xBRZ freescale.</string>
+    <string name="hw_shaders">Włącz shader sprzętu</string>
+    <string name="hw_shaders_description">Używa sprzętu do emulacji shaderów 3DS. Po włączeniu, wydajność gry zostanie znacznie poprawiona.</string>
+    <string name="shaders_accurate_mul">Dokładne mnożenie</string>
+    <string name="shaders_accurate_mul_description">Używa dokładniejszego mnożenia w shaderach sprzętu, dzięki czemu może naprawić niektóre błędy graficzne. Po włączeniu tej funkcji wydajność zostanie zmniejszona.</string>
+    <string name="asynchronous_gpu">Włącz asynchroniczną emulację GPU</string>
+    <string name="asynchronous_gpu_description">Używa oddzielnego wątku do asynchronicznej emulacji GPU. Po włączeniu, wydajność zostanie poprawiona.</string>
+    <string name="frame_limit_enable">Ogranicz prędkość</string>
+    <string name="frame_limit_enable_description">Po włączeniu prędkość emulacji zostanie ograniczona do określonego procentu normalnej prędkości.</string>
+    <string name="frame_limit_slider">Ogranicz procent prędkości</string>
+    <string name="frame_limit_slider_description">Określa wartość procentową ograniczenia prędkości emulacji. Przy domyślnej wartości 100% emulacja będzie ograniczona do normalnej prędkości. Wyższe lub niższe wartości zwiększają lub zmniejszają ograniczenie prędkości.</string>
+    <string name="internal_resolution">Rozdzielczość Wewnętrzna</string>
+    <string name="internal_resolution_description">Określa rozdzielczość używaną do renderowania. Wysoka rozdzielczość znacznie poprawi jakość wizualną, ale jest również dość obciążająca dla wydajności i może powodować błędy w niektórych grach.</string>
+    <string name="internal_resolution_setting_1x">Natywna (400x240)</string>
+    <string name="internal_resolution_setting_2x">2x Natywna (800x480)</string>
+    <string name="internal_resolution_setting_3x">3x Natywna (1200x720)</string>
+    <string name="internal_resolution_setting_4x">4x Natywna (1600x960)</string>
+    <string name="internal_resolution_setting_5x">5x Native (2000x1200)</string>
+    <string name="internal_resolution_setting_6x">6x Natywna (2400x1440)</string>
+    <string name="internal_resolution_setting_7x">7x Natywna (2800x1680)</string>
+    <string name="internal_resolution_setting_8x">8x Natywna (3200x1920)</string>
+    <string name="internal_resolution_setting_9x">9x Natywna (3600x2160)</string>
+    <string name="internal_resolution_setting_10x">10x Natywna (4000x2400)</string>
+    <string name="performance_warning">Wyłączenie tego ustawienia znacznie zmniejszy wydajność emulacji! Aby uzyskać najlepsze wrażenia, zaleca się pozostawienie tego ustawienia włączonego.</string>
+    <string name="debug_warning">Ostrzeżenie: Zmiana tych ustawień spowolni emulację</string>
+    <string name="stereoscopy">Sterowanie stereoskopowe</string>
+    <string name="render3d">Tryb stereoskopowy 3D</string>
+    <string name="factor3d">Zasięg</string>
+    <string name="factor3d_description">Określa wartość suwaka 3D. Powinien być ustawiony na wartość wyższą niż 0%, gdy włączony jest tryb stereoskopowy 3D.</string>
+    <string name="cardboard_vr">Cardboard VR</string>
+    <string name="cardboard_screen_size">Rozmiar ekranu Cardboarda</string>
+    <string name="cardboard_screen_size_description">Skaluje ekran do wartości procentowej jego oryginalnego rozmiaru.</string>
+    <string name="cardboard_x_shift">Przesunięcie poziome</string>
+    <string name="cardboard_x_shift_description">Określa wartość procentową pustej przestrzeni do przesunięcia ekranów w poziomie. Wartości dodatnie przesuwają dwoje oczu bliżej środka, podczas gdy wartości ujemne je oddalają.</string>
+    <string name="cardboard_y_shift">Przesunięcie pionowe</string>
+    <string name="cardboard_y_shift_description">Określa wartość procentową pustej przestrzeni do przesunięcia ekranów w pionie. Wartości dodatnie przesuwają oba oczy w kierunku dołu, podczas gdy wartości ujemne przesuwają je w kierunku góry.</string>
+    <string name="use_shader_jit">Shader JIT</string>
+    <string name="use_disk_shader_cache">Pamięć podręczna shaderów na dysku</string>
+    <string name="use_disk_shader_cache_description">Redukuje zacinanie się poprzez przechowywanie i ładowanie wygenerowanych shaderów na dysk. Nie można jej używać bez włączenia opcji Shader sprzętowy.</string>
+    <string name="adreno_gpu_boost">Wzmocnienie Adreno GPU (Eksperymentalne)</string>
+    <string name="adreno_gpu_boost_description">Zwiększa wydajność grafiki na obsługiwanych urządzeniach, poprawiając wydajność. Użycie tego ustawienia może zwiększyć zużycie baterii i zwiększyć temperaturę. Może powodować problemy ze stabilnością na niektórych urządzeniach.</string>
+    <string name="utility">Narzędzia</string>
+    <string name="dump_textures">Zrzuć tekstury</string>
+    <string name="dump_textures_description">Tekstury są zrzucane do pliku dump/textures/[Title ID]/.</string>
+    <string name="custom_textures">Niestandardowe tekstury</string>
+    <string name="custom_textures_description">Tekstury są ładowane z pliku load/textures/[Title ID]/.</string>
+    <string name="preload_textures">Wczytaj niestandardowe tekstury</string>
+    <string name="preload_textures_description">Ładuje wszystkie niestandardowe tekstury do pamięci podręcznej. Ta funkcja może zużywać dużo miejsca w urządzeniu.</string>
+    <string name="async_custom_loading">Asynchroniczne ładowanie własnych tekstur</string>
+    <string name="async_custom_loading_description">Ładuje niestandardowe tekstury asynchronicznie za pomocą wątków w tle, aby zmniejszyć zacinanie się przy ładowaniu.</string>
+
+    <!-- Audio settings strings -->
+    <string name="audio_volume">Głośność</string>
+    <string name="audio_stretch">Rozciągnij dźwięk</string>
+    <string name="audio_stretch_description">Rozciąga dźwięk, aby zredukować zacinanie się. Po włączeniu tej opcji zwiększa opóźnienie dźwięku i nieznacznie obniża wydajność.</string>
+    <string name="realtime_audio">Włącz dźwięk w czasie rzeczywistym</string>
+    <string name="realtime_audio_description">Skaluje prędkość odtwarzania dźwięku, aby uwzględnić spadki liczby klatek na sekundę w emulacji. Oznacza to, że dźwięk będzie odtwarzany z pełną prędkością, nawet jeśli liczba klatek na sekundę w grze jest niska. Może powodować problemy z desynchronizacją dźwięku.</string>
+    <string name="audio_input_type">Urządzenie wejściowe dźwięku</string>
+    <string name="sound_output_mode">Tryb wyjścia dźwięku</string>
+
+    <!-- Miscellaneous -->
+    <string name="clear">Wyczyść</string>
+    <string name="slider_default">Domyślny</string>
+    <string name="ini_saved">Zapisz ustawienia</string>
+    <string name="gameid_saved">Zapisane ustawienia dla %1$s</string>
+    <string name="error_saving">Błąd podczas zapisywania %1$s.ini: %2$s</string>
+    <string name="loading">Wczytywanie...</string>
+    <string name="next">Dalej</string>
+    <string name="back">Wstecz</string>
+    <string name="learn_more">Dowiedz się więcej</string>
+    <string name="close">Zamknij</string>
+    <string name="reset_to_default">Przywróć ustawienia domyślne</string>
+    <string name="redump_games"><![CDATA[Postępuj zgodnie z poniższymi krokami, aby ponownie zrzucić <a href=\"https://web.archive.org/web/20240304210021/https://citra-emu.org/wiki/dumping-game-cartridges/\">kartridże z grami</a> lub <a href=\"https://web.archive.org/web/20240304210011/https://citra-emu.org/wiki/dumping-installed-titles/\">zainstalowane tytuły</a>.]]></string>
+    <string name="option_default">Domyślne</string>
+    <string name="none">Brak</string>
+    <string name="auto">Automatyczne</string>
+    <string name="off">Wyłączone</string>
+    <string name="install">Zainstaluj</string>
+    <string name="delete">Usuń</string>
+    <string name="reset_all_settings">Przywrócić wszystkie ustawienia?</string>
+    <string name="reset_all_settings_description">Wszystkie ustawienia zaawansowane zostaną przywrócone do konfiguracji domyślnej. Nie będzie można tego cofnąć.</string>
+    <string name="settings_reset">Przywracanie ustawień</string>
+    <string name="select_rtc_date">Wybierz datę RTC</string>
+    <string name="select_rtc_time">Wybierz czas RTC</string>
+    <string name="reset_setting_confirmation">Czy chcesz przywrócić to ustawienie do domyślnej wartości?</string>
+    <string name="setting_not_editable">Nie możesz teraz tego edytować</string>
+    <string name="setting_not_editable_description">Tej opcji nie można zmienić podczas gry.</string>
+    <string name="auto_select">Wybór automatyczny</string>
+
+    <!-- Add Directory Screen-->
+    <string name="select_game_folder">Wybierz folder gry</string>
+
+    <!-- Game Properties -->
+    <string name="properties">Właściwości</string>
+    <string name="properties_not_loaded">Nie można załadować właściwości gry.</string>
+
+    <!-- Preferences Screen -->
+    <string name="preferences_settings">Ustawienia</string>
+    <string name="preferences_general">Ogólne</string>
+    <string name="preferences_system">System</string>
+    <string name="preferences_camera">Kamera</string>
+    <string name="preferences_controls">Kontroler</string>
+    <string name="preferences_graphics">Grafika</string>
+    <string name="preferences_audio">Dźwięk</string>
+    <string name="preferences_debug">Debug</string>
+    <string name="preferences_theme">Motyw i kolor</string>
+    <string name="preferences_layout">Układ</string>
+    <!-- ROM loading errors -->
+    <string name="loader_error_encrypted">Twój ROM jest zaszyfrowany</string>
+    <string name="loader_error_invalid_format">Nieprawidłowy format ROMu</string>
+    <string name="loader_error_file_not_found">Plik ROMu nie istnieje</string>
+    <string name="no_game_present">Brak gry do uruchomienia!</string>
+
+    <!-- Emulation Menu -->
+    <string name="emulation_menu_help">Naciśnij przycisk Wstecz, aby przejść do menu.</string>
+    <string name="emulation_save_state">Zapisz stan</string>
+    <string name="emulation_load_state">Wczytaj stan</string>
+    <string name="emulation_empty_state_slot">Slot %1$d</string>
+    <string name="emulation_occupied_state_slot">Slot %1$d - %2$tF %2$tR</string>
+    <string name="emulation_show_fps">Wyświetl FPS</string>
+    <string name="emulation_haptic_feedback">Sprzężenie dotykowe</string>
+    <string name="emulation_overlay_options">Opcje Nakładek</string>
+    <string name="emulation_configure_controls">Konfiguracja sterowania</string>
+    <string name="emulation_edit_layout">Edytuj układ</string>
+    <string name="emulation_done">Gotowe</string>
+    <string name="emulation_toggle_controls">Przełącz sterowanie</string>
+    <string name="emulation_control_scale">Dostosuj Skalę</string>
+    <string name="emulation_control_scale_global">Ogólna Skala</string>
+    <string name="emulation_control_scale_reset_all">Zresetuj Wszystko</string>
+    <string name="emulation_control_opacity">Dostosuj Krycie</string>
+    <string name="emulation_control_joystick_rel_center">Względny środek drążka</string>
+    <string name="emulation_control_dpad_slide_enable">Przesuwanie Krzyżaka</string>
+    <string name="emulation_open_settings">Otwórz ustawienia</string>
+    <string name="emulation_open_cheats">Otwórz cheaty</string>
+    <string name="emulation_switch_screen_layout">Geometryczny Układ Ekranu</string>
+    <string name="emulation_switch_portrait_layout">Pionowy Układ Ekranu</string>
+    <string name="emulation_screen_layout_largescreen">Duży Ekran</string>
+    <string name="emulation_screen_layout_portrait">Obraz</string>
+    <string name="emulation_screen_layout_single">Pojedynczy ekran</string>
+    <string name="emulation_screen_layout_sidebyside">Ekrany Obok Siebie</string>
+    <string name="emulation_screen_layout_hybrid">Hybrydowy Ekran</string>
+    <string name="emulation_screen_layout_original">Oryginalny</string>
+    <string name="emulation_portrait_layout_top_full">Domyślny</string>
+    <string name="emulation_screen_layout_custom">Niestandardowy Układ</string>
+    <string name="emulation_adjust_custom_layout">Dostosuj niestandardowy układ w Ustawieniach</string>
+    <string name="emulation_landscape_custom_layout">Geometryczny Układ Ekranu</string>
+    <string name="emulation_portrait_custom_layout">Pionowy Układ Ekranu</string>
+    <string name="emulation_top_screen">Górny Ekran</string>
+    <string name="emulation_bottom_screen">Dolny Ekran</string>
+    <string name="emulation_custom_layout_x">Położenie X</string>
+    <string name="emulation_custom_layout_y">Położenie Y</string>
+    <string name="emulation_custom_layout_width">Szerokość</string>
+    <string name="emulation_custom_layout_height">Wysokość</string>
+    <string name="emulation_cycle_landscape_layouts">Układy Cykli</string>
+    <string name="emulation_swap_screens">Zamień Ekrany</string>
+    <string name="emulation_touch_overlay_reset">Zresetuj Nakładkę</string>
+    <string name="emulation_show_overlay">Pokaż Nakładkę</string>
+    <string name="emulation_close_game">Zamknij Grę</string>
+    <string name="emulation_toggle_pause">Włącz Pauzę</string>
+    <string name="emulation_close_game_message">Czy na pewno chcesz zamknąć obecną grę?</string>
+    <string name="menu_emulation_amiibo">Amiibo</string>
+    <string name="menu_emulation_amiibo_load">Wczytaj</string>
+    <string name="menu_emulation_amiibo_remove">Usuń</string>
+    <string name="select_amiibo">Wybierz plik Amiibo</string>
+    <string name="amiibo_load_error">Błąd wczytywania Amiibo</string>
+    <string name="amiibo_load_error_message">Podczas ładowania określonego pliku Amiibo wystąpił błąd. Sprawdź, czy plik jest prawidłowy.</string>
+    <string name="pause_emulation">Wstrzymaj emulację</string>
+    <string name="resume_emulation">Wznów emulację</string>
+    <string name="lock_drawer">Zablokuj Szufladkę</string>
+    <string name="unlock_drawer">Otwórz Szufladkę</string>
+
+    <string name="write_permission_needed">Aby emulator mógł zacząć działać, należy zezwolić na zapis do pamięci zewnętrznej</string>
+    <string name="load_settings">Wczytywanie Ustawień...</string>
+
+    <string name="external_storage_not_mounted">Zewnętrzna pamięć urządzenia musi być dostępna, aby można było korzystać z Lime3DS</string>
+
+    <string name="select_dir">Wybierz ten Katalog</string>
+    <string name="empty_gamelist">Nie znaleziono żadnych plików lub nie wybrano jeszcze katalogu gry.</string>
+
+    <string name="do_not_show_this_again">Nie pokazuj tego ponownie</string>
+    <string name="searching_directory">Przeszukiwanie Katalogu: %s</string>
+    <string name="move_data">Przenieś Dane</string>
+    <string name="moving_data">Przenoszenie Danych...</string>
+    <string name="copy_file_name">Kopiuj plik: %s</string>
+    <string name="copy_complete">Kopiowanie zakończone</string>
+    <string name="savestates">Stany Zapisu</string>
+    <string name="savestate_warning_message">Ostrzeżenie: Stany zapisu NIE zastępują zapisów w grze i nie są niezawodne. Używaj na własne ryzyko!</string>
+
+    <!-- Software Keyboard -->
+    <string name="software_keyboard">Klawiatura Systemowa</string>
+    <string name="i_forgot">Zapomniałem</string>
+    <string name="fixed_length_required">Długość tekstu jest nieprawidłowa (powinna wynosić %d znaków).</string>
+    <string name="max_length_exceeded">Tekst jest zbyt długi (nie powinien zawierać więcej niż %d znaków).</string>
+    <string name="blank_input_not_allowed">Wprowadzanie pustych danych wejściowych jest niedozwolone</string>
+    <string name="empty_input_not_allowed">Puste pole danych wejściowych jest niedozwolone</string>
+    <string name="invalid_input">Nieprawidłowe dane wejściowe</string>
+
+    <!-- Mii Selector -->
+    <string name="mii_selector">Wybór Mii</string>
+    <string name="standard_mii">Standardowe Mii</string>
+
+    <!-- Camera -->
+    <string name="camera_select_image">Wybierz Zdjęcie</string>
+    <string name="camera">Kamera</string>
+    <string name="camera_permission_needed">Lime3DS musi mieć dostęp do kamery, aby emulować kamery 3DS.\n\nAlternatywnie można również ustawić „Źródło obrazu” na „Zdjęcie” w Ustawieniach aparatu.</string>
+
+    <!-- Microphone -->
+    <string name="microphone">Mikrofon</string>
+    <string name="microphone_permission_needed">Lime3DS musi mieć dostęp do mikrofonu, aby emulować mikrofon 3DS.\n\nAlternatywnie można również zmienić „Urządzenie wejściowe audio” w Ustawieniach dźwięku.</string>
+
+    <!-- Core Errors -->
+    <string name="abort_button">Przerwij</string>
+    <string name="continue_button">Kontynuuj</string>
+    <string name="system_archive_not_found">Nie znaleziono archiwum systemu</string>
+    <string name="system_archive_not_found_message">Brakuje %s. Kontynuowanie emulacji może spowodować awarie i błędy.</string>
+    <string name="cia_file_not_found">Instalacja nie powiodła się. Nie znaleziono pliku CIA.</string>
+    <string name="system_archive_general">Archiwum systemowe</string>
+    <string name="save_load_error">Błąd zapisywania/wczytywania</string>
+    <string name="fatal_error">Krytyczny Błąd</string>
+    <string name="fatal_error_message">Wystąpił błąd krytyczny. Kontynuowanie emulacji może spowodować awarie i błędy.</string>
+
+    <!-- Disk Shader Cache -->
+    <string name="preparing_shaders">Przygotowanie shaderów</string>
+    <string name="building_shaders">Tworzenie shaderów</string>
+
+    <!-- About Game Dialog -->
+    <string name="play">Odtwórz</string>
+
+    <!-- Cheats -->
+    <string name="cheats">Cheaty</string>
+    <string name="cheats_add">Dodaj Kod</string>
+    <string name="cheats_name">Nazwa</string>
+    <string name="cheats_notes">Informacje:</string>
+    <string name="cheats_code">Kod</string>
+    <string name="cheats_edit">Edytuj</string>
+    <string name="cheats_delete">Usuń</string>
+    <string name="cheats_delete_confirmation">Czy na pewno chcesz usunąć \"%1$s\"?</string>
+    <string name="cheats_error_no_name">Nazwa nie może być pusta</string>
+    <string name="cheats_error_no_code_lines">Kod nie może być pusty</string>
+    <string name="cheats_error_on_line">Błąd w linii %1$d</string>
+
+    <!-- CIA Install -->
+    <plurals name="cia_install_toast">
+        <item quantity="one">Instalowanie plików %d. Więcej informacji można znaleźć w powiadomieniach.</item>
+        <item quantity="few">Instalowanie plików %d. Więcej informacji można znaleźć w powiadomieniach.</item>
+        <item quantity="many">Instalowanie plików %d. Więcej informacji można znaleźć w powiadomieniach.</item>
+        <item quantity="other">Instalowanie plików %d. Więcej informacji można znaleźć w powiadomieniach.</item>
+    </plurals>
+    <string name="cia_install_notification_channel_description">Powiadomienia Lime3DS podczas instalacji CIA</string>
+    <string name="cia_install_notification_title">Instalacja CIA</string>
+    <string name="cia_install_notification_installing">Instalacja %s (%d/%d)</string>
+    <string name="cia_install_notification_success_title">Pomyślnie zainstalowano CIA</string>
+    <string name="cia_install_notification_error_title">Instalacja CIA nie powiodła się</string>
+    <string name="cia_install_success">\"%s\" został pomyślnie zainstalowany</string>
+    <string name="cia_install_error_aborted">Instalacja \"%s\" została przerwana.\n Więcej informacji można znaleźć w dzienniku.</string>
+    <string name="cia_install_error_invalid">\"%s\" nie jest prawidłowym plikiem CIA</string>
+    <string name="cia_install_error_encrypted">\"%s” musi zostać odszyfrowany przed użyciem w Lime3DS.\n Wymagany jest oryginalny 3DS</string>
+    <string name="cia_install_error_unknown">Wystąpił nieznany błąd podczas instalacji \"%s”.\n Więcej informacji można znaleźć w dzienniku.</string>
+
+    <!-- Memory Sizes -->
+    <string name="memory_formatted">%1$s %2$s</string>
+    <string name="memory_byte">Byte</string>
+    <string name="memory_byte_shorthand">B</string>
+    <string name="memory_kilobyte">KB</string>
+    <string name="memory_megabyte">MB</string>
+    <string name="memory_gigabyte">GB</string>
+    <string name="memory_terabyte">TB</string>
+    <string name="memory_petabyte">PB</string>
+    <string name="memory_exabyte">EB</string>
+
+    <!-- System theme -->
+    <string name="change_theme_mode">Motyw</string>
+    <string name="theme_mode_follow_system">Śledzenie systemu</string>
+    <string name="theme_mode_light">Jasny</string>
+    <string name="theme_mode_dark">Ciemny</string>
+
+    <!-- Material You theme -->
+    <string name="material_you">Twój materiał</string>
+    <string name="material_you_description">Używa motywu kolorystycznego systemu operacyjnego w aplikacji (zastępuje ustawienie „Kolor motywu”, jeśli jest włączone).</string>
+
+    <!-- Static theme color -->
+    <string name="static_theme_color">Kolor motywu</string>
+    <string name="static_theme_color_description">Zmień motyw kolorystyczny menu aplikacji</string>
+
+    <!-- Black backgrounds theme -->
+    <string name="use_black_backgrounds">Czarne tło</string>
+    <string name="use_black_backgrounds_description">W przypadku korzystania z ciemnego motywu należy stosować czarne tło.</string>
+
+    <!-- Clock types -->
+    <string name="device_clock">Zegar urządzenia</string>
+    <string name="simulated_clock">Symuluj zegar</string>
+
+    <!-- Region names -->
+    <string name="system_region_jpn">JPN</string>
+    <string name="system_region_usa">USA</string>
+    <string name="system_region_eur">EUR</string>
+    <string name="system_region_aus">AUS</string>
+    <string name="system_region_chn">CHN</string>
+    <string name="system_region_kor">KOR</string>
+    <string name="system_region_twn">TWN</string>
+
+    <!-- Language names -->
+    <string name="language_japanese">Japoński (日本語)</string>
+    <string name="language_english">Angielski (English)</string>
+    <string name="language_french">Francuski (Français)</string>
+    <string name="language_german">Niemiecki (Deutsch)</string>
+    <string name="language_italian">Włoski (Italiano)</string>
+    <string name="language_spanish">Hiszpański (Español)</string>
+    <string name="language_simplified_chinese">Chiński Uproszczony (简体中文)</string>
+    <string name="language_korean">Koreański (한국어)</string>
+    <string name="language_dutch">Niderlandzki (Nederlands)</string>
+    <string name="language_portuguese">Portugalski (Português)</string>
+    <string name="language_russian">Rosyjski (Русский)</string>
+    <string name="language_traditional_chinese">Chiński Tradycyjny (正體中文)</string>
+
+    <!-- Camera image sources -->
+    <string name="blank">Czarny</string>
+    <string name="still_image">Nieruchomy Obraz</string>
+    <string name="device_camera">Źródło Kamery</string>
+
+    <!-- Camera device names -->
+    <string name="any_front_camera">Dowolna Przednia Kamera</string>
+    <string name="any_back_camera">Dowolna Tylna Kamera</string>
+
+    <!-- Camera flip names -->
+    <string name="horizontal">Poziomo</string>
+    <string name="vertical">Pionowo</string>
+    <string name="reverse">Odwrócony</string>
+
+    <!-- Audio input types -->
+    <string name="static_noise">Hałas Statyczny</string>
+    <string name="real_cubeb">Rzeczywiste urządzenie (cubeb)</string>
+    <string name="real_openal">Rzeczywiste urządzenie (OpenAL)</string>
+
+    <!-- Render 3D modes -->
+    <string name="side_by_side">Obok Siebie</string>
+    <string name="reverse_side_by_side">Odwróć Obok Siebie</string>
+    <string name="anaglyph">Analogiczny</string>
+    <string name="interlaced">Naprzemienny</string>
+    <string name="reverse_interlaced">Odwrócony Obraz</string>
+
+    <!-- Graphics API names -->
+    <string name="opengles">OpenGLES</string>
+    <string name="vulkan">Vulkan</string>
+
+    <!-- Texture filter names -->
+    <string name="anime4k">Anime4K</string>
+    <string name="bicubic">Bicubic</string>
+    <string name="nearest_neighbor">Nearest Neighbor</string>
+    <string name="scaleforce">ScaleForce</string>
+    <string name="xbrz">xBRZ</string>
+    <string name="mmpx">MMPX</string>
+
+    <!-- Sound output modes -->
+    <string name="mono">Mono</string>
+    <string name="stereo">Stereo</string>
+    <string name="surround">Otoczenie</string>
+
+    <!-- Countries -->
+    <string name="japan">Japonia</string>
+    <string name="anguilla">Anguilla</string>
+    <string name="antigua_and_barbuda">Antigua i Barbuda</string>
+    <string name="argentina">Argentyna</string>
+    <string name="aruba">Aruba</string>
+    <string name="bahamas">Bahamy</string>
+    <string name="barbados">Barbados</string>
+    <string name="belize">Belize</string>
+    <string name="bolivia">Boliwia</string>
+    <string name="brazil">Brazylia</string>
+    <string name="british_virgin_islands">Brytyjskie Wyspy Dziewicze</string>
+    <string name="canada">Kanada</string>
+    <string name="cayman_islands">Kajmany</string>
+    <string name="chile">Chile</string>
+    <string name="colombia">Kolumbia</string>
+    <string name="costa_rica">Kostaryka</string>
+    <string name="dominica">Dominikana</string>
+    <string name="dominican_republic">Republika Dominikany</string>
+    <string name="ecuador">Ekwador</string>
+    <string name="el_salvador">Salwador</string>
+    <string name="french_guiana">Guana Francuska</string>
+    <string name="grenada">Grenada</string>
+    <string name="guadeloupe">Gwadelupa</string>
+    <string name="guatemala">Guatemala</string>
+    <string name="guyana">Gujana</string>
+    <string name="haiti">Haiti</string>
+    <string name="honduras">Honduras</string>
+    <string name="jamaica">Jamajka</string>
+    <string name="matinique">Martynika</string>
+    <string name="mexico">Meksyk</string>
+    <string name="monsterrat">Montserrat</string>
+    <string name="netherlands_antilles">Antyle Holenderskie</string>
+    <string name="nicaragua">Nikaragua</string>
+    <string name="panama">Panama</string>
+    <string name="paraguay">Portugalia</string>
+    <string name="peru">Peru</string>
+    <string name="saint_kittis_and_nevis">Saint Kitts i Nevis</string>
+    <string name="saint_lucia">Saint Lucia</string>
+    <string name="saint_vincent_and_the_grenadines">Saint Vincent i Grenadyny</string>
+    <string name="suriname">Sirunam</string>
+    <string name="trinidad_and_tobago">Trynidad i Tobago</string>
+    <string name="turks_and_caicos_islands">Turks i Caicos</string>
+    <string name="united_states">Stany Zjednoczone</string>
+    <string name="uruguay">Urugwaj</string>
+    <string name="us_virgin_islands">Wyspy Dziewicze Stanów Zjednoczonych</string>
+    <string name="venezuela">Wenezuela</string>
+    <string name="albania">Albania</string>
+    <string name="australia">Australia</string>
+    <string name="austria">Austria</string>
+    <string name="belgium">Belgia</string>
+    <string name="bosnia_and_herzegovnia">Bośnia i Hercegowina</string>
+    <string name="botswana">Botswana</string>
+    <string name="bulgaria">Bułgaria</string>
+    <string name="croatia">Chorwacja</string>
+    <string name="cyprus">Cypr</string>
+    <string name="czech_republic">Republika Czeska</string>
+    <string name="denmark">Dania</string>
+    <string name="estonia">Estonia</string>
+    <string name="finland">Finlandia</string>
+    <string name="france">Francja</string>
+    <string name="germany">Niemcy</string>
+    <string name="greece">Grecja</string>
+    <string name="hungary">Węgry</string>
+    <string name="iceland">Islandia</string>
+    <string name="ireland">Irlandia</string>
+    <string name="italy">Włochy</string>
+    <string name="latvia">Łotwa</string>
+    <string name="lesotho">Lesotho</string>
+    <string name="liechtenstein">Liechtenstein</string>
+    <string name="lithuania">Litwa</string>
+    <string name="luxembourg">Luksemburg</string>
+    <string name="macedonia">Macedonia</string>
+    <string name="malta">Malta</string>
+    <string name="montenegro">Montenegro</string>
+    <string name="mozambique">Mozambik</string>
+    <string name="namibia">Namibia</string>
+    <string name="netherlands">Holandia</string>
+    <string name="new_zealand">Nowa Zelandia</string>
+    <string name="norway">Norwegia</string>
+    <string name="poland">Polska</string>
+    <string name="portugal">Portugalia</string>
+    <string name="romania">Rumunia</string>
+    <string name="russia">Rosja</string>
+    <string name="serbia">Serbia</string>
+    <string name="slovakia">Słowacja</string>
+    <string name="slovenia">Słowenia</string>
+    <string name="south_africa">Południowa Afryka</string>
+    <string name="spain">Hiszpania</string>
+    <string name="swaziland">Suazi</string>
+    <string name="sweden">Szwecja</string>
+    <string name="switzerland">Szwajcaria</string>
+    <string name="turkey">Turcja</string>
+    <string name="united_kingdom">Wielka Brytania</string>
+    <string name="zambia">Zambia</string>
+    <string name="zimbabwe">Zimbabwe</string>
+    <string name="azerbaijan">Azerbejdżan</string>
+    <string name="mauritania">Mauritania</string>
+    <string name="mali">Mali</string>
+    <string name="niger">Nigeria</string>
+    <string name="chad">Czad</string>
+    <string name="sudan">Sudan</string>
+    <string name="eritrea">Erytrea</string>
+    <string name="djibouti">Dżibuti</string>
+    <string name="somalia">Somalia</string>
+    <string name="andorra">Andora</string>
+    <string name="gibraltar">Gibraltar</string>
+    <string name="guernsey">Guernsey</string>
+    <string name="isle_of_man">Isle of Man</string>
+    <string name="jersey">Jersey</string>
+    <string name="monaco">Monako</string>
+    <string name="taiwan">Taiwan</string>
+    <string name="south_korea">Korea Południowa</string>
+    <string name="hong_kong">Hong Kong</string>
+    <string name="macau">Makau</string>
+    <string name="indonesia">Indonezja</string>
+    <string name="singapore">Singapur</string>
+    <string name="thailand">Tajlandia</string>
+    <string name="philippines">Filipiny</string>
+    <string name="malaysia">Malezja</string>
+    <string name="china">Chiny</string>
+    <string name="united_arab_emirates">Zjednoczone Emiraty Arabskie</string>
+    <string name="india">Indie</string>
+    <string name="egypt">Egipt</string>
+    <string name="oman">Oman</string>
+    <string name="qatar">Katar</string>
+    <string name="kuwait">Kuwejt</string>
+    <string name="saudi_arabia">Arabia Saudyjska</string>
+    <string name="syria">Syria</string>
+    <string name="bahrain">Bahrajn</string>
+    <string name="jordan">Jordania</string>
+    <string name="san_marino">San Marino</string>
+    <string name="vatican_city">Watykan</string>
+    <string name="bermuda">Bermudy</string>
+
+    <!-- Months -->
+    <string name="january">Styczeń</string>
+    <string name="february">Luty</string>
+    <string name="march">Marzec</string>
+    <string name="april">Kwiecień</string>
+    <string name="may">Maj</string>
+    <string name="june">Czerwiec</string>
+    <string name="july">Lipiec</string>
+    <string name="august">Sierpień</string>
+    <string name="september">Wrzesień</string>
+    <string name="october">Październik</string>
+    <string name="november">Listopad</string>
+    <string name="december">Grudzień</string>
+
+    <!-- Artic base -->
+    <string name="artic_server_comm_error">Nie udało się połączyć z serwerem Artic Base. Emulacja zostanie zatrzymana.</string>
+    <string name="artic_base">Artic Base</string>
+    <string name="artic_base_connect_description">Połącz się z prawdziwą konsolą, na której działa serwer Artic Base</string>
+    <string name="artic_base_connect">Połącz z Artic Base</string>
+    <string name="artic_base_enter_address">Wprowadź adres serwera Artic Base</string>
+    <string name="miscellaneous">Różne</string>
+    <string name="use_artic_base_controller">Użyj kontrolera Artic po podłączeniu do serwera Artic Base</string>
+    <string name="use_artic_base_controller_desc">W przypadku połączenia z serwerem Artic Base zamiast skonfigurowanego urządzenia wejściowego należy używać elementów sterujących udostępnianych przez ten serwer.</string>
+
+</resources>

@@ -11,4 +11,4 @@ type        = QT
 file_filter = ../../src/android/app/src/main/res/values-<lang>/strings.xml
 source_file = ../../src/android/app/src/main/res/values/strings.xml
 type = ANDROID
-lang_map = es_ES:es, hu_HU:hu, ru_RU:ru, pt_BR:pt, zh_CN:zh
+lang_map = es_ES:es, hu_HU:hu, ru_RU:ru, pt_BR:pt, zh_CN:zh, pl_PL:pl
