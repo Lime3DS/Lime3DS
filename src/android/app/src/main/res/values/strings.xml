@@ -30,7 +30,6 @@
     <string name="select_games_folder">Select Games Folder</string>
     <string name="select_games_folder_description">Allows Lime3DS to populate the games list</string>
     <string name="about">About</string>
-    <string name="lime3ds_description">An open-source 3DS emulator</string>
     <string name="about_description">Build version, credits, and more</string>
     <string name="games_dir_selected">Games directory selected</string>
     <string name="select_lime3ds_user_folder_home_description">Changes the files that Lime3DS uses to load games</string>
@@ -50,10 +49,11 @@
 
     <!-- About screen strings -->
     <string name="copied_to_clipboard">Copied to clipboard</string>
-    <string name="contributors">Contributors</string>
-    <string name="contributors_description">Made with \u2764 from the Lime3DS team</string>
+    <string name="lime3ds_description">An open-source 3DS emulator based on Citra</string>
+    <string name="contributors">Credits</string>
+    <string name="contributors_description">Contributors who made Lime3DS possible</string>
     <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
-    <string name="licenses_description">Projects that make Lime3DS for Android possible</string>
+    <string name="licenses_description">Projects used by Lime3DS for Android</string>
     <string name="build">Build</string>
     <string name="licenses">Licenses</string>
     <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
