@@ -542,6 +542,9 @@ class EmulationFragment : Fragment(), SurfaceHolder.Callback, Choreographer.Fram
                 add(text).setEnabled(enableClick).setOnMenuItemClickListener {
                     if(isSaving) {
                         NativeLibrary.saveState(slot)
+                        Toast.makeText(context,
+                            getString(R.string.quicksave_saving),
+                            Toast.LENGTH_SHORT).show()
                     } else {
                         NativeLibrary.loadState(slot)
                         binding.drawerLayout.close()
