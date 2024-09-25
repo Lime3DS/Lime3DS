@@ -1667,7 +1667,6 @@ void GMainWindow::UpdateSaveStates() {
         actions_save_state[savestate.slot]->setText(text);
 
         ui->action_Load_from_Newest_Slot->setEnabled(true);
-        // do not use quicksave slot for this
         if (savestate.time > newest_slot_time) {
             newest_slot = savestate.slot;
             newest_slot_time = savestate.time;
@@ -1677,7 +1676,7 @@ void GMainWindow::UpdateSaveStates() {
             oldest_slot_time = savestate.time;
         }
     }
-    // do not use quicksave slot for this calculation
+    // Value as 1 because quicksave slot is not used for this calculation
     for (u32 i = 1; i < Core::SaveStateSlotCount; ++i) {
         if (!actions_load_state[i]->isEnabled()) {
             // Prefer empty slot
