@@ -152,7 +152,6 @@
     <string name="emulation_open_settings">Apri Impostazioni</string>
     <string name="emulation_open_cheats">Apri Trucchi</string>
     <string name="emulation_switch_screen_layout">Disposizione Schermo Orizzontale</string>
-    <string name="emulation_screen_layout_landscape">Default</string>
     <string name="emulation_screen_layout_portrait">Verticale</string>
     <string name="emulation_screen_layout_single">Schermo singolo</string>
     <string name="emulation_screen_layout_sidebyside">Affiancati</string>

@@ -94,7 +94,6 @@
     <string name="emulation_control_scale">Juster Skala</string>
     <string name="emulation_open_settings">Åpne Innstillinger</string>
     <string name="emulation_switch_screen_layout">Landskap Skjermoppsett</string>
-    <string name="emulation_screen_layout_landscape">Standard</string>
     <string name="emulation_screen_layout_portrait">Bilde</string>
     <string name="emulation_screen_layout_single">Enkel Skjerm</string>
     <string name="emulation_screen_layout_sidebyside">Side ved Side Skjermer</string>

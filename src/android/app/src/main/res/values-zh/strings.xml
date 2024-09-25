@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_disclaimer">该软件运行任天堂 3DS 掌机的游戏。该软件不包含游戏。
+\n
+\n在开始模拟之前，请选择一个文件夹来存储 Lime3DS 的用户数据。
+\n
+\n了解详情：
+\n<a href="https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage">Wiki - Lime3DS Android 用户的数据和存储</a></string>
     <string name="app_notification_channel_description">Lime3DS 模拟器</string>
     <string name="app_notification_running">Lime3DS 正在运行</string>
     <string name="app_game_install_description">接下来，您需要选择一个游戏目录。Lime3DS 将显示所选目录中的所有 3DS ROM。\n\nCIA 格式的 ROM、游戏更新和 DLC 需要分别进行安装，具体为点击文件夹图标并选择“安装 CIA”。</string>
@@ -20,15 +26,14 @@
     <string name="install_gpu_driver_description">安装替代的驱动以获得更好的性能及画面精度</string>
     <string name="driver_already_installed">驱动已安装</string>
     <string name="custom_driver_not_supported">不支持自定义驱动</string>
-    <string name="custom_driver_not_supported_description">此设备暂不支持自定义驱动。\n请之后再来查看您的设备是否已被支持。</string>
+    <string name="custom_driver_not_supported_description">此设备暂不支持自定义驱动。
+\n请之后再来查看您的设备是否已被支持！</string>
     <string name="share_log_not_found">未找到日志文件</string>
     <string name="select_games_folder">选择游戏文件夹</string>
     <string name="select_games_folder_description">允许 Lime3DS 填充游戏列表</string>
     <string name="about">关于</string>
-    <string name="lime3ds_description">一款开源的任天堂 3DS 模拟器</string>
     <string name="about_description">构建版本、贡献者以及更多</string>
     <string name="games_dir_selected">已选择游戏文件夹</string>
-    <string name="select_lime3ds_user_folder_home_description">更改 Lime3DS 用于加载游戏的相关文件</string>
     <string name="theme_and_color_description">更改应用程序的外观</string>
     <string name="install_cia_title">安装 CIA</string>
 
@@ -39,16 +44,13 @@
     <string name="select_gpu_driver_default">默认</string>
     <string name="select_gpu_driver_install_success">已安装 %s</string>
     <string name="select_gpu_driver_use_default">使用默认 GPU 驱动</string>
-    <string name="select_gpu_driver_error">您选择了无效的驱动，仅使用系统默认驱动。</string>
+    <string name="select_gpu_driver_error">您选择了无效的驱动，因此仅使用系统默认驱动！</string>
     <string name="system_gpu_driver">系统 GPU 驱动</string>
-    <string name="installing_driver">正在安装驱动...</string>
+    <string name="installing_driver">正在安装驱动…</string>
 
     <!-- About screen strings -->
     <string name="copied_to_clipboard">已复制到剪贴板</string>
-    <string name="contributors">贡献者</string>
-    <string name="contributors_description">Lime3DS 团队的用 \u2764 打造</string>
     <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
-    <string name="licenses_description">Lime3DS 安卓版的诞生离不开这些项目</string>
     <string name="build">构建版本</string>
     <string name="licenses">许可证</string>
     <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
@@ -57,11 +59,11 @@
 
     <!-- Setup strings -->
     <string name="welcome">欢迎！</string>
-    <string name="welcome_description">了解如何设置 &lt;b>Lime3DS&lt;/b> 并进行模拟。</string>
+    <string name="welcome_description">了解如何设置 &lt;b&gt;Lime3DS&lt;/b&gt; 并进行模拟。</string>
     <string name="get_started">开始</string>
     <string name="step_complete">完成！</string>
     <string name="games">游戏</string>
-    <string name="games_description">选择您的&lt;b>游戏&lt;/b>文件夹。</string>
+    <string name="games_description">选择您的&lt;b&gt;游戏&lt;/b&gt;文件夹。</string>
     <string name="done">完成</string>
     <string name="done_description">准备就绪。\n玩得开心！</string>
     <string name="text_continue">继续</string>
@@ -69,24 +71,25 @@
     <string name="notifications">通知</string>
     <string name="notifications_description">点击下面的按钮授予通知权限。</string>
     <string name="give_permission">授予权限</string>
-    <string name="notification_warning">跳过通知权限授予？</string>
+    <string name="notification_warning">跳过授予通知权限？</string>
     <string name="notification_warning_description">Lime3DS 将无法通知您重要信息。</string>
     <string name="camera_permission">摄像头</string>
-    <string name="camera_permission_description">在下方授予访问相机权限以模拟 3DS 的摄像头</string>
+    <string name="camera_permission_description">在下方授予访问相机权限以模拟 3DS 的摄像头。</string>
     <string name="microphone_permission">麦克风</string>
-    <string name="microphone_permission_description">在下方授予访问麦克风权限以模拟 3DS 的麦克风</string>
+    <string name="microphone_permission_description">在下方授予访问麦克风权限以模拟 3DS 的麦克风。</string>
     <string name="permission_denied">授权遭拒</string>
     <string name="add_games_warning">跳过选择游戏文件夹？</string>
     <string name="add_games_warning_description">如果不选择游戏文件夹，游戏将不会显示在游戏列表中。</string>
+    <string name="add_games_warning_help">https://web.archive.org/web/20240304210021/https://citra-emu.org/wiki/dumping-game-cartridges/</string>
     <string name="warning_help">帮助</string>
     <string name="warning_skip">跳过</string>
     <string name="warning_cancel">取消</string>
-    <string name="select_lime3ds_user_folder">选择用户文件夹</string>
     <string name="select">选择</string>
     <string name="cannot_skip">此步骤不可跳过</string>
     <string name="cannot_skip_directory_description">运行 Lime3DS 的必需步骤。请选择一个文件夹，然后才可继续。</string>
+    <string name="cannot_skip_directory_help">https://web.archive.org/web/20240304193549/https://github.com/citra-emu/citra/wiki/Citra-Android-user-data-and-storage</string>
     <!-- Search Strings -->
-    <string name="search_and_filter_games">搜索和游戏过滤器</string>
+    <string name="search_and_filter_games">搜索和筛选游戏</string>
     <string name="home_search_games">搜索游戏</string>
     <string name="search_recently_played">最近游玩</string>
     <string name="search_recently_added">最近添加</string>
@@ -99,15 +102,22 @@
     <string name="controller_triggers">双肩按键</string>
     <string name="controller_trigger">双肩按键</string>
     <string name="controller_dpad">十字方向键</string>
+    <string name="controller_dpad_axis">十字键（摇杆轴）</string>
+    <string name="controller_dpad_button">十字键（按键）</string>
     <string name="controller_axis_vertical">上/下轴</string>
     <string name="controller_axis_horizontal">左/右轴</string>
+    <string name="direction_up">上</string>
+    <string name="direction_down">下</string>
+    <string name="direction_left">左</string>
+    <string name="direction_right">右</string>
     <string name="input_dialog_title">绑定 %1$s %2$s</string>
     <string name="input_dialog_description">按下或移动进行输入。</string>
     <string name="input_binding">绑定输入</string>
-    <string name="input_binding_description">按下按键或轻推摇杆，将其绑定到 %1$s 。</string>
+    <string name="input_binding_description">按下按键或轻推摇杆，将其绑定到 %1$s。</string>
     <string name="input_binding_description_vertical_axis">向上或向下轻推您的摇杆。</string>
     <string name="input_binding_description_horizontal_axis">向左或向右轻推您的摇杆。</string>
     <string name="button_home">HOME</string>
+    <string name="button_swap">交换屏幕</string>
     <string name="input_message_analog_only">此操作只能绑定到游戏手柄的摇杆或十字方向键上！</string>
     <string name="input_message_button_only">此操作只能绑定到游戏手柄的按键上！</string>
 
@@ -120,19 +130,20 @@
     <string name="download">下载</string>
     <string name="start">开始</string>
     <string name="keys_missing">Lime3DS 缺失下载系统文件所需的密钥。</string>
+    <string name="how_to_get_keys">&lt;a href=https://web.archive.org/web/20240304203412/https://citra-emu.org/wiki/aes-keys/&gt;如何获取密钥？&lt;/a&gt;</string>
     <string name="show_home_apps">在游戏列表中显示 HOME 菜单小程序</string>
     <string name="run_system_setup">启动 HOME 菜单时运行系统设置</string>
     <string name="system_type_minimal">最小化</string>
     <string name="system_type_old_3ds">老版 3DS</string>
     <string name="system_type_new_3ds">新版 3DS</string>
-    <string name="downloading_files">下载中...</string>
+    <string name="downloading_files">下载中…</string>
     <string name="downloading_files_description">请不要关闭 Lime3DS。</string>
     <string name="download_failed">下载失败</string>
     <string name="download_failed_description">请确保您的网络连接正常，然后重试。</string>
     <string name="download_success">下载完成！</string>
     <string name="download_cancelled">下载已取消</string>
     <string name="download_cancelled_description">请重新下载，以防止系统文件不完整。</string>
-    <string name="cancelling">取消中...</string>
+    <string name="cancelling">取消中…</string>
     <string name="home_menu">HOME 菜单</string>
     <string name="home_menu_warning">系统文件警告</string>
     <string name="home_menu_warning_description">由于 Android 存储访问框架访问 Lime3DS 文件的速度非常慢，下载多个版本的系统文件会大大降低游戏加载、即时存档和刷新游戏列表的速度。只下载您需要的文件，以免加载速度出现问题。</string>
@@ -164,7 +175,7 @@
     <string name="play_coins">游戏币</string>
     <string name="console_id">设备 ID</string>
     <string name="regenerate_console_id">重新生成设备 ID</string>
-    <string name="regenerate_console_id_description">这将使用一个新的虚拟 3DS 取代你当前的虚拟 3DS。您当前的虚拟 3DS 将无法恢复。在部分游戏中可能会出现意外效果。如果你使用一个过时的配置存档这可能会失败。确定要继续吗？</string>
+    <string name="regenerate_console_id_description">这将使用一个新的虚拟 3DS 取代当前的虚拟 3DS。您当前的虚拟 3DS 将无法恢复。在部分游戏中可能会出现意外效果。如果你使用一个过时的配置存档这可能会失败。确定要继续吗？</string>
     <string name="plugin_loader">3GX 插件加载器</string>
     <string name="plugin_loader_description">从模拟 SD 卡加载 3GX 插件。</string>
     <string name="allow_plugin_loader">允许游戏更改插件加载器状态</string>
@@ -175,7 +186,7 @@
     <string name="outer_left_camera">外置左摄像头</string>
     <string name="outer_right_camera">外置右摄像头</string>
     <string name="image_source">摄像头图像来源</string>
-    <string name="image_source_description">设置虚拟摄像头的图像来源。你可以选择一张图片或一个真实的摄像头。</string>
+    <string name="image_source_description">设置虚拟摄像头的图像来源。您可以选择一张图片或一个真实的摄像头。</string>
     <string name="camera_device">摄像头</string>
     <string name="camera_device_description">如果将“图像来源”设置为“实体摄像设备”，将会使用设备的摄像头作为图像来源。</string>
     <string name="camera_facing_front">前置摄像头</string>
@@ -210,6 +221,16 @@
     <string name="frame_limit_slider_description">指定限制运行速度的百分比。默认情况下，100% 将限制为正常运行速度。较高或较低的值将增加或降低运行速度。</string>
     <string name="internal_resolution">内部分辨率</string>
     <string name="internal_resolution_description">指定用于渲染的分辨率。高分辨率将大大提高图像质量，但需要相当强大的性能，某些游戏还可能因此导致故障。</string>
+    <string name="internal_resolution_setting_1x">原生（400x240）</string>
+    <string name="internal_resolution_setting_2x">2 倍（800x480）</string>
+    <string name="internal_resolution_setting_3x">3 倍（1200x720）</string>
+    <string name="internal_resolution_setting_4x">4 倍（1600x960）</string>
+    <string name="internal_resolution_setting_5x">5 倍（2000x1200）</string>
+    <string name="internal_resolution_setting_6x">6 倍（2400x1440）</string>
+    <string name="internal_resolution_setting_7x">7 倍（2800x1680）</string>
+    <string name="internal_resolution_setting_8x">8 倍（3200x1920）</string>
+    <string name="internal_resolution_setting_9x">9 倍（3600x2160）</string>
+    <string name="internal_resolution_setting_10x">10 倍（4000x2400）</string>
     <string name="performance_warning">关闭此项将显著降低模拟性能！为了获得最佳体验，建议启用。</string>
     <string name="debug_warning">警告：更改这些设置将降低模拟速度！</string>
     <string name="stereoscopy">画面立体</string>
@@ -226,6 +247,8 @@
     <string name="use_shader_jit">着色器即时编译</string>
     <string name="use_disk_shader_cache">磁盘着色器缓存</string>
     <string name="use_disk_shader_cache_description">通过将生成的着色器缓存到磁盘并加载，以减少卡顿。使用此功能需要启用硬件着色器。</string>
+    <string name="adreno_gpu_boost">Adreno GPU 加速（实验性）</string>
+    <string name="adreno_gpu_boost_description">在受支持的设备上增加图形吞吐量，提高性能。使用此设置会增加功耗和温度。可能会导致某些设备出现稳定性问题。</string>
     <string name="utility">工具</string>
     <string name="dump_textures">转储纹理文件</string>
     <string name="dump_textures_description">纹理文件将转储到 dump/textures/[Title ID] 目录中。</string>
@@ -240,6 +263,8 @@
     <string name="audio_volume">音量</string>
     <string name="audio_stretch">音频拉伸</string>
     <string name="audio_stretch_description">拉伸音频以减少卡顿。启用后，会增加音频延迟并略微降低性能。</string>
+    <string name="realtime_audio">启用实时音频</string>
+    <string name="realtime_audio_description">调整音频播放速度以适应模拟帧率的下降。这意味着即使游戏帧率较低，音频也会全速播放。可能会导致音频不同步问题。</string>
     <string name="audio_input_type">音频输入设备</string>
     <string name="sound_output_mode">声音输出模式</string>
 
@@ -249,12 +274,13 @@
     <string name="ini_saved">已保存的设置</string>
     <string name="gameid_saved">已将设置保存于 %1$s 中</string>
     <string name="error_saving">保存 %1$s.ini 失败：%2$s</string>
-    <string name="loading">加载中...</string>
+    <string name="loading">加载中…</string>
     <string name="next">下一步</string>
     <string name="back">上一步</string>
     <string name="learn_more">了解更多</string>
     <string name="close">关闭</string>
     <string name="reset_to_default">恢复默认</string>
+    <string name="redump_games">请按照指南以转储您的&lt;a href=https://web.archive.org/web/20240304210021/https://citra-emu.org/wiki/dumping-game-cartridges/&gt;游戏卡带&lt;/a&gt;或&lt;a href=https://web.archive.org/web/20240304210011/https://citra-emu.org/wiki/dumping-installed-titles/&gt;已安装的游戏&lt;/a&gt;。</string>
     <string name="option_default">默认</string>
     <string name="none">无</string>
     <string name="auto">自动</string>
@@ -288,6 +314,7 @@
     <string name="preferences_audio">声音</string>
     <string name="preferences_debug">调试</string>
     <string name="preferences_theme">主题和色彩</string>
+    <string name="preferences_layout">布局</string>
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">您的 ROM 是加密的</string>
     <string name="loader_error_invalid_format">无效的 ROM 格式</string>
@@ -301,22 +328,39 @@
     <string name="emulation_empty_state_slot">插槽 %1$d</string>
     <string name="emulation_occupied_state_slot">插槽 %1$d - %2$tF %2$tR</string>
     <string name="emulation_show_fps">显示 FPS</string>
+    <string name="emulation_haptic_feedback">触摸反馈</string>
     <string name="emulation_overlay_options">虚拟按键选项</string>
     <string name="emulation_configure_controls">控制设置</string>
     <string name="emulation_edit_layout">编辑布局</string>
     <string name="emulation_done">完成</string>
     <string name="emulation_toggle_controls">切换控制</string>
     <string name="emulation_control_scale">调整大小</string>
+    <string name="emulation_control_scale_global">全局缩放</string>
+    <string name="emulation_control_scale_reset_all">重置全部</string>
+    <string name="emulation_control_opacity">调整透明度</string>
     <string name="emulation_control_joystick_rel_center">相对摇杆中心</string>
     <string name="emulation_control_dpad_slide_enable">十字方向键滑动</string>
     <string name="emulation_open_settings">打开设置项</string>
     <string name="emulation_open_cheats">开启金手指</string>
     <string name="emulation_switch_screen_layout">屏幕布局</string>
-    <string name="emulation_screen_layout_landscape">默认</string>
+    <string name="emulation_switch_portrait_layout">纵向屏幕布局</string>
     <string name="emulation_screen_layout_portrait">纵向</string>
     <string name="emulation_screen_layout_single">单个屏幕</string>
     <string name="emulation_screen_layout_sidebyside">并排屏幕</string>
     <string name="emulation_screen_layout_hybrid">混合式屏幕</string>
+    <string name="emulation_screen_layout_original">原始</string>
+    <string name="emulation_portrait_layout_top_full">默认</string>
+    <string name="emulation_screen_layout_custom">自定义布局</string>
+    <string name="emulation_adjust_custom_layout">在设置中调整自定义布局</string>
+    <string name="emulation_landscape_custom_layout">横向自定义布局</string>
+    <string name="emulation_portrait_custom_layout">纵向自定义布局</string>
+    <string name="emulation_top_screen">上屏幕</string>
+    <string name="emulation_bottom_screen">下屏幕</string>
+    <string name="emulation_custom_layout_x">X-位置</string>
+    <string name="emulation_custom_layout_y">Y-位置</string>
+    <string name="emulation_custom_layout_width">宽度</string>
+    <string name="emulation_custom_layout_height">高度</string>
+    <string name="emulation_cycle_landscape_layouts">环形布局</string>
     <string name="emulation_swap_screens">交换上下屏</string>
     <string name="emulation_touch_overlay_reset">重置虚拟按键</string>
     <string name="emulation_show_overlay">显示虚拟按键</string>
@@ -335,21 +379,23 @@
     <string name="unlock_drawer">解锁侧滑菜单</string>
 
     <string name="write_permission_needed">您需要允许 Lime3DS 对外部存储器进行读写访问，以便模拟器正常工作。</string>
-    <string name="load_settings">正在加载设置...</string>
+    <string name="load_settings">正在加载设置…</string>
 
-    <string name="external_storage_not_mounted">需要有可用的外部存储器，Lime3DS 才能正常工作。</string>
+    <string name="external_storage_not_mounted">需要有可用的外部存储，Lime3DS 才能正常工作。</string>
 
     <string name="select_dir">选择此目录</string>
     <string name="empty_gamelist">找不到游戏文件或尚未添加游戏目录。</string>
 
     <string name="do_not_show_this_again">不要再显示</string>
-    <string name="searching_directory">正在搜索目录: %s</string>
+    <string name="searching_directory">正在搜索目录：%s</string>
     <string name="move_data">数据移动</string>
-    <string name="moving_data">移动数据...</string>
-    <string name="copy_file_name">复制文件: %s</string>
+    <string name="moving_data">移动数据中…</string>
+    <string name="copy_file_name">复制文件：%s</string>
     <string name="copy_complete">复制完成</string>
     <string name="savestates">保存存档</string>
-    <string name="savestate_warning_message">警告：即时存档不能替代游戏内存档，它并不完全可靠。\n\n您必须自行承担使用风险。</string>
+    <string name="savestate_warning_message">警告：即时存档不能替代游戏内存档，它并不完全可靠。
+\n
+\n您必须自行承担使用风险！</string>
 
     <!-- Software Keyboard -->
     <string name="software_keyboard">软件键盘</string>
@@ -367,7 +413,9 @@
     <!-- Camera -->
     <string name="camera_select_image">选择图像</string>
     <string name="camera">摄像头</string>
-    <string name="camera_permission_needed">Lime3DS 需要访问您的摄像头来模拟 3DS 上的摄像头。\n\n或者，您也可以在设置—>摄像头中将“图像来源”设置为“静止图像”。</string>
+    <string name="camera_permission_needed">Lime3DS 需要访问您的摄像头来模拟 3DS 上的摄像头。
+\n
+\n或者，您也可以在设置→摄像头中将“图像来源”设置为“静止图像”。</string>
 
     <!-- Microphone -->
     <string name="microphone">麦克风</string>
@@ -388,6 +436,9 @@
     <string name="preparing_shaders">正在准备着色器</string>
     <string name="building_shaders">正在构建着色器</string>
 
+    <!-- About Game Dialog -->
+    <string name="play">开始游戏</string>
+
     <!-- Cheats -->
     <string name="cheats">金手指</string>
     <string name="cheats_add">添加金手指</string>
@@ -407,23 +458,34 @@
     </plurals>
     <string name="cia_install_notification_channel_description">CIA 文件安装时的 Lime3DS 通知</string>
     <string name="cia_install_notification_title">正在安装 CIA 文件</string>
-    <string name="cia_install_notification_installing">正在安装 %s (%d/%d)</string>
+    <string name="cia_install_notification_installing">正在安装 %s（%d/%d）</string>
     <string name="cia_install_notification_success_title">CIA 文件安装成功</string>
     <string name="cia_install_notification_error_title">CIA 文件安装失败</string>
     <string name="cia_install_success">“%s”已安装成功</string>
-    <string name="cia_install_error_aborted">“%s”的安装中断。\n 详情请参看日志文件</string>
+    <string name="cia_install_error_aborted">“%s”的安装中断。
+\n详情请参阅日志文件</string>
     <string name="cia_install_error_invalid">“%s”不是有效的 CIA 文件</string>
     <string name="cia_install_error_encrypted">“%s”需要解密才能被 Lime3DS 识别。\n解密过程需要一台实体 3DS 游戏机</string>
-    <string name="cia_install_error_unknown">安装“%s”时出现未知错误。\n 有关详细信息，请参阅日志文件</string>
+    <string name="cia_install_error_unknown">安装“%s”时出现未知错误。
+\n详情请参阅日志文件</string>
 
-    <!-- Theme Modes -->
-    <string name="change_theme_mode">更改主题模式</string>
+    <!-- Memory Sizes -->
+    <string name="memory_formatted">%1$s %2$s</string>
+    <string name="memory_byte">字节</string>
+    <string name="memory_byte_shorthand">B</string>
+    <string name="memory_kilobyte">KB</string>
+    <string name="memory_megabyte">MB</string>
+    <string name="memory_gigabyte">GB</string>
+    <string name="memory_terabyte">TB</string>
+    <string name="memory_petabyte">PB</string>
+    <string name="memory_exabyte">EB</string>
+
     <string name="theme_mode_follow_system">跟随系统</string>
     <string name="theme_mode_light">浅色</string>
     <string name="theme_mode_dark">深色</string>
-    <string name="material_you">Material You</string>
-    <string name="material_you_description">在应用程序中使用系统配色</string>
 
+    <!-- Material You theme -->
+    <string name="material_you">Material You</string>
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">黑色背景</string>
     <string name="use_black_backgrounds_description">使用深色主题时，套用黑色背景。</string>
@@ -433,27 +495,27 @@
     <string name="simulated_clock">模拟时钟</string>
 
     <!-- Region names -->
-    <string name="system_region_jpn">日本</string>
-    <string name="system_region_usa">北美</string>
-    <string name="system_region_eur">欧洲</string>
-    <string name="system_region_aus">澳大利亚</string>
-    <string name="system_region_chn">中国大陆</string>
-    <string name="system_region_kor">韩国</string>
-    <string name="system_region_twn">港澳台</string>
+    <string name="system_region_jpn">日本（JPN）</string>
+    <string name="system_region_usa">北美（USA）</string>
+    <string name="system_region_eur">欧洲（EUR）</string>
+    <string name="system_region_aus">澳大利亚（AUS）</string>
+    <string name="system_region_chn">中国大陆（CHN）</string>
+    <string name="system_region_kor">韩国（KOR）</string>
+    <string name="system_region_twn">港台（TWN）</string>
 
     <!-- Language names -->
-    <string name="language_japanese">日语 (日本語)</string>
-    <string name="language_english">英语</string>
-    <string name="language_french">法语 (Français)</string>
-    <string name="language_german">德语 (Deutsch)</string>
-    <string name="language_italian">意大利语 (Italiano)</string>
-    <string name="language_spanish">西班牙语 (Español)</string>
-    <string name="language_simplified_chinese">简体中文 (简体中文)</string>
-    <string name="language_korean">韩语 (한국어)</string>
-    <string name="language_dutch">荷兰语 (Nederlands)</string>
-    <string name="language_portuguese">葡萄牙语 (Português)</string>
-    <string name="language_russian">俄语 (Русский)</string>
-    <string name="language_traditional_chinese">繁体中文 (正體中文)</string>
+    <string name="language_japanese">日语（日本語）</string>
+    <string name="language_english">英语（English）</string>
+    <string name="language_french">法语（Français）</string>
+    <string name="language_german">德语（Deutsch）</string>
+    <string name="language_italian">意大利语（Italiano）</string>
+    <string name="language_spanish">西班牙语（Español）</string>
+    <string name="language_simplified_chinese">简体中文</string>
+    <string name="language_korean">朝鲜语（한국어）</string>
+    <string name="language_dutch">荷兰语（Nederlands）</string>
+    <string name="language_portuguese">葡萄牙语（Português）</string>
+    <string name="language_russian">俄语（Русский）</string>
+    <string name="language_traditional_chinese">繁体中文（正體中文）</string>
 
     <!-- Camera image sources -->
     <string name="blank">空白</string>
@@ -471,8 +533,8 @@
 
     <!-- Audio input types -->
     <string name="static_noise">静态噪声</string>
-    <string name="real_cubeb">实体设备 (cubeb)</string>
-    <string name="real_openal">实体设备 (OpenAL)</string>
+    <string name="real_cubeb">实体设备（cubeb）</string>
+    <string name="real_openal">实体设备（OpenAL）</string>
 
     <!-- Render 3D modes -->
     <string name="side_by_side">并排屏幕</string>
@@ -487,7 +549,7 @@
     <!-- Texture filter names -->
     <string name="anime4k">Anime4K</string>
     <string name="bicubic">双三线过滤</string>
-    <string name="nearest_neighbor">近邻取样</string>
+    <string name="nearest_neighbor">最近邻</string>
     <string name="scaleforce">强制缩放</string>
     <string name="xbrz">xBRZ</string>
     <string name="mmpx">MMPX</string>
@@ -520,7 +582,7 @@
     <string name="el_salvador">萨尔瓦多</string>
     <string name="french_guiana">法属圭亚那</string>
     <string name="grenada">格林纳达</string>
-    <string name="guadeloupe">瓜德罗普岛</string>
+    <string name="guadeloupe">瓜德罗普</string>
     <string name="guatemala">危地马拉</string>
     <string name="guyana">圭亚那</string>
     <string name="haiti">海地</string>
@@ -608,16 +670,16 @@
     <string name="isle_of_man">马恩岛</string>
     <string name="jersey">泽西岛</string>
     <string name="monaco">摩纳哥</string>
-    <string name="taiwan">中国•台湾</string>
+    <string name="taiwan">中国台湾</string>
     <string name="south_korea">韩国</string>
-    <string name="hong_kong">中国•香港</string>
-    <string name="macau">中国•澳门</string>
+    <string name="hong_kong">中国香港</string>
+    <string name="macau">中国澳门</string>
     <string name="indonesia">印度尼西亚</string>
     <string name="singapore">新加坡</string>
     <string name="thailand">泰国</string>
     <string name="philippines">菲律宾</string>
     <string name="malaysia">马来西亚</string>
-    <string name="china">中国</string>
+    <string name="china">中国大陆</string>
     <string name="united_arab_emirates">阿联酋</string>
     <string name="india">印度</string>
     <string name="egypt">埃及</string>
@@ -646,4 +708,14 @@
     <string name="november">十一月</string>
     <string name="december">十二月</string>
 
-    </resources>
+    <!-- Artic base -->
+    <string name="artic_server_comm_error">无法与 Artic Base 服务器通信。将停止模拟。</string>
+    <string name="artic_base">Artic Base</string>
+    <string name="artic_base_connect_description">连接到运行 Artic Base 服务器的真实主机</string>
+    <string name="artic_base_connect">连接到 Artic Base</string>
+    <string name="artic_base_enter_address">输入 Arctic Base 服务器地址</string>
+    <string name="miscellaneous">杂项</string>
+    <string name="use_artic_base_controller">连接到 Artic Base 服务器时使用 Artic 控制器</string>
+    <string name="use_artic_base_controller_desc">连接到 Artic Base 服务器时，使用其提供的控制器，而不是配置的输入设备。</string>
+
+</resources>

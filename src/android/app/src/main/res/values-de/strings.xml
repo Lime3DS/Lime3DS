@@ -20,7 +20,6 @@
     <string name="share_log_not_found">Keine Log-Datei gefunden</string>
     <string name="select_games_folder">Spieleordner auswählen</string>
     <string name="about">Über</string>
-    <string name="lime3ds_description">Ein open-source 3DS-Emulator</string>
     <string name="theme_and_color_description">Das Aussehen der App verändern</string>
     <string name="install_cia_title">CIA Installieren</string>
 
@@ -34,10 +33,7 @@
 
     <!-- About screen strings -->
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
-    <string name="contributors">Mitwirkende</string>
-    <string name="contributors_description">Gemacht mit \u2764 vom Lime3DS-Team</string>
     <string name="contributors_link">https://github.com/Lime3DS/Lime3DS/graphs/contributors</string>
-    <string name="licenses_description">Projekte, die Lime3DS für Android ermöglichen</string>
     <string name="build">Build</string>
     <string name="licenses">Lizenzen</string>
     <string name="support_link">https://discord.gg/4ZjMpAp3M6</string>
@@ -232,7 +228,6 @@
     <string name="emulation_open_settings">Einstellungen öffnen</string>
     <string name="emulation_open_cheats">Öffne Cheats</string>
     <string name="emulation_switch_screen_layout">Querformat-Bildschirmlayout</string>
-    <string name="emulation_screen_layout_landscape">Standard</string>
     <string name="emulation_screen_layout_portrait">Hochformat</string>
     <string name="emulation_screen_layout_single">Einzelbildschirm</string>
     <string name="emulation_screen_layout_sidebyside">Bildschirme Seite an Seite</string>
@@ -307,10 +302,10 @@
     <string name="cheats_error_on_line">Fehler in Zeile %1$d</string>
 
     <string name="cia_install_notification_title">CIA wird installiert</string>
-    <!-- Theme Modes -->
-    <string name="change_theme_mode">Design</string>
     <string name="theme_mode_light">Hell</string>
     <string name="theme_mode_dark">Dunkel</string>
+
+    <!-- Material You theme -->
     <string name="material_you">Material You</string>
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Schwarze Hintergründe</string>

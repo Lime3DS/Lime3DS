@@ -62,7 +62,6 @@
     <string name="emulation_show_fps">Näytä FPS</string>
     <string name="emulation_done">Valmis</string>
     <string name="emulation_open_settings">Avaa asetukset</string>
-    <string name="emulation_screen_layout_landscape">Oletus</string>
     <string name="emulation_screen_layout_single">Yksi näyttö</string>
     <string name="emulation_screen_layout_sidebyside">Näytöt vierekkäin</string>
     <string name="emulation_swap_screens">Vaihda näytöt</string>
