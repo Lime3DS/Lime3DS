@@ -140,6 +140,16 @@
     <string name="input_message_analog_only">This control must be bound to a gamepad analog stick or D-pad axis!</string>
     <string name="input_message_button_only">This control must be bound to a gamepad button!</string>
 
+    <!-- Quickload&Save-->
+    <string name="emulation_quicksave_slot">Quicksave</string>
+    <string name="emulation_quicksave">Quicksave</string>
+    <string name="emulation_quickload">Quickload</string>
+    <string name="emulation_occupied_quicksave_slot">Quicksave - %1$tF %1$tR</string>
+    <string name="quicksave_saving">Saving…</string>
+    <string name="quickload_loading">Loading…</string>
+    <string name="quickload_not_found">No Quicksave available.</string>
+
+
     <!-- System files strings -->
     <string name="system_files">System Files</string>
     <string name="system_files_description">Download system files to get Mii files, boot the HOME menu, and more</string>
