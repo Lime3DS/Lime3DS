@@ -13,8 +13,8 @@ import io.github.lime3ds.android.display.ScreenAdjustmentUtil
 
 class HotkeyUtility(private val screenAdjustmentUtil: ScreenAdjustmentUtil, private val context: Context) {
 // TODO:
-// hotkeyLoaded should be a global val tracking that tracks if a hotkey is laoded or not
-// Move Quickload and Quicksave out of shortcuts related to ScreenAdjustmentUtil
+// hotkeyLoaded should be a global val that tracks if a hotkey is laoded or not
+// Seperate shortcuts better 
     val hotkeyButtons = Hotkey.entries.map { it.button }
 
     fun handleHotkey(bindedButton: Int): Boolean {
