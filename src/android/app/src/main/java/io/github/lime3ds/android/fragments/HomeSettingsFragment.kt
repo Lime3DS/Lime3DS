@@ -5,7 +5,6 @@
 package io.github.lime3ds.android.fragments
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -160,7 +159,7 @@ class HomeSettingsFragment : Fragment() {
                 R.string.select_lime3ds_user_folder,
                 R.string.select_lime3ds_user_folder_home_description,
                 R.drawable.ic_home,
-                { mainActivity?.openLime3DSDirectory?.launch(Uri.parse(null)) },
+                { mainActivity?.openLime3DSDirectory?.launch(null) },
                 details = homeViewModel.userDir
             ),
             HomeSetting(
