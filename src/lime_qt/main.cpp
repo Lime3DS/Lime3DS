@@ -716,7 +716,7 @@ void GMainWindow::InitializeHotkeys() {
     });
     connect_shortcut(QStringLiteral("Increase 3D Factor"), [this] {
         const auto factor_3d = Settings::values.factor_3d.GetValue();
-        if (factor_3d < 100) {
+        if (factor_3d < 255) {
             if (factor_3d % FACTOR_3D_STEP != 0) {
                 Settings::values.factor_3d =
                     factor_3d + FACTOR_3D_STEP - (factor_3d % FACTOR_3D_STEP);

@@ -476,6 +476,7 @@
 
     <!-- Render 3D modes -->
     <string name="side_by_side">并排屏幕</string>
+    <string name="reverse_side_by_side">逆向并排屏幕</string>
     <string name="anaglyph">立体图形</string>
     <string name="interlaced">交错</string>
     <string name="reverse_interlaced">逆向交错</string>

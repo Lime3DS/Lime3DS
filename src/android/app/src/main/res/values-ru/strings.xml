@@ -478,6 +478,7 @@
 
     <!-- Render 3D modes -->
     <string name="side_by_side">Бок о бок</string>
+    <string name="reverse_side_by_side">Обратный Бок о бок</string>
     <string name="anaglyph">Анаглиф</string>
     <string name="interlaced">Чересстрочный</string>
     <string name="reverse_interlaced">Обратный чересстрочный</string>
