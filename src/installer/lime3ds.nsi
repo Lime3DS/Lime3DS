@@ -26,7 +26,7 @@
 !define BINARY_SOURCE_DIR "..\..\build\bundle"
 
 Name "${PRODUCT_NAME}"
-OutFile "lime3ds-${PRODUCT_VERSION}-windows-${PRODUCT_VARIANT}.exe"
+OutFile "lime3ds-${PRODUCT_VERSION}-windows-${PRODUCT_VARIANT}-installer.exe"
 SetCompressor /SOLID lzma
 ShowInstDetails show
 ShowUnInstDetails show
