@@ -53,7 +53,9 @@ function pack_artifacts() {
 if [ "$OS" = "windows" ] && [ "$GITHUB_REF_TYPE" = "tag" ]; then
     # Move the installer to the artifacts directory
     mv src/installer/bin/*.exe artifacts/
-elif [ -n "$UNPACKED" ]; then
+fi
+
+if [ -n "$UNPACKED" ]; then
     # Copy the artifacts to be uploaded unpacked.
     for ARTIFACT in build/bundle/*; do
         FILENAME=$(basename "$ARTIFACT")
