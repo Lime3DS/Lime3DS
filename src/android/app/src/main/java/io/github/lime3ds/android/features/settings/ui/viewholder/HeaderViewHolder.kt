@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -18,6 +18,12 @@ class HeaderViewHolder(val binding: ListItemSettingsHeaderBinding, adapter: Sett
 
     override fun bind(item: SettingsItem) {
         binding.textHeaderName.setText(item.nameId)
+        if (item.descriptionId != 0) {
+            binding.textHeaderDescription.visibility = View.VISIBLE
+            binding.textHeaderDescription.setText(item.descriptionId)
+        }else {
+            binding.textHeaderDescription.visibility = View.GONE
+        }
     }
 
     override fun onClick(clicked: View) {
