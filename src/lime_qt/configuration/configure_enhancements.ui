@@ -186,17 +186,17 @@
            </item>
            <item>
             <property name="text">
-             <string>Nearest Neighbor</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>ScaleForce</string>
             </property>
            </item>
            <item>
             <property name="text">
              <string>xBRZ</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MMPX</string>
             </property>
            </item>
           </widget>
