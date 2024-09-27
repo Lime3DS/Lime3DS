@@ -544,11 +544,11 @@
     </integer-array>
 
     <string-array name="orientationOptions">
-        <item>Auto (Sensor)</item>
-        <item>Landscape</item>
-        <item>Landscape (Flipped)</item>
-        <item>Portrait</item>
-        <item>Portrait (Flipped)</item>
+        <item>@string/emulation_screen_orientation_auto_sensor</item>
+        <item>@string/emulation_screen_orientation_landscape</item>
+        <item>@string/emulation_screen_orientation_landscape_flipped</item>
+        <item>@string/emulation_screen_orientation_portrait</item>
+        <item>@string/emulation_screen_orientation_portrait_flipped</item>
     </string-array>
     <integer-array name="orientationValues">
         <item>0</item>
