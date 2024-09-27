@@ -4,6 +4,6 @@
 
 package io.github.lime3ds.android.features.settings.model.view
 
-class HeaderSetting(titleId: Int,descId: Int = 0) : SettingsItem(null, titleId, descId) {
+class HeaderSetting(titleId: Int, descId: Int = 0) : SettingsItem(null, titleId, descId) {
     override val type = TYPE_HEADER
 }
