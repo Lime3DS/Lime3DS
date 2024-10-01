@@ -308,6 +308,25 @@ GMainWindow::GMainWindow(Core::System& system_)
                 continue;
             }
             game_path = args[++i];
+            continue;
+        }
+
+        if (args[i] == QStringLiteral("-p")) {
+            if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
+                continue;
+            }
+            movie_playback_path = args[++i];
+            movie_playback_on_start = true;
+            continue;
+        }
+
+        if (args[i] == QStringLiteral("-r")) {
+            if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
+                continue;
+            }
+            movie_record_path = args[++i];
+            movie_record_on_start = true;
+            continue;
         }
 
         // Launch game in windowed mode
@@ -3611,9 +3630,11 @@ static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
                  "-f           Start in fullscreen mode\n"
-                 "-g [path]    Start game at path\n"
+                 "-g [path]    Start a game file located at the given path\n"
                  "-h           Display this help and exit\n"
-                 "-i [path]    Installs the CIA file at the given path\n"
+                 "-i [path]    Install a CIA file at the given path\n"
+                 "-p [path]    Play a TAS movie located at the given path\n"
+                 "-r [path]    Record a TAS movie to the given file path\n"
                  "-v           Output version information and exit\n";
 }
 
@@ -3623,7 +3644,7 @@ static void PrintVersion() {
 
 int main(int argc, char* argv[]) {
     while (optind < argc) {
-        int arg = getopt(argc, argv, "fg:hi:v");
+        int arg = getopt(argc, argv, "fg:hi:r:v");
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'h':
