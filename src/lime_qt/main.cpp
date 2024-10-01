@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include <clocale>
+#include <iostream>
 #include <memory>
 #include <thread>
 #include <QFileDialog>
@@ -3611,7 +3612,36 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 #endif
 }
 
+static void PrintHelp(const char* argv0) {
+    std::cout << "Usage: " << argv0
+              << " [options] <filename>\n"
+                 "-g [path]    Start game at path\n"
+                 "-f           Start in fullscreen mode\n"
+                 "-h           Display this help and exit\n"
+                 "-v           Output version information and exit\n";
+}
+
+static void PrintVersion() {
+    std::cout << "Lime3DS " << Common::g_scm_branch << " " << Common::g_scm_desc << std::endl;
+}
+
 int main(int argc, char* argv[]) {
+    while (optind < argc) {
+        int arg = getopt(argc, argv, "g:fhv");
+        if (arg != -1) {
+            switch (static_cast<char>(arg)) {
+            case 'h':
+                PrintHelp(argv[0]);
+                return 0;
+            case 'v':
+                PrintVersion();
+                return 0;
+            }
+        } else {
+            optind++;
+        }
+    }
+
     Common::DetachedTasks detached_tasks;
     MicroProfileOnThreadCreate("Frontend");
     SCOPE_EXIT({ MicroProfileShutdown(); });
