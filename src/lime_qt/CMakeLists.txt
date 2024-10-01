@@ -285,6 +285,11 @@ elseif(WIN32)
     endif()
 endif()
 
+if(ENABLE_SDL2)
+    target_link_libraries(lime-qt PRIVATE SDL2::SDL2)
+    target_compile_definitions(lime-qt PRIVATE HAVE_SDL2)
+endif()
+
 create_target_directory_groups(lime-qt)
 
 target_link_libraries(lime-qt PRIVATE audio_core lime_common lime_core input_common network video_core)
