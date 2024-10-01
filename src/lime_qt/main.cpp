@@ -3610,9 +3610,10 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
-                 "-g [path]    Start game at path\n"
                  "-f           Start in fullscreen mode\n"
+                 "-g [path]    Start game at path\n"
                  "-h           Display this help and exit\n"
+                 "-i [path]    Installs the CIA file at the given path\n"
                  "-v           Output version information and exit\n";
 }
 
@@ -3622,12 +3623,40 @@ static void PrintVersion() {
 
 int main(int argc, char* argv[]) {
     while (optind < argc) {
-        int arg = getopt(argc, argv, "g:fhv");
+        int arg = getopt(argc, argv, "fg:hi:v");
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'h':
                 PrintHelp(argv[0]);
                 return 0;
+            case 'i': {
+                Service::AM::InstallStatus result = Service::AM::InstallCIA(std::string(optarg));
+                if (result != Service::AM::InstallStatus::Success) {
+                    std::string failure_reason;
+
+                    if (result == Service::AM::InstallStatus::ErrorFailedToOpenFile)
+                        failure_reason = "Unable to open file.";
+
+                    if (result == Service::AM::InstallStatus::ErrorFileNotFound)
+                        failure_reason = "File not found.";
+
+                    if (result == Service::AM::InstallStatus::ErrorAborted)
+                        failure_reason = "Install was aborted.";
+
+                    if (result == Service::AM::InstallStatus::ErrorInvalid)
+                        failure_reason = "CIA is invalid.";
+
+                    if (result == Service::AM::InstallStatus::ErrorEncrypted)
+                        failure_reason = "CIA is encrypted.";
+
+                    std::cout << "Failed to install CIA: " << failure_reason << std::endl;
+                    return (int)result +
+                           2; // 2 is added here to avoid stepping on the toes of
+                              // exit codes 1 and 2 which have pre-established conventional meanings
+                }
+                std::cout << "Installed CIA successfully." << std::endl;
+                return 0;
+            }
             case 'v':
                 PrintVersion();
                 return 0;
