@@ -302,23 +302,18 @@ GMainWindow::GMainWindow(Core::System& system_)
             continue;
         }
 
+        // Launch game at path
+        if (args[i] == QStringLiteral("-g")) {
+            if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
+                continue;
+            }
+            game_path = args[++i];
+        }
+
         // Launch game in windowed mode
         if (args[i] == QStringLiteral("-w")) {
             ui->action_Fullscreen->setChecked(false);
             continue;
-        }
-
-        // Launch game at path
-        if (args[i] == QStringLiteral("-g")) {
-            if (i >= args.size() - 1) {
-                continue;
-            }
-
-            if (args[i + 1].startsWith(QChar::fromLatin1('-'))) {
-                continue;
-            }
-
-            game_path = args[++i];
         }
     }
 
