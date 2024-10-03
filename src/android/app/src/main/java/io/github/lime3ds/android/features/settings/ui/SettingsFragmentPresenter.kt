@@ -952,7 +952,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     IntSetting.SMALL_SCREEN_POSITION.defaultValue
                 )
             )
-
             add(
                 SliderSetting(
                     FloatSetting.LARGE_SCREEN_PROPORTION,
@@ -965,8 +964,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     FloatSetting.LARGE_SCREEN_PROPORTION.defaultValue
                 )
             )
-
-
             add(
                 SubmenuSetting(
                     R.string.emulation_landscape_custom_layout,
@@ -975,7 +972,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     Settings.SECTION_CUSTOM_LANDSCAPE
                 )
             )
-
             add(
                 SubmenuSetting(
                     R.string.emulation_portrait_custom_layout,
@@ -984,7 +980,6 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                     Settings.SECTION_CUSTOM_PORTRAIT
                 )
             )
-
         }
     }
 

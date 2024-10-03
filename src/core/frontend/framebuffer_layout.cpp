@@ -270,7 +270,6 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
     }
 
     if (upright) {
-
         switch (small_screen_position) {
         case Settings::SmallScreenPosition::TopRight:
             large_screen = large_screen.TranslateY(small_screen.GetHeight());
@@ -322,7 +321,6 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
             UNREACHABLE();
             break;
         }
-
     } else {
         // not upright
         switch (small_screen_position) {

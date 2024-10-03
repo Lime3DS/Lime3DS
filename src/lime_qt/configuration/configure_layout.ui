@@ -145,7 +145,7 @@
         </layout>
        </widget>
       </item>
-       <item>
+      <item>
        <widget class="QWidget" name="small_pos_widget" native="true">
         <layout class="QHBoxLayout" name="small_pos_layout">
          <property name="leftMargin">

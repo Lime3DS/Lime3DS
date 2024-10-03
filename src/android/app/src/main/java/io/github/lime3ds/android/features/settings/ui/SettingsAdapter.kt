@@ -282,7 +282,6 @@ class SettingsAdapter(
             value = sliderProgress
             textSliderValue?.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable) {
-
                     var textValue = s.toString().toFloatOrNull();
                     if (item.setting !is FloatSetting) {
                         textValue = textValue?.roundToInt()?.toFloat();
@@ -301,7 +300,6 @@ class SettingsAdapter(
 
             addOnChangeListener { _: Slider, value: Float, _: Boolean ->
                 sliderProgress = (value * 100).roundToInt().toFloat() / 100f
-
                 var sliderString = sliderProgress.toString()
                 if (item.setting !is FloatSetting) {
                     sliderString = sliderProgress.roundToInt().toString()
