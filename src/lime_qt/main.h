@@ -222,6 +222,8 @@ private:
                             const std::string& keywords, const std::string& name,
                             const bool& skip_tryexec);
 
+    void ShowFFmpegErrorMessage();
+
 private slots:
     void OnStartGame();
     void OnRestartGame();
