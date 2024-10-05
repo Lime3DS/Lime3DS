@@ -294,6 +294,9 @@ create_target_directory_groups(lime-qt)
 
 target_link_libraries(lime-qt PRIVATE audio_core lime_common lime_core input_common network video_core)
 target_link_libraries(lime-qt PRIVATE Boost::boost nihstro-headers Qt6::Widgets Qt6::Multimedia Qt6::Concurrent)
+if (MSVC)
+    target_link_libraries(lime-qt PRIVATE getopt)
+endif()
 target_link_libraries(lime-qt PRIVATE ${PLATFORM_LIBRARIES} Threads::Threads)
 
 if (ENABLE_OPENGL)
