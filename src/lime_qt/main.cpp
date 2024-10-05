@@ -17,6 +17,8 @@
 #include <QtWidgets>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
+#undef _UNICODE
+#include <getopt.h>
 #ifdef __APPLE__
 #include <unistd.h> // for chdir
 #endif
