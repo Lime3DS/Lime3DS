@@ -296,6 +296,21 @@ GMainWindow::GMainWindow(Core::System& system_)
             break;
         }
 
+        // Dump video
+        if (args[i] == QStringLiteral("-d")) {
+            if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
+                continue;
+            }
+            if (!DynamicLibrary::FFmpeg::LoadFFmpeg()) {
+                ShowFFmpegErrorMessage();
+                continue;
+            }
+            video_dumping_path = args[++i];
+            video_dumping_on_start = true;
+            ui->action_Dump_Video->setChecked(true);
+            continue;
+        }
+
         // Launch game in fullscreen mode
         if (args[i] == QStringLiteral("-f")) {
             ui->action_Fullscreen->setChecked(true);
@@ -2797,6 +2812,32 @@ void GMainWindow::OnCaptureScreenshot() {
     OnStartGame();
 }
 
+void GMainWindow::ShowFFmpegErrorMessage() {
+    QMessageBox message_box;
+    message_box.setWindowTitle(tr("Could not load video dumper"));
+    message_box.setText(
+        tr("FFmpeg could not be loaded. Make sure you have a compatible version installed."
+#ifdef _WIN32
+           "\n\nTo install FFmpeg to Lime, press Open and select your FFmpeg directory."
+#endif
+           "\n\nTo view a guide on how to install FFmpeg, press Help."));
+    message_box.setStandardButtons(QMessageBox::Ok | QMessageBox::Help
+#ifdef _WIN32
+                                   | QMessageBox::Open
+#endif
+    );
+    auto result = message_box.exec();
+    if (result == QMessageBox::Help) {
+        QDesktopServices::openUrl(
+            QUrl(QStringLiteral("https://web.archive.org/web/20240301121456/https://"
+                                "citra-emu.org/wiki/installing-ffmpeg-for-the-video-dumper/")));
+#ifdef _WIN32
+    } else if (result == QMessageBox::Open) {
+        OnOpenFFmpeg();
+#endif
+    }
+}
+
 void GMainWindow::OnDumpVideo() {
     if (DynamicLibrary::FFmpeg::LoadFFmpeg()) {
         if (ui->action_Dump_Video->isChecked()) {
@@ -2806,30 +2847,7 @@ void GMainWindow::OnDumpVideo() {
         }
     } else {
         ui->action_Dump_Video->setChecked(false);
-
-        QMessageBox message_box;
-        message_box.setWindowTitle(tr("Could not load video dumper"));
-        message_box.setText(
-            tr("FFmpeg could not be loaded. Make sure you have a compatible version installed."
-#ifdef _WIN32
-               "\n\nTo install FFmpeg to Lime, press Open and select your FFmpeg directory."
-#endif
-               "\n\nTo view a guide on how to install FFmpeg, press Help."));
-        message_box.setStandardButtons(QMessageBox::Ok | QMessageBox::Help
-#ifdef _WIN32
-                                       | QMessageBox::Open
-#endif
-        );
-        auto result = message_box.exec();
-        if (result == QMessageBox::Help) {
-            QDesktopServices::openUrl(
-                QUrl(QStringLiteral("https://web.archive.org/web/20240301121456/https://"
-                                    "citra-emu.org/wiki/installing-ffmpeg-for-the-video-dumper/")));
-#ifdef _WIN32
-        } else if (result == QMessageBox::Open) {
-            OnOpenFFmpeg();
-#endif
-        }
+        ShowFFmpegErrorMessage();
     }
 }
 
@@ -2914,7 +2932,8 @@ void GMainWindow::StartVideoDumping(const QString& path) {
     } else {
         QMessageBox::critical(
             this, tr("Lime3DS"),
-            tr("Could not start video dumping.<br>Refer to the log for details."));
+            tr("Could not start video dumping.<br>Please ensure that the video encoder is "
+               "configured correctly.<br>Refer to the log for details."));
         ui->action_Dump_Video->setChecked(false);
     }
 }
@@ -3629,6 +3648,7 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <filename>\n"
+                 "-d [path]    Dump video recording of emulator playback to the given file path\n"
                  "-f           Start in fullscreen mode\n"
                  "-g [path]    Start a game file located at the given path\n"
                  "-h           Display this help and exit\n"
@@ -3644,7 +3664,7 @@ static void PrintVersion() {
 
 int main(int argc, char* argv[]) {
     while (optind < argc) {
-        int arg = getopt(argc, argv, "fg:hi:r:v");
+        int arg = getopt(argc, argv, "d:fg:hi:p:r:v");
         if (arg != -1) {
             switch (static_cast<char>(arg)) {
             case 'h':
