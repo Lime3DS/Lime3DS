@@ -317,15 +317,6 @@ GMainWindow::GMainWindow(Core::System& system_)
             continue;
         }
 
-        // Launch game at path
-        if (args[i] == QStringLiteral("-g")) {
-            if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
-                continue;
-            }
-            game_path = args[++i];
-            continue;
-        }
-
         if (args[i] == QStringLiteral("-p")) {
             if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
                 continue;
@@ -348,6 +339,11 @@ GMainWindow::GMainWindow(Core::System& system_)
         if (args[i] == QStringLiteral("-w")) {
             ui->action_Fullscreen->setChecked(false);
             continue;
+        }
+
+        // Launch game at path
+        if (i == args.size() - 1 && !args[i + 1].startsWith(QChar::fromLatin1('-'))) {
+            game_path = args[++i];
         }
     }
 
@@ -3647,10 +3643,9 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 
 static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
-              << " [options] <filename>\n"
+              << " [options] <file path>\n"
                  "-d [path]    Dump video recording of emulator playback to the given file path\n"
                  "-f           Start in fullscreen mode\n"
-                 "-g [path]    Start a game file located at the given path\n"
                  "-h           Display this help and exit\n"
                  "-i [path]    Install a CIA file at the given path\n"
                  "-p [path]    Play a TAS movie located at the given path\n"
