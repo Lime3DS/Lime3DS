@@ -2458,7 +2458,6 @@ void GMainWindow::ToggleEmulationSpeed() {
         turbo_mode_active = !turbo_mode_active;
 
         if (turbo_mode_active) {
-            initial_frame_limit = Settings::values.frame_limit.GetValue();
             Settings::values.frame_limit.SetValue(UISettings::values.turbo_speed_slider.GetValue());
         } else {
             Settings::values.frame_limit.SetValue(initial_frame_limit);
@@ -2472,30 +2471,17 @@ void GMainWindow::ToggleEmulationSpeed() {
 void GMainWindow::AdjustSpeedLimit(bool increase) {
     const int SPEED_LIMIT_STEP = 5;
 
-    if (turbo_mode_active) {
-        int turbo_speed = UISettings::values.turbo_speed_slider.GetValue();
-        if (increase) {
-            if (turbo_speed < 995) {
-                UISettings::values.turbo_speed_slider.SetValue(turbo_speed + SPEED_LIMIT_STEP);
-            }
-        } else {
-            if (turbo_speed > SPEED_LIMIT_STEP) {
-                UISettings::values.turbo_speed_slider.SetValue(turbo_speed - SPEED_LIMIT_STEP);
-            }
+    int turbo_speed = UISettings::values.turbo_speed_slider.GetValue();
+    if (increase) {
+        if (turbo_speed < 995) {
+            UISettings::values.turbo_speed_slider.SetValue(turbo_speed + SPEED_LIMIT_STEP);
         }
-        Settings::values.frame_limit.SetValue(UISettings::values.turbo_speed_slider.GetValue());
     } else {
-        int current_frame_limit = Settings::values.frame_limit.GetValue();
-        if (increase) {
-            if (current_frame_limit < 995) {
-                Settings::values.frame_limit.SetValue(current_frame_limit + SPEED_LIMIT_STEP);
-            }
-        } else {
-            if (current_frame_limit > SPEED_LIMIT_STEP) {
-                Settings::values.frame_limit.SetValue(current_frame_limit - SPEED_LIMIT_STEP);
-            }
+        if (turbo_speed > SPEED_LIMIT_STEP) {
+            UISettings::values.turbo_speed_slider.SetValue(turbo_speed - SPEED_LIMIT_STEP);
         }
     }
+
     UpdateStatusBar();
 }
 
