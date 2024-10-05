@@ -317,6 +317,16 @@ GMainWindow::GMainWindow(Core::System& system_)
             continue;
         }
 
+        // Enable GDB stub
+        if (args[i] == QStringLiteral("-g")) {
+            if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
+                continue;
+            }
+            Settings::values.use_gdbstub = true;
+            Settings::values.gdbstub_port = strtoul(args[++i].toLatin1(), NULL, 0);
+            continue;
+        }
+
         if (args[i] == QStringLiteral("-p")) {
             if (i >= args.size() - 1 || args[i + 1].startsWith(QChar::fromLatin1('-'))) {
                 continue;
@@ -3645,6 +3655,7 @@ static void PrintHelp(const char* argv0) {
     std::cout << "Usage: " << argv0
               << " [options] <file path>\n"
                  "-d [path]    Dump video recording of emulator playback to the given file path\n"
+                 "-g [port]    Enable gdb stub on the given port\n"
                  "-f           Start in fullscreen mode\n"
                  "-h           Display this help and exit\n"
                  "-i [path]    Install a CIA file at the given path\n"
