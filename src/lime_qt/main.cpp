@@ -354,8 +354,9 @@ GMainWindow::GMainWindow(Core::System& system_)
         }
 
         // Launch game at path
-        if (i == args.size() - 1 && !args[i + 1].startsWith(QChar::fromLatin1('-'))) {
-            game_path = args[++i];
+        if (i == args.size() - 1 && !args[i].startsWith(QChar::fromLatin1('-'))) {
+            game_path = args[i];
+            continue;
         }
     }
 
