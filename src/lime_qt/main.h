@@ -222,6 +222,7 @@ private:
                             const std::string& keywords, const std::string& name,
                             const bool& skip_tryexec);
 
+    void ShowCommandOutput(std::string title, std::string message);
     void ShowFFmpegErrorMessage();
 
 private slots:
