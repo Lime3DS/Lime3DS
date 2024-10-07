@@ -1,10 +1,11 @@
-// Copyright 2019 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #include <QBrush>
 #include <QString>
 #include <QTreeWidgetItem>
+#include <QtGlobal>
 #include <fmt/format.h>
 #include "common/assert.h"
 #include "common/string_util.h"
@@ -22,8 +23,13 @@ IPCRecorderWidget::IPCRecorderWidget(Core::System& system_, QWidget* parent)
     ui->setupUi(this);
     qRegisterMetaType<IPCDebugger::RequestRecord>();
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(ui->enabled, &QCheckBox::stateChanged, this,
             [this](int new_state) { SetEnabled(new_state == Qt::Checked); });
+#else
+    connect(ui->enabled, &QCheckBox::checkStateChanged, this,
+            [this](int new_state) { SetEnabled(new_state == Qt::Checked); });
+#endif
     connect(ui->clearButton, &QPushButton::clicked, this, &IPCRecorderWidget::Clear);
     connect(ui->filter, &QLineEdit::textChanged, this, &IPCRecorderWidget::ApplyFilterToAll);
     connect(ui->main, &QTreeWidget::itemDoubleClicked, this, &IPCRecorderWidget::OpenRecordDialog);
