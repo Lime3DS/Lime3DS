@@ -1,4 +1,4 @@
-// Copyright 2022 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -553,7 +553,7 @@ SurfaceId RasterizerCache<T>::GetTextureSurface(const Pica::Texture::TextureInfo
     params.levels = max_level + 1;
     params.is_tiled = true;
     params.pixel_format = PixelFormatFromTextureFormat(info.format);
-    params.res_scale = filter != Settings::TextureFilter::None ? resolution_scale_factor : 1;
+    params.res_scale = filter != Settings::TextureFilter::NoFilter ? resolution_scale_factor : 1;
     params.UpdateParams();
 
     const u32 min_width = info.width >> max_level;

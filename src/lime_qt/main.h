@@ -260,6 +260,7 @@ private slots:
     void ToggleFullscreen();
     void ToggleSecondaryFullscreen();
     void ChangeScreenLayout();
+    void ChangeSmallScreenPosition();
     void UpdateSecondaryWindowVisibility();
     void ToggleScreenLayout();
     void OnSwapScreens();

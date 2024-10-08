@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -39,5 +39,6 @@ abstract class SettingsItem(
         const val TYPE_RUNNABLE = 7
         const val TYPE_INPUT_BINDING = 8
         const val TYPE_STRING_INPUT = 9
+        const val TYPE_FLOAT_INPUT = 10
     }
 }

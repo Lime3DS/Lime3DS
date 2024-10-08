@@ -1,4 +1,4 @@
-// Copyright 2015 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -1099,8 +1099,8 @@ void Module::Interface::DriverInitialize(Kernel::HLERequestContext& ctx) {
         for (int context_id = 0; context_id < 2; ++context_id) {
             // Note: the following default values are verified against real 3DS
             ContextConfig& context = camera.contexts[context_id];
-            context.flip = camera_id == 1 ? Flip::Horizontal : Flip::None;
-            context.effect = Effect::None;
+            context.flip = camera_id == 1 ? Flip::Horizontal : Flip::NoFlip;
+            context.effect = Effect::NoEffect;
             context.format = OutputFormat::YUV422;
             context.resolution =
                 context_id == 0 ? PRESET_RESOLUTION[5 /*DS_LCD*/] : PRESET_RESOLUTION[0 /*VGA*/];

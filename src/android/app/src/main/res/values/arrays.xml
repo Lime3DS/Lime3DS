@@ -39,6 +39,28 @@
         <item>1</item>
     </integer-array>
 
+    <string-array name="smallScreenPositions">
+        <item>@string/small_screen_position_top_right</item>
+        <item>@string/small_screen_position_middle_right</item>
+        <item>@string/small_screen_position_bottom_right</item>
+        <item>@string/small_screen_position_top_left</item>
+        <item>@string/small_screen_position_middle_left</item>
+        <item>@string/small_screen_position_bottom_left</item>
+        <item>@string/small_screen_position_above</item>
+        <item>@string/small_screen_position_below</item>
+    </string-array>
+
+    <integer-array name="smallScreenPositionValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </integer-array>
+
     <string-array name="regionNames">
         <item>@string/auto_select</item>
         <item>@string/system_region_jpn</item>

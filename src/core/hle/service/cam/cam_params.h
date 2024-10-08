@@ -1,4 +1,4 @@
-// Copyright 2020 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -17,7 +17,7 @@ enum CameraIndex {
 };
 
 enum class Effect : u8 {
-    None = 0,
+    NoEffect = 0,
     Mono = 1,
     Sepia = 2,
     Negative = 3,
@@ -26,7 +26,7 @@ enum class Effect : u8 {
 };
 
 enum class Flip : u8 {
-    None = 0,
+    NoFlip = 0,
     Horizontal = 1,
     Vertical = 2,
     Reverse = 3,
