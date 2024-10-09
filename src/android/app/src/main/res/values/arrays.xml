@@ -530,4 +530,32 @@
         <item>12</item>
     </integer-array>
 
+    <integer-array name="landscape_values">
+        <item>2</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>0</item>
+        <item>5</item>
+    </integer-array>
+    <integer-array name="portrait_values">
+        <item>0</item>
+        <item>1</item>
+    </integer-array>
+
+    <string-array name="orientationOptions">
+        <item>@string/emulation_screen_orientation_auto_sensor</item>
+        <item>@string/emulation_screen_orientation_landscape</item>
+        <item>@string/emulation_screen_orientation_landscape_flipped</item>
+        <item>@string/emulation_screen_orientation_portrait</item>
+        <item>@string/emulation_screen_orientation_portrait_flipped</item>
+    </string-array>
+    <integer-array name="orientationValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
 </resources>
