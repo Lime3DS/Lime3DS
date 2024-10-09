@@ -377,6 +377,9 @@
    <property name="text">
     <string>Close</string>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
   </action>
   <action name="action_Save_Movie">
    <property name="enabled">

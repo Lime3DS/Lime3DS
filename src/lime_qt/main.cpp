@@ -360,6 +360,7 @@ GMainWindow::GMainWindow(Core::System& system_)
     if (fullscreen_override) {
         ui->action_Fullscreen->setChecked(*fullscreen_override);
     }
+    ui->action_Close_Movie->setEnabled(movie_playback_on_start || movie_record_on_start);
 
     ConnectAppEvents();
     ConnectMenuEvents();
