@@ -4,6 +4,7 @@
 
 #include <clocale>
 #include <memory>
+#include <optional>
 #include <thread>
 #include <QFileDialog>
 #include <QFutureWatcher>
@@ -176,57 +177,9 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     this->config = std::make_unique<Config>();
 
-#ifdef __unix__
-    SetGamemodeEnabled(Settings::values.enable_gamemode.GetValue());
-#endif
-
-    // register types to use in slots and signals
-    qRegisterMetaType<std::size_t>("std::size_t");
-    qRegisterMetaType<Service::AM::InstallStatus>("Service::AM::InstallStatus");
-
-    // Register CameraFactory
-    qt_cameras = std::make_shared<Camera::QtMultimediaCameraHandlerFactory>();
-    Camera::RegisterFactory("image", std::make_unique<Camera::StillImageCameraFactory>());
-    Camera::RegisterFactory("qt", std::make_unique<Camera::QtMultimediaCameraFactory>(qt_cameras));
-
-    LoadTranslation();
-
-    Pica::g_debug_context = Pica::DebugContext::Construct();
-    setAcceptDrops(true);
-    ui->setupUi(this);
-    statusBar()->hide();
-
-    default_theme_paths = QIcon::themeSearchPaths();
-    UpdateUITheme();
-
-    SetDiscordEnabled(UISettings::values.enable_discord_presence.GetValue());
-    discord_rpc->Update();
-
-    play_time_manager = std::make_unique<PlayTime::PlayTimeManager>();
-
-    Network::Init();
-
-    movie.SetPlaybackCompletionCallback([this] {
-        QMetaObject::invokeMethod(this, "OnMoviePlaybackCompleted", Qt::BlockingQueuedConnection);
-    });
-
-    InitializeWidgets();
-    InitializeDebugWidgets();
-    InitializeRecentFileMenuActions();
-    InitializeSaveStateMenuActions();
-    InitializeHotkeys();
-#if ENABLE_QT_UPDATER
-    ShowUpdaterWidgets();
-#else
-    ui->action_Check_For_Updates->setVisible(false);
-    ui->action_Open_Maintenance_Tool->setVisible(false);
-#endif
-
-    SetDefaultUIGeometry();
-    RestoreUIState();
-
     QStringList args = QApplication::arguments();
     QString game_path;
+    std::optional<bool> fullscreen_override;
     for (int i = 1; i < args.size(); ++i) {
         // Preserves drag/drop functionality
         if (args.size() == 2 && !args[1].startsWith(QChar::fromLatin1('-'))) {
@@ -245,13 +198,12 @@ GMainWindow::GMainWindow(Core::System& system_)
             }
             video_dumping_path = args[++i];
             video_dumping_on_start = true;
-            ui->action_Dump_Video->setChecked(true);
             continue;
         }
 
         // Launch game in fullscreen mode
         if (args[i] == QStringLiteral("-f")) {
-            ui->action_Fullscreen->setChecked(true);
+            fullscreen_override = true;
             continue;
         }
 
@@ -342,7 +294,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 
         // Launch game in windowed mode
         if (args[i] == QStringLiteral("-w")) {
-            ui->action_Fullscreen->setChecked(false);
+            fullscreen_override = false;
             continue;
         }
 
@@ -354,6 +306,60 @@ GMainWindow::GMainWindow(Core::System& system_)
     }
 
     CheckForMigration();
+
+#ifdef __unix__
+    SetGamemodeEnabled(Settings::values.enable_gamemode.GetValue());
+#endif
+
+    // register types to use in slots and signals
+    qRegisterMetaType<std::size_t>("std::size_t");
+    qRegisterMetaType<Service::AM::InstallStatus>("Service::AM::InstallStatus");
+
+    // Register CameraFactory
+    qt_cameras = std::make_shared<Camera::QtMultimediaCameraHandlerFactory>();
+    Camera::RegisterFactory("image", std::make_unique<Camera::StillImageCameraFactory>());
+    Camera::RegisterFactory("qt", std::make_unique<Camera::QtMultimediaCameraFactory>(qt_cameras));
+
+    LoadTranslation();
+
+    Pica::g_debug_context = Pica::DebugContext::Construct();
+    setAcceptDrops(true);
+    ui->setupUi(this);
+    statusBar()->hide();
+
+    default_theme_paths = QIcon::themeSearchPaths();
+    UpdateUITheme();
+
+    SetDiscordEnabled(UISettings::values.enable_discord_presence.GetValue());
+    discord_rpc->Update();
+
+    play_time_manager = std::make_unique<PlayTime::PlayTimeManager>();
+
+    Network::Init();
+
+    movie.SetPlaybackCompletionCallback([this] {
+        QMetaObject::invokeMethod(this, "OnMoviePlaybackCompleted", Qt::BlockingQueuedConnection);
+    });
+
+    InitializeWidgets();
+    InitializeDebugWidgets();
+    InitializeRecentFileMenuActions();
+    InitializeSaveStateMenuActions();
+    InitializeHotkeys();
+#if ENABLE_QT_UPDATER
+    ShowUpdaterWidgets();
+#else
+    ui->action_Check_For_Updates->setVisible(false);
+    ui->action_Open_Maintenance_Tool->setVisible(false);
+#endif
+
+    SetDefaultUIGeometry();
+    RestoreUIState();
+
+    ui->action_Dump_Video->setChecked(video_dumping_on_start);
+    if (fullscreen_override) {
+        ui->action_Fullscreen->setChecked(*fullscreen_override);
+    }
 
     ConnectAppEvents();
     ConnectMenuEvents();
