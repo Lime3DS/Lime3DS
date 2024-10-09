@@ -221,9 +221,12 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
         bottomSheetView.findViewById<TextView>(R.id.about_game_filename).text = "File: " + game.filename
         GameIconUtils.loadGameIcon(activity, game, bottomSheetView.findViewById(R.id.game_icon))
 
-        val shortcutButton = bottomSheetView.findViewById<MaterialButton>(R.id.game_shortcut)
-        shortcutButton.isEnabled = !game.isInstalled
-        shortcutButton.setOnClickListener {
+        bottomSheetView.findViewById<MaterialButton>(R.id.about_game_play).setOnClickListener {
+            val action = HomeNavigationDirections.actionGlobalEmulationActivity(holder.game)
+            view.findNavController().navigate(action)
+        }
+
+        bottomSheetView.findViewById<MaterialButton>(R.id.game_shortcut).setOnClickListener {
             val shortcutManager = activity.getSystemService(ShortcutManager::class.java)
 
             coroutineScope.launch {
@@ -241,11 +244,6 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
                     shortcutManager.requestPinShortcut(shortcut, null)
                 }
             }
-        }
-
-        bottomSheetView.findViewById<MaterialButton>(R.id.about_game_play).setOnClickListener {
-            val action = HomeNavigationDirections.actionGlobalEmulationActivity(holder.game)
-            view.findNavController().navigate(action)
         }
 
         bottomSheetView.findViewById<MaterialButton>(R.id.cheats).setOnClickListener {
