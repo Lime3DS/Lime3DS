@@ -23,7 +23,7 @@ AC_I::AC_I(std::shared_ptr<Module> ac) : Module::Interface(std::move(ac), "ac:i"
         {0x000F, &AC_I::GetConnectingInfraPriority, "GetConnectingInfraPriority"},
         {0x0010, nullptr, "GetCurrentNZoneInfo"},
         {0x0011, nullptr, "GetNZoneApNumService"},
-        {0x001D, nullptr, "ScanAPs"},
+        {0x001D, &AC_I::ScanAPs, "ScanAPs"},
         {0x0024, nullptr, "AddDenyApType"},
         {0x0027, &AC_I::GetInfraPriority, "GetInfraPriority"},
         {0x002C, &AC_I::SetFromApplication, "SetFromApplication"},
