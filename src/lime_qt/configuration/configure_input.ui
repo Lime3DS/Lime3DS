@@ -68,9 +68,104 @@
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="scrollAreaContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>404</width>
+        <height>731</height>
+       </rect>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <layout class="QGridLayout" name="gridLayout_7">
+         <item row="2" column="0">
+          <widget class="QGroupBox" name="faceButtons_3">
+           <property name="title">
+            <string>Shoulder Buttons</string>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="1" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_16">
+              <item>
+               <widget class="QLabel" name="label_18">
+                <property name="text">
+                 <string>ZR:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonZR">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <item>
+               <widget class="QLabel" name="label_17">
+                <property name="text">
+                 <string>L:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonL">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_15">
+              <item>
+               <widget class="QLabel" name="label_20">
+                <property name="text">
+                 <string>ZL:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonZL">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <widget class="QLabel" name="label_19">
+                <property name="text">
+                 <string>R:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonR">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QGroupBox" name="faceButtons">
            <property name="title">
@@ -398,35 +493,27 @@
             <bool>false</bool>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
-            <item row="1" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_19">
+            <item row="11" column="2">
+             <widget class="QPushButton" name="buttonCircleUpRight">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1" rowspan="2">
+             <layout class="QVBoxLayout" name="verticalLayout_7">
               <item>
-               <widget class="QLabel" name="label_24">
+               <widget class="QLabel" name="label_6">
                 <property name="text">
-                 <string>Up:</string>
+                 <string>Up Left:</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="buttonCircleUp">
-                <property name="text">
+               <widget class="QPushButton" name="buttonCircleUpLeft">
+                <property name="toolTip">
                  <string/>
                 </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="2">
-             <layout class="QVBoxLayout" name="verticalLayout_18">
-              <item>
-               <widget class="QLabel" name="label_23">
-                <property name="text">
-                 <string>Right:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonCircleRight">
                 <property name="text">
                  <string/>
                 </property>
@@ -452,13 +539,6 @@
               </item>
              </layout>
             </item>
-            <item row="2" column="1" colspan="2">
-             <widget class="QPushButton" name="buttonCircleAnalog">
-              <property name="text">
-               <string>Set Analog Stick</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="2">
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <item>
@@ -477,7 +557,25 @@
               </item>
              </layout>
             </item>
-            <item row="3" column="1" colspan="2">
+            <item row="1" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_19">
+              <item>
+               <widget class="QLabel" name="label_24">
+                <property name="text">
+                 <string>Up:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCircleUp">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="20" column="1" colspan="2">
              <layout class="QVBoxLayout" name="sliderCirclePadDeadzoneAndModifierVerticalLayout">
               <item>
                <layout class="QHBoxLayout" name="sliderCirclePadDeadzoneAndModifierHorizontalLayout">
@@ -503,7 +601,118 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="buttonCircleAnalog">
+                <property name="text">
+                 <string>Set Analog Stick</string>
+                </property>
+               </widget>
+              </item>
              </layout>
+            </item>
+            <item row="0" column="2">
+             <layout class="QVBoxLayout" name="verticalLayout_18">
+              <item>
+               <widget class="QLabel" name="label_23">
+                <property name="text">
+                 <string>Right:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCircleRight">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="10" column="2">
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Up Right:</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="4" column="1" colspan="2">
+             <layout class="QVBoxLayout" name="verticalLayout_38">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_14">
+                <property name="toolTip">
+                 <string>Set a static analog direction as a input.
+ It is most useful to help people with disabilities but can also be used for niche circumstances.
+ Not reccomended to use actual controller anolog sticks on these presets but they do work </string>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="text">
+                 <string>Directional Presets</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="12" column="2">
+             <layout class="QVBoxLayout" name="verticalLayout_30">
+              <item>
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>Down Right:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCircleDownRight">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="12" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_29">
+              <item>
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>Down Left:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCircleDownLeft">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="14" column="1" colspan="2">
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -520,6 +729,24 @@
             <bool>false</bool>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
+            <item row="1" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_24">
+              <item>
+               <widget class="QLabel" name="label_26">
+                <property name="text">
+                 <string>Down:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCStickDown">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item row="0" column="1">
              <layout class="QVBoxLayout" name="verticalLayout_22">
               <item>
@@ -531,24 +758,6 @@
               </item>
               <item>
                <widget class="QPushButton" name="buttonCStickRight">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_21">
-              <item>
-               <widget class="QLabel" name="label_25">
-                <property name="text">
-                 <string>Left:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonCStickLeft">
                 <property name="text">
                  <string/>
                 </property>
@@ -574,24 +783,17 @@
               </item>
              </layout>
             </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="QPushButton" name="buttonCStickAnalog">
-              <property name="text">
-               <string>Set Analog Stick</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_24">
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_21">
               <item>
-               <widget class="QLabel" name="label_26">
+               <widget class="QLabel" name="label_25">
                 <property name="text">
-                 <string>Down:</string>
+                 <string>Left:</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="buttonCStickDown">
+               <widget class="QPushButton" name="buttonCStickLeft">
                 <property name="text">
                  <string/>
                 </property>
@@ -599,7 +801,103 @@
               </item>
              </layout>
             </item>
-            <item row="3" column="0" colspan="2">
+            <item row="5" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_35">
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>Up Right:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCStickUpRight">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="6" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_36">
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>Down Left:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCStickDownLeft">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="6" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_37">
+              <item>
+               <widget class="QLabel" name="label_13">
+                <property name="text">
+                 <string>Down Right:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCStickDownRight">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="5" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_31">
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>Up Left:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="buttonCStickUpLeft">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <layout class="QVBoxLayout" name="verticalLayout_39">
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="toolTip">
+                 <string>Set a static analog direction as a input. It is ost useful to help people with disabilities but can also be used for niche circumstances. Not reccomended to use actual controller anolog sticks on these presets but they do work </string>
+                </property>
+                <property name="text">
+                 <string>Directional Presets</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="9" column="0" colspan="2">
              <layout class="QVBoxLayout" name="sliderCStickDeadzoneAndModifierVerticalLayout">
               <property name="sizeConstraint">
                <enum>QLayout::SetDefaultConstraint</enum>
@@ -625,94 +923,21 @@
                 </property>
                </widget>
               </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QGroupBox" name="faceButtons_3">
-           <property name="title">
-            <string>Shoulder Buttons</string>
-           </property>
-           <property name="flat">
-            <bool>false</bool>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_3">
-            <item row="1" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_16">
               <item>
-               <widget class="QLabel" name="label_18">
+               <widget class="QPushButton" name="buttonCStickAnalog">
                 <property name="text">
-                 <string>ZR:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonZR">
-                <property name="text">
-                 <string/>
+                 <string>Set Analog Stick</string>
                 </property>
                </widget>
               </item>
              </layout>
             </item>
-            <item row="1" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_15">
-              <item>
-               <widget class="QLabel" name="label_20">
-                <property name="text">
-                 <string>ZL:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonZL">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_13">
-              <item>
-               <widget class="QLabel" name="label_17">
-                <property name="text">
-                 <string>L:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonL">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="0" column="1">
-             <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
-               <widget class="QLabel" name="label_19">
-                <property name="text">
-                 <string>R:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="buttonR">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="7" column="0" colspan="2">
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -842,11 +1067,11 @@
       </layout>
      </item>
      <item>
-       <widget class="QCheckBox" name="use_artic_controller">
-         <property name="text">
-           <string>Use Artic Controller when connected to Artic Base Server</string>
-         </property>
-       </widget>
+      <widget class="QCheckBox" name="use_artic_controller">
+       <property name="text">
+        <string>Use Artic Controller when connected to Artic Base Server</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -869,13 +1094,11 @@
   <tabstop>buttonCircleRight</tabstop>
   <tabstop>buttonCircleUp</tabstop>
   <tabstop>buttonCircleDown</tabstop>
-  <tabstop>buttonCircleAnalog</tabstop>
   <tabstop>sliderCirclePadDeadzoneAndModifier</tabstop>
   <tabstop>buttonCStickLeft</tabstop>
   <tabstop>buttonCStickRight</tabstop>
   <tabstop>buttonCStickUp</tabstop>
   <tabstop>buttonCStickDown</tabstop>
-  <tabstop>buttonCStickAnalog</tabstop>
   <tabstop>sliderCStickDeadzoneAndModifier</tabstop>
   <tabstop>buttonL</tabstop>
   <tabstop>buttonR</tabstop>

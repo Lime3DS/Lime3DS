@@ -1,4 +1,4 @@
-﻿// Copyright 2014 Citra Emulator Project
+﻿// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -25,7 +25,7 @@ public:
     void Save();
 
     static const std::array<int, Settings::NativeButton::NumButtons> default_buttons;
-    static const std::array<std::array<int, 5>, Settings::NativeAnalog::NumAnalogs> default_analogs;
+    static const std::array<std::array<int, 9>, Settings::NativeAnalog::NumAnalogs> default_analogs;
     static const std::array<UISettings::Shortcut, 35> default_hotkeys;
 
 private:
