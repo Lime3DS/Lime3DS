@@ -141,6 +141,11 @@
     <string name="button_zr" translatable="false">ZR</string>
     <string name="input_message_analog_only">This control must be bound to a gamepad analog stick or D-pad axis!</string>
     <string name="input_message_button_only">This control must be bound to a gamepad button!</string>
+    <string name="controller_quick_config">Quick Configure</string>
+    <string name="controller_quick_config_finish">Finish</string>
+    <string name="controller_quick_config_unassigned">Unassigned</string>
+    <string name="controller_quick_config_next">Next</string>
+    <string name="controller_quick_config_close">Close</string>
 
     <!-- System files strings -->
     <string name="system_files">System Files</string>
