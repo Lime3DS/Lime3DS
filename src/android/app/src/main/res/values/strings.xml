@@ -230,6 +230,9 @@
     <string name="linear_filtering_description">Enables linear filtering, which causes game visuals to appear smoother.</string>
     <string name="texture_filter_name">Texture Filter</string>
     <string name="texture_filter_description">Enhances the visuals of games by applying a filter to textures. The supported filters are Anime4K Ultrafast, Bicubic, ScaleForce, xBRZ freescale, and MMPX.</string>
+    <string name="advanced">Advanced"</string>
+    <string name="texture_sampling_name">Texture Sampling</string>
+    <string name="texture_sampling_description">Overrides the sampling filter used by games. This can be useful in certain cases with poorly behaved games when upscaling. If unsure, set this to Game Controlled.</string>
     <string name="hw_shaders">Enable Hardware Shader</string>
     <string name="hw_shaders_description">Uses hardware to emulate 3DS shaders. When enabled, game performance will be significantly improved.</string>
     <string name="shaders_accurate_mul">Accurate Multiplication</string>
@@ -577,10 +580,14 @@
     <!-- Texture filter names -->
     <string name="anime4k">Anime4K</string>
     <string name="bicubic">Bicubic</string>
-    <string name="nearest_neighbor">Nearest Neighbor</string>
     <string name="scaleforce">ScaleForce</string>
     <string name="xbrz">xBRZ</string>
     <string name="mmpx">MMPX</string>
+
+    <!-- Texture Sampling names -->
+    <string name="game_controlled">Game Controlled</string>
+    <string name="nearest_neighbor">Nearest Neighbor</string>
+    <string name="linear">Linear</string>
 
     <!-- Sound output modes -->
     <string name="mono">Mono</string>
