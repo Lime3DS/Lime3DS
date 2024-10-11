@@ -28,7 +28,7 @@ ConfigureDialog::ConfigureDialog(QWidget* parent, HotkeyRegistry& registry_, Cor
                                  bool enable_web_config)
     : QDialog(parent), ui{std::make_unique<Ui::ConfigureDialog>()}, registry{registry_},
       system{system_}, is_powered_on{system.IsPoweredOn()},
-      general_tab{std::make_unique<ConfigureGeneral>(this)},
+      general_tab{std::make_unique<ConfigureGeneral>(is_powered_on, this)},
       system_tab{std::make_unique<ConfigureSystem>(system, this)},
       input_tab{std::make_unique<ConfigureInput>(system, this)},
       hotkeys_tab{std::make_unique<ConfigureHotkeys>(this)},

@@ -24,9 +24,8 @@ static constexpr int SettingsToSlider(int value) {
     return (value - 5) / 5;
 }
 
-ConfigureGeneral::ConfigureGeneral(QWidget* parent)
-    : QWidget(parent), ui(std::make_unique<Ui::ConfigureGeneral>()) {
-
+ConfigureGeneral::ConfigureGeneral(bool is_powered_on, QWidget* parent)
+    : QWidget(parent), ui(std::make_unique<Ui::ConfigureGeneral>()), is_powered_on{is_powered_on} {
     ui->setupUi(this);
 
     connect(ui->turbo_speed_slider, &QSlider::valueChanged, this, [&](int value) {
