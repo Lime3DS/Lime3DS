@@ -39,7 +39,8 @@ static Common::Rectangle<T> MaxRectangle(Common::Rectangle<T> window_area,
 }
 
 FramebufferLayout DefaultFrameLayout(u32 width, u32 height, bool swapped, bool upright) {
-    return LargeFrameLayout(width,height,swapped,upright,1.0f,Settings::SmallScreenPosition::BelowLarge);
+    return LargeFrameLayout(width, height, swapped, upright, 1.0f,
+                            Settings::SmallScreenPosition::BelowLarge);
 }
 
 FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool swapped) {
@@ -288,11 +289,21 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
             // shift the large screen down and the bottom screen above it
             small_screen = small_screen.TranslateY(large_screen.top);
             large_screen = large_screen.TranslateY(small_screen.GetHeight());
+            // If the "large screen" is actually smaller, center it
+            if (large_screen.GetWidth() < total_rect.GetWidth()) {
+                large_screen =
+                    large_screen.TranslateX((total_rect.GetWidth() - large_screen.GetWidth()) / 2);
+            }
             small_screen = small_screen.TranslateX(large_screen.left + large_screen.GetWidth() / 2 -
                                                    small_screen.GetWidth() / 2);
             break;
         case Settings::SmallScreenPosition::BelowLarge:
             // shift the bottom_screen down and then over to the center
+            // If the "large screen" is actually smaller, center it
+            if (large_screen.GetWidth() < total_rect.GetWidth()) {
+                large_screen =
+                    large_screen.TranslateX((total_rect.GetWidth() - large_screen.GetWidth()) / 2);
+            }
             small_screen = small_screen.TranslateY(large_screen.bottom);
             small_screen = small_screen.TranslateX(large_screen.left + large_screen.GetWidth() / 2 -
                                                    small_screen.GetWidth() / 2);
