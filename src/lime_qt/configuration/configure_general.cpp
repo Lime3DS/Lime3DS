@@ -107,7 +107,10 @@ void ConfigureGeneral::SetConfiguration() {
     }
 
     if (!Settings::IsConfiguringGlobal()) {
-        if (Settings::values.frame_limit.UsingGlobal()) {
+        if (is_powered_on) {
+            ui->emulation_speed_combo->setEnabled(false);
+            ui->frame_limit->setEnabled(false);
+        } else if (Settings::values.frame_limit.UsingGlobal()) {
             ui->emulation_speed_combo->setCurrentIndex(0);
             ui->frame_limit->setEnabled(false);
         } else {
@@ -200,7 +203,11 @@ void ConfigureGeneral::RetranslateUI() {
 void ConfigureGeneral::SetupPerGameUI() {
     if (Settings::IsConfiguringGlobal()) {
         ui->region_combobox->setEnabled(Settings::values.region_value.UsingGlobal());
-        ui->frame_limit->setEnabled(Settings::values.frame_limit.UsingGlobal());
+         if (is_powered_on) {
+            ui->frame_limit->setEnabled(false);
+        } else {
+            ui->frame_limit->setEnabled(Settings::values.frame_limit.UsingGlobal());
+        }
         return;
     }
 
