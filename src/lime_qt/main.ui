@@ -143,18 +143,22 @@
      <addaction name="action_Screen_Layout_Upright_Screens"/>
      <addaction name="action_Screen_Layout_Swap_Screens"/>
      <widget class="QMenu" name="menu_Small_Screen_Position">
-     <property name="title">
-      <string>Small Screen Position</string>
-     </property>
-     <addaction name="action_Small_Screen_TopRight"/>
-     <addaction name="action_Small_Screen_MiddleRight"/>
-     <addaction name="action_Small_Screen_BottomRight"/>
-     <addaction name="action_Small_Screen_TopLeft"/>
-     <addaction name="action_Small_Screen_MiddleLeft"/>
-     <addaction name="action_Small_Screen_BottomLeft"/>
-     <addaction name="action_Small_Screen_Above"/>
-     <addaction name="action_Small_Screen_Below"/>
-    </widget>
+      <property name="enabled">
+     <bool>true</bool>
+    </property>
+      <property name="title">
+       <string>Small Screen Position</string>
+      </property>
+      <addaction name="action_Small_Screen_TopRight"/>
+      <addaction name="action_Small_Screen_MiddleRight"/>
+      <addaction name="action_Small_Screen_BottomRight"/>
+      <addaction name="action_Small_Screen_TopLeft"/>
+      <addaction name="action_Small_Screen_MiddleLeft"/>
+      <addaction name="action_Small_Screen_BottomLeft"/>
+      <addaction name="action_Small_Screen_Above"/>
+      <addaction name="action_Small_Screen_Below"/>
+     </widget>
+     <addaction name="menu_Small_Screen_Position"/>
     </widget>
     <addaction name="action_Fullscreen"/>
     <addaction name="action_Single_Window_Mode"/>
