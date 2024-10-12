@@ -68,7 +68,7 @@ class GamesFragment : Fragment() {
                 requireContext(),
                 resources.getInteger(R.integer.game_grid_columns)
             )
-            adapter = GameAdapter(requireActivity() as AppCompatActivity, inflater, viewLifecycleOwner.lifecycleScope)
+            adapter = GameAdapter(requireActivity() as AppCompatActivity, inflater)
         }
 
         binding.swipeRefresh.apply {

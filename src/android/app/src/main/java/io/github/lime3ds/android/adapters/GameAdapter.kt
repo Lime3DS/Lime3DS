@@ -31,7 +31,6 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.graphics.drawable.IconCompat
 import android.graphics.drawable.Icon
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +51,7 @@ import io.github.lime3ds.android.viewmodel.GamesViewModel
 import io.github.lime3ds.android.features.settings.ui.SettingsActivity
 import io.github.lime3ds.android.features.settings.utils.SettingsFile
 
-class GameAdapter(private val activity: AppCompatActivity, private val inflater: LayoutInflater, private val coroutineScope: CoroutineScope) :
+class GameAdapter(private val activity: AppCompatActivity, private val inflater: LayoutInflater) :
     ListAdapter<Game, GameViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build()),
     View.OnClickListener, View.OnLongClickListener {
     private var lastClickTime = 0L
@@ -229,20 +228,18 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
         bottomSheetView.findViewById<MaterialButton>(R.id.game_shortcut).setOnClickListener {
             val shortcutManager = activity.getSystemService(ShortcutManager::class.java)
 
-            coroutineScope.launch {
-                withContext(Dispatchers.IO) {
-                    val bitmap = (bottomSheetView.findViewById<ImageView>(R.id.game_icon).drawable as BitmapDrawable).bitmap
-                    val icon = Icon.createWithBitmap(bitmap)
+            CoroutineScope(Dispatchers.IO).launch {
+                val bitmap = (bottomSheetView.findViewById<ImageView>(R.id.game_icon).drawable as BitmapDrawable).bitmap
+                val icon = Icon.createWithBitmap(bitmap)
 
-                    val shortcut = ShortcutInfo.Builder(context, game.title)
-                        .setShortLabel(game.title)
-                        .setIcon(icon)
-                        .setIntent(game.launchIntent.apply {
-                            putExtra("launched_from_shortcut", true)
-                        })
-                        .build()
-                    shortcutManager.requestPinShortcut(shortcut, null)
-                }
+                val shortcut = ShortcutInfo.Builder(context, game.title)
+                    .setShortLabel(game.title)
+                    .setIcon(icon)
+                    .setIntent(game.launchIntent.apply {
+                        putExtra("launched_from_shortcut", true)
+                    })
+                    .build()
+                shortcutManager.requestPinShortcut(shortcut, null)
             }
         }
 
