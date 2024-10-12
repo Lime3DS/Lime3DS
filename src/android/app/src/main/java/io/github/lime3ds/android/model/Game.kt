@@ -12,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.activities.EmulationActivity
+import io.github.lime3ds.android.utils.DocumentsTree
 
 @Parcelize
 @Serializable
@@ -34,7 +35,11 @@ class Game(
     val launchIntent: Intent
         get() = Intent(LimeApplication.appContext, EmulationActivity::class.java).apply {
             action = Intent.ACTION_VIEW
-            data = Uri.parse(path)
+            data = if (isInstalled) {
+                LimeApplication.documentsTree.getUri(path)
+            } else {
+                Uri.parse(path)
+            }
         }
 
     override fun equals(other: Any?): Boolean {
