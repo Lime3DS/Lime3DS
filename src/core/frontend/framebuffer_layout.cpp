@@ -48,9 +48,9 @@ FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool swapped
     ASSERT(height > 0);
     float sf = swapped ? 1.25f : 0.8f;
     FramebufferLayout res = LargeFrameLayout(width, height, swapped, false, sf, Settings::SmallScreenPosition::BelowLarge);
-    u32 shiftY = swapped ? res.bottom_screen.top : res.top_screen.top;
-    res.top_screen = res.top_screen.TranslateY(-shiftY);
-    res.bottom_screen = res.bottom_screen.TranslateY(-shiftY);
+    int shiftY = -(int)(swapped ? res.bottom_screen.top : res.top_screen.top);
+    res.top_screen = res.top_screen.TranslateY(shiftY);
+    res.bottom_screen = res.bottom_screen.TranslateY(shiftY);
     return res;
 }
 
