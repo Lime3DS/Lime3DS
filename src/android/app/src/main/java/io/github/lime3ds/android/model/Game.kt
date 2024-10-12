@@ -12,7 +12,6 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import io.github.lime3ds.android.LimeApplication
 import io.github.lime3ds.android.activities.EmulationActivity
-import io.github.lime3ds.android.utils.DocumentsTree
 
 @Parcelize
 @Serializable
