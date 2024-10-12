@@ -27,10 +27,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.core.content.pm.ShortcutInfoCompat
-import androidx.core.graphics.drawable.IconCompat
 import android.graphics.drawable.Icon
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
