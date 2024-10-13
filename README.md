@@ -28,7 +28,14 @@ There is no emulation specific difference between the MSVC and MSYS2 versions of
 
 ---
 ### Android
-The recommended method of downloading Lime3DS on Android is via Obtainium:
+Get it on Google Play:
+
+<a href="https://play.google.com/store/apps/details?id=io.github.lime3ds.android">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" width="200" alt="Get it on Google Play"/>
+</a>
+
+\
+You can also install Lime3DS for Android via Obtainium:
 1. Download and install Obtainium from [here](https://github.com/ImranR98/Obtainium/releases) (use the file named `app-release.apk`)
 2. Open Obtainium and click 'Add App'
 3. Type `https://github.com/Lime3DS/Lime3DS` into the 'App Source URL' section
@@ -41,17 +48,16 @@ Using Obtainium will allow for quick and easy installation of updates.
 \
 \
 Alternatively, you can install the latest APK from the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page.
-
 This will require a new APK to be manually downloaded each time an update is released.
-
 ---
 ### Linux
-
 Lime3DS is available as an AppImage on the [Releases](https://github.com/Lime3DS/Lime3DS/releases) page.
 
 We are also on Flathub:
 
-<a href=https://flathub.org/apps/io.github.lime3ds.Lime3DS><img width='180' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
+<a href="https://flathub.org/apps/io.github.lime3ds.Lime3DS">
+    <img src="https://dl.flathub.org/assets/badges/flathub-badge-en.svg" width="200" alt="Download on Flathub"/>
+</a>
 
 # Build Instructions
 Please refer to our website's [wiki](https://github.com/Lime3DS/Lime3DS/wiki/Building-From-Source) in order to find building instructions for Windows, Linux, Android and MacOS
@@ -91,7 +97,7 @@ If there is an issue you want solved or a feature you want implemented, feel fre
 
 Additionally, we are accepting language translations on [Transifex](https://app.transifex.com/lime3ds/lime3ds). If you know a non-english language listed on our Transifex page, please feel free to contribute.
 
-> [!NOTE]  
+> [!NOTE]
 > We are not currently accepting new languages for translation. Please do not request for new languages or language variants to be added.
 
 # Discord
