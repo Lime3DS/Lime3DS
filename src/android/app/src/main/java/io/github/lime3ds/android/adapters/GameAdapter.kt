@@ -14,6 +14,10 @@ import android.content.Context
 import android.widget.TextView
 import android.widget.ImageView
 import android.widget.Toast
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +27,10 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import android.graphics.drawable.Icon
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -212,6 +220,24 @@ class GameAdapter(private val activity: AppCompatActivity, private val inflater:
         bottomSheetView.findViewById<MaterialButton>(R.id.about_game_play).setOnClickListener {
             val action = HomeNavigationDirections.actionGlobalEmulationActivity(holder.game)
             view.findNavController().navigate(action)
+        }
+
+        bottomSheetView.findViewById<MaterialButton>(R.id.game_shortcut).setOnClickListener {
+            val shortcutManager = activity.getSystemService(ShortcutManager::class.java)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val bitmap = (bottomSheetView.findViewById<ImageView>(R.id.game_icon).drawable as BitmapDrawable).bitmap
+                val icon = Icon.createWithBitmap(bitmap)
+
+                val shortcut = ShortcutInfo.Builder(context, game.title)
+                    .setShortLabel(game.title)
+                    .setIcon(icon)
+                    .setIntent(game.launchIntent.apply {
+                        putExtra("launched_from_shortcut", true)
+                    })
+                    .build()
+                shortcutManager.requestPinShortcut(shortcut, null)
+            }
         }
 
         bottomSheetView.findViewById<MaterialButton>(R.id.cheats).setOnClickListener {
