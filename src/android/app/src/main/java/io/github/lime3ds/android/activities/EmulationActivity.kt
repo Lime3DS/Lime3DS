@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -95,7 +95,13 @@ class EmulationActivity : AppCompatActivity() {
             windowManager.defaultDisplay.rotation
         )
 
-        EmulationLifecycleUtil.addShutdownHook(hook = { this.finish() })
+        EmulationLifecycleUtil.addShutdownHook(hook = {
+            if (intent.getBooleanExtra("launched_from_shortcut", false)) {
+                finishAffinity()
+            } else {
+                this.finish()
+            }
+        })
 
         isEmulationRunning = true
         instance = this

@@ -109,6 +109,17 @@
                 android:focusedByDefault="true"
                 android:text="@string/play"
                 app:icon="@drawable/ic_play" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/game_shortcut"
+                style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/shortcut"
+                app:icon="@drawable/ic_shortcut"
+                app:iconGravity="textStart" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

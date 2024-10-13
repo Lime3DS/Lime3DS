@@ -1,13 +1,17 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 package io.github.lime3ds.android.model
 
 import android.os.Parcelable
+import android.content.Intent
+import android.net.Uri
 import java.util.HashSet
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
+import io.github.lime3ds.android.LimeApplication
+import io.github.lime3ds.android.activities.EmulationActivity
 
 @Parcelize
 @Serializable
@@ -26,6 +30,16 @@ class Game(
 ) : Parcelable {
     val keyAddedToLibraryTime get() = "${filename}_AddedToLibraryTime"
     val keyLastPlayedTime get() = "${filename}_LastPlayed"
+
+    val launchIntent: Intent
+        get() = Intent(LimeApplication.appContext, EmulationActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            data = if (isInstalled) {
+                LimeApplication.documentsTree.getUri(path)
+            } else {
+                Uri.parse(path)
+            }
+        }
 
     override fun equals(other: Any?): Boolean {
         if (other !is Game) {
