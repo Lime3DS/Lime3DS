@@ -1,4 +1,4 @@
-// Copyright 2018 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -15,6 +15,8 @@ enum class PacketType : u32 {
     Undefined = 0,
     ReadMemory = 1,
     WriteMemory = 2,
+    SendKey = 3,
+    SendSignal = 4
 };
 
 struct PacketHeader {
@@ -69,9 +71,6 @@ public:
     }
 
 private:
-    void HandleReadMemory(u32 address, u32 data_size);
-    void HandleWriteMemory(u32 address, std::span<const u8> data);
-
     struct PacketHeader header;
     std::array<u8, MAX_PACKET_DATA_SIZE> packet_data;
 
