@@ -907,6 +907,17 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
         sl.apply {
             add(
                 SingleChoiceSetting(
+                    IntSetting.ORIENTATION_OPTION,
+                    R.string.layout_screen_orientation,
+                    0,
+                    R.array.screenOrientations,
+                    R.array.screenOrientationValues,
+                    IntSetting.ORIENTATION_OPTION.key,
+                    IntSetting.ORIENTATION_OPTION.defaultValue
+                )
+            )
+            add(
+                SingleChoiceSetting(
                     IntSetting.SCREEN_LAYOUT,
                     R.string.emulation_switch_screen_layout,
                     0,
