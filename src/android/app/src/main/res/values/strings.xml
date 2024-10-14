@@ -386,7 +386,7 @@
     <string name="small_screen_position_description">Where should the small screen appear relative to the large one in Large Screen Layout?</string>
     <string name="small_screen_position_top_right">Top Right</string>
     <string name="small_screen_position_middle_right">Middle Right</string>
-    <string name="small_screen_position_bottom_right">Bottom Right</string>
+    <string name="small_screen_position_bottom_right">Bottom Right (Default)</string>
     <string name="small_screen_position_top_left">Top Left</string>
     <string name="small_screen_position_middle_left">Middle Left</string>
     <string name="small_screen_position_bottom_left">Bottom Left</string>
