@@ -2,9 +2,6 @@
 
 if [ "$TARGET" = "appimage" ]; then
     export EXTRA_CMAKE_FLAGS=(-DCMAKE_LINKER=/etc/bin/ld.lld)
-    # Bundle required QT wayland libraries
-    export EXTRA_QT_PLUGINS="waylandcompositor"
-    export EXTRA_PLATFORM_PLUGINS="libqwayland-egl.so;libqwayland-generic.so"
 else
     # For the linux-fresh verification target, verify compilation without PCH as well.
     export EXTRA_CMAKE_FLAGS=(-DLIME3DS_USE_PRECOMPILED_HEADERS=OFF)
