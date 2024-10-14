@@ -682,25 +682,36 @@ void GMainWindow::InitializeRecentFileMenuActions() {
 void GMainWindow::InitializeSaveStateMenuActions() {
     for (u32 i = 0; i < Core::SaveStateSlotCount; ++i) {
         actions_load_state[i] = new QAction(this);
-        actions_load_state[i]->setData(i + 1);
+        actions_load_state[i]->setData(i);
         connect(actions_load_state[i], &QAction::triggered, this, &GMainWindow::OnLoadState);
-        ui->menu_Load_State->addAction(actions_load_state[i]);
-
+        if (i > 0)
+            ui->menu_Load_State->addAction(actions_load_state[i]);
         actions_save_state[i] = new QAction(this);
-        actions_save_state[i]->setData(i + 1);
+        actions_save_state[i]->setData(i);
         connect(actions_save_state[i], &QAction::triggered, this, &GMainWindow::OnSaveState);
-        ui->menu_Save_State->addAction(actions_save_state[i]);
+        if (i > 0)
+            ui->menu_Save_State->addAction(actions_save_state[i]);
     }
 
     connect(ui->action_Load_from_Newest_Slot, &QAction::triggered, this, [this] {
         UpdateSaveStates();
         if (newest_slot != 0) {
-            actions_load_state[newest_slot - 1]->trigger();
+            actions_load_state[newest_slot]->trigger();
         }
     });
     connect(ui->action_Save_to_Oldest_Slot, &QAction::triggered, this, [this] {
         UpdateSaveStates();
-        actions_save_state[oldest_slot - 1]->trigger();
+        actions_save_state[oldest_slot]->trigger();
+    });
+
+    // Quick save / load uses slot
+    connect(ui->action_Quick_Save, &QAction::triggered, this, [this] {
+        UpdateSaveStates();
+        actions_save_state[0]->trigger();
+    });
+    connect(ui->action_Quick_Load, &QAction::triggered, this, [this] {
+        UpdateSaveStates();
+        actions_load_state[0]->trigger();
     });
 
     connect(ui->menu_Load_State->menuAction(), &QAction::hovered, this,
@@ -743,8 +754,12 @@ void GMainWindow::InitializeHotkeys() {
     link_action_shortcut(ui->action_Screen_Layout_Upright_Screens,
                          QStringLiteral("Rotate Screens Upright"));
     link_action_shortcut(ui->action_Advance_Frame, QStringLiteral("Advance Frame"));
-    link_action_shortcut(ui->action_Load_from_Newest_Slot, QStringLiteral("Load from Newest Slot"));
-    link_action_shortcut(ui->action_Save_to_Oldest_Slot, QStringLiteral("Save to Oldest Slot"));
+    link_action_shortcut(ui->action_Load_from_Newest_Slot,
+                         QStringLiteral("Load from Newest Non-Quick Slot"));
+    link_action_shortcut(ui->action_Save_to_Oldest_Slot,
+                         QStringLiteral("Save to Oldest Non-Quick Slot"));
+    link_action_shortcut(ui->action_Quick_Save, QStringLiteral("Quick Save"));
+    link_action_shortcut(ui->action_Quick_Load, QStringLiteral("Quick Load"));
     link_action_shortcut(ui->action_View_Lobby,
                          QStringLiteral("Multiplayer Browse Public Game Lobby"));
     link_action_shortcut(ui->action_Start_Room, QStringLiteral("Multiplayer Create Room"));
@@ -1712,7 +1727,7 @@ void GMainWindow::UpdateSaveStates() {
     ui->menu_Save_State->setEnabled(true);
     ui->action_Load_from_Newest_Slot->setEnabled(false);
 
-    oldest_slot = newest_slot = 0;
+    oldest_slot = newest_slot = 1;
     oldest_slot_time = std::numeric_limits<u64>::max();
     newest_slot_time = 0;
 
@@ -1723,13 +1738,30 @@ void GMainWindow::UpdateSaveStates() {
     auto savestates = Core::ListSaveStates(title_id, movie.GetCurrentMovieID());
     for (u32 i = 0; i < Core::SaveStateSlotCount; ++i) {
         actions_load_state[i]->setEnabled(false);
-        actions_load_state[i]->setText(tr("Slot %1").arg(i + 1));
-        actions_save_state[i]->setText(tr("Slot %1").arg(i + 1));
+        if (i == 0) {
+            actions_load_state[i]->setText(tr("Quick Load"));
+            actions_save_state[i]->setText(tr("Quick Save"));
+        } else {
+            actions_load_state[i]->setText(tr("Slot %1").arg(i));
+            actions_save_state[i]->setText(tr("Slot %1").arg(i));
+        }
     }
     for (const auto& savestate : savestates) {
         const bool display_name =
             savestate.status == Core::SaveStateInfo::ValidationStatus::RevisionDismatch &&
             !savestate.build_name.empty();
+        actions_load_state[savestate.slot]->setEnabled(true);
+        if (savestate.slot == 0) {
+            const auto text = tr("%2 %3")
+                                  .arg(QDateTime::fromSecsSinceEpoch(savestate.time)
+                                           .toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")))
+                                  .arg(display_name ? QString::fromStdString(savestate.build_name)
+                                                    : QLatin1String())
+                                  .trimmed();
+            ui->action_Quick_Save->setText(tr("Quick Save - %1").arg(text).trimmed());
+            ui->action_Quick_Load->setText(tr("Quick Load - %1").arg(text).trimmed());
+            continue;
+        }
         const auto text =
             tr("Slot %1 - %2 %3")
                 .arg(savestate.slot)
@@ -1738,12 +1770,10 @@ void GMainWindow::UpdateSaveStates() {
                 .arg(display_name ? QString::fromStdString(savestate.build_name) : QLatin1String())
                 .trimmed();
 
-        actions_load_state[savestate.slot - 1]->setEnabled(true);
-        actions_load_state[savestate.slot - 1]->setText(text);
-        actions_save_state[savestate.slot - 1]->setText(text);
+        actions_load_state[savestate.slot]->setText(text);
+        actions_save_state[savestate.slot]->setText(text);
 
         ui->action_Load_from_Newest_Slot->setEnabled(true);
-
         if (savestate.time > newest_slot_time) {
             newest_slot = savestate.slot;
             newest_slot_time = savestate.time;
@@ -1753,7 +1783,8 @@ void GMainWindow::UpdateSaveStates() {
             oldest_slot_time = savestate.time;
         }
     }
-    for (u32 i = 0; i < Core::SaveStateSlotCount; ++i) {
+    // Value as 1 because quicksave slot is not used for this calculation
+    for (u32 i = 1; i < Core::SaveStateSlotCount; ++i) {
         if (!actions_load_state[i]->isEnabled()) {
             // Prefer empty slot
             oldest_slot = i + 1;
