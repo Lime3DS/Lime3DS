@@ -79,7 +79,7 @@ FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool swapped, bool up
 
     const bool stretched = (Settings::values.screen_top_stretch.GetValue() && !swapped) ||
                            (Settings::values.screen_bottom_stretch.GetValue() && swapped);
-    float window_aspect_ratio = static_cast<float>(height) / width;
+    const float window_aspect_ratio = static_cast<float>(height) / width;
 
     if (stretched) {
         top_screen = {Settings::values.screen_top_leftright_padding.GetValue(),
@@ -115,7 +115,7 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
     FramebufferLayout res{width, height, true, true, {}, {}, !upright};
     // Split the window into two parts. Give proportional width to the smaller screen
     // To do that, find the total emulation box and maximize that based on window size
-    float window_aspect_ratio = static_cast<float>(height) / width;
+    const float window_aspect_ratio = static_cast<float>(height) / width;
     float emulation_aspect_ratio;
 
     float large_height =
@@ -633,9 +633,9 @@ std::pair<unsigned, unsigned> GetMinimumSizeFromLayout(Settings::LayoutOption la
         min_height = Core::kScreenBottomHeight;
         break;
     case Settings::LayoutOption::LargeScreen: {
-        bool swapped = Settings::values.swap_screen.GetValue();
-        int largeWidth = swapped ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
-        int largeHeight = swapped ? Core::kScreenBottomHeight : Core::kScreenTopHeight;
+        const bool swapped = Settings::values.swap_screen.GetValue();
+        const int largeWidth = swapped ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
+        const int largeHeight = swapped ? Core::kScreenBottomHeight : Core::kScreenTopHeight;
         int smallWidth = swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth;
         int smallHeight = swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight;
         smallWidth =
