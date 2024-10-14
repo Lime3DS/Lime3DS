@@ -19,7 +19,6 @@ class ScreenAdjustmentUtil(
     private val context: Context,
     private val windowManager: WindowManager,
     private val settings: Settings,
-    private var currentOrientation: Int = -1
 ) {
     fun swapScreen() {
         val isEnabled = !EmulationMenuSettings.swapScreens
@@ -63,12 +62,6 @@ class ScreenAdjustmentUtil(
     }
 
     fun changeActivityOrientation(orientationOption: Int) {
-        if (currentOrientation == orientationOption) {
-            return
-        }
-
-        currentOrientation = orientationOption
-
         val activity = context as? Activity ?: return
         IntSetting.ORIENTATION_OPTION.int = orientationOption
         settings.saveSetting(IntSetting.ORIENTATION_OPTION, SettingsFile.FILE_NAME_CONFIG)
