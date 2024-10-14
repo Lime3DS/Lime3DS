@@ -31,8 +31,8 @@ class ScreenAdjustmentUtil(
         settings.saveSetting(BooleanSetting.SWAP_SCREEN, SettingsFile.FILE_NAME_CONFIG)
     }
     fun cycleLayouts() {
-        val landscapeValues = context.resources.getIntArray(R.array.landscape_values)
-        val portraitValues = context.resources.getIntArray(R.array.portrait_values)
+        val landscapeValues = context.resources.getIntArray(R.array.landscapeValues)
+        val portraitValues = context.resources.getIntArray(R.array.portraitValues)
 
         if (NativeLibrary.isPortraitMode) {
             val currentLayout = IntSetting.PORTRAIT_SCREEN_LAYOUT.int
