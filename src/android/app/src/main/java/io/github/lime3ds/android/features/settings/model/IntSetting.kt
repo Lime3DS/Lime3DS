@@ -61,7 +61,7 @@ enum class IntSetting(
     USE_FRAME_LIMIT("use_frame_limit", Settings.SECTION_RENDERER, 1),
     DELAY_RENDER_THREAD_US("delay_game_render_thread_us", Settings.SECTION_RENDERER, 0),
     USE_ARTIC_BASE_CONTROLLER("use_artic_base_controller", Settings.SECTION_CONTROLS, 0),
-    ORIENTATION_OPTION("orientation_option", Settings.SECTION_LAYOUT, 0);
+    ORIENTATION_OPTION("screen_orientation", Settings.SECTION_LAYOUT, 2);
     override var int: Int = defaultValue
 
     override val valueAsString: String

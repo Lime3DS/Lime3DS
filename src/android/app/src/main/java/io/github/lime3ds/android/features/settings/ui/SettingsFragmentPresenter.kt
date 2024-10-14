@@ -908,10 +908,10 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             add(
                 SingleChoiceSetting(
                     IntSetting.ORIENTATION_OPTION,
-                    R.string.emulation_screen_orientation_option,
+                    R.string.layout_screen_orientation,
                     0,
-                    R.array.orientationOptions,
-                    R.array.orientationValues,
+                    R.array.screenOrientations,
+                    R.array.screenOrientationValues,
                     IntSetting.ORIENTATION_OPTION.key,
                     IntSetting.ORIENTATION_OPTION.defaultValue
                 )

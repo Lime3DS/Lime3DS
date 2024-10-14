@@ -289,6 +289,14 @@
     <string name="audio_input_type">Audio Input Device</string>
     <string name="sound_output_mode">Sound Output Mode</string>
 
+    <!-- Layout settings strings -->
+    <string name="layout_screen_orientation">Screen Orientation</string>
+    <string name="layout_screen_orientation_auto_sensor">Automatic</string>
+    <string name="layout_screen_orientation_landscape">Landscape</string>
+    <string name="layout_screen_orientation_landscape_reverse">Reverse Landscape</string>
+    <string name="layout_screen_orientation_portrait">Portrait</string>
+    <string name="layout_screen_orientation_portrait_reverse">Reverse Portrait</string>
+
     <!-- Miscellaneous -->
     <string name="clear">Clear</string>
     <string name="slider_default">Default</string>
@@ -336,6 +344,7 @@
     <string name="preferences_debug">Debug</string>
     <string name="preferences_theme">Theme and Color</string>
     <string name="preferences_layout">Layout</string>
+
     <!-- ROM loading errors -->
     <string name="loader_error_encrypted">Your ROM is Encrypted</string>
     <string name="loader_error_invalid_format">Invalid ROM format</string>
@@ -363,12 +372,6 @@
     <string name="emulation_control_dpad_slide_enable">D-Pad Sliding</string>
     <string name="emulation_open_settings">Open Settings</string>
     <string name="emulation_open_cheats">Open Cheats</string>
-    <string name="emultaion_screen_orientation_option">Screen Orientation Option</string>
-    <string name="emulation_screen_orientation_auto_sensor">Auto (Sensor)</string>
-    <string name="emulation_screen_orientation_landscape">Landscape</string>
-    <string name="emulation_screen_orientation_landscape_flipped">Landscape (Flipped)</string>
-    <string name="emulation_screen_orientation_portrait">Portrait</string>
-    <string name="emulation_screen_orientation_portrait_flipped">Portrait (Flipped)</string>
     <string name="emulation_switch_screen_layout">Landscape Screen Layout</string>
     <string name="emulation_switch_portrait_layout">Portrait Screen Layout</string>
     <string name="emulation_screen_layout_largescreen">Large Screen</string>

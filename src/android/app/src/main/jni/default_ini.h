@@ -203,12 +203,12 @@ custom_bottom_width =
 custom_bottom_height =
 
 # Orientation option for the emulator
-# 0 (default): Sensor-based rotation
-# 1: Landscape
-# 2: Landscape (Flipped)
-# 3: Portrait
-# 4: Portrait (Flipped)
-orientation_option =
+# 2 (default): Automatic
+# 0: Landscape
+# 8: Landscape (Flipped)
+# 1: Portrait
+# 9: Portrait (Flipped)
+screen_orientation =
 
 # Layout for the portrait mode
 # 0 (default): Top and bottom screens at top, full width
