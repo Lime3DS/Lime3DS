@@ -12,6 +12,21 @@ class NWM_INF final : public ServiceFramework<NWM_INF> {
 public:
     NWM_INF();
 
+    /**
+     * NWM::RecvBeaconBroadcastData service function
+     *  Inputs:
+     *      1 : Output buffer max size
+     *      2-14 : Input ScanInputStruct.
+     *      15 : u32, unknown
+     *      16 : Value 0x0
+     *      17 : Input handle
+     *      18 : (Size<<4) | 12
+     *      19 : Output BeaconDataReply buffer ptr
+     *  Outputs:
+     *      1 : Result of function, 0 on success, otherwise error code
+     */
+    void RecvBeaconBroadcastData(Kernel::HLERequestContext& ctx);
+
 private:
     SERVICE_SERIALIZATION_SIMPLE
 };
