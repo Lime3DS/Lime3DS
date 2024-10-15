@@ -1,4 +1,4 @@
-// Copyright 2018 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -9,6 +9,7 @@
 #include <QMediaDevices>
 #include <QMessageBox>
 #include <QWidget>
+#include <QtGlobal>
 #include "common/settings.h"
 #include "core/frontend/camera/factory.h"
 #include "core/hle/service/cam/cam.h"
@@ -86,7 +87,11 @@ void ConfigureCamera::ConnectEvents() {
     });
     connect(ui->toolButton, &QToolButton::clicked, this, &ConfigureCamera::OnToolButtonClicked);
     connect(ui->preview_button, &QPushButton::clicked, this, [this] { StartPreviewing(); });
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(ui->prompt_before_load, &QCheckBox::stateChanged, this, [this](int state) {
+#else
+    connect(ui->prompt_before_load, &QCheckBox::checkStateChanged, this, [this](int state) {
+#endif
         ui->camera_file->setDisabled(state == Qt::Checked);
         ui->toolButton->setDisabled(state == Qt::Checked);
         if (state == Qt::Checked) {

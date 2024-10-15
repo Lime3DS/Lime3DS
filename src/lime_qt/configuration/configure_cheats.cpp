@@ -1,10 +1,11 @@
-// Copyright 2018 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QTableWidgetItem>
+#include <QtGlobal>
 #include "configure_cheats.h"
 #include "core/cheats/cheat_base.h"
 #include "core/cheats/cheats.h"
@@ -59,7 +60,11 @@ void ConfigureCheats::LoadCheats() {
             i, 2, new QTableWidgetItem(QString::fromStdString(cheats[i]->GetType())));
         enabled->setProperty("row", static_cast<int>(i));
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(enabled, &QCheckBox::stateChanged, this, &ConfigureCheats::OnCheckChanged);
+#else
+        connect(enabled, &QCheckBox::checkStateChanged, this, &ConfigureCheats::OnCheckChanged);
+#endif
     }
 }
 
