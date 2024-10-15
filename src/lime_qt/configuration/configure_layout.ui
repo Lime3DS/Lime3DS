@@ -146,6 +146,75 @@
        </widget>
       </item>
       <item>
+       <widget class="QWidget" name="small_pos_widget" native="true">
+        <layout class="QHBoxLayout" name="small_pos_layout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="small_pos_label">
+           <property name="text">
+            <string>Small Screen Position</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="small_screen_position_combobox">
+           <item>
+            <property name="text">
+             <string>Upper Right</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Middle Right</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bottom Right (default)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Upper Left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Middle Left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bottom Left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Above large screen</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Below large screen</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QWidget" name="bg_color_group" native="true">
         <layout class="QHBoxLayout" name="bg_color_group_2">
          <property name="leftMargin">
@@ -592,6 +661,7 @@
   <tabstop>toggle_swap_screen</tabstop>
   <tabstop>toggle_upright_screen</tabstop>
   <tabstop>large_screen_proportion</tabstop>
+  <tabstop>small_screen_position_combobox</tabstop>
   <tabstop>bg_button</tabstop>
  </tabstops>
  <resources/>

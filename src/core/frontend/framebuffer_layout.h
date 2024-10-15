@@ -5,10 +5,7 @@
 #pragma once
 
 #include "common/math_util.h"
-
-namespace Settings {
-enum class LayoutOption : u32;
-}
+#include "common/settings.h"
 
 namespace Layout {
 
@@ -18,31 +15,6 @@ enum class DisplayOrientation {
     Portrait,         // 3DS rotated 90 degrees counter-clockwise
     LandscapeFlipped, // 3DS rotated 180 degrees counter-clockwise
     PortraitFlipped,  // 3DS rotated 270 degrees counter-clockwise
-};
-
-/// Describes the vertical alignment of the top and bottom screens in LargeFrameLayout
-/// Top
-/// +-------------+-----+
-/// |             |     |
-/// |             +-----+
-/// |             |
-/// +-------------+
-/// Middle
-/// +-------------+
-/// |             +-----+
-/// |             |     |
-/// |             +-----+
-/// +-------------+
-/// Bottom
-/// +-------------+
-/// |             |
-/// |             +-----+
-/// |             |     |
-/// +-------------+-----+
-enum class VerticalAlignment {
-    Top,
-    Middle,
-    Bottom,
 };
 
 /// Describes the horizontal coordinates for the right eye screen when using Cardboard VR
@@ -75,7 +47,12 @@ struct FramebufferLayout {
 };
 
 /**
- * Factory method for constructing a default FramebufferLayout
+ * Method to create a rotated copy of a framebuffer layout, used to rotate to upright mode
+ */
+FramebufferLayout reverseLayout(FramebufferLayout layout);
+
+/**
+ * Factory method for constructing a default FramebufferLayout with screens on top of one another
  * @param width Window framebuffer width in pixels
  * @param height Window framebuffer height in pixels
  * @param is_swapped if true, the bottom screen will be displayed above the top screen
@@ -105,9 +82,7 @@ FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool is_swap
 FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool is_swapped, bool upright);
 
 /**
- * Factory method for constructing a Frame with the a 4x size Top screen with a 1x size bottom
- * screen on the right
- * This is useful in particular because it matches well with a 1920x1080 resolution monitor
+ * Factory method for constructing a Frame with differently sized top and bottom windows
  * @param width Window framebuffer width in pixels
  * @param height Window framebuffer height in pixels
  * @param is_swapped if true, the bottom screen will be the large display
@@ -118,7 +93,8 @@ FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool is_swapped, bool
  * @return Newly created FramebufferLayout object with default screen regions initialized
  */
 FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool is_swapped, bool upright,
-                                   float scale_factor, VerticalAlignment vertical_alignment);
+                                   float scale_factor,
+                                   Settings::SmallScreenPosition small_screen_position);
 /**
  * Factory method for constructing a frame with 2.5 times bigger top screen on the right,
  * and 1x top and bottom screen on the left
@@ -126,6 +102,9 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool is_swapped, bool 
  * @param height Window framebuffer height in pixels
  * @param is_swapped if true, the bottom screen will be the large display
  * @param upright if true, the screens will be rotated 90 degrees anti-clockwise
+ * @param scale_factor determines the proportion of large to small. Must be >= 1
+ * @param small_screen_position determines where the small screen appears relative to the large
+ * screen
  * @return Newly created FramebufferLayout object with default screen regions initialized
  */
 FramebufferLayout HybridScreenLayout(u32 width, u32 height, bool swapped, bool upright);

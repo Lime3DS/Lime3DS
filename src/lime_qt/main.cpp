@@ -580,6 +580,16 @@ void GMainWindow::InitializeWidgets() {
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Separate_Windows);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Hybrid_Screen);
     actionGroup_ScreenLayouts->addAction(ui->action_Screen_Layout_Custom_Layout);
+
+    QActionGroup* actionGroup_SmallPositions = new QActionGroup(this);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_TopRight);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_MiddleRight);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_BottomRight);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_TopLeft);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_MiddleLeft);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_BottomLeft);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_Above);
+    actionGroup_SmallPositions->addAction(ui->action_Small_Screen_Below);
 }
 
 void GMainWindow::InitializeDebugWidgets() {
@@ -1032,6 +1042,14 @@ void GMainWindow::ConnectMenuEvents() {
     connect_menu(ui->action_Screen_Layout_Custom_Layout, &GMainWindow::ChangeScreenLayout);
     connect_menu(ui->action_Screen_Layout_Swap_Screens, &GMainWindow::OnSwapScreens);
     connect_menu(ui->action_Screen_Layout_Upright_Screens, &GMainWindow::OnRotateScreens);
+    connect_menu(ui->action_Small_Screen_TopRight, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_MiddleRight, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_BottomRight, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_TopLeft, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_MiddleLeft, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_BottomLeft, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_Above, &GMainWindow::ChangeSmallScreenPosition);
+    connect_menu(ui->action_Small_Screen_Below, &GMainWindow::ChangeSmallScreenPosition);
 
     // Movie
     connect_menu(ui->action_Record_Movie, &GMainWindow::OnRecordMovie);
@@ -2548,13 +2566,13 @@ void GMainWindow::UpdateSecondaryWindowVisibility() {
 
 void GMainWindow::ChangeScreenLayout() {
     Settings::LayoutOption new_layout = Settings::LayoutOption::Default;
-
     if (ui->action_Screen_Layout_Default->isChecked()) {
         new_layout = Settings::LayoutOption::Default;
     } else if (ui->action_Screen_Layout_Single_Screen->isChecked()) {
         new_layout = Settings::LayoutOption::SingleScreen;
     } else if (ui->action_Screen_Layout_Large_Screen->isChecked()) {
         new_layout = Settings::LayoutOption::LargeScreen;
+        ui->menu_Small_Screen_Position->setEnabled(true);
     } else if (ui->action_Screen_Layout_Hybrid_Screen->isChecked()) {
         new_layout = Settings::LayoutOption::HybridScreen;
     } else if (ui->action_Screen_Layout_Side_by_Side->isChecked()) {
@@ -2566,6 +2584,34 @@ void GMainWindow::ChangeScreenLayout() {
     }
 
     Settings::values.layout_option = new_layout;
+    SyncMenuUISettings();
+    system.ApplySettings();
+    UpdateSecondaryWindowVisibility();
+}
+
+void GMainWindow::ChangeSmallScreenPosition() {
+    Settings::SmallScreenPosition new_position = Settings::SmallScreenPosition::BottomRight;
+
+    if (ui->action_Small_Screen_TopRight->isChecked()) {
+        new_position = Settings::SmallScreenPosition::TopRight;
+    } else if (ui->action_Small_Screen_MiddleRight->isChecked()) {
+        new_position = Settings::SmallScreenPosition::MiddleRight;
+    } else if (ui->action_Small_Screen_BottomRight->isChecked()) {
+        new_position = Settings::SmallScreenPosition::BottomRight;
+    } else if (ui->action_Small_Screen_TopLeft->isChecked()) {
+        new_position = Settings::SmallScreenPosition::TopLeft;
+    } else if (ui->action_Small_Screen_MiddleLeft->isChecked()) {
+        new_position = Settings::SmallScreenPosition::MiddleLeft;
+    } else if (ui->action_Small_Screen_BottomLeft->isChecked()) {
+        new_position = Settings::SmallScreenPosition::BottomLeft;
+    } else if (ui->action_Small_Screen_Above->isChecked()) {
+        new_position = Settings::SmallScreenPosition::AboveLarge;
+    } else if (ui->action_Small_Screen_Below->isChecked()) {
+        new_position = Settings::SmallScreenPosition::BelowLarge;
+    }
+
+    Settings::values.small_screen_position = new_position;
+    SyncMenuUISettings();
     system.ApplySettings();
     UpdateSecondaryWindowVisibility();
 }
@@ -3637,6 +3683,34 @@ void GMainWindow::SyncMenuUISettings() {
     ui->action_Screen_Layout_Swap_Screens->setChecked(Settings::values.swap_screen.GetValue());
     ui->action_Screen_Layout_Upright_Screens->setChecked(
         Settings::values.upright_screen.GetValue());
+
+    if (Settings::values.layout_option.GetValue() == Settings::LayoutOption::LargeScreen) {
+        ui->menu_Small_Screen_Position->setEnabled(true);
+    } else {
+        ui->menu_Small_Screen_Position->setEnabled(false);
+    }
+
+    ui->action_Small_Screen_TopRight->setChecked(
+        Settings::values.small_screen_position.GetValue() ==
+        Settings::SmallScreenPosition::TopRight);
+    ui->action_Small_Screen_MiddleRight->setChecked(
+        Settings::values.small_screen_position.GetValue() ==
+        Settings::SmallScreenPosition::MiddleRight);
+    ui->action_Small_Screen_BottomRight->setChecked(
+        Settings::values.small_screen_position.GetValue() ==
+        Settings::SmallScreenPosition::BottomRight);
+    ui->action_Small_Screen_TopLeft->setChecked(Settings::values.small_screen_position.GetValue() ==
+                                                Settings::SmallScreenPosition::TopLeft);
+    ui->action_Small_Screen_MiddleLeft->setChecked(
+        Settings::values.small_screen_position.GetValue() ==
+        Settings::SmallScreenPosition::MiddleLeft);
+    ui->action_Small_Screen_BottomLeft->setChecked(
+        Settings::values.small_screen_position.GetValue() ==
+        Settings::SmallScreenPosition::BottomLeft);
+    ui->action_Small_Screen_Above->setChecked(Settings::values.small_screen_position.GetValue() ==
+                                              Settings::SmallScreenPosition::AboveLarge);
+    ui->action_Small_Screen_Below->setChecked(Settings::values.small_screen_position.GetValue() ==
+                                              Settings::SmallScreenPosition::BelowLarge);
 }
 
 void GMainWindow::RetranslateStatusBar() {

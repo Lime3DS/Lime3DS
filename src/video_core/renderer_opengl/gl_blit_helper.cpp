@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -159,7 +159,7 @@ bool BlitHelper::Filter(Surface& surface, const VideoCore::TextureBlit& blit) {
     const auto filter = Settings::values.texture_filter.GetValue();
     const bool is_depth =
         surface.type == SurfaceType::Depth || surface.type == SurfaceType::DepthStencil;
-    if (filter == Settings::TextureFilter::None || is_depth) {
+    if (filter == Settings::TextureFilter::NoFilter || is_depth) {
         return false;
     }
     if (blit.src_level != 0) {

@@ -1,4 +1,4 @@
-// Copyright 2023 Citra Emulator Project
+// Copyright Citra Emulator Project / Lime3DS Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -23,17 +23,16 @@ class SliderSetting(
     val defaultValue: Float? = null
 ) : SettingsItem(setting, titleId, descriptionId) {
     override val type = TYPE_SLIDER
-
-    val selectedValue: Int
+    val selectedFloat: Float
         get() {
-            val setting = setting ?: return defaultValue!!.toInt()
+            val setting = setting ?: return defaultValue!!.toFloat()
             return when (setting) {
-                is AbstractIntSetting -> setting.int
-                is FloatSetting -> setting.float.roundToInt()
-                is ScaledFloatSetting -> setting.float.roundToInt()
+                is AbstractIntSetting -> setting.int.toFloat()
+                is FloatSetting -> setting.float
+                is ScaledFloatSetting -> setting.float
                 else -> {
                     Log.error("[SliderSetting] Error casting setting type.")
-                    -1
+                    -1f
                 }
             }
         }

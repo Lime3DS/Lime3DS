@@ -142,6 +142,23 @@
      <addaction name="separator"/>
      <addaction name="action_Screen_Layout_Upright_Screens"/>
      <addaction name="action_Screen_Layout_Swap_Screens"/>
+     <widget class="QMenu" name="menu_Small_Screen_Position">
+      <property name="enabled">
+     <bool>true</bool>
+    </property>
+      <property name="title">
+       <string>Small Screen Position</string>
+      </property>
+      <addaction name="action_Small_Screen_TopRight"/>
+      <addaction name="action_Small_Screen_MiddleRight"/>
+      <addaction name="action_Small_Screen_BottomRight"/>
+      <addaction name="action_Small_Screen_TopLeft"/>
+      <addaction name="action_Small_Screen_MiddleLeft"/>
+      <addaction name="action_Small_Screen_BottomLeft"/>
+      <addaction name="action_Small_Screen_Above"/>
+      <addaction name="action_Small_Screen_Below"/>
+     </widget>
+     <addaction name="menu_Small_Screen_Position"/>
     </widget>
     <addaction name="action_Fullscreen"/>
     <addaction name="action_Single_Window_Mode"/>
@@ -539,6 +556,70 @@
    </property>
    <property name="text">
     <string>Custom Layout</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_TopRight">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Top Right</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_MiddleRight">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Middle Right</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_BottomRight">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Bottom Right</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_TopLeft">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Top Left</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_MiddleLeft">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Middle Left</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_BottomLeft">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Bottom Left</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_Above">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Above</string>
+   </property>
+  </action>
+  <action name="action_Small_Screen_Below">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Below</string>
    </property>
   </action>
   <action name="action_Screen_Layout_Swap_Screens">

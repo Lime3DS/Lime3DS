@@ -21,6 +21,23 @@ enum class ScreenLayout(val int: Int) {
     }
 }
 
+enum class SmallScreenPosition(val int: Int) {
+    TOP_RIGHT(0),
+    MIDDLE_RIGHT(1),
+    BOTTOM_RIGHT(2),
+    TOP_LEFT(3),
+    MIDDLE_LEFT(4),
+    BOTTOM_LEFT(5),
+    ABOVE(6),
+    BELOW(7);
+
+    companion object {
+        fun from(int: Int): SmallScreenPosition {
+            return entries.firstOrNull { it.int == int } ?: TOP_RIGHT
+        }
+    }
+}
+
 enum class PortraitScreenLayout(val int: Int) {
     // These must match what is defined in src/common/settings.h
     TOP_FULL_WIDTH(0),
@@ -28,7 +45,7 @@ enum class PortraitScreenLayout(val int: Int) {
 
     companion object {
         fun from(int: Int): PortraitScreenLayout {
-            return entries.firstOrNull { it.int == int } ?: TOP_FULL_WIDTH;
+            return entries.firstOrNull { it.int == int } ?: TOP_FULL_WIDTH
         }
     }
 }
