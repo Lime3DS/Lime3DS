@@ -646,16 +646,11 @@
               </property>
               <item>
                <widget class="QLabel" name="label_14">
-                <property name="toolTip">
-                 <string>Set a static analog direction as a input.
- It is most useful to help people with disabilities but can also be used for niche circumstances.
- Not reccomended to use actual controller anolog sticks on these presets but they do work </string>
-                </property>
                 <property name="layoutDirection">
                  <enum>Qt::LeftToRight</enum>
                 </property>
                 <property name="text">
-                 <string>Directional Presets</string>
+                 <string>Diagonals</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
@@ -877,11 +872,8 @@
              <layout class="QVBoxLayout" name="verticalLayout_39">
               <item>
                <widget class="QLabel" name="label_15">
-                <property name="toolTip">
-                 <string>Set a static analog direction as a input. It is ost useful to help people with disabilities but can also be used for niche circumstances. Not reccomended to use actual controller anolog sticks on these presets but they do work </string>
-                </property>
                 <property name="text">
-                 <string>Directional Presets</string>
+                 <string>Diagonals</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignCenter</set>
