@@ -20,7 +20,7 @@
 #include "input_common/main.h"
 #include "input_common/motion_emu.h"
 #include "lime_qt/bootmanager.h"
-#include "lime_qt/main.h"
+#include "lime_qt/lime_qt.h"
 #include "video_core/custom_textures/custom_tex_manager.h"
 #include "video_core/gpu.h"
 #include "video_core/renderer_base.h"

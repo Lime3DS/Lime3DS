@@ -31,7 +31,7 @@ ConfigurePerGame::ConfigurePerGame(QWidget* parent, u64 title_id_, const QString
       filename{file_name.toStdString()}, title_id{title_id_}, system{system_} {
     const auto config_file_name = title_id == 0 ? std::string(FileUtil::GetFilename(filename))
                                                 : fmt::format("{:016X}", title_id);
-    game_config = std::make_unique<Config>(config_file_name, Config::ConfigType::PerGameConfig);
+    game_config = std::make_unique<QtConfig>(config_file_name, QtConfig::ConfigType::PerGameConfig);
 
     const bool is_powered_on = system.IsPoweredOn();
     audio_tab = std::make_unique<ConfigureAudio>(is_powered_on, this);

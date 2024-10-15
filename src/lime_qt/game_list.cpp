@@ -35,7 +35,7 @@
 #include "lime_qt/game_list.h"
 #include "lime_qt/game_list_p.h"
 #include "lime_qt/game_list_worker.h"
-#include "lime_qt/main.h"
+#include "lime_qt/lime_qt.h"
 #include "lime_qt/uisettings.h"
 #include "qcursor.h"
 

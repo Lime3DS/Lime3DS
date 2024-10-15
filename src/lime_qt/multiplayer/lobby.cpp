@@ -8,7 +8,7 @@
 #include "common/logging/log.h"
 #include "core/hle/service/cfg/cfg.h"
 #include "lime_qt/game_list_p.h"
-#include "lime_qt/main.h"
+#include "lime_qt/lime_qt.h"
 #include "lime_qt/multiplayer/lobby.h"
 #include "lime_qt/multiplayer/lobby_p.h"
 #include "lime_qt/multiplayer/message.h"

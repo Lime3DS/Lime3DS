@@ -70,8 +70,8 @@
 #include "lime_qt/dumping/dumping_dialog.h"
 #include "lime_qt/game_list.h"
 #include "lime_qt/hotkeys.h"
+#include "lime_qt/lime_qt.h"
 #include "lime_qt/loading_screen.h"
-#include "lime_qt/main.h"
 #include "lime_qt/movie/movie_play_dialog.h"
 #include "lime_qt/movie/movie_record_dialog.h"
 #include "lime_qt/multiplayer/state.h"
@@ -175,7 +175,7 @@ GMainWindow::GMainWindow(Core::System& system_)
 
     Debugger::ToggleConsole();
 
-    this->config = std::make_unique<Config>();
+    this->config = std::make_unique<QtConfig>();
 
     QStringList args = QApplication::arguments();
     QString game_path;
@@ -1468,7 +1468,7 @@ void GMainWindow::BootGame(const QString& filename) {
         const std::string config_file_name =
             title_id == 0 ? name : fmt::format("{:016X}", title_id);
         LOG_INFO(Frontend, "Loading per game config file for title {}", config_file_name);
-        Config per_game_config(config_file_name, Config::ConfigType::PerGameConfig);
+        QtConfig per_game_config(config_file_name, QtConfig::ConfigType::PerGameConfig);
     }
 
     // Artic Base Server cannot accept a client multiple times, so multiple loaders are not
@@ -3722,7 +3722,7 @@ static Qt::HighDpiScaleFactorRoundingPolicy GetHighDpiRoundingPolicy() {
 #endif
 }
 
-int main(int argc, char* argv[]) {
+void LaunchQtFrontend(int argc, char* argv[]) {
     Common::DetachedTasks detached_tasks;
     MicroProfileOnThreadCreate("Frontend");
     SCOPE_EXIT({ MicroProfileShutdown(); });
@@ -3777,5 +3777,5 @@ int main(int argc, char* argv[]) {
 
     int result = app.exec();
     detached_tasks.WaitForAllTasks();
-    return result;
+    exit(result);
 }

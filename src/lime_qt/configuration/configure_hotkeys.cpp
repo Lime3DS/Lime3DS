@@ -162,7 +162,7 @@ void ConfigureHotkeys::RestoreDefaults() {
         for (int r2 = 0; r2 < parent->rowCount(); ++r2) {
             model->item(r, 0)
                 ->child(r2, hotkey_column)
-                ->setText(Config::default_hotkeys[r2].shortcut.keyseq);
+                ->setText(QtConfig::default_hotkeys[r2].shortcut.keyseq);
         }
     }
 }
@@ -198,7 +198,7 @@ void ConfigureHotkeys::PopupContextMenu(const QPoint& menu_location) {
 
 void ConfigureHotkeys::RestoreHotkey(QModelIndex index) {
     const QKeySequence& default_key_sequence = QKeySequence::fromString(
-        Config::default_hotkeys[index.row()].shortcut.keyseq, QKeySequence::NativeText);
+        QtConfig::default_hotkeys[index.row()].shortcut.keyseq, QKeySequence::NativeText);
     const auto [key_sequence_used, used_action] = IsUsedKey(default_key_sequence);
 
     if (key_sequence_used && default_key_sequence != QKeySequence(model->data(index).toString())) {

@@ -7,7 +7,7 @@
 #include <QMediaDevices>
 #include <QThread>
 #include "lime_qt/camera/qt_multimedia_camera.h"
-#include "lime_qt/main.h"
+#include "lime_qt/lime_qt.h"
 
 #if defined(__APPLE__)
 #include "common/apple_authorization.h"
