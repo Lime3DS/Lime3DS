@@ -47,6 +47,11 @@ struct FramebufferLayout {
 };
 
 /**
+ * Method to create a rotated copy of a framebuffer layout, used to rotate to upright mode
+ */
+FramebufferLayout reverseLayout(FramebufferLayout layout);
+
+/**
  * Factory method for constructing a default FramebufferLayout with screens on top of one another
  * @param width Window framebuffer width in pixels
  * @param height Window framebuffer height in pixels
