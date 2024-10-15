@@ -46,10 +46,10 @@ FramebufferLayout DefaultFrameLayout(u32 width, u32 height, bool swapped, bool u
 FramebufferLayout PortraitTopFullFrameLayout(u32 width, u32 height, bool swapped) {
     ASSERT(width > 0);
     ASSERT(height > 0);
-    float sf = swapped ? 1.25f : 0.8f;
-    FramebufferLayout res = LargeFrameLayout(width, height, swapped, false, sf,
+    const float scale_factor = swapped ? 1.25f : 0.8f;
+    FramebufferLayout res = LargeFrameLayout(width, height, swapped, false, scale_factor,
                                              Settings::SmallScreenPosition::BelowLarge);
-    int shiftY = -(int)(swapped ? res.bottom_screen.top : res.top_screen.top);
+    const int shiftY = -(int)(swapped ? res.bottom_screen.top : res.top_screen.top);
     res.top_screen = res.top_screen.TranslateY(shiftY);
     res.bottom_screen = res.bottom_screen.TranslateY(shiftY);
     return res;
@@ -110,8 +110,8 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
     ASSERT(width > 0);
     ASSERT(height > 0);
 
-    bool vertical = (small_screen_position == Settings::SmallScreenPosition::AboveLarge ||
-                     small_screen_position == Settings::SmallScreenPosition::BelowLarge);
+    const bool vertical = (small_screen_position == Settings::SmallScreenPosition::AboveLarge ||
+                           small_screen_position == Settings::SmallScreenPosition::BelowLarge);
     FramebufferLayout res{width, height, true, true, {}, {}, !upright};
     // Split the window into two parts. Give proportional width to the smaller screen
     // To do that, find the total emulation box and maximize that based on window size
@@ -138,24 +138,16 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
     }
     if (upright) {
         // switch widths and heights
-        float temp = large_width;
-        large_width = large_height;
-        large_height = temp;
-
-        temp = small_width;
-        small_width = small_height;
-        small_height = temp;
-
-        temp = emulation_width;
-        emulation_width = emulation_height;
-        emulation_height = temp;
+        std::swap(large_width, large_height);
+        std::swap(small_width, small_height);
+        std::swap(emulation_width, emulation_height);
     }
 
     emulation_aspect_ratio = emulation_height / emulation_width;
 
     Common::Rectangle<u32> screen_window_area{0, 0, width, height};
     Common::Rectangle<u32> total_rect = MaxRectangle(screen_window_area, emulation_aspect_ratio);
-    float scale_amount = total_rect.GetHeight() * 1.f / emulation_height * 1.f;
+    const float scale_amount = total_rect.GetHeight() * 1.f / emulation_height * 1.f;
     Common::Rectangle<u32> large_screen =
         Common::Rectangle<u32>{total_rect.left, total_rect.top,
                                static_cast<u32>(large_width * scale_amount + total_rect.left),
@@ -383,22 +375,24 @@ FramebufferLayout CustomFrameLayout(u32 width, u32 height, bool is_swapped, bool
 
     FramebufferLayout res{
         width, height, true, true, {}, {}, !Settings::values.upright_screen, is_portrait_mode};
-    u16 top_x = is_portrait_mode ? Settings::values.custom_portrait_top_x.GetValue()
-                                 : Settings::values.custom_top_x.GetValue();
-    u16 top_width = is_portrait_mode ? Settings::values.custom_portrait_top_width.GetValue()
-                                     : Settings::values.custom_top_width.GetValue();
-    u16 top_y = is_portrait_mode ? Settings::values.custom_portrait_top_y.GetValue()
-                                 : Settings::values.custom_top_y.GetValue();
-    u16 top_height = is_portrait_mode ? Settings::values.custom_portrait_top_height.GetValue()
-                                      : Settings::values.custom_top_height.GetValue();
-    u16 bottom_x = is_portrait_mode ? Settings::values.custom_portrait_bottom_x.GetValue()
-                                    : Settings::values.custom_bottom_x.GetValue();
-    u16 bottom_width = is_portrait_mode ? Settings::values.custom_portrait_bottom_width.GetValue()
-                                        : Settings::values.custom_bottom_width.GetValue();
-    u16 bottom_y = is_portrait_mode ? Settings::values.custom_portrait_bottom_y.GetValue()
-                                    : Settings::values.custom_bottom_y.GetValue();
-    u16 bottom_height = is_portrait_mode ? Settings::values.custom_portrait_bottom_height.GetValue()
-                                         : Settings::values.custom_bottom_height.GetValue();
+    const u16 top_x = is_portrait_mode ? Settings::values.custom_portrait_top_x.GetValue()
+                                       : Settings::values.custom_top_x.GetValue();
+    const u16 top_width = is_portrait_mode ? Settings::values.custom_portrait_top_width.GetValue()
+                                           : Settings::values.custom_top_width.GetValue();
+    const u16 top_y = is_portrait_mode ? Settings::values.custom_portrait_top_y.GetValue()
+                                       : Settings::values.custom_top_y.GetValue();
+    const u16 top_height = is_portrait_mode ? Settings::values.custom_portrait_top_height.GetValue()
+                                            : Settings::values.custom_top_height.GetValue();
+    const u16 bottom_x = is_portrait_mode ? Settings::values.custom_portrait_bottom_x.GetValue()
+                                          : Settings::values.custom_bottom_x.GetValue();
+    const u16 bottom_width = is_portrait_mode
+                                 ? Settings::values.custom_portrait_bottom_width.GetValue()
+                                 : Settings::values.custom_bottom_width.GetValue();
+    const u16 bottom_y = is_portrait_mode ? Settings::values.custom_portrait_bottom_y.GetValue()
+                                          : Settings::values.custom_bottom_y.GetValue();
+    const u16 bottom_height = is_portrait_mode
+                                  ? Settings::values.custom_portrait_bottom_height.GetValue()
+                                  : Settings::values.custom_bottom_height.GetValue();
 
     Common::Rectangle<u32> top_screen{top_x, top_y, (u32)(top_x + top_width),
                                       (u32)(top_y + top_height)};
@@ -473,15 +467,15 @@ FramebufferLayout FrameLayoutFromResolutionScale(u32 res_scale, bool is_secondar
         }
 
         case Settings::LayoutOption::LargeScreen: {
-            bool swapped = Settings::values.swap_screen.GetValue();
-            int largeWidth = swapped ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
-            int largeHeight = swapped ? Core::kScreenBottomHeight : Core::kScreenTopHeight;
-            int smallWidth = swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth;
-            int smallHeight = swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight;
-            smallWidth =
-                static_cast<int>(smallWidth / Settings::values.large_screen_proportion.GetValue());
-            smallHeight =
-                static_cast<int>(smallHeight / Settings::values.large_screen_proportion.GetValue());
+            const bool swapped = Settings::values.swap_screen.GetValue();
+            const int largeWidth = swapped ? Core::kScreenBottomWidth : Core::kScreenTopWidth;
+            const int largeHeight = swapped ? Core::kScreenBottomHeight : Core::kScreenTopHeight;
+            const int smallWidth =
+                static_cast<int>((swapped ? Core::kScreenTopWidth : Core::kScreenBottomWidth) /
+                                 Settings::values.large_screen_proportion.GetValue());
+            const int smallHeight =
+                static_cast<int>((swapped ? Core::kScreenTopHeight : Core::kScreenBottomHeight) /
+                                 Settings::values.large_screen_proportion.GetValue());
 
             if (Settings::values.small_screen_position.GetValue() ==
                     Settings::SmallScreenPosition::AboveLarge ||
@@ -614,9 +608,8 @@ FramebufferLayout GetCardboardSettings(const FramebufferLayout& layout) {
 }
 
 std::pair<unsigned, unsigned> GetMinimumSizeFromPortraitLayout() {
-    u32 min_width, min_height;
-    min_width = Core::kScreenTopWidth;
-    min_height = Core::kScreenTopHeight + Core::kScreenBottomHeight;
+    const u32 min_width = Core::kScreenTopWidth;
+    const u32 min_height = Core::kScreenTopHeight + Core::kScreenBottomHeight;
     return std::make_pair(min_width, min_height);
 }
 
