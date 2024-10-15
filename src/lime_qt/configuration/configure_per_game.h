@@ -65,7 +65,7 @@ private:
 
     QGraphicsScene* scene;
 
-    std::unique_ptr<Config> game_config;
+    std::unique_ptr<QtConfig> game_config;
 
     Core::System& system;
 

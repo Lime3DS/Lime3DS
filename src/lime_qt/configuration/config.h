@@ -13,13 +13,13 @@
 
 class QSettings;
 
-class Config {
+class QtConfig {
 public:
     enum class ConfigType : u32 { GlobalConfig, PerGameConfig };
 
-    explicit Config(const std::string& config_name = "qt-config",
-                    ConfigType config_type = ConfigType::GlobalConfig);
-    ~Config();
+    explicit QtConfig(const std::string& config_name = "qt-config",
+                      ConfigType config_type = ConfigType::GlobalConfig);
+    ~QtConfig();
 
     void Reload();
     void Save();

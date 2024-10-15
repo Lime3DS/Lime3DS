@@ -57,6 +57,7 @@ else()
 endif()
 
 option(ENABLE_SDL2 "Enable using SDL2" ON)
+CMAKE_DEPENDENT_OPTION(ENABLE_SDL2_FRONTEND "Enable the SDL2 frontend" ON "ENABLE_SDL2;NOT ANDROID" OFF)
 option(USE_SYSTEM_SDL2 "Use the system SDL2 lib (instead of the bundled one)" OFF)
 
 # Set bundled qt as dependent options.
@@ -86,6 +87,14 @@ CMAKE_DEPENDENT_OPTION(COMPILE_WITH_DWARF "Add DWARF debugging information" ${IS
 option(ENABLE_LTO "Enable link time optimization" ${DEFAULT_ENABLE_LTO})
 option(LIME3DS_USE_PRECOMPILED_HEADERS "Use precompiled headers" ON)
 option(LIME3DS_WARNINGS_AS_ERRORS "Enable warnings as errors" ON)
+
+# Pass ENABLE_QT and ENABLE_SDL2_FRONTEND to C++ land
+if (ENABLE_QT)
+    add_definitions(-DENABLE_QT)
+endif()
+if (ENABLE_SDL2_FRONTEND)
+    add_definitions(-DENABLE_SDL2_FRONTEND)
+endif()
 
 include(Lime3DSHandleSystemLibs)
 
@@ -420,18 +429,14 @@ endif()
 
 add_subdirectory(src)
 
-
-# Set lime-qt project or lime project as default StartUp Project in Visual Studio depending on whether QT is enabled or not
-if(ENABLE_QT)
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT lime-qt)
-endif()
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT lime)
 
 # Create target for outputting distributable bundles.
 # Not supported for mobile platforms as distributables are built differently.
 if (NOT ANDROID)
     include(BundleTarget)
-    if (ENABLE_QT)
-        bundle_target(lime-qt)
+    if (ENABLE_SDL2_FRONTEND OR ENABLE_QT)
+        bundle_target(lime)
     endif()
     if (ENABLE_DEDICATED_ROOM)
         bundle_target(lime-room)

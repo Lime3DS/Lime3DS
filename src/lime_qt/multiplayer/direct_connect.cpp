@@ -9,7 +9,7 @@
 #include <QString>
 #include <QtConcurrent/QtConcurrentRun>
 #include "core/hle/service/cfg/cfg.h"
-#include "lime_qt/main.h"
+#include "lime_qt/lime_qt.h"
 #include "lime_qt/multiplayer/direct_connect.h"
 #include "lime_qt/multiplayer/message.h"
 #include "lime_qt/multiplayer/validation.h"
