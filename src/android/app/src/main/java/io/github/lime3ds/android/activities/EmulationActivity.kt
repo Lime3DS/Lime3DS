@@ -195,9 +195,17 @@ class EmulationActivity : AppCompatActivity() {
     }
 
     private fun enableFullscreenImmersive() {
-        // TODO: Remove this once we properly account for display insets in the input overlay
-        window.attributes.layoutInDisplayCutoutMode =
-            WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
+        val attributes = window.attributes
+
+        attributes.layoutInDisplayCutoutMode =
+            if (BooleanSetting.EXPAND_TO_CUTOUT_AREA.boolean) {
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            } else {
+                // TODO: Remove this once we properly account for display insets in the input overlay
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
+            }
+
+        window.attributes = attributes
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 

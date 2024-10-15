@@ -231,6 +231,10 @@ custom_portrait_bottom_height =
 # 0 (default): Top Screen is prominent, 1: Bottom Screen is prominent
 swap_screen =
 
+# Expands the display area to include the cutout (or notch) area
+# 0 (default): Off, 1: On
+expand_to_cutout_area =
+
 # Screen placement settings when using Cardboard VR (render3d = 4)
 # 30 - 100: Screen size as a percentage of the viewport. 85 (default)
 cardboard_screen_size =
