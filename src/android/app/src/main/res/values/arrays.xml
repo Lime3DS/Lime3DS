@@ -211,6 +211,17 @@
         <item>5</item>
     </integer-array>
 
+    <string-array name="textureSamplingNames">
+        <item>@string/game_controlled</item>
+        <item>@string/nearest_neighbor</item>
+        <item>@string/linear</item>
+    </string-array>
+    <integer-array name="textureSamplingValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
     <string-array name="staticThemeNames">
         <item>Blue (Default)</item>
         <item>Cyan</item>
