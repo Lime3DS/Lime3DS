@@ -777,31 +777,17 @@ void GMainWindow::InitializeHotkeys() {
                      [&] { Settings::values.dump_textures = !Settings::values.dump_textures; });
     connect_shortcut(QStringLiteral("Toggle Custom Textures"),
                      [&] { Settings::values.custom_textures = !Settings::values.custom_textures; });
-    // We use "static" here in order to avoid capturing by lambda due to a MSVC bug, which makes
-    // the variable hold a garbage value after this function exits
-    static constexpr u16 SPEED_LIMIT_STEP = 5;
+
+    connect_shortcut(QStringLiteral("Toggle Custom Emulation Speed"), &GMainWindow::ToggleEmulationSpeed);
+
     connect_shortcut(QStringLiteral("Increase Speed Limit"), [&] {
-        if (Settings::values.frame_limit.GetValue() == 0) {
-            return;
-        }
-        if (Settings::values.frame_limit.GetValue() < 995 - SPEED_LIMIT_STEP) {
-            Settings::values.frame_limit.SetValue(Settings::values.frame_limit.GetValue() +
-                                                  SPEED_LIMIT_STEP);
-        } else {
-            Settings::values.frame_limit = 0;
-        }
-        UpdateStatusBar();
+        AdjustSpeedLimit(true);
     });
+
     connect_shortcut(QStringLiteral("Decrease Speed Limit"), [&] {
-        if (Settings::values.frame_limit.GetValue() == 0) {
-            Settings::values.frame_limit = 995;
-        } else if (Settings::values.frame_limit.GetValue() > SPEED_LIMIT_STEP) {
-            Settings::values.frame_limit.SetValue(Settings::values.frame_limit.GetValue() -
-                                                  SPEED_LIMIT_STEP);
-            UpdateStatusBar();
-        }
-        UpdateStatusBar();
+        AdjustSpeedLimit(false);
     });
+
 
     connect_shortcut(QStringLiteral("Audio Mute/Unmute"), &GMainWindow::OnMute);
     connect_shortcut(QStringLiteral("Audio Volume Down"), &GMainWindow::OnDecreaseVolume);
@@ -2568,6 +2554,42 @@ void GMainWindow::ChangeScreenLayout() {
     Settings::values.layout_option = new_layout;
     system.ApplySettings();
     UpdateSecondaryWindowVisibility();
+}
+
+void GMainWindow::ToggleEmulationSpeed() {
+    static bool key_pressed = false; // Prevent spam on hold
+    static int initial_frame_limit = Settings::values.frame_limit.GetValue(); // Store original frame limit
+
+    if (!key_pressed) {
+        key_pressed = true;
+        turbo_mode_active = !turbo_mode_active;
+
+        if (turbo_mode_active) {
+            Settings::values.frame_limit.SetValue(UISettings::values.turbo_speed_slider.GetValue());
+        } else {
+            Settings::values.frame_limit.SetValue(initial_frame_limit);
+        }
+
+        UpdateStatusBar();
+        QTimer::singleShot(200, [] { key_pressed = false; });
+    }
+}
+
+void GMainWindow::AdjustSpeedLimit(bool increase) {
+    const int SPEED_LIMIT_STEP = 5;
+
+    int turbo_speed = UISettings::values.turbo_speed_slider.GetValue();
+    if (increase) {
+        if (turbo_speed < 995) {
+            UISettings::values.turbo_speed_slider.SetValue(turbo_speed + SPEED_LIMIT_STEP);
+        }
+    } else {
+        if (turbo_speed > SPEED_LIMIT_STEP) {
+            UISettings::values.turbo_speed_slider.SetValue(turbo_speed - SPEED_LIMIT_STEP);
+        }
+    }
+
+    UpdateStatusBar();
 }
 
 void GMainWindow::ToggleScreenLayout() {

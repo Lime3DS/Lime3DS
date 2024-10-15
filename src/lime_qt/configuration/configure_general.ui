@@ -232,6 +232,66 @@
           </layout>
          </widget>
         </item>
+        <item>
+         <widget class="QWidget" name="turbo_speed_layout" native="true">
+          <layout class="QHBoxLayout" name="turbo_speed_layout_inner">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="turbo_speed_label">
+             <property name="text">
+              <string>Turbo Speed:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="turbo_speed_slider">
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>198</number>
+             </property>
+             <property name="singleStep">
+              <number>5</number>
+             </property>
+             <property name="pageStep">
+              <number>15</number>
+             </property>
+             <property name="value">
+              <number>19</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="tickPosition">
+              <enum>QSlider::TicksBelow</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="turbo_speed_display_label">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>

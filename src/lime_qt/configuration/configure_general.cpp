@@ -24,10 +24,14 @@ static constexpr int SettingsToSlider(int value) {
     return (value - 5) / 5;
 }
 
-ConfigureGeneral::ConfigureGeneral(QWidget* parent)
-    : QWidget(parent), ui(std::make_unique<Ui::ConfigureGeneral>()) {
-
+ConfigureGeneral::ConfigureGeneral(bool is_powered_on, QWidget* parent)
+    : QWidget(parent), ui(std::make_unique<Ui::ConfigureGeneral>()), is_powered_on{is_powered_on} {
     ui->setupUi(this);
+
+    connect(ui->turbo_speed_slider, &QSlider::valueChanged, this, [&](int value) {
+        UISettings::values.turbo_speed_slider.SetValue(SliderToSettings(value));
+        ui->turbo_speed_display_label->setText(QStringLiteral("%1%").arg(UISettings::values.turbo_speed_slider.GetValue()));
+    });
 
     // Set a minimum width for the label to prevent the slider from changing size.
     // This scales across DPIs, and is acceptable for uncapitalized strings.
@@ -71,6 +75,8 @@ ConfigureGeneral::~ConfigureGeneral() = default;
 
 void ConfigureGeneral::SetConfiguration() {
     if (Settings::IsConfiguringGlobal()) {
+        ui->turbo_speed_slider->setValue(SettingsToSlider(UISettings::values.turbo_speed_slider.GetValue()));
+
         ui->toggle_check_exit->setChecked(UISettings::values.confirm_before_closing.GetValue());
         ui->toggle_background_pause->setChecked(
             UISettings::values.pause_when_in_background.GetValue());
@@ -101,7 +107,10 @@ void ConfigureGeneral::SetConfiguration() {
     }
 
     if (!Settings::IsConfiguringGlobal()) {
-        if (Settings::values.frame_limit.UsingGlobal()) {
+        if (is_powered_on) {
+            ui->emulation_speed_combo->setEnabled(false);
+            ui->frame_limit->setEnabled(false);
+        } else if (Settings::values.frame_limit.UsingGlobal()) {
             ui->emulation_speed_combo->setCurrentIndex(0);
             ui->frame_limit->setEnabled(false);
         } else {
@@ -194,7 +203,11 @@ void ConfigureGeneral::RetranslateUI() {
 void ConfigureGeneral::SetupPerGameUI() {
     if (Settings::IsConfiguringGlobal()) {
         ui->region_combobox->setEnabled(Settings::values.region_value.UsingGlobal());
-        ui->frame_limit->setEnabled(Settings::values.frame_limit.UsingGlobal());
+         if (is_powered_on) {
+            ui->frame_limit->setEnabled(false);
+        } else {
+            ui->frame_limit->setEnabled(Settings::values.frame_limit.UsingGlobal());
+        }
         return;
     }
 
@@ -210,6 +223,7 @@ void ConfigureGeneral::SetupPerGameUI() {
         ConfigurationShared::SetHighlight(ui->widget_screenshot, index == 1);
     });
 
+    ui->turbo_speed_slider->setVisible(false);
     ui->general_group->setVisible(false);
     ui->updateBox->setVisible(false);
     ui->button_reset_defaults->setVisible(false);
