@@ -550,6 +550,20 @@ if ("x86_64" IN_LIST ARCHITECTURE OR "arm64" IN_LIST ARCHITECTURE)
     target_link_libraries(citra_core PRIVATE dynarmic)
 endif()
 
+# FastInterp's dispatch loop requires GCC/Clang computed goto; MSVC builds
+# fall back to DynCom when the JIT is off.
+if (NOT MSVC)
+    target_compile_definitions(citra_core PUBLIC -DENABLE_FASTINTERP)
+    target_sources(citra_core PRIVATE
+        arm/fastinterp/fastinterp.cpp
+        arm/fastinterp/fastinterp.h
+        arm/fastinterp/fastinterp_cache.h
+        arm/fastinterp/fastinterp_decode.cpp
+        arm/fastinterp/fastinterp_flags.h
+        arm/fastinterp/fastinterp_types.h
+    )
+endif()
+
 if (CITRA_USE_PRECOMPILED_HEADERS)
     target_precompile_headers(citra_core PRIVATE precompiled_headers.h)
 endif()
