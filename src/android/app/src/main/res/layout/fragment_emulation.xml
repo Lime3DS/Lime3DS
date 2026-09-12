@@ -34,6 +34,53 @@
             android:focusableInTouchMode="true"
             android:visibility="invisible" />
 
+        <!-- Custom Layout Editor -->
+        <org.citra.citra_emu.display.CustomLayoutEditorView
+            android:id="@+id/customLayoutEditor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Custom Layout Editor Toolbar -->
+        <LinearLayout
+            android:id="@+id/customLayoutToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/warning_cancel" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="0dp" />
+
+            <Button
+                android:id="@+id/resetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/option_default" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="0dp" />
+
+            <Button
+                android:id="@+id/doneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/done" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/done_control_config"
             style="@style/Widget.Material3.Button.ElevatedButton"

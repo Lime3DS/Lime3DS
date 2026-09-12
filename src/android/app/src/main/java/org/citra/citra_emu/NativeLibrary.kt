@@ -219,6 +219,24 @@ object NativeLibrary {
     external fun updateFramebuffer(isPortrait: Boolean)
 
     /**
+     * Applies a custom framebuffer layout.
+     *
+     * Sets the position and size of the top and bottom screens
+     * and applies the selected orientation layout.
+     */
+    external fun setCustomLayout(
+        topX: Int,
+        topY: Int,
+        topWidth: Int,
+        topHeight: Int,
+        bottomX: Int,
+        bottomY: Int,
+        bottomWidth: Int,
+        bottomHeight: Int,
+        isPortraitMode: Boolean
+    )
+
+    /**
      * Swaps the top and bottom screens.
      */
     external fun swapScreens(swapScreens: Boolean, rotation: Int)
