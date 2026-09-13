@@ -88,6 +88,7 @@ ConfigureDebug::ConfigureDebug(bool is_powered_on_, QWidget* parent)
     });
 
     ui->toggle_cpu_jit->setEnabled(!is_powered_on);
+    ui->toggle_fastinterp->setEnabled(!is_powered_on);
     ui->toggle_renderer_debug->setEnabled(!is_powered_on);
     ui->toggle_pica_debugging->setEnabled(!is_powered_on);
     ui->toggle_dump_command_buffers->setEnabled(!is_powered_on);
@@ -127,6 +128,7 @@ void ConfigureDebug::SetConfiguration() {
     ui->log_regex_filter_edit->setText(
         QString::fromStdString(Settings::values.log_regex_filter.GetValue()));
     ui->toggle_cpu_jit->setChecked(Settings::values.use_cpu_jit.GetValue());
+    ui->toggle_fastinterp->setChecked(Settings::values.use_fastinterp.GetValue());
     ui->delay_start_for_lle_modules->setChecked(
         Settings::values.delay_start_for_lle_modules.GetValue());
     ui->deterministic_async_operations->setChecked(
@@ -178,6 +180,7 @@ void ConfigureDebug::ApplyConfiguration() {
     Common::Log::SetGlobalFilter(filter);
     Common::Log::SetRegexFilter(Settings::values.log_regex_filter.GetValue());
     Settings::values.use_cpu_jit = ui->toggle_cpu_jit->isChecked();
+    Settings::values.use_fastinterp = ui->toggle_fastinterp->isChecked();
     Settings::values.delay_start_for_lle_modules = ui->delay_start_for_lle_modules->isChecked();
     Settings::values.deterministic_async_operations =
         ui->deterministic_async_operations->isChecked();
@@ -212,6 +215,7 @@ void ConfigureDebug::SetupPerGameUI() {
     ui->enable_rpc_server->setVisible(false);
     ui->toggle_unique_data_console_type->setVisible(false);
     ui->toggle_cpu_jit->setVisible(false);
+    ui->toggle_fastinterp->setVisible(false);
 }
 
 void ConfigureDebug::RetranslateUI() {
