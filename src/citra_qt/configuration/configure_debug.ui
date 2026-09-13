@@ -223,13 +223,13 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_cpu_clock_info">
         <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;Underclocking can increase performance but may cause the application to freeze.&lt;br/&gt;Overclocking may reduce lag in applications but also might cause freezes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::RichText</enum>
-       </property>
-      </widget>
-     </item>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;Underclocking can increase performance but may cause the application to freeze.&lt;br/&gt;Overclocking may reduce lag in applications but also might cause freezes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="0">
        <widget class="QCheckBox" name="toggle_cpu_jit">
         <property name="toolTip">
@@ -241,20 +241,30 @@
        </widget>
       </item>
       <item row="4" column="0">
+       <widget class="QCheckBox" name="toggle_fastinterp">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When JIT is disabled, use the fast interpreter instead of the legacy interpreter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Use fast interpreter</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
        <widget class="QCheckBox" name="toggle_renderer_debug">
         <property name="text">
          <string>Enable debug renderer</string>
         </property>
        </widget>
       </item>
-       <item row="5" column="0">
-         <widget class="QCheckBox" name="toggle_pica_debugging">
-           <property name="text">
-             <string>Enable PICA200 debugging</string>
-           </property>
-         </widget>
-       </item>
       <item row="6" column="0">
+       <widget class="QCheckBox" name="toggle_pica_debugging">
+        <property name="text">
+         <string>Enable PICA200 debugging</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
        <widget class="QCheckBox" name="toggle_dump_command_buffers">
         <property name="text">
          <string>Dump command buffers</string>

@@ -86,6 +86,11 @@ static const char* android_config_default_file_content = (BOOST_HANA_STRING(R"(
 # 0: Interpreter (slow), 1 (default): JIT (fast)
 )") DECLARE_KEY(use_cpu_jit) BOOST_HANA_STRING(R"(
 
+[Core]
+# Whether to use the fast interpreter or the legacy interpreter when JIT is disabled
+# 0: Legacy, 1 (default): Fast
+)") DECLARE_KEY(use_fastinterp) BOOST_HANA_STRING(R"(
+
 # Change the Clock Frequency of the emulated 3DS CPU.
 # Underclocking can increase the performance of the game at the risk of freezing.
 # Overclocking may fix lag that happens on console, but also comes with the risk of freezing.

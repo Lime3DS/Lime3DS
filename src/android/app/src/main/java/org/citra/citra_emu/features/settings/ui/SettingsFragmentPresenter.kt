@@ -1914,6 +1914,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
+                    BooleanSetting.USE_FASTINTERP,
+                    R.string.use_fastinterp,
+                    R.string.use_fastinterp_description,
+                    BooleanSetting.USE_FASTINTERP.key,
+                    BooleanSetting.USE_FASTINTERP.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
                     BooleanSetting.HW_SHADER,
                     R.string.hw_shaders,
                     R.string.hw_shaders_description,
