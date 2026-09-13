@@ -21,7 +21,7 @@
 #include "core/arm/dynarmic/arm_dynarmic.h"
 #endif
 #include "core/arm/dyncom/arm_dyncom.h"
-#ifdef ENABLE_FASTINTERP
+#ifdef HAVE_FASTINTERP
 #include "core/arm/fastinterp/fastinterp.h"
 #endif
 #include "core/cheats/cheats.h"
@@ -560,7 +560,7 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
         }
         LOG_WARNING(Core, "CPU JIT requested, but Dynarmic not available");
 #endif
-#ifdef ENABLE_FASTINTERP
+#ifdef HAVE_FASTINTERP
     } else if (Settings::values.use_fastinterp) {
         for (u32 i = 0; i < num_cores; ++i) {
             cpu_cores.push_back(std::make_shared<FastInterp::ARM_FastInterp>(*this, *memory, i,

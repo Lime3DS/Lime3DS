@@ -553,7 +553,7 @@ endif()
 # FastInterp's dispatch loop requires GCC/Clang computed goto; MSVC builds
 # fall back to DynCom when the JIT is off.
 if (NOT MSVC)
-    target_compile_definitions(citra_core PUBLIC -DENABLE_FASTINTERP)
+    target_compile_definitions(citra_core PUBLIC HAVE_FASTINTERP)
     target_sources(citra_core PRIVATE
         arm/fastinterp/fastinterp.cpp
         arm/fastinterp/fastinterp.h
