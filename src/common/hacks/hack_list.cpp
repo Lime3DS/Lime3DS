@@ -30,6 +30,11 @@ HackManager hack_manager = {
                      0x000400000005A500,
                      0x0004000000084400,
                      0x0004000000057600,
+
+                     // Minecraft: New Nintendo 3DS Edition
+                     0x00040000001B8700, // USA
+                     0x000400000017CA00, // EUR
+                     0x000400000017FD00, // JPN
                  },
          }},
 
