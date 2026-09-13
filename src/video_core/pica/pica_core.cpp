@@ -1182,16 +1182,19 @@ void PicaCore::LoadVertices(bool is_indexed) {
 }
 
 PicaCore::RenderPropertiesGuess PicaCore::GuessCmdRenderProperties(PAddr list, u32 size) {
-    // Initialize command list tracking.
-    const u8* head = memory.GetPhysicalPointer(list);
-    cmd_list.Reset(list, head, size);
-
     constexpr size_t max_iterations = 0x100;
 
     RenderPropertiesGuess find_info{};
 
     find_info.vp_height = regs.internal.rasterizer.viewport_size_y.Value();
     find_info.paddr = regs.internal.framebuffer.framebuffer.color_buffer_address.Value() * 8;
+
+    // Initialize command list tracking.
+    const u8* head = memory.GetPhysicalPointer(list);
+    if (head == nullptr) {
+        return find_info;
+    }
+    cmd_list.Reset(list, head, size);
 
     auto process_write = [this, &find_info](u32 cmd_id, u32 value) {
         switch (cmd_id) {
@@ -1203,6 +1206,10 @@ PicaCore::RenderPropertiesGuess PicaCore::GuessCmdRenderProperties(PAddr list, u
             find_info.paddr = value * 8;
             find_info.paddr_found = true;
             break;
+        case PICA_REG_INDEX(pipeline.trigger_draw):
+        case PICA_REG_INDEX(pipeline.trigger_draw_indexed):
+            find_info.has_draw = true;
+            break;
         [[unlikely]] case PICA_REG_INDEX(pipeline.command_buffer.trigger[0]):
         [[unlikely]] case PICA_REG_INDEX(pipeline.command_buffer.trigger[1]): {
             const u32 index =
@@ -1210,13 +1217,15 @@ PicaCore::RenderPropertiesGuess PicaCore::GuessCmdRenderProperties(PAddr list, u
             const PAddr addr = regs.internal.pipeline.command_buffer.GetPhysicalAddress(index);
             const u32 size = regs.internal.pipeline.command_buffer.GetSize(index);
             const u8* head = memory.GetPhysicalPointer(addr);
-            cmd_list.Reset(addr, head, size);
+            if (head != nullptr) {
+                cmd_list.Reset(addr, head, size);
+            }
             break;
         }
         default:
             break;
         }
-        return find_info.vp_heigh_found && find_info.paddr_found;
+        return find_info.vp_heigh_found && find_info.paddr_found && find_info.has_draw;
     };
 
     size_t iterations = 0;
