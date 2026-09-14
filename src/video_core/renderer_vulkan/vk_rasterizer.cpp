@@ -68,7 +68,9 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
       runtime{instance, scheduler, renderpass_cache, update_queue, image_count},
       res_cache{memory, custom_tex_manager, runtime, regs, renderer},
       stream_buffer{instance, scheduler, BUFFER_USAGE, STREAM_BUFFER_SIZE},
-      uniform_buffer{instance, scheduler, vk::BufferUsageFlagBits::eUniformBuffer,
+      uniform_buffer{instance, scheduler,
+                     vk::BufferUsageFlagBits::eUniformBuffer |
+                         vk::BufferUsageFlagBits::eStorageBuffer,
                      UNIFORM_BUFFER_SIZE},
       texture_buffer{instance, scheduler, vk::BufferUsageFlagBits::eUniformTexelBuffer,
                      TextureBufferSize(instance)},
@@ -78,10 +80,12 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
 
     vertex_buffers.fill(stream_buffer.Handle());
 
-    // Query uniform buffer alignment.
+    // Query buffer alignments.
+    const vk::DeviceSize vs_pica_alignment =
+        std::max(instance.UniformMinAlignment(), instance.StorageMinAlignment());
     uniform_buffer_alignment = instance.UniformMinAlignment();
     uniform_size_aligned_vs_pica =
-        Common::AlignUp<u32>(sizeof(VSPicaUniformData), uniform_buffer_alignment);
+        Common::AlignUp<u32>(sizeof(VSPicaUniformData), vs_pica_alignment);
     uniform_size_aligned_vs = Common::AlignUp<u32>(sizeof(VSUniformData), uniform_buffer_alignment);
     uniform_size_aligned_fs = Common::AlignUp<u32>(sizeof(FSUniformData), uniform_buffer_alignment);
 
@@ -113,7 +117,8 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
 
     // Prepare the static buffer descriptor set.
     const auto buffer_set = pipeline_cache.Acquire(DescriptorHeapType::Buffer);
-    update_queue.AddBuffer(buffer_set, 0, uniform_buffer.Handle(), 0, sizeof(VSPicaUniformData));
+    update_queue.AddBuffer(buffer_set, 0, uniform_buffer.Handle(), 0, sizeof(VSPicaUniformData),
+                           vk::DescriptorType::eStorageBufferDynamic);
     update_queue.AddBuffer(buffer_set, 1, uniform_buffer.Handle(), 0, sizeof(VSUniformData));
     update_queue.AddBuffer(buffer_set, 2, uniform_buffer.Handle(), 0, sizeof(FSUniformData));
     update_queue.AddTexelBuffer(buffer_set, 3, *texture_lf_view);

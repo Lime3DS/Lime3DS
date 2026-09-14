@@ -121,6 +121,7 @@ private:
     OGLStreamBuffer texture_buffer;
     OGLStreamBuffer texture_lf_buffer;
     GLint uniform_buffer_alignment;
+    GLint ssbo_buffer_alignment;
     std::size_t uniform_size_aligned_vs_pica;
     std::size_t uniform_size_aligned_vs;
     std::size_t uniform_size_aligned_fs;

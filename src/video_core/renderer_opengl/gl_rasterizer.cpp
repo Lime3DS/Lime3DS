@@ -101,12 +101,14 @@ RasterizerOpenGL::RasterizerOpenGL(Memory::MemorySystem& memory, Pica::PicaCore&
     hw_vao.Create();
 
     glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, &uniform_buffer_alignment);
+    glGetIntegerv(GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT, &ssbo_buffer_alignment);
+    const GLint max_alignment = std::max(uniform_buffer_alignment, ssbo_buffer_alignment);
     uniform_size_aligned_vs_pica =
-        Common::AlignUp<std::size_t>(sizeof(VSPicaUniformData), uniform_buffer_alignment);
+        Common::AlignUp<std::size_t>(sizeof(VSPicaUniformData), max_alignment);
     uniform_size_aligned_vs =
-        Common::AlignUp<std::size_t>(sizeof(VSUniformData), uniform_buffer_alignment);
+        Common::AlignUp<std::size_t>(sizeof(VSUniformData), max_alignment);
     uniform_size_aligned_fs =
-        Common::AlignUp<std::size_t>(sizeof(FSUniformData), uniform_buffer_alignment);
+        Common::AlignUp<std::size_t>(sizeof(FSUniformData), max_alignment);
 
     // Set vertex attributes for software shader path
     state.draw.vertex_array = sw_vao.handle;
@@ -1038,8 +1040,9 @@ void RasterizerOpenGL::UploadUniforms(bool accelerate_draw) {
         uniform_size_aligned_vs_pica + uniform_size_aligned_vs + uniform_size_aligned_fs;
     std::size_t used_bytes = 0;
 
+    const GLint max_alignment = std::max(uniform_buffer_alignment, ssbo_buffer_alignment);
     const auto [uniforms, offset, invalidate] =
-        uniform_buffer.Map(uniform_size, uniform_buffer_alignment);
+        uniform_buffer.Map(uniform_size, max_alignment);
 
     if (vs_data_dirty || invalidate) {
         std::memcpy(uniforms + used_bytes, &vs_data, sizeof(vs_data));
@@ -1061,7 +1064,7 @@ void RasterizerOpenGL::UploadUniforms(bool accelerate_draw) {
         VSPicaUniformData vs_uniforms;
         vs_uniforms.SetFromRegs(pica.vs_setup);
         std::memcpy(uniforms + used_bytes, &vs_uniforms, sizeof(vs_uniforms));
-        glBindBufferRange(GL_UNIFORM_BUFFER, UniformBindings::VSPicaData,
+        glBindBufferRange(GL_SHADER_STORAGE_BUFFER, UniformBindings::VSPicaData,
                           uniform_buffer.GetHandle(), offset + used_bytes, sizeof(vs_uniforms));
         pica.vs_setup.uniforms_dirty = false;
         used_bytes += uniform_size_aligned_vs_pica;

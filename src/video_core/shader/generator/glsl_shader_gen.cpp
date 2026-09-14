@@ -16,9 +16,9 @@ namespace Pica::Shader::Generator::GLSL {
 
 constexpr std::string_view VSPicaUniformBlockDef = R"(
 #ifdef VULKAN
-layout (set = 0, binding = 0, std140) uniform vs_pica_data {
+layout (set = 0, binding = 0, std430) readonly buffer vs_pica_data {
 #else
-layout (binding = 0, std140) uniform vs_pica_data {
+layout (binding = 0, std430) readonly buffer vs_pica_data {
 #endif
     uint b;
     uvec4 i[4];
