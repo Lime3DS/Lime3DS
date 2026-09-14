@@ -397,6 +397,10 @@ GMainWindow::GMainWindow(Core::System& system_)
         }
     }
 
+#ifdef _WIN32
+    SetPriorityClass(GetCurrentProcess(), ABOVE_NORMAL_PRIORITY_CLASS);
+#endif
+
 #ifdef __unix__
     SetGamemodeEnabled(Settings::values.enable_gamemode.GetValue());
 #endif
