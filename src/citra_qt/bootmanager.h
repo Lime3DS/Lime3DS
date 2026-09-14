@@ -70,6 +70,15 @@ public:
     }
 
     /**
+     * Check whether the guest asked to exit and this thread is on its way out because of it
+     * @note This is set before ErrorThrown is emitted, so a slot handling that signal can tell a
+     *       guest-initiated exit from a frontend-initiated one. Thread-safe.
+     */
+    bool IsGuestExiting() const {
+        return guest_exiting;
+    }
+
+    /**
      * Requests for the emulation thread to stop running
      */
     void RequestStop() {
@@ -81,6 +90,7 @@ private:
     bool exec_step = false;
     bool running = false;
     std::atomic<bool> stop_run{false};
+    std::atomic<bool> guest_exiting{false};
     std::mutex running_mutex;
     std::condition_variable running_cv;
 

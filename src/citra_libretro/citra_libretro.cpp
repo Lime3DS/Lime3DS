@@ -2,6 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+#include <chrono>
 #include <list>
 #include <numeric>
 #include <vector>
@@ -44,6 +45,7 @@
 #include "core/core.h"
 #include "core/frontend/applets/default_applets.h"
 #include "core/frontend/image_interface.h"
+#include "core/guest_shutdown.h"
 #include "core/hle/kernel/kernel.h"
 #include "core/hle/kernel/memory.h"
 #include "core/hle/kernel/process.h"
@@ -490,8 +492,41 @@ static void context_destroy() {
     emu_instance->emu_window->DestroyContext();
 }
 
+/// The guest is driven from retro_run() on the frontend's own thread, so blocking here would
+/// freeze the frontend for as long as it takes. Kept close to the Android budget for that reason.
+static constexpr Core::GuestShutdownTimeouts GUEST_SHUTDOWN_TIMEOUTS{
+    std::chrono::milliseconds(1000), std::chrono::milliseconds(3000)};
+
+/// libretro side of Core::PerformGuestShutdown(). There is no emulation thread to wait on here:
+/// retro_run() advances the guest itself, so the wait has to do the same, as
+/// DrainAsyncOperations() does. Presentation is suppressed throughout, since the frontend is not
+/// expecting frames from us outside retro_run().
+static void RequestGuestShutdown() {
+    auto& system = Core::System::GetInstance();
+    if (!system.IsPoweredOn() || !system.KernelRunning()) {
+        return;
+    }
+
+    emu_instance->emu_window->suppressPresentation = true;
+    Core::PerformGuestShutdown(
+        system, GUEST_SHUTDOWN_TIMEOUTS, [&system](std::chrono::milliseconds slice) {
+            const auto deadline = std::chrono::steady_clock::now() + slice;
+            do {
+                // Anything but Success means the guest is done running, whether it exited as
+                // asked or fell over; either way there is nothing left to wait for.
+                if (system.RunLoop() != Core::System::ResultStatus::Success) {
+                    return true;
+                }
+            } while (std::chrono::steady_clock::now() < deadline);
+            return false;
+        });
+    emu_instance->emu_window->suppressPresentation = false;
+}
+
 void retro_reset() {
     LOG_DEBUG(Frontend, "retro_reset");
+    // A reset tears an in-flight save exactly as a stop does.
+    RequestGuestShutdown();
     Core::System::GetInstance().Shutdown();
     emu_instance->game_loaded = do_load_game();
     emu_instance->first_run_loop = true;
@@ -634,6 +669,7 @@ bool retro_load_game(const struct retro_game_info* info) {
 
 void retro_unload_game() {
     LOG_DEBUG(Frontend, "Unloading game...");
+    RequestGuestShutdown();
     Core::System::GetInstance().Shutdown();
 }
 

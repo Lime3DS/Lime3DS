@@ -113,6 +113,7 @@ void LogSettings() {
     log_setting("Renderer_DelayGameRenderThreadUs", values.delay_game_render_thread_us.GetValue());
     log_setting("Renderer_Simulate3DSGPUTimings", values.simulate_3ds_gpu_timings.GetValue());
     log_setting("Renderer_DisableRightEyeRender", values.disable_right_eye_render.GetValue());
+    log_setting("Core_NotifyGuestOnShutdown", values.notify_guest_on_shutdown.GetValue());
     log_setting("Stereoscopy_Render3d", values.render_3d.GetValue());
     log_setting("Stereoscopy_Factor3d", values.factor_3d.GetValue());
     log_setting("Stereoscopy_Swap_Eyes", values.swap_eyes_3d.GetValue());
@@ -246,6 +247,7 @@ void RestoreGlobalState(bool is_powered_on) {
     values.custom_textures.SetGlobal(true);
     values.preload_textures.SetGlobal(true);
     values.disable_right_eye_render.SetGlobal(true);
+    values.notify_guest_on_shutdown.SetGlobal(true);
 }
 
 /// Gets the graphics API that should be used; not necessarily one set in settings

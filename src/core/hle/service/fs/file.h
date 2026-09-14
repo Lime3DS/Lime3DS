@@ -1,4 +1,4 @@
-// Copyright 2018-2024 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2018-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <boost/serialization/base_object.hpp>
+#include <boost/serialization/version.hpp>
 #include "core/file_sys/archive_backend.h"
 #include "core/global.h"
 #include "core/hle/service/service.h"
@@ -50,6 +51,12 @@ public:
     FileSys::Path path;                            ///< Path of the file
     std::unique_ptr<FileSys::FileBackend> backend; ///< File backend interface
 
+    /// Archive this file was opened from, if that archive holds save data; zero otherwise. Set by
+    /// ArchiveManager::OpenFileFromArchive. Writes mark that archive's save as uncommitted.
+    u64 save_data_archive = 0;
+    /// Whether that archive is the plain SD save data, the only one a snapshot can copy.
+    bool save_data_on_sd = false;
+
     /// Creates a new session to this File and returns the ClientSession part of the connection.
     std::shared_ptr<Kernel::ClientSession> Connect();
 
@@ -73,6 +80,8 @@ private:
     void OpenLinkFile(Kernel::HLERequestContext& ctx);
     void OpenSubFile(Kernel::HLERequestContext& ctx);
 
+    void MarkSaveDataWritten();
+
     Kernel::KernelSystem& kernel;
 
     File(Kernel::KernelSystem& kernel);
@@ -87,3 +96,5 @@ private:
 
 BOOST_CLASS_EXPORT_KEY(Service::FS::FileSessionSlot)
 BOOST_CLASS_EXPORT_KEY(Service::FS::File)
+// Version 1 added is_save_data.
+BOOST_CLASS_VERSION(Service::FS::File, 1)

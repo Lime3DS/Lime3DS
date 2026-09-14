@@ -619,6 +619,14 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
 
     LOG_DEBUG(Core, "Initialized OK");
 
+    // Nothing the previous session left behind applies to this one, and System outlives both.
+    guest_shutdown_acknowledged = false;
+    last_guest_save_write = {};
+    {
+        std::scoped_lock lock{guest_save_mutex};
+        uncommitted_save_archives.clear();
+    }
+
     is_powered_on = true;
 
     return ResultStatus::Success;
@@ -713,6 +721,7 @@ void System::RegisterImageInterface(std::shared_ptr<Frontend::ImageInterface> im
 }
 
 void System::Shutdown(bool is_deserializing) {
+    std::scoped_lock session_guard{session_lock};
 
     // Shutdown emulation session
     is_powered_on = false;

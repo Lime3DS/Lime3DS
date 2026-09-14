@@ -31,6 +31,27 @@
 
 namespace Service::FS {
 
+namespace {
+/// FS_ArchiveAction::ARCHIVE_ACTION_COMMIT_SAVE_DATA. See 3dbrew, FSUSER_ControlArchive.
+constexpr u32 ArchiveActionCommitSaveData = 0;
+
+/// Whether writes to this archive land in a title's save rather than the SD card or a ROM.
+constexpr bool IsSaveDataArchiveId(ArchiveIdCode id_code) {
+    switch (id_code) {
+    case ArchiveIdCode::SaveData:
+    case ArchiveIdCode::ExtSaveData:
+    case ArchiveIdCode::SharedExtSaveData:
+    case ArchiveIdCode::SystemSaveData:
+    case ArchiveIdCode::BossExtSaveData:
+    case ArchiveIdCode::OtherSaveDataGeneral:
+    case ArchiveIdCode::OtherSaveDataPermitted:
+        return true;
+    default:
+        return false;
+    }
+}
+} // Anonymous namespace
+
 bool IsInstalledApplication(std::string_view path) {
     return path.rfind(FileUtil::GetUserPath(FileUtil::UserPath::NANDDir) + "title", 0) == 0 ||
            path.rfind(FileUtil::GetUserPath(FileUtil::UserPath::SDMCDir) + "Nintendo 3DS", 0) == 0;
@@ -51,6 +72,17 @@ ArchiveBackend* ArchiveManager::GetArchive(ArchiveHandle handle) {
     return (itr == handle_map.end()) ? nullptr : itr->second.get();
 }
 
+bool ArchiveManager::IsSaveDataArchive(ArchiveHandle handle) const {
+    const auto itr = handle_id_codes.find(handle);
+    // Absent for a handle restored from a save state written before this was recorded.
+    return itr != handle_id_codes.end() && IsSaveDataArchiveId(itr->second);
+}
+
+bool ArchiveManager::IsSdSaveDataArchive(ArchiveHandle handle) const {
+    const auto itr = handle_id_codes.find(handle);
+    return itr != handle_id_codes.end() && itr->second == ArchiveIdCode::SaveData;
+}
+
 ResultVal<ArchiveHandle> ArchiveManager::OpenArchive(ArchiveIdCode id_code,
                                                      const FileSys::Path& archive_path,
                                                      u64 program_id) {
@@ -69,6 +101,7 @@ ResultVal<ArchiveHandle> ArchiveManager::OpenArchive(ArchiveIdCode id_code,
         ++next_handle;
     }
     handle_map.emplace(next_handle, std::move(res));
+    handle_id_codes.emplace(next_handle, id_code);
     return next_handle++;
 }
 
@@ -80,6 +113,7 @@ Result ArchiveManager::CloseArchive(ArchiveHandle handle) {
         return FileSys::ResultInvalidArchiveHandle;
     }
     handle_map.erase(itr);
+    handle_id_codes.erase(handle);
     return ResultSuccess;
 }
 
@@ -87,7 +121,15 @@ Result ArchiveManager::ControlArchive(ArchiveHandle handle, u32 action, u8* inpu
                                       size_t input_size, u8* output, size_t output_size) {
     auto itr = handle_map.find(handle);
     if (itr != handle_map.end()) {
-        return itr->second->Control(action, input, input_size, output, output_size);
+        const Result result = itr->second->Control(action, input, input_size, output, output_size);
+        // The commit is stubbed, but a successful one still marks the save consistent: the only
+        // safe stop point. A failed commit leaves the save every bit as at risk as it already was,
+        // so it must not clear the flag.
+        if (result.IsSuccess() && action == ArchiveActionCommitSaveData &&
+            IsSaveDataArchive(handle)) {
+            system.NotifyGuestSaveCommitted(handle);
+        }
+        return result;
     } else {
         return FileSys::ResultInvalidArchiveHandle;
     }
@@ -123,6 +165,10 @@ ArchiveManager::OpenFileFromArchive(ArchiveHandle archive_handle, const FileSys:
     }
 
     auto file = std::make_shared<File>(system.Kernel(), std::move(backend).Unwrap(), path);
+    // File only knows the guest-side path, so it can't work this out itself. The handle rather
+    // than a flag: commits are per archive, and a title has several save archives open at once.
+    file->save_data_archive = IsSaveDataArchive(archive_handle) ? archive_handle : 0;
+    file->save_data_on_sd = IsSdSaveDataArchive(archive_handle);
     return std::make_pair(std::move(file), open_timeout_ns);
 }
 

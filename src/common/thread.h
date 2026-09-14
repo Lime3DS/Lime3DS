@@ -1,4 +1,8 @@
-// Copyright 2013 Dolphin Emulator Project / 2014 Citra Emulator Project
+// Copyright 2014-2026 Citra Emulator Project / Azahar Emulator Project
+// Licensed under GPLv2 or any later version
+// Refer to the license.txt file included.
+
+// Copyright 2013 Dolphin Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -99,6 +103,23 @@ private:
     std::size_t waiting = 0;
     std::size_t generation = 0; // Incremented once each time the barrier is used
 };
+
+/**
+ * Acquires a lock, giving up if it is still held after `timeout_ms`. std::recursive_mutex has
+ * no timed acquisition of its own, hence the poll.
+ * @returns True if the lock was acquired, otherwise false.
+ */
+template <typename Mutex>
+[[nodiscard]] bool TryLockFor(std::unique_lock<Mutex>& lock, int timeout_ms) {
+    const auto deadline = std::chrono::steady_clock::now() + std::chrono::milliseconds(timeout_ms);
+    while (!lock.try_lock()) {
+        if (std::chrono::steady_clock::now() >= deadline) {
+            return false;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    }
+    return true;
+}
 
 enum class ThreadPriority : u32 {
     Low = 0,

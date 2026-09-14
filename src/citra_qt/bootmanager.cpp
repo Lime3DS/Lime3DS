@@ -113,6 +113,9 @@ void EmuThread::run() {
 
             const Core::System::ResultStatus result = system.RunLoop();
             if (result == Core::System::ResultStatus::ShutdownRequested) {
+                // Set before the signal: the slot runs on the GUI thread while this one has yet to
+                // reach System::Shutdown(), so IsPoweredOn() alone still reports a live session.
+                guest_exiting = true;
                 // Notify frontend we shutdown
                 emit ErrorThrown(result, "");
                 // End emulation execution

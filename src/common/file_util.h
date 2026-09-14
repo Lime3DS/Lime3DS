@@ -207,7 +207,15 @@ bool DeleteDirRecursively(const std::string& directory, unsigned int recursion =
 [[nodiscard]] std::optional<std::string> GetCurrentDir();
 
 // Create directory and copy contents (does not overwrite existing files)
-void CopyDir(const std::string& source_path, const std::string& dest_path);
+/**
+ * Recursively copies a directory. Existing files in the destination are left alone.
+ * @param should_continue Consulted before each entry; returning false aborts the copy. Lets a
+ *                        caller on a deadline bound a copy whose size it cannot know up front.
+ * @returns True if every entry was copied, false if the source is unreadable, any copy failed,
+ *          or the copy was aborted.
+ */
+bool CopyDir(const std::string& source_path, const std::string& dest_path,
+             const std::function<bool()>& should_continue = {});
 
 // Set the current directory to given directory
 bool SetCurrentDir(const std::string& directory);

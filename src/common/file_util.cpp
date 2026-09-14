@@ -747,22 +747,26 @@ bool DeleteDirRecursively(const std::string& directory, unsigned int recursion) 
     return true;
 }
 
-void CopyDir([[maybe_unused]] const std::string& source_path,
-             [[maybe_unused]] const std::string& dest_path) {
+bool CopyDir(const std::string& source_path, const std::string& dest_path,
+             const std::function<bool()>& should_continue) {
     if (source_path == dest_path)
-        return;
+        return false;
 
     if (!FileUtil::Exists(source_path))
-        return;
+        return false;
 
-    if (!FileUtil::Exists(dest_path))
-        FileUtil::CreateFullPath(dest_path);
+    if (!FileUtil::Exists(dest_path) && !FileUtil::CreateFullPath(dest_path))
+        return false;
 
     const auto entries = ListDirectoryEntries(source_path);
-    if (!entries.has_value() || (*entries).empty())
-        return;
+    if (!entries.has_value())
+        return false;
 
+    bool copied_everything = true;
     for (const std::string& virtual_name : *entries) {
+        if (should_continue && !should_continue())
+            return false;
+
         if (virtual_name == "." || virtual_name == "..")
             continue;
 
@@ -773,15 +777,18 @@ void CopyDir([[maybe_unused]] const std::string& source_path,
             source += '/';
             dest += '/';
 
-            if (!FileUtil::Exists(dest))
-                FileUtil::CreateFullPath(dest);
+            if (!FileUtil::Exists(dest) && !FileUtil::CreateFullPath(dest)) {
+                copied_everything = false;
+                continue;
+            }
 
-            CopyDir(source, dest);
+            copied_everything &= CopyDir(source, dest, should_continue);
         } else {
-            if (!FileUtil::Exists(dest))
-                FileUtil::Copy(source, dest);
+            if (!FileUtil::Exists(dest) && !FileUtil::Copy(source, dest))
+                copied_everything = false;
         }
     }
+    return copied_everything;
 }
 
 std::optional<std::string> GetCurrentDir() {

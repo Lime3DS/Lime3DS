@@ -24,6 +24,7 @@
 #include "citra_qt/notification_led.h"
 #include "citra_qt/user_data_migration.h"
 #include "core/core.h"
+#include "core/guest_shutdown.h"
 #include "core/savestate.h"
 #include "video_core/rasterizer_interface.h"
 
@@ -59,6 +60,12 @@ class QFutureWatcher;
 class QLabel;
 class QProgressBar;
 class QPushButton;
+#ifdef _WIN32
+class QSessionManager;
+#endif
+#if defined(__unix__) || defined(__APPLE__)
+class QSocketNotifier;
+#endif
 class QSlider;
 class RegistersWidget;
 class WaitTreeWidget;
@@ -174,6 +181,22 @@ private:
     bool LoadROM(const QString& filename);
     void BootGame(const QString& filename);
     void ShutdownGame();
+    /// Same, with an explicit budget for the guest; the argumentless form uses the interactive
+    /// one.
+    void ShutdownGame(Core::GuestShutdownTimeouts guest_timeouts);
+    /// Asks the running application to save and exit, as a real system power-off does.
+    void RequestGuestShutdown(Core::GuestShutdownTimeouts timeouts);
+    /// Writes out everything the UI persists on the way out. Shared by closeEvent() and the
+    /// session-end path, which must not drift from it.
+    void PersistUISettings();
+    /// Lets go of what outlives the window: the multiplayer room and the input backend.
+    void ReleaseExternalResources();
+#if defined(__unix__) || defined(__APPLE__)
+    void SetupUnixSignalHandlers();
+#endif
+#ifdef _WIN32
+    void SetupWindowsSessionHandler();
+#endif
 
 #ifdef ENABLE_DISCORD_RPC
     void SetDiscordEnabled(bool state);
@@ -237,6 +260,12 @@ private slots:
     void OnPauseGame();
     void OnPauseContinueGame();
     void OnStopGame();
+#if defined(__unix__) || defined(__APPLE__)
+    void OnUnixTerminationSignal();
+#endif
+#ifdef _WIN32
+    void OnWindowsSessionEnd(QSessionManager& manager);
+#endif
     void OnSaveState();
     void OnLoadState();
     /// Called whenever a user selects a game in the game list widget.
@@ -409,6 +438,20 @@ private:
     bool game_shutdown_delayed = false;
     // Whether game was paused due to stopping video dumping
     bool game_paused_for_dumping = false;
+
+    // Guest shutdown
+    /// Stops us asking twice when the resulting unwind re-enters ShutdownGame().
+    bool guest_shutdown_requested = false;
+    /// True while ShutdownGame() is running, which it cannot survive re-entering.
+    bool shutting_down = false;
+    /// Set when something outside the UI is closing us, so ConfirmClose() does not stall on a
+    /// dialog nobody will answer.
+    bool force_close = false;
+    /// A termination signal arrived mid-shutdown; ShutdownGame() closes us once it unwinds.
+    bool close_when_shutdown_finishes = false;
+#if defined(__unix__) || defined(__APPLE__)
+    QSocketNotifier* unix_signal_notifier = nullptr;
+#endif
 
     int gdbport_from_arg = -1;
 

@@ -4,11 +4,13 @@
 
 #pragma once
 
+#include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <memory>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 #include <boost/optional.hpp>
 #include <boost/serialization/version.hpp>
 #include "common/common_types.h"
@@ -171,6 +173,65 @@ public:
      */
     [[nodiscard]] bool IsPoweredOn() const {
         return is_powered_on;
+    }
+
+    /// Serializes Shutdown() against threads that inspect the running session. Hold it across an
+    /// IsPoweredOn() check and whatever it guards, or the emulation thread frees it in between.
+    [[nodiscard]] std::recursive_mutex& GetSessionLock() {
+        return session_lock;
+    }
+
+    // Guest shutdown progress. Here rather than on ArchiveManager and AppletManager because the
+    // frontend reads them as the session is torn down, once those are gone. Init() clears them.
+    void ResetGuestShutdownProgress() {
+        // Only the acknowledgement: an outstanding save is live state, not shutdown progress.
+        guest_shutdown_acknowledged = false;
+    }
+
+    void NotifyGuestShutdownAcknowledged() {
+        guest_shutdown_acknowledged = true;
+    }
+
+    /// Records a write to the save archive behind `archive_handle`, which is now uncommitted.
+    /// `on_sd_savedata` marks the plain SD save data, the only archive SaveDataSnapshot copies.
+    void NotifyGuestSaveWritten(u64 archive_handle, bool on_sd_savedata) {
+        // Stamped before the map is touched, so a reader that sees a handle never reads a stale
+        // time.
+        last_guest_save_write = std::chrono::steady_clock::now().time_since_epoch().count();
+        std::scoped_lock lock{guest_save_mutex};
+        uncommitted_save_archives.insert_or_assign(archive_handle, on_sd_savedata);
+    }
+
+    /// Records a successful commit of `archive_handle`. Per handle: a title routinely has several
+    /// save archives open at once, and committing one says nothing about the others.
+    void NotifyGuestSaveCommitted(u64 archive_handle) {
+        std::scoped_lock lock{guest_save_mutex};
+        uncommitted_save_archives.erase(archive_handle);
+    }
+
+    /// True once the guest has read the shutdown notification. One that never does won't answer.
+    [[nodiscard]] bool WasGuestShutdownAcknowledged() const {
+        return guest_shutdown_acknowledged;
+    }
+
+    /// True if the guest wrote save data without committing it, so stopping now could tear it.
+    [[nodiscard]] bool HasUncommittedGuestSave() const {
+        std::scoped_lock lock{guest_save_mutex};
+        return !uncommitted_save_archives.empty();
+    }
+
+    /// True if any of that sits outside the SD save data, which is all a snapshot can copy. Extra
+    /// and system save data are tracked as at risk but live elsewhere on disk.
+    [[nodiscard]] bool HasUncommittedSaveOutsideSdSaveData() const {
+        std::scoped_lock lock{guest_save_mutex};
+        return std::any_of(uncommitted_save_archives.begin(), uncommitted_save_archives.end(),
+                           [](const auto& entry) { return !entry.second; });
+    }
+
+    /// When that write happened. Only meaningful while HasUncommittedGuestSave().
+    [[nodiscard]] std::chrono::steady_clock::time_point LastGuestSaveWrite() const {
+        return std::chrono::steady_clock::time_point{
+            std::chrono::steady_clock::duration{last_guest_save_write.load()}};
     }
 
     /// Prepare the core emulation for a reschedule
@@ -513,6 +574,15 @@ private:
     static System s_instance;
 
     std::atomic_bool is_powered_on{};
+    std::recursive_mutex session_lock;
+
+    // Not serialized: a shutdown can't be in flight across a save state.
+    std::atomic<bool> guest_shutdown_acknowledged{false};
+    std::atomic<std::chrono::steady_clock::rep> last_guest_save_write{};
+    /// Save archives written to but not since committed, by handle. The value marks the plain SD
+    /// save data, which is the only archive a snapshot covers.
+    std::unordered_map<u64, bool> uncommitted_save_archives;
+    mutable std::mutex guest_save_mutex;
 
     SaveStateStatus save_state_status = SaveStateStatus::NONE;
     SaveStateStatus save_state_request_status = SaveStateStatus::NONE;

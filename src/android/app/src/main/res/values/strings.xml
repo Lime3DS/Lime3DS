@@ -213,6 +213,8 @@
     <string name="apply_region_free_patch_desc">Patches the region of installed applications to be region free, so that they always appear on the home menu.</string>
     <string name="enable_required_online_lle_modules">Enable required LLE modules for online features (if installed)</string>
     <string name="enable_required_online_lle_modules_desc">Enables the LLE modules required for online multiplayer, eShop access, etc.</string>
+    <string name="notify_guest_on_shutdown">Let the application save before stopping</string>
+    <string name="notify_guest_on_shutdown_desc">Asks the application to save and exit when emulation is stopped, as a real console does on power-off. Titles that only write their save periodically, such as Virtual Console games, lose progress without this. Stopping takes a little longer.</string>
     <string name="clock">Clock</string>
     <string name="init_clock">Clock</string>
     <string name="init_clock_description">Set the emulated 3DS clock to either reflect that of your device or start at a simulated date and time.</string>

@@ -575,6 +575,16 @@ installed applications.</string>
               </property>
              </widget>
             </item>
+            <item row="23" column="0" colspan="2">
+             <widget class="QCheckBox" name="notify_guest_on_shutdown">
+              <property name="text">
+               <string>Let the application save before stopping</string>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Let the application save before stopping&lt;/p&gt;&lt;p&gt;Asks the application to save and exit when emulation is stopped, as a real console does on power-off. Titles that keep their save in memory and only write it periodically, such as Virtual Console games, lose progress without this. Stopping takes up to a few seconds longer.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>

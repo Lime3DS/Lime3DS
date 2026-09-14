@@ -353,6 +353,7 @@ void ConfigureSystem::SetConfiguration() {
     ui->toggle_lle_applets->setChecked(Settings::values.lle_applets.GetValue());
     ui->enable_required_online_lle_modules->setChecked(
         Settings::values.enable_required_online_lle_modules.GetValue());
+    ui->notify_guest_on_shutdown->setChecked(Settings::values.notify_guest_on_shutdown.GetValue());
     ui->plugin_loader->setChecked(Settings::values.plugin_loader_enabled.GetValue());
     ui->allow_plugin_loader->setChecked(Settings::values.allow_plugin_loader.GetValue());
 }
@@ -471,6 +472,9 @@ void ConfigureSystem::ApplyConfiguration() {
         ConfigurationShared::ApplyPerGameSetting(
             &Settings::values.enable_required_online_lle_modules,
             ui->enable_required_online_lle_modules, required_online_lle_modules);
+        ConfigurationShared::ApplyPerGameSetting(&Settings::values.notify_guest_on_shutdown,
+                                                 ui->notify_guest_on_shutdown,
+                                                 notify_guest_on_shutdown);
 
         Settings::values.init_clock =
             static_cast<Settings::InitClock>(ui->combo_init_clock->currentIndex());
@@ -495,6 +499,7 @@ void ConfigureSystem::ApplyConfiguration() {
         Settings::values.lle_applets = ui->toggle_lle_applets->isChecked();
         Settings::values.enable_required_online_lle_modules =
             ui->enable_required_online_lle_modules->isChecked();
+        Settings::values.notify_guest_on_shutdown = ui->notify_guest_on_shutdown->isChecked();
         Settings::values.apply_region_free_patch.SetValue(ui->apply_region_free_patch->isChecked());
 
         Settings::values.plugin_loader_enabled.SetValue(ui->plugin_loader->isChecked());
@@ -717,6 +722,8 @@ void ConfigureSystem::SetupPerGameUI() {
         ui->toggle_lle_applets->setEnabled(Settings::values.lle_applets.UsingGlobal());
         ui->enable_required_online_lle_modules->setEnabled(
             Settings::values.enable_required_online_lle_modules.UsingGlobal());
+        ui->notify_guest_on_shutdown->setEnabled(
+            Settings::values.notify_guest_on_shutdown.UsingGlobal());
         ui->region_combobox->setEnabled(Settings::values.region_value.UsingGlobal());
         return;
     }
@@ -769,6 +776,9 @@ void ConfigureSystem::SetupPerGameUI() {
     ConfigurationShared::SetColoredTristate(ui->enable_required_online_lle_modules,
                                             Settings::values.enable_required_online_lle_modules,
                                             required_online_lle_modules);
+    ConfigurationShared::SetColoredTristate(ui->notify_guest_on_shutdown,
+                                            Settings::values.notify_guest_on_shutdown,
+                                            notify_guest_on_shutdown);
     ConfigurationShared::SetColoredComboBox(
         ui->region_combobox, ui->region_label,
         static_cast<u32>(Settings::values.region_value.GetValue(true) + 1));

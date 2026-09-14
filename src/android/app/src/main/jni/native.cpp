@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.
 
 #include <algorithm>
+#include <chrono>
 #include <codecvt>
 #include <thread>
 #include <dlfcn.h>
@@ -35,10 +36,15 @@
 #include "common/scope_exit.h"
 #include "common/settings.h"
 #include "common/string_util.h"
+#include "common/thread.h"
 #include "core/core.h"
 #include "core/frontend/applets/default_applets.h"
 #include "core/frontend/camera/factory.h"
+#include "core/guest_shutdown.h"
+#include "core/hle/kernel/kernel.h"
 #include "core/hle/service/am/am.h"
+#include "core/hle/service/apt/applet_manager.h"
+#include "core/hle/service/apt/apt.h"
 #include "core/hle/service/fs/archive.h"
 #include "core/hle/service/nfc/nfc.h"
 #include "core/hw/unique_data.h"
@@ -102,6 +108,11 @@ std::atomic<bool> pause_emulation{false};
 std::mutex paused_mutex;
 std::mutex running_mutex;
 std::condition_variable running_cv;
+
+// Signaled once the emulation thread leaves RunCitra, so a stop can wait for the guest.
+std::atomic<bool> emulation_finished{true};
+std::mutex emulation_finished_mutex;
+std::condition_variable emulation_finished_cv;
 
 // Guards the lifetime of s_surface/s_secondary_surface and the (re)creation of the
 // EmuWindow_Android and renderer objects that consume them. Android may destroy or replace the
@@ -857,8 +868,45 @@ void Java_org_citra_citra_1emu_NativeLibrary_pauseEmulation([[maybe_unused]] JNI
     }
 }
 
+// stopEmulation() runs on the UI thread, so this is a freeze budget, not a save budget. It also
+// caps the save data copy, which is otherwise as large as the title's save directory.
+constexpr auto GUEST_SHUTDOWN_TIMEOUT = std::chrono::milliseconds(1000);
+// Android kills an app that stops answering input for 5s. The copy is charged against this, so
+// the whole call returns within the ceiling however long the copy takes.
+constexpr auto GUEST_SHUTDOWN_MID_SAVE_CEILING = std::chrono::milliseconds(2500);
+
+/// Android side of Core::PerformGuestShutdown(); only the wait differs from
+/// GMainWindow::RequestGuestShutdown() in src/citra_qt/citra_qt.cpp.
+static void RequestGuestShutdown() {
+    Core::System& system{Core::System::GetInstance()};
+    if (stop_run || !system.IsPoweredOn()) {
+        return;
+    }
+
+    const Core::GuestShutdownTimeouts timeouts{GUEST_SHUTDOWN_TIMEOUT,
+                                               GUEST_SHUTDOWN_MID_SAVE_CEILING};
+    Core::PerformGuestShutdown(
+        system, timeouts,
+        [](std::chrono::milliseconds slice) {
+            std::unique_lock lock{emulation_finished_mutex};
+            return emulation_finished_cv.wait_for(lock, slice,
+                                                  [] { return emulation_finished.load(); });
+        },
+        [] {
+            // A paused loop never sees the notification; paused_mutex keeps the wakeup from being
+            // missed.
+            {
+                std::scoped_lock pause_guard{paused_mutex};
+                pause_emulation = false;
+            }
+            running_cv.notify_all();
+        });
+}
+
 void Java_org_citra_citra_1emu_NativeLibrary_stopEmulation([[maybe_unused]] JNIEnv* env,
                                                            [[maybe_unused]] jobject obj) {
+    RequestGuestShutdown();
+
     if (stop_run.exchange(true)) {
         // stop_run was already true
         return;
@@ -1055,7 +1103,17 @@ void Java_org_citra_citra_1emu_NativeLibrary_run__Ljava_lang_String_2(JNIEnv* en
         running_cv.notify_all();
     }
 
+    {
+        std::scoped_lock lock{emulation_finished_mutex};
+        emulation_finished = false;
+    }
     const Core::System::ResultStatus result{RunCitra(path)};
+    {
+        std::scoped_lock lock{emulation_finished_mutex};
+        emulation_finished = true;
+    }
+    emulation_finished_cv.notify_all();
+
     if (result != Core::System::ResultStatus::Success) {
         env->CallStaticVoidMethod(IDCache::GetNativeLibraryClass(),
                                   IDCache::GetExitEmulationActivity(), static_cast<int>(result));

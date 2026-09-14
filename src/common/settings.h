@@ -491,6 +491,7 @@ struct Values {
                                                            Keys::deterministic_async_operations};
     SwitchableSetting<bool> enable_required_online_lle_modules{
         false, Keys::enable_required_online_lle_modules};
+    SwitchableSetting<bool> notify_guest_on_shutdown{false, Keys::notify_guest_on_shutdown};
 
     // Data Storage
     Setting<bool> use_virtual_sd{true, Keys::use_virtual_sd};

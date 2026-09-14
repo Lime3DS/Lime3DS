@@ -314,6 +314,7 @@ public:
 
     ResultVal<Notification> InquireNotification(AppletId app_id);
     Result SendNotification(Notification notification);
+    void SendNotificationToAll(Notification notification);
 
     Result PrepareToStartLibraryApplet(AppletId applet_id);
     Result PreloadLibraryApplet(AppletId applet_id);
@@ -553,8 +554,6 @@ private:
     /// Checks if the Application slot has already been registered and sends the parameter to it,
     /// otherwise it queues for sending when the application registers itself with APT::Enable.
     void SendApplicationParameterAfterRegistration(const MessageParameter& parameter);
-
-    void SendNotificationToAll(Notification notification);
 
     void EnsureHomeMenuLoaded();
 

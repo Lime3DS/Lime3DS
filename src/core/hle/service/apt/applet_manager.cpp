@@ -527,6 +527,9 @@ ResultVal<Notification> AppletManager::InquireNotification(AppletId app_id) {
         if (slot_data->registered) {
             auto notification = slot_data->notification;
             slot_data->notification = Notification::None;
+            if (notification == Notification::Shutdown) {
+                system.NotifyGuestShutdownAcknowledged();
+            }
             return notification;
         }
     }

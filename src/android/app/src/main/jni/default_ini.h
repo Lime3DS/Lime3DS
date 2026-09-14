@@ -466,6 +466,11 @@ static const char* android_config_default_file_content = (BOOST_HANA_STRING(R"(
 # 0 (default): No, 1: Yes
 )") DECLARE_KEY(enable_required_online_lle_modules) BOOST_HANA_STRING(R"(
 
+# Whether to ask the application to save and exit before stopping emulation. Titles that buffer
+# their save, such as Virtual Console games, lose it otherwise; costs a short wait on every stop.
+# 0 (default): No, 1: Yes
+)") DECLARE_KEY(notify_guest_on_shutdown) BOOST_HANA_STRING(R"(
+
 # The system region that Citra will use during emulation
 # -1: Auto-select (default), 0: Japan, 1: USA, 2: Europe, 3: Australia, 4: China, 5: Korea, 6: Taiwan
 )") DECLARE_KEY(region_value) BOOST_HANA_STRING(R"(

@@ -258,6 +258,7 @@ void Config::ReadValues() {
     ReadSetting("System", Settings::values.is_new_3ds);
     ReadSetting("System", Settings::values.lle_applets);
     ReadSetting("System", Settings::values.enable_required_online_lle_modules);
+    ReadSetting("System", Settings::values.notify_guest_on_shutdown);
     ReadSetting("System", Settings::values.region_value);
     ReadSetting("System", Settings::values.init_clock);
     {

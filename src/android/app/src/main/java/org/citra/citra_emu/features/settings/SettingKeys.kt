@@ -16,6 +16,7 @@ object SettingKeys {
     external fun lle_applets(): String
     external fun deterministic_async_operations(): String
     external fun enable_required_online_lle_modules(): String
+    external fun notify_guest_on_shutdown(): String
     external fun use_virtual_sd(): String
     external fun compress_cia_installs(): String
     external fun async_fs_operations(): String

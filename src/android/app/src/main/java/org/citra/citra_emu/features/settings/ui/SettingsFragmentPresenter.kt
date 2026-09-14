@@ -373,6 +373,15 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
             )
             add(
                 SwitchSetting(
+                    BooleanSetting.NOTIFY_GUEST_ON_SHUTDOWN,
+                    R.string.notify_guest_on_shutdown,
+                    R.string.notify_guest_on_shutdown_desc,
+                    BooleanSetting.NOTIFY_GUEST_ON_SHUTDOWN.key,
+                    BooleanSetting.NOTIFY_GUEST_ON_SHUTDOWN.defaultValue
+                )
+            )
+            add(
+                SwitchSetting(
                     BooleanSetting.REQUIRED_ONLINE_LLE_MODULES,
                     R.string.enable_required_online_lle_modules,
                     R.string.enable_required_online_lle_modules_desc,

@@ -109,6 +109,11 @@ enum class BooleanSetting(
         Settings.SECTION_RENDERER,
         false
     ),
+    NOTIFY_GUEST_ON_SHUTDOWN(
+        SettingKeys.notify_guest_on_shutdown(),
+        Settings.SECTION_SYSTEM,
+        false
+    ),
     USE_ARTIC_BASE_CONTROLLER(
         SettingKeys.use_artic_base_controller(),
         Settings.SECTION_CONTROLS,

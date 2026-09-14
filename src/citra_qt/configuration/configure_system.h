@@ -1,4 +1,4 @@
-// Copyright 2016-2025 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2016-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -66,6 +66,7 @@ private:
     ConfigurationShared::CheckState is_new_3ds;
     ConfigurationShared::CheckState lle_applets;
     ConfigurationShared::CheckState required_online_lle_modules;
+    ConfigurationShared::CheckState notify_guest_on_shutdown;
     bool enabled = false;
 
     std::shared_ptr<Service::CFG::Module> cfg;

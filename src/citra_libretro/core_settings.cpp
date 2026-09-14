@@ -46,6 +46,8 @@ namespace system {
 static constexpr const char* is_new_3ds = citra_setting(BaseKeys::is_new_3ds);
 static constexpr const char* region_value = citra_setting(BaseKeys::region_value);
 static constexpr const char* language_value = citra_setting(BaseKeys::language_value);
+static constexpr const char* notify_guest_on_shutdown =
+    citra_setting(BaseKeys::notify_guest_on_shutdown);
 } // namespace system
 
 namespace audio {
@@ -196,6 +198,22 @@ static constexpr retro_core_option_v2_definition option_definitions[] = {
             { nullptr, nullptr }
         },
         "New 3DS"
+    },
+    {
+        config::system::notify_guest_on_shutdown,
+        "Let the Application Save Before Stopping",
+        "Save Before Stopping",
+        "Ask the application to save and exit when content is unloaded or reset, as a real "
+        "console does on power-off. Titles that only write their save periodically, such as "
+        "Virtual Console games, lose progress without this. Unloading takes a little longer.",
+        nullptr,
+        config::category::system,
+        {
+            { config::enabled, "Enabled" },
+            { config::disabled, "Disabled" },
+            { nullptr, nullptr }
+        },
+        config::disabled
     },
     {
         config::system::region_value,
@@ -891,6 +909,10 @@ static void ParseSystemOptions(void) {
 
     LibRetro::settings.language_value =
         GetLanguageValue(LibRetro::FetchVariable(config::system::language_value, "English"));
+
+    Settings::values.notify_guest_on_shutdown =
+        LibRetro::FetchVariable(config::system::notify_guest_on_shutdown, config::disabled) ==
+        config::enabled;
 }
 
 static Settings::AudioEmulation GetAudioEmulation(const std::string& name) {

@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <boost/serialization/unique_ptr.hpp>
 #include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/version.hpp>
 #include "common/common_types.h"
 #include "core/file_sys/archive_backend.h"
 #include "core/file_sys/archive_source_sd_savedata.h"
@@ -319,6 +320,12 @@ private:
 
     ArchiveBackend* GetArchive(ArchiveHandle handle);
 
+    /// Whether writes through this handle land in a title's save data rather than plain files.
+    [[nodiscard]] bool IsSaveDataArchive(ArchiveHandle handle) const;
+
+    /// Narrower: the plain SD save data, which is the only archive SaveDataSnapshot copies.
+    [[nodiscard]] bool IsSdSaveDataArchive(ArchiveHandle handle) const;
+
     /**
      * Map of registered archives, identified by id code. Once an archive is registered here, it is
      * never removed until UnregisterArchiveTypes is called.
@@ -329,6 +336,9 @@ private:
      * Map of active archive handles to archive objects
      */
     std::unordered_map<ArchiveHandle, std::unique_ptr<ArchiveBackend>> handle_map;
+
+    /// Id code each open handle was opened with; an ArchiveBackend cannot say what it is.
+    std::unordered_map<ArchiveHandle, ArchiveIdCode> handle_id_codes;
     ArchiveHandle next_handle = 1;
 
     /**
@@ -337,13 +347,19 @@ private:
     std::shared_ptr<FileSys::ArchiveSource_SDSaveData> sd_savedata_source;
 
     template <class Archive>
-    void serialize(Archive& ar, const unsigned int) {
+    void serialize(Archive& ar, const unsigned int file_version) {
         ar & id_code_map;
         ar & handle_map;
         ar & next_handle;
         ar & sd_savedata_source;
+        if (file_version >= 1) {
+            ar & handle_id_codes;
+        }
     }
     friend class boost::serialization::access;
 };
 
 } // namespace Service::FS
+
+// Version 1 added handle_id_codes.
+BOOST_CLASS_VERSION(Service::FS::ArchiveManager, 1)
