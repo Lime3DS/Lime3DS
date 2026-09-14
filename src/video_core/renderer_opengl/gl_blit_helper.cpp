@@ -283,12 +283,43 @@ void BlitHelper::FilterXbrz(Surface& surface, const VideoCore::TextureBlit& blit
 }
 
 void BlitHelper::FilterMMPX(Surface& surface, const VideoCore::TextureBlit& blit) {
+    static constexpr u8 internal_scale_factor = 2;
     const OpenGLState prev_state = OpenGLState::GetCurState();
     SCOPE_EXIT({ prev_state.Apply(); });
+
+    const auto temp_rect{blit.src_rect * internal_scale_factor};
+    const u32 tw = temp_rect.GetWidth();
+    const u32 th = temp_rect.GetHeight();
+    
+    const auto& tuple = surface.Tuple();
+    TempTexture INTERMEDIATE;
+    INTERMEDIATE.fbo.Create();
+    INTERMEDIATE.tex.Create();
+    
+    glBindTexture(GL_TEXTURE_2D, INTERMEDIATE.tex.handle);
+    glTexStorage2D(GL_TEXTURE_2D, 1, tuple.internal_format, tw, th);
+
     state.texture_units[0].texture_2d = surface.Handle(0);
+    state.texture_units[0].sampler = nearest_sampler.handle; 
     state.texture_units[0].target = GL_TEXTURE_2D;
+  
+    state.draw.draw_framebuffer = INTERMEDIATE.fbo.handle;
+    
+    state.Apply();
+
+    // MMPX
     SetParams(mmpx_program, surface.RealExtent(false), blit.src_rect);
-    Draw(mmpx_program, surface.Handle(), draw_fbo.handle, blit.dst_level, blit.dst_rect);
+    Draw(mmpx_program, INTERMEDIATE.tex.handle, INTERMEDIATE.fbo.handle, 0, temp_rect);
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, INTERMEDIATE.fbo.handle);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, draw_fbo.handle);
+    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, surface.Handle(), blit.dst_level);
+
+    // LINEAR
+    glBlitFramebuffer(0, 0, tw, th,
+                      blit.dst_rect.left, blit.dst_rect.bottom, blit.dst_rect.right, blit.dst_rect.top,
+                      GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
 }
 
 void BlitHelper::SetParams(OGLProgram& program, const VideoCore::Extent& src_extent,
