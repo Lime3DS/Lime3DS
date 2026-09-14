@@ -2,7 +2,11 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+#include <algorithm>
 #include <chrono>
+#include <cstring>
+#include <istream>
+#include <ostream>
 #include <sstream>
 #include <cryptopp/hex.h>
 #include <fmt/ranges.h>
@@ -12,6 +16,7 @@
 #include "common/scm_rev.h"
 #include "common/swap.h"
 #include "common/zstd_compression.h"
+#include "common/zstd_stream.h"
 #include "core/core.h"
 #include "core/loader/loader.h"
 #include "core/movie.h"
@@ -145,21 +150,40 @@ SaveStateInfo GetSaveStateInfo(u64 program_id, u64 movie_id, u32 slot) {
     return info;
 }
 
+// Save states are streamed through zstd straight into the file instead of being serialized into
+// one giant in-memory string, copied, and then compressed into yet another buffer. On low-RAM
+// devices (e.g. 3 GB Android handhelds) the old approach needed ~3x the emulated RAM size in
+// transient allocations, which was enough for the OS to kill the process mid-save.
+constexpr int SaveStateCompressionLevel = 1;
+
+static void FillHeader(CSTHeader& header, u64 title_id) {
+    header = {};
+    header.filetype = header_magic_bytes;
+    header.program_id = title_id;
+    std::string rev_bytes;
+    CryptoPP::StringSource ss(Common::g_scm_rev, true,
+                              new CryptoPP::HexDecoder(new CryptoPP::StringSink(rev_bytes)));
+    std::memcpy(header.revision.data(), rev_bytes.data(),
+                std::min(rev_bytes.size(), sizeof(header.revision)));
+    header.time = std::chrono::duration_cast<std::chrono::seconds>(
+                      std::chrono::system_clock::now().time_since_epoch())
+                      .count();
+    const std::string build_fullname = Common::g_build_fullname;
+    std::memset(header.build_name.data(), 0, sizeof(header.build_name));
+    std::memcpy(header.build_name.data(), build_fullname.c_str(),
+                std::min(build_fullname.length(), sizeof(header.build_name) - 1));
+    const std::string build_version = Common::g_build_version;
+    std::memset(header.build_version.data(), 0, sizeof(header.build_version));
+    std::memcpy(header.build_version.data(), build_version.c_str(),
+                std::min(build_version.length(), sizeof(header.build_version) - 1));
+}
+
 void System::SaveState(u32 slot) const {
     if (app_loader) {
         if (!app_loader->SupportsSaveStates()) {
             throw std::runtime_error("The current app loader doesn't support save states");
         }
     }
-
-    std::ostringstream sstream{std::ios_base::binary};
-    // Serialize
-    oarchive oa{sstream};
-    oa&* this;
-
-    const std::string& str{sstream.str()};
-    const auto data = std::span<const u8>{reinterpret_cast<const u8*>(str.data()), str.size()};
-    auto buffer = Common::Compression::CompressDataZSTDDefault(data);
 
     const u64 movie_id = movie.GetCurrentMovieID();
     const auto path = GetSaveStatePath(title_id, movie_id, slot);
@@ -173,22 +197,20 @@ void System::SaveState(u32 slot) const {
     }
 
     CSTHeader header{};
-    header.filetype = header_magic_bytes;
-    header.program_id = title_id;
-    std::string rev_bytes;
-    CryptoPP::StringSource ss(Common::g_scm_rev, true,
-                              new CryptoPP::HexDecoder(new CryptoPP::StringSink(rev_bytes)));
-    std::memcpy(header.revision.data(), rev_bytes.data(), sizeof(header.revision));
-    header.time = std::chrono::duration_cast<std::chrono::seconds>(
-                      std::chrono::system_clock::now().time_since_epoch())
-                      .count();
-    const std::string build_fullname = Common::g_build_fullname;
-    std::memset(header.build_name.data(), 0, sizeof(header.build_name));
-    std::memcpy(header.build_name.data(), build_fullname.c_str(),
-                std::min(build_fullname.length(), sizeof(header.build_name) - 1));
+    FillHeader(header, title_id);
+    if (file.WriteBytes(&header, sizeof(header)) != sizeof(header)) {
+        throw std::runtime_error("Could not write to file " + path);
+    }
 
-    if (file.WriteBytes(&header, sizeof(header)) != sizeof(header) ||
-        file.WriteBytes(buffer.data(), buffer.size()) != buffer.size()) {
+    Common::Compression::ZstdOutputStreamBuf zstd_buf{file, SaveStateCompressionLevel};
+    {
+        std::ostream stream{&zstd_buf};
+        oarchive oa{stream};
+        oa&* this;
+        stream.flush();
+    }
+    zstd_buf.Finish();
+    if (!file.Flush()) {
         throw std::runtime_error("Could not write to file " + path);
     }
 }
@@ -207,38 +229,34 @@ void System::LoadState(u32 slot) {
     const u64 movie_id = movie.GetCurrentMovieID();
     const auto path = GetSaveStatePath(title_id, movie_id, slot);
 
-    std::vector<u8> decompressed;
-    {
-        std::vector<u8> buffer(FileUtil::GetSize(path) - sizeof(CSTHeader));
-
-        FileUtil::IOFile file(path, "rb");
-
-        // load header
-        CSTHeader header;
-        if (file.ReadBytes(&header, sizeof(header)) != sizeof(header)) {
-            throw std::runtime_error("Could not read from file at " + path);
-        }
-
-        // validate header
-        SaveStateInfo info;
-        info.slot = slot;
-        if (!ValidateSaveState(header, info, title_id, movie_id) ||
-            info.status == SaveStateInfo::ValidationStatus::BuildMismatch) {
-            throw std::runtime_error("Invalid savestate");
-        }
-
-        if (file.ReadBytes(buffer.data(), buffer.size()) != buffer.size()) {
-            throw std::runtime_error("Could not read from file at " + path);
-        }
-        decompressed = Common::Compression::DecompressDataZSTD(buffer);
+    FileUtil::IOFile file(path, "rb");
+    if (!file) {
+        throw std::runtime_error("Could not open file " + path);
     }
-    std::istringstream sstream{
-        std::string{reinterpret_cast<char*>(decompressed.data()), decompressed.size()},
-        std::ios_base::binary};
-    decompressed.clear();
+    const u64 file_size = file.GetSize();
+    if (file_size < sizeof(CSTHeader)) {
+        throw std::runtime_error("Save state file is too small: " + path);
+    }
 
-    // Deserialize
-    iarchive ia{sstream};
+    // load header
+    CSTHeader header;
+    if (file.ReadBytes(&header, sizeof(header)) != sizeof(header)) {
+        throw std::runtime_error("Could not read from file at " + path);
+    }
+
+    // validate header
+    SaveStateInfo info;
+    info.slot = slot;
+    if (!ValidateSaveState(header, info, title_id, movie_id) ||
+        info.status == SaveStateInfo::ValidationStatus::BuildMismatch) {
+        throw std::runtime_error("Invalid savestate");
+    }
+
+    // Deserialize directly from the decompressing stream; the state never exists as one
+    // contiguous uncompressed buffer in memory.
+    Common::Compression::ZstdInputStreamBuf zstd_buf{file, file_size - sizeof(CSTHeader)};
+    std::istream stream{&zstd_buf};
+    iarchive ia{stream};
     ia&* this;
 }
 
@@ -253,24 +271,7 @@ std::vector<u8> System::SaveStateBuffer() const {
     auto buffer = Common::Compression::CompressDataZSTDDefault(data);
 
     CSTHeader header{};
-    header.filetype = header_magic_bytes;
-    header.program_id = title_id;
-    std::string rev_bytes;
-    CryptoPP::StringSource ss(Common::g_scm_rev, true,
-                              new CryptoPP::HexDecoder(new CryptoPP::StringSink(rev_bytes)));
-    std::memcpy(header.revision.data(), rev_bytes.data(), sizeof(header.revision));
-    header.time = std::chrono::duration_cast<std::chrono::seconds>(
-                      std::chrono::system_clock::now().time_since_epoch())
-                      .count();
-    const std::string build_fullname = Common::g_build_fullname;
-    std::memset(header.build_name.data(), 0, sizeof(header.build_name));
-    std::memcpy(header.build_name.data(), build_fullname.c_str(),
-                std::min(build_fullname.length(), sizeof(header.build_name) - 1));
-
-    const std::string build_version = Common::g_build_version;
-    std::memset(header.build_version.data(), 0, sizeof(header.build_version));
-    std::memcpy(header.build_version.data(), build_version.c_str(),
-                std::min(build_version.length(), sizeof(header.build_version) - 1));
+    FillHeader(header, title_id);
 
     std::vector<u8> result((u8*)&header, (u8*)&header + sizeof(header));
     std::copy(buffer.begin(), buffer.end(), std::back_inserter(result));
