@@ -228,13 +228,14 @@ if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.git/hooks/pre-commit)
         DESTINATION ${PROJECT_SOURCE_DIR}/.git/hooks)
 endif()
 
-# Use ccache for android if available
+# Use ccache if the user requests it, or if NDK_CCACHE is set on Android
 # =======================================================================
-if (NOT $ENV{NDK_CCACHE} EQUAL "")
-    set(CCACHE_EXE $ENV{NDK_CCACHE})
-    set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE_EXE})
-    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_EXE})
+if ($ENV{NDK_CCACHE})
+    set(USE_CCACHE ON)
+    set(CCACHE_PATH $ENV{NDK_CCACHE})
 endif()
+
+include(UseCcache)
 
 # Check for LTO support
 # =======================================================================
