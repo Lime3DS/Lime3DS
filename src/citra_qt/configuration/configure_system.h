@@ -1,4 +1,4 @@
-// Copyright 2016-2025 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2016-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -50,6 +50,7 @@ private:
     void UpdateBirthdayComboBox(int birthmonth_index);
     void UpdateInitTime(int init_clock);
     void UpdateInitTicks(int init_ticks_type);
+    void UpdateBatterySource(int battery_source);
     void RefreshConsoleID();
     void RefreshMAC();
     void UnlinkConsole();

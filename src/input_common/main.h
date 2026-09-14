@@ -46,6 +46,13 @@ Common::ParamPackage GetControllerAnalogBinds(const Common::ParamPackage& params
 /// Reloads the input devices
 void ReloadInputDevices();
 
+struct BatteryState {
+    float percentage = 1.0f;
+    bool charging = true;
+};
+
+BatteryState GetSystemBatteryState();
+
 namespace Polling {
 
 enum class DeviceType { Button, Analog, Touchpad };

@@ -35,6 +35,11 @@ enum class InitTicks : u32 {
     Fixed = 1,
 };
 
+enum class BatteryLevelSource : u32 {
+    System = 0,
+    Fixed = 1,
+};
+
 /** Defines the layout option for desktop and mobile landscape */
 enum class LayoutOption : u32 { // Shouldn't these have set numbers to prevent last two from
                                 // shifting? -OS
@@ -505,6 +510,10 @@ struct Values {
     Setting<s64> init_time_offset{0, Keys::init_time_offset};
     Setting<InitTicks> init_ticks_type{InitTicks::Random, Keys::init_ticks_type};
     Setting<s64> init_ticks_override{0, Keys::init_ticks_override};
+    Setting<BatteryLevelSource> battery_state_source{BatteryLevelSource::System,
+                                                     Keys::battery_state_source};
+    Setting<bool> battery_charging{true, Keys::battery_charging};
+    SwitchableSetting<u8, true> battery_level{0, 0, 4, Keys::battery_level};
     Setting<bool> plugin_loader_enabled{false, Keys::plugin_loader};
     Setting<bool> allow_plugin_loader{true, Keys::allow_plugin_loader};
     Setting<u16> steps_per_hour{0, Keys::steps_per_hour};

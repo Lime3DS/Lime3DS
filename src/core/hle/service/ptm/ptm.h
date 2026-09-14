@@ -19,7 +19,7 @@ namespace Service::PTM {
 constexpr std::array<u8, 12> ptm_shared_extdata_id = {0, 0, 0, 0, 0x0B, 0, 0, 0xF0, 0, 0, 0, 0};
 
 /// Charge levels used by PTM functions
-enum class ChargeLevels : u32 {
+enum class ChargeLevels : u8 {
     CriticalBattery = 1,
     LowBattery = 2,
     HalfFull = 3,
@@ -162,6 +162,7 @@ private:
 
     bool shell_open = true;
     bool battery_is_charging = true;
+    ChargeLevels charge_level = ChargeLevels::CompletelyFull;
     bool pedometer_is_counting = false;
 
     template <class Archive>

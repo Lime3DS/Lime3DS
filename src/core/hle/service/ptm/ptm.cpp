@@ -19,6 +19,7 @@
 #include "core/hle/service/ptm/ptm_sets.h"
 #include "core/hle/service/ptm/ptm_sysm.h"
 #include "core/hle/service/ptm/ptm_u.h"
+#include "input_common/main.h"
 
 SERIALIZE_EXPORT_IMPL(Service::PTM::Module)
 SERVICE_CONSTRUCT_IMPL(Service::PTM::Module)
@@ -51,9 +52,21 @@ void Module::Interface::GetBatteryLevel(Kernel::HLERequestContext& ctx) {
 
     IPC::RequestBuilder rb = rp.MakeBuilder(2, 0);
     rb.Push(ResultSuccess);
-    rb.Push(static_cast<u32>(ChargeLevels::CompletelyFull)); // Set to a completely full battery
 
-    LOG_DEBUG(Service_PTM, "(STUBBED) called");
+    switch (Settings::values.battery_state_source.GetValue()) {
+    case Settings::BatteryLevelSource::System: {
+        ptm->charge_level =
+            static_cast<ChargeLevels>(InputCommon::GetSystemBatteryState().percentage * 4 + 1);
+        break;
+    }
+    case Settings::BatteryLevelSource::Fixed: {
+        ptm->charge_level =
+            static_cast<ChargeLevels>(Settings::values.battery_level.GetValue() + 1);
+        break;
+    }
+    }
+
+    rb.Push(static_cast<u32>(ptm->charge_level));
 }
 
 void Module::Interface::GetBatteryChargeState(Kernel::HLERequestContext& ctx) {
@@ -61,9 +74,19 @@ void Module::Interface::GetBatteryChargeState(Kernel::HLERequestContext& ctx) {
 
     IPC::RequestBuilder rb = rp.MakeBuilder(2, 0);
     rb.Push(ResultSuccess);
-    rb.Push(ptm->battery_is_charging);
 
-    LOG_DEBUG(Service_PTM, "(STUBBED) called");
+    switch (Settings::values.battery_state_source.GetValue()) {
+    case Settings::BatteryLevelSource::System: {
+        ptm->battery_is_charging = InputCommon::GetSystemBatteryState().charging;
+        break;
+    }
+    case Settings::BatteryLevelSource::Fixed: {
+        ptm->battery_is_charging = Settings::values.battery_charging.GetValue();
+        break;
+    }
+    }
+
+    rb.Push(ptm->battery_is_charging);
 }
 
 void Module::Interface::GetPedometerState(Kernel::HLERequestContext& ctx) {
@@ -274,6 +297,7 @@ void Module::serialize(Archive& ar, const unsigned int) {
     DEBUG_SERIALIZATION_POINT;
     ar & shell_open;
     ar & battery_is_charging;
+    ar & charge_level;
     ar & pedometer_is_counting;
 }
 SERIALIZE_IMPL(Module)

@@ -203,10 +203,12 @@ std::string GenerateAnalogParamFromKeys(int key_up, int key_down, int key_left, 
 Common::ParamPackage GetControllerButtonBinds(const Common::ParamPackage& params, int button) {
     const auto native_button{static_cast<Settings::NativeButton::Values>(button)};
     const auto engine{params.Get("engine", "")};
+#ifdef HAVE_SDL2
     if (engine == "sdl") {
         return dynamic_cast<SDL::SDLState*>(sdl.get())->GetSDLControllerButtonBind(params,
                                                                                    native_button);
     }
+#endif
 #ifdef ENABLE_GCADAPTER
     if (engine == "gcpad") {
         return gcbuttons->GetGcTo3DSMappedButton(params.Get("port", 0), native_button);
@@ -218,10 +220,12 @@ Common::ParamPackage GetControllerButtonBinds(const Common::ParamPackage& params
 Common::ParamPackage GetControllerAnalogBinds(const Common::ParamPackage& params, int analog) {
     const auto native_analog{static_cast<Settings::NativeAnalog::Values>(analog)};
     const auto engine{params.Get("engine", "")};
+#ifdef HAVE_SDL2
     if (engine == "sdl") {
         return dynamic_cast<SDL::SDLState*>(sdl.get())->GetSDLControllerAnalogBindByGUID(
             params.Get("guid", "0"), params.Get("port", 0), native_analog);
     }
+#endif
 #ifdef ENABLE_GCADAPTER
     if (engine == "gcpad") {
         return gcanalog->GetGcTo3DSMappedAnalog(params.Get("port", 0), native_analog);
@@ -235,6 +239,16 @@ void ReloadInputDevices() {
         return;
     }
     udp->ReloadUDPClient();
+}
+
+BatteryState GetSystemBatteryState() {
+#ifdef HAVE_SDL2
+    BatteryState new_state{};
+    sdl->GetSystemBatteryState(new_state.percentage, new_state.charging);
+    return new_state;
+#else
+    return BatteryState{};
+#endif
 }
 
 namespace Polling {
