@@ -389,6 +389,25 @@
     <string name="toggle_unique_data_console_type_desc">Toggles the unique data console type (Old 3DS &#8596; New 3DS) to be able to download the opposite system firmware type from system settings.</string>
     <string name="shader_jit">Enable Shader JIT</string>
     <string name="shader_jit_description">Use the JIT engine instead of the interpreter for software shader emulation.</string>
+    <string name="logging">Logging</string>
+    <string name="log_filter_name">Log Level</string>
+    <string name="log_filter_description">Select the level of verbosity to display in the log files. Ranges from <i>None</i> to <i>Trace</i> (i.e. everything). Default is <i>Info</i>.</string>
+    <string name="log_none">None</string>
+    <string name="log_critical">Critical</string>
+    <string name="log_error">Error</string>
+    <string name="log_warning">Warning</string>
+    <string name="log_info">Info</string>
+    <string name="log_debug">Debug</string>
+    <string name="log_trace">Trace</string>
+    <string name="log_filter_none">*:None</string>
+    <string name="log_filter_critical">*:Critical</string>
+    <string name="log_filter_error">*:Error</string>
+    <string name="log_filter_warning">*:Warning</string>
+    <string name="log_filter_info">*:Info</string>
+    <string name="log_filter_debug">*:Debug</string>
+    <string name="log_filter_trace">*:Trace</string>
+    <string name="log_regex_filter_name">Regex Log Filter</string>
+    <string name="log_regex_filter_description">Use POSIX-format regular expressions to display only log entries that match the regex. For example, to only display <i>&lt;Info&gt;</i> level messages, enter <font face="monospace">&lt;Info&gt;</font>.</string>
 
   <!-- Layout settings strings -->
     <string name="layout_screen_orientation">Screen Orientation</string>

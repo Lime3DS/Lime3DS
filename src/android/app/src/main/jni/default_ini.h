@@ -1,4 +1,4 @@
-// Copyright 2014-2026 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -26,7 +26,6 @@ constexpr std::array android_config_omitted_keys = {
     Settings::Keys::screen_bottom_leftright_padding,
     Settings::Keys::screen_bottom_topbottom_padding,
     Settings::Keys::mono_render_option,
-    Settings::Keys::log_regex_filter, // Niche
     Settings::Keys::video_encoder,
     Settings::Keys::video_encoder_options,
     Settings::Keys::video_bitrate,
@@ -535,9 +534,6 @@ static const char* android_config_default_file_content = (BOOST_HANA_STRING(R"(
 )") DECLARE_KEY(camera_inner_flip) BOOST_HANA_STRING(R"(
 
 [Miscellaneous]
-# A filter which removes logs below a certain logging level.
-# Examples: *:Debug Kernel.SVC:Trace Service.*:Critical
-)") DECLARE_KEY(log_filter) BOOST_HANA_STRING(R"(
 
 # Whether or not Azahar-related images should be hidden from the Android gallery
 # 0 (default): No, 1: Yes
@@ -562,6 +558,14 @@ static const char* android_config_default_file_content = (BOOST_HANA_STRING(R"(
 # Whether to enable PICA200 debugging (does nothing on Android)
 # 0 (default): Off, 1: On
 )") DECLARE_KEY(pica_debugging) BOOST_HANA_STRING(R"(
+
+# A filter which removes logs below a certain logging level.
+# Examples: *:Debug Kernel.SVC:Trace Service.*:Critical
+)") DECLARE_KEY(log_filter) BOOST_HANA_STRING(R"(
+
+# log_regex_filter is a filter that only displays logs based on the regex
+# expression in POSIX format supplied. Default is an empty string.
+)") DECLARE_KEY(log_regex_filter) BOOST_HANA_STRING(R"(
 
 # Flush log output on every message
 # Immediately commits the debug log to file. Use this if Azahar crashes and the log output is being cut.

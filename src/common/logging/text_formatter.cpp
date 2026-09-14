@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright 2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -66,6 +66,8 @@ void PrintColoredMessage(const Entry& entry) {
     case Level::Critical: // Bright magenta
         color = FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
         break;
+    case Level::None:
+        break;
     case Level::Count:
         UNREACHABLE();
     }
@@ -92,6 +94,8 @@ void PrintColoredMessage(const Entry& entry) {
         break;
     case Level::Critical: // Bright magenta
         color = ESC "[1;35m";
+        break;
+    case Level::None:
         break;
     case Level::Count:
         UNREACHABLE();
@@ -133,6 +137,8 @@ void PrintMessageToLogcat([[maybe_unused]] const Entry& entry) {
         break;
     case Level::Critical:
         android_log_priority = ANDROID_LOG_FATAL;
+        break;
+    case Level::None:
         break;
     case Level::Count:
         UNREACHABLE();

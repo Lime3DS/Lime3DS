@@ -1,4 +1,4 @@
-// Copyright 2023-2025 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -19,6 +19,7 @@ enum class Level : u8 {
     ///< completed.
     Critical, ///< Major problems during execution that threaten the stability of the entire
     ///< application.
+    None, ///< Don't log anything
 
     Count, ///< Total number of logging levels
 };

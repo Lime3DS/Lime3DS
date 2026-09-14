@@ -707,4 +707,22 @@
         <item>1</item>
     </integer-array>
 
+    <string-array name="logFilterNameModes">
+        <item>@string/log_none</item>
+        <item>@string/log_critical</item>
+        <item>@string/log_error</item>
+        <item>@string/log_warning</item>
+        <item>@string/log_info</item>
+        <item>@string/log_debug</item>
+        <item>@string/log_trace</item>
+    </string-array>
+    <string-array name="logFilterNameValues">
+        <item>@string/log_filter_none</item>
+        <item>@string/log_filter_critical</item>
+        <item>@string/log_filter_error</item>
+        <item>@string/log_filter_warning</item>
+        <item>@string/log_filter_info</item>
+        <item>@string/log_filter_debug</item>
+        <item>@string/log_filter_trace</item>
+    </string-array>
 </resources>
