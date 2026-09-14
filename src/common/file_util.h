@@ -123,6 +123,9 @@ private:
     friend class boost::serialization::access;
 };
 
+// Check if a folder is empty
+[[nodiscard]] bool IsEmptyDir(const std::string& folder_path);
+
 // Returns true if file filename exists
 [[nodiscard]] bool Exists(const std::string& filename);
 

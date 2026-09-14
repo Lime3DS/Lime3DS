@@ -155,6 +155,24 @@ static void StripTailDirSlashes(std::string& fname) {
     fname.resize(i);
 }
 
+bool IsEmptyDir(const std::string& folder_path) {
+    if (!IsDirectory(folder_path)) {
+        return false;
+    }
+
+    bool has_entries = false;
+
+    ForeachDirectoryEntry(nullptr, folder_path,
+                          [&has_entries]([[maybe_unused]] u64* num_entries_out,
+                                         [[maybe_unused]] const std::string& directory,
+                                         [[maybe_unused]] const std::string& virtual_name) -> bool {
+                              has_entries = true;
+                              return false;
+                          });
+
+    return !has_entries;
+}
+
 bool Exists(const std::string& filename) {
     std::string copy(filename);
     StripTailDirSlashes(copy);

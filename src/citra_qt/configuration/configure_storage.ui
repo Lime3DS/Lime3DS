@@ -77,13 +77,6 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QLabel" name="label_4">
-                  <property name="text">
-                   <string>NOTE: This does not move the contents of the previous directory to the new one.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <spacer name="horizontalSpacer_3">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -140,14 +133,7 @@
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>NOTE: This does not move the contents of the previous directory to the new one.</string>
-                  </property>
-                 </widget>
-                </item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">>
                 <item>
                  <spacer name="horizontalSpacer_4">
                   <property name="orientation">
