@@ -57,6 +57,19 @@ stages:
 ##############################################################################
 #
 ################################### DESKTOPS #################################
+# Linux aarch64
+# No image override here: the :backports tag exists only for the amd64 image,
+# while the aarch64 one installs gcc-12 in its main Dockerfile, so the same
+# compiler the x64 job asks for is already on PATH.
+libretro-build-linux-aarch64:
+  extends:
+    - .core-defs
+    - .libretro-linux-cmake-aarch64
+  variables:
+    CORE_ARGS: ${BASE_CORE_ARGS} -DENABLE_LTO=OFF
+    CC: /usr/bin/gcc-12
+    CXX: /usr/bin/g++-12
+
 # Windows 64-bit
 libretro-build-windows-x64:
   extends:
@@ -104,6 +117,19 @@ android-arm64-v8a:
     - .core-defs
   variables:
     ANDROID_NDK_VERSION: 29.0.14206865
+    NDK_ROOT: /android-sdk-linux/ndk/$ANDROID_NDK_VERSION
+    LIBNAME: ${CORENAME}_libretro.so
+  artifacts:
+    paths:
+      - $LIBNAME
+
+# Android x86_64
+android-x86_64:
+  extends:
+    - .libretro-android-cmake-x86_64
+    - .core-defs
+  variables:
+    ANDROID_NDK_VERSION: 27.3.13750724
     NDK_ROOT: /android-sdk-linux/ndk/$ANDROID_NDK_VERSION
     LIBNAME: ${CORENAME}_libretro.so
   artifacts:
