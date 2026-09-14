@@ -221,11 +221,14 @@ void RasterizerVulkan::SyncDrawState() {
             ? static_cast<u32>(regs.framebuffer.output_merger.stencil_test.write_mask)
             : 0;
     // SyncDepthTest();
-    const bool test_enabled = regs.framebuffer.output_merger.depth_test_enable == 1 ||
-                              regs.framebuffer.output_merger.depth_write_enable == 1;
-    const auto compare_op = regs.framebuffer.output_merger.depth_test_enable == 1
+    const bool early_test = regs.rasterizer.early_depth_test_enable == 1;
+    const bool late_test = regs.framebuffer.output_merger.depth_test_enable == 1;
+    const bool depth_write = regs.framebuffer.output_merger.depth_write_enable == 1;
+    const bool test_enabled = early_test || late_test || depth_write;
+    const auto compare_op = late_test
                                 ? regs.framebuffer.output_merger.depth_test_func.Value()
-                                : Pica::FramebufferRegs::CompareFunc::Always;
+                                : early_test ? regs.rasterizer.early_depth_func.Value()
+                                             : Pica::FramebufferRegs::CompareFunc::Always;
 
     pipeline_info.state.depth_stencil.depth_test_enable.Assign(test_enabled);
     pipeline_info.state.depth_stencil.depth_compare_op.Assign(compare_op);
@@ -555,6 +558,7 @@ bool RasterizerVulkan::Draw(bool accelerate, bool is_indexed) {
     const bool using_depth_fb =
         !shadow_rendering && regs.framebuffer.framebuffer.GetDepthBufferPhysicalAddress() != 0 &&
         (write_depth_fb || regs.framebuffer.output_merger.depth_test_enable != 0 ||
+         regs.rasterizer.early_depth_test_enable != 0 ||
          (has_stencil && pipeline_info.state.depth_stencil.stencil_test_enable));
 
     const auto fb_helper = res_cache.GetFramebufferSurfaces(using_color_fb, using_depth_fb);

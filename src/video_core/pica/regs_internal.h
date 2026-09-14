@@ -65,8 +65,12 @@ ASSERT_REG_POSITION(rasterizer.viewport_depth_range, 0x4d);
 ASSERT_REG_POSITION(rasterizer.viewport_depth_near_plane, 0x4e);
 ASSERT_REG_POSITION(rasterizer.vs_output_attributes[0], 0x50);
 ASSERT_REG_POSITION(rasterizer.vs_output_attributes[1], 0x51);
+ASSERT_REG_POSITION(rasterizer.early_depth_func, 0x61);
+ASSERT_REG_POSITION(rasterizer.early_depth_test_enable, 0x62);
+ASSERT_REG_POSITION(rasterizer.early_depth_clear, 0x63);
 ASSERT_REG_POSITION(rasterizer.scissor_test, 0x65);
 ASSERT_REG_POSITION(rasterizer.viewport_corner, 0x68);
+ASSERT_REG_POSITION(rasterizer.early_depth_data, 0x6A);
 ASSERT_REG_POSITION(rasterizer.depthmap_enable, 0x6D);
 
 ASSERT_REG_POSITION(texturing, 0x80);

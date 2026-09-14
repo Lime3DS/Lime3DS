@@ -346,12 +346,19 @@ void RasterizerOpenGL::SyncDrawState() {
     state.stencil.action_depth_pass =
         PicaToGL::StencilOp(regs.framebuffer.output_merger.stencil_test.action_depth_pass);
     // SyncDepthTest();
-    state.depth.test_enabled = regs.framebuffer.output_merger.depth_test_enable == 1 ||
-                               regs.framebuffer.output_merger.depth_write_enable == 1;
-    state.depth.test_func =
-        regs.framebuffer.output_merger.depth_test_enable == 1
-            ? PicaToGL::CompareFunc(regs.framebuffer.output_merger.depth_test_func)
-            : GL_ALWAYS;
+    const bool early_test = regs.rasterizer.early_depth_test_enable == 1;
+    const bool late_test = regs.framebuffer.output_merger.depth_test_enable == 1;
+    const bool depth_write = regs.framebuffer.output_merger.depth_write_enable == 1;
+    state.depth.test_enabled = early_test || late_test || depth_write;
+    if (late_test) {
+        state.depth.test_func =
+            PicaToGL::CompareFunc(regs.framebuffer.output_merger.depth_test_func);
+    } else if (early_test) {
+        state.depth.test_func =
+            PicaToGL::CompareFunc(regs.rasterizer.early_depth_func);
+    } else {
+        state.depth.test_func = GL_ALWAYS;
+    }
     // SyncStencilWriteMask();
     state.stencil.write_mask =
         (regs.framebuffer.framebuffer.allow_depth_stencil_write != 0)
@@ -573,6 +580,7 @@ bool RasterizerOpenGL::Draw(bool accelerate, bool is_indexed) {
     const bool using_depth_fb =
         !shadow_rendering && regs.framebuffer.framebuffer.GetDepthBufferPhysicalAddress() != 0 &&
         (write_depth_fb || regs.framebuffer.output_merger.depth_test_enable != 0 ||
+         regs.rasterizer.early_depth_test_enable != 0 ||
          (has_stencil && state.stencil.test_enabled));
 
     const auto fb_helper = res_cache.GetFramebufferSurfaces(using_color_fb, using_depth_fb);

@@ -355,6 +355,45 @@ void RasterizerSoftware::ProcessTriangle(const Vertex& v0, const Vertex& v1, con
                 // Clamp the result
                 depth = std::clamp(depth, 0.0f, 1.0f);
 
+                // Early depth test - discard fragment before shader execution
+                if (regs.rasterizer.early_depth_test_enable) {
+                    const u32 num_bits_early =
+                        FramebufferRegs::DepthBitsPerPixel(framebuffer.depth_format);
+                    const u32 z_early =
+                        static_cast<u32>(depth * ((1 << num_bits_early) - 1));
+                    const u32 ref_z_early = fb.GetDepth(x >> 4, y >> 4);
+                    bool pass_early = false;
+                    switch (regs.rasterizer.early_depth_func) {
+                    case FramebufferRegs::CompareFunc::Never:
+                        pass_early = false;
+                        break;
+                    case FramebufferRegs::CompareFunc::Always:
+                        pass_early = true;
+                        break;
+                    case FramebufferRegs::CompareFunc::Equal:
+                        pass_early = z_early == ref_z_early;
+                        break;
+                    case FramebufferRegs::CompareFunc::NotEqual:
+                        pass_early = z_early != ref_z_early;
+                        break;
+                    case FramebufferRegs::CompareFunc::LessThan:
+                        pass_early = z_early < ref_z_early;
+                        break;
+                    case FramebufferRegs::CompareFunc::LessThanOrEqual:
+                        pass_early = z_early <= ref_z_early;
+                        break;
+                    case FramebufferRegs::CompareFunc::GreaterThan:
+                        pass_early = z_early > ref_z_early;
+                        break;
+                    case FramebufferRegs::CompareFunc::GreaterThanOrEqual:
+                        pass_early = z_early >= ref_z_early;
+                        break;
+                    }
+                    if (!pass_early) {
+                        continue;
+                    }
+                }
+
                 /**
                  * Perspective correct attribute interpolation:
                  * Attribute values cannot be calculated by simple linear interpolation since

@@ -10,6 +10,7 @@
 #include "common/common_funcs.h"
 #include "common/math_util.h"
 #include "common/vector_math.h"
+#include "video_core/pica/regs_framebuffer.h"
 #include "video_core/pica_types.h"
 
 namespace Pica {
@@ -118,7 +119,13 @@ struct RasterizerRegs {
         }
     }
 
-    INSERT_PADDING_WORDS(0xe);
+    INSERT_PADDING_WORDS(0xa);
+
+    BitField<0, 3, FramebufferRegs::CompareFunc> early_depth_func;
+    BitField<0, 1, u32> early_depth_test_enable;
+    BitField<0, 1, u32> early_depth_clear;
+
+    INSERT_PADDING_WORDS(0x1);
 
     enum class ScissorMode : u32 {
         Disabled = 0,
@@ -148,8 +155,7 @@ struct RasterizerRegs {
 
     INSERT_PADDING_WORDS(0x1);
 
-    // TODO: early depth
-    INSERT_PADDING_WORDS(0x1);
+    BitField<0, 1, u32> early_depth_data;
 
     INSERT_PADDING_WORDS(0x2);
 

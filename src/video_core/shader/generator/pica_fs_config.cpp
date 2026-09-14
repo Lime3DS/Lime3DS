@@ -11,6 +11,7 @@ FramebufferConfig::FramebufferConfig(const Pica::RegsInternal& regs) {
     scissor_test_mode.Assign(regs.rasterizer.scissor_test.mode);
     depthmap_enable.Assign(regs.rasterizer.depthmap_enable);
     shadow_rendering.Assign(regs.framebuffer.IsShadowRendering());
+    early_depth_test_enable.Assign(regs.rasterizer.early_depth_test_enable);
     alpha_test_func.Assign(output_merger.alpha_test.enable
                                ? output_merger.alpha_test.func.Value()
                                : Pica::FramebufferRegs::CompareFunc::Always);
