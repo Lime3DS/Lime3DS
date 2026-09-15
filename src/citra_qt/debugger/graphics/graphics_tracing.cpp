@@ -113,8 +113,9 @@ void GraphicsTracingWidget::StopRecording() {
     if (!context)
         return;
 
-    QString filename = QFileDialog::getSaveFileName(
-        this, tr("Save CiTrace"), QStringLiteral("citrace.ctf"), tr("CiTrace File (*.ctf)"));
+    QString filename =
+        QFileDialog::getSaveFileName(this, tr("Save CiTrace"), QStringLiteral("citrace.ctf"),
+                                     tr("CiTrace File") + QStringLiteral(" (*.ctf)"));
 
     if (filename.isEmpty()) {
         // If the user canceled the dialog, keep recording

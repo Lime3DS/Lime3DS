@@ -16,9 +16,6 @@
     <height>0</height>
    </size>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="rendererBox">
@@ -226,27 +223,27 @@
            </item>
            <item>
             <property name="text">
-             <string>Anime4K</string>
+             <string notr="true">Anime4K</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Bicubic</string>
+             <string notr="true">Bicubic</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>ScaleForce</string>
+             <string notr="true">ScaleForce</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>xBRZ</string>
+             <string notr="true">xBRZ</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>MMPX</string>
+             <string notr="true">MMPX</string>
             </property>
            </item>
           </widget>
@@ -320,7 +317,7 @@
         <item>
          <widget class="QSpinBox" name="factor_3d">
           <property name="suffix">
-           <string>%</string>
+           <string notr="true">%</string>
           </property>
           <property name="minimum">
            <number>0</number>

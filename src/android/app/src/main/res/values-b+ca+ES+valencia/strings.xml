@@ -292,6 +292,14 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="internal_resolution_setting_8x">8x Nativa (3200x1920)</string>
     <string name="internal_resolution_setting_9x">9x Nativa (3600x2160)</string>
     <string name="internal_resolution_setting_10x">10x Nativa (4000x2400)</string>
+    <string name="internal_resolution_setting_11x">11x Nativa (4400x2640)</string>
+    <string name="internal_resolution_setting_12x">12x Nativa (4800x2880)</string>
+    <string name="internal_resolution_setting_13x">13x Nativa (5200x3120)</string>
+    <string name="internal_resolution_setting_14x">14x Nativa (5600x3360)</string>
+    <string name="internal_resolution_setting_15x">15x Nativa (6000x3600)</string>
+    <string name="internal_resolution_setting_16x">16x Nativa (6400x3840)</string>
+    <string name="internal_resolution_setting_17x">17x Nativa (6800x4080)</string>
+    <string name="internal_resolution_setting_18x">18x Nativa (7200x4320)</string>
     <string name="performance_warning">Desactivar esta opció reduirà la velocitat d\'emulació! Per a obtindre la millor experiència, es recomana que es mantinga activada.</string>
     <string name="debug_warning">Avís: Modificar estes configuracions reduiran la velocitat d\'emulació.</string>
     <string name="stereoscopy">Estereoscopia</string>
@@ -447,7 +455,7 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="loader_error_encrypted_description"><![CDATA[Azahar no admet aplicacions xifrades. Llig la nostra <a href=\"https://azahar-emu.org/blog/game-loading-changes/\">entrada del blog</a> per a obtindre més informació.]]></string>
     <string name="loader_error_file_not_found">El fitxer ROM no existix</string>
     <string name="no_game_present">No hi ha cap joc iniciable!</string>
-
+    <string name="invalid_rom">ROM no vàlid</string>
     <string name="loader_error_generic">Es va produir un error en carregar el ROM: \"%s (%d)\"</string>
     <string name="core_error_success">Éxit</string>
     <string name="core_error_not_initialized">No inicialitzat</string>
@@ -464,7 +472,7 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="core_error_artic_disconnected">Artic Base s\'ha desconnectat</string>
     <string name="core_error_n3ds_application">El fitxer es una aplicació de New 3DS</string>
     <string name="core_error_core_exception_raised">Es va produir una exepció en el nucli</string>
-    <string name="core_error_memory_exception_raised">Es va produir una excepció de memòria</string>
+    <string name="core_error_savestate_build_mismatch">Incompatibilitat de versió d\'estat desat</string>
     <string name="core_error_shutdown_requested">Es va sol·licitar el tancament</string>
     <string name="core_error_unknown">Error desconegut</string>
 
@@ -615,6 +623,7 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="unsupported_encrypted">Aplicació cifrada no suportada</string>
     <string name="invalid_system_mode">Mode de sistema no vàlid</string>
     <string name="invalid_system_mode_message">Les aplicacions exclusives de New 3DS no es poden carregar sense activar el mode New 3DS.</string>
+    <string name="savestate_build_mismatch_message"><![CDATA[No s\'ha pogut carregar l\'estat desat perquè es va crear amb una versió diferent d\'Azahar:<br/><b>Azahar %1$s</b>.<br/><br/>Per favor llig el nostre blog <a href=\"https://azahar-emu.org/blog/understanding-save-states/\">entenent estats desats</a>per a més informació .<br/><br/>Per a recuperar el teu progrés, torna a la versió <b>Azahar %1$s</b>, carrega este estat desat i utilitza la funció de desat integrada de l\'aplicatiu emulat.]]></string>
 
     <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Preparant ombrejadors</string>
@@ -643,9 +652,11 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="create_shortcut">Crear drecera</string>
     <string name="shortcut_name_empty">El nom de la drecera no pot estar buit</string>
     <string name="shortcut_image_stretch_toggle">Allargar per a ajustar la imatge</string>
+    <string name="game_context_region">Regió:</string>
     <string name="game_context_id">ID:</string>
     <string name="game_context_file">Fitxer:</string>
     <string name="game_context_type">Tipus:</string>
+    <string name="game_context_playtime">Temps de joc:</string>
     <string name="game_context_insert">Inserir Cartutx</string>
     <string name="game_context_eject">Expulsar Cartutx</string>
 
@@ -706,8 +717,6 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="cia_install_error_encrypted">\"%s\" ha de ser desencriptat abans de ser usat en Azahar. Es necessita una 3DS real.</string>
     <string name="cia_install_error_unknown">Ha ocorregut un error desconegut mentres s\'instal·lava \"%s\".\n Per favor, mira el log per a més detalls.</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -734,15 +743,6 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Fons foscos</string>
     <string name="use_black_backgrounds_description">Quan uses el tema fosc, s\'aplicaran fons foscos.</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japanese (日本語)</string>
@@ -783,17 +783,6 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="anaglyph">Anàglifo</string>
     <string name="interlaced">Entrellaçat</string>
     <string name="reverse_interlaced">Entrellaçat invers</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bicubic</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Controlat per Joc</string>
@@ -940,6 +929,14 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="vatican_city">Ciudad del Vaticano</string>
     <string name="bermuda">Bermudas</string>
 
+    <!-- Regions (Japan, Australia, China and Taiwan are above) -->
+    <string name="north_america">Amèrica del Nord</string>
+    <string name="europe">Europa</string>
+    <string name="korea">Corea</string>
+    <string name="region_free">Regió lliure</string>
+    <string name="invalid_region">Regió no vàlida</string>
+    <string name="region_get_error">ERROR PER FAVOR REPORTA</string>
+
     <!-- Months -->
     <string name="january">Gener</string>
     <string name="february">Febrer</string>
@@ -1054,7 +1051,6 @@ S\'esperen errors gràfics temporals quan estigue activat.</string>
     <string name="multiplayer_room_browser">Sales Públiques</string>
     <string name="multiplayer_no_rooms_found">No s\'han trobat sales públiques</string>
     <string name="multiplayer_password_required">Contrasenya Requerida</string>
-    <string name="multiplayer_player_count">: %1$d/%2$d</string>
     <string name="multiplayer_game">Joc</string>
     <string name="multiplayer_no_game_info">Cualsevol Joc</string>
     <string name="multiplayer_password_protected">Sala protegida per contrasenya</string>

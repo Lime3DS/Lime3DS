@@ -74,7 +74,7 @@
                <number>5</number>
               </property>
               <property name="placeholderText">
-               <string>24872</string>
+               <string notr="true">24872</string>
               </property>
               <property name="maximumSize">
                <size>

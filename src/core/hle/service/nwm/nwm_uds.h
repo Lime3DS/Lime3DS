@@ -18,6 +18,7 @@
 #include <boost/serialization/export.hpp>
 #include "common/common_types.h"
 #include "common/swap.h"
+#include "common/threadsafe_queue.h"
 #include "core/hle/service/nwm/uds_common.h"
 #include "core/hle/service/service.h"
 #include "network/network.h"
@@ -481,6 +482,9 @@ private:
 
     void CheckSpoofFriendCodeSeed(Kernel::HLERequestContext& ctx, NodeInfo& node);
 
+    void SignalEventAsync(std::shared_ptr<Kernel::Event> event);
+    void DispatchQueuedAsyncEventSignals();
+
     ResultVal<std::shared_ptr<Kernel::Event>> Initialize(
         u32 sharedmem_size, const NodeInfo& node, u16 version,
         std::shared_ptr<Kernel::SharedMemory> sharedmem);
@@ -626,6 +630,12 @@ private:
 
     // Event that will generate and send the 802.11 beacon frames.
     Core::TimingEventType* beacon_broadcast_event;
+
+    // Event for handling async event signals
+    Core::TimingEventType* handle_async_event_signals_event;
+
+    // Queue holding the async event shared pointers
+    Common::MPSCQueue<std::shared_ptr<Kernel::Event>> pending_async_event_signals;
 
     // Callback identifier for the OnWifiPacketReceived event.
     Network::RoomMember::CallbackHandle<Network::WifiPacket> wifi_packet_received;

@@ -291,6 +291,14 @@
     <string name="internal_resolution_setting_8x">8x Nativo (3200x1920)</string>
     <string name="internal_resolution_setting_9x">9x Nativo (3600x2160)</string>
     <string name="internal_resolution_setting_10x">10x Nativo (4000x2400)</string>
+    <string name="internal_resolution_setting_11x">11x Nativo (4400x2640)</string>
+    <string name="internal_resolution_setting_12x">12x Nativo (4800x2880)</string>
+    <string name="internal_resolution_setting_13x">13x Nativo (5200x3120)</string>
+    <string name="internal_resolution_setting_14x">14x Nativo (5600x3360)</string>
+    <string name="internal_resolution_setting_15x">15x Nativo (6000x3600)</string>
+    <string name="internal_resolution_setting_16x">16x Nativo (6400x3840)</string>
+    <string name="internal_resolution_setting_17x">17x Nativo (6800x4080)</string>
+    <string name="internal_resolution_setting_18x">18x Nativo (7200x4320)</string>
     <string name="performance_warning">Desativar esta opção reduzirá consideravelmente o desempenho da emulação! Para obter a melhor experiência, recomendamos deixá-la ativada.</string>
     <string name="debug_warning">Aviso: modificar estas configurações tornará a emulação mais lenta</string>
     <string name="stereoscopy">Estereoscopia</string>
@@ -446,7 +454,6 @@
     <string name="loader_error_encrypted_description"><![CDATA[O Azahar não suporta aplicativos criptografados. Leia nosso <a href=\"https://azahar-emu.org/blog/game-loading-changes/\">post no blog</a> para mais informações.]]></string>
     <string name="loader_error_file_not_found">O arquivo ROM não existe</string>
     <string name="no_game_present">Nenhum jogo inicializável presente!</string>
-
     <string name="loader_error_generic">Ocorreu um erro ao carregar a ROM: \"%s (%d)\"</string>
     <string name="core_error_success">Sucesso</string>
     <string name="core_error_not_initialized">Não inicializado</string>
@@ -463,7 +470,7 @@
     <string name="core_error_artic_disconnected">Artic Base desconectado</string>
     <string name="core_error_n3ds_application">O arquivo é um aplicativo do New 3DS</string>
     <string name="core_error_core_exception_raised">Exceção de núcleo disparada</string>
-    <string name="core_error_memory_exception_raised">Exceção de memória disparada</string>
+    <string name="core_error_savestate_build_mismatch">Versão do savestate incompatível</string>
     <string name="core_error_shutdown_requested">Desligamento solicitado</string>
     <string name="core_error_unknown">Erro desconhecido</string>
 
@@ -614,6 +621,7 @@
     <string name="unsupported_encrypted">Aplicativo criptografado não suportado</string>
     <string name="invalid_system_mode">Modo de sistema inválido</string>
     <string name="invalid_system_mode_message">Novos aplicativos exclusivos do New 3DS não podem ser carregados sem ativar o modo New 3DS.</string>
+    <string name="savestate_build_mismatch_message"><![CDATA[Não foi possível carregar o savestate porque ele foi criado em uma versão diferente do Azahar:<br/><b>Azahar %1$s</b>.<br/><br/>Por favor, leia nossa publicação no blog <br/><br/>Para recuperar seu progresso, faça downgrade para o <b>Azahar %1$s</b>, carregue este savestate e use a função de salvamento integrada do aplicativo.]]></string>
 
     <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Preparando Shaders</string>
@@ -706,8 +714,6 @@
     <string name="cia_install_error_encrypted">\"%s\" deve ser descriptografado antes de ser usado com o Azahar.\n É necessário um 3DS real</string>
     <string name="cia_install_error_unknown">Ocorreu um erro desconhecido durante a instalação de \"%s\".\n Consulte o registro para obter mais detalhes</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -734,15 +740,6 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Fundos Pretos</string>
     <string name="use_black_backgrounds_description">Ao usar o tema escuro, aplique fundos pretos.</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japonês (日本語)</string>
@@ -783,17 +780,6 @@
     <string name="anaglyph">Anáglifo</string>
     <string name="interlaced">Entrelaçado</string>
     <string name="reverse_interlaced">Entrelaçado Reverso</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGL ES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bicúbico</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Controlado pelo Jogo</string>
@@ -1054,7 +1040,6 @@
     <string name="multiplayer_room_browser">Salas Públicas</string>
     <string name="multiplayer_no_rooms_found">Nenhuma sala pública encontrada</string>
     <string name="multiplayer_password_required">Senha Necessária</string>
-    <string name="multiplayer_player_count">: %1$d/%2$d</string>
     <string name="multiplayer_game">Jogo</string>
     <string name="multiplayer_no_game_info">Qualquer jogo</string>
     <string name="multiplayer_password_protected">Sala protegida por senha</string>

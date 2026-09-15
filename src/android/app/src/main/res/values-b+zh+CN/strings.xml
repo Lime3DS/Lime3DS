@@ -371,7 +371,6 @@
     <string name="loader_error_encrypted">您的 ROM 是加密的</string>
     <string name="loader_error_file_not_found">ROM 文件不存在</string>
     <string name="no_game_present">目前没有可启动的游戏！</string>
-
     <!-- Emulation Menu -->
     <string name="emulation_menu_help">按返回键呼出菜单。</string>
     <string name="emulation_save_state">保存存档</string>
@@ -595,8 +594,6 @@
     <string name="cia_install_error_unknown">安装“%s”时出现未知错误。
 \n详情请参阅日志文件</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">字节</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -623,15 +620,6 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">黑色背景</string>
     <string name="use_black_backgrounds_description">使用深色主题时，套用黑色背景。</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">日本（JPN）</string>
-    <string name="system_region_usa">北美（USA）</string>
-    <string name="system_region_eur">欧洲（EUR）</string>
-    <string name="system_region_aus">澳大利亚（AUS）</string>
-    <string name="system_region_chn">中国大陆（CHN）</string>
-    <string name="system_region_kor">韩国（KOR）</string>
-    <string name="system_region_twn">港台（TWN）</string>
 
     <!-- Language names -->
     <string name="language_japanese">日语（日本語）</string>
@@ -671,17 +659,6 @@
     <string name="anaglyph">立体图形</string>
     <string name="interlaced">交错</string>
     <string name="reverse_interlaced">逆向交错</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGL ES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">双三线过滤</string>
-    <string name="scaleforce">强制缩放</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">由游戏控制</string>

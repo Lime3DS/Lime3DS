@@ -12,6 +12,7 @@
 #include "core/arm/dynarmic/arm_dynarmic_cp15.h"
 #include "core/arm/dynarmic/arm_exclusive_monitor.h"
 #include "core/arm/dynarmic/arm_tick_counts.h"
+#include "core/arm/exception_handler.h"
 #include "core/core.h"
 #include "core/core_timing.h"
 #ifdef ENABLE_GDBSTUB
@@ -140,14 +141,22 @@ public:
         } else
 #endif
         {
-            std::string error;
-            for (int i = 0; i < 16; i++) {
-                error += fmt::format("r{:02d} = {:08X}\n", i, parent.GetReg(i));
+            Core::ExceptionType exc_type;
+            switch (exception) {
+            case Dynarmic::A32::Exception::UndefinedInstruction:
+            case Dynarmic::A32::Exception::UnpredictableInstruction:
+            case Dynarmic::A32::Exception::DecodeError:
+            case Dynarmic::A32::Exception::NoExecuteFault:
+                exc_type = Core::ExceptionType::UndefinedInstruction;
+                break;
+            case Dynarmic::A32::Exception::Breakpoint:
+                exc_type = Core::ExceptionType::Break;
+                break;
+            default:
+                exc_type = Core::ExceptionType::UndefinedInstruction;
+                break;
             }
-            error += fmt::format("ExceptionRaised(exception = {}, pc = {:08X})",
-                                 ExceptionToString(exception), pc);
-            parent.system.SetStatus(Core::System::ResultStatus::ErrorCoreExceptionRaised,
-                                    error.c_str());
+            Core::LogException(parent.system, exc_type);
         }
     }
 

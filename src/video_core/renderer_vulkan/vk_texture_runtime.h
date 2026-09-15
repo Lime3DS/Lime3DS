@@ -126,8 +126,11 @@ public:
     }
 
     /// Gets an opaque tick-value used to indicate to the garbage collector when a surface was made.
-    /// Incrementing this variable indicates that all previous resource ticks can be safely deleted.
     u64 GetResourceTick();
+
+    /// Gets an opaque tick-value used to indicate to the garbage collector what surfaces can be
+    /// safely deleted.
+    u64 GetResourceFreeTick();
 
     /// Submits and waits for current GPU work.
     void Finish();

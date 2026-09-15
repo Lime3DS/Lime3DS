@@ -143,6 +143,7 @@ static constexpr retro_core_option_v2_category option_categories[] = {
 
 static constexpr retro_core_option_v2_definition option_definitions[] = {
     // CPU Category
+#ifndef IOS
     {
         config::cpu::use_cpu_jit,
         "Enable CPU JIT",
@@ -159,6 +160,7 @@ static constexpr retro_core_option_v2_definition option_definitions[] = {
         },
         config::enabled
     },
+#endif
     {
         config::cpu::cpu_clock_percentage,
         "CPU Clock Speed",
@@ -312,6 +314,7 @@ static constexpr retro_core_option_v2_definition option_definitions[] = {
         },
         config::enabled
     },
+#ifndef IOS
     {
         config::graphics::use_shader_jit,
         "Enable Shader JIT",
@@ -327,6 +330,7 @@ static constexpr retro_core_option_v2_definition option_definitions[] = {
         },
         config::enabled
     },
+#endif
     {
         config::graphics::shaders_accurate_mul,
         "Accurate Shader Multiplication",
@@ -824,10 +828,10 @@ void RegisterCoreOptions(void) {
 
 static void ParseCpuOptions(void) {
     Settings::values.use_cpu_jit =
+#ifdef IOS
+        false;
+#else
         LibRetro::FetchVariable(config::cpu::use_cpu_jit, config::enabled) == config::enabled;
-#if defined(IOS)
-    if (!LibRetro::CanUseJIT())
-        Settings::values.use_cpu_jit = false;
 #endif
 
     auto cpu_clock = LibRetro::FetchVariable(config::cpu::cpu_clock_percentage, "100");
@@ -959,11 +963,12 @@ static void ParseGraphicsOptions(void) {
     Settings::values.use_hw_shader = LibRetro::FetchVariable(config::graphics::use_hw_shader,
                                                              config::enabled) == config::enabled;
 
-    Settings::values.use_shader_jit = LibRetro::FetchVariable(config::graphics::use_shader_jit,
-                                                              config::enabled) == config::enabled;
-#if defined(IOS)
-    if (!LibRetro::CanUseJIT())
-        Settings::values.use_shader_jit = false;
+    Settings::values.use_shader_jit =
+#ifdef IOS
+        false;
+#else
+        LibRetro::FetchVariable(config::graphics::use_shader_jit, config::enabled) ==
+        config::enabled;
 #endif
 
     Settings::values.shaders_accurate_mul =

@@ -65,7 +65,7 @@ android {
         // the Play Store listing, which was originally set up for Lime3DS, to still be used.
         applicationId = "org.azahar_emu.azahar"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 37
         versionCode = autoVersion
         versionName = getGitVersion()
 

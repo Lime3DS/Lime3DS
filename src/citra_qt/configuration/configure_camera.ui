@@ -10,9 +10,6 @@
     <height>489</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="groupBox">
@@ -176,7 +173,7 @@
         <item>
          <widget class="QToolButton" name="toolButton">
           <property name="text">
-           <string>...</string>
+           <string notr="true">...</string>
           </property>
          </widget>
         </item>
@@ -310,7 +307,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Resolution: 512*384</string>
+         <string>Resolution: 512x384</string>
         </property>
         <property name="text">
          <string/>

@@ -47,7 +47,7 @@
       </property>
       <column>
        <property name="text">
-        <string>#</string>
+        <string notr="true">#</string>
        </property>
       </column>
       <column>

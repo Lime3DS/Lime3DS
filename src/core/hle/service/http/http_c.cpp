@@ -2,7 +2,11 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+#include <algorithm>
 #include <atomic>
+#include <chrono>
+#include <cstdlib>
+#include <mutex>
 #include <tuple>
 #include <unordered_map>
 #include <boost/algorithm/string/replace.hpp>
@@ -233,6 +237,145 @@ std::string Context::ParseMultipartFormData() {
     return httplib::detail::serialize_multipart_formdata_get_content_type(multipart_boundary);
 }
 
+Context::~Context() {
+    Cancel();
+
+    // Wait for the request thread to exit.
+    if (request_future.valid()) {
+        request_future.wait();
+    }
+}
+
+void Context::Cancel() {
+    {
+        std::scoped_lock lock(body_mutex);
+        cancelled = true;
+
+        // Clear the buffer to free the memory, the lock will ensure it is not filled back
+        // after cancelling.
+        body_buffer.clear();
+        body_buffer.shrink_to_fit();
+        body_buffer_pos = 0;
+    }
+    body_cv.notify_all();
+    finish_post_data.Set();
+}
+
+bool Context::OnResponseHeaders() {
+    {
+        std::scoped_lock lock(body_mutex);
+        headers_received = true;
+    }
+    body_cv.notify_all();
+
+    state = RequestState::ReceivingBody;
+    return true;
+}
+
+bool Context::OnBodyData(const char* data, std::size_t size) {
+    std::unique_lock lock(body_mutex);
+
+    // Wait if the receive body buffer is full and not cancelled.
+    body_cv.wait(lock, [this] {
+        const std::size_t limit = std::max(MaxBufferedBodySize, requested_body_size + 1);
+        return cancelled || (body_buffer.size() - body_buffer_pos) < limit;
+    });
+
+    if (cancelled) {
+        // Abort the transfer if cancelled.
+        return false;
+    }
+
+    body_buffer.insert(body_buffer.end(), data, data + size);
+    current_download_size_bytes += size;
+
+    // Only notify if there is a client waiting on ReceiveData.
+    const bool notify = requested_body_size != 0;
+    lock.unlock();
+
+    if (notify) {
+        body_cv.notify_all();
+    }
+    return true;
+}
+
+void Context::FinishTransfer() {
+    {
+        std::scoped_lock lock(body_mutex);
+        headers_received = true;
+        transfer_finished = true;
+    }
+    body_cv.notify_all();
+}
+
+bool Context::WaitForResponseHeaders(std::optional<std::chrono::nanoseconds> timeout) {
+    std::unique_lock lock(body_mutex);
+    const auto ready = [this] { return headers_received || transfer_finished || cancelled; };
+
+    if (timeout) {
+        return body_cv.wait_for(lock, *timeout, ready);
+    }
+    body_cv.wait(lock, ready);
+    return true;
+}
+
+bool Context::ResponseHeadersAvailable() {
+    std::scoped_lock lock(body_mutex);
+    return headers_received;
+}
+
+Context::ReceiveResult Context::ReceiveBody(std::size_t size,
+                                            std::optional<std::chrono::nanoseconds> timeout,
+                                            std::vector<u8>& out) {
+    ReceiveResult result;
+    std::unique_lock lock(body_mutex);
+
+    // Notify the request thread how much data we want.
+    requested_body_size = size;
+    body_cv.notify_all();
+
+    const auto ready = [this, size] {
+        return cancelled || transfer_finished || (body_buffer.size() - body_buffer_pos) > size;
+    };
+
+    if (timeout) {
+        if (!body_cv.wait_for(lock, *timeout, ready)) {
+            requested_body_size = 0;
+            body_cv.notify_all();
+            result.timed_out = true;
+            return result;
+        }
+    } else {
+        body_cv.wait(lock, ready);
+    }
+    requested_body_size = 0;
+
+    const std::size_t available = body_buffer.size() - body_buffer_pos;
+    const std::size_t to_copy = std::min(size, available);
+
+    out.assign(body_buffer.begin() + body_buffer_pos,
+               body_buffer.begin() + body_buffer_pos + to_copy);
+    body_buffer_pos += to_copy;
+
+    // Free the memory that has already been copied to the application.
+    if (body_buffer_pos == body_buffer.size()) {
+        body_buffer.clear();
+        body_buffer_pos = 0;
+        if (transfer_finished) {
+            body_buffer.shrink_to_fit();
+        }
+    } else if (body_buffer_pos >= MaxBufferedBodySize / 2) {
+        body_buffer.erase(body_buffer.begin(), body_buffer.begin() + body_buffer_pos);
+        body_buffer_pos = 0;
+    }
+
+    result.completed = cancelled || (transfer_finished && body_buffer_pos == body_buffer.size());
+    lock.unlock();
+
+    body_cv.notify_all();
+    return result;
+}
+
 void Context::MakeRequest() {
     ASSERT(state == RequestState::NotStarted);
 
@@ -255,11 +398,15 @@ void Context::MakeRequest() {
     // Apply URL replacements if any
     url_info.host = url_replacer->Apply(url_info.host);
 
-    request.progress = [this](u64 current, u64 total) -> bool {
-        // TODO(B3N30): Is there a state that shows response header are available
-        current_download_size_bytes = current;
+    request.progress = [this](u64, u64 total) -> bool {
         total_download_size_bytes = total;
         return true;
+    };
+    request.response_handler = [this](const httplib::Response&) -> bool {
+        return OnResponseHeaders();
+    };
+    request.content_receiver = [this](const char* data, std::size_t size, u64, u64) -> bool {
+        return OnBodyData(data, size);
     };
 
     for (const auto& header : headers) {
@@ -347,6 +494,8 @@ void Context::MakeRequestNonSSL(httplib::Request& request, const Common::URLInfo
         LOG_DEBUG(Service_HTTP, "Request successful");
         state = RequestState::ReceivingBody;
     }
+
+    FinishTransfer();
 }
 
 void Context::MakeRequestSSL(httplib::Request& request, const Common::URLInfo& url_info,
@@ -405,6 +554,8 @@ void Context::MakeRequestSSL(httplib::Request& request, const Common::URLInfo& u
         LOG_DEBUG(Service_HTTP, "Request successful");
         state = RequestState::ReceivingBody;
     }
+
+    FinishTransfer();
 }
 
 bool Context::ContentProvider(size_t offset, size_t length, httplib::DataSink& sink) {
@@ -608,8 +759,9 @@ void HTTP_C::ReceiveDataImpl(Kernel::HLERequestContext& ctx, bool timeout) {
         Context::Handle context_handle;
         u32 buffer_size;
         Kernel::MappedBuffer* buffer;
-        bool is_complete;
         // Output
+        std::vector<u8> received_data;
+        bool completed = false;
         Result async_res = ResultSuccess;
     };
     std::shared_ptr<AsyncData> async_data = std::make_shared<AsyncData>();
@@ -633,17 +785,20 @@ void HTTP_C::ReceiveDataImpl(Kernel::HLERequestContext& ctx, bool timeout) {
         [this, async_data](Kernel::HLERequestContext& ctx) {
             Context& http_context = GetContext(async_data->context_handle);
 
-            if (async_data->timeout) {
-                const auto wait_res = http_context.request_future.wait_for(
-                    std::chrono::nanoseconds(async_data->timeout_nanos));
-                if (wait_res == std::future_status::timeout) {
-                    async_data->async_res = ErrorTimeout;
-                }
+            const auto res = http_context.ReceiveBody(
+                async_data->buffer_size,
+                async_data->timeout
+                    ? std::optional(std::chrono::nanoseconds(async_data->timeout_nanos))
+                    : std::nullopt,
+                async_data->received_data);
+
+            if (res.timed_out) {
+                async_data->async_res = ErrorTimeout;
             } else {
-                http_context.request_future.wait();
+                async_data->completed = res.completed;
             }
-            // Simulate small delay from HTTP receive.
-            return 1'000'000;
+
+            return 0;
         },
         [this, async_data](Kernel::HLERequestContext& ctx) {
             IPC::RequestBuilder rb(ctx, static_cast<u16>(ctx.CommandHeader().command_id.Value()), 1,
@@ -652,28 +807,25 @@ void HTTP_C::ReceiveDataImpl(Kernel::HLERequestContext& ctx, bool timeout) {
                 rb.Push(async_data->async_res);
                 return;
             }
+
             Context& http_context = GetContext(async_data->context_handle);
 
-            const std::size_t remaining_data =
-                http_context.response.body.size() - http_context.current_copied_data;
+            if (!async_data->received_data.empty()) {
+                async_data->buffer->Write(async_data->received_data.data(), 0,
+                                          async_data->received_data.size());
+            }
+            http_context.current_copied_data += async_data->received_data.size();
 
-            if (async_data->buffer_size >= remaining_data) {
-                async_data->buffer->Write(http_context.response.body.data() +
-                                              http_context.current_copied_data,
-                                          0, remaining_data);
-                http_context.current_copied_data += remaining_data;
+            if (async_data->completed) {
                 http_context.state = RequestState::Completed;
                 rb.Push(ResultSuccess);
             } else {
-                async_data->buffer->Write(http_context.response.body.data() +
-                                              http_context.current_copied_data,
-                                          0, async_data->buffer_size);
-                http_context.current_copied_data += async_data->buffer_size;
                 rb.Push(ErrorBufferSmall);
             }
-            LOG_DEBUG(Service_HTTP, "Receive: buffer_size= {}, total_copied={}, total_body={}",
+
+            LOG_DEBUG(Service_HTTP, "Receive: buffer_size={}, total_copied={}, total_body={}",
                       async_data->buffer_size, http_context.current_copied_data,
-                      http_context.response.body.size());
+                      http_context.total_download_size_bytes.load());
         });
 }
 
@@ -734,15 +886,14 @@ void HTTP_C::CreateContext(Kernel::HLERequestContext& ctx) {
         return;
     }
 
-    contexts.try_emplace(++context_counter);
-    contexts[context_counter].url = std::move(url);
-    contexts[context_counter].method = method;
-    contexts[context_counter].state = RequestState::NotStarted;
-    // TODO(Subv): Find a correct default value for this field.
-    contexts[context_counter].socket_buffer_size = 0;
-    contexts[context_counter].handle = context_counter;
-    contexts[context_counter].session_id = session_data->session_id;
-    contexts[context_counter].url_replacer = &url_replacer;
+    auto& http_context =
+        *contexts.try_emplace(++context_counter, std::make_shared<Context>()).first->second;
+    http_context.url = std::move(url);
+    http_context.method = method;
+    http_context.state = RequestState::NotStarted;
+    http_context.handle = context_counter;
+    http_context.session_id = session_data->session_id;
+    http_context.url_replacer = &url_replacer;
 
     session_data->num_http_contexts++;
 
@@ -779,26 +930,44 @@ void HTTP_C::CloseContext(Kernel::HLERequestContext& ctx) {
     // TODO(Subv): What happens if you try to close a context that's currently being used?
     // TODO(Subv): Make sure that only the session that created the context can close it.
 
-    // Note that this will block if a request is still in progress
+    struct AsyncData {
+        std::shared_ptr<Context> context;
+    };
+    std::shared_ptr<AsyncData> async_data = std::make_shared<AsyncData>();
+
+    async_data->context = std::move(itr->second);
     contexts.erase(itr);
     session_data->num_http_contexts--;
 
-    IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
-    rb.Push(ResultSuccess);
+    async_data->context->Cancel();
+
+    ctx.RunAsync(
+        [async_data](Kernel::HLERequestContext& ctx) {
+            // Destroying the Context may block due to the wait in the
+            // Context destructor.
+            async_data->context.reset();
+            return 0;
+        },
+        [](Kernel::HLERequestContext& ctx) {
+            IPC::RequestBuilder rb(ctx, static_cast<u16>(ctx.CommandHeader().command_id.Value()), 1,
+                                   0);
+            rb.Push(ResultSuccess);
+        });
 }
 
 void HTTP_C::CancelConnection(Kernel::HLERequestContext& ctx) {
     IPC::RequestParser rp(ctx);
     const u32 context_handle = rp.Pop<u32>();
 
-    LOG_WARNING(Service_HTTP, "(STUBBED) called, handle={}", context_handle);
+    LOG_DEBUG(Service_HTTP, "called, handle={}", context_handle);
 
     const auto* session_data = EnsureSessionInitialized(ctx, rp);
     if (!session_data) {
         return;
     }
 
-    [[maybe_unused]] Context& http_context = GetContext(context_handle);
+    Context& http_context = GetContext(context_handle);
+    http_context.Cancel();
 
     IPC::RequestBuilder rb = rp.MakeBuilder(1, 0);
     rb.Push(ResultSuccess);
@@ -1415,14 +1584,11 @@ void HTTP_C::GetResponseDataImpl(Kernel::HLERequestContext& ctx, bool timeout) {
         [this, async_data](Kernel::HLERequestContext& ctx) {
             Context& http_context = GetContext(async_data->context_handle);
 
-            if (async_data->timeout) {
-                const auto wait_res = http_context.request_future.wait_for(
-                    std::chrono::nanoseconds(async_data->timeout_nanos));
-                if (wait_res == std::future_status::timeout) {
-                    async_data->async_res = ErrorTimeout;
-                }
-            } else {
-                http_context.request_future.wait();
+            if (!http_context.WaitForResponseHeaders(
+                    async_data->timeout
+                        ? std::optional(std::chrono::nanoseconds(async_data->timeout_nanos))
+                        : std::nullopt)) {
+                async_data->async_res = ErrorTimeout;
             }
 
             return 0;
@@ -1510,14 +1676,11 @@ void HTTP_C::GetResponseHeaderImpl(Kernel::HLERequestContext& ctx, bool timeout)
         [this, async_data](Kernel::HLERequestContext& ctx) {
             Context& http_context = GetContext(async_data->context_handle);
 
-            if (async_data->timeout) {
-                const auto wait_res = http_context.request_future.wait_for(
-                    std::chrono::nanoseconds(async_data->timeout_nanos));
-                if (wait_res == std::future_status::timeout) {
-                    async_data->async_res = ErrorTimeout;
-                }
-            } else {
-                http_context.request_future.wait();
+            if (!http_context.WaitForResponseHeaders(
+                    async_data->timeout
+                        ? std::optional(std::chrono::nanoseconds(async_data->timeout_nanos))
+                        : std::nullopt)) {
+                async_data->async_res = ErrorTimeout;
             }
 
             return 0;
@@ -1610,15 +1773,12 @@ void HTTP_C::GetResponseStatusCodeImpl(Kernel::HLERequestContext& ctx, bool time
         [this, async_data](Kernel::HLERequestContext& ctx) {
             Context& http_context = GetContext(async_data->context_handle);
 
-            if (async_data->timeout) {
-                const auto wait_res = http_context.request_future.wait_for(
-                    std::chrono::nanoseconds(async_data->timeout_nanos));
-                if (wait_res == std::future_status::timeout) {
-                    LOG_DEBUG(Service_HTTP, "Status code: {}", "timeout");
-                    async_data->async_res = ErrorTimeout;
-                }
-            } else {
-                http_context.request_future.wait();
+            if (!http_context.WaitForResponseHeaders(
+                    async_data->timeout
+                        ? std::optional(std::chrono::nanoseconds(async_data->timeout_nanos))
+                        : std::nullopt)) {
+                LOG_DEBUG(Service_HTTP, "Status code: {}", "timeout");
+                async_data->async_res = ErrorTimeout;
             }
             return 0;
         },
@@ -2037,13 +2197,8 @@ void HTTP_C::GetDownloadSizeState(Kernel::HLERequestContext& ctx) {
 
     Context& http_context = GetContext(context_handle);
 
-    // On the real console, the current downloaded progress and the total size of the content gets
-    // returned. Since we do not support chunked downloads on the host, always return the content
-    // length if the download is complete and 0 otherwise.
     u32 content_length = 0;
-    const bool is_complete = http_context.request_future.wait_for(std::chrono::milliseconds(0)) ==
-                             std::future_status::ready;
-    if (is_complete) {
+    if (http_context.ResponseHeadersAvailable()) {
         const auto& headers = http_context.response.headers;
         const auto& it = headers.find("Content-Length");
         if (it != headers.end()) {
@@ -2350,6 +2505,13 @@ HTTP_C::HTTP_C() : ServiceFramework("http:C", 32) {
     RegisterHandlers(functions);
 
     DecryptClCertA();
+}
+
+HTTP_C::~HTTP_C() {
+    for (auto& [_, context] : contexts) {
+        context->Cancel();
+    }
+    contexts.clear();
 }
 
 std::shared_ptr<HTTP_C> GetService(Core::System& system) {

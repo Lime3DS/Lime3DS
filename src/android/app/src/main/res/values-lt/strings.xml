@@ -97,10 +97,6 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Juodas fonas</string>
     <string name="language_english">Anglų</string>
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
     <!-- Sound output modes -->
     <string name="mono">Mono</string>
     <string name="stereo">Stereo</string>

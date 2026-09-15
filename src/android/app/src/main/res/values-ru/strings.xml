@@ -217,7 +217,6 @@
     <string name="loader_error_encrypted">Образ зашифрован</string>
     <string name="loader_error_file_not_found">Файл образа не существует</string>
     <string name="no_game_present">Отсутствует игра для загрузки!</string>
-
     <!-- Emulation Menu -->
     <string name="emulation_menu_help">Нажмите назад для вызова меню.</string>
     <string name="emulation_save_state">Сохранить состояние</string>
@@ -339,15 +338,6 @@
     <string name="use_black_backgrounds">Чёрный фон</string>
     <string name="use_black_backgrounds_description">Применять чёрный фон для тёмной темы.</string>
 
-    <!-- Region names -->
-    <string name="system_region_jpn">Япония</string>
-    <string name="system_region_usa">США</string>
-    <string name="system_region_eur">Европа</string>
-    <string name="system_region_aus">Австралия</string>
-    <string name="system_region_chn">Китай</string>
-    <string name="system_region_kor">Корея</string>
-    <string name="system_region_twn">Тайвань</string>
-
     <!-- Language names -->
     <string name="language_japanese">Японский (日本語)</string>
     <string name="language_english">Английский</string>
@@ -386,17 +376,6 @@
     <string name="anaglyph">Анаглиф</string>
     <string name="interlaced">Чересстрочный</string>
     <string name="reverse_interlaced">Обратный чересстрочный</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Бикубический</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <string name="nearest_neighbor">Ближайший сосед</string>
     <!-- Sound output modes -->

@@ -45,13 +45,17 @@ import org.citra.citra_emu.features.settings.model.view.InputBindingSetting
 import org.citra.citra_emu.fragments.EmulationFragment
 import org.citra.citra_emu.fragments.MessageDialogFragment
 import org.citra.citra_emu.model.Game
+import org.citra.citra_emu.ui.main.MainActivity
 import org.citra.citra_emu.utils.BuildUtil
+import org.citra.citra_emu.utils.CitraDirectoryUtils
 import org.citra.citra_emu.utils.ControllerMappingHelper
+import org.citra.citra_emu.utils.DirectoryInitialization
 import org.citra.citra_emu.utils.EmulationLifecycleUtil
 import org.citra.citra_emu.utils.EmulationMenuSettings
 import org.citra.citra_emu.utils.FileBrowserHelper
 import org.citra.citra_emu.utils.Log
 import org.citra.citra_emu.utils.NetPlayManager
+import org.citra.citra_emu.utils.PermissionsHandler
 import org.citra.citra_emu.utils.RefreshRateUtil
 import org.citra.citra_emu.utils.ThemeUtil
 import org.citra.citra_emu.viewmodel.EmulationViewModel
@@ -87,12 +91,34 @@ class EmulationActivity : AppCompatActivity() {
     private var isEmulationRunning: Boolean = false
     private var isEmulationReady: Boolean = false
 
+    private fun ensureUserDirectoryReady(): Boolean {
+        if (DirectoryInitialization.areCitraDirectoriesReady()) return true
+        CitraDirectoryUtils.attemptAutomaticUpdateDirectory() // Lime3DS -> Azahar
+        if (CitraDirectoryUtils.needToUpdateManually()) return false
+        if (!PermissionsHandler.hasWriteAccess(applicationContext)) return false
+        return DirectoryInitialization.start() ==
+            DirectoryInitialization.DirectoryInitializationState.CITRA_DIRECTORIES_INITIALIZED
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         RefreshRateUtil.enforceRefreshRate(this, sixtyHz = true)
 
         ThemeUtil.setTheme(this)
+
+        if (!ensureUserDirectoryReady()) {
+            super.onCreate(null) // null: don't restore fragments into an activity we're killing
+            secondaryDisplayManager = SecondaryDisplay(this)
+            startActivity(
+                Intent(this, MainActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+            )
+            finish()
+            return
+        }
+
         settingsViewModel.settings.loadSettings()
 
         screenAdjustmentUtil = ScreenAdjustmentUtil(this, windowManager, settingsViewModel.settings)
@@ -103,6 +129,8 @@ class EmulationActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
 
         super.onCreate(savedInstanceState)
+
+        NativeLibrary.initMultiplayer()
 
         secondaryDisplayManager = SecondaryDisplay(this)
         secondaryDisplayManager.updateDisplay()

@@ -650,8 +650,8 @@ void GraphicsSurfaceWidget::OnUpdate() {
 }
 
 void GraphicsSurfaceWidget::SaveSurface() {
-    const QString png_filter = tr("Portable Network Graphic (*.png)");
-    const QString bin_filter = tr("Binary data (*.bin)");
+    const QString png_filter = tr("Portable Network Graphic") + QStringLiteral(" (*.png)");
+    const QString bin_filter = tr("Binary data") + QStringLiteral(" (*.bin)");
 
     QString selected_filter;
     const QString filename = QFileDialog::getSaveFileName(

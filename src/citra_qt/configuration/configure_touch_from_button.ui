@@ -10,9 +10,6 @@
     <height>500</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Configure Touchscreen Mappings</string>
-  </property>
   <layout class="QVBoxLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">

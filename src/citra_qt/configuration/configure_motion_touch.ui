@@ -10,9 +10,6 @@
     <height>659</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Configure Motion / Touch</string>
-  </property>
   <layout class="QVBoxLayout">
    <item>
     <widget class="QGroupBox" name="motion_group_box">
@@ -120,7 +117,7 @@
         <item>
          <widget class="QLabel" name="touch_calibration">
           <property name="text">
-           <string>(100, 50) - (1800, 850)</string>
+           <string notr="true">(100, 50) - (1800, 850)</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

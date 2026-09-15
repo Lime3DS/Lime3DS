@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_disclaimer">Den här programvaran kör program för den bärbara spelkonsolen Nintendo 3DS. Inga spel ingår.\n\nInnan du kan börja emulera måste du välja en mapp där Azahars användardata ska lagras.\n\nVad är detta:\n<a href='https://github.com/azahar-emu/azahar/wiki/Android-User-Data-and-Storage'>Wiki – Citra Androids användardata och lagring</a></string>
     <string name="app_notification_channel_description">Aviseringar för Azahar 3DS-emulator</string>
     <string name="app_notification_running">Azahar är igång</string>
     <string name="app_game_install_description">Näst måste du välja en applikationsmapp. Azahar kommer att visa alla 3DS ROM i den valda mappen i appen.\n\nCIA ROM, uppdateringar och DLC måste installeras separat genom att klicka på mappikonen och välja Installera CIA.</string>
@@ -34,6 +35,13 @@
 
     <!-- Network Settings-->
     <string name="preferences_network">Nätverk</string>
+    <string name="web_api_url">Webb-API-URL</string>
+    <string name="web_api_url_description">Webb-API-URL för offentliga rum</string>
+    <string name="network_token">Nätverkstoken</string>
+    <string name="network_token_description">Token för offentliga rum</string>
+    <string name="username_uses_system">Den här egenskapen är kopplad till 3DS-systemets användarnamn.</string>
+    <string name="username_invalid">Användarnamnet är inte giltigt. Det måste bestå av 4 till 20 alfanumeriska tecken.</string>
+
     <!-- GPU driver installation -->
     <string name="select_gpu_driver">Välj GPU-drivrutin</string>
     <string name="select_gpu_driver_title">Vill du ersätta din nuvarande GPU-drivrutin?</string>
@@ -86,12 +94,14 @@
     <string name="warning_skip">Hoppa över</string>
     <string name="warning_cancel">Avbryt</string>
     <string name="select_citra_user_folder">Välj användarmapp</string>
+    <string name="select_citra_user_folder_description"><![CDATA[Välj katalogen för dina <a href=\"https://github.com/azahar-emu/azahar/wiki/Android-User-Data-and-Storage\">användardata</a> med knappen nedan.]]></string>
     <string name="select_which_user_directory_to_use">Du verkar ha användarkataloger inställda för både Lime3DS och Azahar. Detta beror troligen på att du uppgraderade till Azahar och när du blev ombedd att välja en annan användarkatalog än den som användes för Lime3DS. \n\nDetta kan ha lett till att du trodde att du förlorat sparade spel eller andra inställningar – vi ber om ursäkt om så är fallet. Vill du gå tillbaka till att använda din ursprungliga Lime3DS-användarkatalog och återställa inställningar och spara spel från Lime3DS, eller behålla din nuvarande Azahar-användarkatalog? Ingen av katalogerna kommer att raderas, oavsett vilket val du gör, och du kan fritt växla mellan dem med hjälp av alternativet Välj användarkatalog.</string>
     <string name="keep_current_azahar_directory">Behåll aktuell Azahar-katalog</string>
     <string name="use_prior_lime3ds_directory">Använd tidigare Lime3DS-katalog</string>
     <string name="select">Välj</string>
     <string name="cannot_skip">Du kan inte hoppa över konfiguration av användarmappen</string>
     <string name="cannot_skip_directory_description">Detta steg krävs för att Azahar ska fungera. Välj en katalog och sedan kan du fortsätta.</string>
+    <string name="selecting_user_directory_without_write_permissions">Du har förlorat skrivbehörigheten till katalogen för dina <a href="https://github.com/azahar-emu/azahar/wiki/Android-User-Data-and-Storage">användardata</a>, där sparfiler och annan information lagras. Det kan hända efter vissa app- eller Android-uppdateringar. Välj katalogen igen för att återfå behörigheten så att du kan fortsätta.</string>
     <string name="invalid_selection">Ogiltigt val</string>
     <string name="invalid_user_directory">Valet av användarkatalog var ogiltigt. Välj användarkatalogen igen och se till att du navigerar till den från roten av enhetens lagring.</string>
     <string name="filesystem_permission_lost">Azahar har förlorat behörigheten att hantera filer på den här enheten. Detta kan inträffa efter vissa app- eller Android-uppdateringar. Bevilja denna behörighet på nästa skärm för att fortsätta använda appen.</string>
@@ -140,11 +150,15 @@
     <string name="button_home">HOME</string>
     <string name="button_swap">Byt skärm</string>
     <string name="button_turbo">Turbo</string>
+    <string name="button_combo">Kombinationsknapp</string>
     <string name="input_message_analog_only">Den här kontrollen måste vara bunden till en gamepad-analog spak eller D-pad-axel! </string>
     <string name="input_message_button_only">Den här kontrollen måste vara bunden till en gamepad-knapp! </string>
     <string name="turbo_limit_hotkey">Turbohastighet</string>
     <string name="turbo_enabled_toast">Turbohastighet aktiverad</string>
     <string name="turbo_disabled_toast">Turbohastighet inaktiverad</string>
+    <string name="combo_button_settings">Konfigurera kombinationsknapp</string>
+    <string name="combo_button_settings_description">Välj vilka knappar som aktiveras av kombinationsknappen.</string>
+
     <!-- System files strings -->
     <string name="setup_system_files">Systemfiler</string>
     <string name="setup_system_files_description">Utför systemfilsoperationer som att installera systemfiler eller starta upp startmenyn</string>
@@ -210,6 +224,9 @@
     <string name="storage">Lagring</string>
     <string name="compress_cia_installs">Komprimera installerat CIA-innehåll</string>
     <string name="compress_cia_installs_description">Komprimerar innehållet i CIA-filer när det installeras på det emulerade SD-kortet. Påverkar endast CIA-innehåll som installeras medan inställningen är aktiverad.</string>
+    <string name="async_fs_operations">Asynkrona filsystemåtgärder</string>
+    <string name="async_fs_operations_description">Gör åtkomst till det emulerade filsystemet asynkron. Minskar kraftigt hack som beror på filsystemet, men kan öka laddningstiderna något.</string>
+
     <!-- Camera settings strings -->
     <string name="inner_camera">Innerkamera</string>
     <string name="outer_left_camera">Yttre vänstra kameran</string>
@@ -240,9 +257,13 @@
     <string name="texture_filter_description">Förbättrar det visuella i applikationer genom att tillämpa ett filter på texturer. De filter som stöds är Anime4K Ultrafast, Bicubic, ScaleForce, xBRZ freescale och MMPX.</string>
     <string name="delay_render_thread">Fördröj spelrenderingstråd</string>
     <string name="delay_render_thread_description">Fördröj spelets renderingstråd när den skickar data till GPU:n. Hjälper till med prestandaproblem i de (mycket få) applikationer med dynamiska bildfrekvenser.</string>
+    <string name="simulate_3ds_gpu_timings">Simulera 3DS-GPU-tidsvärden</string>
+    <string name="simulate_3ds_gpu_timings_description">Fördröjer GPU-slutförandehändelser utifrån mätningar på riktig hårdvara, så att spelen får mer realistiska mätvärden för GPU-tid. Hjälper till att stabilisera spel med dynamisk FPS. Att inaktivera funktionen kan i sällsynta fall förbättra prestandan på bekostnad av stabiliteten.</string>
     <string name="advanced">Avancerat</string>
     <string name="texture_sampling_name">Textursampling</string>
     <string name="texture_sampling_description">Åsidosätter det samplingsfilter som används av spel. Detta kan vara användbart i vissa fall med spel som fungerar dåligt vid uppskalning. Om du är osäker, ställ in detta på Spelkontrollerat.</string>
+    <string name="use_skip_duplicate_frames">Hoppa över visning av dubblettbildrutor</string>
+    <string name="use_skip_duplicate_frames_description">Hoppar över visningen av bildrutor som inte är unika. Det gör också att externa verktyg för bildrutegenerering fungerar korrekt med spel i 30 fps.</string>
     <string name="shaders_accurate_mul">Accurate Multiplication</string>
     <string name="shaders_accurate_mul_description">Använder mer exakt multiplikation i hårdvaru-shaders, vilket kan åtgärda vissa grafiska buggar. När detta är aktiverat kommer prestandan att minska.</string>
     <string name="asynchronous_gpu">Aktivera asynkron GPU-emulering</string>
@@ -270,6 +291,14 @@
     <string name="internal_resolution_setting_8x">8x inbyggd (3200x1920)</string>
     <string name="internal_resolution_setting_9x">9x inbyggd (3600x2160)</string>
     <string name="internal_resolution_setting_10x">10x inbyggd (4000x2400)</string>
+    <string name="internal_resolution_setting_11x">11× inbyggd (4400×2640)</string>
+    <string name="internal_resolution_setting_12x">12× inbyggd (4800×2880)</string>
+    <string name="internal_resolution_setting_13x">13× inbyggd (5200×3120)</string>
+    <string name="internal_resolution_setting_14x">14× inbyggd (5600×3360)</string>
+    <string name="internal_resolution_setting_15x">15× inbyggd (6000×3600)</string>
+    <string name="internal_resolution_setting_16x">16× inbyggd (6400×3840)</string>
+    <string name="internal_resolution_setting_17x">17× inbyggd (6800×4080)</string>
+    <string name="internal_resolution_setting_18x">18× inbyggd (7200×4320)</string>
     <string name="performance_warning">Om du stänger av den här inställningen kommer emuleringsprestandan att minska avsevärt! För bästa upplevelse rekommenderar vi att du låter den här inställningen vara aktiverad.</string>
     <string name="debug_warning">Varning: Om du ändrar dessa inställningar kommer emuleringen att bli långsammare</string>
     <string name="stereoscopy">Stereoskop</string>
@@ -312,6 +341,8 @@
     <string name="audio_stretch_description">Sträcker ut ljudet för att minska hackande. När funktionen är aktiverad ökar ljudlatensen och prestandan försämras något.</string>
     <string name="realtime_audio">Aktivera realtidsljud</string>
     <string name="realtime_audio_description">Skalar uppspelningshastigheten för ljud för att kompensera för minskad bildfrekvensen i emuleringen. Detta innebär att ljudet spelas upp i full hastighet även om spelets bildfrekvens är låg. Kan orsaka problem med felsynkronisering av ljud.</string>
+    <string name="simulate_headphones_plugged">Simulera anslutna hörlurar</string>
+    <string name="simulate_headphones_plugged_description">Simulerar om hörlurar är anslutna till det emulerade 3DS-systemet.</string>
     <string name="audio_input_type">Ljudinmatningsenhet</string>
     <string name="sound_output_mode">Ljudutmatningsläge</string>
 
@@ -381,12 +412,16 @@
     <string name="reset_setting_confirmation">Vill du återställa inställningen till standardvärdet? </string>
     <string name="setting_not_editable">Du kan inte redigera detta nu</string>
     <string name="setting_disabled">Inställning inaktiverad</string>
+    <string name="setting_disabled_description_incompatible_setting">Den här inställningen är för närvarande inaktiverad eftersom en annan inställning inte har rätt värde.</string>
+    <string name="setting_disabled_description_angle">Renderaren kan inte ändras eftersom enheten använder ANGLE för OpenGL, vilket för närvarande inte är kompatibelt med Azahar. Vulkan kommer att användas.</string>
     <string name="setting_not_editable_description">Det här alternativet kan inte ändras medan ett spel pågår.</string>
     <string name="auto_select">Autovälj</string>
     <string name="start">Starta</string>
     <string name="cancelling">Avbryter...</string>
     <string name="visibility">Synlighet</string>
     <string name="information">Information</string>
+    <string name="refresh">Uppdatera</string>
+
     <!-- Add Directory Screen-->
     <string name="select_game_folder">Välj spelmapp</string>
 
@@ -406,13 +441,24 @@
     <string name="preferences_theme">Tema och färg</string>
     <string name="preferences_layout">Layout</string>
 
+    <!-- ROM loading errors -->
+    <string name="loader_error_generic_title">Fel vid inläsning av program</string>
+    <string name="loader_error_invalid_format">Ogiltigt programformat</string>
+    <string name="loader_error_invalid_format_description"><![CDATA[Programfilformatet stöds inte.<br>Kontrollera att du använder ett kompatibelt filformat:<ul><li>Kassettavbildningar: <b>.cci/.zcci/.3ds</b></li><li>Installerbara arkiv: <b>.cia/.zcia</b></li><li>Homebrew-program: <b>.3dsx/.z3dsx</b></li><li>NCCH-behållare: <b>.cxi/.zcxi/.app</b></li><li>ELF-filer: <b>.elf/.axf</b></li></ul>]]></string>
     <string name="loader_error_invalid_system_mode">Ogiltigt systemläge</string>
+    <string name="loader_error_invalid_system_mode_description">Program som är exklusiva för New 3DS kan inte läsas in utan att New 3DS-läget aktiveras.</string>
+    <string name="loader_error_applying_patches">Fel vid tillämpning av patchar</string>
+    <string name="loader_error_applying_patches_description">Ett allmänt fel inträffade när en patch tillämpades på programmet. Läs loggen för mer information.</string>
+    <string name="loader_error_patch_wrong_application">Det gick inte att tillämpa en patch eftersom den är avsedd för ett annat program. Kontrollera att du använder patchar för rätt program, region och version.</string>
     <string name="loader_error_encrypted">Ditt ROM är krypterat</string>
+    <string name="loader_error_encrypted_description"><![CDATA[Azahar stöder inte krypterade program. Läs vårt <a href=\"https://azahar-emu.org/blog/game-loading-changes/\">blogginlägg</a> för mer information.]]></string>
     <string name="loader_error_file_not_found">ROM-filen finns inte</string>
     <string name="no_game_present">Inget startbart spel närvarande!</string>
-
+    <string name="invalid_rom">Ogiltig ROM</string>
+    <string name="loader_error_generic">Ett fel uppstod vid inläsning av ROM: ”%s (%d)”</string>
     <string name="core_error_success">Lyckades</string>
     <string name="core_error_not_initialized">Inte initierad</string>
+    <string name="core_error_get_loader">Det finns ingen inläsare för filen; filtypen är inkompatibel</string>
     <string name="core_error_system_mode">Misslyckades med att tolka filen</string>
     <string name="core_error_loader">Allmänt fel i inläsaren</string>
     <string name="core_error_loader_encrypted">Krypterad fil</string>
@@ -421,7 +467,11 @@
     <string name="core_error_loader_error_patches">Fel vid tillämpning av patchar</string>
     <string name="core_error_loader_patches_invalid_title">Patchar är för en annan applikation</string>
     <string name="core_error_system_files">Saknade systemfiler</string>
+    <string name="core_error_savestate">Det gick inte att spara tillståndet</string>
     <string name="core_error_artic_disconnected">Artic Base frånkopplad</string>
+    <string name="core_error_n3ds_application">Filen är ett New 3DS-program</string>
+    <string name="core_error_core_exception_raised">Kärnundantag utlöstes</string>
+    <string name="core_error_savestate_build_mismatch">Versionerna av sparat tillstånd matchar inte</string>
     <string name="core_error_shutdown_requested">Avstängning begärd</string>
     <string name="core_error_unknown">Okänt fel</string>
 
@@ -453,6 +503,11 @@
     <string name="emulation_aspect_ratio">Bildförhållande</string>
     <string name="emulation_switch_screen_layout">Liggande skärmlayout</string>
     <string name="emulation_switch_portrait_layout">Stående skärmlayout</string>
+    <string name="emulation_secondary_display_enable">Aktivera sekundär skärm</string>
+    <string name="emulation_secondary_display_enable_description">Om detta är inaktiverat låter Azahar Android hantera anslutna skärmar. Om det är aktiverat och flera skärmar är anslutna kan du välja vilken Azahar ska använda i emuleringens snabbmeny.</string>
+    <string name="emulation_switch_secondary_layout">Layout för sekundär skärm</string>
+    <string name="emulation_secondary_display_management">Sekundär skärm</string>
+    <string name="emulation_select_secondary_display">Välj skärm</string>
     <string name="emulation_switch_secondary_layout_description">Layouten som används av en ansluten sekundär skärm, trådbunden eller trådlös (Chromecast, Miracast)</string>
     <string name="emulation_screen_layout_largescreen">Stor skärm</string>
     <string name="emulation_screen_layout_portrait">Stående</string>
@@ -461,6 +516,7 @@
     <string name="emulation_screen_layout_hybrid">Hybridskärmar</string>
     <string name="emulation_screen_layout_original">Original</string>
     <string name="emulation_portrait_layout_top_full">Standard</string>
+    <string name="emulation_secondary_display_opposite">Motsatt skärm</string>
     <string name="emulation_screen_layout_custom">Anpassad layout</string>
     <string name="bg_color">Bakgrundsfärg</string>
     <string name="bg_color_description">Den färg som visas bakom skärmarna under emulering, representerad som ett RGB-värde.</string>
@@ -566,10 +622,16 @@
     <string name="unsupported_encrypted">Krypterad applikation som inte stöds</string>
     <string name="invalid_system_mode">Ogiltigt systemläge</string>
     <string name="invalid_system_mode_message">Nya 3DS-exklusiva applikationer kan inte läsas in utan att aktivera Ny 3DS-läget.</string>
+    <string name="savestate_build_mismatch_message"><![CDATA[Det gick inte att läsa in det sparade tillståndet eftersom det skapades med en annan Azahar-version:<br/><b>Azahar %1$s</b>.<br/><br/>Läs vårt blogginlägg <a href=\"https://azahar-emu.org/blog/understanding-save-states/\">om att förstå sparade tillstånd</a> för mer information.<br/><br/>För att återställa dina framsteg, nedgradera till <b>Azahar %1$s</b>, läs in detta sparade tillstånd och använd programmets inbyggda sparfunktion.]]></string>
 
     <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Förbereder shaders</string>
     <string name="building_shaders">Bygger %s</string>
+    <string name="delete_shader_cache">Ta bort shadercache</string>
+    <string name="delete_cache_select_backend">Välj vilket grafik-API shadercachen ska tas bort för</string>
+    <string name="deleting_shader_cache">Tar bort shadercache för titeln, vänta…</string>
+    <string name="shader_cache_deleted">Shadercachen har tagits bort</string>
+
     <!-- About Game Dialog -->
     <string name="play">Spela</string>
     <string name="uninstall_cia">Avinstallera applikation</string>
@@ -589,9 +651,11 @@
     <string name="create_shortcut">Skapa genväg</string>
     <string name="shortcut_name_empty">Genvägsnamnet får inte vara tomt</string>
     <string name="shortcut_image_stretch_toggle">Sträck ut för att passa bild</string>
+    <string name="game_context_region">Region:</string>
     <string name="game_context_id">ID:</string>
     <string name="game_context_file">Fil:</string>
     <string name="game_context_type">Typ:</string>
+    <string name="game_context_playtime">Speltid:</string>
     <string name="game_context_insert">Mata in cartridge</string>
     <string name="game_context_eject">Mata ut cartridge</string>
 
@@ -652,8 +716,6 @@
     <string name="cia_install_error_encrypted">\"%s\" måste dekrypteras innan det kan användas med Azahar.\n En riktig 3DS krävs</string>
     <string name="cia_install_error_unknown">Ett okänt fel inträffade under installationen av \"%s\".\n Se loggen för mer information</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -680,15 +742,6 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Svart bakgrund</string>
     <string name="use_black_backgrounds_description">När du använder det mörka temat ska du använda svarta bakgrunder.</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japanska ()日本語</string>
@@ -729,17 +782,6 @@
     <string name="anaglyph">Anaglyf</string>
     <string name="interlaced">Interlaced</string>
     <string name="reverse_interlaced">Omvänd interlaced</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bikubisk</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Spelkontrollerat</string>
@@ -886,6 +928,14 @@
     <string name="vatican_city">Vaticanstaden</string>
     <string name="bermuda">Bermuda</string>
 
+    <!-- Regions (Japan, Australia, China and Taiwan are above) -->
+    <string name="north_america">Nordamerika</string>
+    <string name="europe">Europa</string>
+    <string name="korea">Korea</string>
+    <string name="region_free">Regionsfri</string>
+    <string name="invalid_region">Ogiltig region</string>
+    <string name="region_get_error">FEL – RAPPORTERA</string>
+
     <!-- Months -->
     <string name="january">Januari</string>
     <string name="february">Februari</string>
@@ -929,11 +979,96 @@
     <string name="decompress_failed">Avkomprimering misslyckades.</string>
     <string name="compress_decompress_installed_app">Redan installerade applikationer kan inte komprimeras eller avkomprimeras.</string>
 
-  <string name="multiplayer_create_room">Skapa</string>
+  <!-- Multiplayer -->
+    <string name="multiplayer">Flerspelarläge</string>
+    <string name="multiplayer_description">Skapa ett eget spelrum eller anslut till ett befintligt för att spela med andra</string>
+    <string name="multiplayer_room_title">Rum: %1$s</string>
+    <string name="multiplayer_console_id">Konsol-ID: %1$s</string>
+    <string name="multiplayer_create_room">Skapa</string>
     <string name="multiplayer_join_room">Gå med</string>
+    <string name="multiplayer_public_room">Bläddra bland offentliga rum</string>
     <string name="multiplayer_username">Användarnamn</string>
     <string name="multiplayer_ip_address">IP-adress</string>
     <string name="multiplayer_ip_port">Port</string>
+    <string name="multiplayer_create_room_success">Rummet skapades!</string>
+    <string name="multiplayer_join_room_success">Du anslöt till rummet!</string>
+    <string name="multiplayer_create_room_failed">Det gick inte att skapa rummet!</string>
+    <string name="multiplayer_join_room_failed">Det gick inte att ansluta till rummet!</string>
+    <string name="multiplayer_input_invalid">Ogiltig adress eller för kort namn!</string>
+    <string name="multiplayer_port_invalid">Ogiltig port!</string>
+    <string name="multiplayer_exit_room">Lämna rum</string>
     <string name="multiplayer_network_error">Nätverksfel</string>
+    <string name="multiplayer_lost_connection">Anslutningen bröts</string>
+    <string name="multiplayer_name_collision">Namnkonflikt</string>
+    <string name="multiplayer_mac_collision">MAC-konflikt</string>
+    <string name="multiplayer_console_id_collision">Konsol-ID-konflikt</string>
+    <string name="multiplayer_wrong_version">Fel version</string>
+    <string name="multiplayer_wrong_password">Fel lösenord</string>
+    <string name="multiplayer_could_not_connect">Det gick inte att ansluta</string>
+    <string name="multiplayer_room_is_full">Rummet är fullt</string>
+    <string name="multiplayer_host_banned">Värden är avstängd</string>
+    <string name="multiplayer_permission_denied">Åtkomst nekas</string>
+    <string name="multiplayer_no_such_user">Användaren finns inte</string>
+    <string name="multiplayer_already_in_room">Redan i rummet</string>
+    <string name="multiplayer_create_room_error">Fel när rummet skapades</string>
+    <string name="multiplayer_host_kicked">Värden har sparkats ut</string>
     <string name="multiplayer_unknown_error">okänt fel</string>
-    </resources>
+    <string name="multiplayer_room_uninitialized">Rummet har inte initierats</string>
+    <string name="multiplayer_room_idle">Rummet är inaktivt</string>
+    <string name="multiplayer_room_joining">Ansluter till rummet</string>
+    <string name="multiplayer_room_joined">Ansluten till rummet</string>
+    <string name="multiplayer_room_moderator">Rumsmoderator</string>
+    <string name="multiplayer_member_join">%1$s anslöt</string>
+    <string name="multiplayer_member_leave">%1$s lämnade</string>
+    <string name="multiplayer_member_kicked">%1$s sparkades ut</string>
+    <string name="multiplayer_member_banned">%1$s stängdes av</string>
+    <string name="multiplayer_address_unbanned">adressen har inte längre någon avstängning</string>
+    <string name="multiplayer_kick_member">Sparka ut</string>
+    <string name="multiplayer_chat_input_hint">Skicka meddelanden……</string>
+    <string name="multiplayer_password">Lösenord</string>
+    <string name="original_button_text">Anslut</string>
+    <string name="disabled_button_text">Ansluter…</string>
+    <string name="multiplayer_room_name">Rumsnamn</string>
+    <string name="multiplayer_room_name_invalid">Rumsnamnet måste bestå av mellan 3 och 20 tecken</string>
+    <string name="multiplayer_max_players">Maximalt antal spelare (16)</string>
+    <string name="multiplayer_max_players_value">Maximalt antal spelare: %d</string>
+    <string name="multiplayer_chat">Chatt</string>
+    <string name="multiplayer_more_options">Fler alternativ</string>
+    <string name="multiplayer_ip_copied">IP-adressen har kopierats till urklipp</string>
+    <string name="multiplayer_server_address">Serveradress</string>
+    <string name="chat">Chatt</string>
+    <string name="type_message">Skriv ett meddelande……</string>
+    <string name="send">Skicka</string>
+    <string name="send_message">Skicka meddelande</string>
+    <string name="multiplayer_moderation">Moderering</string>
+    <string name="multiplayer_moderation_title">Avstängningslista</string>
+    <string name="multiplayer_no_bans">Inga avstängda användare</string>
+    <string name="multiplayer_unban_title">Häv avstängning för användare</string>
+    <string name="multiplayer_unban">Häv avstängning</string>
+    <string name="multiplayer_unban_message">Vill du verkligen häva avstängningen för %1$s?</string>
+    <string name="multiplayer_ban">Stäng av användare</string>
+    <string name="multiplayer_room_browser">Offentliga rum</string>
+    <string name="multiplayer_no_rooms_found">Inga offentliga rum hittades</string>
+    <string name="multiplayer_password_required">Lösenord krävs</string>
+    <string name="multiplayer_game">Spel</string>
+    <string name="multiplayer_no_game_info">Valfritt spel</string>
+    <string name="multiplayer_password_protected">Lösenordsskyddat rum</string>
+    <string name="multiplayer_hide_full_rooms">Dölj fulla rum</string>
+    <string name="multiplayer_hide_empty_rooms">Dölj tomma rum</string>
+    <string name="multiplayer_tap_refresh_to_check_again">Tryck på Uppdatera för att kontrollera igen</string>
+    <string name="multiplayer_search_public_lobbies">Sök efter offentliga lobbyn…</string>
+    <string name="multiplayer_game_name">Föredragna spel</string>
+    <string name="prefered_game_name">Föredraget spel</string>
+    <string name="multiplayer_no_game">Inga spel hittades</string>
+    <string name="no_preference">Ingen preferens</string>
+
+    <string name="update_available">Uppdatering tillgänglig</string>
+    <string name="update_available_description">En nyare version av Azahar finns tillgänglig (version %1$s).\nVill du hämta den?</string>
+    <string name="check_for_updates">Sök efter uppdateringar</string>
+    <string name="check_for_updates_description">Visa en avisering i appen när en uppdatering finns tillgänglig för Azahar.</string>
+    <string name="update_check_channel">Uppdateringskanal</string>
+    <string name="update_check_channel_description">Vilken uppdateringskanal som ska användas vid kontroll av uppdateringar.</string>
+    <string name="update_check_channel_stable">Stabil</string>
+    <string name="update_check_channel_prerelease">Förutgåva</string>
+
+</resources>

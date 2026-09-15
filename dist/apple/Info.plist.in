@@ -62,6 +62,8 @@
     <string>This app requires camera access to emulate the 3DS&apos;s cameras.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app requires microphone access to emulate the 3DS&apos;s microphone.</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>This app requires access to the local network to connect to Artic Base servers and perform system file setup using a real 3DS.</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundlePackageType</key>
@@ -76,9 +78,6 @@
     <true/>
     <key>NSHighResolutionCapable</key>
     <string>True</string>
-    <key>UIDesignRequiresCompatibility</key>
-    <true/> <!-- Remove when Qt Liquid Glass issues are fixed upstream:
-                 https://bugreports.qt.io/browse/QTBUG-138942 -->
     <key>UIFileSharingEnabled</key>
     <true/>
     <key>UILaunchStoryboardName</key>

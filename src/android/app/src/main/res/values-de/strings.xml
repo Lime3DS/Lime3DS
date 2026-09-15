@@ -371,7 +371,6 @@
     <string name="loader_error_encrypted">Deine ROM ist verschlüsselt</string>
     <string name="loader_error_file_not_found">ROM-Datei existiert nicht</string>
     <string name="no_game_present">Kein ausführbares Spiel vorhanden!</string>
-
     <!-- Emulation Menu -->
     <string name="emulation_menu_help">Drücke zurück, um auf das Menü zuzugreifen.</string>
     <string name="emulation_save_state">Spielstand speichern</string>
@@ -574,8 +573,6 @@
     <string name="cia_install_error_encrypted">„%s“ muss entschlüsselt werden, bevor es mit Azahar verwendet werden kann. Dazu ist ein echter 3DS erforderlich.</string>
     <string name="cia_install_error_unknown">Ein unbekannter Fehler ist während der Installation von „%s“ aufgetreten.\n Bitte schau im Protokoll für weitere Informationen nach</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -602,15 +599,6 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Schwarzer Hintergrund</string>
     <string name="use_black_backgrounds_description">Wenn das dunkle Design aktiviert ist, wird der Hintergrund tiefschwarz dargestellt.</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japanisch (日本語)</string>
@@ -650,17 +638,6 @@
     <string name="anaglyph">Anaglyphen</string>
     <string name="interlaced">Überlappend</string>
     <string name="reverse_interlaced">Invers überlappend</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bikubisch</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Spielgesteuert</string>

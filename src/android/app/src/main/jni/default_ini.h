@@ -33,9 +33,9 @@ constexpr std::array android_config_omitted_keys = {
     Settings::Keys::audio_encoder,
     Settings::Keys::audio_encoder_options,
     Settings::Keys::audio_bitrate,
-    Settings::Keys::last_artic_base_addr, // On Android, this value is stored as a "preference"
-    Settings::Keys::break_on_unmapped_memory_access, // Does nothing as the error is ignored
-    Settings::Keys::use_gdbstub, // GDB functionality disabled by deafult on Android
+    Settings::Keys::last_artic_base_addr,     // On Android, this value is stored as a "preference"
+    Settings::Keys::enable_exception_handler, // Does nothing as the error is ignored
+    Settings::Keys::use_gdbstub,              // GDB functionality disabled by deafult on Android
     Settings::Keys::gdbstub_port,
 };
 

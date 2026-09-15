@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.V35.Citra" parent="Theme.Citra">
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
-    </style>
-
-    <style name="Theme.Citra.Main" parent="Theme.V35.Citra" />
-</resources>

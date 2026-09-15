@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Azahar</string>
+   <string notr="true">Azahar</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -273,37 +273,37 @@
   </action>
   <action name="action_Boot_Home_Menu_JPN">
    <property name="text">
-    <string>JPN</string>
+    <string notr="true">JPN</string>
    </property>
   </action>
   <action name="action_Boot_Home_Menu_USA">
    <property name="text">
-    <string>USA</string>
+    <string notr="true">USA</string>
    </property>
   </action>
   <action name="action_Boot_Home_Menu_EUR">
    <property name="text">
-    <string>EUR</string>
+    <string notr="true">EUR</string>
    </property>
   </action>
   <action name="action_Boot_Home_Menu_AUS">
    <property name="text">
-    <string>AUS</string>
+    <string notr="true">AUS</string>
    </property>
   </action>
   <action name="action_Boot_Home_Menu_CHN">
    <property name="text">
-    <string>CHN</string>
+    <string notr="true">CHN</string>
    </property>
   </action>
   <action name="action_Boot_Home_Menu_KOR">
    <property name="text">
-    <string>KOR</string>
+    <string notr="true">KOR</string>
    </property>
   </action>
   <action name="action_Boot_Home_Menu_TWN">
    <property name="text">
-    <string>TWN</string>
+    <string notr="true">TWN</string>
    </property>
   </action>
   <action name="action_Exit">

@@ -54,4 +54,18 @@ macro(generate_build_info)
         set(BUILD_VERSION "${GIT_TAG}")
         set(BUILD_FULLNAME "${BUILD_VERSION}")
     endif()
+
+    # Set build variant
+    set(BUILD_VARIANT "") # Empty string on non-Windows platforms
+    if (WIN32)
+        if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux" AND MINGW)
+            set(BUILD_VARIANT "MXE")
+        elseif(MINGW)
+            set(BUILD_VARIANT "MSYS2")
+        elseif(MSVC)
+            set(BUILD_VARIANT "MSVC")
+        else()
+            set(BUILD_VARIANT "Unknown")
+        endif()
+    endif()
 endmacro()

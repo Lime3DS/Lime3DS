@@ -16,9 +16,6 @@
     <height>0</height>
    </size>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <property name="accessibleName">
    <string>Graphics</string>
   </property>
@@ -60,12 +57,12 @@
            </item>
            <item>
             <property name="text">
-             <string>OpenGL</string>
+             <string notr="true">OpenGL</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Vulkan</string>
+             <string notr="true">Vulkan</string>
             </property>
            </item>
           </widget>
@@ -198,7 +195,7 @@
             <item>
              <widget class="QCheckBox" name="toggle_accurate_mul">
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Correctly handle all edge cases in multiplication operation in shaders. &lt;/p&gt;&lt;p&gt;Some applications requires this to be enabled for the hardware shader to render properly.&lt;/p&gt;&lt;p&gt;However this would reduce performance in most applications.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Correctly handle all edge cases in multiplication operation in shaders. &lt;/p&gt;&lt;p&gt;Some applications require this to be enabled for the hardware shader to render properly.&lt;/p&gt;&lt;p&gt;However this would reduce performance in most applications.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>Accurate multiplication</string>

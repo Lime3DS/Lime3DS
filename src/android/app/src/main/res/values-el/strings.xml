@@ -188,8 +188,6 @@
     <string name="cheats_edit">Επεξεργασία</string>
     <string name="cheats_delete">Διαγραφή</string>
     <string name="cia_install_notification_title">Εγκατάσταση CIA</string>
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -203,15 +201,6 @@
     <string name="material_you">Material You</string>
     <!-- Static theme color -->
     <string name="static_theme_color">Χρώμα θέματος</string>
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
-
     <!-- Language names -->
     <string name="language_japanese">Ιαπωνικά (日本語)</string>
     <string name="language_french">Γαλλικά (Français)</string>
@@ -226,15 +215,6 @@
     <string name="language_traditional_chinese">Παραδοσιακά Κινεζικά (正體中文)</string>
 
     <string name="device_camera">Κάμερα συσκευής</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Countries -->
     <string name="japan">Ιαπωνία</string>

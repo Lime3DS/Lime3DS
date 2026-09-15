@@ -1,4 +1,4 @@
-// Copyright 2017-2025 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2017-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -13,7 +13,8 @@ AboutDialog::AboutDialog(QWidget* parent)
     ui->setupUi(this);
     ui->labelBuildInfo->setText(ui->labelBuildInfo->text().arg(
         QString::fromUtf8(Common::g_build_fullname), QString::fromUtf8(Common::g_scm_branch),
-        QString::fromUtf8(Common::g_scm_desc), QString::fromUtf8(Common::g_build_date).left(10)));
+        QString::fromUtf8(Common::g_scm_desc), QString::fromUtf8(Common::g_build_date).left(10),
+        QString::fromUtf8(Common::g_build_variant)));
 }
 
 AboutDialog::~AboutDialog() = default;

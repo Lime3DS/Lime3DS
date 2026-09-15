@@ -1,4 +1,4 @@
-// Copyright 2024 Azahar Emulator Project
+// Copyright 2024-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -24,7 +24,8 @@ public:
 
 private:
     bool enabled = true;
-    bool enable_for_frame = true;
+    // Enabled by ReportEndFrame() once the user setting has been read.
+    bool enable_for_frame = false;
 
     bool top_screen_drawn = false;
     bool top_screen_transfered = false;

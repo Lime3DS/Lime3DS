@@ -343,9 +343,9 @@ QVariant GraphicsVertexShaderModel::data(const QModelIndex& index, int role) con
 }
 
 void GraphicsVertexShaderWidget::DumpShader() {
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Shader Dump"),
-                                                    QStringLiteral("shader_dump.shbin"),
-                                                    tr("Shader Binary (*.shbin)"));
+    QString filename = QFileDialog::getSaveFileName(
+        this, tr("Save Shader Dump"), QStringLiteral("shader_dump.shbin"),
+        tr("Shader Binary") + QStringLiteral(" (*.shbin)"));
 
     if (filename.isEmpty()) {
         // If the user canceled the dialog, don't dump anything.
@@ -563,31 +563,31 @@ void GraphicsVertexShaderWidget::OnCycleIndexChanged(int index) {
 
     auto& record = debug_data.records[index];
     if (record.mask & Pica::Shader::DebugDataRecord::SRC1)
-        text += tr("SRC1: %1, %2, %3, %4\n")
+        text += QStringLiteral("SRC1: %1, %2, %3, %4\n")
                     .arg(record.src1.x.ToFloat32())
                     .arg(record.src1.y.ToFloat32())
                     .arg(record.src1.z.ToFloat32())
                     .arg(record.src1.w.ToFloat32());
     if (record.mask & Pica::Shader::DebugDataRecord::SRC2)
-        text += tr("SRC2: %1, %2, %3, %4\n")
+        text += QStringLiteral("SRC2: %1, %2, %3, %4\n")
                     .arg(record.src2.x.ToFloat32())
                     .arg(record.src2.y.ToFloat32())
                     .arg(record.src2.z.ToFloat32())
                     .arg(record.src2.w.ToFloat32());
     if (record.mask & Pica::Shader::DebugDataRecord::SRC3)
-        text += tr("SRC3: %1, %2, %3, %4\n")
+        text += QStringLiteral("SRC3: %1, %2, %3, %4\n")
                     .arg(record.src3.x.ToFloat32())
                     .arg(record.src3.y.ToFloat32())
                     .arg(record.src3.z.ToFloat32())
                     .arg(record.src3.w.ToFloat32());
     if (record.mask & Pica::Shader::DebugDataRecord::DEST_IN)
-        text += tr("DEST_IN: %1, %2, %3, %4\n")
+        text += QStringLiteral("DEST_IN: %1, %2, %3, %4\n")
                     .arg(record.dest_in.x.ToFloat32())
                     .arg(record.dest_in.y.ToFloat32())
                     .arg(record.dest_in.z.ToFloat32())
                     .arg(record.dest_in.w.ToFloat32());
     if (record.mask & Pica::Shader::DebugDataRecord::DEST_OUT)
-        text += tr("DEST_OUT: %1, %2, %3, %4\n")
+        text += QStringLiteral("DEST_OUT: %1, %2, %3, %4\n")
                     .arg(record.dest_out.x.ToFloat32())
                     .arg(record.dest_out.y.ToFloat32())
                     .arg(record.dest_out.z.ToFloat32())
@@ -618,9 +618,10 @@ void GraphicsVertexShaderWidget::OnCycleIndexChanged(int index) {
     text +=
         tr("Instruction offset: 0x%1").arg(4 * record.instruction_offset, 4, 16, QLatin1Char('0'));
     if (record.mask & Pica::Shader::DebugDataRecord::NEXT_INSTR) {
-        text += tr(" -> 0x%2").arg(4 * record.next_instruction, 4, 16, QLatin1Char('0'));
+        text +=
+            QStringLiteral(" -> 0x%2").arg(4 * record.next_instruction, 4, 16, QLatin1Char('0'));
     } else {
-        text += tr(" (last instruction)");
+        text += QStringLiteral(" ") + tr("(last instruction)");
     }
 
     instruction_description->setText(text);

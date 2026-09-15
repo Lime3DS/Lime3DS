@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_notification_running">Azaharが動いている</string>
     <!-- Home Strings -->
     <string name="grid_menu_core_settings">設定</string>
     <string name="home_options">オプション</string>
@@ -14,8 +15,15 @@
     <string name="gpu_driver_manager">GPUドライバーマネージャー</string>
     <string name="install_gpu_driver">GPUドライバーをインストール</string>
     <string name="driver_already_installed">ドライバーはもうインストールしています</string>
+    <string name="select_games_folder">アプリケーションフォルダを選択</string>
+    <string name="about">Azaharについて</string>
+    <string name="citra_description">オープンソースの3DSエミュレータ</string>
+    <string name="about_description">ビルドバージョンやクレジットなど</string>
+    <string name="games_dir_selected">アプリケーシヨンフォルダが選択</string>
     <string name="install_cia_title">CIAをインストール</string>
 
+    <!-- Network Settings-->
+    <string name="preferences_network">ネットワーク</string>
     <!-- GPU driver installation -->
     <string name="select_gpu_driver">GPUドライバーを選択</string>
     <string name="select_gpu_driver_install">インストール</string>
@@ -24,14 +32,22 @@
     <string name="installing_driver">ドライバーをインストール中…</string>
 
     <string name="contributors">貢献者</string>
+    <string name="contributors_description">Azaharにコントリビューターたち</string>
+    <string name="licenses_description">Android用Azaharが使うプロジェクト</string>
+    <string name="build">ビルド</string>
     <string name="licenses">ライセンス</string>
     <!-- Setup strings -->
     <string name="welcome">ようこそ！</string>
+    <string name="games">アプリケーション</string>
+    <string name="filesystem_permission">ファイルシステム</string>
+    <string name="permissions">権限</string>
     <string name="warning_help">ヘルプ</string>
     <string name="warning_skip">スキップ</string>
     <string name="warning_cancel">キャンセル</string>
     <string name="select_citra_user_folder">ユーザーフォルダーを選択</string>
     <string name="set_up_theme_settings">テーマ設定</string>
+    <string name="search_installed">インストール済み</string>
+
     <string name="controller_circlepad">スライドパッド</string>
     <string name="controller_c">Cスティック</string>
     <string name="controller_dpad">十字ボタン</string>
@@ -45,21 +61,49 @@
     <string name="direction_down">下</string>
     <string name="direction_left">左</string>
     <string name="direction_right">右</string>
+    <string name="input_dialog_description">どのボタンでも押してください</string>
+    <string name="input_binding_description_vertical_axis">スティックを上に倒してください</string>
+    <string name="input_binding_description_horizontal_axis">スティックを右に倒してください</string>
     <string name="button_home">ホームボタン</string>
     <string name="button_swap">画面切り替え</string>
     <string name="button_turbo">ボタン連射</string>
     <string name="button_combo">ボタンコンボ</string>
+    <!-- System files strings -->
+    <string name="setup_system_files">システムのファイル</string>
+    <string name="boot_home_menu">ホームメニューを起動</string>
     <!-- System settings strings -->
     <string name="emulation_settings">エミュレーション設定</string>
     <string name="enable_required_online_lle_modules">オンラインに必要なLLEモジュールを有効にする（インストール済みの場合）</string>
     <string name="enable_required_online_lle_modules_desc">eShopやオンラインマルチプレイヤーなどに必要なLLEモジュールを有効にします。</string>
     <string name="profile_settings">プロファイル設定</string>
+    <string name="birthday_month">月</string>
+    <string name="birthday_day">日</string>
     <string name="mac_address">MACアドレス</string>
     <string name="regenerate_mac_address">MACアドレスを再生成</string>
     <string name="regenerate_mac_address_description">これを行うと、今のMACアドレスを新しいもので置き換えます。セットアップツールで実機からMACアドレスを吸い出した場合、これをするのは推奨しません。続行しますか？</string>
     <string name="delay_render_thread_description">GPUにデータを送信する間、ゲームの描写スレッドを遅延します。動的フレームレートである（ほんの一部の）アプリケーションでのパフォーマンスが向上します。</string>
+    <string name="android_hide_images">Androidで3DSの画像を隠す</string>
+    <string name="internal_resolution_setting_1x">ネーティブ (400x240)</string>
+    <string name="internal_resolution_setting_2x">2x ネーティブ (800x480)</string>
+    <string name="internal_resolution_setting_3x">3x ネーティブ (1200x720)</string>
+    <string name="internal_resolution_setting_4x">4x ネーティブ (1600x960)</string>
+    <string name="internal_resolution_setting_5x">5x ネーティブ (2000x1200)</string>
+    <string name="internal_resolution_setting_6x">6x ネーティブ (2400x1440)</string>
+    <string name="internal_resolution_setting_7x">7x ネーティブ (2800x1680)</string>
+    <string name="internal_resolution_setting_8x">8x ネーティブ (3200x1920)</string>
+    <string name="internal_resolution_setting_9x">9x ネーティブ (3600x2160)</string>
+    <string name="internal_resolution_setting_10x">10x ネーティブ (4000x2400)</string>
+    <string name="internal_resolution_setting_11x">11x ネーティブ (4400x2640)</string>
+    <string name="internal_resolution_setting_12x">12x ネーティブ (4800x2880)</string>
+    <string name="internal_resolution_setting_13x">13x ネーティブ (5200x3120)</string>
+    <string name="internal_resolution_setting_14x">14x ネーティブ (5600x3360)</string>
+    <string name="internal_resolution_setting_15x">15x ネーティブ (6000x3600)</string>
+    <string name="internal_resolution_setting_16x">16x ネーティブ (6400x3840)</string>
+    <string name="internal_resolution_setting_17x">17x ネーティブ (6800x4080)</string>
+    <string name="internal_resolution_setting_18x">18x ネーティブ (7200x4320)</string>
     <!-- Audio settings strings -->
     <string name="audio_volume">音量</string>
+    <string name="simulate_headphones_plugged">ヘッドホンの接続をシミュレートする</string>
     <string name="instant_debug_log_description">デバッグログを即座にファイルに書き込みます。Azaharがクラッシュしてログが途切れるときに有効にしてください。</string>
     <!-- Layout settings strings -->
     <string name="layout_screen_orientation">画面の向き</string>
@@ -81,8 +125,29 @@
     <string name="off">オフ</string>
     <string name="install">インストール</string>
     <string name="delete">削除</string>
+    <string name="cancelling">キャンセル中…</string>
+    <string name="loader_error_encrypted">ROMは暗号化されている</string>
+    <string name="loader_error_file_not_found">ROMファイルがありません</string>
+    <string name="core_error_loader_encrypted">暗号化されたファイル</string>
+    <string name="core_error_loader_invalid_format">破損したファイル</string>
+    <string name="core_error_loader_gba_title">ファイルはGBAのROMです</string>
+    <string name="core_error_savestate">ステートセーブのエラー</string>
+    <string name="core_error_savestate_build_mismatch">セーブステート・バージョンのミスマッチ</string>
+    <string name="core_error_unknown">不明なエラー</string>
+
+    <string name="emulation_save_state">ステートセーブする</string>
+    <string name="emulation_load_state">ステートロードする</string>
     <string name="emulation_aspect_ratio">アスペクト比</string>
+    <string name="emulation_screen_layout_largescreen">大画面</string>
+    <string name="emulation_screen_layout_single">シングル画面</string>
+    <string name="emulation_screen_layout_hybrid">ハイブリッド画面</string>
+    <string name="emulation_top_screen">上画面</string>
+    <string name="emulation_bottom_screen">下画面</string>
     <string name="miscellaneous">その他</string>
+    <string name="moving_data">データを移動中…</string>
+    <string name="fatal_error">致命的エラー</string>
+    <string name="building_shaders">ビルド中 %s</string>
+    <string name="game_context_file">ファイル:</string>
     <!-- Countries -->
     <string name="japan">日本</string>
     <string name="anguilla">アンギラ</string>
@@ -193,6 +258,11 @@
     <string name="guernsey">ガーンジー</string>
     <string name="isle_of_man">マン島</string>
     <string name="jersey">ジャージー</string>
+    <string name="china">中国</string>
+    <!-- Regions (Japan, Australia, China and Taiwan are above) -->
+    <string name="north_america">北米</string>
+    <string name="europe">ヨーロッパ</string>
+    <string name="korea">韓国</string>
     <!-- Months -->
     <string name="january">1月</string>
     <string name="february">2月</string>
@@ -217,5 +287,15 @@
     <string name="emulation_quicksave">クイックセーブ</string>
     <string name="emulation_quickload">クイックロード</string>
     <string name="emulation_occupied_quicksave_slot">クイックセーブ-%1$tF%1$tR</string>
+    <string name="multiplayer_room_title">ルーム: %1$s</string>
+    <string name="multiplayer_exit_room">ルームを退出</string>
+    <string name="multiplayer_unknown_error">不明なエラー</string>
+    <string name="multiplayer_room_uninitialized">ルームは未初期化</string>
+    <string name="multiplayer_room_idle">ルームはアイドル</string>
+    <string name="multiplayer_room_joining">ルームに参加中</string>
+    <string name="multiplayer_room_joined">ルームに参加しました</string>
+    <string name="multiplayer_room_moderator">ルームのモデレーター</string>
+    <string name="multiplayer_room_name">ルーム名</string>
     <string name="update_available"> アップデートがあります</string>
+    <string name="update_check_channel">アップデートチャネル</string>
     </resources>

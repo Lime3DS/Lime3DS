@@ -61,6 +61,7 @@ public:
     Common::Log::Filter log_filter;
     std::unique_ptr<EmuWindow_LibRetro> emu_window;
     bool game_loaded = false;
+    bool first_run_loop = true;
     struct retro_hw_render_callback hw_render{};
 };
 
@@ -277,6 +278,12 @@ void retro_run() {
     }
 #endif
 
+    // Run only-once operations
+    if (emu_instance->first_run_loop) {
+        emu_instance->first_run_loop = false;
+        Core::System::GetInstance().RegisterCoreLoopThreadId();
+    }
+
     while (!emu_instance->emu_window->HasSubmittedFrame()) {
         auto result = Core::System::GetInstance().RunLoop();
 
@@ -487,6 +494,7 @@ void retro_reset() {
     LOG_DEBUG(Frontend, "retro_reset");
     Core::System::GetInstance().Shutdown();
     emu_instance->game_loaded = do_load_game();
+    emu_instance->first_run_loop = true;
 }
 
 /**
@@ -550,6 +558,7 @@ bool retro_load_game(const struct retro_game_info* info) {
     }
 
     emu_instance->emu_window->UpdateLayout();
+    emu_instance->first_run_loop = true;
 
     switch (Settings::values.graphics_api.GetValue()) {
     case Settings::GraphicsAPI::OpenGL: {

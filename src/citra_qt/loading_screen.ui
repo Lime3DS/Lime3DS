@@ -108,7 +108,7 @@ font: 75 20pt &quot;Arial&quot;;</string>
 font: 75 20pt &quot;Arial&quot;;</string>
           </property>
           <property name="text">
-           <string>Loading Shaders 387 / 1628</string>
+           <string>Loading Shaders 0 out of 0</string>
           </property>
          </widget>
         </item>
@@ -159,7 +159,7 @@ border-radius: 15px;
 font: 75 15pt &quot;Arial&quot;;</string>
           </property>
           <property name="text">
-           <string>Estimated Time 5m 4s</string>
+           <string>Estimated Time 00:00</string>
           </property>
          </widget>
         </item>

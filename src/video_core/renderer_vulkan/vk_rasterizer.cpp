@@ -124,16 +124,19 @@ RasterizerVulkan::RasterizerVulkan(Memory::MemorySystem& memory, Pica::PicaCore&
     Surface& null_surface = res_cache.GetSurface(VideoCore::NULL_SURFACE_ID);
     Sampler& null_sampler = res_cache.GetSampler(VideoCore::NULL_SAMPLER_ID);
 
+    const vk::ImageView null_surface_view =
+        instance.IsNullDescriptorSupported() ? vk::ImageView{} : null_surface.ImageView();
+    const vk::ImageView null_surface_storage_view =
+        instance.IsNullDescriptorSupported() ? vk::ImageView{} : null_surface.StorageView();
+
     // Prepare texture and utility descriptor sets.
     for (u32 i = 0; i < 3; i++) {
-        update_queue.AddImageSampler(texture_set, i, 0, null_surface.ImageView(),
-                                     null_sampler.Handle());
+        update_queue.AddImageSampler(texture_set, i, 0, null_surface_view, null_sampler.Handle());
     }
 
     const auto utility_set = pipeline_cache.Acquire(DescriptorHeapType::Utility);
-    update_queue.AddStorageImage(utility_set, 0, null_surface.StorageView());
-    update_queue.AddImageSampler(utility_set, 1, 0, null_surface.ImageView(),
-                                 null_sampler.Handle());
+    update_queue.AddStorageImage(utility_set, 0, null_surface_storage_view);
+    update_queue.AddImageSampler(utility_set, 1, 0, null_surface_view, null_sampler.Handle());
     update_queue.Flush();
 }
 
@@ -560,6 +563,11 @@ bool RasterizerVulkan::Draw(bool accelerate, bool is_indexed) {
         return true;
     }
 
+    const auto draw_rect = fb_helper.DrawRect();
+    if (draw_rect.GetArea() == 0) {
+        return true;
+    }
+
     pipeline_info.state.attachments.color = framebuffer->Format(SurfaceType::Color);
     pipeline_info.state.attachments.depth = framebuffer->Format(SurfaceType::Depth);
 
@@ -588,7 +596,6 @@ bool RasterizerVulkan::Draw(bool accelerate, bool is_indexed) {
     UploadUniforms(accelerate);
 
     // Begin rendering
-    const auto draw_rect = fb_helper.DrawRect();
     renderpass_cache.BeginRendering(framebuffer, draw_rect);
 
     // Configure viewport and scissor
@@ -642,17 +649,27 @@ void RasterizerVulkan::SyncTextureUnits(const Framebuffer* framebuffer) {
             switch (texture.config.type.Value()) {
             case TextureType::TextureCube:
             case TextureType::ShadowCube: {
-                Surface& null_surface = res_cache.GetSurface(VideoCore::NULL_SURFACE_CUBE_ID);
                 const Sampler& null_sampler = res_cache.GetSampler(VideoCore::NULL_SURFACE_CUBE_ID);
-                update_queue.AddImageSampler(texture_set, texture_index, 0,
-                                             null_surface.ImageView(), null_sampler.Handle());
+                if (instance.IsNullDescriptorSupported()) {
+                    update_queue.AddImageSampler(texture_set, texture_index, 0, vk::ImageView{},
+                                                 null_sampler.Handle());
+                } else {
+                    Surface& null_surface = res_cache.GetSurface(VideoCore::NULL_SURFACE_CUBE_ID);
+                    update_queue.AddImageSampler(texture_set, texture_index, 0,
+                                                 null_surface.ImageView(), null_sampler.Handle());
+                }
                 break;
             }
             default: {
-                Surface& null_surface = res_cache.GetSurface(VideoCore::NULL_SURFACE_ID);
                 const Sampler& null_sampler = res_cache.GetSampler(VideoCore::NULL_SURFACE_ID);
-                update_queue.AddImageSampler(texture_set, texture_index, 0,
-                                             null_surface.ImageView(), null_sampler.Handle());
+                if (instance.IsNullDescriptorSupported()) {
+                    update_queue.AddImageSampler(texture_set, texture_index, 0, vk::ImageView{},
+                                                 null_sampler.Handle());
+                } else {
+                    Surface& null_surface = res_cache.GetSurface(VideoCore::NULL_SURFACE_ID);
+                    update_queue.AddImageSampler(texture_set, texture_index, 0,
+                                                 null_surface.ImageView(), null_sampler.Handle());
+                }
                 break;
             }
             }
@@ -695,13 +712,35 @@ void RasterizerVulkan::SyncTextureUnits(const Framebuffer* framebuffer) {
 }
 
 void RasterizerVulkan::SyncUtilityTextures(const Framebuffer* framebuffer) {
-    const bool shadow_rendering = regs.framebuffer.IsShadowRendering();
-    if (!shadow_rendering) {
-        return;
+    const bool shadow_writing = regs.framebuffer.IsShadowRendering();
+    bool shadow_reading = regs.lighting.config0.enable_shadow;
+    // Ensure the shadow-texture slot is actually enabled
+    if (shadow_reading) {
+        const u32 shadow_texture_unit = regs.lighting.config0.shadow_selector.Value();
+        const auto shadow_texture = regs.texturing.GetTextures()[shadow_texture_unit];
+        shadow_reading &= shadow_texture.enabled;
     }
 
     const auto utility_set = pipeline_cache.Acquire(DescriptorHeapType::Utility);
-    update_queue.AddStorageImage(utility_set, 0, framebuffer->ImageView(SurfaceType::Color));
+
+    // Reading and writing are mutually exclusive
+    assert(!(shadow_writing && shadow_reading));
+
+    if (shadow_writing) {
+        update_queue.AddStorageImage(utility_set, 0, framebuffer->ImageView(SurfaceType::Color));
+    } else if (shadow_reading) {
+        const u32 shadow_texture_unit = regs.lighting.config0.shadow_selector.Value();
+        const auto shadow_texture = regs.texturing.GetTextures()[shadow_texture_unit];
+        Surface& shadow_surface = res_cache.GetTextureSurface(shadow_texture);
+        update_queue.AddStorageImage(utility_set, 0, shadow_surface.StorageView());
+    } else {
+        if (instance.IsNullDescriptorSupported()) {
+            update_queue.AddStorageImage(utility_set, 0, vk::ImageView{});
+        } else {
+            Surface& null_surface = res_cache.GetSurface(VideoCore::NULL_SURFACE_ID);
+            update_queue.AddStorageImage(utility_set, 0, null_surface.StorageView());
+        }
+    }
 }
 
 void RasterizerVulkan::BindShadowCube(const Pica::TexturingRegs::FullTextureConfig& texture,

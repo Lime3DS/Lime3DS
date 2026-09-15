@@ -292,6 +292,14 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="internal_resolution_setting_8x">8x Nativa (3200x1920)</string>
     <string name="internal_resolution_setting_9x">9x Nativa (3600x2160)</string>
     <string name="internal_resolution_setting_10x">10x Nativa (4000x2400)</string>
+    <string name="internal_resolution_setting_11x">11x Nativa (4400x2640)</string>
+    <string name="internal_resolution_setting_12x">12x Nativa (4800x2880)</string>
+    <string name="internal_resolution_setting_13x">13x Nativa (5200x3120)</string>
+    <string name="internal_resolution_setting_14x">14x Nativa (5600x3360)</string>
+    <string name="internal_resolution_setting_15x">15x Nativa (6000x3600)</string>
+    <string name="internal_resolution_setting_16x">16x Nativa (6400x3840)</string>
+    <string name="internal_resolution_setting_17x">17x Nativa (6800x4080)</string>
+    <string name="internal_resolution_setting_18x">18x Nativa (7200x4320)</string>
     <string name="performance_warning">¡Desactivar esta opción reducirá la velocidad de emulación! Para obtener la mejor experiencia, se recomienda que se mantenga activada.</string>
     <string name="debug_warning">Aviso: Modificar estas configuraciones reducirán la velocidad de emulación.</string>
     <string name="stereoscopy">Estereoscopía</string>
@@ -447,7 +455,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="loader_error_encrypted_description"><![CDATA[Azahar no admite aplicaciones cifradas. Lee nuestra <a href=\"https://azahar-emu.org/blog/game-loading-changes/\">entrada del blog</a> para obtener más información.]]></string>
     <string name="loader_error_file_not_found">El archivo ROM no existe</string>
     <string name="no_game_present">¡No hay ningún juego iniciable!</string>
-
+    <string name="invalid_rom">ROM no válido</string>
     <string name="loader_error_generic">Se produjo un error al cargar el ROM: \"%s (%d)\"</string>
     <string name="core_error_success">Éxito</string>
     <string name="core_error_not_initialized">No inicializado</string>
@@ -464,7 +472,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="core_error_artic_disconnected">Artic Base se desconectó</string>
     <string name="core_error_n3ds_application">El archivo es una aplicación de New 3DS</string>
     <string name="core_error_core_exception_raised">Se produjo una excepción en el núcleo</string>
-    <string name="core_error_memory_exception_raised">Se produjo una excepción de memoria</string>
+    <string name="core_error_savestate_build_mismatch">Incompatibilidad de versión del estado guardado</string>
     <string name="core_error_shutdown_requested">Se solicitó el cierre</string>
     <string name="core_error_unknown">Error desconocido</string>
 
@@ -615,6 +623,7 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="unsupported_encrypted">Aplicación cifrada no soportada</string>
     <string name="invalid_system_mode">Modo de sistema no válido</string>
     <string name="invalid_system_mode_message">Las aplicaciones exclusivas de New 3DS no se pueden cargar sin activar el modo New 3DS.</string>
+    <string name="savestate_build_mismatch_message"><![CDATA[No se pudo cargar el estado guardado porque se creó con una versión diferente de Azahar:<br/><b>Azahar %1$s</b>.<br/><br/>Por favor lee nuestro blog <a href=\"https://azahar-emu.org/blog/understanding-save-states/\">entendiendo estados guardados</a> para más información.<br/><br/>Para recuperar tu progreso, vuelve a la versión <b>Azahar %1$s</b>, carga este estado guardado y utiliza la función de guardado integrada de la aplicación emulada.]]></string>
 
     <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Preparando shaders</string>
@@ -643,9 +652,11 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="create_shortcut">Crear atajo</string>
     <string name="shortcut_name_empty">El nombre del atajo no puede estar vacío</string>
     <string name="shortcut_image_stretch_toggle">Alargar para ajustar la imagen</string>
+    <string name="game_context_region">Región:</string>
     <string name="game_context_id">ID:</string>
     <string name="game_context_file">Archivo:</string>
     <string name="game_context_type">Tipo:</string>
+    <string name="game_context_playtime">Tiempo de juego:</string>
     <string name="game_context_insert">Insertar Cartucho</string>
     <string name="game_context_eject">Expulsar Cartucho</string>
 
@@ -707,8 +718,6 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="cia_install_error_encrypted">\"%s\" debe ser descifrado antes de ser usado en Azahar. Se necesita una 3DS real.</string>
     <string name="cia_install_error_unknown">Ha ocurrido un error desconocido mientras se instalaba \"%s\".\n Por favor, mira el log para más detalles.</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -735,15 +744,6 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Fondos Oscuros</string>
     <string name="use_black_backgrounds_description">Cuando uses el tema oscuro, se aplicarán fondos oscuros.</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japonés (日本語)</string>
@@ -784,17 +784,6 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="anaglyph">Anáglifo</string>
     <string name="interlaced">Entrelazado</string>
     <string name="reverse_interlaced">Entrelazado inverso</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bicubic</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Controlado por Juego</string>
@@ -941,6 +930,14 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="vatican_city">Ciudad del Vaticano</string>
     <string name="bermuda">Bermudas</string>
 
+    <!-- Regions (Japan, Australia, China and Taiwan are above) -->
+    <string name="north_america">América del Norte</string>
+    <string name="europe">Europa</string>
+    <string name="korea">Korea</string>
+    <string name="region_free">Sin bloqueo de región</string>
+    <string name="invalid_region">Región no válida</string>
+    <string name="region_get_error">ERROR POR FAVOR REPORTE</string>
+
     <!-- Months -->
     <string name="january">Enero</string>
     <string name="february">Febrero</string>
@@ -1055,7 +1052,6 @@ Se esperan fallos gráficos temporales cuando ésta esté activado.</string>
     <string name="multiplayer_room_browser">Salas Públicas</string>
     <string name="multiplayer_no_rooms_found">No se han encontrado salas públicas</string>
     <string name="multiplayer_password_required">Contraseña Requerida</string>
-    <string name="multiplayer_player_count">: %1$d/%2$d</string>
     <string name="multiplayer_game">Juego</string>
     <string name="multiplayer_no_game_info">Cualquier juego</string>
     <string name="multiplayer_password_protected">Sala protegida por contraseña</string>

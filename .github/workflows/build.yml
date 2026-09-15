@@ -48,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["appimage", "appimage-wayland", "gcc-nopch"]
+        target: ["appimage", "gcc-nopch"]
     container:
       image: opensauce04/azahar-build-environment:latest
       options: -u 1001
@@ -58,15 +58,13 @@ jobs:
       CCACHE_SLOPPINESS: time_macros
       OS: linux
       TARGET: ${{ matrix.target }}
-      SHOULD_RUN: ${{ (matrix.target != 'appimage-wayland' || github.ref_type == 'tag') }}
       CACHE_ENABLED: ${{ github.ref_type != 'tag' }}
     steps:
       - uses: actions/checkout@v6
-        if: ${{ env.SHOULD_RUN == 'true' }}
         with:
           submodules: recursive
       - name: Set up cache
-        if: ${{ env.SHOULD_RUN == 'true' && env.CACHE_ENABLED == 'true' }}
+        if: ${{ env.CACHE_ENABLED == 'true' }}
         uses: actions/cache@v5
         with:
           path: ${{ env.CCACHE_DIR }}
@@ -74,19 +72,14 @@ jobs:
           restore-keys: |
             ${{ github.job }}-${{ matrix.target }}-
       - name: Build
-        if: ${{ env.SHOULD_RUN == 'true' }}
         run: ./.ci/linux.sh
       - name: Move AppImage to artifacts directory
-        if: ${{ contains(matrix.target, 'appimage') && env.SHOULD_RUN == 'true' }}
+        if: ${{ matrix.target == 'appimage' }}
         run: |
           mkdir -p artifacts
           mv build/bundle/*.AppImage artifacts/
-      - name: Rename AppImage
-        if: ${{ matrix.target == 'appimage-wayland' && env.SHOULD_RUN == 'true' }}
-        run: |
-          mv artifacts/azahar.AppImage artifacts/azahar-wayland.AppImage
       - name: Generate SBOM
-        if: ${{ contains(matrix.target, 'appimage') && github.ref_type == 'tag' && env.SHOULD_RUN == 'true' }}
+        if: ${{ matrix.target == 'appimage' && github.ref_type == 'tag' }}
         uses: anchore/sbom-action@v0
         with:
           path: build/
@@ -94,13 +87,13 @@ jobs:
           output-file: artifacts/linux-x86_64-${{ matrix.target }}.spdx.json
           upload-artifact: false
       - name: Upload
-        if: ${{ contains(matrix.target, 'appimage') && env.SHOULD_RUN == 'true' }}
+        if: ${{ matrix.target == 'appimage' }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ github.job }}-${{ matrix.target }}
           path: artifacts/
       - name: Attest artifacts
-        if: ${{ contains(matrix.target, 'appimage') && github.ref_type == 'tag' && env.SHOULD_RUN == 'true' }}
+        if: ${{ matrix.target == 'appimage' && github.ref_type == 'tag' }}
         uses: actions/attest@v4
         with:
           subject-path: |

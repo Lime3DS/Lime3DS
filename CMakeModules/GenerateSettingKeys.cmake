@@ -120,7 +120,7 @@ foreach(KEY IN ITEMS
     "log_filter"
     "log_regex_filter"
     "toggle_unique_data_console_type"
-    "break_on_unmapped_memory_access"
+    "enable_exception_handler"
     "use_integer_scaling"
     "layouts_to_cycle"
     "camera_inner_flip"

@@ -137,8 +137,7 @@ void ConfigureDebug::SetConfiguration() {
 #endif // !ENABLE_SCRIPTING
     ui->toggle_unique_data_console_type->setChecked(
         Settings::values.toggle_unique_data_console_type.GetValue());
-    ui->break_on_unmapped_memory_access->setChecked(
-        Settings::values.break_on_unmapped_memory_access.GetValue());
+    ui->enable_exception_handler->setChecked(Settings::values.enable_exception_handler.GetValue());
 
     ui->toggle_renderer_debug->setChecked(Settings::values.renderer_debug.GetValue());
     ui->toggle_pica_debugging->setChecked(Settings::values.pica_debugging.GetValue());
@@ -185,8 +184,7 @@ void ConfigureDebug::ApplyConfiguration() {
     Settings::values.enable_rpc_server = ui->enable_rpc_server->isChecked();
     Settings::values.toggle_unique_data_console_type =
         ui->toggle_unique_data_console_type->isChecked();
-    Settings::values.break_on_unmapped_memory_access =
-        ui->break_on_unmapped_memory_access->isChecked();
+    Settings::values.enable_exception_handler = ui->enable_exception_handler->isChecked();
     Settings::values.renderer_debug = ui->toggle_renderer_debug->isChecked();
     Settings::values.pica_debugging = ui->toggle_pica_debugging->isChecked();
     Settings::values.dump_command_buffers = ui->toggle_dump_command_buffers->isChecked();
@@ -213,7 +211,6 @@ void ConfigureDebug::SetupPerGameUI() {
     ui->groupBox_2->setVisible(false);
     ui->enable_rpc_server->setVisible(false);
     ui->toggle_unique_data_console_type->setVisible(false);
-    ui->break_on_unmapped_memory_access->setVisible(false);
     ui->toggle_cpu_jit->setVisible(false);
 }
 

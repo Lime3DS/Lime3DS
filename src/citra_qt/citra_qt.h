@@ -303,6 +303,7 @@ private slots:
     void StartVideoDumping(const QString& path);
     void OnStopVideoDumping();
     void OnCoreError(Core::System::ResultStatus, std::string);
+    bool ShowExceptionDialog(Core::System::ResultStatus result, const std::string& details);
     /// Called whenever a user selects Help->About Azahar
     void OnMenuAboutCitra();
 

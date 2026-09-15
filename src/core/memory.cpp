@@ -17,6 +17,7 @@
 #include "common/settings.h"
 #include "common/swap.h"
 #include "core/arm/arm_interface.h"
+#include "core/arm/exception_handler.h"
 #include "core/core.h"
 #ifdef ENABLE_GDBSTUB
 #include "core/gdbstub/gdbstub.h"
@@ -573,14 +574,13 @@ void MemorySystem::UnmappedAccess(const VAddr vaddr, const T value, bool read) {
 #ifdef ENABLE_GDBSTUB
     if (GDBStub::IsConnected()) {
         GDBStub::Break(SIGSEGV);
-    } else
-#endif
-        if (Settings::values.break_on_unmapped_memory_access) {
-        impl->system.SetStatus(Core::System::ResultStatus::ErrorMemoryExceptionRaised,
-                               message.c_str());
     }
-
+#endif
     LOG_ERROR(HW_Memory, "{}", message);
+    if (Settings::values.enable_exception_handler) {
+        Core::LogException(impl->system, read ? Core::ExceptionType::UnmappedRead
+                                              : Core::ExceptionType::UnmappedWrite);
+    }
 }
 
 template <typename T>

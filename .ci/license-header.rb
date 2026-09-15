@@ -34,7 +34,7 @@ print 'Checking files...'
 missing_header_files = []
 stale_year_files = []
 branch_changed_files.each do |file_name|
-   next unless file_name.end_with?('.cpp', '.h', '.kt', '.kts', '.m', '.mm')
+   next unless file_name.end_with?('.cpp', '.cpp.in', '.h', '.h.in', '.kt', '.kts', '.m', '.mm')
    next unless File.file?(file_name)
 
    file_content = File.read(file_name, mode: 'r:bom|utf-8')

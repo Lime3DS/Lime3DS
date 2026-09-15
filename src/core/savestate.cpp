@@ -199,7 +199,8 @@ void System::LoadState(u32 slot) {
             throw std::runtime_error("The current app loader doesn't support save states");
         }
     }
-    if (Network::GetRoomMember().lock()->IsConnected()) {
+    auto room_member = Network::GetRoomMember().lock();
+    if (room_member && room_member->IsConnected()) {
         throw std::runtime_error("Unable to load while connected to multiplayer");
     }
 

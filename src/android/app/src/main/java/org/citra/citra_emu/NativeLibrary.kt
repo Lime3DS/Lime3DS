@@ -965,10 +965,9 @@ object NativeLibrary {
         ErrorArticDisconnected(12, R.string.core_error_artic_disconnected),
         ErrorN3DSApplication(13, R.string.core_error_n3ds_application),
         ErrorCoreExceptionRaised(14, R.string.core_error_core_exception_raised),
-        ErrorMemoryExceptionRaised(15, R.string.core_error_memory_exception_raised),
-        ErrorSavestateBuildMismatch(16, R.string.core_error_savestate_build_mismatch),
-        ShutdownRequested(17, R.string.core_error_shutdown_requested),
-        ErrorUnknown(18, R.string.core_error_unknown);
+        ErrorSavestateBuildMismatch(15, R.string.core_error_savestate_build_mismatch),
+        ShutdownRequested(16, R.string.core_error_shutdown_requested),
+        ErrorUnknown(17, R.string.core_error_unknown);
 
         companion object {
             fun fromInt(value: Int): CoreError = entries.find { it.value == value } ?: ErrorUnknown

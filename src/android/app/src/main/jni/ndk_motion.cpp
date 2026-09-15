@@ -1,3 +1,7 @@
+// Copyright 2020-2026 Citra Emulator Project / Azahar Emulator Project
+// Licensed under GPLv2 or any later version
+// Refer to the license.txt file included.
+
 #include <chrono>
 #include <thread>
 
@@ -16,10 +20,19 @@ using Common::Vec3;
 
 class NDKMotion final : public Input::MotionDevice {
     std::chrono::microseconds update_period;
+    NDKMotionFactory* owner_factory;
 
     ASensorManager* sensor_manager = nullptr;
     ALooper* looper = nullptr;
     ASensorEventQueue* event_queue;
+
+    // EnableSensors()/DisableSensors() can be invoked from the UI thread
+    // (pauseEmulation/unPauseEmulation) or from the emulation thread (the
+    // RunLoop error handling path), while Update() is invoked from inside the core.
+    // The underlying ASensorEventQueue is not safe for concurrent
+    // use from multiple threads, so without this lock, concurrent access can
+    // cause queue corruption and crashes.
+    mutable std::mutex sensor_mutex;
 
     mutable std::atomic<Vec3<float>> acceleration{};
     mutable std::atomic<Vec3<float>> rotation{};
@@ -82,6 +95,7 @@ class NDKMotion final : public Input::MotionDevice {
     }
 
     void Update() const {
+        std::lock_guard lock{sensor_mutex};
         ALooper_pollOnce(0, nullptr, nullptr, nullptr);
         ASensorEvent event{};
         std::optional<Vec3<float>> new_accel{}, new_rot{};
@@ -105,8 +119,9 @@ class NDKMotion final : public Input::MotionDevice {
     }
 
 public:
-    NDKMotion(std::chrono::microseconds update_period_, bool asynchronous = false)
-        : update_period(update_period_) {
+    NDKMotion(std::chrono::microseconds update_period_, NDKMotionFactory* owner_factory_,
+              bool asynchronous = false)
+        : update_period(update_period_), owner_factory(owner_factory_) {
         if (asynchronous) {
             poll_thread = std::thread([this] {
                 Construct();
@@ -123,6 +138,14 @@ public:
     }
 
     ~NDKMotion() {
+        // Unregister first so the factory can never dereference this object
+        // again once we start tearing it down. This blocks until any
+        // EnableSensors()/DisableSensors() call already running through the
+        // factory has finished, so it's safe to destroy event_queue after.
+        if (owner_factory) {
+            owner_factory->Unregister(this);
+        }
+
         if (std::thread::id{} == poll_thread.get_id()) {
             Destruct();
         } else {
@@ -139,6 +162,7 @@ public:
     }
 
     void EnableSensors() {
+        std::lock_guard lock{sensor_mutex};
         const auto init_sensor = [this](int sensor_type) {
             ASensorRef sensor = ASensorManager_getDefaultSensor(sensor_manager, sensor_type);
             if (!sensor) {
@@ -158,6 +182,7 @@ public:
     }
 
     void DisableSensors() {
+        std::lock_guard lock{sensor_mutex};
         const auto disable_sensor = [this](int sensor_type) {
             ASensorRef sensor = ASensorManager_getDefaultSensor(sensor_manager, sensor_type);
             if (!sensor) {
@@ -177,19 +202,33 @@ public:
 
 std::unique_ptr<Input::MotionDevice> NDKMotionFactory::Create(const Common::ParamPackage& params) {
     std::chrono::milliseconds update_period{params.Get("update_period", 4)};
-    std::unique_ptr<NDKMotion> ndk_motion = std::make_unique<NDKMotion>(update_period);
-    ndk_motion_device = ndk_motion.get();
+    std::unique_ptr<NDKMotion> ndk_motion = std::make_unique<NDKMotion>(update_period, this);
+    {
+        std::lock_guard lock{device_mutex};
+        ndk_motion_device = ndk_motion.get();
+    }
     return std::move(ndk_motion);
 }
 
 void NDKMotionFactory::EnableSensors() {
-    if (ndk_motion_device)
+    std::lock_guard lock{device_mutex};
+    if (ndk_motion_device) {
         ndk_motion_device->EnableSensors();
+    }
 }
 
 void NDKMotionFactory::DisableSensors() {
-    if (ndk_motion_device)
+    std::lock_guard lock{device_mutex};
+    if (ndk_motion_device) {
         ndk_motion_device->DisableSensors();
+    }
+}
+
+void NDKMotionFactory::Unregister(NDKMotion* device) {
+    std::lock_guard lock{device_mutex};
+    if (ndk_motion_device == device) {
+        ndk_motion_device = nullptr;
+    }
 }
 
 } // namespace InputManager

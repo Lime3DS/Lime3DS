@@ -43,7 +43,7 @@
       <item row="1" column="2">
        <widget class="QToolButton" name="formatOptionsButton">
         <property name="text">
-         <string>...</string>
+         <string notr="true">...</string>
         </property>
        </widget>
       </item>
@@ -60,7 +60,7 @@
       <item row="2" column="2">
        <widget class="QToolButton" name="pathExplore">
         <property name="text">
-         <string>...</string>
+         <string notr="true">...</string>
         </property>
        </widget>
       </item>
@@ -103,7 +103,7 @@
       <item row="1" column="2">
        <widget class="QToolButton" name="videoEncoderOptionsButton">
         <property name="text">
-         <string>...</string>
+         <string notr="true">...</string>
         </property>
        </widget>
       </item>
@@ -127,7 +127,7 @@
       <item row="2" column="2">
        <widget class="QLabel">
         <property name="text">
-         <string>bps</string>
+         <string notr="true">bps</string>
         </property>
        </widget>
       </item>
@@ -170,7 +170,7 @@
       <item row="1" column="2">
        <widget class="QToolButton" name="audioEncoderOptionsButton">
         <property name="text">
-         <string>...</string>
+         <string notr="true">...</string>
         </property>
        </widget>
       </item>
@@ -194,7 +194,7 @@
       <item row="2" column="2">
        <widget class="QLabel">
         <property name="text">
-         <string>bps</string>
+         <string notr="true">bps</string>
         </property>
        </widget>
       </item>

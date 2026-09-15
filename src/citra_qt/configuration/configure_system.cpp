@@ -253,16 +253,18 @@ ConfigureSystem::ConfigureSystem(Core::System& system_, QWidget* parent)
         ui->button_secure_info->setEnabled(false);
         const QString file_path_qtstr = QFileDialog::getOpenFileName(
             this, tr("Select SecureInfo_A/B"), QString(),
-            tr("SecureInfo_A/B (SecureInfo_A SecureInfo_B);;All Files (*.*)"));
+            QStringLiteral("SecureInfo_A/B (SecureInfo_A SecureInfo_B);;") + tr("All Files") +
+                QStringLiteral(" (*.*)"));
         ui->button_secure_info->setEnabled(true);
         InstallSecureData(file_path_qtstr.toStdString(), HW::UniqueData::GetSecureInfoAPath());
     });
     connect(ui->button_friend_code_seed, &QPushButton::clicked, this, [this] {
         ui->button_friend_code_seed->setEnabled(false);
-        const QString file_path_qtstr =
-            QFileDialog::getOpenFileName(this, tr("Select LocalFriendCodeSeed_A/B"), QString(),
-                                         tr("LocalFriendCodeSeed_A/B (LocalFriendCodeSeed_A "
-                                            "LocalFriendCodeSeed_B);;All Files (*.*)"));
+        const QString file_path_qtstr = QFileDialog::getOpenFileName(
+            this, tr("Select LocalFriendCodeSeed_A/B"), QString(),
+            QStringLiteral(
+                "LocalFriendCodeSeed_A/B (LocalFriendCodeSeed_A LocalFriendCodeSeed_B);;") +
+                tr("All Files") + QStringLiteral(" (*.*)"));
         ui->button_friend_code_seed->setEnabled(true);
         InstallSecureData(file_path_qtstr.toStdString(),
                           HW::UniqueData::GetLocalFriendCodeSeedBPath());
@@ -271,14 +273,17 @@ ConfigureSystem::ConfigureSystem(Core::System& system_, QWidget* parent)
         ui->button_otp->setEnabled(false);
         const QString file_path_qtstr =
             QFileDialog::getOpenFileName(this, tr("Select encrypted OTP file"), QString(),
-                                         tr("Binary file (*.bin);;All Files (*.*)"));
+                                         tr("Binary file") + QStringLiteral(" (*.bin);;") +
+                                             tr("All Files") + QStringLiteral(" (*.*)"));
         ui->button_otp->setEnabled(true);
         InstallSecureData(file_path_qtstr.toStdString(), HW::UniqueData::GetOTPPath());
     });
     connect(ui->button_movable, &QPushButton::clicked, this, [this] {
         ui->button_movable->setEnabled(false);
-        const QString file_path_qtstr = QFileDialog::getOpenFileName(
-            this, tr("Select movable.sed"), QString(), tr("Sed file (*.sed);;All Files (*.*)"));
+        const QString file_path_qtstr =
+            QFileDialog::getOpenFileName(this, tr("Select movable.sed"), QString(),
+                                         tr("Sed file") + QStringLiteral(" (*.sed);;") +
+                                             tr("All Files") + QStringLiteral(" (*.*)"));
         ui->button_movable->setEnabled(true);
         InstallSecureData(file_path_qtstr.toStdString(), HW::UniqueData::GetMovablePath());
     });

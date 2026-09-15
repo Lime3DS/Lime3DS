@@ -103,7 +103,7 @@ android-arm64-v8a:
     - .libretro-android-cmake-arm64-v8a
     - .core-defs
   variables:
-    ANDROID_NDK_VERSION: 27.3.13750724
+    ANDROID_NDK_VERSION: 29.0.14206865
     NDK_ROOT: /android-sdk-linux/ndk/$ANDROID_NDK_VERSION
     LIBNAME: ${CORENAME}_libretro.so
   artifacts:

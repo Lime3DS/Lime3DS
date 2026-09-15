@@ -422,7 +422,6 @@
     <string name="loader_error_encrypted_description"><![CDATA[Azahar nie obsługuje zaszyfrowanych plików ROM. Więcej informacji znajdziesz na naszym <a href=\"https://azahar-emu.org/blog/game-loading-changes/\">blogu</a>.]]></string>
     <string name="loader_error_file_not_found">Plik ROMu nie istnieje</string>
     <string name="no_game_present">Brak gry do uruchomienia!</string>
-
     <string name="loader_error_generic">Wystąpił błąd podczas ładowania pamięci ROM: \"%s (%d)\"</string>
     <string name="core_error_success">Sukces</string>
     <string name="core_error_not_initialized">Nie zainicjowano</string>
@@ -439,7 +438,6 @@
     <string name="core_error_artic_disconnected">Odłączono Artic Base</string>
     <string name="core_error_n3ds_application">Aplikacja jest dostępna wyłącznie na konsolę New 3DS</string>
     <string name="core_error_core_exception_raised">Wystąpił błąd rdzenia</string>
-    <string name="core_error_memory_exception_raised">Wystąpił błąd pamięci</string>
     <string name="core_error_shutdown_requested">Prośba o zamknięcie</string>
     <string name="core_error_unknown">Nieznany błąd</string>
 
@@ -584,7 +582,6 @@
     <string name="unsupported_encrypted">Nieobsługiwana zaszyfrowana aplikacja</string>
     <string name="invalid_system_mode">Nieprawidłowy moduł systemu</string>
     <string name="invalid_system_mode_message">Aplikacje dostępne wyłącznie na konsoli New 3DS nie mogą być uruchamiane bez włączenia trybu New 3DS.</string>
-
     <!-- Disk Shader Cache -->
     <string name="preparing_shaders">Przygotowanie shaderów</string>
     <string name="building_shaders">Tworzenie%s</string>
@@ -677,8 +674,6 @@
     <string name="cia_install_error_encrypted">\"%s\" musi zostać odszyfrowany przed użyciem w Azahar. Wymagany jest rzeczywisty 3DS.</string>
     <string name="cia_install_error_unknown">Wystąpił nieznany błąd podczas instalacji \"%s”.\n Więcej informacji można znaleźć w dzienniku.</string>
 
-    <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -705,15 +700,6 @@
     <!-- Black backgrounds theme -->
     <string name="use_black_backgrounds">Czarne tło</string>
     <string name="use_black_backgrounds_description">W przypadku korzystania z ciemnego motywu należy stosować czarne tło.</string>
-
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japoński (日本語)</string>
@@ -754,17 +740,6 @@
     <string name="anaglyph">Analogiczny</string>
     <string name="interlaced">Naprzemienny</string>
     <string name="reverse_interlaced">Odwrócony Obraz</string>
-
-    <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
-
-    <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bicubic</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Kontrolowane przez grę</string>

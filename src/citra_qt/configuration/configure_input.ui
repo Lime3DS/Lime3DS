@@ -10,9 +10,6 @@
     <height>694</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>ConfigureInput</string>
-  </property>
   <layout class="QVBoxLayout" name="rootLayout">
    <property name="spacing">
     <number>2</number>
@@ -198,7 +195,7 @@
               <item>
                <widget class="QLabel" name="label_18">
                 <property name="text">
-                 <string>ZR:</string>
+                 <string notr="true">ZR:</string>
                 </property>
                </widget>
               </item>
@@ -216,7 +213,7 @@
               <item>
                <widget class="QLabel" name="label_17">
                 <property name="text">
-                 <string>L:</string>
+                 <string notr="true">L:</string>
                 </property>
                </widget>
               </item>
@@ -234,7 +231,7 @@
               <item>
                <widget class="QLabel" name="label_20">
                 <property name="text">
-                 <string>ZL:</string>
+                 <string notr="true">ZL:</string>
                 </property>
                </widget>
               </item>
@@ -252,7 +249,7 @@
               <item>
                <widget class="QLabel" name="label_19">
                 <property name="text">
-                 <string>R:</string>
+                 <string notr="true">R:</string>
                 </property>
                </widget>
               </item>
@@ -285,7 +282,7 @@
               <item>
                <widget class="QLabel" name="label_4">
                 <property name="text">
-                 <string>Y:</string>
+                 <string notr="true">Y:</string>
                 </property>
                </widget>
               </item>
@@ -303,7 +300,7 @@
               <item>
                <widget class="QLabel" name="label_3">
                 <property name="text">
-                 <string>X:</string>
+                 <string notr="true">X:</string>
                 </property>
                </widget>
               </item>
@@ -321,7 +318,7 @@
               <item>
                <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>B:</string>
+                 <string notr="true">B:</string>
                 </property>
                </widget>
               </item>
@@ -339,7 +336,7 @@
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>A:</string>
+                 <string notr="true">A:</string>
                 </property>
                </widget>
               </item>
@@ -549,7 +546,7 @@
               <item>
                <widget class="QLabel" name="label_41">
                 <property name="text">
-                 <string>GPIO14:</string>
+                 <string notr="true">GPIO14:</string>
                 </property>
                </widget>
               </item>

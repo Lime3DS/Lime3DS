@@ -100,6 +100,8 @@ void EmuThread::run() {
         system.frame_limiter.WaitOnce();
     }
 
+    system.RegisterCoreLoopThreadId();
+
     // Holds whether the cpu was running during the last iteration,
     // so that the DebugModeLeft signal can be emitted before the
     // next execution step.

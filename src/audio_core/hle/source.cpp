@@ -237,6 +237,10 @@ void Source::ParseConfig(SourceConfiguration::Configuration& config,
                 break;
             case Format::PCM16:
                 state.current_buffer = Codec::DecodePCM16(num_channels, memory, config.length);
+                state.current_buffer_length = config.length;
+                state.current_buffer_mono_or_stereo = state.mono_or_stereo;
+                state.current_buffer_format = state.format;
+                state.current_buffer_is_looping = config.is_looping != 0;
                 valid = true;
                 break;
             case Format::ADPCM:
@@ -362,6 +366,30 @@ void Source::ParseConfig(SourceConfiguration::Configuration& config,
 void Source::GenerateFrame() {
     current_frame.fill({});
 
+    // A looping PCM buffer can be updated by the application while the DSP is
+    // playing it. Refresh only the not-yet-consumed part from emulated RAM.
+    //
+    // current_sample_number is maintained below from the exact amount of input
+    // removed by AudioInterp, so the memory offset and current_buffer stay in sync.
+    if (!state.current_buffer.empty() && state.current_buffer_is_looping &&
+        state.current_buffer_format == Format::PCM16 &&
+        state.current_buffer_physical_address != 0 &&
+        state.current_sample_number < state.current_buffer_length) {
+        const unsigned num_channels =
+            state.current_buffer_mono_or_stereo == MonoOrStereo::Stereo ? 2 : 1;
+
+        const u32 byte_offset =
+            state.current_sample_number * num_channels * static_cast<u32>(sizeof(s16));
+        const PAddr physical_address =
+            (state.current_buffer_physical_address & 0xFFFFFFFC) + byte_offset;
+        const u8* const memory = memory_system->GetPhysicalPointer(physical_address);
+
+        if (memory) {
+            const u32 remaining_samples = state.current_buffer_length - state.current_sample_number;
+            state.current_buffer = Codec::DecodePCM16(num_channels, memory, remaining_samples);
+        }
+    }
+
     if (state.current_buffer.empty()) {
         // TODO(SachinV): Should dequeue happen at the end of the frame generation?
         if (DequeueBuffer()) {
@@ -379,6 +407,11 @@ void Source::GenerateFrame() {
         if (state.current_buffer.empty() && !DequeueBuffer()) {
             break;
         }
+
+        // AudioInterp consumes samples from current_buffer and already preserves
+        // its own fractional phase/history. Use what it actually consumed instead
+        // of reconstructing the source position with a truncated float product.
+        const std::size_t input_size_before = state.current_buffer.size();
 
         switch (state.interpolation_mode) {
         case InterpolationMode::None:
@@ -398,10 +431,11 @@ void Source::GenerateFrame() {
             UNIMPLEMENTED();
             break;
         }
+
+        const std::size_t input_size_after = state.current_buffer.size();
+        ASSERT(input_size_after <= input_size_before);
+        state.current_sample_number += static_cast<u32>(input_size_before - input_size_after);
     }
-    // TODO(jroweboy): Keep track of frame_position independently so that it doesn't lose precision
-    // over time
-    state.current_sample_number += static_cast<u32>(frame_position * state.rate_multiplier);
 
     state.filters.ProcessFrame(current_frame);
 }
@@ -453,6 +487,10 @@ bool Source::DequeueBuffer() {
     // the first playthrough starts at play_position, loops start at the beginning of the buffer
     state.current_sample_number = (!buf.has_played) ? buf.play_position : 0;
     state.current_buffer_physical_address = buf.physical_address;
+    state.current_buffer_length = buf.length;
+    state.current_buffer_mono_or_stereo = buf.mono_or_stereo;
+    state.current_buffer_format = buf.format;
+    state.current_buffer_is_looping = buf.is_looping;
     state.current_buffer_id = buf.buffer_id;
     state.last_buffer_id = 0;
     state.buffer_update = buf.from_queue && !buf.has_played;

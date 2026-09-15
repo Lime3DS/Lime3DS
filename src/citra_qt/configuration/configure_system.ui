@@ -10,9 +10,6 @@
     <height>619</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_scrollbar">
    <property name="spacing">
     <number>0</number>
@@ -397,7 +394,7 @@ installed applications.</string>
             <item row="12" column="1">
              <widget class="QDateTimeEdit" name="edit_init_time">
               <property name="displayFormat">
-               <string>yyyy-MM-ddTHH:mm:ss</string>
+               <string notr="true">yyyy-MM-ddTHH:mm:ss</string>
               </property>
              </widget>
             </item>
@@ -426,7 +423,7 @@ installed applications.</string>
               <item row="0" column="1">
                <widget class="QTimeEdit" name="edit_init_time_offset_time">
                 <property name="displayFormat">
-                 <string>HH:mm:ss</string>
+                 <string notr="true">HH:mm:ss</string>
                 </property>
                </widget>
               </item>
@@ -622,7 +619,7 @@ installed applications.</string>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_otp">
                   <property name="text">
-                   <string>OTP</string>
+                   <string notr="true">OTP</string>
                   </property>
                  </widget>
                 </item>
@@ -658,7 +655,7 @@ installed applications.</string>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_secure_info">
                   <property name="text">
-                   <string>SecureInfo_A/B</string>
+                   <string notr="true">SecureInfo_A/B</string>
                   </property>
                  </widget>
                 </item>
@@ -694,7 +691,7 @@ installed applications.</string>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_friend_code_seed">
                   <property name="text">
-                   <string>LocalFriendCodeSeed_A/B</string>
+                   <string notr="true">LocalFriendCodeSeed_A/B</string>
                   </property>
                  </widget>
                 </item>
@@ -733,7 +730,7 @@ installed applications.</string>
             <item row="1" column="0">
              <widget class="QLabel" name="label_movable">
               <property name="text">
-               <string>movable.sed</string>
+               <string notr="true">movable.sed</string>
               </property>
              </widget>
             </item>
@@ -772,7 +769,7 @@ installed applications.</string>
          <item>
           <widget class="QLabel" name="label_disable_info">
            <property name="text">
-            <string>System settings are available only when applications is not running.</string>
+            <string>System settings are unavailable when a 3DS application is running.</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>

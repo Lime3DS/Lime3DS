@@ -155,7 +155,7 @@ void ConfigureAudio::SetInputDeviceFromDeviceID() {
 }
 
 void ConfigureAudio::SetVolumeIndicatorText(int percentage) {
-    ui->volume_indicator->setText(tr("%1%", "Volume percentage (e.g. 50%)").arg(percentage));
+    ui->volume_indicator->setText(QStringLiteral("%1%").arg(percentage));
 }
 
 void ConfigureAudio::SetHleFeaturesEnabled() {

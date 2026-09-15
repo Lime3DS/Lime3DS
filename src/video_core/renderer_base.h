@@ -1,4 +1,4 @@
-// Copyright 2014-2025 Citra Emulator Project / Azahar Emulator Project
+// Copyright 2014-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -77,7 +77,7 @@ public:
         return current_fps;
     }
 
-    s32 GetCurrentFrame() const {
+    u64 GetCurrentFrame() const {
         return current_frame;
     }
 
@@ -112,7 +112,7 @@ protected:
 
 protected:
     f32 current_fps = 0.0f; /// Current framerate, should be set by the renderer
-    s32 current_frame = 0;  /// Current frame, should be set by the renderer
+    u64 current_frame = 0;  /// Current frame, should be set by the renderer
 };
 
 } // namespace VideoCore

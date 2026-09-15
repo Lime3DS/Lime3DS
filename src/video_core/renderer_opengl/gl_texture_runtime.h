@@ -43,8 +43,13 @@ public:
     ~TextureRuntime();
 
     /// Gets an opaque tick-value used to indicate to the garbage collector when a surface was made.
-    /// Incrementing this variable indicates that all previous resource ticks can be safely deleted
     u64 GetResourceTick();
+
+    /// Gets an opaque tick-value used to indicate to the garbage collector what surfaces can be
+    /// safely deleted.
+    u64 GetResourceFreeTick() {
+        return GetResourceTick();
+    }
 
     /// Submits and waits for current GPU work.
     void Finish();
@@ -90,7 +95,7 @@ private:
 
 private:
     const Driver& driver;
-    u64 current_resource_tick;
+    const VideoCore::RendererBase& renderer;
     BlitHelper blit_helper;
     std::vector<u8> staging_buffer;
     std::array<OGLFramebuffer, 3> draw_fbos;

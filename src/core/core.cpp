@@ -10,6 +10,7 @@
 #include "audio_core/lle/lle.h"
 #include "common/arch.h"
 #include "common/logging/log.h"
+#include "common/scope_exit.h"
 #include "common/settings.h"
 #include "core/arm/arm_interface.h"
 #include "core/arm/exclusive_monitor.h"
@@ -82,6 +83,7 @@ System::~System() = default;
 
 System::ResultStatus System::RunLoop(bool tight_loop) {
     status = ResultStatus::Success;
+
     if (!IsPoweredOn()) {
         return ResultStatus::ErrorNotInitialized;
     }
@@ -519,6 +521,16 @@ void System::Reschedule() {
 System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
                                   Frontend::EmuWindow* secondary_window,
                                   Kernel::MemoryMode memory_mode, u32 num_cores) {
+    // Notification for system initialization (either boot or savestate).
+    if (on_init_callback) {
+        on_init_callback(true);
+    }
+    SCOPE_EXIT({
+        if (on_init_callback) {
+            on_init_callback(false);
+        }
+    });
+
     LOG_DEBUG(HW_Memory, "initialized OK");
 
     memory = std::make_unique<Memory::MemorySystem>(*this);

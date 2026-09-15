@@ -103,6 +103,22 @@ std::mutex paused_mutex;
 std::mutex running_mutex;
 std::condition_variable running_cv;
 
+// Guards the lifetime of s_surface/s_secondary_surface and the (re)creation of the
+// EmuWindow_Android and renderer objects that consume them. Android may destroy or replace the
+// Surface passed to us (on rotation, or if the fragment hosting the SurfaceView is torn
+// down and recreated) from the UI thread at any time, including while the renderer is still
+// being constructed on the emulation thread in RunCitra(). Without this lock, the UI thread can
+// release/replace the ANativeWindow while it is concurrently being used to create the
+// initial Vulkan/EGL surface, resulting in a use-after-free. A recursive mutex is needed
+// due to the locking pattern used in RunCitra().
+std::recursive_mutex surface_mutex;
+
+// Signalled by surfaceChanged() whenever s_surface goes from null to non-null. Used by the
+// System::Init() callback to block the renderer (re)creation (initial boot or a
+// savestate load) until a surface actually exists, instead of giving
+// VideoCore a null ANativeWindow.
+std::condition_variable_any surface_cv;
+
 std::string inserted_cartridge;
 
 // Android Multiplayer which can be initialized with parameters
@@ -118,7 +134,6 @@ static jobject ToJavaCoreError(Core::System::ResultStatus result) {
         {Core::System::ResultStatus::ErrorArticDisconnected, "ErrorArticDisconnected"},
         {Core::System::ResultStatus::ErrorN3DSApplication, "ErrorN3DSApplication"},
         {Core::System::ResultStatus::ErrorCoreExceptionRaised, "ErrorCoreExceptionRaised"},
-        {Core::System::ResultStatus::ErrorMemoryExceptionRaised, "ErrorMemoryExceptionRaised"},
         {Core::System::ResultStatus::ErrorSavestateBuildMismatch, "ErrorSavestateBuildMismatch"},
         {Core::System::ResultStatus::ErrorUnknown, "ErrorUnknown"},
     };
@@ -151,6 +166,8 @@ static void LoadDiskCacheProgress(VideoCore::LoadCallbackStage stage, int progre
 static Camera::NDK::Factory* g_ndk_factory{};
 
 static void TryShutdown() {
+    std::scoped_lock surface_lock(surface_mutex);
+
     if (!window) {
         return;
     }
@@ -197,6 +214,37 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     if (!inserted_cartridge.empty()) {
         system.InsertCartridge(inserted_cartridge);
     }
+
+    // Acquired for the whole window/renderer construction below (and released again once
+    // system.Load() has finished setting up the renderer), so that a concurrent
+    // surfaceChanged/surfaceDestroyed callback from the UI thread cannot release or replace
+    // s_surface/s_secondary_surface while they're still being used.
+    std::unique_lock<std::recursive_mutex> surface_lock(surface_mutex);
+
+    // We also need to lock the surface mutex when System::Init() is called.
+    // This is because save state saving and loading may call System::Init
+    // on its own which does GPU reinitialization.
+    // This is why a recursive mutex is needed, as System::Load() also calls
+    // System::Init() which in this RunCitra() function would result in a deadlock.
+    system.RegisterOnInitCallback([](bool init_start) {
+        if (init_start) {
+            surface_mutex.lock();
+            // A savestate load re-enters here later, well after surface_lock in RunCitra() has
+            // already been released. If a rotation destroyed s_surface just before this callback
+            // acquired the lock, wait here for surfaceChanged() to hand us a new one rather than
+            // proceeding into CreateSurface() with a null window. During the very first call
+            // (initial boot) this never actually blocks, since surfaceChanged/surfaceDestroyed
+            // cannot run concurrently here, this same thread still holds surface_lock above
+            // for the whole boot sequence.
+            if (!s_surface) {
+                std::unique_lock<std::recursive_mutex> wait_lock(surface_mutex, std::adopt_lock);
+                surface_cv.wait(wait_lock, [] { return s_surface != nullptr; });
+                wait_lock.release();
+            }
+        } else {
+            surface_mutex.unlock();
+        }
+    });
 
     const auto graphics_api = Settings::GetWorkingGraphicsAPI();
     EGLContext* shared_context;
@@ -274,8 +322,13 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     InputManager::Init();
 
     window->MakeCurrent();
+
     const Core::System::ResultStatus load_result{
         system.Load(*window, filepath, secondary_window.get())};
+
+    // At this point, the surface has already been used, so the mutex can be unlocked.
+    surface_lock.unlock();
+
     if (load_result != Core::System::ResultStatus::Success) {
         return load_result;
     }
@@ -294,6 +347,8 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     LoadDiskCacheProgress(VideoCore::LoadCallbackStage::Complete, 0, 0, "");
 
     SCOPE_EXIT({ TryShutdown(); });
+
+    system.RegisterCoreLoopThreadId();
 
     // Start running emulation
     while (!stop_run) {
@@ -369,7 +424,20 @@ extern "C" {
 void Java_org_citra_citra_1emu_NativeLibrary_surfaceChanged(JNIEnv* env,
                                                             [[maybe_unused]] jobject obj,
                                                             jobject surf) {
+    std::scoped_lock lock(surface_mutex);
+
+    if (s_surface) {
+        ANativeWindow_release(s_surface);
+        s_surface = nullptr;
+    }
     s_surface = ANativeWindow_fromSurface(env, surf);
+    if (!s_surface) {
+        LOG_WARNING(Frontend, "Surface changed, but failed to acquire the native window");
+        return;
+    }
+    // Wake up any System::Init() currently blocked waiting for a live surface
+    // (can happen when loading savestates and the screen rotates).
+    surface_cv.notify_all();
 
     bool notify = false;
     if (window) {
@@ -387,6 +455,8 @@ void Java_org_citra_citra_1emu_NativeLibrary_surfaceChanged(JNIEnv* env,
 void Java_org_citra_citra_1emu_NativeLibrary_secondarySurfaceChanged(JNIEnv* env,
                                                                      [[maybe_unused]] jobject obj,
                                                                      jobject surf) {
+    std::scoped_lock lock(surface_mutex);
+
     auto& system = Core::System::GetInstance();
 
     if (s_secondary_surface) {
@@ -421,6 +491,8 @@ void Java_org_citra_citra_1emu_NativeLibrary_secondarySurfaceChanged(JNIEnv* env
 
 void Java_org_citra_citra_1emu_NativeLibrary_secondarySurfaceDestroyed(
     JNIEnv* env, [[maybe_unused]] jobject obj) {
+    std::scoped_lock lock(surface_mutex);
+
     if (s_secondary_surface != nullptr) {
         ANativeWindow_release(s_secondary_surface);
         s_secondary_surface = nullptr;
@@ -431,6 +503,8 @@ void Java_org_citra_citra_1emu_NativeLibrary_secondarySurfaceDestroyed(
 
 void Java_org_citra_citra_1emu_NativeLibrary_surfaceDestroyed([[maybe_unused]] JNIEnv* env,
                                                               [[maybe_unused]] jobject obj) {
+    std::scoped_lock lock(surface_mutex);
+
     if (s_surface != nullptr) {
         ANativeWindow_release(s_surface);
         s_surface = nullptr;

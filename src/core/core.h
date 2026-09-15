@@ -106,7 +106,6 @@ public:
         ErrorArticDisconnected,               ///< Error when artic base disconnects
         ErrorN3DSApplication,        ///< Error launching New 3DS application in Old 3DS mode
         ErrorCoreExceptionRaised,    ///< The CPU emulation raised an exception
-        ErrorMemoryExceptionRaised,  ///< Unmmaped memory was accessed
         ErrorSavestateBuildMismatch, ///< Tried to load savestate from a different Azahar version
         ShutdownRequested,           ///< Emulated program requested a system shutdown
         ErrorUnknown                 ///< Any other error
@@ -344,9 +343,14 @@ public:
     }
 
     /// Function for checking OS microphone permissions.
-
     void RegisterMicPermissionCheck(const std::function<bool()>& permission_func) {
         mic_permission_func = permission_func;
+    }
+
+    /// Fires the callback when System::Init() is called. Called with
+    /// true when initialization starts, and with false once its done.
+    void RegisterOnInitCallback(const std::function<void(bool)>& init_callback) {
+        on_init_callback = init_callback;
     }
 
     [[nodiscard]] bool HasMicPermission() {
@@ -424,6 +428,14 @@ public:
 
     void SetGDBPortOverride(int port) {
         override_gdb_port = port;
+    }
+
+    void RegisterCoreLoopThreadId() {
+        core_loop_thread_id = std::this_thread::get_id();
+    }
+
+    std::thread::id GetCoreLoopThreadId() {
+        return core_loop_thread_id;
     }
 
 private:
@@ -524,6 +536,8 @@ private:
     std::function<bool()> mic_permission_func;
     bool mic_permission_granted = false;
 
+    std::function<void(bool)> on_init_callback;
+
     boost::optional<Service::APT::DeliverArg> restore_deliver_arg;
     boost::optional<Service::APT::SysMenuArg> restore_sys_menu_arg;
     boost::optional<Service::PLGLDR::PLG_LDR::PluginLoaderContext> restore_plugin_context;
@@ -537,6 +551,8 @@ private:
 
     bool debug_next_process;
     int override_gdb_port = -1;
+
+    std::thread::id core_loop_thread_id{};
 
     friend class boost::serialization::access;
     template <typename Archive>

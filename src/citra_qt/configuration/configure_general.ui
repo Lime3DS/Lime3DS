@@ -10,9 +10,6 @@
     <height>578</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -307,7 +304,7 @@
            <item>
             <widget class="QToolButton" name="change_screenshot_dir">
              <property name="text">
-              <string>...</string>
+              <string notr="true">...</string>
              </property>
             </widget>
            </item>

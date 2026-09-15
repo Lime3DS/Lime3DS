@@ -1,8 +1,10 @@
-// Copyright 2020 Citra Emulator Project
-// Licensed under GPLv2+
+// Copyright 2020-2026 Citra Emulator Project / Azahar Emulator Project
+// Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
 #pragma once
+
+#include <mutex>
 
 #include "core/frontend/input.h"
 
@@ -23,6 +25,13 @@ public:
     void DisableSensors();
 
 private:
-    NDKMotion* ndk_motion_device;
+    friend class NDKMotion;
+
+    /// Called from ~NDKMotion() so the factory can never call into a device
+    /// that has already been destroyed.
+    void Unregister(NDKMotion* device);
+
+    std::mutex device_mutex;
+    NDKMotion* ndk_motion_device = nullptr;
 };
 } // namespace InputManager

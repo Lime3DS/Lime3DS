@@ -100,15 +100,7 @@ void GameListSearchField::setFilterResult(int visible, int total) {
     this->visible = visible;
     this->total = total;
 
-    QString result_of_text = tr("of");
-    QString result_text;
-    if (total == 1) {
-        result_text = tr("result");
-    } else {
-        result_text = tr("results");
-    }
-    label_filter_result->setText(
-        QStringLiteral("%1 %2 %3 %4").arg(visible).arg(result_of_text).arg(total).arg(result_text));
+    label_filter_result->setText(QStringLiteral("%1/%2").arg(visible).arg(total));
 }
 
 bool GameListSearchField::IsEmpty() const {
@@ -856,7 +848,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
 #endif
     connect(uninstall_all, &QAction::triggered, this, [=, this] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Azahar"),
+            this, QStringLiteral("Azahar"),
             tr("Are you sure you want to completely uninstall '%1'?\n\nThis will "
                "delete the application if installed, as well as any installed updates or DLC.")
                 .arg(name),
@@ -878,9 +870,10 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
         }
     });
     connect(uninstall_game, &QAction::triggered, this, [this, name, media_type, program_id] {
-        QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Azahar"), tr("Are you sure you want to uninstall '%1'?").arg(name),
-            QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        QMessageBox::StandardButton answer =
+            QMessageBox::question(this, QStringLiteral("Azahar"),
+                                  tr("Are you sure you want to uninstall '%1'?").arg(name),
+                                  QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (answer == QMessageBox::Yes) {
             std::vector<std::tuple<Service::FS::MediaType, u64, QString>> titles;
             titles.emplace_back(media_type, program_id, name);
@@ -889,7 +882,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     });
     connect(uninstall_update, &QAction::triggered, this, [this, name, update_program_id] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Azahar"),
+            this, QStringLiteral("Azahar"),
             tr("Are you sure you want to uninstall the update for '%1'?").arg(name),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (answer == QMessageBox::Yes) {
@@ -901,7 +894,7 @@ void GameList::AddGamePopup(QMenu& context_menu, const QString& path, const QStr
     });
     connect(uninstall_dlc, &QAction::triggered, this, [this, name, dlc_program_id] {
         QMessageBox::StandardButton answer = QMessageBox::question(
-            this, tr("Azahar"),
+            this, QStringLiteral("Azahar"),
             tr("Are you sure you want to uninstall all DLC for '%1'?").arg(name),
             QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
         if (answer == QMessageBox::Yes) {

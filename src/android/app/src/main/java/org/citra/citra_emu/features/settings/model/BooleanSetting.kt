@@ -100,7 +100,7 @@ enum class BooleanSetting(
     USE_SKIP_DUPLICATE_FRAMES(
         SettingKeys.use_skip_duplicate_frames(),
         Settings.SECTION_RENDERER,
-        true
+        false
     ),
     USE_FRAME_LIMIT(SettingKeys.use_frame_limit(), Settings.SECTION_RENDERER, true),
     DEBUG_RENDERER(SettingKeys.renderer_debug(), Settings.SECTION_DEBUG, false),
@@ -168,7 +168,8 @@ enum class BooleanSetting(
             ASYNC_FS_OPERATIONS,
             ANDROID_HIDE_IMAGES,
             PERF_OVERLAY_ENABLE, // Works in overlay options, but not from the settings menu
-            APPLY_REGION_FREE_PATCH
+            APPLY_REGION_FREE_PATCH,
+            EXPAND_TO_CUTOUT_AREA
         )
 
         fun from(key: String): BooleanSetting? =

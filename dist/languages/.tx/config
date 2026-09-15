@@ -12,4 +12,4 @@ lang_map    = ca@valencia:ca_ES_valencia
 file_filter = ../../src/android/app/src/main/res/values-<lang>/strings.xml
 source_file = ../../src/android/app/src/main/res/values/strings.xml
 type = ANDROID
-lang_map = ca@valencia:b+ca+ES+valencia, es_419:b+es+419, pt_BR:b+pt+BR, zh_CN:b+zh+CN, zh_TW:b+zh+TW
+lang_map = ca@valencia:b+ca+ES+valencia, en_GB:b+en+GB, es_419:b+es+419, pt_BR:b+pt+BR, zh_CN:b+zh+CN, zh_TW:b+zh+TW

@@ -151,6 +151,11 @@ public:
         return index_type_uint8;
     }
 
+    /// Returns true when VK_EXT_robustness2 is supported
+    bool IsNullDescriptorSupported() const {
+        return null_descriptor;
+    }
+
     /// Returns true when VK_EXT_fragment_shader_interlock is supported
     bool IsFragmentShaderInterlockSupported() const {
         return fragment_shader_interlock;
@@ -328,6 +333,7 @@ protected:
     bool extended_dynamic_state{};
     bool custom_border_color{};
     bool index_type_uint8{};
+    bool null_descriptor{};
     bool fragment_shader_interlock{};
     bool image_format_list{};
     bool pipeline_creation_cache_control{};

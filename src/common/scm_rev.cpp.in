@@ -1,4 +1,4 @@
-// Copyright 2014 Citra Emulator Project
+// Copyright 2014-2026 Citra Emulator Project / Azahar Emulator Project
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
@@ -11,6 +11,7 @@
 #define BUILD_DATE   "@BUILD_DATE@"
 #define BUILD_VERSION "@BUILD_VERSION@"
 #define BUILD_FULLNAME "@BUILD_FULLNAME@"
+#define BUILD_VARIANT "@BUILD_VARIANT@"
 #define SHADER_CACHE_VERSION "@SHADER_CACHE_VERSION@"
 
 namespace Common {
@@ -22,6 +23,7 @@ const char g_build_name[]   = BUILD_NAME;
 const char g_build_date[]   = BUILD_DATE;
 const char g_build_fullname[] = BUILD_FULLNAME;
 const char g_build_version[]  = BUILD_VERSION;
+const char g_build_variant[]  = BUILD_VARIANT;
 const char g_shader_cache_version[] = SHADER_CACHE_VERSION;
 
 } // namespace

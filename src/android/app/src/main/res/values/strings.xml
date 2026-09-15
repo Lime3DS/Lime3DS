@@ -475,7 +475,7 @@
     <string name="loader_error_encrypted_description"><![CDATA[Azahar does not support encrypted applications. Read our <a href="https://azahar-emu.org/blog/game-loading-changes/">blog post</a> for more information.]]></string>
     <string name="loader_error_file_not_found">ROM file does not exist</string>
     <string name="no_game_present">No bootable game present!</string>
-
+    <string name="invalid_rom">Invalid ROM</string>
     <string name="loader_error_generic">An error occurred while loading ROM: \"%s (%d)\"</string>
     <string name="core_error_success">Success</string>
     <string name="core_error_not_initialized">Not initialized</string>
@@ -492,7 +492,6 @@
     <string name="core_error_artic_disconnected">Artic Base disconnected</string>
     <string name="core_error_n3ds_application">File is New 3DS application</string>
     <string name="core_error_core_exception_raised">Core exception raised</string>
-    <string name="core_error_memory_exception_raised">Memory exception raised</string>
     <string name="core_error_savestate_build_mismatch">Savestate version mismatch</string>
     <string name="core_error_shutdown_requested">Shutdown requested</string>
     <string name="core_error_unknown">Unknown error</string>
@@ -673,9 +672,11 @@
     <string name="create_shortcut">Create Shortcut</string>
     <string name="shortcut_name_empty">Shortcut name cannot be empty</string>
     <string name="shortcut_image_stretch_toggle">Stretch to fit image</string>
+    <string name="game_context_region">Region:</string>
     <string name="game_context_id">ID:</string>
     <string name="game_context_file">File:</string>
     <string name="game_context_type">Type:</string>
+    <string name="game_context_playtime">Playtime:</string>
     <string name="game_context_insert">Insert Cartridge</string>
     <string name="game_context_eject">Eject Cartridge</string>
 
@@ -739,7 +740,7 @@
     <string name="cia_install_error_unknown">An unknown error occurred while installing \"%s\".\n Please see the log for more details</string>
 
     <!-- Memory Sizes -->
-    <string name="memory_formatted">%1$s %2$s</string>
+    <string name="memory_formatted" translatable="false">%1$s %2$s</string>
     <string name="memory_byte">Byte</string>
     <string name="memory_byte_shorthand">B</string>
     <string name="memory_kilobyte">KB</string>
@@ -767,14 +768,14 @@
     <string name="use_black_backgrounds">Black Backgrounds</string>
     <string name="use_black_backgrounds_description">When using the dark theme, apply black backgrounds.</string>
 
-    <!-- Region names -->
-    <string name="system_region_jpn">JPN</string>
-    <string name="system_region_usa">USA</string>
-    <string name="system_region_eur">EUR</string>
-    <string name="system_region_aus">AUS</string>
-    <string name="system_region_chn">CHN</string>
-    <string name="system_region_kor">KOR</string>
-    <string name="system_region_twn">TWN</string>
+    <!-- Region codes -->
+    <string name="system_region_jpn" translatable="false">JPN</string>
+    <string name="system_region_usa" translatable="false">USA</string>
+    <string name="system_region_eur" translatable="false">EUR</string>
+    <string name="system_region_aus" translatable="false">AUS</string>
+    <string name="system_region_chn" translatable="false">CHN</string>
+    <string name="system_region_kor" translatable="false">KOR</string>
+    <string name="system_region_twn" translatable="false">TWN</string>
 
     <!-- Language names -->
     <string name="language_japanese">Japanese (日本語)</string>
@@ -817,15 +818,15 @@
     <string name="reverse_interlaced">Reverse Interlaced</string>
 
     <!-- Graphics API names -->
-    <string name="opengles">OpenGLES</string>
-    <string name="vulkan">Vulkan</string>
+    <string name="opengles" translatable="false">OpenGLES</string>
+    <string name="vulkan" translatable="false">Vulkan</string>
 
     <!-- Texture filter names -->
-    <string name="anime4k">Anime4K</string>
-    <string name="bicubic">Bicubic</string>
-    <string name="scaleforce">ScaleForce</string>
-    <string name="xbrz">xBRZ</string>
-    <string name="mmpx">MMPX</string>
+    <string name="anime4k" translatable="false">Anime4K</string>
+    <string name="bicubic" translatable="false">Bicubic</string>
+    <string name="scaleforce" translatable="false">ScaleForce</string>
+    <string name="xbrz" translatable="false">xBRZ</string>
+    <string name="mmpx" translatable="false">MMPX</string>
 
     <!-- Texture Sampling names -->
     <string name="game_controlled">Game Controlled</string>
@@ -972,6 +973,14 @@
     <string name="vatican_city">Vatican City</string>
     <string name="bermuda">Bermuda</string>
 
+    <!-- Regions (Japan, Australia, China and Taiwan are above) -->
+    <string name="north_america">North America</string>
+    <string name="europe">Europe</string>
+    <string name="korea">Korea</string>
+    <string name="region_free">Region free</string>
+    <string name="invalid_region">Invalid region</string>
+    <string name="region_get_error">ERROR PLEASE REPORT</string>
+
     <!-- Months -->
     <string name="january">January</string>
     <string name="february">February</string>
@@ -1086,7 +1095,7 @@
     <string name="multiplayer_room_browser">Public Rooms</string>
     <string name="multiplayer_no_rooms_found">No public rooms found</string>
     <string name="multiplayer_password_required">Password Required</string>
-    <string name="multiplayer_player_count">: %1$d/%2$d</string>
+    <string name="multiplayer_player_count" translatable="false">: %1$d/%2$d</string>
     <string name="multiplayer_game">Game</string>
     <string name="multiplayer_no_game_info">Any Game</string>
     <string name="multiplayer_password_protected">Password protected room</string>

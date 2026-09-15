@@ -70,7 +70,7 @@ std::vector<std::pair<QString, QString>> GetPresetValues(const VideoDumper::Opti
         std::vector<std::pair<QString, QString>> out;
         // Add in all named constants
         for (const auto& constant : option.named_constants) {
-            out.emplace_back(QObject::tr("%1 (0x%2)")
+            out.emplace_back(QStringLiteral("%1 (0x%2)")
                                  .arg(QString::fromStdString(constant.name))
                                  .arg(constant.value, 0, 16),
                              QString::fromStdString(constant.name));
@@ -85,7 +85,7 @@ std::vector<std::pair<QString, QString>> GetPresetValues(const VideoDumper::Opti
 void OptionSetDialog::InitializeUI(const std::string& initial_value) {
     const QString type_name =
         TypeNameMap.count(option.type) ? tr(TypeNameMap.at(option.type)) : tr("unknown");
-    ui->nameLabel->setText(tr("%1 &lt;%2> %3")
+    ui->nameLabel->setText(QStringLiteral("%1 &lt;%2> %3")
                                .arg(QString::fromStdString(option.name), type_name,
                                     QString::fromStdString(option.description)));
     if (TypeDescriptionMap.count(option.type)) {
@@ -160,7 +160,7 @@ void OptionSetDialog::InitializeUI(const std::string& initial_value) {
         layout_type = 2;
 
         for (const auto& constant : option.named_constants) {
-            auto* checkBox = new QCheckBox(tr("%1 (0x%2) %3")
+            auto* checkBox = new QCheckBox(QStringLiteral("%1 (0x%2) %3")
                                                .arg(QString::fromStdString(constant.name))
                                                .arg(constant.value, 0, 16)
                                                .arg(QString::fromStdString(constant.description)));

@@ -12,6 +12,7 @@
 #include "common/scm_rev.h"
 #include "common/settings.h"
 #include "core/arm/arm_interface.h"
+#include "core/arm/exception_handler.h"
 #include "core/core.h"
 #include "core/core_timing.h"
 #ifdef ENABLE_GDBSTUB
@@ -1144,7 +1145,6 @@ Result SVC::ArbitrateAddress(Handle handle, u32 address, u32 type, u32 value, s6
 }
 
 void SVC::Break(u8 break_reason) {
-    LOG_CRITICAL(Debug_Emulated, "Emulated program broke execution!");
     std::string reason_str;
     switch (break_reason) {
     case 0:
@@ -1160,8 +1160,8 @@ void SVC::Break(u8 break_reason) {
         reason_str = "UNKNOWN";
         break;
     }
-    LOG_CRITICAL(Debug_Emulated, "Break reason: {}", reason_str);
-    system.SetStatus(Core::System::ResultStatus::ErrorUnknown);
+    LOG_CRITICAL(Debug_Emulated, "Emulated program broke execution! Reason: {}", reason_str);
+    Core::LogException(system, Core::ExceptionType::Break);
 }
 
 /// Used to output a message on a debug hardware unit, or for the GDB file I/O

@@ -22,7 +22,8 @@ DumpingDialog::DumpingDialog(QWidget* parent, Core::System& system_)
     connect(ui->pathExplore, &QToolButton::clicked, this, &DumpingDialog::OnToolButtonClicked);
     connect(ui->buttonBox, &QDialogButtonBox::accepted, [this] {
         if (ui->pathLineEdit->text().isEmpty()) {
-            QMessageBox::critical(this, tr("Azahar"), tr("Please specify the output path."));
+            QMessageBox::critical(this, QStringLiteral("Azahar"),
+                                  tr("Please specify the output path."));
             return;
         }
         ApplyConfiguration();
@@ -82,7 +83,7 @@ void DumpingDialog::Populate() {
     }
 
     if (!missing.isEmpty()) {
-        QMessageBox::critical(this, tr("Azahar"),
+        QMessageBox::critical(this, QStringLiteral("Azahar"),
                               tr("Could not find any available %1.\nPlease check your FFmpeg "
                                  "installation used for compilation.")
                                   .arg(missing));
@@ -115,9 +116,10 @@ void DumpingDialog::Populate() {
         if (!has_audio)
             continue;
 
-        ui->formatComboBox->addItem(tr("%1 (%2)").arg(QString::fromStdString(format.long_name),
-                                                      QString::fromStdString(format.name)),
-                                    static_cast<unsigned long long>(i));
+        ui->formatComboBox->addItem(
+            QStringLiteral("%1 (%2)").arg(QString::fromStdString(format.long_name),
+                                          QString::fromStdString(format.name)),
+            static_cast<unsigned long long>(i));
         if (format.name == Settings::values.output_format) {
             ui->formatComboBox->setCurrentIndex(ui->formatComboBox->count() - 1);
         }
@@ -136,8 +138,8 @@ void DumpingDialog::PopulateEncoders() {
         }
 
         ui->videoEncoderComboBox->addItem(
-            tr("%1 (%2)").arg(QString::fromStdString(video_encoder.long_name),
-                              QString::fromStdString(video_encoder.name)),
+            QStringLiteral("%1 (%2)").arg(QString::fromStdString(video_encoder.long_name),
+                                          QString::fromStdString(video_encoder.name)),
             static_cast<unsigned long long>(i));
         if (video_encoder.name == Settings::values.video_encoder) {
             ui->videoEncoderComboBox->setCurrentIndex(ui->videoEncoderComboBox->count() - 1);
@@ -152,8 +154,8 @@ void DumpingDialog::PopulateEncoders() {
         }
 
         ui->audioEncoderComboBox->addItem(
-            tr("%1 (%2)").arg(QString::fromStdString(audio_encoder.long_name),
-                              QString::fromStdString(audio_encoder.name)),
+            QStringLiteral("%1 (%2)").arg(QString::fromStdString(audio_encoder.long_name),
+                                          QString::fromStdString(audio_encoder.name)),
             static_cast<unsigned long long>(i));
         if (audio_encoder.name == Settings::values.audio_encoder) {
             ui->audioEncoderComboBox->setCurrentIndex(ui->audioEncoderComboBox->count() - 1);
@@ -174,7 +176,7 @@ void DumpingDialog::OnToolButtonClicked() {
 
     const auto path = QFileDialog::getSaveFileName(
         this, tr("Select Video Output Path"), last_path,
-        tr("%1 (%2)").arg(QString::fromStdString(format.long_name), extensions));
+        QStringLiteral("%1 (%2)").arg(QString::fromStdString(format.long_name), extensions));
     if (!path.isEmpty()) {
         last_path = QFileInfo(ui->pathLineEdit->text()).path();
         ui->pathLineEdit->setText(path);

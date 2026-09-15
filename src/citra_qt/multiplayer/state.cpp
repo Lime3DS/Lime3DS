@@ -184,7 +184,7 @@ void MultiplayerState::OnNetworkError(const Network::RoomMember::Error& error) {
 void MultiplayerState::OnAnnounceFailed(const Common::WebResult& result) {
     announce_multiplayer_session->Stop();
     QMessageBox::warning(this, tr("Error"),
-                         tr("Failed to update the room information. Please check your Internet "
+                         tr("Failed to update the room information. Please check your internet "
                             "connection and try hosting the room again.\nDebug Message: ") +
                              QString::fromStdString(result.result_string),
                          QMessageBox::Ok);
