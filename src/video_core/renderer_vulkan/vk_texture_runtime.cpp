@@ -607,7 +607,7 @@ bool TextureRuntime::BlitTextures(Surface& source, Surface& dest,
 
     const RecordParams params = {
         .aspect = source.Aspect(),
-        .filter = MakeFilter(source.pixel_format),
+        .filter = vk::Filter::eNearest,
         .pipeline_flags = source.PipelineStageFlags() | dest.PipelineStageFlags(),
         .src_access = source.AccessFlags(),
         .dst_access = dest.AccessFlags(),
@@ -1370,9 +1370,8 @@ void Surface::BlitScale(const VideoCore::TextureBlit& blit, bool up_scale) {
     const auto src_type = up_scale ? Type::Base : Type::Scaled;
     const auto dst_type = up_scale ? Type::Scaled : Type::Base;
 
-    scheduler.Record([src_image = Image(src_type), aspect = Aspect(),
-                      filter = MakeFilter(pixel_format), dst_image = Image(dst_type),
-                      blit](vk::CommandBuffer render_cmdbuf) {
+    scheduler.Record([src_image = Image(src_type), aspect = Aspect(), filter = vk::Filter::eNearest,
+                      dst_image = Image(dst_type), blit](vk::CommandBuffer render_cmdbuf) {
         const std::array source_offsets = {
             vk::Offset3D{static_cast<s32>(blit.src_rect.left),
                          static_cast<s32>(blit.src_rect.bottom), 0},
