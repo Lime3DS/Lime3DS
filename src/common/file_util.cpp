@@ -1026,9 +1026,9 @@ void SetUserPath(const std::string& path) {
     // TODO: Put the logs in a better location for each OS
     g_paths.emplace(UserPath::LogDir, user_path + LOG_DIR DIR_SEP);
     g_paths.emplace(UserPath::CheatsDir, user_path + CHEATS_DIR DIR_SEP);
-    g_paths.emplace(UserPath::DLLDir, user_path + DLL_DIR DIR_SEP);
     g_paths.emplace(UserPath::ShaderDir, user_path + SHADER_DIR DIR_SEP);
     g_paths.emplace(UserPath::DumpDir, user_path + DUMP_DIR DIR_SEP);
+    g_paths.emplace(UserPath::LibrariesDir, user_path + LIBRARIES_DIR DIR_SEP);
     g_paths.emplace(UserPath::LoadDir, user_path + LOAD_DIR DIR_SEP);
     g_paths.emplace(UserPath::StatesDir, user_path + STATES_DIR DIR_SEP);
     g_paths.emplace(UserPath::IconsDir, user_path + ICONS_DIR DIR_SEP);

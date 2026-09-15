@@ -8,6 +8,8 @@
 #else
 #include <dlfcn.h>
 #endif
+#include "common/common_paths.h"
+#include "common/file_util.h"
 #include "dynamic_library.h"
 
 namespace Common {
@@ -16,9 +18,10 @@ DynamicLibrary::DynamicLibrary() = default;
 
 DynamicLibrary::DynamicLibrary(void* handle_) : handle{handle_} {}
 
-DynamicLibrary::DynamicLibrary(std::string_view name, int major, int minor) {
-    auto full_name = GetLibraryName(name, major, minor);
-    void(Load(full_name));
+DynamicLibrary::DynamicLibrary(std::string name, std::string location, int major, int minor) {
+    const auto full_name = GetLibraryName(name, major, minor);
+    const auto full_path = location + DIR_SEP + full_name;
+    void(Load(full_path));
 }
 
 DynamicLibrary::~DynamicLibrary() {

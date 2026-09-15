@@ -3255,13 +3255,17 @@ void GMainWindow::ShowFFmpegErrorMessage() {
     QMessageBox message_box;
     message_box.setWindowTitle(tr("Could not load video dumper"));
     message_box.setText(
+#if defined(_WIN32) || defined(__APPLE__)
         tr("FFmpeg could not be loaded. Make sure you have a compatible version installed."
-#ifdef _WIN32
            "\n\nTo install FFmpeg to Azahar, press Open and select your FFmpeg directory."
+           "\n\nTo view a guide on how to install FFmpeg, press Help.")
+#else
+        tr("FFmpeg could not be loaded. Make sure you have a compatible version installed."
+           "\n\nTo view a guide on how to install FFmpeg, press Help.")
 #endif
-           "\n\nTo view a guide on how to install FFmpeg, press Help."));
+    );
     message_box.setStandardButtons(QMessageBox::Ok | QMessageBox::Help
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__APPLE__)
                                    | QMessageBox::Open
 #endif
     );
@@ -3269,7 +3273,7 @@ void GMainWindow::ShowFFmpegErrorMessage() {
     if (result == QMessageBox::Help) {
         QDesktopServices::openUrl(
             QUrl(QStringLiteral("https://github.com/azahar-emu/azahar/wiki/Installing-FFmpeg")));
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__APPLE__)
     } else if (result == QMessageBox::Open) {
         OnOpenFFmpeg();
 #endif
@@ -3480,7 +3484,7 @@ void GMainWindow::OnDecompressFile() {
     });
 }
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__APPLE__)
 void GMainWindow::OnOpenFFmpeg() {
     auto filename =
         QFileDialog::getExistingDirectory(this, tr("Select FFmpeg Directory")).toStdString();
@@ -3515,9 +3519,19 @@ void GMainWindow::OnOpenFFmpeg() {
     std::atomic<bool> success(true);
     auto process_file = [&success](u64* num_entries_out, const std::string& directory,
                                    const std::string& virtual_name) -> bool {
-        auto file_path = directory + DIR_SEP + virtual_name;
-        if (file_path.ends_with(".dll")) {
-            auto destination_path = FileUtil::GetExeDirectory() + DIR_SEP + virtual_name;
+        const auto file_path = directory + DIR_SEP + virtual_name;
+        bool is_correct_extension =
+#if defined(_WIN32)
+            file_path.ends_with(".dll");
+#elif defined(__APPLE__)
+            file_path.ends_with(".dylib");
+#endif
+        if (is_correct_extension) {
+            const auto destination_dir = FileUtil::GetUserPath(FileUtil::UserPath::LibrariesDir);
+            const auto destination_path = destination_dir + virtual_name;
+            if (!FileUtil::IsDirectory(destination_dir)) {
+                FileUtil::CreateDir(destination_dir);
+            }
             if (!FileUtil::Copy(file_path, destination_path)) {
                 success.store(false);
                 return false;

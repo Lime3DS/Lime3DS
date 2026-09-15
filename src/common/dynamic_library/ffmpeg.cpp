@@ -6,7 +6,16 @@
 
 #include "common/dynamic_library/dynamic_library.h"
 #include "common/dynamic_library/ffmpeg.h"
+#include "common/file_util.h"
 #include "common/logging/log.h"
+
+namespace {
+
+std::string get_azahar_libs_dir() {
+    return FileUtil::GetUserPath(FileUtil::UserPath::LibrariesDir);
+};
+
+} // namespace
 
 namespace DynamicLibrary::FFmpeg {
 
@@ -127,7 +136,8 @@ static bool LoadAVUtil() {
         return true;
     }
 
-    avutil = std::make_unique<Common::DynamicLibrary>("avutil", LIBAVUTIL_VERSION_MAJOR);
+    avutil = std::make_unique<Common::DynamicLibrary>("avutil", get_azahar_libs_dir(),
+                                                      LIBAVUTIL_VERSION_MAJOR);
     if (!avutil->IsLoaded()) {
         LOG_WARNING(Common, "Could not dynamically load libavutil: {}", avutil->GetLoadError());
         avutil.reset();
@@ -197,7 +207,8 @@ static bool LoadAVCodec() {
         return true;
     }
 
-    avcodec = std::make_unique<Common::DynamicLibrary>("avcodec", LIBAVCODEC_VERSION_MAJOR);
+    avcodec = std::make_unique<Common::DynamicLibrary>("avcodec", get_azahar_libs_dir(),
+                                                       LIBAVCODEC_VERSION_MAJOR);
     if (!avcodec->IsLoaded()) {
         LOG_WARNING(Common, "Could not dynamically load libavcodec: {}", avcodec->GetLoadError());
         avcodec.reset();
@@ -254,7 +265,8 @@ static bool LoadAVFilter() {
         return true;
     }
 
-    avfilter = std::make_unique<Common::DynamicLibrary>("avfilter", LIBAVFILTER_VERSION_MAJOR);
+    avfilter = std::make_unique<Common::DynamicLibrary>("avfilter", get_azahar_libs_dir(),
+                                                        LIBAVFILTER_VERSION_MAJOR);
     if (!avfilter->IsLoaded()) {
         LOG_WARNING(Common, "Could not dynamically load libavfilter: {}", avfilter->GetLoadError());
         avfilter.reset();
@@ -299,7 +311,8 @@ static bool LoadAVFormat() {
         return true;
     }
 
-    avformat = std::make_unique<Common::DynamicLibrary>("avformat", LIBAVFORMAT_VERSION_MAJOR);
+    avformat = std::make_unique<Common::DynamicLibrary>("avformat", get_azahar_libs_dir(),
+                                                        LIBAVFORMAT_VERSION_MAJOR);
     if (!avformat->IsLoaded()) {
         LOG_WARNING(Common, "Could not dynamically load libavformat: {}", avformat->GetLoadError());
         avformat.reset();
@@ -347,8 +360,8 @@ static bool LoadSWResample() {
         return true;
     }
 
-    swresample =
-        std::make_unique<Common::DynamicLibrary>("swresample", LIBSWRESAMPLE_VERSION_MAJOR);
+    swresample = std::make_unique<Common::DynamicLibrary>("swresample", get_azahar_libs_dir(),
+                                                          LIBSWRESAMPLE_VERSION_MAJOR);
     if (!swresample->IsLoaded()) {
         LOG_WARNING(Common, "Could not dynamically load libswresample: {}",
                     swresample->GetLoadError());

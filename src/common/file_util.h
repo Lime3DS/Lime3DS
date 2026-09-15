@@ -55,7 +55,6 @@ enum class UserPath {
     CacheDir,
     CheatsDir,
     ConfigDir,
-    DLLDir,
     DumpDir,
     IconsDir,
     LegacyCitraCacheDir,  // LegacyXXXCacheDir and LegacyXXXConfigDir are only defined if migrating
@@ -64,6 +63,7 @@ enum class UserPath {
     LegacyLime3DSCacheDir,
     LegacyLime3DSConfigDir,
     LegacyLime3DSUserDir,
+    LibrariesDir,
     LoadDir,
     LogDir,
     NANDDir,

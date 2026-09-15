@@ -296,7 +296,7 @@ private slots:
     void OnDumpVideo();
     void OnCompressFile();
     void OnDecompressFile();
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__APPLE__)
     void OnOpenFFmpeg();
 #endif
     void OnStartVideoDumping();
