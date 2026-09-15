@@ -21,23 +21,26 @@ public:
     std::unique_ptr<Input::MotionDevice> Create(const Common::ParamPackage& params) override;
 
     /**
-     * Signals that a motion sensor tilt has begun.
+     * Signals that a motion sensor tilt and look has begun.
      * @param x the x-coordinate of the cursor
      * @param y the y-coordinate of the cursor
      */
     void BeginTilt(int x, int y);
+    void BeginLook(int x, int y);
 
     /**
-     * Signals that a motion sensor tilt is occurring.
+     * Signals that a motion sensor tilt and look is occurring.
      * @param x the x-coordinate of the cursor
      * @param y the y-coordinate of the cursor
      */
     void Tilt(int x, int y);
+    void Look(int x, int y);
 
     /**
-     * Signals that a motion sensor tilt has ended.
+     * Signals that a motion sensor tilt and look has ended.
      */
     void EndTilt();
+    void EndLook();
 
 private:
     std::weak_ptr<MotionEmuDevice> current_device;

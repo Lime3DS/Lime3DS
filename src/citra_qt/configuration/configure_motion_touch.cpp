@@ -76,7 +76,7 @@ void CalibrationConfigurationDialog::UpdateButtonText(const QString& text) {
 }
 
 constexpr std::array<std::pair<const char*, const char*>, 3> MotionProviders = {{
-    {"motion_emu", QT_TRANSLATE_NOOP("ConfigureMotionTouch", "Mouse (Right Click)")},
+    {"motion_emu", QT_TRANSLATE_NOOP("ConfigureMotionTouch", "Mouse (Right Click for Tilt, Middle Click for Look)")},
     {"cemuhookudp", "CemuhookUDP"},
     {"sdl", "SDL"},
 }};

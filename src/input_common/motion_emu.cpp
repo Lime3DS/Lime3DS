@@ -7,11 +7,13 @@
 #include <mutex>
 #include <thread>
 #include <tuple>
+#include <cmath>
 #include "common/math_util.h"
 #include "common/quaternion.h"
 #include "common/thread.h"
 #include "common/vector_math.h"
 #include "input_common/motion_emu.h"
+
 
 namespace InputCommon {
 
@@ -34,7 +36,15 @@ public:
 
     void BeginTilt(int x, int y) {
         mouse_origin = Common::MakeVec(x, y);
+        look_direction = Common::MakeVec(0.0f, 0.0f);
         is_tilting = true;
+        is_looking = false;
+    }
+
+    void BeginLook(int x, int y) {
+        mouse_origin = Common::MakeVec(x, y);
+        previous_look_direction = look_direction;
+        is_looking = true;
     }
 
     void Tilt(int x, int y) {
@@ -51,10 +61,24 @@ public:
         }
     }
 
+    void Look(int x, int y) {
+        auto mouse_move = Common::MakeVec(x, y) - mouse_origin + previous_look_direction.Cast<int>();
+        if (is_looking) {
+            std::lock_guard guard{tilt_mutex};
+            if (!(mouse_move.x == 0 && mouse_move.y == 0)) {
+                look_direction = mouse_move.Cast<float>();
+            }
+        }
+    }
+
     void EndTilt() {
         std::lock_guard guard{tilt_mutex};
         tilt_angle = 0;
         is_tilting = false;
+    }
+
+    void EndLook() {
+        is_looking = false;
     }
 
     std::tuple<Common::Vec3<float>, Common::Vec3<float>> GetStatus() {
@@ -71,10 +95,13 @@ private:
 
     std::mutex tilt_mutex;
     Common::Vec2<float> tilt_direction;
+    Common::Vec2<float> look_direction;
+    Common::Vec2<float> previous_look_direction = Common::MakeVec(0.0f,0.0f);
     float tilt_angle = 0;
     float tilt_clamp = 90;
 
     bool is_tilting = false;
+    bool is_looking = false;
 
     Common::Event shutdown_event;
 
@@ -87,7 +114,7 @@ private:
 
     void MotionEmuThread() {
         auto update_time = std::chrono::steady_clock::now();
-        Common::Quaternion<float> q = Common::MakeQuaternion(Common::Vec3<float>(), 0);
+        Common::Quaternion<float> q = {{0.0f, 0.0f, 0.0f}, 1.0f};
         Common::Quaternion<float> old_q;
 
         while (!shutdown_event.WaitUntil(update_time)) {
@@ -97,9 +124,20 @@ private:
             {
                 std::lock_guard guard{tilt_mutex};
 
-                // Find the quaternion describing current 3DS tilting
-                q = Common::MakeQuaternion(
-                    Common::MakeVec(-tilt_direction.y, 0.0f, tilt_direction.x), tilt_angle);
+                if (is_tilting) {
+                    // Find the quaternion describing current 3DS tilting
+                    q = Common::MakeQuaternion(Common::MakeVec(-tilt_direction.y, 0.0f, tilt_direction.x), tilt_angle);
+                }else {
+                    // Find the quaternion describing current 3DS looking
+                    float p = -1.0f * ((Common::PI * 0.25f) + Common::PI * (-look_direction.y * sensitivity * 100.0f) / 360.0f);
+                    float y = Common::PI * (-look_direction.x * sensitivity * 100.0f) / 360.0f;
+                    float qw = std::cos(p) * std::cos(y);
+                    float qx = std::sin(p) * std::cos(y);
+                    float qy = std::cos(p) * std::sin(y);
+                    float qz = -1.0f * std::sin(p) * std::sin(y);
+
+                    q = {Common::MakeVec(qx, qy, qz), qw};
+                }
             }
 
             auto inv_q = q.Inverse();
@@ -158,15 +196,33 @@ void MotionEmu::BeginTilt(int x, int y) {
     }
 }
 
+void MotionEmu::BeginLook(int x, int y) {
+    if (auto ptr = current_device.lock()) {
+        ptr->BeginLook(x, y);
+    }
+}
+
 void MotionEmu::Tilt(int x, int y) {
     if (auto ptr = current_device.lock()) {
         ptr->Tilt(x, y);
     }
 }
 
+void MotionEmu::Look(int x, int y) {
+    if (auto ptr = current_device.lock()) {
+        ptr->Look(x, y);
+    }
+}
+
 void MotionEmu::EndTilt() {
     if (auto ptr = current_device.lock()) {
         ptr->EndTilt();
+    }
+}
+
+void MotionEmu::EndLook() {
+    if (auto ptr = current_device.lock()) {
+        ptr->EndLook();
     }
 }
 
