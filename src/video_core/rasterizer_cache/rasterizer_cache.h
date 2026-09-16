@@ -1226,17 +1226,32 @@ bool RasterizerCache<T>::ValidateByReinterpretation(Surface& surface, SurfacePar
         return runtime.Reinterpret(src_surface, surface, reinterpret);
     }
 
-    // No surfaces were found in the cache that had a matching bit-width.
-    // Before entering the slow path, check if part of the interval is owned
-    // by a gpu modified surface with a different stride than ours. This is indicative
-    // of texture aliasing by the guest, which for the vast majority of cases we don't
-    // need to validate.
-    // TODO: While this works for the vast majority of cases, in Fire Emblem: Shadows of Valentia
-    // the warping effect when running in dugeons relies on this stride reinterpretation.
-    // In the future this transformation should be properly implemented with a GPU shader.
+    bool has_invalid = false;
+    const PAddr addr = boost::icl::lower(interval);
+    const u32 size = boost::icl::length(interval);
+
+    ForEachSurfaceInRegion(addr, size, [&](auto, auto& cached_surface) {
+        if (cached_surface.pixel_format == PixelFormat::Invalid) {
+            has_invalid = true;
+            return true;
+        }
+        return false;
+    });
+
+    if (has_invalid) {
+        return false;
+    }
+
+    if (!boost::icl::contains(dirty_regions, interval)) {
+        return false;
+    }
+
     const auto it = dirty_regions.find(interval);
-    return it != dirty_regions.end() && it->second &&
-           slot_surfaces[it->second].stride != surface.stride;
+    if (it == dirty_regions.end() || !it->second) {
+        return false;
+    }
+
+    return slot_surfaces[it->second].stride != surface.stride;
 }
 
 template <class T>
