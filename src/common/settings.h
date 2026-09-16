@@ -680,6 +680,12 @@ struct Values {
     std::string audio_encoder;
     std::string audio_encoder_options;
     u64 audio_bitrate;
+
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    Setting<bool> retro_achievements_enabled{false, Keys::retro_achievements_enabled};
+    Setting<std::string> retro_achievements_username{"", Keys::retro_achievements_username};
+    Setting<std::string> retro_achievements_token{"", Keys::retro_achievements_token};
+#endif
 };
 
 extern Values values;

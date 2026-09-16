@@ -211,6 +211,11 @@ if (ENABLE_LIBRETRO)
     add_subdirectory(citra_libretro)
 endif()
 
+if (ENABLE_RETRO_ACHIEVEMENTS)
+    add_compile_definitions(ENABLE_RETRO_ACHIEVEMENTS)
+    add_subdirectory(retro_achievements)
+endif()
+
 if (ENABLE_ROOM)
     add_subdirectory(citra_room)
 endif()

@@ -602,6 +602,12 @@ void QtConfig::ReadMiscellaneousValues() {
     ReadBasicSetting(UISettings::values.update_check_channel);
 #endif
 
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    ReadBasicSetting(Settings::values.retro_achievements_enabled);
+    ReadBasicSetting(Settings::values.retro_achievements_username);
+    ReadBasicSetting(Settings::values.retro_achievements_token);
+#endif
+
     qt_config->endGroup();
 }
 
@@ -1190,6 +1196,11 @@ void QtConfig::SaveMiscellaneousValues() {
 #ifdef ENABLE_QT_UPDATE_CHECKER
     WriteBasicSetting(UISettings::values.check_for_update_on_start);
     WriteBasicSetting(UISettings::values.update_check_channel);
+#endif
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    WriteBasicSetting(Settings::values.retro_achievements_enabled);
+    WriteBasicSetting(Settings::values.retro_achievements_username);
+    WriteBasicSetting(Settings::values.retro_achievements_token);
 #endif
     qt_config->endGroup();
 }

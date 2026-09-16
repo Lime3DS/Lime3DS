@@ -175,4 +175,8 @@ if (BACKTRACE_LIBRARY AND ${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND CMAKE_CXX_CO
     target_compile_definitions(citra_common PRIVATE CITRA_LINUX_GCC_BACKTRACE)
 endif()
 
+if (ENABLE_RETRO_ACHIEVEMENTS)
+    target_compile_definitions(citra_common PUBLIC ENABLE_RETRO_ACHIEVEMENTS)
+endif()
+
 target_link_libraries(citra_common PUBLIC xxHash::xxhash)

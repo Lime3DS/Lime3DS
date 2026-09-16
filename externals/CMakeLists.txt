@@ -302,6 +302,11 @@ if (ENABLE_LIBRETRO)
   endif()
 endif()
 
+# RetroAchievements
+if (ENABLE_RETRO_ACHIEVEMENTS)
+  add_subdirectory(rcheevos EXCLUDE_FROM_ALL)
+endif()
+
 # JSON
 add_library(json-headers INTERFACE)
 if (USE_SYSTEM_JSON)

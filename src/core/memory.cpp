@@ -171,10 +171,11 @@ public:
     }
 
     template <bool UNSAFE>
-    void ReadBlockImpl(const Kernel::Process& process, const VAddr src_addr, void* dest_buffer,
+    bool ReadBlockImpl(const Kernel::Process& process, const VAddr src_addr, void* dest_buffer,
                        const std::size_t size) {
         auto& page_table = *process.vm_manager.page_table;
 
+        bool all_pages_mapped = true;
         std::size_t remaining_size = size;
         std::size_t page_index = src_addr >> CITRA_PAGE_BITS;
         std::size_t page_offset = src_addr & CITRA_PAGE_MASK;
@@ -192,6 +193,7 @@ public:
                     "0x{:08X}",
                     current_vaddr, src_addr, size, GetPC());
                 std::memset(dest_buffer, 0, copy_amount);
+                all_pages_mapped = false;
                 break;
             }
             case PageType::Memory: {
@@ -228,6 +230,8 @@ public:
             dest_buffer = static_cast<u8*>(dest_buffer) + copy_amount;
             remaining_size -= copy_amount;
         }
+
+        return all_pages_mapped;
     }
 
     template <bool UNSAFE>
@@ -1083,12 +1087,12 @@ std::optional<u32> MemorySystem::Read32OrNullopt(const Kernel::Process& process,
     return Read<std::optional<u32_le>>(process.vm_manager.page_table, addr);
 }
 
-void MemorySystem::ReadBlock(const Kernel::Process& process, const VAddr src_addr,
+bool MemorySystem::ReadBlock(const Kernel::Process& process, const VAddr src_addr,
                              void* dest_buffer, const std::size_t size) {
     return impl->ReadBlockImpl<false>(process, src_addr, dest_buffer, size);
 }
 
-void MemorySystem::ReadBlock(VAddr src_addr, void* dest_buffer, std::size_t size) {
+bool MemorySystem::ReadBlock(VAddr src_addr, void* dest_buffer, std::size_t size) {
     const auto& process = *impl->system.Kernel().GetCurrentProcess();
     return impl->ReadBlockImpl<false>(process, src_addr, dest_buffer, size);
 }

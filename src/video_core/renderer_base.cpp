@@ -45,6 +45,10 @@ void RendererBase::EndFrame() {
 
     system.perf_stats->EndSystemFrame();
 
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    system.RetroAchievementsClient().DoFrame();
+#endif
+
     render_window.PollEvents();
 
     system.frame_limiter.DoFrameLimiting(system.CoreTiming().GetGlobalTimeUs());

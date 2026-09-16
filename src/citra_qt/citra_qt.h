@@ -22,6 +22,9 @@
 #include "citra_qt/compatibility_list.h"
 #include "citra_qt/hotkeys.h"
 #include "citra_qt/notification_led.h"
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+#include "citra_qt/retro_achievements/qt_client_observer.h"
+#endif
 #include "citra_qt/user_data_migration.h"
 #include "core/core.h"
 #include "core/savestate.h"
@@ -61,6 +64,10 @@ class QProgressBar;
 class QPushButton;
 class QSlider;
 class RegistersWidget;
+namespace RetroAchievements {
+class LeaderboardTrackerOverlay;
+class Notification;
+} // namespace RetroAchievements
 class WaitTreeWidget;
 
 namespace Camera {
@@ -296,6 +303,9 @@ private slots:
     void OnDumpVideo();
     void OnCompressFile();
     void OnDecompressFile();
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    void OnRetroAchievements();
+#endif
 #ifdef _WIN32
     void OnOpenFFmpeg();
 #endif
@@ -463,6 +473,12 @@ private:
 
 #ifdef __unix__
     QDBusObjectPath wake_lock{};
+#endif
+
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    RetroAchievements::QtClientObserver ra_client_observer;
+    std::unique_ptr<RetroAchievements::LeaderboardTrackerOverlay> ra_leaderboard_tracker_overlay;
+    std::unique_ptr<RetroAchievements::Notification> ra_notification;
 #endif
 
 protected:

@@ -232,6 +232,8 @@
     <addaction name="separator"/>
     <addaction name="action_Compress_ROM_File"/>
     <addaction name="action_Decompress_ROM_File"/>
+    <addaction name="separator"/>
+    <addaction name="action_RetroAchievements"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -530,6 +532,11 @@
   <action name="action_Decompress_ROM_File">
    <property name="text">
     <string>Decompress ROM File...</string>
+   </property>
+  </action>
+  <action name="action_RetroAchievements">
+   <property name="text">
+    <string>RetroAchievements</string>
    </property>
   </action>
   <action name="action_View_Lobby">

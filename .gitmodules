@@ -106,3 +106,6 @@
 [submodule "externals/cryptopp"]
 	path = externals/cryptopp
 	url = https://github.com/cryptopp-modern/cryptopp-modern.git
+[submodule "externals/rcheevos/rcheevos"]
+	path = externals/rcheevos/rcheevos
+	url = https://github.com/RetroAchievements/rcheevos.git

@@ -305,6 +305,19 @@ if (ENABLE_LIBRETRO)
     endforeach()
 endif()
 
+# RetroAchievements exclusive setting keys
+if (ENABLE_RETRO_ACHIEVEMENTS)
+    foreach(KEY IN ITEMS
+        "retro_achievements_enabled"
+        "retro_achievements_username"
+        "retro_achievements_token"
+    )
+        string(REPLACE "_" "_1" KEY_JNI_ESCAPED ${KEY})
+        set(SETTING_KEY_LIST "${SETTING_KEY_LIST}\n\"${KEY}\",")
+        set(SETTING_KEY_DEFINITIONS "${SETTING_KEY_DEFINITIONS}\nDEFINE_KEY(${KEY})")
+    endforeach()
+endif()
+
 # Trim trailing comma and newline from SETTING_KEY_LIST
 string(LENGTH "${SETTING_KEY_LIST}" SETTING_KEY_LIST_LENGTH)
 math(EXPR SETTING_KEY_LIST_NEW_LENGTH "${SETTING_KEY_LIST_LENGTH} - 1")

@@ -508,6 +508,11 @@ target_link_libraries(citra_core PUBLIC citra_common PRIVATE audio_core network 
 target_link_libraries(citra_core PRIVATE Boost::boost Boost::serialization Boost::iostreams httplib)
 target_link_libraries(citra_core PUBLIC dds-ktx PRIVATE cryptopp fmt lodepng open_source_archives)
 
+if (ENABLE_RETRO_ACHIEVEMENTS)
+    target_link_libraries(citra_core PUBLIC retro_achievements)
+    target_compile_definitions(citra_core PUBLIC ENABLE_RETRO_ACHIEVEMENTS)
+endif()
+
 if (ENABLE_WEB_SERVICE)
     target_link_libraries(citra_core PRIVATE web_service)
 endif()

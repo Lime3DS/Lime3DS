@@ -144,6 +144,8 @@ CMAKE_DEPENDENT_OPTION(ENABLE_VULKAN "Enables the Vulkan renderer" ON "NOT (BSD 
 
 option(ENABLE_DISCORD_RPC "Enables Discord Rich Presence" OFF)
 
+option(ENABLE_RETRO_ACHIEVEMENTS "Enables RetroAchievements integration" OFF)
+
 option(ENABLE_MICROPROFILE "Enables microprofile capabilities" OFF)
 
 option(ENABLE_SSE42 "Enable SSE4.2 optimizations on x86_64" ON)

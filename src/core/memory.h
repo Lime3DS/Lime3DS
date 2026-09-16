@@ -554,8 +554,10 @@ public:
      *
      * @post The range [dest_buffer, size) contains the read bytes from the
      *       process' address space.
+     *
+     * @returns Whether the entire requested range was mapped.
      */
-    void ReadBlock(const Kernel::Process& process, VAddr src_addr, void* dest_buffer,
+    bool ReadBlock(const Kernel::Process& process, VAddr src_addr, void* dest_buffer,
                    std::size_t size);
 
     /**
@@ -573,8 +575,10 @@ public:
      *
      * @post The range [dest_buffer, size) contains the read bytes from the
      *       current process' address space.
+     *
+     * @returns Whether the entire requested range was mapped.
      */
-    void ReadBlock(VAddr src_addr, void* dest_buffer, std::size_t size);
+    bool ReadBlock(VAddr src_addr, void* dest_buffer, std::size_t size);
 
     /**
      * Writes a range of bytes into a given process' address space at the specified

@@ -19,6 +19,9 @@
 #include "core/hle/service/plgldr/plgldr.h"
 #include "core/movie.h"
 #include "core/perf_stats.h"
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+#include "retro_achievements/client.h"
+#endif
 
 namespace Frontend {
 class EmuWindow;
@@ -70,6 +73,12 @@ class DebugContext;
 namespace Loader {
 class AppLoader;
 }
+
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+namespace RetroAchievements {
+class Client;
+} // namespace RetroAchievements
+#endif
 
 namespace Core {
 
@@ -282,6 +291,14 @@ public:
     /// Gets a const reference to the cheat engine
     [[nodiscard]] const Cheats::CheatEngine& CheatEngine() const;
 
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    // Gets a reference to the RetroAchievements client
+    [[nodiscard]] RetroAchievements::Client& RetroAchievementsClient();
+
+    // Gets a const reference to the RetroAchievements client
+    [[nodiscard]] const RetroAchievements::Client& RetroAchievementsClient() const;
+#endif
+
     /// Gets a reference to the custom texture cache system
     [[nodiscard]] VideoCore::CustomTexManager& CustomTexManager();
 
@@ -486,6 +503,11 @@ private:
 
     /// Cheats manager
     Cheats::CheatEngine cheat_engine;
+
+#ifdef ENABLE_RETRO_ACHIEVEMENTS
+    /// RetroAchievements integration client
+    std::unique_ptr<RetroAchievements::Client> retro_achievements_client;
+#endif
 
     /// Video dumper backend
     std::shared_ptr<VideoDumper::Backend> video_dumper;
