@@ -21,6 +21,7 @@ enum class MediaType : u32;
 class GameListWorker;
 class GameListDir;
 class GameListSearchField;
+class GameListTreeView;
 class GMainWindow;
 class QFileSystemWatcher;
 class QHBoxLayout;
@@ -140,7 +141,7 @@ private:
     GameListSearchField* search_field;
     GMainWindow* main_window = nullptr;
     QVBoxLayout* layout = nullptr;
-    QTreeView* tree_view = nullptr;
+    GameListTreeView* tree_view = nullptr;
     QStandardItemModel* item_model = nullptr;
     GameListWorker* current_worker = nullptr;
     QFileSystemWatcher* watcher = nullptr;

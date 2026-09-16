@@ -2,6 +2,7 @@
 // Licensed under GPLv2 or any later version
 // Refer to the license.txt file included.
 
+#include <iostream>
 #include <QActionGroup>
 #include <QApplication>
 #include <QDir>
@@ -43,6 +44,36 @@
 #include "core/hle/service/am/am.h"
 #include "core/hle/service/fs/archive.h"
 #include "qcursor.h"
+
+// On Mac OS X, the Return key does not trigger the activation signal for some reason. Fix it.
+
+void GameListTreeView::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_Return) {
+        const QModelIndex idx = currentIndex();
+        if (idx.isValid()) {
+            emit activated(idx);
+            return;
+        }
+    }
+    QTreeView::keyPressEvent(event);
+}
+
+// if focus goes into the game list and nothing is already selected, select the first actual game
+void GameListTreeView::focusInEvent(QFocusEvent* event) {
+    if (!currentIndex().isValid()) {
+        for (int i = 0; i < model()->rowCount(); i++) {
+            const QModelIndex folder = model()->index(i, 0);
+            if (model()->rowCount(folder) > 0) {
+                const QModelIndex first = model()->index(0, 0, folder);
+                setCurrentIndex(first);
+                selectionModel()->select(first,
+                                         QItemSelectionModel::Select | QItemSelectionModel::Rows);
+                break;
+            }
+        }
+    }
+    QTreeView::focusInEvent(event);
+}
 
 GameListSearchField::KeyReleaseEater::KeyReleaseEater(GameList* gamelist, QObject* parent)
     : QObject(parent), gamelist{gamelist} {}
@@ -87,6 +118,13 @@ bool GameListSearchField::KeyReleaseEater::eventFilter(QObject* obj, QEvent* eve
                 return QObject::eventFilter(obj, event);
             }
             break;
+        }
+        // up, down, tab
+        // If the up arrow, down arrow, or tab key is pressed, this should move focus to the
+        // treeview
+        case Qt::Key_Up:
+        case Qt::Key_Down: {
+            gamelist->tree_view->setFocus();
         }
         default:
             return QObject::eventFilter(obj, event);
@@ -347,7 +385,7 @@ GameList::GameList(PlayTime::PlayTimeManager& play_time_manager_, GMainWindow* p
 
     this->main_window = parent;
     layout = new QVBoxLayout;
-    tree_view = new QTreeView;
+    tree_view = new GameListTreeView;
     search_field = new GameListSearchField(this);
     item_model = new QStandardItemModel(tree_view);
     tree_view->setModel(item_model);
@@ -363,7 +401,6 @@ GameList::GameList(PlayTime::PlayTimeManager& play_time_manager_, GMainWindow* p
     tree_view->setStyleSheet(QStringLiteral("QTreeView{ border: none; }"));
     tree_view->setItemDelegateForColumn(0, new CartridgeIconDelegate(tree_view));
     tree_view->header()->setContextMenuPolicy(Qt::CustomContextMenu);
-
     UpdateColumnVisibility();
 
     item_model->insertColumns(0, COLUMN_COUNT);

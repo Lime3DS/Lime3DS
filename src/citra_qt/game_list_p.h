@@ -16,6 +16,7 @@
 #include <QRunnable>
 #include <QStandardItem>
 #include <QString>
+#include <QTreeView>
 #include <QWidget>
 #include "citra_qt/uisettings.h"
 #include "citra_qt/util/util.h"
@@ -528,4 +529,10 @@ private:
     QLineEdit* edit_filter = nullptr;
     QLabel* label_filter_result = nullptr;
     QToolButton* button_filter_close = nullptr;
+};
+
+class GameListTreeView : public QTreeView {
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
+    void focusInEvent(QFocusEvent* event) override;
 };
