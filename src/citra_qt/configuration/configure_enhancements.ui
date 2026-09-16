@@ -148,13 +148,56 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="use_integer_scaling">
-        <property name="text">
-         <string>Use Integer Scaling</string>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use Integer Scaling&lt;/p&gt;&lt;p&gt;Enforces that the larger screen in all layouts is an integer scale of the 240px height of the original 3DS screen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
+       <widget class="QWidget" name="widget_scaling_mode" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="scaling_mode_label">
+           <property name="text">
+            <string>Scaling Mode</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="scaling_mode_combobox">
+           <property name="toolTip">
+            <string>
+              &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scaling mode&lt;/p&gt;&lt;p&gt;
+              How to scale the screens of the emulated 3DS to the screen those are displayed on.&lt;/p&gt;&lt;p&gt;
+              Fit to Screen: Scales the screens until those reach the borders of the window/screen.&lt;/p&gt;&lt;p&gt;
+              Fit to Screen with Integer Scaling: Scales the screens with an integer multiplier of the original 3DS screen to the largest fitting size. For layouts with two different screen sizes, the largest screen is integer-scaled.&lt;/p&gt;&lt;p&gt;
+              Pixel by Pixel: Displays each pixel from the game/app on one pixel of the screen. If the game-views do not fit within the window/screen, the width and height of those will be halved until those do fit; which, when combined with linear filtering, applies 4x supersampling.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+            </string>
+           </property>
+           <item>
+            <property name="text">
+             <string>Fit to Screen</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Fit to Screen with Integer Scaling</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Pixel by Pixel</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>

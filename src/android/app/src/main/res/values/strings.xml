@@ -272,8 +272,8 @@
     <string name="async_shaders_description">Compiles shaders in the background to reduce stuttering during gameplay. When enabled expect temporary graphical glitches</string>
     <string name="linear_filtering">Linear Filtering</string>
     <string name="linear_filtering_description">Enables linear filtering, which causes game visuals to appear smoother.</string>
-    <string name="use_integer_scaling">Integer Scaling</string>
-    <string name="use_integer_scaling_description">Scales the screens with an integer multiplier of the original 3DS screen. For layouts with two different screen sizes, the largest screen is integer-scaled.</string>
+    <string name="scaling_mode_name">Scaling Mode</string>
+    <string name="scaling_mode_description">How to scale the screens of the emulated 3DS to the screen those are displayed on.</string>
     <string name="texture_filter_name">Texture Filter</string>
     <string name="texture_filter_description">Enhances the visuals of applications by applying a filter to textures. The supported filters are Anime4K Ultrafast, Bicubic, ScaleForce, xBRZ freescale, and MMPX.</string>
     <string name="delay_render_thread">Delay Game Render Thread</string>
@@ -320,6 +320,9 @@
     <string name="internal_resolution_setting_16x">16x Native (6400x3840)</string>
     <string name="internal_resolution_setting_17x">17x Native (6800x4080)</string>
     <string name="internal_resolution_setting_18x">18x Native (7200x4320)</string>
+    <string name="fit_to_screen">Fit to Screen</string>
+    <string name="fit_to_screen_integer">Fit to Screen with Integer Scaling</string>
+    <string name="pixel_by_pixel">Pixel by Pixel</string>
     <string name="performance_warning">Turning off this setting will significantly reduce emulation performance! For the best experience, it is recommended that you leave this setting enabled.</string>
     <string name="debug_warning">Warning: Modifying these settings will slow emulation</string>
     <string name="stereoscopy">Stereoscopy</string>

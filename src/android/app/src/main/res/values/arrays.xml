@@ -451,6 +451,17 @@
         <item>18</item>
     </integer-array>
 
+    <string-array name="scalingModeNames">
+        <item>@string/fit_to_screen</item>
+        <item>@string/fit_to_screen_integer</item>
+        <item>@string/pixel_by_pixel</item>
+    </string-array>
+    <integer-array name="scalingModeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+
     <string-array name="countries">
         <item></item>
         <item>@string/japan</item>

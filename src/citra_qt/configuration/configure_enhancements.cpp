@@ -44,6 +44,8 @@ void ConfigureEnhancements::SetConfiguration() {
     if (!Settings::IsConfiguringGlobal()) {
         ConfigurationShared::SetPerGameSetting(ui->resolution_factor_combobox,
                                                &Settings::values.resolution_factor);
+        ConfigurationShared::SetPerGameSetting(ui->scaling_mode_combobox,
+                                               &Settings::values.scaling_mode);
         ConfigurationShared::SetPerGameSetting(ui->texture_filter_combobox,
                                                &Settings::values.texture_filter);
         ConfigurationShared::SetHighlight(ui->widget_texture_filter,
@@ -51,6 +53,8 @@ void ConfigureEnhancements::SetConfiguration() {
     } else {
         ui->resolution_factor_combobox->setCurrentIndex(
             Settings::values.resolution_factor.GetValue());
+        ui->scaling_mode_combobox->setCurrentIndex(
+            static_cast<int>(Settings::values.scaling_mode.GetValue()));
         ui->texture_filter_combobox->setCurrentIndex(
             static_cast<int>(Settings::values.texture_filter.GetValue()));
     }
@@ -63,7 +67,6 @@ void ConfigureEnhancements::SetConfiguration() {
         static_cast<int>(Settings::values.mono_render_option.GetValue()));
     updateShaders(Settings::values.render_3d.GetValue());
     ui->toggle_linear_filter->setChecked(Settings::values.filter_mode.GetValue());
-    ui->use_integer_scaling->setChecked(Settings::values.use_integer_scaling.GetValue());
     ui->toggle_dump_textures->setChecked(Settings::values.dump_textures.GetValue());
     ui->toggle_custom_textures->setChecked(Settings::values.custom_textures.GetValue());
     ui->toggle_preload_textures->setChecked(Settings::values.preload_textures.GetValue());
@@ -128,8 +131,8 @@ void ConfigureEnhancements::ApplyConfiguration() {
 
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.filter_mode,
                                              ui->toggle_linear_filter, linear_filter);
-    ConfigurationShared::ApplyPerGameSetting(&Settings::values.use_integer_scaling,
-                                             ui->use_integer_scaling, use_integer_scaling);
+    ConfigurationShared::ApplyPerGameSetting(&Settings::values.scaling_mode,
+                                             ui->scaling_mode_combobox);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.texture_filter,
                                              ui->texture_filter_combobox);
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.dump_textures,
@@ -149,9 +152,9 @@ void ConfigureEnhancements::SetupPerGameUI() {
     // Block the global settings if a game is currently running that overrides them
     if (Settings::IsConfiguringGlobal()) {
         ui->widget_resolution->setEnabled(Settings::values.resolution_factor.UsingGlobal());
+        ui->widget_scaling_mode->setEnabled(Settings::values.scaling_mode.UsingGlobal());
         ui->widget_texture_filter->setEnabled(Settings::values.texture_filter.UsingGlobal());
         ui->toggle_linear_filter->setEnabled(Settings::values.filter_mode.UsingGlobal());
-        ui->use_integer_scaling->setEnabled(Settings::values.use_integer_scaling.UsingGlobal());
         ui->toggle_dump_textures->setEnabled(Settings::values.dump_textures.UsingGlobal());
         ui->toggle_custom_textures->setEnabled(Settings::values.custom_textures.UsingGlobal());
         ui->toggle_preload_textures->setEnabled(Settings::values.preload_textures.UsingGlobal());
@@ -170,8 +173,6 @@ void ConfigureEnhancements::SetupPerGameUI() {
 
     ConfigurationShared::SetColoredTristate(ui->toggle_linear_filter, Settings::values.filter_mode,
                                             linear_filter);
-    ConfigurationShared::SetColoredTristate(
-        ui->use_integer_scaling, Settings::values.use_integer_scaling, use_integer_scaling);
     ConfigurationShared::SetColoredTristate(ui->toggle_dump_textures,
                                             Settings::values.dump_textures, dump_textures);
     ConfigurationShared::SetColoredTristate(ui->toggle_custom_textures,
@@ -188,6 +189,9 @@ void ConfigureEnhancements::SetupPerGameUI() {
     ConfigurationShared::SetColoredComboBox(
         ui->resolution_factor_combobox, ui->widget_resolution,
         static_cast<int>(Settings::values.resolution_factor.GetValue(true)));
+    ConfigurationShared::SetColoredComboBox(
+        ui->scaling_mode_combobox, ui->widget_scaling_mode,
+        static_cast<int>(Settings::values.scaling_mode.GetValue(true)));
 
     ConfigurationShared::SetColoredComboBox(
         ui->texture_filter_combobox, ui->widget_texture_filter,

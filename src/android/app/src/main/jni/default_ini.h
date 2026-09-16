@@ -144,9 +144,11 @@ static const char* android_config_default_file_content = (BOOST_HANA_STRING(R"(
 # factor for the 3DS resolution
 )") DECLARE_KEY(resolution_factor) BOOST_HANA_STRING(R"(
 
-# Use Integer Scaling when the layout allows
-# 0: Off (default), 1: On
-)") DECLARE_KEY(use_integer_scaling) BOOST_HANA_STRING(R"(
+# Which scaling mode should be used
+# 0 (default): Fit to Screen
+# 1: Fit to Screen with Integer Scaling
+# 2: Pixel by Pixel
+)") DECLARE_KEY(scaling_mode) BOOST_HANA_STRING(R"(
 
 # Turns on the frame limiter, which will limit frames output to the target game speed
 # 0: Off, 1: On (default)

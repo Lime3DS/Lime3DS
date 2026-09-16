@@ -997,12 +997,14 @@ class SettingsFragmentPresenter(private val fragmentView: SettingsFragmentView) 
                 )
             )
             add(
-                SwitchSetting(
-                    BooleanSetting.USE_INTEGER_SCALING,
-                    R.string.use_integer_scaling,
-                    R.string.use_integer_scaling_description,
-                    BooleanSetting.USE_INTEGER_SCALING.key,
-                    BooleanSetting.USE_INTEGER_SCALING.defaultValue
+                SingleChoiceSetting(
+                    IntSetting.SCALING_MODE,
+                    R.string.scaling_mode_name,
+                    R.string.scaling_mode_description,
+                    R.array.scalingModeNames,
+                    R.array.scalingModeValues,
+                    IntSetting.SCALING_MODE.key,
+                    IntSetting.SCALING_MODE.defaultValue
                 )
             )
             add(

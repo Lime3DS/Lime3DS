@@ -123,7 +123,6 @@ enum class BooleanSetting(
     ASYNC_FS_OPERATIONS(SettingKeys.async_fs_operations(), Settings.SECTION_STORAGE, true),
     ANDROID_HIDE_IMAGES(SettingKeys.android_hide_images(), Settings.SECTION_MISC, false),
     APPLY_REGION_FREE_PATCH(SettingKeys.apply_region_free_patch(), Settings.SECTION_SYSTEM, true),
-    USE_INTEGER_SCALING(SettingKeys.use_integer_scaling(), Settings.SECTION_RENDERER, false),
     ENABLE_SECONDARY_DISPLAY(SettingKeys.enable_secondary_display(), Settings.SECTION_LAYOUT, true),
     SIMULATE_3DS_GPU_TIMINGS(
         SettingKeys.simulate_3ds_gpu_timings(),

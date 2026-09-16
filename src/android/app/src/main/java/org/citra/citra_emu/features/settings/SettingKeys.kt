@@ -109,7 +109,7 @@ object SettingKeys {
     external fun toggle_unique_data_console_type(): String
     external fun log_filter(): String
     external fun log_regex_filter(): String
-    external fun use_integer_scaling(): String
+    external fun scaling_mode(): String
     external fun layouts_to_cycle(): String
     external fun camera_inner_flip(): String
     external fun camera_outer_left_flip(): String

@@ -39,7 +39,7 @@ private:
 
     std::unique_ptr<Ui::ConfigureEnhancements> ui;
     ConfigurationShared::CheckState linear_filter;
-    ConfigurationShared::CheckState use_integer_scaling;
+    ConfigurationShared::CheckState scaling_mode;
     ConfigurationShared::CheckState dump_textures;
     ConfigurationShared::CheckState custom_textures;
     ConfigurationShared::CheckState preload_textures;

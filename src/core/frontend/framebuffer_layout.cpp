@@ -37,17 +37,35 @@ static Common::Rectangle<T> MaxRectangle(Common::Rectangle<T> window_area,
 }
 
 // overload of the above that takes an inner rectangle instead of an aspect ratio, and can be
-// limited to integer scaling if desired
+// limited to integer scaling or pixel by pixel mapping if desired
 template <class T>
 static Common::Rectangle<T> MaxRectangle(Common::Rectangle<T> bounding_window,
                                          Common::Rectangle<T> inner_window,
-                                         bool use_integer = false) {
+                                         Settings::ScalingMode scaling_mode) {
     float scale =
         std::min(static_cast<float>(bounding_window.GetWidth()) / inner_window.GetWidth(),
                  static_cast<float>(bounding_window.GetHeight()) / inner_window.GetHeight());
-    if (use_integer && scale >= 1.0) {
+
+    if (scaling_mode == Settings::ScalingMode::PixelByPixel) {
+        if (Settings::values.resolution_factor.GetValue() != 0) {
+            const float resolution_factor = Settings::values.resolution_factor.GetValue();
+            u32 divisor = 1;
+            while (resolution_factor * inner_window.GetWidth() / divisor >
+                       bounding_window.GetWidth() ||
+                   resolution_factor * inner_window.GetHeight() / divisor >
+                       bounding_window.GetHeight()) {
+                divisor *= 2;
+            };
+            scale = resolution_factor / divisor;
+        } else if (scale >= 1.0) {
+            scale = std::floor(scale);
+        }
+    }
+
+    if (scaling_mode == Settings::ScalingMode::FitToScreenInteger && scale >= 1.0) {
         scale = std::floor(scale);
     }
+
     return Common::Rectangle(bounding_window.left, bounding_window.top,
                              bounding_window.left + static_cast<T>(inner_window.GetWidth() * scale),
                              bounding_window.top +
@@ -104,10 +122,10 @@ FramebufferLayout SingleFrameLayout(u32 width, u32 height, bool swapped, bool up
     case Settings::AspectRatio::Default:
         // this is the only one where we allow integer scaling to apply
         // also the only option on desktop
-        top_screen = MaxRectangle(screen_window_area, top_screen,
-                                  Settings::values.use_integer_scaling.GetValue());
-        bot_screen = MaxRectangle(screen_window_area, bot_screen,
-                                  Settings::values.use_integer_scaling.GetValue());
+        top_screen =
+            MaxRectangle(screen_window_area, top_screen, Settings::values.scaling_mode.GetValue());
+        bot_screen =
+            MaxRectangle(screen_window_area, bot_screen, Settings::values.scaling_mode.GetValue());
         break;
     case Settings::AspectRatio::Stretch:
         top_screen = MaxRectangle(screen_window_area, window_aspect_ratio);
@@ -181,8 +199,8 @@ FramebufferLayout LargeFrameLayout(u32 width, u32 height, bool swapped, bool upr
 
     Common::Rectangle<u32> screen_window_area{0, 0, width, height};
     Common::Rectangle<u32> total_rect{0, 0, emulation_width, emulation_height};
-    total_rect = MaxRectangle(screen_window_area, total_rect,
-                              Settings::values.use_integer_scaling.GetValue());
+    total_rect =
+        MaxRectangle(screen_window_area, total_rect, Settings::values.scaling_mode.GetValue());
     total_rect = total_rect.TranslateX((width - total_rect.GetWidth()) / 2)
                      .TranslateY((height - total_rect.GetHeight()) / 2);
 
